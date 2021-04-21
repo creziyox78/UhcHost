@@ -1,0 +1,50 @@
+package fr.lastril.uhchost.scenario.scenarios;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.UUID;
+
+import org.bukkit.Bukkit;
+import org.bukkit.Material;
+import org.bukkit.World.Environment;
+import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.player.PlayerMoveEvent;
+import org.bukkit.plugin.Plugin;
+
+import fr.lastril.uhchost.UhcHost;
+import fr.lastril.uhchost.game.GameManager;
+import fr.lastril.uhchost.game.GameState;
+import fr.lastril.uhchost.scenario.Scenario;
+import fr.lastril.uhchost.tools.I18n;
+
+public class GoToHell extends Scenario {
+
+	private List<UUID> netherDamageds;
+
+	public GoToHell() {
+		super("Go To Hell", Arrays.asList(I18n.tl("scenarios.gotohell.lore", new String[0]), I18n.tl("scenarios.gotohell.lore1", new String[0]), I18n.tl("scenarios.gotohell.lore2", new String[0])), Material.NETHERRACK);
+		this.netherDamageds = new ArrayList<>();
+	}
+	
+	@EventHandler
+	public void onPlayerMove(PlayerMoveEvent event) {
+		Player player = event.getPlayer();
+		GameManager gameManager = UhcHost.getInstance().getGamemanager();
+		player.getWorld().getEnvironment();
+		if (gameManager.getGameState() == GameState.STARTED && event.getTo().getWorld().getEnvironment() != Environment.NETHER && gameManager.isPvp()) {
+			if (this.netherDamageds.contains(player.getUniqueId()))
+				return;
+			player.damage(2.0D);
+			player.sendMessage(I18n.tl("scenarios.gotohell.message", new String[0]));
+			this.netherDamageds.add(player.getUniqueId());
+			Bukkit.getScheduler().runTaskLater((Plugin) UhcHost.getInstance(), new Runnable() {
+				public void run() {
+					GoToHell.this.netherDamageds.remove(player.getUniqueId());
+				}
+			}, 200L);
+		}
+	}
+
+}

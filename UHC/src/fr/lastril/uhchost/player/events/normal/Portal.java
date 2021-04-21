@@ -1,0 +1,23 @@
+package fr.lastril.uhchost.player.events.normal;
+
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
+import org.bukkit.event.world.PortalCreateEvent;
+
+import fr.lastril.uhchost.UhcHost;
+
+public class Portal implements Listener {
+
+	private UhcHost pl;
+
+	public Portal(UhcHost pl) {
+		this.pl = pl;
+	}
+
+	@EventHandler
+	public void onPortalCreate(PortalCreateEvent event) {
+		if (!this.pl.getGamemanager().isNether())
+			event.setCancelled(true);
+	}
+
+}

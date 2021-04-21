@@ -1,0 +1,10 @@
+bungeecord: false
+server-redirection: "lobby"
+chunk_load_status: false
+chunks_to_load_radius: 1000
+tps_lower_range: 19.0
+tps_higher_range: 21.0
+world_lobby: "lobby"
+spawn-schematic-name: lobby
+scoreboard_ip: "eu.helheim.club"
+lang: FRENCH
