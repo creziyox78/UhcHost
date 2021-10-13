@@ -1,8 +1,10 @@
 package fr.lastril.uhchost.modes.lg.roles.village;
 
+import fr.lastril.uhchost.modes.command.ModeSubCommand;
 import fr.lastril.uhchost.modes.lg.roles.LGRole;
 import fr.lastril.uhchost.modes.roles.Camps;
 import fr.lastril.uhchost.modes.roles.Role;
+import fr.lastril.uhchost.modes.roles.RoleCommand;
 import fr.lastril.uhchost.tools.API.Livre;
 import fr.lastril.uhchost.tools.creators.ItemsCreator;
 import org.bukkit.Material;
@@ -10,7 +12,11 @@ import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
-public class Cupidon extends Role implements LGRole {
+import java.util.List;
+
+public class Cupidon extends Role implements LGRole, RoleCommand {
+
+	private boolean usedPower = false;
 
 	@Override
 	public String getSkullValue() {
@@ -62,4 +68,16 @@ public class Cupidon extends Role implements LGRole {
 		return Camps.VILLAGEOIS;
 	}
 
+	public boolean isUsedPower() {
+		return usedPower;
+	}
+
+	public void setUsedPower(boolean usedPower) {
+		this.usedPower = usedPower;
+	}
+
+	@Override
+	public List<ModeSubCommand> getSubCommands() {
+		return null;
+	}
 }

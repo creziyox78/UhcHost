@@ -29,6 +29,8 @@ public class LoupGarouManager extends ModeManager {
 
 	private final List<UUID> waitingRessurect;
 
+	private boolean randomCouple = false;
+
 	public LoupGarouManager(UhcHost main) {
 		this.main = main;
 		this.waitingRessurect = new ArrayList<>();
@@ -144,5 +146,11 @@ public class LoupGarouManager extends ModeManager {
 	}
 
 
+	public boolean isRandomCouple() {
+		return randomCouple;
+	}
 
+	public void setRandomCouple(boolean randomCouple) {
+		this.randomCouple = randomCouple;
+	}
 }
