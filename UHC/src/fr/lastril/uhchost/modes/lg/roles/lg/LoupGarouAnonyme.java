@@ -1,5 +1,6 @@
 package fr.lastril.uhchost.modes.lg.roles.lg;
 
+import fr.lastril.uhchost.modes.lg.roles.LGFacadeRole;
 import fr.lastril.uhchost.modes.lg.roles.LGRole;
 import fr.lastril.uhchost.modes.roles.Camps;
 import fr.lastril.uhchost.modes.roles.Role;
@@ -9,7 +10,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
-public class LoupGarouAnonyme extends Role implements LGRole {
+public class LoupGarouAnonyme extends Role implements LGRole, LGFacadeRole {
 	
 	public LoupGarouAnonyme() {
 		super.addEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, Integer.MAX_VALUE, 0, false, false), When.NIGHT);
@@ -64,4 +65,8 @@ public class LoupGarouAnonyme extends Role implements LGRole {
 		return Camps.LOUP_GAROU;
 	}
 
+	@Override
+	public Role getRoleFacade() {
+		return null;
+	}
 }

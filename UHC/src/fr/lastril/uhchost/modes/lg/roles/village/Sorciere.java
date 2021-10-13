@@ -5,16 +5,20 @@ import fr.lastril.uhchost.enums.ResurectType;
 import fr.lastril.uhchost.modes.lg.roles.LGRole;
 import fr.lastril.uhchost.modes.roles.Camps;
 import fr.lastril.uhchost.modes.roles.Role;
+import fr.lastril.uhchost.modes.roles.RoleListener;
+import fr.lastril.uhchost.player.PlayerManager;
 import fr.lastril.uhchost.tools.API.PotionItem;
 import fr.lastril.uhchost.tools.API.clickable_messages.ClickableMessage;
 import fr.lastril.uhchost.tools.creators.ItemsCreator;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.potion.PotionType;
 
 import java.util.Arrays;
 
-public class Sorciere extends Role implements LGRole {
+public class Sorciere extends Role implements LGRole, RoleListener {
 
 	private boolean hasRez;
 
@@ -63,21 +67,34 @@ public class Sorciere extends Role implements LGRole {
 		return Camps.VILLAGEOIS;
 	}
 
-	@Override
-	public void onPlayerDeath(Player player) {
+	@EventHandler
+	public void onPlayerDeath(PlayerDeathEvent event) {
 		if (!hasRez) {
-			if (player.getUniqueId() != getPlayerId()) {
+			Player killer = event.getEntity().getKiller();
+			Player player = event.getEntity();
+			if (killer != null) {
 				UhcHost main = UhcHost.getInstance();
-				if (super.getPlayer() != null) {
-					Player soso = super.getPlayer();
-					new ClickableMessage(soso, onClick -> {
-						main.getPlayerManager(player.getUniqueId()).getWolfPlayerManager().setResurectType(ResurectType.SORCIERE);
-						onClick.sendMessage("Vous avez bien réssucité "
-								+ player.getName() + " !");
-						hasRez = true;
-					}, "§c" + player.getName()
-							+ " est mort vous pouvez le réssuciter en cliquant sur le message ! ",
-							"§a Pour réssuciter §c" + player.getName());
+				PlayerManager joueurKiller = main.getPlayerManager(killer.getUniqueId());
+				PlayerManager joueur = main.getPlayerManager(player.getUniqueId());
+				if (joueurKiller.hasRole() && joueur.hasRole()) {
+					if(joueur.getRole() instanceof Ancien){
+						Ancien ancien = (Ancien) joueur.getRole();
+						if(!ancien.isRevived()){
+							return;
+						}
+					}
+					if (super.getPlayer() != null) {
+						Player soso = super.getPlayer();
+						new ClickableMessage(soso, onClick -> {
+							main.getPlayerManager(player.getUniqueId()).getWolfPlayerManager()
+									.setResurectType(ResurectType.SORCIERE);
+							onClick.sendMessage( "Vous avez bien ressuscité "
+									+ player.getName() + " !");
+							hasRez = true;
+						}, "§c" + player.getName()
+								+ " est mort vous pouvez le ressusciter en cliquant sur le message ! ",
+								"§a Pour ressusciter §c" + player.getName());
+					}
 				}
 			}
 		}

@@ -1,6 +1,7 @@
 package fr.lastril.uhchost.modes.lg.roles.lg;
 
 import fr.lastril.uhchost.UhcHost;
+import fr.lastril.uhchost.modes.lg.roles.LGFacadeRole;
 import fr.lastril.uhchost.modes.lg.roles.LGRole;
 import fr.lastril.uhchost.modes.roles.Camps;
 import fr.lastril.uhchost.modes.roles.Role;
@@ -13,9 +14,9 @@ import org.bukkit.potion.PotionEffectType;
 
 import java.util.List;
 
-public final class LoupGarouFeutre extends Role implements LGRole {
+public final class LoupGarouFeutre extends Role implements LGRole, LGFacadeRole {
 
-	private String roleFaçade;
+	private Role roleFaçade;
 
 	public LoupGarouFeutre() {
 		super.addEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, Integer.MAX_VALUE, 0, false, false), When.NIGHT);
@@ -59,8 +60,8 @@ public final class LoupGarouFeutre extends Role implements LGRole {
 		PlayerManager randomJoueur = alivesJoueurs.get(UhcHost.getRANDOM().nextInt(alivesJoueurs.size()));
 		Class<? extends Role> displayRole = randomJoueur.getRole().getClass();
 		try {
-			roleFaçade = randomJoueur.getRole().getRoleName();
-			player.sendMessage("Votre nouveau rôle est : " + roleFaçade);
+			roleFaçade = randomJoueur.getRole();
+			player.sendMessage("Votre nouveau rôle est : " + roleFaçade.getRoleName());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -81,4 +82,8 @@ public final class LoupGarouFeutre extends Role implements LGRole {
 		return Camps.LOUP_GAROU;
 	}
 
+	@Override
+	public Role getRoleFacade() {
+		return roleFaçade;
+	}
 }

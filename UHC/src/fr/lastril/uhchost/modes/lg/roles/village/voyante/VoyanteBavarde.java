@@ -1,8 +1,11 @@
 package fr.lastril.uhchost.modes.lg.roles.village.voyante;
 
+import fr.lastril.uhchost.modes.command.ModeSubCommand;
+import fr.lastril.uhchost.modes.lg.commands.CmdVoir;
 import fr.lastril.uhchost.modes.lg.roles.LGRole;
 import fr.lastril.uhchost.modes.roles.Camps;
 import fr.lastril.uhchost.modes.roles.Role;
+import fr.lastril.uhchost.modes.roles.RoleCommand;
 import fr.lastril.uhchost.modes.roles.When;
 import fr.lastril.uhchost.tools.creators.ItemsCreator;
 import org.bukkit.Material;
@@ -11,9 +14,13 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
-public class VoyanteBavarde extends Role implements LGRole {
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
-	private boolean canView = true;
+public class VoyanteBavarde extends Role implements LGRole, RoleCommand {
+
+	private boolean seeRole = true;
 	
 	public VoyanteBavarde() {
 		super.addEffect(new PotionEffect(PotionEffectType.NIGHT_VISION, Integer.MAX_VALUE, 0, false, false), When.START);
@@ -71,4 +78,16 @@ public class VoyanteBavarde extends Role implements LGRole {
 		return Camps.VILLAGEOIS;
 	}
 
+	@Override
+	public List<ModeSubCommand> getSubCommands() {
+		return Collections.singletonList(new CmdVoir(main));
+	}
+
+	public boolean canSeeRole() {
+		return seeRole;
+	}
+
+	public void setSeeRole(boolean seeRole) {
+		this.seeRole = seeRole;
+	}
 }

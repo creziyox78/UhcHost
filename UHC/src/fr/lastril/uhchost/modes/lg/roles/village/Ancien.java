@@ -1,9 +1,11 @@
 package fr.lastril.uhchost.modes.lg.roles.village;
 
+import fr.lastril.uhchost.enums.ResurectType;
 import fr.lastril.uhchost.modes.lg.roles.LGRole;
 import fr.lastril.uhchost.modes.roles.Camps;
 import fr.lastril.uhchost.modes.roles.Role;
 import fr.lastril.uhchost.modes.roles.When;
+import fr.lastril.uhchost.player.PlayerManager;
 import fr.lastril.uhchost.tools.creators.ItemsCreator;
 import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
@@ -20,6 +22,12 @@ public class Ancien extends Role implements LGRole {
 	@Override
 	public String getSkullValue() {
 		return null;
+	}
+
+	@Override
+	public void afterRoles(Player player) {
+		PlayerManager playerManager = main.getPlayerManager(player.getUniqueId());
+		playerManager.getWolfPlayerManager().setResurectType(ResurectType.ANCIEN);
 	}
 
 	@Override

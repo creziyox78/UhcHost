@@ -53,17 +53,20 @@ public class LoupGarouManager extends ModeManager {
 						switch (joueur.getWolfPlayerManager().getResurectType()) {
 						case INFECT:{
 							onlinePlayer.sendMessage("Vous avez été infecté par l'Infect Pères des loups.");
+							joueur.getWolfPlayerManager().setResurectType(null);
 							main.gameManager.generateLocationOnGround(player);
 							break;
 						}
 						case ANCIEN:{
 							onlinePlayer.sendMessage("Vous avez utilisé votre deuxième vie, par conséquant, vous ne pourrez plus réssuciter.");
 							onlinePlayer.removePotionEffect(PotionEffectType.DAMAGE_RESISTANCE);
+							joueur.getWolfPlayerManager().setResurectType(null);
 							main.gameManager.generateLocationOnGround(player);
 							break;
 						}
 						case SORCIERE:{
 							onlinePlayer.sendMessage("Vous avez été réssucité par la Sorcière.");
+							joueur.getWolfPlayerManager().setResurectType(null);
 							main.gameManager.generateLocationOnGround(player);
 							break;
 						}

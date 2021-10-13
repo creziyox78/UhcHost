@@ -160,6 +160,10 @@ public class PlayerManager {
 		this.stunned = true;
 	}
 
+	public void setCamps(Camps camps) {
+		this.camps = camps;
+	}
+
 	public Location getStunLocation() {
 		return stunLocation;
 	}

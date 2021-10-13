@@ -1,6 +1,7 @@
 package fr.lastril.uhchost.modes.lg.roles.village;
 
 import fr.lastril.uhchost.UhcHost;
+import fr.lastril.uhchost.modes.lg.roles.LGFacadeRole;
 import fr.lastril.uhchost.modes.lg.roles.LGRole;
 import fr.lastril.uhchost.modes.roles.Camps;
 import fr.lastril.uhchost.modes.roles.Role;
@@ -92,11 +93,15 @@ public class Soeur extends Role implements LGRole {
 					soeur.sendMessage("Votre soeur ("+player.getPlayerName()+") est morte ! Vous pouvez décider de voir le pseudo du tueur ou son rôle.");
 					new ClickableMessage(soeur, onClick -> {
 						//VOIR PSEUDO
-						soeur.sendMessage("Le tueur de votre sœur est "+killer.getName()+" !");
+						soeur.sendMessage("Le tueur de votre soeur est "+killer.getName()+" !");
 					}, "§eVoir le pseudo ");
 					new ClickableMessage(soeur, onClick -> {
 						//VOIR RÔLE
-						soeur.sendMessage("Le rôle du tueur de votre sœur est "+UhcHost.getInstance().getPlayerManager(killer.getUniqueId()).getRole().getRoleName()+" !");
+						PlayerManager playerManager = main.getPlayerManager(killer.getUniqueId());
+						if(playerManager.getRole() instanceof LGFacadeRole){
+							LGFacadeRole lgFacadeRole = (LGFacadeRole) playerManager.getRole();
+						}
+						soeur.sendMessage("Le rôle du tueur de votre soeur  est "+playerManager.getRole().getRoleName()+" !");
 					}, "§eVoir le rôle ");
 				}
 			}

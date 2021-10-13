@@ -17,41 +17,41 @@ public enum LGRoles {
      * CAMP DES LOUPS
      */
     LG(LoupGarou.class), //FINISHED
-    INFECT(InfectPereDesLoups.class), //FINISHED
-    LG_AMNESIQUE(LoupGarouAmnesique.class),
+    INFECT(InfectPereDesLoups.class), //FINISHED TODO Remake messages
+    LG_AMNESIQUE(LoupGarouAmnesique.class), //TODO BE TESTED
     LG_ANONYME(LoupGarouAnonyme.class),
     LG_ALPHA(LoupGarouAlpha.class),
-    LG_FEUTRE(LoupGarouFeutre.class),
-    LG_PERFIDE(LoupGarouPerfide.class),
+    LG_FEUTRE(LoupGarouFeutre.class), //TODO BE TESTED (Adaptation Voyante / Voyante bavarde)
+    LG_PERFIDE(LoupGarouPerfide.class), //TODO BE TESTED
     LG_LUNAIRE(LoupGarouLunaire.class), //TODO BE TESTED
     LG_GRIMEUR(LoupGarouGrimeur.class),
     LG_JUMEAU(LoupGarouJumeau.class),
     LV_MAUDITE(LouveMaudite.class),
-    VPL(VilainPetitLoup.class),
+    VPL(VilainPetitLoup.class), //TODO BE TESTED
 
     /*
      * CAMP DU VILLAGE
      */
-    ANCIEN(Ancien.class),
+    ANCIEN(Ancien.class), //TODO BE TESTED AND MAKE (Adaptation Sorcier / IDPL)
     CHAMAN(Chaman.class),
     CHASSEUR(Chasseur.class),
     CITOYEN(Citoyen.class),
     CORBEAU(Corbeau.class),
     CUPIDON(Cupidon.class),
     DETECTIVE(Detective.class),
-    ENFANT_SAUVAGE(EnfantSauvage.class),
-    MINEUR(Mineur.class),
-    MONTREUR_DOURS(MontreurDours.class),
-    PETITE_FILLE(PetiteFille.class),
+    ENFANT_SAUVAGE(EnfantSauvage.class), //TODO BE TESTED
+    MINEUR(Mineur.class), //FINISHED
+    MONTREUR_DOURS(MontreurDours.class), //TODO BE TESTED
+    PETITE_FILLE(PetiteFille.class), //TODO BE TESTED
     PRETRESSE(Pretresse.class),
     RENARD(Renard.class),
     SALVATEUR(Salvateur.class),
-    SOEUR(Soeur.class),
-    SORCIERE(Sorciere.class),
+    SOEUR(Soeur.class), //TODO BE TESTED
+    SORCIERE(Sorciere.class), //TODO BE TESTED
     TRUBLION(Trublion.class),
-    VOYANTE(Voyante.class),
-    VOYANTE_BAVARDE(VoyanteBavarde.class),
-    VILLAGEOIS(Villageois.class),
+    VOYANTE(Voyante.class), //TODO BE TESTED
+    VOYANTE_BAVARDE(VoyanteBavarde.class), //TODO BE TESTED
+    VILLAGEOIS(Villageois.class), //FINISHED
 
     /*
      * CAMP DES NEUTRES
@@ -65,7 +65,7 @@ public enum LGRoles {
     IMITATEUR(Imitateur.class),
     ANGE(Ange.class),
     LGB(LoupGarouBlanc.class),
-    ASSASSIN(Assassin.class),
+    ASSASSIN(Assassin.class), //FINISHED TODO Place Heads
     ;
 
 

@@ -1,30 +1,29 @@
 package fr.lastril.uhchost.modes.lg.roles.village;
 
-import java.util.UUID;
-
 import fr.lastril.uhchost.UhcHost;
+import fr.lastril.uhchost.enums.Messages;
 import fr.lastril.uhchost.modes.lg.roles.LGRole;
 import fr.lastril.uhchost.modes.roles.Camps;
 import fr.lastril.uhchost.modes.roles.Role;
 import fr.lastril.uhchost.player.PlayerManager;
 import fr.lastril.uhchost.tools.creators.ItemsCreator;
 import org.bukkit.Location;
-import org.bukkit.Material;
-import org.bukkit.OfflinePlayer;
-import org.bukkit.SkullType;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 public class EnfantSauvage extends Role implements LGRole {
 	
-	private UUID modele;
+	private PlayerManager modele;
 
 	@Override
 	public void giveItems(Player player) {
-		/*new ClickableMessage(player, onClick -> {
-			new SelectModeleGUI(this).open(onClick);
-		}, Messages.LG_PREFIX.getMessage()+Messages.CLICK_HERE.getMessage()+"Pour choisir votre modèle !", "§aClique pour choisir ton modèle !");*/
-		
+
+	}
+
+	@Override
+	public void afterRoles(Player player) {
+		modele = main.getRandomPlayerManagerAlive();
+		player.sendMessage(Messages.LOUP_GAROU_PREFIX.getPrefix() + "§bVoici votre modèle qui a été choisi aléatoirement: " + modele.getPlayerName());
 	}
 
 	@Override
@@ -76,22 +75,13 @@ public class EnfantSauvage extends Role implements LGRole {
 
 	@Override
 	public void onPlayerDeathRealy(PlayerManager player, ItemStack[] items, ItemStack[] armors, Player killer, Location deathLocation) {
-		if(player.getUuid() == modele) {
+		if(player == modele) {
 			PlayerManager enfant = UhcHost.getInstance().getPlayerManager(getPlayerId());
 			enfant.getWolfPlayerManager().setCamp(Camps.LOUP_GAROU);
 			enfant.getWolfPlayerManager().setTransformed(true);
 			if(getPlayer() != null) {
-				getPlayer().sendMessage("Votre modèle est mort, vous etes donc transformé.");
+				getPlayer().sendMessage("Votre modèle est mort, vous êtes donc transformé et devez gagner avec les Loups-Garous.");
 			}
 		}
 	}
-	
-	public UUID getModele() {
-		return this.modele;
-	}
-
-	public void setModele(UUID modele) {
-		this.modele = modele;
-	}
-
 }

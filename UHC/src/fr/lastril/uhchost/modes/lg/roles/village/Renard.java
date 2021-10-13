@@ -1,6 +1,7 @@
 package fr.lastril.uhchost.modes.lg.roles.village;
 
 import fr.lastril.uhchost.modes.command.ModeSubCommand;
+import fr.lastril.uhchost.modes.lg.commands.CmdFlairer;
 import fr.lastril.uhchost.modes.lg.roles.LGRole;
 import fr.lastril.uhchost.modes.roles.Camps;
 import fr.lastril.uhchost.modes.roles.Role;
@@ -11,11 +12,15 @@ import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
-public class Renard extends Role implements LGRole {
-	
+public class Renard extends Role implements LGRole, RoleCommand {
+
+	private boolean canRenifle;
+
+	private int renifledUse = 0, maxRenifled = 3;
+
 	public Renard() {
 		super.addEffect(new PotionEffect(PotionEffectType.SPEED, Integer.MAX_VALUE, 0, false, false), When.START);
 	}
@@ -29,10 +34,14 @@ public class Renard extends Role implements LGRole {
 	public void giveItems(Player player) {}
 
 	@Override
-	public void onNight(Player player) {}
+	public void onNight(Player player) {
+		canRenifle = true;
+	}
 
 	@Override
-	public void onDay(Player player) {}
+	public void onDay(Player player) {
+		canRenifle = false;
+	}
 
 	@Override
 	public void onNewEpisode(Player player) {
@@ -49,7 +58,7 @@ public class Renard extends Role implements LGRole {
 
 	@Override
 	public String getDescription() {
-		return "Vous n'avez pas de pouvoir particulier.";
+		return "Pendant la nuit, vous pouvez flairer 3 joueurs dans la partie et savoir s'il fait partie du camp des Loups-Garous ou non.";
 	}
 
 
@@ -67,5 +76,22 @@ public class Renard extends Role implements LGRole {
 	@Override
 	public Camps getCamp() {
 		return Camps.VILLAGEOIS;
+	}
+
+	@Override
+	public List<ModeSubCommand> getSubCommands() {
+		return Collections.singletonList(new CmdFlairer(main));
+	}
+
+	public boolean isCanRenifle() {
+		return canRenifle;
+	}
+
+	public void addUse(){
+		renifledUse++;
+	}
+
+	public boolean notReached(){
+		return renifledUse < maxRenifled;
 	}
 }

@@ -1,5 +1,6 @@
 package fr.lastril.uhchost.modes.lg.roles.lg;
 
+import fr.lastril.uhchost.enums.Messages;
 import fr.lastril.uhchost.modes.lg.roles.LGRole;
 import fr.lastril.uhchost.modes.roles.Camps;
 import fr.lastril.uhchost.modes.roles.Role;
@@ -81,7 +82,8 @@ public class LoupGarouAmnesique extends Role implements LGRole {
 				if(damagerManager.getCamps() == Camps.LOUP_GAROU && playerManager.getRole() instanceof LoupGarouAmnesique){
 					damaged = true;
 					Bukkit.getScheduler().runTaskLater(main, () -> {
-
+						playerManager.getPlayer().sendMessage(Messages.LOUP_GAROU_PREFIX.getPrefix() + "§cTiens tiens... Un Loup-Garou vous avez tapper précédemment. Vous venez de vous souvenir que vous êtes un Loup-Garou. Vous devez donc gagner avec ces derniers.");
+						playerManager.setCamps(Camps.LOUP_GAROU);
 					}, 20*60*5);
 				}
 			}

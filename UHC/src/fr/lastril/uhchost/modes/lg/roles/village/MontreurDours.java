@@ -1,6 +1,7 @@
 package fr.lastril.uhchost.modes.lg.roles.village;
 
 import fr.lastril.uhchost.UhcHost;
+import fr.lastril.uhchost.modes.lg.roles.LGFacadeRole;
 import fr.lastril.uhchost.modes.lg.roles.LGRole;
 import fr.lastril.uhchost.modes.lg.roles.solo.LoupGarouBlanc;
 import fr.lastril.uhchost.modes.roles.Camps;
@@ -18,7 +19,7 @@ import java.util.Arrays;
 
 public class MontreurDours extends Role implements LGRole {
 
-	private static final int DISTANCE = 25;
+	private static final int DISTANCE = 50;
 
 	@Override
 	public String getSkullValue() {
@@ -49,10 +50,18 @@ public class MontreurDours extends Role implements LGRole {
 					if(UhcHost.getInstance().getPlayerManager(target.getUniqueId()) != null) {
 						PlayerManager joueur = UhcHost.getInstance().getPlayerManager(target.getUniqueId());
 						if(joueur.isAlive()) {
-							if(joueur.getWolfPlayerManager().getLgRole().getCamp() == Camps.LOUP_GAROU|| joueur.getRole() instanceof LoupGarouBlanc) {
-								player.sendMessage("§6Grrrrrrrrrrrrrr !");
-								founded = true;
+							if(!(joueur.getRole() instanceof LGFacadeRole)){
+								if(joueur.getWolfPlayerManager().getLgRole().getCamp() == Camps.LOUP_GAROU|| joueur.getRole() instanceof LoupGarouBlanc) {
+									Bukkit.broadcastMessage("§6Grrrrrrrrrrrrrr !");
+									founded = true;
+								}
+							} else {
+								LGFacadeRole lgFacadeRole = (LGFacadeRole) joueur.getRole();
+								if(lgFacadeRole.getRoleFacade().getCamp() == Camps.LOUP_GAROU || lgFacadeRole.getRoleFacade() instanceof LoupGarouBlanc){
+									Bukkit.broadcastMessage("§6Grrrrrrrrrrrrrr !");
+								}
 							}
+
 						}
 					}
 				}
@@ -72,7 +81,7 @@ public class MontreurDours extends Role implements LGRole {
 
 	@Override
 	public String getDescription() {
-		return " Vous n'avez pas de pouvoir particulier.";
+		return "Vous avez le pouvoir de détecter les Loups-Garous à chaque début d'épisode, il y a un ou plusieurs \"Grrrr !\" en fonction du nombre de Loups-Garous se trouvant dans un rayon de 50 blocks autour de vous.";
 	}
 
 	@Override

@@ -3,7 +3,9 @@ package fr.lastril.uhchost.modes.lg.commands;
 import fr.lastril.uhchost.UhcHost;
 import fr.lastril.uhchost.enums.Messages;
 import fr.lastril.uhchost.modes.command.ModeSubCommand;
+import fr.lastril.uhchost.modes.lg.roles.LGFacadeRole;
 import fr.lastril.uhchost.modes.lg.roles.village.voyante.Voyante;
+import fr.lastril.uhchost.modes.lg.roles.village.voyante.VoyanteBavarde;
 import fr.lastril.uhchost.player.PlayerManager;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
@@ -47,7 +49,30 @@ public class CmdVoir implements ModeSubCommand {
                     if(target != null){
                         PlayerManager targetManager = pl.getPlayerManager(target.getUniqueId());
                         if(targetManager.isAlive() && targetManager.hasRole()){
-                            player.sendMessage(Messages.LOUP_GAROU_PREFIX.getPrefix() + "§bVous venez d'espionner " + targetName + ". Ce joueur est: " + targetManager.getRole().getRoleName());
+                            sendRole(player, targetManager, false);
+                            voyante.setSeeRole(false);
+                        } else {
+                            player.sendMessage(Messages.LOUP_GAROU_PREFIX.getPrefix() + "§cCe joueur n'est pas/plus dans la partie !");
+                        }
+                    } else {
+                        player.sendMessage(Messages.LOUP_GAROU_PREFIX.getPrefix() + "§cCe joueur n'est pas en ligne.");
+                    }
+                } else {
+                    player.sendMessage(Messages.LOUP_GAROU_PREFIX.getPrefix() + "§6Précisez un joueur.");
+                }
+            } else {
+                player.sendMessage(Messages.LOUP_GAROU_PREFIX.getPrefix() + "§cVous ne pouvez pas utiliser votre pouvoir pour le moment.");
+            }
+        } else if(playerManager.getRole() instanceof VoyanteBavarde){
+            VoyanteBavarde voyante = (VoyanteBavarde) playerManager.getRole();
+            if(voyante.canSeeRole()){
+                if (args.length == 2) {
+                    String targetName = args[1];
+                    Player target = Bukkit.getPlayer(targetName);
+                    if(target != null){
+                        PlayerManager targetManager = pl.getPlayerManager(target.getUniqueId());
+                        if(targetManager.isAlive() && targetManager.hasRole()){
+                            sendRole(player, targetManager, true);
                             voyante.setSeeRole(false);
                         } else {
                             player.sendMessage(Messages.LOUP_GAROU_PREFIX.getPrefix() + "§cCe joueur n'est pas/plus dans la partie !");
@@ -64,4 +89,30 @@ public class CmdVoir implements ModeSubCommand {
         }
         return false;
     }
+
+    private void sendRole(Player player, PlayerManager targetManager,boolean broadcasted){
+        if(targetManager.getRole() instanceof LGFacadeRole){
+            LGFacadeRole lgFacadeRole = (LGFacadeRole) targetManager.getRole();
+            player.sendMessage(Messages.LOUP_GAROU_PREFIX.getPrefix()
+                    + "§bVous venez d'espionner " + targetManager.getPlayerName()
+                    + ". Ce joueur est: " + lgFacadeRole.getRoleFacade().getRoleName());
+            if(broadcasted){
+                Bukkit.broadcastMessage("");
+                Bukkit.broadcastMessage("§bLa Voyante Bavarde a espionner un joueur qui est " + lgFacadeRole.getRoleFacade().getRoleName());
+                Bukkit.broadcastMessage("");
+            }
+        } else {
+            player.sendMessage(Messages.LOUP_GAROU_PREFIX.getPrefix()
+                    + "§bVous venez d'espionner " + targetManager.getPlayerName()
+                    + ". Ce joueur est: " + targetManager.getRole().getRoleName());
+            if(broadcasted){
+                Bukkit.broadcastMessage("");
+                Bukkit.broadcastMessage("§bLa Voyante Bavarde a espionner un joueur qui est " + targetManager.getRole().getRoleName());
+                Bukkit.broadcastMessage("");
+            }
+        }
+
+
+    }
+
 }
