@@ -1,14 +1,13 @@
 package fr.lastril.uhchost.player.events;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
-
-import org.bukkit.Bukkit;
+import fr.lastril.uhchost.player.PlayerManager;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Cancellable;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class PvpEnableEvent extends Event implements Cancellable{
 	
@@ -16,9 +15,9 @@ public class PvpEnableEvent extends Event implements Cancellable{
 
 	private static final HandlerList handlers = new HandlerList();
 
-	public PvpEnableEvent(List<UUID> players) {
+	public PvpEnableEvent(List<PlayerManager> players) {
 		this.players = new ArrayList<>();
-		players.forEach(u -> this.players.add(Bukkit.getPlayer(u)));
+		players.forEach(u -> this.players.add(u.getPlayer()));
 		setCancelled(false);
 	}
 

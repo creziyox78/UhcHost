@@ -1,10 +1,7 @@
 package fr.lastril.uhchost.scenario.scenarios;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Random;
-
+import fr.lastril.uhchost.scenario.Scenario;
+import fr.lastril.uhchost.tools.I18n;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.event.EventHandler;
@@ -13,8 +10,10 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.EnchantmentStorageMeta;
 import org.bukkit.inventory.meta.ItemMeta;
 
-import fr.lastril.uhchost.scenario.Scenario;
-import fr.lastril.uhchost.tools.I18n;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Random;
 
 public class Bookception extends Scenario {
 	

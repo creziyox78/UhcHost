@@ -1,18 +1,14 @@
 package fr.lastril.uhchost.tools.API;
 
-import java.lang.reflect.Constructor;
-import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.lang.reflect.Modifier;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
-
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
+
+import java.lang.reflect.*;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
 
 public class Reflection{
 	

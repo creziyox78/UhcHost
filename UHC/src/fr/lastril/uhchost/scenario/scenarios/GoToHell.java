@@ -1,10 +1,10 @@
 package fr.lastril.uhchost.scenario.scenarios;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.UUID;
-
+import fr.lastril.uhchost.UhcHost;
+import fr.lastril.uhchost.game.GameManager;
+import fr.lastril.uhchost.game.GameState;
+import fr.lastril.uhchost.scenario.Scenario;
+import fr.lastril.uhchost.tools.I18n;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.World.Environment;
@@ -13,11 +13,10 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.plugin.Plugin;
 
-import fr.lastril.uhchost.UhcHost;
-import fr.lastril.uhchost.game.GameManager;
-import fr.lastril.uhchost.game.GameState;
-import fr.lastril.uhchost.scenario.Scenario;
-import fr.lastril.uhchost.tools.I18n;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.UUID;
 
 public class GoToHell extends Scenario {
 

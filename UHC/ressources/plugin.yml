@@ -1,0 +1,13 @@
+name: UHCHost
+version: 0.8.2
+author: Lastril
+main: fr.lastril.uhchost.UhcHost
+commands:
+  h:
+    description: Command of Host.
+    aliases: host
+  scenarios:
+    description: Command show actives scenarios.
+  lg:
+    description: Command of LG Mode.
+  

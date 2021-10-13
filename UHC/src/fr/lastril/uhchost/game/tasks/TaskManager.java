@@ -1,5 +1,15 @@
 package fr.lastril.uhchost.game.tasks;
 
+import fr.lastril.uhchost.UhcHost;
+import fr.lastril.uhchost.enums.WorldState;
+import fr.lastril.uhchost.game.GameState;
+import fr.lastril.uhchost.modes.Mode;
+import fr.lastril.uhchost.modes.roles.RoleAnnounceMode;
+import fr.lastril.uhchost.player.PlayerManager;
+import fr.lastril.uhchost.player.events.PvpEnableEvent;
+import fr.lastril.uhchost.scenario.Scenarios;
+import fr.lastril.uhchost.tools.API.TitleAPI;
+import fr.lastril.uhchost.tools.I18n;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.Sound;
@@ -9,16 +19,11 @@ import org.bukkit.plugin.Plugin;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitTask;
 
-import fr.lastril.uhchost.UhcHost;
-import fr.lastril.uhchost.game.GameState;
-import fr.lastril.uhchost.player.events.PvpEnableEvent;
-import fr.lastril.uhchost.scenario.Scenarios;
-import fr.lastril.uhchost.tools.I18n;
-import fr.lastril.uhchost.tools.API.TitleAPI;
+import java.util.stream.Collectors;
 
 public class TaskManager {
 
-	private UhcHost pl;
+	private final UhcHost pl;
 
 	private boolean lobby = false;
 
@@ -28,7 +33,7 @@ public class TaskManager {
 
 	private int count;
 
-	private int pvpTime = 1200, borderTime = 3600, suddenDeathTime = 5400, suddenDeathY = 0, netherEndTime = 2400,
+	private int pvpTime = 1200, borderTime = 3600, netherEndTime = 2400,
 			teleportTime = 3600;
 
 	public int getCount() {
@@ -41,14 +46,6 @@ public class TaskManager {
 
 	public int getBorderTime() {
 		return this.borderTime;
-	}
-
-	public int getSuddenDeathTime() {
-		return this.suddenDeathTime;
-	}
-
-	public int getSuddenDeathY() {
-		return this.suddenDeathY;
 	}
 
 	public int getNetherEndTime() {
@@ -71,14 +68,6 @@ public class TaskManager {
 		this.borderTime = borderTime;
 	}
 
-	public void setSuddenDeathTime(int suddenDeathTime) {
-		this.suddenDeathTime = suddenDeathTime;
-	}
-
-	public void setSuddenDeathY(int suddenDeathY) {
-		this.suddenDeathY = suddenDeathY;
-	}
-
 	public void setNetherEndTime(int netherEndTime) {
 		this.netherEndTime = netherEndTime;
 	}
@@ -94,6 +83,8 @@ public class TaskManager {
 	private int _z = 0;
 
 	private BukkitTask lobbyTask;
+
+	private Mode mode;
 
 	public TaskManager(UhcHost pl) {
 		this.pl = pl;
@@ -121,7 +112,7 @@ public class TaskManager {
 					}
 				TaskManager.this.count--;
 			}
-		}).runTaskTimer((Plugin) this.pl, 20L, 20L);
+		}).runTaskTimer(this.pl, 20L, 20L);
 	}
 
 	public void preGame() {
@@ -130,7 +121,7 @@ public class TaskManager {
 		this.lobbyTask.cancel();
 		this.preGame = true;
 		this.count = 15;
-		(new BukkitRunnable() {
+		new BukkitRunnable() {
 			public void run() {
 				if (TaskManager.this.count == 15 || (TaskManager.this.count <= 10 && TaskManager.this.count != 0)) {
 					for (Player player : Bukkit.getOnlinePlayers()) {
@@ -148,7 +139,7 @@ public class TaskManager {
 					TaskManager.this.pl.scoreboardUtil.updatePreGame(player, TaskManager.this.count);
 				TaskManager.this.count--;
 			}
-		}).runTaskTimer((Plugin) this.pl, 20L, 20L);
+		}.runTaskTimer(this.pl, 20L, 20L);
 	}
 
 	public void game() {
@@ -156,11 +147,45 @@ public class TaskManager {
 			return;
 		this.game = true;
 		this.count = 0;
-		(new BukkitRunnable() {
+		new BukkitRunnable() {
 			public void run() {
+				long time = Bukkit.getWorld("world").getTime();
+
+				if (time >= 13000) {
+					if (pl.getGamemanager().getWorldState() == WorldState.DAY) {
+						pl.getGamemanager().setWorldState(WorldState.NIGHT);
+						for (PlayerManager joueur : pl.getAllPlayerManager().values()) {
+							if (joueur.getPlayer() != null) {
+								Player player = joueur.getPlayer();
+								if (joueur.getRole() != null) {
+									joueur.getRole().night(player);
+								}
+							}
+						}
+					}
+				} else {
+					if (pl.getGamemanager().getWorldState() == WorldState.NIGHT) {
+						pl.getGamemanager().setWorldState(WorldState.DAY);
+						for (PlayerManager joueur : pl.getAllPlayerManager().values()) {
+							if (joueur.getPlayer() != null) {
+								Player player = joueur.getPlayer();
+								if (joueur.getRole() != null) {
+									joueur.getRole().day(player);
+									joueur.getRole().onNewDay(player);
+								}
+							}
+						}
+					}
+				}
 				TaskManager.this.count++;
+				TaskManager.this.pl.gameManager.getModes().getMode().tick(count);
+				if(TaskManager.this.pl.gameManager.getModes().getMode() instanceof RoleAnnounceMode){
+					RoleAnnounceMode roleAnnounceMode = (RoleAnnounceMode) TaskManager.this.pl.gameManager.getModes().getMode();
+					roleAnnounceMode.setRoleAnnouncement(roleAnnounceMode.getRoleAnnouncement() - 1);
+				}
+
 				if (TaskManager.this.count == 60) {
-					Bukkit.broadcastMessage(I18n.tl("damageActived", new String[0]));
+					Bukkit.broadcastMessage(I18n.tl("damageActived"));
 					TaskManager.this.pl.gameManager.setDamage(true);
 				}
 				if (TaskManager.this.pl.gameManager.isNether()
@@ -172,7 +197,7 @@ public class TaskManager {
 							|| TaskManager.this.count == TaskManager.this.netherEndTime - 300
 							|| TaskManager.this.count == TaskManager.this.netherEndTime - 600)
 						if (TaskManager.this.count == TaskManager.this.netherEndTime) {
-							Bukkit.broadcastMessage(I18n.tl("netherEnd", new String[0]));
+							Bukkit.broadcastMessage(I18n.tl("netherEnd"));
 							TaskManager.this.pl.gameManager.setNether(false);
 						}
 				}
@@ -184,21 +209,19 @@ public class TaskManager {
 							|| TaskManager.this.count == TaskManager.this.teleportTime - 300
 							|| TaskManager.this.count == TaskManager.this.teleportTime - 600)
 						if (TaskManager.this.count == TaskManager.this.teleportTime) {
-							Bukkit.broadcastMessage(I18n.tl("teleport", new String[0]));
+							Bukkit.broadcastMessage(I18n.tl("teleport"));
 							TaskManager.this.pl.gameManager.reTeleport();
 							TaskManager.this.pl.gameManager.setFightTeleport(false);
 						}
 				}
 				if (TaskManager.this.count == TaskManager.this.pvpTime) {
-					Bukkit.broadcastMessage(I18n.tl("pvpActived", new String[0]));
-					Bukkit.broadcastMessage(I18n.tl("lobbyDespawn", new String[0]));
-					TaskManager.this.pl.worldUtils.resetLobby();
+					Bukkit.broadcastMessage(I18n.tl("pvpActived"));
 					TaskManager.this.pl.gameManager.setPvp(true);
 					Bukkit.getPluginManager()
-							.callEvent((Event) new PvpEnableEvent(TaskManager.this.pl.gameManager.getPlayers()));
+							.callEvent(new PvpEnableEvent(pl.getPlayerManagerAlives()));
 				}
 				if (TaskManager.this.count == TaskManager.this.borderTime) {
-					Bukkit.broadcastMessage(I18n.tl("borderStart", new String[0]));
+					Bukkit.broadcastMessage(I18n.tl("borderStart"));
 					TaskManager.this.pl.worldBorderUtils.change(
 							(int) TaskManager.this.pl.gameManager.getFinalBorderSize(),
 							((TaskManager.this.pl.worldBorderUtils.getStartSize()
@@ -206,35 +229,10 @@ public class TaskManager {
 									/ TaskManager.this.pl.worldBorderUtils.getSpeed()));
 					TaskManager.this.pl.gameManager.setBorder(true);
 				}
-				if (TaskManager.this.count == TaskManager.this.suddenDeathTime
-						|| (TaskManager.this.count > TaskManager.this.suddenDeathTime
-								&& TaskManager.this.count % 5 == 0)) {
-					if (TaskManager.this.suddenDeathY == 0) {
-						Bukkit.broadcastMessage(I18n.tl("suddenDeath", new String[0]));
-						Bukkit.getOnlinePlayers()
-								.forEach(p -> p.playSound(p.getLocation(), Sound.ENDERDRAGON_DEATH, 1.0F, 1.0F));
-						TaskManager.this.pl.worldBorderUtils.change(10,
-								((TaskManager.this.pl.worldBorderUtils.getFinalSize() - 10)
-										/ TaskManager.this.pl.worldBorderUtils.getSpeed()));
-					}
-					for (int y = TaskManager.this.suddenDeathY; y <= TaskManager.this.suddenDeathY + 1.0F; y++) {
-						TaskManager.this._y = y;
-						for (int x = -10; x <= 10; x++) {
-							TaskManager.this._x = x;
-							for (int z = -10; z <= 10; z++) {
-								TaskManager.this._z = z;
-								TaskManager.this.pl.worldUtils.getWorld()
-										.getBlockAt(TaskManager.this._x, TaskManager.this._y, TaskManager.this._z)
-										.setType(Material.AIR);
-							}
-						}
-					}
-					TaskManager.this.suddenDeathY = TaskManager.this.suddenDeathY + 5;
-				}
 				for (Player player : Bukkit.getOnlinePlayers())
 					TaskManager.this.pl.scoreboardUtil.updateGame(player, TaskManager.this.count);
 			}
-		}).runTaskTimer((Plugin) this.pl, 20L, 20L);
+		}.runTaskTimer(this.pl, 20L, 20L);
 	}
 
 }

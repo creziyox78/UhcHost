@@ -1,17 +1,16 @@
 package fr.lastril.uhchost.scenario.scenarios;
 
-import java.util.Arrays;
-import java.util.List;
-
+import fr.lastril.uhchost.player.events.GameStartEvent;
+import fr.lastril.uhchost.scenario.Scenario;
+import fr.lastril.uhchost.tools.I18n;
+import fr.lastril.uhchost.tools.creators.ItemsCreator;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.inventory.ItemStack;
 
-import fr.lastril.uhchost.player.events.GameStartEvent;
-import fr.lastril.uhchost.scenario.Scenario;
-import fr.lastril.uhchost.tools.I18n;
-import fr.lastril.uhchost.tools.creators.ItemsCreator;
+import java.util.Arrays;
+import java.util.List;
 
 public class InfiniteEnchanter extends Scenario {
 

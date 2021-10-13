@@ -1,42 +1,38 @@
 package fr.lastril.uhchost.game;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
-import java.util.UUID;
-
-import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
-import org.bukkit.Effect;
-import org.bukkit.GameMode;
-import org.bukkit.Location;
-import org.bukkit.Material;
+import fr.lastril.uhchost.UhcHost;
+import fr.lastril.uhchost.enums.BiomeState;
+import fr.lastril.uhchost.enums.WorldState;
+import fr.lastril.uhchost.inventory.CustomInv;
+import fr.lastril.uhchost.modes.Modes;
+import fr.lastril.uhchost.modes.lg.LoupGarouManager;
+import fr.lastril.uhchost.modes.roles.Role;
+import fr.lastril.uhchost.player.PlayerManager;
+import fr.lastril.uhchost.player.events.GameStartEvent;
+import fr.lastril.uhchost.player.events.TeamUnregisteredEvent;
+import fr.lastril.uhchost.player.manager.WolfPlayerManager;
+import fr.lastril.uhchost.scenario.Scenario;
+import fr.lastril.uhchost.scenario.Scenarios;
+import fr.lastril.uhchost.scoreboard.TeamUtils;
+import fr.lastril.uhchost.tools.API.BungeeAPI;
+import fr.lastril.uhchost.tools.API.TitleAPI;
+import fr.lastril.uhchost.tools.I18n;
+import org.bukkit.*;
 import org.bukkit.block.Block;
-import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
-import org.bukkit.event.Listener;
 import org.bukkit.plugin.Plugin;
+import org.bukkit.potion.Potion;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitTask;
 import org.bukkit.scoreboard.Team;
 
-import fr.lastril.uhchost.UhcHost;
-import fr.lastril.uhchost.player.PlayerManager;
-import fr.lastril.uhchost.player.events.GameStartEvent;
-import fr.lastril.uhchost.player.events.TeamUnregisteredEvent;
-import fr.lastril.uhchost.scenario.Scenario;
-import fr.lastril.uhchost.scenario.Scenarios;
-import fr.lastril.uhchost.scoreboard.TeamUtils;
-import fr.lastril.uhchost.tools.I18n;
-import fr.lastril.uhchost.tools.API.BungeeAPI;
-import fr.lastril.uhchost.tools.API.TitleAPI;
-import fr.lastril.uhchost.tools.inventory.CustomInv;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class GameManager {
+
 	private boolean border;
 
 	private boolean pvp;
@@ -45,11 +41,29 @@ public class GameManager {
 
 	private boolean damage;
 
+	private boolean pregen;
+
+	private boolean allPotionsEnable;
+
+	private List<Potion> deniedPotions;
+
+	private boolean potionsEditMode;
+
+	private boolean notchApple = false;
+
+	private boolean validateWorld;
+
+	private boolean playerCheckingWorld;
+
+	private Modes modes;
+
 	private boolean editInv;
 
-	private String winner;
+	private String winnerName;
 
 	private int slot;
+
+	private BiomeState biomeState;
 
 	private int playersBeforeStart = 10;
 
@@ -65,7 +79,9 @@ public class GameManager {
 
 	private GameState gameState;
 
-	private PlayerManager playerManager;
+	private WorldState worldState;
+
+	private final LoupGarouManager loupGarouManager;
 
 	private String hostName;
 
@@ -75,13 +91,9 @@ public class GameManager {
 
 	private UhcHost pl;
 
-	private static GameManager gameManager;
-
 	private List<Scenario> scenarios;
 
 	private boolean nether;
-
-	private List<UUID> players;
 
 	public Location spawn;
 
@@ -92,6 +104,7 @@ public class GameManager {
 	private boolean fightTeleport;
 
 	private boolean viewHealth;
+	private final List<String> composition;
 
 	public boolean isViewHealth() {
 		return viewHealth;
@@ -133,15 +146,24 @@ public class GameManager {
 		this.borderSize = 2000L;
 		this.finalBorderSize = 200L;
 		this.damage = false;
+		this.potionsEditMode = false;
 		this.gameIsEnding = false;
 		this.border = false;
-		this.players = new ArrayList<>();
+		this.pregen = false;
+		this.deniedPotions = new ArrayList<>();
 		this.scenarios = new ArrayList<>();
+		this.composition = new ArrayList<>();
 		this.setGameState(GameState.LOBBY);
+		this.worldState = WorldState.DAY;
 		this.gameName = ChatColor.AQUA + "UHC Host";
+		this.playerCheckingWorld = false;
 		this.setNether(true);
+		this.loupGarouManager = new LoupGarouManager(pl);
+		this.validateWorld = false;
+		this.biomeState = BiomeState.ROOFED_FOREST;
 		this.lastDamager = new HashMap<>();
 		this.spawn = new Location(Bukkit.getWorld(pl.getConfig().getString("world_lobby")), 200, 200, 200);
+		this.modes = Modes.CLASSIC;
 	}
 
 	public void addScenario(Scenario scenario) {
@@ -160,33 +182,19 @@ public class GameManager {
 		return this.scenarios.contains(scenario);
 	}
 
-	public void addPlayer(Player player) {
-		if (!this.players.contains(player.getUniqueId()))
-			this.players.add(player.getUniqueId());
-	}
-
 	public void removePlayer(Player player, boolean dead) {
-		if (this.players.contains(player.getUniqueId()))
-			this.players.remove(player.getUniqueId());
+		PlayerManager playerManager = pl.getPlayerManager(player.getUniqueId());
+		playerManager.setAlive(!dead);
 		if (this.pl.teamUtils.getTeams(player) != null) {
 			TeamUtils.Teams t = this.pl.teamUtils.getTeams(player);
 			t.getTeam().removeEntry(player.getName());
 			if (t.getTeam().getSize() == 0 && GameState.isState(GameState.STARTED)) {
 				Bukkit.broadcastMessage(I18n.tl("teamDead", t.getTeam().getDisplayName()));
 				t.getTeam().unregister();
-				Bukkit.getPluginManager().callEvent((Event) new TeamUnregisteredEvent(t.getTeam()));
+				Bukkit.getPluginManager().callEvent(new TeamUnregisteredEvent(t.getTeam()));
 			}
 		}
 		checkWin();
-	}
-
-	public void removePlayer(Player player) {
-		if (this.players.contains(player.getUniqueId()))
-			this.players.remove(player.getUniqueId());
-	}
-
-	public List<UUID> getPlayers() {
-		return players;
 	}
 
 	public List<Scenario> getScenarios() {
@@ -257,14 +265,6 @@ public class GameManager {
 		this.elapsedTime = elapsedTime;
 	}
 
-	public static GameManager getGameManager() {
-		return gameManager;
-	}
-
-	public PlayerManager getPlayerManager() {
-		return this.playerManager;
-	}
-
 	public Player getHost() {
 		return this.host;
 	}
@@ -301,6 +301,22 @@ public class GameManager {
 		return this.borderSize;
 	}
 
+	public List<Potion> getDeniedPotions() {
+		return this.deniedPotions;
+	}
+
+	public void setDeniedPotions(List<Potion> deniedPotions) {
+		this.deniedPotions = deniedPotions;
+	}
+
+	public void removeDeniedPotion(Potion potion) {
+		for (int i = this.deniedPotions.size() - 1; i >= 0; i--) {
+			Potion pot = this.deniedPotions.get(i);
+			if (pot.equals(potion))
+				this.deniedPotions.remove(pot);
+		}
+	}
+
 	public void setBordersize(long bordersize) {
 		this.borderSize = bordersize;
 	}
@@ -322,11 +338,11 @@ public class GameManager {
 	}
 
 	public String getWinner() {
-		return winner;
+		return winnerName;
 	}
 
 	public void setWinner(String winner) {
-		this.winner = winner;
+		this.winnerName = winner;
 	}
 
 	public boolean isNether() {
@@ -354,13 +370,13 @@ public class GameManager {
 		this.pl.worldUtils.getWorld().setTime(0L);
 		this.pl.worldBorderUtils.change(this.pl.worldBorderUtils.getStartSize());
 		if (this.pl.teamUtils.getPlayersPerTeams() != 1) {
-			for (UUID player : this.players)
-				this.pl.teamUtils.setAutoTeam(Bukkit.getPlayer(player));
+			for (PlayerManager playerManager : pl.getPlayerManagerOnlines())
+				this.pl.teamUtils.setAutoTeam(playerManager.getPlayer());
 			for (TeamUtils.Teams teams : TeamUtils.Teams.values()) {
 				if (teams.getTeam() != null && !teams.getTeam().getEntries().isEmpty())
 					this.count++;
 			}
-			this.task = Bukkit.getScheduler().runTaskTimer((Plugin) this.pl, new Runnable() {
+			this.task = Bukkit.getScheduler().runTaskTimer(this.pl, new Runnable() {
 
 				List<Location> locs = GameManager.this.generateLocations(GameManager.this.count);
 
@@ -385,19 +401,19 @@ public class GameManager {
 						GameManager.this.task.cancel();
 						return;
 					}
-					((Location) this.locs.get(GameManager.this.count)).getChunk().load(true);
+					this.locs.get(GameManager.this.count).getChunk().load(true);
 					GameManager.this.count++;
 				}
 			}, 10L, 10L);
 		} else {
-			this.task = Bukkit.getScheduler().runTaskTimer((Plugin) this.pl, new Runnable() {
-				List<Location> locs = GameManager.this.generateLocations(GameManager.this.players.size());
+			this.task = Bukkit.getScheduler().runTaskTimer(this.pl, new Runnable() {
+				List<Location> locs = GameManager.this.generateLocations(pl.getPlayerManagerOnlines().size());
 
 				@Override
 				public void run() {
 					if (GameManager.this.count == this.locs.size()) {
-						for (UUID uuid : GameManager.this.players) {
-							Player p = Bukkit.getPlayer(uuid);
+						for (PlayerManager playerManager : pl.getPlayerManagerOnlines()) {
+							Player p = playerManager.getPlayer();
 							Location loc = this.locs.stream().findAny().get();
 							p.teleport(loc.clone().add(0.5D, 1.0D, 0.5D));
 							if (GameManager.this.fightTeleport)
@@ -408,7 +424,7 @@ public class GameManager {
 						GameManager.this.task.cancel();
 						return;
 					}
-					((Location) this.locs.get(GameManager.this.count)).getChunk().load(true);
+					this.locs.get(GameManager.this.count).getChunk().load(true);
 					GameManager.this.count++;
 				}
 			}, 10L, 10L);
@@ -430,8 +446,21 @@ public class GameManager {
 
 	private List<Block> temp;
 
+
+	public void generateLocationOnGround(Player player){
+		Random r = UhcHost.getRANDOM();
+		int x = r.nextInt((int) (Bukkit.getWorld("game").getWorldBorder().getSize() / 2)),
+				z = r.nextInt((int) (Bukkit.getWorld("game").getWorldBorder().getSize() / 2));
+		if (r.nextBoolean())
+			x *= -1;
+		if (r.nextBoolean())
+			z *= -1;
+		Location loc = new Location(Bukkit.getWorld("game"), x, player.getWorld().getHighestBlockYAt(player.getLocation()) + 2, z);
+		player.teleport(loc);
+	}
+
 	private Location generateLocation() {
-		Random r = new Random();
+		Random r = UhcHost.getRANDOM();
 		int x = r.nextInt(this.pl.worldBorderUtils.getStartSize() / 2),
 				z = r.nextInt(this.pl.worldBorderUtils.getStartSize() / 2);
 		if (r.nextBoolean())
@@ -455,8 +484,10 @@ public class GameManager {
 
 	public void start() {
 		for (Scenarios scenario : Scenarios.values()) {
-			if (!hasScenario(scenario.getScenario()))
-				HandlerList.unregisterAll((Listener) scenario.getScenario());
+			if (!hasScenario(scenario.getScenario())){
+				Bukkit.getConsoleSender().sendMessage("Unregister scenarios: " + scenario.getScenario().getName());
+				HandlerList.unregisterAll(scenario.getScenario());
+			}
 		}
 		for (Team team : this.pl.scoreboardUtil.getBoard().getTeams()) {
 			if (team.getSize() == 0)
@@ -464,14 +495,16 @@ public class GameManager {
 		}
 		for (Block block : this.temp)
 			block.setType(Material.AIR);
-		for (UUID uuid : this.players) {
-			Player player = Bukkit.getPlayer(uuid);
+		for (PlayerManager playerManager : pl.getPlayerManagerOnlines()) {
+			Player player = playerManager.getPlayer();
 			player.setGameMode(GameMode.SURVIVAL);
 			player.setScoreboard(this.pl.scoreboardUtil.getBoard());
 			player.getInventory().clear();
 			CustomInv.restoreInventory(player);
 		}
-		Bukkit.getPluginManager().callEvent((Event) new GameStartEvent(this.players));
+		List<UUID> listPlayer = new ArrayList<>();
+		pl.getPlayerManagerOnlines().forEach(playerManager -> listPlayer.add(playerManager.getUuid()));
+		Bukkit.getPluginManager().callEvent(new GameStartEvent(listPlayer));
 		Bukkit.broadcastMessage(I18n.tl("damageWillBeActivated", new String[0]));
 		this.pl.taskManager.game();
 		GameState.setCurrentState(GameState.STARTED);
@@ -480,95 +513,36 @@ public class GameManager {
 	public void reTeleport() {
 		setDamage(false);
 		setPvp(false);
-		Bukkit.broadcastMessage(I18n.tl("damageAndPvpIn", new String[] { String.valueOf(20) }));
-		this.players.forEach(uuid -> {
-			Player p = Bukkit.getPlayer(uuid);
+		Bukkit.broadcastMessage(I18n.tl("damageAndPvpIn", new String[20]));
+		pl.getPlayerManagerOnlines().forEach(playerManager -> {
+			Player p = playerManager.getPlayer();
 			if (p != null) {
 				Location loc = this.teleportations.get(p.getUniqueId());
 				p.teleport(loc);
 				this.teleportations.remove(p.getUniqueId());
 			}
 		});
-		(new BukkitRunnable() {
+		new BukkitRunnable() {
 			public void run() {
 				GameManager.this.setDamage(true);
 				GameManager.this.setPvp(true);
 				Bukkit.broadcastMessage(I18n.tl("damageAndPvpActived", new String[0]));
 			}
-		}).runTaskLater((Plugin) this.pl, 400L);
+		}.runTaskLater(this.pl, 400L);
 	}
 
 	public void checkWin() {
-		if (GameState.isState(GameState.STARTED))
-			if (this.pl.teamUtils.getPlayersPerTeams() != 1 && !hasScenario(Scenarios.ONLYONEWINNER.getScenario())) {
-				if (this.pl.scoreboardUtil.getBoard().getTeams().size() == 1) {
-					Team winner = null;
-					for (Team team : this.pl.scoreboardUtil.getBoard().getTeams())
-						winner = team;
-					win(winner);
-				}
-			} else if (this.players.size() == 1) {
-				Player winner = Bukkit.getPlayer(this.players.get(0));
-				win(winner);
-			}
-	}
-
-	public void win(Player winner) {
-		setDamage(false);
-		Bukkit.broadcastMessage(I18n.tl("endGame", new String[0]));
-		Bukkit.broadcastMessage(I18n.tl("winOfPlayer", winner.getName()));
-		Bukkit.broadcastMessage(I18n.tl("rebootSoon", new String[0]));
-		doParticle(winner.getLocation(), Effect.HEART, 4.0D, 10.0D, 0.5D, 1.0D, 1000.0D, 0.1D, 1.0D, 1.0D);
-		Bukkit.getScheduler().runTaskLater((Plugin) this.pl, new Runnable() {
-			public void run() {
-				if (GameManager.this.pl.getConfig().getBoolean("bungeecord")) {
-					if (GameManager.this.pl.getConfig().getString("server-redirection") != null && !GameManager.this.pl
-							.getConfig().getString("server-redirection").equalsIgnoreCase("null"))
-						Bukkit.getOnlinePlayers().forEach(p -> BungeeAPI.ConnectBungeeServer(p,
-								GameManager.this.pl.getConfig().getString("server-redirection")));
-				}
-
-				Bukkit.dispatchCommand((CommandSender) Bukkit.getConsoleSender(), "restart");
-			}
-		}, 30 * 20L);
-	}
-
-	public void win(Team winner) {
-		setDamage(false);
-		Bukkit.broadcastMessage(I18n.tl("endGame", new String[0]));
-		Bukkit.broadcastMessage(I18n.tl("winOfTeam", winner.getName()));
-		Bukkit.broadcastMessage(I18n.tl("endGame", new String[0]));
-		Bukkit.getScheduler().runTaskLater((Plugin) this.pl, new Runnable() {
-			public void run() {
-				if (GameManager.this.pl.getConfig().getBoolean("bungeecord")) {
-					if (GameManager.this.pl.getConfig().getString("server-redirection") != null && !GameManager.this.pl
-							.getConfig().getString("server-redirection").equalsIgnoreCase("null"))
-						Bukkit.getOnlinePlayers().forEach(p -> BungeeAPI.ConnectBungeeServer(p,
-								GameManager.this.pl.getConfig().getString("server-redirection")));
-				}
-
-				Bukkit.dispatchCommand((CommandSender) Bukkit.getConsoleSender(), "restart");
-			}
-		}, 30 * 20L);
-	}
-
-	public void doParticle(final Location center, final Effect effect, double curve, double radius, double radiusChange,
-			double height, double particles, double delay, double amount, double separation) {
-		center.add(0.0D, 0.25D, 0.0D);
-		for (int i = 0; i < amount; i++) {
-			double degrees;
-			for (degrees = i * separation; degrees <= 360.0D * curve; degrees += 360.0D / particles) {
-				final double y = degrees / 360.0D * curve / height;
-				final double x = Math.cos(degrees) * (radius - radiusChange * y);
-				final double z = Math.sin(degrees) * (radius - radiusChange * y);
-				if (radius - radiusChange * y >= 0.0D)
-					(new BukkitRunnable() {
-						public void run() {
-							center.getWorld().playEffect(center.clone().add(x, y, z), effect, 0);
-						}
-					}).runTaskLater((Plugin) this.pl, (long) Math.floor(degrees / 360.0D / particles * delay));
-			}
+		if (GameState.isState(GameState.STARTED)){
+			this.pl.gameManager.getModes().getMode().checkWin();
 		}
+	}
+
+	public void setWorldState(WorldState worldState) {
+		this.worldState = worldState;
+	}
+
+	public WorldState getWorldState() {
+		return worldState;
 	}
 
 	public void setMaxPlayers(int maxPlayers) {
@@ -576,4 +550,108 @@ public class GameManager {
 		this.pl.teamUtils.setupTeams();
 	}
 
+	public Modes getModes() {
+		return modes;
+	}
+
+	public void setModes(Modes modes) {
+		this.modes = modes;
+	}
+
+	public List<Class<? extends Role>> getComposition() {
+		List<Class<? extends Role>> roles = new ArrayList<>();
+		for (String className : composition) {
+			Class<? extends Role> role = null;
+			try {
+				role = (Class<? extends Role>) Class.forName(className);
+			} catch (ClassNotFoundException e) {
+				e.printStackTrace();
+			}
+			roles.add(role);
+		}
+		return roles;
+	}
+
+	public int countRolesInComposition(Role role){
+		return (int) getComposition().stream().filter(aClass -> {
+			try {
+				return aClass.newInstance().getRoleName().equalsIgnoreCase(role.getRoleName());
+			} catch (InstantiationException | IllegalAccessException e) {
+				e.printStackTrace();
+			}
+			return false;
+		}).count();
+	}
+
+	public void addRoleToComposition(Role role) {
+		this.composition.add(role.getClass().getName());
+	}
+
+	public void removeRoleToComposition(Role role) {
+		this.composition.remove(role.getClass().getName());
+	}
+
+	public void clearComposition() {
+		this.composition.clear();
+	}
+
+	public boolean isPregen() {
+		return pregen;
+	}
+
+	public void setPregen(boolean pregen) {
+		this.pregen = pregen;
+	}
+
+	public BiomeState getBiomeState() {
+		return biomeState;
+	}
+
+	public void setBiomeState(BiomeState biomeState) {
+		this.biomeState = biomeState;
+	}
+
+	public boolean isValidateWorld() {
+		return validateWorld;
+	}
+
+	public void setValidateWorld(boolean validateWorld) {
+		this.validateWorld = validateWorld;
+	}
+
+	public boolean isPlayerCheckingWorld() {
+		return playerCheckingWorld;
+	}
+
+	public void setPlayerCheckingWorld(boolean playerCheckingWorld) {
+		this.playerCheckingWorld = playerCheckingWorld;
+	}
+
+	public LoupGarouManager getLoupGarouManager() {
+		return loupGarouManager;
+	}
+
+	public boolean isAllPotionsEnable() {
+		return allPotionsEnable;
+	}
+
+	public void setAllPotionsEnable(boolean allPotionsEnable) {
+		this.allPotionsEnable = allPotionsEnable;
+	}
+
+	public boolean isPotionsEditMode() {
+		return potionsEditMode;
+	}
+
+	public void setPotionsEditMode(boolean potionsEditMode) {
+		this.potionsEditMode = potionsEditMode;
+	}
+
+	public boolean isNotchApple() {
+		return notchApple;
+	}
+
+	public void setNotchApple(boolean notchApple) {
+		this.notchApple = notchApple;
+	}
 }

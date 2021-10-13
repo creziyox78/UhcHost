@@ -1,28 +1,35 @@
 package fr.lastril.uhchost.player.events.normal;
 
+import fr.lastril.uhchost.UhcHost;
+import fr.lastril.uhchost.game.GameManager;
+import fr.lastril.uhchost.inventory.guis.items.PotionsGui;
+import fr.lastril.uhchost.team.TeamsGui;
+import fr.lastril.uhchost.tools.NotStart;
+import fr.lastril.uhchost.inventory.guis.HostConfig;
+import fr.lastril.uhchost.tools.API.ActionBar;
+import fr.lastril.uhchost.tools.API.BungeeAPI;
+import fr.lastril.uhchost.tools.I18n;
 import org.bukkit.ChatColor;
+import org.bukkit.GameMode;
+import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.potion.Potion;
 
-import fr.lastril.uhchost.UhcHost;
-import fr.lastril.uhchost.game.GameManager;
-import fr.lastril.uhchost.game.team.TeamsGui;
-import fr.lastril.uhchost.tools.I18n;
-import fr.lastril.uhchost.tools.API.ActionBar;
-import fr.lastril.uhchost.tools.API.BungeeAPI;
-import fr.lastril.uhchost.tools.inventory.Gui;
-import fr.lastril.uhchost.tools.inventory.NotStart;
-import fr.lastril.uhchost.tools.inventory.guis.HostConfig;
+import java.util.ListIterator;
 
 public class Interact implements Listener {
-	private NotStart notstart;
 
-	public Interact(NotStart notstart) {
+	private final NotStart notstart;
+	private final UhcHost pl;
+
+	public Interact(NotStart notstart, UhcHost pl) {
 		this.notstart = notstart;
+		this.pl = pl;
 	}
 
 	@EventHandler
@@ -69,10 +76,21 @@ public class Interact implements Listener {
 			}
 		if (current.getItemMeta().getDisplayName().equalsIgnoreCase(ChatColor.GOLD + "Configuration")) {
 			player.closeInventory();
-			player.openInventory(HostConfig.Main());
-			Gui.inventory = HostConfig.Main();
+			new HostConfig(player).show();
 		}
-		
+
+		if (this.pl.gameManager.isPotionsEditMode()) {
+			for (ListIterator<ItemStack> listIterator = player.getInventory().iterator(); listIterator.hasNext(); ) {
+				ItemStack itemStack = listIterator.next();
+				if (itemStack != null &&
+						itemStack.getType() == Material.POTION &&
+						!this.pl.gameManager.getDeniedPotions().contains(Potion.fromItemStack(itemStack)))
+					this.pl.gameManager.getDeniedPotions().add(Potion.fromItemStack(itemStack));
+			}
+			this.notstart.PreHost(player);
+			this.pl.gameManager.setPotionsEditMode(false);
+			new PotionsGui(player).show();
+		}
 		if (current.getItemMeta().getDisplayName().equalsIgnoreCase(I18n.tl("teams", new String[0]))) {
 			new TeamsGui(player);
 		}

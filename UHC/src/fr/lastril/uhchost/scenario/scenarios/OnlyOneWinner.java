@@ -1,16 +1,15 @@
 package fr.lastril.uhchost.scenario.scenarios;
 
-import java.util.Arrays;
-
+import fr.lastril.uhchost.UhcHost;
+import fr.lastril.uhchost.player.events.TeamUnregisteredEvent;
+import fr.lastril.uhchost.scenario.Scenario;
+import fr.lastril.uhchost.tools.I18n;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.event.EventHandler;
 
-import fr.lastril.uhchost.UhcHost;
-import fr.lastril.uhchost.player.events.TeamUnregisteredEvent;
-import fr.lastril.uhchost.scenario.Scenario;
-import fr.lastril.uhchost.tools.I18n;
+import java.util.Arrays;
 
 public class OnlyOneWinner extends Scenario {
 

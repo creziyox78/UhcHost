@@ -1,7 +1,8 @@
 package fr.lastril.uhchost.player.events.normal;
 
-import java.util.UUID;
-
+import fr.lastril.uhchost.UhcHost;
+import fr.lastril.uhchost.game.GameManager;
+import fr.lastril.uhchost.game.GameState;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
@@ -9,9 +10,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerQuitEvent;
 
-import fr.lastril.uhchost.UhcHost;
-import fr.lastril.uhchost.game.GameManager;
-import fr.lastril.uhchost.game.GameState;
+import java.util.UUID;
 
 public class Quit implements Listener {
 	
@@ -28,15 +27,18 @@ public class Quit implements Listener {
 		UUID playersUuid = player.getUniqueId();
 		if (gameManager.getGameState() == GameState.LOBBY || gameManager.getGameState() == GameState.STARTING) {
 			e.setQuitMessage("[" + ChatColor.RED + "-"+ ChatColor.WHITE+ "] " + player.getDisplayName());
-			this.pl.teamUtils.unsetTeam(player, this.pl.teamUtils.getTeam(player));
+			if(pl.teamUtils.getTeam(player) != null){
+				this.pl.teamUtils.unsetTeam(player, this.pl.teamUtils.getTeam(player));
+			}
 		    this.pl.scoreboardUtil.reset(player);
 		    this.pl.gameManager.removePlayer(player, false);
+		    if(pl.gameManager.getHost() == player) pl.gameManager.setHost(null);
 		}
 		else if(gameManager.getGameState() == GameState.STARTED) {
-			if(gameManager.getPlayers().contains(playersUuid)) {
+			if(pl.getAllPlayerManager().keySet().contains(playersUuid)) {
 				e.setQuitMessage("[" + ChatColor.RED + "-"+ ChatColor.WHITE+ "] " + player.getDisplayName());
 				if(gameManager.isBorder()) {
-					gameManager.getPlayers().remove(playersUuid);
+					pl.getAllPlayerManager().get(playersUuid).setAlive(false);
 					Bukkit.broadcastMessage("§c" + 	player.getName() + " has been eliminated !");
 				}
 			}

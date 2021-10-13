@@ -1,12 +1,11 @@
 package fr.lastril.uhchost.scenario.gui;
 
-import java.util.Arrays;
-
+import fr.lastril.uhchost.inventory.Gui;
+import fr.lastril.uhchost.tools.creators.BannerCreator;
 import org.bukkit.DyeColor;
 import org.bukkit.entity.Player;
 
-import fr.lastril.uhchost.tools.creators.BannerCreator;
-import fr.lastril.uhchost.tools.inventory.Gui;
+import java.util.Arrays;
 
 public class TimerGui extends Gui {
 

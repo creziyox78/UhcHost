@@ -1,13 +1,17 @@
 package fr.lastril.uhchost.player.events.custom;
 
+import fr.lastril.uhchost.UhcHost;
+import fr.lastril.uhchost.player.PlayerManager;
+import fr.lastril.uhchost.player.events.GameStartEvent;
+import fr.lastril.uhchost.player.manager.WolfPlayerManager;
+import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scoreboard.DisplaySlot;
 import org.bukkit.scoreboard.Objective;
 
-import fr.lastril.uhchost.UhcHost;
-import fr.lastril.uhchost.player.events.GameStartEvent;
+import java.util.UUID;
 
 public class GameStart implements Listener {
 	
@@ -19,6 +23,10 @@ public class GameStart implements Listener {
 	
 	@EventHandler
 	public void onStart(GameStartEvent e) {
+		e.getPlayers().forEach(player -> {
+			pl.getPlayerManager(player.getUniqueId()).setPlayedGame(true);
+		});
+		Bukkit.getWorld("game").setGameRuleValue("keepInventory", "true");
 		if(pl.gameManager.isViewHealth()) {
 			Objective health = pl.scoreboardUtil.getBoard().registerNewObjective("vie", "health");
 			health.setDisplaySlot(DisplaySlot.PLAYER_LIST);
@@ -33,7 +41,6 @@ public class GameStart implements Listener {
 				}
 				
 			}.runTaskLater(pl, 10);
-			
 		}
 	}
 

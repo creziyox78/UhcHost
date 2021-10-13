@@ -1,10 +1,8 @@
 package fr.lastril.uhchost.scoreboard;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.ListIterator;
-import java.util.UUID;
-
+import fr.lastril.uhchost.UhcHost;
+import fr.lastril.uhchost.tools.creators.BannerCreator;
+import fr.lastril.uhchost.tools.creators.ItemsCreator;
 import org.bukkit.Bukkit;
 import org.bukkit.DyeColor;
 import org.bukkit.Material;
@@ -16,15 +14,16 @@ import org.bukkit.scoreboard.NameTagVisibility;
 import org.bukkit.scoreboard.Scoreboard;
 import org.bukkit.scoreboard.Team;
 
-import fr.lastril.uhchost.UhcHost;
-import fr.lastril.uhchost.tools.creators.BannerCreator;
-import fr.lastril.uhchost.tools.creators.ItemsCreator;
+import java.util.Arrays;
+import java.util.List;
+import java.util.ListIterator;
+import java.util.UUID;
 
 public class TeamUtils {
 
-	private UhcHost pl;
+	private final UhcHost pl;
 
-	private Scoreboard scoreboard;
+	private final Scoreboard scoreboard;
 
 	private int playersPerTeams = 1;
 
@@ -41,10 +40,6 @@ public class TeamUtils {
 		return this.neededTeam;
 	}
 
-	public void setNeededTeam(int neededTeam) {
-		this.neededTeam = neededTeam;
-	}
-
 	public int getPlayersPerTeams() {
 		return this.playersPerTeams;
 	}
@@ -56,7 +51,7 @@ public class TeamUtils {
 	public void resetTeams() {
 		this.scoreboard.getTeams().forEach(t -> t.unregister());
 		this.setup = false;
-		for (UUID uuid : this.pl.gameManager.getPlayers()) {
+		for (UUID uuid : this.pl.getAllPlayerManager().keySet()) {
 			Player player = Bukkit.getPlayer(uuid);
 			for (ListIterator<ItemStack> listIterator = Bukkit.getPlayer(uuid).getInventory().iterator(); listIterator
 					.hasNext();) {
@@ -86,7 +81,7 @@ public class TeamUtils {
 			teams.getTeam().setAllowFriendlyFire(false);
 		}
 		if (this.playersPerTeams != 1)
-			for (UUID uuid : this.pl.gameManager.getPlayers()) {
+			for (UUID uuid : this.pl.getAllPlayerManager().keySet()) {
 				Bukkit.getPlayer(uuid).getInventory()
 						.addItem((new ItemsCreator(Material.BANNER, "Equipes", null)).create());
 			}
@@ -178,61 +173,61 @@ public class TeamUtils {
 		LIGHT_BLUE("Bleu Clair", "§b", new BannerCreator("§b", null, 1, false), DyeColor.LIGHT_BLUE, null, null),
 		LIGHT_GREEN("Vert Clair", "§a", new BannerCreator("§a", null, 1, false), DyeColor.LIME, null, null),
 		FLOWER_RED("✿Rouge", "§c✿", new BannerCreator("§c", null, 1, false), DyeColor.RED,
-				(List<Pattern>) Arrays.asList(new Pattern(DyeColor.WHITE, PatternType.FLOWER),
+				Arrays.asList(new Pattern(DyeColor.WHITE, PatternType.FLOWER),
 						new Pattern(DyeColor.YELLOW, PatternType.CIRCLE_MIDDLE)),
 				null),
 		FLOWER_BLUE("✿Bleu", "§9✿", new BannerCreator("§9", null, 1, false), DyeColor.BLUE,
-				(List<Pattern>) Arrays.asList(new Pattern(DyeColor.WHITE, PatternType.FLOWER),
+				Arrays.asList(new Pattern(DyeColor.WHITE, PatternType.FLOWER),
 						new Pattern(DyeColor.YELLOW, PatternType.CIRCLE_MIDDLE)),
 				null),
 		FLOWER_GREEN("✿Vert", "§2✿", new BannerCreator("§2", null, 1, false), DyeColor.GREEN,
-				(List<Pattern>) Arrays.asList(new Pattern(DyeColor.WHITE, PatternType.FLOWER),
+				Arrays.asList(new Pattern(DyeColor.WHITE, PatternType.FLOWER),
 						new Pattern(DyeColor.YELLOW, PatternType.CIRCLE_MIDDLE)),
 				null),
 		FLOWER_YELLOW("✿Jaune", "§e✿", new BannerCreator("§e", null, 1, false), DyeColor.YELLOW,
-				(List<Pattern>) Arrays.asList(new Pattern(DyeColor.WHITE, PatternType.FLOWER),
+				Arrays.asList(new Pattern(DyeColor.WHITE, PatternType.FLOWER),
 						new Pattern(DyeColor.RED, PatternType.CIRCLE_MIDDLE)),
 				null),
 		FLOWER_MAGENTA("✿Magenta", "§5✿", new BannerCreator("§5", null, 1, false), DyeColor.MAGENTA,
-				(List<Pattern>) Arrays.asList(new Pattern(DyeColor.WHITE, PatternType.FLOWER),
+				Arrays.asList(new Pattern(DyeColor.WHITE, PatternType.FLOWER),
 						new Pattern(DyeColor.YELLOW, PatternType.CIRCLE_MIDDLE)),
 				null),
 		FLOWER_ORANGE("✿Orange", "§6✿", new BannerCreator("§6", null, 1, false), DyeColor.ORANGE,
-				(List<Pattern>) Arrays.asList(new Pattern(DyeColor.WHITE, PatternType.FLOWER),
+				Arrays.asList(new Pattern(DyeColor.WHITE, PatternType.FLOWER),
 						new Pattern(DyeColor.YELLOW, PatternType.CIRCLE_MIDDLE)),
 				null),
 		FLOWER_PINK("✿Rose", "§d✿", new BannerCreator("§d", null, 1, false), DyeColor.PINK,
-				(List<Pattern>) Arrays.asList(new Pattern(DyeColor.WHITE, PatternType.FLOWER),
+				Arrays.asList(new Pattern(DyeColor.WHITE, PatternType.FLOWER),
 						new Pattern(DyeColor.YELLOW, PatternType.CIRCLE_MIDDLE)),
 				null),
 		FLOWER_LIGHT_BLUE("✿Bleu Clair", "§b✿", new BannerCreator("§b", null, 1, false), DyeColor.LIGHT_BLUE,
-				(List<Pattern>) Arrays.asList(new Pattern(DyeColor.WHITE, PatternType.FLOWER),
+				Arrays.asList(new Pattern(DyeColor.WHITE, PatternType.FLOWER),
 						new Pattern(DyeColor.YELLOW, PatternType.CIRCLE_MIDDLE)),
 				null),
 		FLOWER_LIGHT_GREEN("✿Vert Clair", "§a✿", new BannerCreator("§a", null, 1, false), DyeColor.LIME,
-				(List<Pattern>) Arrays.asList(new Pattern(DyeColor.WHITE, PatternType.FLOWER),
+				Arrays.asList(new Pattern(DyeColor.WHITE, PatternType.FLOWER),
 						new Pattern(DyeColor.YELLOW, PatternType.CIRCLE_MIDDLE)),
 				null),
 		SKELETON_RED("☠Rouge", "§c☠", new BannerCreator("§c", null, 1, false), DyeColor.RED,
-				(List<Pattern>) Arrays.asList(new Pattern(DyeColor.BLACK, PatternType.SKULL)), null),
+				Arrays.asList(new Pattern(DyeColor.BLACK, PatternType.SKULL)), null),
 		SKELETON_BLUE("☠Bleu", "§9☠", new BannerCreator("§9", null, 1, false), DyeColor.BLUE,
-				(List<Pattern>) Arrays.asList(new Pattern(DyeColor.RED, PatternType.SKULL)), null),
+				Arrays.asList(new Pattern(DyeColor.RED, PatternType.SKULL)), null),
 		SKELETON_GREEN("☠Vert", "§2☠", new BannerCreator("§2", null, 1, false), DyeColor.GREEN,
-				(List<Pattern>) Arrays.asList(new Pattern(DyeColor.RED, PatternType.SKULL)), null),
+				Arrays.asList(new Pattern(DyeColor.RED, PatternType.SKULL)), null),
 		SKELETON_YELLOW("☠Jaune", "§e☠", new BannerCreator("§e", null, 1, false), DyeColor.YELLOW,
-				(List<Pattern>) Arrays.asList(new Pattern(DyeColor.RED, PatternType.SKULL)), null),
+				Arrays.asList(new Pattern(DyeColor.RED, PatternType.SKULL)), null),
 		SKELETON_MAGENTA("☠Magenta", "§5☠", new BannerCreator("§5", null, 1, false), DyeColor.MAGENTA,
-				(List<Pattern>) Arrays.asList(new Pattern(DyeColor.RED, PatternType.SKULL)), null),
+				Arrays.asList(new Pattern(DyeColor.RED, PatternType.SKULL)), null),
 		SKELETON_ORANGE("☠Orange", "§6☠", new BannerCreator("§6", null, 1, false), DyeColor.ORANGE,
-				(List<Pattern>) Arrays.asList(new Pattern(DyeColor.RED, PatternType.SKULL)), null),
+				Arrays.asList(new Pattern(DyeColor.RED, PatternType.SKULL)), null),
 		SKELETON_PINK("☠Rose", "§d☠", new BannerCreator("§d", null, 1, false), DyeColor.PINK,
-				(List<Pattern>) Arrays.asList(new Pattern(DyeColor.RED, PatternType.SKULL)), null),
+				Arrays.asList(new Pattern(DyeColor.RED, PatternType.SKULL)), null),
 		SKELETON_LIGHT_BLUE("☠Bleu Clair", "§b☠", new BannerCreator("§b", null, 1, false), DyeColor.LIGHT_BLUE,
-				(List<Pattern>) Arrays.asList(new Pattern(DyeColor.RED, PatternType.SKULL)), null),
+				Arrays.asList(new Pattern(DyeColor.RED, PatternType.SKULL)), null),
 		SKELETON_LIGHT_GREEN("☠Vert Clair", "§a☠", new BannerCreator("§a", null, 1, false), DyeColor.LIME,
-				(List<Pattern>) Arrays.asList(new Pattern(DyeColor.RED, PatternType.SKULL)), null),
+				Arrays.asList(new Pattern(DyeColor.RED, PatternType.SKULL)), null),
 		YINYANG_RED("☯Rouge", "§c☯", new BannerCreator("§c", null, 1, false), DyeColor.RED,
-				(List<Pattern>) Arrays.asList(new Pattern(DyeColor.WHITE, PatternType.DIAGONAL_RIGHT),
+				Arrays.asList(new Pattern(DyeColor.WHITE, PatternType.DIAGONAL_RIGHT),
 						new Pattern(DyeColor.WHITE, PatternType.SQUARE_TOP_LEFT),
 						new Pattern(DyeColor.RED, PatternType.SQUARE_BOTTOM_RIGHT),
 						new Pattern(DyeColor.RED, PatternType.TRIANGLES_TOP),
@@ -241,7 +236,7 @@ public class TeamUtils {
 						new Pattern(DyeColor.WHITE, PatternType.STRIPE_RIGHT)),
 				null),
 		YINYANG_BLUE("☯Bleu", "§9☯", new BannerCreator("§9", null, 1, false), DyeColor.BLUE,
-				(List<Pattern>) Arrays.asList(new Pattern(DyeColor.WHITE, PatternType.DIAGONAL_RIGHT),
+				Arrays.asList(new Pattern(DyeColor.WHITE, PatternType.DIAGONAL_RIGHT),
 						new Pattern(DyeColor.WHITE, PatternType.SQUARE_TOP_LEFT),
 						new Pattern(DyeColor.BLUE, PatternType.SQUARE_BOTTOM_RIGHT),
 						new Pattern(DyeColor.BLUE, PatternType.TRIANGLES_TOP),
@@ -250,7 +245,7 @@ public class TeamUtils {
 						new Pattern(DyeColor.WHITE, PatternType.STRIPE_RIGHT)),
 				null),
 		YINYANG_GREEN("☯Vert", "§2☯", new BannerCreator("§2", null, 1, false), DyeColor.GREEN,
-				(List<Pattern>) Arrays.asList(new Pattern(DyeColor.WHITE, PatternType.DIAGONAL_RIGHT),
+				Arrays.asList(new Pattern(DyeColor.WHITE, PatternType.DIAGONAL_RIGHT),
 						new Pattern(DyeColor.WHITE, PatternType.SQUARE_TOP_LEFT),
 						new Pattern(DyeColor.GREEN, PatternType.SQUARE_BOTTOM_RIGHT),
 						new Pattern(DyeColor.GREEN, PatternType.TRIANGLES_TOP),
@@ -259,7 +254,7 @@ public class TeamUtils {
 						new Pattern(DyeColor.WHITE, PatternType.STRIPE_RIGHT)),
 				null),
 		YINYANG_YELLOW("☯Jaune", "§e☯", new BannerCreator("§e", null, 1, false), DyeColor.YELLOW,
-				(List<Pattern>) Arrays.asList(new Pattern(DyeColor.WHITE, PatternType.DIAGONAL_RIGHT),
+				Arrays.asList(new Pattern(DyeColor.WHITE, PatternType.DIAGONAL_RIGHT),
 						new Pattern(DyeColor.WHITE, PatternType.SQUARE_TOP_LEFT),
 						new Pattern(DyeColor.YELLOW, PatternType.SQUARE_BOTTOM_RIGHT),
 						new Pattern(DyeColor.YELLOW, PatternType.TRIANGLES_TOP),
@@ -268,7 +263,7 @@ public class TeamUtils {
 						new Pattern(DyeColor.WHITE, PatternType.STRIPE_RIGHT)),
 				null),
 		YINYANG_MAGENTA("☯Mangeta", "§5☯", new BannerCreator("§5", null, 1, false), DyeColor.MAGENTA,
-				(List<Pattern>) Arrays.asList(new Pattern(DyeColor.WHITE, PatternType.DIAGONAL_RIGHT),
+				Arrays.asList(new Pattern(DyeColor.WHITE, PatternType.DIAGONAL_RIGHT),
 						new Pattern(DyeColor.WHITE, PatternType.SQUARE_TOP_LEFT),
 						new Pattern(DyeColor.MAGENTA, PatternType.SQUARE_BOTTOM_RIGHT),
 						new Pattern(DyeColor.MAGENTA, PatternType.TRIANGLES_TOP),
@@ -277,7 +272,7 @@ public class TeamUtils {
 						new Pattern(DyeColor.WHITE, PatternType.STRIPE_RIGHT)),
 				null),
 		YINYANG_ORANGE("☯Orange", "§6☯", new BannerCreator("§6", null, 1, false), DyeColor.ORANGE,
-				(List<Pattern>) Arrays.asList(new Pattern(DyeColor.WHITE, PatternType.DIAGONAL_RIGHT),
+				Arrays.asList(new Pattern(DyeColor.WHITE, PatternType.DIAGONAL_RIGHT),
 						new Pattern(DyeColor.WHITE, PatternType.SQUARE_TOP_LEFT),
 						new Pattern(DyeColor.ORANGE, PatternType.SQUARE_BOTTOM_RIGHT),
 						new Pattern(DyeColor.ORANGE, PatternType.TRIANGLES_TOP),
@@ -286,7 +281,7 @@ public class TeamUtils {
 						new Pattern(DyeColor.WHITE, PatternType.STRIPE_RIGHT)),
 				null),
 		YINYANG_PINK("☯Rose", "§d☯", new BannerCreator("§d", null, 1, false), DyeColor.PINK,
-				(List<Pattern>) Arrays.asList(new Pattern(DyeColor.WHITE, PatternType.DIAGONAL_RIGHT),
+				Arrays.asList(new Pattern(DyeColor.WHITE, PatternType.DIAGONAL_RIGHT),
 						new Pattern(DyeColor.WHITE, PatternType.SQUARE_TOP_LEFT),
 						new Pattern(DyeColor.PINK, PatternType.SQUARE_BOTTOM_RIGHT),
 						new Pattern(DyeColor.PINK, PatternType.TRIANGLES_TOP),
@@ -295,7 +290,7 @@ public class TeamUtils {
 						new Pattern(DyeColor.WHITE, PatternType.STRIPE_RIGHT)),
 				null),
 		YINYANG_LIGHT_BLUE("☯Bleu Clair", "§b☯", new BannerCreator("§b", null, 1, false), DyeColor.LIGHT_BLUE,
-				(List<Pattern>) Arrays.asList(new Pattern(DyeColor.WHITE, PatternType.DIAGONAL_RIGHT),
+				Arrays.asList(new Pattern(DyeColor.WHITE, PatternType.DIAGONAL_RIGHT),
 						new Pattern(DyeColor.WHITE, PatternType.SQUARE_TOP_LEFT),
 						new Pattern(DyeColor.LIGHT_BLUE, PatternType.SQUARE_BOTTOM_RIGHT),
 						new Pattern(DyeColor.LIGHT_BLUE, PatternType.TRIANGLES_TOP),
@@ -304,7 +299,7 @@ public class TeamUtils {
 						new Pattern(DyeColor.WHITE, PatternType.STRIPE_RIGHT)),
 				null),
 		YINYANG_LIGHT_GREEN("☯Vert Clair", "§a☯", new BannerCreator("§a", null, 1, false), DyeColor.LIME,
-				(List<Pattern>) Arrays.asList(new Pattern(DyeColor.WHITE, PatternType.DIAGONAL_RIGHT),
+				Arrays.asList(new Pattern(DyeColor.WHITE, PatternType.DIAGONAL_RIGHT),
 						new Pattern(DyeColor.WHITE, PatternType.SQUARE_TOP_LEFT),
 						new Pattern(DyeColor.LIME, PatternType.SQUARE_BOTTOM_RIGHT),
 						new Pattern(DyeColor.LIME, PatternType.TRIANGLES_TOP),
@@ -313,55 +308,55 @@ public class TeamUtils {
 						new Pattern(DyeColor.WHITE, PatternType.STRIPE_RIGHT)),
 				null),
 		PEACE_RED("❂Rouge", "§c❂", new BannerCreator("§c", null, 1, false), DyeColor.RED,
-				(List<Pattern>) Arrays.asList(new Pattern(DyeColor.YELLOW, PatternType.STRIPE_DOWNLEFT),
+				Arrays.asList(new Pattern(DyeColor.YELLOW, PatternType.STRIPE_DOWNLEFT),
 						new Pattern(DyeColor.YELLOW, PatternType.STRIPE_DOWNRIGHT),
 						new Pattern(DyeColor.RED, PatternType.HALF_HORIZONTAL),
 						new Pattern(DyeColor.YELLOW, PatternType.STRIPE_CENTER)),
 				null),
 		PEACE_BLUE("❂Bleu", "§9❂", new BannerCreator("§9", null, 1, false), DyeColor.BLUE,
-				(List<Pattern>) Arrays.asList(new Pattern(DyeColor.YELLOW, PatternType.STRIPE_DOWNLEFT),
+				Arrays.asList(new Pattern(DyeColor.YELLOW, PatternType.STRIPE_DOWNLEFT),
 						new Pattern(DyeColor.YELLOW, PatternType.STRIPE_DOWNRIGHT),
 						new Pattern(DyeColor.BLUE, PatternType.HALF_HORIZONTAL),
 						new Pattern(DyeColor.YELLOW, PatternType.STRIPE_CENTER)),
 				null),
 		PEACE_GREEN("❂Vert", "§2❂", new BannerCreator("§2", null, 1, false), DyeColor.GREEN,
-				(List<Pattern>) Arrays.asList(new Pattern(DyeColor.YELLOW, PatternType.STRIPE_DOWNLEFT),
+				Arrays.asList(new Pattern(DyeColor.YELLOW, PatternType.STRIPE_DOWNLEFT),
 						new Pattern(DyeColor.YELLOW, PatternType.STRIPE_DOWNRIGHT),
 						new Pattern(DyeColor.GREEN, PatternType.HALF_HORIZONTAL),
 						new Pattern(DyeColor.YELLOW, PatternType.STRIPE_CENTER)),
 				null),
 		PEACE_YELLOW("❂Jaune", "§e❂", new BannerCreator("§e", null, 1, false), DyeColor.YELLOW,
-				(List<Pattern>) Arrays.asList(new Pattern(DyeColor.RED, PatternType.STRIPE_DOWNLEFT),
+				Arrays.asList(new Pattern(DyeColor.RED, PatternType.STRIPE_DOWNLEFT),
 						new Pattern(DyeColor.RED, PatternType.STRIPE_DOWNRIGHT),
 						new Pattern(DyeColor.YELLOW, PatternType.HALF_HORIZONTAL),
 						new Pattern(DyeColor.RED, PatternType.STRIPE_CENTER)),
 				null),
 		PEACE_MAGENTA("❂Magenta", "§5❂", new BannerCreator("§5", null, 1, false), DyeColor.MAGENTA,
-				(List<Pattern>) Arrays.asList(new Pattern(DyeColor.YELLOW, PatternType.STRIPE_DOWNLEFT),
+				Arrays.asList(new Pattern(DyeColor.YELLOW, PatternType.STRIPE_DOWNLEFT),
 						new Pattern(DyeColor.YELLOW, PatternType.STRIPE_DOWNRIGHT),
 						new Pattern(DyeColor.MAGENTA, PatternType.HALF_HORIZONTAL),
 						new Pattern(DyeColor.YELLOW, PatternType.STRIPE_CENTER)),
 				null),
 		PEACE_ORANGE("❂Orange", "§6❂", new BannerCreator("", null, 1, false), DyeColor.ORANGE,
-				(List<Pattern>) Arrays.asList(new Pattern(DyeColor.YELLOW, PatternType.STRIPE_DOWNLEFT),
+				Arrays.asList(new Pattern(DyeColor.YELLOW, PatternType.STRIPE_DOWNLEFT),
 						new Pattern(DyeColor.YELLOW, PatternType.STRIPE_DOWNRIGHT),
 						new Pattern(DyeColor.ORANGE, PatternType.HALF_HORIZONTAL),
 						new Pattern(DyeColor.YELLOW, PatternType.STRIPE_CENTER)),
 				null),
 		PEACE_PINK("❂Rose", "§d❂", new BannerCreator("§d", null, 1, false), DyeColor.PINK,
-				(List<Pattern>) Arrays.asList(new Pattern(DyeColor.YELLOW, PatternType.STRIPE_DOWNLEFT),
+				Arrays.asList(new Pattern(DyeColor.YELLOW, PatternType.STRIPE_DOWNLEFT),
 						new Pattern(DyeColor.YELLOW, PatternType.STRIPE_DOWNRIGHT),
 						new Pattern(DyeColor.PINK, PatternType.HALF_HORIZONTAL),
 						new Pattern(DyeColor.YELLOW, PatternType.STRIPE_CENTER)),
 				null),
 		PEACE_LIGHT_BLUE("❂Bleu Clair", "§b❂", new BannerCreator("§b", null, 1, false), DyeColor.LIGHT_BLUE,
-				(List<Pattern>) Arrays.asList(new Pattern(DyeColor.YELLOW, PatternType.STRIPE_DOWNLEFT),
+				Arrays.asList(new Pattern(DyeColor.YELLOW, PatternType.STRIPE_DOWNLEFT),
 						new Pattern(DyeColor.YELLOW, PatternType.STRIPE_DOWNRIGHT),
 						new Pattern(DyeColor.LIGHT_BLUE, PatternType.HALF_HORIZONTAL),
 						new Pattern(DyeColor.YELLOW, PatternType.STRIPE_CENTER)),
 				null),
 		PEACE_LIGHT_GREEN("❂Vert Clair", "§a❂", new BannerCreator("§a", null, 1, false), DyeColor.LIME,
-				(List<Pattern>) Arrays.asList(new Pattern(DyeColor.YELLOW, PatternType.STRIPE_DOWNLEFT),
+				Arrays.asList(new Pattern(DyeColor.YELLOW, PatternType.STRIPE_DOWNLEFT),
 						new Pattern(DyeColor.YELLOW, PatternType.STRIPE_DOWNRIGHT),
 						new Pattern(DyeColor.LIME, PatternType.HALF_HORIZONTAL),
 						new Pattern(DyeColor.YELLOW, PatternType.STRIPE_CENTER)),

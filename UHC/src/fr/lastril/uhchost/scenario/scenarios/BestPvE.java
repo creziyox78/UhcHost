@@ -1,9 +1,11 @@
 package fr.lastril.uhchost.scenario.scenarios;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.UUID;
-
+import fr.lastril.uhchost.UhcHost;
+import fr.lastril.uhchost.player.events.GameStartEvent;
+import fr.lastril.uhchost.player.events.PlayerKillEvent;
+import fr.lastril.uhchost.scenario.Scenario;
+import fr.lastril.uhchost.scenario.Scenarios;
+import fr.lastril.uhchost.tools.I18n;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -12,12 +14,9 @@ import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 import org.bukkit.plugin.Plugin;
 
-import fr.lastril.uhchost.UhcHost;
-import fr.lastril.uhchost.player.events.GameStartEvent;
-import fr.lastril.uhchost.player.events.PlayerKillEvent;
-import fr.lastril.uhchost.scenario.Scenario;
-import fr.lastril.uhchost.scenario.Scenarios;
-import fr.lastril.uhchost.tools.I18n;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.UUID;
 
 public class BestPvE extends Scenario implements Runnable {
 

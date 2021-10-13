@@ -1,14 +1,13 @@
 package fr.lastril.uhchost.scenario.scenarios;
 
-import java.util.Arrays;
-
+import fr.lastril.uhchost.scenario.Scenario;
+import fr.lastril.uhchost.tools.I18n;
 import org.bukkit.Material;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.inventory.ItemStack;
 
-import fr.lastril.uhchost.scenario.Scenario;
-import fr.lastril.uhchost.tools.I18n;
+import java.util.Arrays;
 
 public class BleedingSweets extends Scenario {
 

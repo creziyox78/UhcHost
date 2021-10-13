@@ -1,8 +1,8 @@
 package fr.lastril.uhchost.scenario.scenarios;
 
-import java.util.Arrays;
-import java.util.Random;
-
+import fr.lastril.uhchost.scenario.Scenario;
+import fr.lastril.uhchost.scenario.gui.BowSwapGui;
+import fr.lastril.uhchost.tools.I18n;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Sound;
@@ -11,9 +11,8 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 
-import fr.lastril.uhchost.scenario.Scenario;
-import fr.lastril.uhchost.scenario.gui.BowSwapGui;
-import fr.lastril.uhchost.tools.I18n;
+import java.util.Arrays;
+import java.util.Random;
 
 public class BowSwap extends Scenario {
 

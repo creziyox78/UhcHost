@@ -1,16 +1,17 @@
 package fr.lastril.uhchost.tools.creators;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
-
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.SkullMeta;
+import org.bukkit.material.MaterialData;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 
 public class ItemsCreator {
 
@@ -40,32 +41,34 @@ public class ItemsCreator {
 	}
 
 	public ItemsCreator(Material m, String name, List<String> lores, int amount) {
+		if (amount == 0)
+			amount++;
 		this.m = m;
 		this.name = name;
 		this.lores = lores;
 		this.amount = amount;
-		this.data = 0;
 	}
 
 	public ItemsCreator(Material m, String name, List<String> lores) {
+		if (amount == 0)
+			amount++;
 		this.m = m;
 		this.name = name;
 		this.lores = lores;
-		this.amount = 1;
-		this.data = 0;
 	}
 
-	public void addEnchantment(Enchantment enchant, int level) {
+	public ItemsCreator addEnchantment(Enchantment enchant, int level) {
 		if (this.enchants != null) {
 			this.enchants.put(enchant, Integer.valueOf(level));
 		} else {
 			this.enchants = new HashMap<>();
 			this.enchants.put(enchant, Integer.valueOf(level));
 		}
+		return this;
 	}
 
 	public ItemStack create() {
-		ItemStack is = new ItemStack(this.m, this.amount, (short) this.data);
+		ItemStack is = new ItemStack(this.m, this.amount, this.data);
 		ItemMeta meta = is.getItemMeta();
 		if (this.name != null)
 			meta.setDisplayName(this.name);
@@ -74,23 +77,23 @@ public class ItemsCreator {
 		is.setItemMeta(meta);
 		if (this.enchants != null)
 			for (Map.Entry<Enchantment, Integer> entry : this.enchants.entrySet()) {
-				if (((Integer) entry.getValue()).intValue() == 250) {
-					is.addUnsafeEnchantment(entry.getKey(), ((Integer) entry.getValue()).intValue());
+				if (entry.getValue().intValue() == 250) {
+					is.addUnsafeEnchantment(entry.getKey(), entry.getValue().intValue());
 					continue;
 				}
-				is.addEnchantment(entry.getKey(), ((Integer) entry.getValue()).intValue());
+				is.addEnchantment(entry.getKey(), entry.getValue().intValue());
 			}
 		return is;
 	}
 
 	public ItemStack createHead(String owner) {
-		ItemStack is = new ItemStack(Material.SKULL_ITEM, this.amount, (short) 3);
+		ItemStack is = new ItemStack(Material.SKULL_ITEM, this.amount, (byte) 3);
 		SkullMeta meta = (SkullMeta) is.getItemMeta();
 		meta.setOwner(owner);
 		meta.setDisplayName(this.name);
 		if (this.lores != null)
 			meta.setLore(this.lores);
-		is.setItemMeta((ItemMeta) meta);
+		is.setItemMeta(meta);
 		return is;
 	}
 	
@@ -103,7 +106,7 @@ public class ItemsCreator {
 		meta.setDisplayName(this.name);
 		if (this.lores != null)
 			meta.setLore(this.lores);
-		is.setItemMeta((ItemMeta) meta);
+		is.setItemMeta(meta);
 		return is;
 	}
 
@@ -111,8 +114,9 @@ public class ItemsCreator {
 		return this.m;
 	}
 
-	public void setMaterial(Material m) {
+	public ItemsCreator setMaterial(Material m) {
 		this.m = m;
+		return this;
 	}
 
 	public String getName() {
@@ -127,32 +131,36 @@ public class ItemsCreator {
 		return this.lores;
 	}
 
-	public void setLores(List<String> lores) {
+	public ItemsCreator setLores(List<String> lores) {
 		this.lores = lores;
+		return this;
 	}
 
 	public Map<Enchantment, Integer> getEnchants() {
 		return this.enchants;
 	}
 
-	public void setEnchants(Map<Enchantment, Integer> enchants) {
+	public ItemsCreator setEnchants(Map<Enchantment, Integer> enchants) {
 		this.enchants = enchants;
+		return this;
 	}
 
 	public int getAmount() {
 		return this.amount;
 	}
 
-	public void setAmount(int amount) {
+	public ItemsCreator setAmount(int amount) {
 		this.amount = amount;
+		return this;
 	}
 
 	public byte getData() {
 		return this.data;
 	}
 
-	public void setData(byte data) {
+	public ItemsCreator setData(byte data) {
 		this.data = data;
+		return this;
 	}
 
 }

@@ -1,10 +1,9 @@
 package fr.lastril.uhchost.player.events.normal;
 
+import fr.lastril.uhchost.UhcHost;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.world.PortalCreateEvent;
-
-import fr.lastril.uhchost.UhcHost;
 
 public class Portal implements Listener {
 

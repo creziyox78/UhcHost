@@ -1,9 +1,9 @@
 package fr.lastril.uhchost.world;
 
-import java.io.File;
-
 import org.bukkit.World;
 import org.bukkit.WorldBorder;
+
+import java.io.File;
 
 public class WorldSettings {
 	public static void setSettings(World world) {

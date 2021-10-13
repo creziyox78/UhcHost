@@ -1,9 +1,9 @@
 package fr.lastril.uhchost.scoreboard;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
-
+import fr.lastril.uhchost.UhcHost;
+import fr.lastril.uhchost.game.tasks.TaskManager;
+import fr.lastril.uhchost.modes.roles.RoleAnnounceMode;
+import fr.lastril.uhchost.tools.I18n;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
@@ -11,8 +11,9 @@ import org.bukkit.scoreboard.Scoreboard;
 import org.bukkit.scoreboard.Team;
 import org.bukkit.util.Vector;
 
-import fr.lastril.uhchost.UhcHost;
-import fr.lastril.uhchost.tools.I18n;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
 
 public class ScoreboardUtils {
 
@@ -22,7 +23,7 @@ public class ScoreboardUtils {
 
 	private Map<UUID, ScoreboardSign> sbs = new HashMap<>();
 
-	private String prefix;
+	private String name;
 
 	private String startIn;
 
@@ -46,10 +47,6 @@ public class ScoreboardUtils {
 
 	private String teleport;
 
-	private String teamsOf;
-
-	private String solo;
-
 	private String team;
 
 	private String host;
@@ -60,11 +57,8 @@ public class ScoreboardUtils {
 
 	private String playersInTeamEnd;
 
-	private int lastTo = 1;
-
 	public ScoreboardUtils(UhcHost pl) {
 		this.pl = pl;
-		this.prefix = I18n.tl("scoreboard.prefix", new String[0]);
 		this.startIn = I18n.tl("scoreboard.startIn", new String[0]);
 		this.players = I18n.tl("scoreboard.players", new String[0]);
 		this.credit = "§cPlugin by Lastril";
@@ -76,8 +70,6 @@ public class ScoreboardUtils {
 		this.actived = I18n.tl("scoreboard.actived", new String[0]);
 		this.activedFem = I18n.tl("scoreboard.activedFem", new String[0]);
 		this.teleport = I18n.tl("scoreboard.teleport", new String[0]);
-		this.teamsOf = I18n.tl("scoreboard.teamsOf", new String[0]);
-		this.solo = I18n.tl("scoreboard.solo", new String[0]);
 		this.team = I18n.tl("scoreboard.team", new String[0]);
 		this.host = I18n.tl("scoreboard.host", new String[0]);
 		this.waitForPlayers = I18n.tl("scoreboard.waitForPlayers", new String[0]);
@@ -95,33 +87,37 @@ public class ScoreboardUtils {
 	}
 
 	public void updateLobby(Player player, int count) {
+		this.name = pl.getGamemanager().getGameName();
 		ScoreboardSign sb;
 		if (this.sbs.containsKey(player.getUniqueId())) {
 			sb = this.sbs.get(player.getUniqueId());
-			if (sb.getObjectiveName().contains(this.prefix + this.teamsOf)
+			sb.setObjectiveName(this.name);
+			/*if (sb.getObjectiveName().contains(this.name + this.teamsOf)
 					&& this.pl.teamUtils.getPlayersPerTeams() == 1) {
-				sb.setObjectiveName(this.prefix + this.solo);
-			} else if (sb.getObjectiveName().contains(this.prefix + this.teamsOf)
+				sb.setObjectiveName(this.name + this.solo);
+			} else if (sb.getObjectiveName().contains(this.name + this.teamsOf)
 					&& this.pl.teamUtils.getPlayersPerTeams() != this.lastTo) {
-				sb.setObjectiveName(this.prefix + this.teamsOf + this.pl.teamUtils.getPlayersPerTeams());
+				sb.setObjectiveName(this.name + this.teamsOf + this.pl.teamUtils.getPlayersPerTeams());
 				this.lastTo = this.pl.teamUtils.getPlayersPerTeams();
-			} else if (sb.getObjectiveName().equalsIgnoreCase(this.prefix + this.solo)
+			} else if (sb.getObjectiveName().equalsIgnoreCase(this.name + this.solo)
 					&& this.pl.teamUtils.getPlayersPerTeams() != 1) {
-				sb.setObjectiveName(this.prefix + this.teamsOf + this.pl.teamUtils.getPlayersPerTeams());
+				sb.setObjectiveName(this.name + this.teamsOf + this.pl.teamUtils.getPlayersPerTeams());
 				this.lastTo = this.pl.teamUtils.getPlayersPerTeams();
-			}
+			}*/
 		} else {
-			if (this.pl.teamUtils.getPlayersPerTeams() != 1) {
-				sb = new ScoreboardSign(player, this.prefix + this.teamsOf + this.pl.teamUtils.getPlayersPerTeams());
+			sb = new ScoreboardSign(player, this.name);
+			/*if (this.pl.teamUtils.getPlayersPerTeams() != 1) {
+				sb = new ScoreboardSign(player, this.name + this.teamsOf + this.pl.teamUtils.getPlayersPerTeams());
 			} else {
-				sb = new ScoreboardSign(player, this.prefix + this.solo);
-			}
+				sb = new ScoreboardSign(player, this.name + this.solo);
+			}*/
 			sb.create();
 			this.sbs.put(player.getUniqueId(), sb);
 		}
 		int line = 0;
 		sb.setLine(line++, "§1");
-		if (this.pl.gameManager.getPlayers().size() < this.pl.gameManager.getPlayersBeforeStart()) {
+		sb.setLine(line++, "§bMode: " + pl.gameManager.getModes().getName());
+		if (this.pl.getPlayerManagerAlives().size() < this.pl.gameManager.getPlayersBeforeStart()) {
 			sb.setLine(line++, this.waitForPlayers);
 		} else {
 			sb.setLine(line++, this.startIn + count);
@@ -135,7 +131,7 @@ public class ScoreboardUtils {
 					: (t.getName() + this.playersInTeam + t.getEntries().size() + this.playersInTeamEnd)));
 			sb.setLine(line++, "§3");
 		}
-		sb.setLine(line++, this.players + this.pl.gameManager.getPlayers().size() + "/" + this.pl.gameManager.getMaxPlayers());
+		sb.setLine(line++, this.players + this.pl.getPlayerManagerOnlines().size() + "/" + this.pl.gameManager.getMaxPlayers());
 
 		sb.setLine(line++, "§8§m                   §r");
 		sb.setLine(line++, this.credit);
@@ -144,22 +140,24 @@ public class ScoreboardUtils {
 
 	public void updatePreGame(Player player, int count) {
 		ScoreboardSign sb;
+		this.name = pl.getGamemanager().getGameName();
 		if (this.sbs.containsKey(player.getUniqueId())) {
 			sb = this.sbs.get(player.getUniqueId());
-			if (sb.getObjectiveName()
-					.equalsIgnoreCase(this.prefix + this.teamsOf + this.pl.teamUtils.getPlayersPerTeams())
+			/*if (sb.getObjectiveName()
+					.equalsIgnoreCase(this.name + this.teamsOf + this.pl.teamUtils.getPlayersPerTeams())
 					&& this.pl.teamUtils.getPlayersPerTeams() == 1) {
-				sb.setObjectiveName(this.prefix + this.solo);
-			} else if (sb.getObjectiveName().equalsIgnoreCase(this.prefix + this.solo)
+				sb.setObjectiveName(this.name + this.solo);
+			} else if (sb.getObjectiveName().equalsIgnoreCase(this.name + this.solo)
 					&& this.pl.teamUtils.getPlayersPerTeams() != 1) {
-				sb.setObjectiveName(this.prefix + this.teamsOf + this.pl.teamUtils.getPlayersPerTeams());
-			}
+				sb.setObjectiveName(this.name + this.teamsOf + this.pl.teamUtils.getPlayersPerTeams());
+			}*/
 		} else {
-			if (this.pl.teamUtils.getPlayersPerTeams() != 1) {
-				sb = new ScoreboardSign(player, this.prefix + this.teamsOf + this.pl.teamUtils.getPlayersPerTeams());
+			sb = new ScoreboardSign(player, this.name);
+			/*if (this.pl.teamUtils.getPlayersPerTeams() != 1) {
+				sb = new ScoreboardSign(player, this.name + this.teamsOf + this.pl.teamUtils.getPlayersPerTeams());
 			} else {
-				sb = new ScoreboardSign(player, this.prefix + this.solo);
-			}
+				sb = new ScoreboardSign(player, this.name + this.solo);
+			}*/
 			sb.create();
 			this.sbs.put(player.getUniqueId(), sb);
 		}
@@ -177,7 +175,7 @@ public class ScoreboardUtils {
 			sb.setLine(line++, "");
 		}
 
-		sb.setLine(line++, this.players + this.pl.gameManager.getPlayers().size());
+		sb.setLine(line++, this.players + this.pl.getPlayerManagerOnlines().size());
 		sb.setLine(line++, "§8§m                   §r");
 		sb.setLine(line++, this.credit);
 		sb.setLine(line++, this.ip);
@@ -186,35 +184,41 @@ public class ScoreboardUtils {
 
 	public void updateGame(Player player, int count) {
 		ScoreboardSign sb;
+		this.name = pl.getGamemanager().getGameName();
 		if (this.sbs.containsKey(player.getUniqueId())) {
 			sb = this.sbs.get(player.getUniqueId());
-			if (sb.getObjectiveName()
-					.equalsIgnoreCase(this.prefix + this.teamsOf + this.pl.teamUtils.getPlayersPerTeams())
+			sb.setObjectiveName(this.name);
+			/*if (sb.getObjectiveName()
+					.equalsIgnoreCase(this.name + this.teamsOf + this.pl.teamUtils.getPlayersPerTeams())
 					&& this.pl.teamUtils.getPlayersPerTeams() == 1) {
-				sb.setObjectiveName(this.prefix + this.solo);
-			} else if (sb.getObjectiveName().equalsIgnoreCase(this.prefix + this.solo)
+				sb.setObjectiveName(this.name + this.solo);
+			} else if (sb.getObjectiveName().equalsIgnoreCase(this.name + this.solo)
 					&& this.pl.teamUtils.getPlayersPerTeams() != 1) {
-				sb.setObjectiveName(this.prefix + this.teamsOf + this.pl.teamUtils.getPlayersPerTeams());
-			}
+				sb.setObjectiveName(this.name + this.teamsOf + this.pl.teamUtils.getPlayersPerTeams());
+			}*/
 		} else {
-			if (this.pl.teamUtils.getPlayersPerTeams() != 1) {
-				sb = new ScoreboardSign(player, this.prefix + this.teamsOf + this.pl.teamUtils.getPlayersPerTeams());
+			sb = new ScoreboardSign(player, this.name);
+			/*if (this.pl.teamUtils.getPlayersPerTeams() != 1) {
+				sb = new ScoreboardSign(player, this.name + this.teamsOf + this.pl.teamUtils.getPlayersPerTeams());
 			} else {
-				sb = new ScoreboardSign(player, this.prefix + this.solo);
-			}
+				sb = new ScoreboardSign(player, this.name + this.solo);
+			}*/
 			sb.create();
 			this.sbs.put(player.getUniqueId(), sb);
 		}
 		int line = 0;
 		if (this.pl.gameManager.getHost() != null)
 			sb.setLine(line++, this.host + this.pl.gameManager.getHost().getName());
+
 		sb.setLine(line++, "§r");
 		Location loc = this.pl.worldUtils.getCenter().getWorld().getHighestBlockAt(
 				this.pl.worldUtils.getCenter().getBlockX(), this.pl.worldUtils.getCenter().getBlockZ()).getLocation();
 		loc.setY(player.getLocation().getY());
-		sb.setLine(line++,
-				this.spawn + getDirectionTo(player, loc) + " (" + (int) player.getLocation().distance(loc) + ")");
-		sb.setLine(line++, this.players + this.pl.gameManager.getPlayers().size());
+		if(player.getWorld() == loc.getWorld())
+			sb.setLine(line++, this.spawn + getDirectionOf(player.getLocation(), loc) + " (" + (int) player.getLocation().distance(loc.add(0, player.getLocation().getY(), 0)) + ")");
+		else
+			sb.setLine(line++, this.spawn + "?");
+		sb.setLine(line++, this.players + this.pl.getPlayerManagerAlives().size());
 		if (this.pl.teamUtils.getPlayersPerTeams() != 1)
 			sb.setLine(line++,
 					this.team + ((this.pl.teamUtils.getTeam(player) == null) ? "-"
@@ -222,13 +226,31 @@ public class ScoreboardUtils {
 									+ this.pl.teamUtils.getTeam(player).getEntries().size() + this.playersInTeamEnd)));
 		sb.setLine(line++, "§r");
 		if (count / 60 < 10 && count % 60 < 10) {
-			sb.setLine(line++, this.time + (count / 60) + ":0" + (count % 60));
+			sb.setLine(line++, this.time + "0" + (count / 60) + ":0" + (count % 60));
 		} else if (count / 60 < 10) {
-			sb.setLine(line++, this.time + (count / 60) + ":" + (count % 60));
+			sb.setLine(line++, this.time + "0" + (count / 60) + ":" + (count % 60));
 		} else if (count % 60 < 10) {
 			sb.setLine(line++, this.time + (count / 60) + ":0" + (count % 60));
 		} else {
 			sb.setLine(line++, this.time + (count / 60) + ":" + (count % 60));
+		}
+		if (this.pl.gameManager.getModes().getMode() instanceof RoleAnnounceMode) {
+			RoleAnnounceMode roleAnnounceMode = (RoleAnnounceMode) this.pl.gameManager.getModes().getMode();
+			int roleTime = roleAnnounceMode.getRoleAnnouncement();
+
+			if(!roleAnnounceMode.isRoleAnnonced(roleTime)){
+				if (roleTime / 60 < 10 && roleTime % 60 < 10) {
+					sb.setLine(line++, "§3Rôles:§b " + "0" + (roleTime / 60) + ":0" + (roleTime % 60));
+				} else if (roleTime / 60 < 10) {
+					sb.setLine(line++, "§3Rôles:§b " + "0" + (roleTime / 60) + ":" + (roleTime % 60));
+				} else if (roleTime % 60 < 10) {
+					sb.setLine(line++, "§3Rôles:§b " + (roleTime / 60) + ":0" + (roleTime % 60));
+				} else {
+					sb.setLine(line++, "§3Rôles:§b " + (roleTime / 60) + ":" + (roleTime % 60));
+				}
+			} else {
+				sb.setLine(line++, "§3Rôles:§b " + this.actived);
+			}
 		}
 		if (!this.pl.gameManager.isPvp()) {
 			int pvpTime = this.pl.taskManager.getPvpTime() - count;
@@ -285,42 +307,37 @@ public class ScoreboardUtils {
 		return this.board;
 	}
 
-	public String getDirectionTo(Player p, Location point) {
-		Location ploc = p.getLocation();
+	public String getDirectionOf(Location ploc, Location to) {
+		if(ploc.getWorld() != to.getWorld()) return "?";
 		ploc.setY(0.0D);
-		point.setY(0.0D);
-		Vector d = ploc.getDirection();
-		Vector v = point.subtract(ploc).toVector().normalize();
-		double a = Math.toDegrees(Math.atan2(d.getX(), d.getZ()));
-		a -= Math.toDegrees(Math.atan2(v.getX(), v.getZ()));
-		a = ((int) (a + 22.5D) % 360);
-		if (a < 0.0D)
-			a += 360.0D;
-		return "" + "⬆↗➡↘⬇↙↖⬅".charAt((int) a / 45);
-	}
+		to.setY(0.0D);
 
-	public String getColoredDirectionTo(Player p, Location point) {
-		Location ploc = p.getLocation();
-		ploc.setY(0.0D);
-		point.setY(0.0D);
+		String[] arrows = {"⬆", "⬈", "➡", "⬊", "⬇", "⬋", "⬅", "⬉", "⬆"};
 		Vector d = ploc.getDirection();
-		Vector v = point.subtract(ploc).toVector().normalize();
+
+		Vector v = to.subtract(ploc).toVector().normalize();
+
 		double a = Math.toDegrees(Math.atan2(d.getX(), d.getZ()));
 		a -= Math.toDegrees(Math.atan2(v.getX(), v.getZ()));
-		a = ((int) (a + 22.5D) % 360);
-		if (a < 0.0D)
+
+		a = ((int)(a + 22.5D) % 360);
+
+		if (a < 0.0D) {
 			a += 360.0D;
-		String s = "" + "⬆↗➡↘⬇↙↖⬅".charAt((int) a / 45);
-		int distance = (int) ploc.distance(point);
-		if (distance > 300)
-			return "§1" + s;
-		if (distance > 200 && distance < 300)
-			return "§9" + s;
-		if (distance > 100 && distance < 200)
-			return "§3" + s;
-		if (distance > 50 && distance < 100)
-			return "§c" + s;
-		return "§1" + s;
+		}
+
+		/*String color = "§4";
+		if(ploc.distance(to) > 750 && ploc.distance(to) < 1000) {
+			color = "§c";
+		}else if(ploc.distance(to) > 500 && ploc.distance(to) < 750) {
+			color = "§6";
+		}else if(ploc.distance(to) > 250 && ploc.distance(to) < 500) {
+			color = "§e";
+		}else if(ploc.distance(to) < 250) {
+			color = "§a";
+		}*/
+
+		return arrows[((int) a / 45)];
 	}
 
 }

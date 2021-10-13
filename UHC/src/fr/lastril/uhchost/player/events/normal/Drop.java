@@ -1,10 +1,9 @@
 package fr.lastril.uhchost.player.events.normal;
 
+import fr.lastril.uhchost.game.GameState;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerDropItemEvent;
-
-import fr.lastril.uhchost.game.GameState;
 
 public class Drop implements Listener {
 	@EventHandler

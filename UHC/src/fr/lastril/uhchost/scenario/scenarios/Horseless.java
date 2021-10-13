@@ -1,15 +1,14 @@
 package fr.lastril.uhchost.scenario.scenarios;
 
-import java.util.Arrays;
-
+import fr.lastril.uhchost.scenario.Scenario;
+import fr.lastril.uhchost.tools.I18n;
 import org.bukkit.Material;
 import org.bukkit.entity.Horse;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.spigotmc.event.entity.EntityMountEvent;
 
-import fr.lastril.uhchost.scenario.Scenario;
-import fr.lastril.uhchost.tools.I18n;
+import java.util.Arrays;
 
 public class Horseless extends Scenario {
 	

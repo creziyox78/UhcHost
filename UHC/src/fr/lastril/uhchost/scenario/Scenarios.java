@@ -1,42 +1,7 @@
 package fr.lastril.uhchost.scenario;
 
+import fr.lastril.uhchost.scenario.scenarios.*;
 import org.bukkit.Material;
-
-import fr.lastril.uhchost.scenario.scenarios.BestPvE;
-import fr.lastril.uhchost.scenario.scenarios.BleedingSweets;
-import fr.lastril.uhchost.scenario.scenarios.Blitz;
-import fr.lastril.uhchost.scenario.scenarios.BloodDiamond;
-import fr.lastril.uhchost.scenario.scenarios.Bookception;
-import fr.lastril.uhchost.scenario.scenarios.BowSwap;
-import fr.lastril.uhchost.scenario.scenarios.CatEyes;
-import fr.lastril.uhchost.scenario.scenarios.CutClean;
-import fr.lastril.uhchost.scenario.scenarios.Diamondless;
-import fr.lastril.uhchost.scenario.scenarios.DoubleOres;
-import fr.lastril.uhchost.scenario.scenarios.FastMelting;
-import fr.lastril.uhchost.scenario.scenarios.GoToHell;
-import fr.lastril.uhchost.scenario.scenarios.Goldless;
-import fr.lastril.uhchost.scenario.scenarios.GoneFishin;
-import fr.lastril.uhchost.scenario.scenarios.HasteyBoy;
-import fr.lastril.uhchost.scenario.scenarios.Horseless;
-import fr.lastril.uhchost.scenario.scenarios.InfiniteEnchanter;
-import fr.lastril.uhchost.scenario.scenarios.NoBow;
-import fr.lastril.uhchost.scenario.scenarios.NoCleanUp;
-import fr.lastril.uhchost.scenario.scenarios.NoEnchant;
-import fr.lastril.uhchost.scenario.scenarios.NoFall;
-import fr.lastril.uhchost.scenario.scenarios.NoFood;
-import fr.lastril.uhchost.scenario.scenarios.OnlyOneWinner;
-import fr.lastril.uhchost.scenario.scenarios.RKE;
-import fr.lastril.uhchost.scenario.scenarios.RandomCraft;
-import fr.lastril.uhchost.scenario.scenarios.RandomLoot;
-import fr.lastril.uhchost.scenario.scenarios.Regen;
-import fr.lastril.uhchost.scenario.scenarios.Rodless;
-import fr.lastril.uhchost.scenario.scenarios.SkyHigh;
-import fr.lastril.uhchost.scenario.scenarios.SuperHeroes;
-import fr.lastril.uhchost.scenario.scenarios.Swordless;
-import fr.lastril.uhchost.scenario.scenarios.Timber;
-import fr.lastril.uhchost.scenario.scenarios.TimeBomb;
-import fr.lastril.uhchost.scenario.scenarios.TripleOres;
-import fr.lastril.uhchost.scenario.scenarios.VanillaPlus;
 
 public enum Scenarios {
 	
@@ -49,6 +14,7 @@ public enum Scenarios {
 	CATEEYES((Scenario) new CatEyes()),
 	CUTCLEAN((Scenario) new CutClean()),
 	DIAMONDLESS((Scenario) new Diamondless()),
+	DIAMONDLIMIT((Scenario) new DiamondLimit()),
 	DOUBLEORES((Scenario) new DoubleOres()),
 	FASTMELTING((Scenario) new FastMelting()),
 	GOLDLESS((Scenario) new Goldless()),

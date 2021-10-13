@@ -1,18 +1,14 @@
 package fr.lastril.uhchost.world;
 
-import org.bukkit.WorldBorder;
-
 import fr.lastril.uhchost.UhcHost;
+import org.bukkit.WorldBorder;
 
 public class WorldBorderUtils {
 
-	private int startSize = 2000, speed = 4, finalSize = 50;
+	private int startSize = 1000, speed = 2, finalSize = 50;
 
 	public WorldBorderUtils() {
-		WorldBorder wb = (UhcHost.getInstance()).worldUtils.getWorld().getWorldBorder();
-		wb.reset();
-		wb.setSize(startSize);
-		wb = (UhcHost.getInstance()).worldUtils.getNether().getWorldBorder();
+		WorldBorder wb = (UhcHost.getInstance()).worldUtils.getNether().getWorldBorder();
 		wb.reset();
 		wb.setSize(startSize);
 		wb = (UhcHost.getInstance()).worldUtils.getEnd().getWorldBorder();
@@ -25,19 +21,19 @@ public class WorldBorderUtils {
 		wb.setCenter(0.0D, 0.0D);
 		wb.setSize(size);
 		wb.setDamageAmount(2.0D);
-		wb.setDamageBuffer(5.0D);
+		wb.setDamageBuffer(0D);
 		wb.setWarningDistance(20);
 		wb = (UhcHost.getInstance()).worldUtils.getNether().getWorldBorder();
 		wb.setCenter(0.0D, 0.0D);
 		wb.setSize(size);
 		wb.setDamageAmount(2.0D);
-		wb.setDamageBuffer(5.0D);
+		wb.setDamageBuffer(0D);
 		wb.setWarningDistance(20);
 		wb = (UhcHost.getInstance()).worldUtils.getEnd().getWorldBorder();
 		wb.setCenter(0.0D, 0.0D);
 		wb.setSize(size);
 		wb.setDamageAmount(2.0D);
-		wb.setDamageBuffer(5.0D);
+		wb.setDamageBuffer(0D);
 		wb.setWarningDistance(20);
 	}
 
@@ -46,19 +42,19 @@ public class WorldBorderUtils {
 		wb.setCenter(0.0D, 0.0D);
 		wb.setSize(size, time);
 		wb.setDamageAmount(2.0D);
-		wb.setDamageBuffer(5.0D);
+		wb.setDamageBuffer(0D);
 		wb.setWarningDistance(20);
 		wb = (UhcHost.getInstance()).worldUtils.getNether().getWorldBorder();
 		wb.setCenter(0.0D, 0.0D);
 		wb.setSize(size, time);
 		wb.setDamageAmount(2.0D);
-		wb.setDamageBuffer(5.0D);
+		wb.setDamageBuffer(0D);
 		wb.setWarningDistance(20);
 		wb = (UhcHost.getInstance()).worldUtils.getEnd().getWorldBorder();
 		wb.setCenter(0.0D, 0.0D);
 		wb.setSize(size, time);
 		wb.setDamageAmount(2.0D);
-		wb.setDamageBuffer(5.0D);
+		wb.setDamageBuffer(0D);
 		wb.setWarningDistance(20);
 	}
 

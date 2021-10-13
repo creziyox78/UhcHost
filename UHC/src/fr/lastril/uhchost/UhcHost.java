@@ -1,74 +1,56 @@
 package fr.lastril.uhchost;
 
-import java.io.File;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-
-import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
-import org.bukkit.Location;
-import org.bukkit.World;
-import org.bukkit.WorldCreator;
-import org.bukkit.WorldType;
-import org.bukkit.command.CommandExecutor;
-import org.bukkit.event.Event;
-import org.bukkit.event.Listener;
-import org.bukkit.event.player.PlayerJoinEvent;
-import org.bukkit.plugin.Plugin;
-import org.bukkit.plugin.java.JavaPlugin;
-import org.bukkit.plugin.messaging.PluginMessageListener;
-import org.bukkit.scheduler.BukkitRunnable;
-
 import fr.lastril.uhchost.bungeecord.PluginMessage;
+import fr.lastril.uhchost.commands.CmdMode;
 import fr.lastril.uhchost.commands.CommandHost;
 import fr.lastril.uhchost.commands.CommandRules;
 import fr.lastril.uhchost.game.GameManager;
 import fr.lastril.uhchost.game.GameState;
-import fr.lastril.uhchost.game.mode.Warzone;
 import fr.lastril.uhchost.game.tasks.TaskManager;
+import fr.lastril.uhchost.inventory.CustomInv;
+import fr.lastril.uhchost.modes.Modes;
+import fr.lastril.uhchost.modes.command.ModeCommand;
+import fr.lastril.uhchost.player.events.interact.InteractCheckWorld;
+import fr.lastril.uhchost.tools.API.clickable_messages.ClickableMessageManager;
+import fr.lastril.uhchost.tools.InventoryUtils;
+import fr.lastril.uhchost.tools.NotStart;
 import fr.lastril.uhchost.player.PlayerManager;
 import fr.lastril.uhchost.player.events.custom.GameStart;
-import fr.lastril.uhchost.player.events.menu.InteractEnchant;
-import fr.lastril.uhchost.player.events.menu.InteractMain;
-import fr.lastril.uhchost.player.events.menu.InteractRules;
-import fr.lastril.uhchost.player.events.menu.InteractTeam;
-import fr.lastril.uhchost.player.events.normal.BreakBlock;
-import fr.lastril.uhchost.player.events.normal.Damage;
-import fr.lastril.uhchost.player.events.normal.DeathPlayer;
-import fr.lastril.uhchost.player.events.normal.Drop;
-import fr.lastril.uhchost.player.events.normal.FoodLevel;
-import fr.lastril.uhchost.player.events.normal.Interact;
-import fr.lastril.uhchost.player.events.normal.Join;
-import fr.lastril.uhchost.player.events.normal.Move;
-import fr.lastril.uhchost.player.events.normal.OnPingServer;
-import fr.lastril.uhchost.player.events.normal.PlaceBlock;
-import fr.lastril.uhchost.player.events.normal.Portal;
-import fr.lastril.uhchost.player.events.normal.Quit;
-import fr.lastril.uhchost.player.events.normal.RespawnPlayer;
+import fr.lastril.uhchost.player.events.interact.InteractTeam;
+import fr.lastril.uhchost.player.events.normal.*;
 import fr.lastril.uhchost.scoreboard.ScoreboardUtils;
 import fr.lastril.uhchost.scoreboard.TeamUtils;
 import fr.lastril.uhchost.tools.I18n;
 import fr.lastril.uhchost.tools.Lang;
-import fr.lastril.uhchost.tools.inventory.CustomInv;
-import fr.lastril.uhchost.tools.inventory.NotStart;
 import fr.lastril.uhchost.tools.server.Tablist;
 import fr.lastril.uhchost.tools.server.TpsServer;
-import fr.lastril.uhchost.world.WorldBorderUtils;
-import fr.lastril.uhchost.world.WorldSettings;
-import fr.lastril.uhchost.world.WorldUtils;
+import fr.lastril.uhchost.world.*;
 import fr.lastril.uhchost.world.schematics.LobbyPopulator;
+import org.bukkit.*;
+import org.bukkit.command.PluginCommand;
+import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.plugin.java.JavaPlugin;
+
+import java.io.File;
+import java.util.*;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.stream.Collectors;
 
 public class UhcHost extends JavaPlugin {
 
+	private static final Random RANDOM = new Random();
 	public GameManager gameManager;
-
-	private PlayerManager playermanager;
 
 	public ScoreboardUtils scoreboardUtil;
 
-	private Warzone warzone;
+	private InventoryUtils inventoryUtils;
+
+	private ClickableMessageManager clickableMessageManager;
 
 	private NotStart notstart;
+
+	private Map<UUID, PlayerManager> playerManagers = new HashMap<>();
 
 	public WorldUtils worldUtils;
 
@@ -90,34 +72,33 @@ public class UhcHost extends JavaPlugin {
 
 	public void onEnable() {
 		instance = this;
-		File file = new File(getDataFolder() + "/schematics/");
-		if (!file.exists()) {
-			Bukkit.getConsoleSender().sendMessage("Creating schematics folder...");
-			file.mkdir();
-		}
 		saveDefaultConfig();
 		if (getConfig().getBoolean("bungeecord")) {
-			getServer().getMessenger().registerOutgoingPluginChannel((Plugin) this, "BungeeCord");
-			getServer().getMessenger().registerIncomingPluginChannel((Plugin) this, "BungeeCord",
-					(PluginMessageListener) new PluginMessage());
+			getServer().getMessenger().registerOutgoingPluginChannel(this, "BungeeCord");
+			getServer().getMessenger().registerIncomingPluginChannel(this, "BungeeCord",
+					new PluginMessage());
 		}
+
 		this.scheduledExecutorService = Executors.newScheduledThreadPool(16);
 		this.executorMonoThread = Executors.newScheduledThreadPool(1);
-		
-		
+
+		getServer().getPluginManager().registerEvents(new WorldInit(this, 0, 0), this);
 		setupI18n();
 		taskRegister();
 		setWorld();
 		commandsRegister();
 		eventsRegister();
 
-		Bukkit.getScheduler().runTaskLater((Plugin) this, new Runnable() {
-			public void run() {
-				Bukkit.getOnlinePlayers()
-						.forEach(p -> Bukkit.getPluginManager().callEvent((Event) new PlayerJoinEvent(p, null)));
-			}
-		}, 60L);
+		Bukkit.getScheduler().runTaskLater(this, () -> Bukkit.getOnlinePlayers()
+				.forEach(p -> Bukkit.getPluginManager().callEvent(new PlayerJoinEvent(p, null))), 60L);
 		Bukkit.getConsoleSender().sendMessage(ChatColor.GREEN + "[" + getName() + "] ON !");
+		this.gameManager.setGameState(GameState.LOBBY);
+	}
+
+	@Override
+	public void onLoad() {
+		new BiomeManager().removeBiomes();
+		super.onLoad();
 	}
 
 	private void setupI18n() {
@@ -127,35 +108,51 @@ public class UhcHost extends JavaPlugin {
 
 	public void onDisable() {
 		Bukkit.getScheduler().cancelAllTasks();
-
+		Bukkit.getConsoleSender().sendMessage(ChatColor.RED + "Deleting worlds...");
+		if(Bukkit.getWorld("game").getWorldFolder().exists())
+			WorldSettings.deleteWorld(Bukkit.getWorld("game").getWorldFolder());
 		Bukkit.getConsoleSender().sendMessage(ChatColor.RED + "[" + getName() + "] OFF !");
 	}
 
 	private void commandsRegister() {
-		getCommand("h").setExecutor((CommandExecutor) new CommandHost(this));
-		getCommand("host").setExecutor((CommandExecutor) new CommandHost(this));
+		Bukkit.getConsoleSender().sendMessage(ChatColor.YELLOW + "Register commands...");
+		getCommand("h").setExecutor(new CommandHost(this));
 		getCommand("scenarios").setExecutor(new CommandRules());
+
+		for (Modes mode : Modes.values()) {
+			if (mode.getMode() instanceof ModeCommand) {
+				ModeCommand modeCommand = (ModeCommand) mode.getMode();
+				PluginCommand command = getCommand(modeCommand.getCommandName());
+				CmdMode cmdMode = new CmdMode(this, modeCommand);
+				command.setExecutor(cmdMode);
+				command.setTabCompleter(cmdMode);
+			}
+		}
+		Bukkit.getConsoleSender().sendMessage(ChatColor.GREEN + "Commands registered !");
+
 	}
 
 	private void utilsRegister() {
 		this.notstart = new NotStart();
 		this.gameManager = new GameManager(this);
 		this.taskManager = new TaskManager(this);
+		this.inventoryUtils = new InventoryUtils(this);
+		this.taskManager.lobbyTask();
 		this.scoreboardUtil = new ScoreboardUtils(this);
-		this.gameManager.setGameState(GameState.LOBBY);
+		this.clickableMessageManager = new ClickableMessageManager(this);
+		this.gameManager.setGameState(GameState.REBUILDING);
 		this.gameManager.setHostname(ChatColor.RED + "" + ChatColor.BOLD + "Personne");
 		this.gameManager.setSlot(50);
 		CustomInv.createInventory();
 
-		UhcHost.this.scoreboardUtil = new ScoreboardUtils(UhcHost.instance);
-		UhcHost.this.teamUtils = new TeamUtils(UhcHost.instance, UhcHost.this.scoreboardUtil.getBoard());
+		this.scoreboardUtil = new ScoreboardUtils(this);
+		this.teamUtils = new TeamUtils(this, this.scoreboardUtil.getBoard());
 	}
 
-	@SuppressWarnings("deprecation")
 	private void taskRegister() {
 		try {
-			(new Tablist()).runTaskTimer((Plugin) this, 20L, 20L);
-			Bukkit.getServer().getScheduler().scheduleSyncRepeatingTask((Plugin) this, (BukkitRunnable) new TpsServer(),
+			(new Tablist()).runTaskTimer(this, 20L, 20L);
+			Bukkit.getServer().getScheduler().scheduleSyncRepeatingTask(this, new TpsServer(),
 					100L, 1L);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -163,24 +160,23 @@ public class UhcHost extends JavaPlugin {
 	}
 
 	private void eventsRegister() {
-		getServer().getPluginManager().registerEvents((Listener) new Join(this), (Plugin) this);
-		getServer().getPluginManager().registerEvents((Listener) new Interact(this.notstart), (Plugin) this);
-		getServer().getPluginManager().registerEvents((Listener) new FoodLevel(), (Plugin) this);
-		getServer().getPluginManager().registerEvents((Listener) new Damage(this), (Plugin) this);
-		getServer().getPluginManager().registerEvents((Listener) new OnPingServer(this), (Plugin) this);
-		getServer().getPluginManager().registerEvents((Listener) new DeathPlayer(this), (Plugin) this);
-		getServer().getPluginManager().registerEvents((Listener) new Quit(this), (Plugin) this);
-		getServer().getPluginManager().registerEvents((Listener) new Drop(), (Plugin) this);
-		getServer().getPluginManager().registerEvents((Listener) new BreakBlock(), (Plugin) this);
-		getServer().getPluginManager().registerEvents((Listener) new PlaceBlock(), (Plugin) this);
-		getServer().getPluginManager().registerEvents((Listener) new InteractMain(this), (Plugin) this);
-		getServer().getPluginManager().registerEvents((Listener) new InteractRules(), (Plugin) this);
-		getServer().getPluginManager().registerEvents((Listener) new InteractEnchant(), (Plugin) this);
-		getServer().getPluginManager().registerEvents((Listener) new InteractTeam(), (Plugin) this);
-		getServer().getPluginManager().registerEvents(new RespawnPlayer(), (Plugin) this);
-		getServer().getPluginManager().registerEvents(new Move(), (Plugin) this);
-		getServer().getPluginManager().registerEvents(new GameStart(this), (Plugin) this);
-		getServer().getPluginManager().registerEvents((Listener) new Portal(this), this);
+		getServer().getPluginManager().registerEvents(new Join(this), this);
+		getServer().getPluginManager().registerEvents(new Interact(this.notstart, this), this);
+		getServer().getPluginManager().registerEvents(new FoodLevel(), this);
+		getServer().getPluginManager().registerEvents(new Damage(this), this);
+		getServer().getPluginManager().registerEvents(new OnPingServer(this), this);
+		getServer().getPluginManager().registerEvents(new DeathPlayer(this), this);
+		getServer().getPluginManager().registerEvents(new Quit(this), this);
+		getServer().getPluginManager().registerEvents(new Drop(), this);
+		getServer().getPluginManager().registerEvents(new PreparePotion(this), this);
+		getServer().getPluginManager().registerEvents(new BreakBlock(), this);
+		getServer().getPluginManager().registerEvents(new PlaceBlock(), this);
+		getServer().getPluginManager().registerEvents(new InteractTeam(), this);
+		getServer().getPluginManager().registerEvents(new RespawnPlayer(), this);
+		getServer().getPluginManager().registerEvents(new Move(), this);
+		getServer().getPluginManager().registerEvents(new GameStart(this), this);
+		getServer().getPluginManager().registerEvents(new Portal(this), this);
+		getServer().getPluginManager().registerEvents(new InteractCheckWorld(this), this);
 	}
 
 	private void setWorld() {
@@ -190,34 +186,35 @@ public class UhcHost extends JavaPlugin {
 			spawn.environment(World.Environment.NORMAL);
 			spawn.type(WorldType.NORMAL);
 			Bukkit.createWorld(spawn);
-			Bukkit.getConsoleSender().sendMessage(ChatColor.GREEN + "Generation of the world, successful !");
+			Bukkit.getConsoleSender().sendMessage(ChatColor.GREEN + "Generation of the lobby, successful !");
 			utilsRegister();
 			Bukkit.getConsoleSender().sendMessage(ChatColor.YELLOW + "Loading schematic...");
-			File file = new File(getDataFolder() + "/schematics/lobby.schematic");
-			if (file.exists()) {
-				LobbyPopulator.generate((getGamemanager()).spawn, "/schematics/lobby.schematic");
-			} else {
-				Bukkit.getConsoleSender().sendMessage(ChatColor.GOLD + "File 'lobby.schematic' not exist !");
-			}
-			Bukkit.getConsoleSender().sendMessage(ChatColor.BLUE + "Starting preloading...");
-			WorldSettings.setSettings(Bukkit.getWorld("world"));
-			Bukkit.getScheduler().runTaskLater(this, new Runnable() {
-				public void run() {
-					(new Location(Bukkit.getWorld("world"), 0.0D, 200.0D, 0.0D)).getChunk().load(true);
-					Bukkit.setWhitelist(true);
+			File schematic = new File(getDataFolder() + "/schematics");
+			if(schematic.exists()){
+				File lobby = new File(getDataFolder() + "/schematics/lobby.schematic");
+				if (lobby.exists()) {
+					LobbyPopulator.generate((getGamemanager()).spawn, "/schematics/lobby.schematic");
+				} else {
+					Bukkit.getConsoleSender().sendMessage(ChatColor.GOLD + "File 'lobby.schematic' not exist !");
 				}
+			} else{
+				Bukkit.getConsoleSender().sendMessage(ChatColor.GOLD + "The file 'schematic' doesn't exist. Creating...");
+				schematic.mkdir();
+				Bukkit.getConsoleSender().sendMessage(ChatColor.GREEN + "File created !");
+			}
+			WorldSettings.setSettings(Bukkit.getWorld("world"));
+			Bukkit.getScheduler().runTaskLater(this, () -> {
+				new Location(Bukkit.getWorld("world"), 0.0D, 200.0D, 0.0D).getChunk().load(true);
+				Bukkit.setWhitelist(true);
 			}, 40L);
-			UhcHost.this.worldUtils = new WorldUtils(UhcHost.instance, Bukkit.getWorld("world"),
-					Bukkit.getWorld("world_nether"), Bukkit.getWorld("world_the_end"));
-			Bukkit.getConsoleSender().sendMessage(ChatColor.BLUE + "Set settings on worlds...");
+			this.worldUtils = new WorldUtils(this, Bukkit.getWorld("world_nether"), Bukkit.getWorld("world_the_end"));
+			Bukkit.getConsoleSender().sendMessage(ChatColor.YELLOW + "Set settings on worlds...");
 			Bukkit.getWorld(getConfig().getString("world_lobby")).setGameRuleValue("doMobSpawning", "false");
 			Bukkit.getWorld("world").setGameRuleValue("naturalRegeneration", "false");
 			Bukkit.getWorld("world_nether").setGameRuleValue("naturalRegeneration", "false");
 			Bukkit.getWorld("world_the_end").setGameRuleValue("naturalRegeneration", "false");
 			Bukkit.getConsoleSender().sendMessage(ChatColor.GREEN + "Settings set !");
-			UhcHost.this.worldBorderUtils = new WorldBorderUtils();
-
-			return;
+			this.worldBorderUtils = new WorldBorderUtils();
 		} catch (Exception e) {
 			Bukkit.getConsoleSender().sendMessage("");
 			Bukkit.getConsoleSender().sendMessage(ChatColor.RED + "Error when generating world !");
@@ -226,7 +223,6 @@ public class UhcHost extends JavaPlugin {
 			Bukkit.getConsoleSender().sendMessage("");
 			Bukkit.getConsoleSender().sendMessage(ChatColor.RED + "End of error !");
 			Bukkit.getConsoleSender().sendMessage("");
-			return;
 		}
 	}
 
@@ -242,11 +238,35 @@ public class UhcHost extends JavaPlugin {
 		return this.gameManager;
 	}
 
-	public Warzone getWarzone() {
-		return warzone;
+	public List<PlayerManager> getPlayerManagerAlives() {
+		return this.playerManagers.values().stream().filter(PlayerManager::isAlive).collect(Collectors.toList());
 	}
 
-	public PlayerManager getPlayermanager() {
-		return playermanager;
+	public List<PlayerManager> getPlayerManagerOnlines() {
+		return this.playerManagers.values().stream().filter(PlayerManager::isOnline).collect(Collectors.toList());
+	}
+
+	public PlayerManager getRandomPlayerManager() {
+		return new ArrayList<>(this.playerManagers.values()).get(RANDOM.nextInt(this.playerManagers.values().size()));
+	}
+
+	public PlayerManager getRandomPlayerManagerAlive() {
+		return this.getPlayerManagerAlives().get(RANDOM.nextInt(this.getPlayerManagerAlives().size()));
+	}
+
+	public static Random getRANDOM() {
+		return RANDOM;
+	}
+
+	public Map<UUID, PlayerManager> getAllPlayerManager() {
+		return playerManagers;
+	}
+
+	public PlayerManager getPlayerManager(UUID uuid) {
+		return playerManagers.get(uuid);
+	}
+
+	public InventoryUtils getInventoryUtils() {
+		return inventoryUtils;
 	}
 }

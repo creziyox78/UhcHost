@@ -1,12 +1,11 @@
 package fr.lastril.uhchost.player.events.normal;
 
+import fr.lastril.uhchost.game.GameState;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerMoveEvent;
-
-import fr.lastril.uhchost.game.GameState;
 
 public class Move implements Listener {
 

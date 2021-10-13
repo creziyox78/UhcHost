@@ -1,7 +1,9 @@
 package fr.lastril.uhchost.scenario.gui;
 
-import java.util.Arrays;
-
+import fr.lastril.uhchost.scenario.ScenariosGui;
+import fr.lastril.uhchost.scenario.scenarios.Goldless;
+import fr.lastril.uhchost.tools.I18n;
+import fr.lastril.uhchost.tools.creators.ItemsCreator;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -12,10 +14,7 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.inventory.ItemStack;
 
-import fr.lastril.uhchost.scenario.ScenariosGui;
-import fr.lastril.uhchost.scenario.scenarios.Goldless;
-import fr.lastril.uhchost.tools.I18n;
-import fr.lastril.uhchost.tools.creators.ItemsCreator;
+import java.util.Arrays;
 
 public class GoldlessGui extends TimerGui {
 

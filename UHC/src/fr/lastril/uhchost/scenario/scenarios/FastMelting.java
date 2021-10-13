@@ -1,7 +1,8 @@
 package fr.lastril.uhchost.scenario.scenarios;
 
-import java.util.Arrays;
-
+import fr.lastril.uhchost.UhcHost;
+import fr.lastril.uhchost.scenario.Scenario;
+import fr.lastril.uhchost.tools.I18n;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -10,9 +11,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.inventory.FurnaceBurnEvent;
 import org.bukkit.plugin.Plugin;
 
-import fr.lastril.uhchost.UhcHost;
-import fr.lastril.uhchost.scenario.Scenario;
-import fr.lastril.uhchost.tools.I18n;
+import java.util.Arrays;
 
 public class FastMelting extends Scenario {
 	

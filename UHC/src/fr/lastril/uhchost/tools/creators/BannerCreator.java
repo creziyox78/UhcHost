@@ -1,7 +1,5 @@
 package fr.lastril.uhchost.tools.creators;
 
-import java.util.List;
-
 import org.bukkit.DyeColor;
 import org.bukkit.Material;
 import org.bukkit.block.banner.Pattern;
@@ -9,6 +7,8 @@ import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.BannerMeta;
 import org.bukkit.inventory.meta.ItemMeta;
+
+import java.util.List;
 
 public class BannerCreator {
 

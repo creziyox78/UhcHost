@@ -1,14 +1,14 @@
 package fr.lastril.uhchost.tools;
 
-import java.io.File;
-import java.io.IOException;
-import java.text.MessageFormat;
-
 import org.apache.commons.io.FileUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.Plugin;
+
+import java.io.File;
+import java.io.IOException;
+import java.text.MessageFormat;
 
 public class I18n {
 
@@ -28,7 +28,7 @@ public class I18n {
 		File f = new File(plugin.getDataFolder() + File.separator + "lang",
 				"lang." + lang.getCode().toLowerCase() + ".yml");
 		if (f == null || !f.exists()) {
-			plugin.getLogger().warning("Le fichier lang." + lang.getCode().toLowerCase() + ".yml n'existe pas ! Creation en cours...");
+			plugin.getLogger().warning("The file lang." + lang.getCode().toLowerCase() + ".yml doesn't exist ! Creating...");
 			try {
 				f.createNewFile();
 				FileUtils.copyInputStreamToFile(plugin.getResource("lang." + lang.getCode().toLowerCase() + ".yml"), f);

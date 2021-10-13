@@ -1,0 +1,4 @@
+bungeecord: false
+server-redirection: "lobby"
+world_lobby: "lobby"
+lang: FRENCH

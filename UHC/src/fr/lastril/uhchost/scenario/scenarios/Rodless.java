@@ -1,16 +1,15 @@
 package fr.lastril.uhchost.scenario.scenarios;
 
-import java.util.Arrays;
-
+import fr.lastril.uhchost.scenario.Scenario;
+import fr.lastril.uhchost.tools.I18n;
+import fr.lastril.uhchost.tools.creators.ItemsCreator;
 import org.bukkit.Material;
 import org.bukkit.entity.EntityType;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.entity.ProjectileLaunchEvent;
 import org.bukkit.event.inventory.PrepareItemCraftEvent;
 
-import fr.lastril.uhchost.scenario.Scenario;
-import fr.lastril.uhchost.tools.I18n;
-import fr.lastril.uhchost.tools.creators.ItemsCreator;
+import java.util.Arrays;
 
 public class Rodless extends Scenario {
 

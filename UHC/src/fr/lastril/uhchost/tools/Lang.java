@@ -4,7 +4,7 @@ import java.util.HashMap;
 
 public enum Lang {
 	
-	FRENCH(0, "Fran�ais", "FR"), ENGLISH(1, "Anglais", "EN"), SPAINISH(2, "Espagnol", "SP");
+	FRENCH(0, "Français", "FR"), ENGLISH(1, "English", "EN"), SPAIN(2, "Spain", "SP");
 
 	private int id;
 

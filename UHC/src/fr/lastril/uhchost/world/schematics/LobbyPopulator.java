@@ -1,19 +1,18 @@
 package fr.lastril.uhchost.world.schematics;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.InputStream;
-import java.lang.reflect.Method;
-import java.util.ArrayList;
-
+import fr.lastril.uhchost.UhcHost;
+import net.minecraft.server.v1_8_R3.NBTCompressedStreamTools;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 
-import fr.lastril.uhchost.UhcHost;
-import net.minecraft.server.v1_8_R3.NBTCompressedStreamTools;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStream;
+import java.lang.reflect.Method;
+import java.util.ArrayList;
 
 public class LobbyPopulator {
 	

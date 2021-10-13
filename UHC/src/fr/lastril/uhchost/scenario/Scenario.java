@@ -1,15 +1,14 @@
 package fr.lastril.uhchost.scenario;
 
-import java.util.List;
-
+import fr.lastril.uhchost.UhcHost;
+import fr.lastril.uhchost.inventory.Gui;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.Plugin;
 
-import fr.lastril.uhchost.UhcHost;
-import fr.lastril.uhchost.tools.inventory.Gui;
+import java.util.List;
 
 public abstract class Scenario implements Listener {
 	private String name;

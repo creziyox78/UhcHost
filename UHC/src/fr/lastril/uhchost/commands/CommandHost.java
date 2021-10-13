@@ -1,18 +1,17 @@
 package fr.lastril.uhchost.commands;
 
+import fr.lastril.uhchost.UhcHost;
+import fr.lastril.uhchost.game.GameManager;
+import fr.lastril.uhchost.inventory.CustomInv;
+import fr.lastril.uhchost.tools.NotStart;
+import fr.lastril.uhchost.inventory.guis.enchant.CategoriesGui;
+import fr.lastril.uhchost.tools.API.ActionBar;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-
-import fr.lastril.uhchost.UhcHost;
-import fr.lastril.uhchost.game.GameManager;
-import fr.lastril.uhchost.tools.API.ActionBar;
-import fr.lastril.uhchost.tools.inventory.CustomInv;
-import fr.lastril.uhchost.tools.inventory.NotStart;
-import fr.lastril.uhchost.tools.inventory.guis.Enchant;
 
 public class CommandHost implements CommandExecutor {
 
@@ -37,10 +36,10 @@ public class CommandHost implements CommandExecutor {
 					if (!gameManager.isEditInv())
 						return false;
 					if (player.getItemInHand() != null && player.getItemInHand().getType() != Material.AIR) {
-						player.openInventory(Enchant.Categories(player, player.getItemInHand()));
+						new CategoriesGui(player).show();
 						return true;
 					}
-					player.sendMessage("ne possrien dans ta main !");
+					player.sendMessage("§cTu ne possède rien dans ta main !");
 					return false;
 				}
 				if (args[0].equalsIgnoreCase("save")) {
@@ -50,11 +49,10 @@ public class CommandHost implements CommandExecutor {
 					player.setGameMode(GameMode.ADVENTURE);
 					gameManager.setEditInv(false);
 					NotStart.PreHosting(player);
-					player.sendMessage("sauvegard!");
+					player.sendMessage("§aInventaire sauvegardé !");
 				}
 
 				if (args[0].equalsIgnoreCase("bypass")) {
-
 					if (args[1].equalsIgnoreCase("pvp")) {
 						this.pl.gameManager.setPvp(!this.pl.gameManager.isPvp());
 						if (this.pl.gameManager.isPvp()) {

@@ -1,8 +1,9 @@
 package fr.lastril.uhchost.tools;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import com.mojang.authlib.GameProfile;
+import com.mojang.authlib.properties.Property;
+import com.mojang.authlib.properties.PropertyMap;
+import org.bukkit.Bukkit;
 import org.bukkit.DyeColor;
 import org.bukkit.Material;
 import org.bukkit.block.banner.Pattern;
@@ -12,6 +13,12 @@ import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.BannerMeta;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.inventory.meta.SkullMeta;
+
+import java.lang.reflect.Field;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
 
 public class Items {
 	public static ItemStack getItemColored(Material material, String customName, byte color, boolean unbreakable) {
@@ -46,12 +53,12 @@ public class Items {
 				itM.setLore(customLore);
 			if (ench != null)
 				itM.addEnchant(ench, 1, true);
-			itM.addItemFlags(new ItemFlag[] { ItemFlag.HIDE_ATTRIBUTES });
-			itM.addItemFlags(new ItemFlag[] { ItemFlag.HIDE_DESTROYS });
-			itM.addItemFlags(new ItemFlag[] { ItemFlag.HIDE_ENCHANTS });
-			itM.addItemFlags(new ItemFlag[] { ItemFlag.HIDE_PLACED_ON });
-			itM.addItemFlags(new ItemFlag[] { ItemFlag.HIDE_POTION_EFFECTS });
-			itM.addItemFlags(new ItemFlag[] { ItemFlag.HIDE_UNBREAKABLE });
+			itM.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
+			itM.addItemFlags(ItemFlag.HIDE_DESTROYS);
+			itM.addItemFlags(ItemFlag.HIDE_ENCHANTS);
+			itM.addItemFlags(ItemFlag.HIDE_PLACED_ON);
+			itM.addItemFlags(ItemFlag.HIDE_POTION_EFFECTS);
+			itM.addItemFlags(ItemFlag.HIDE_UNBREAKABLE);
 		}
 		it.setItemMeta(itM);
 		return it;
@@ -91,4 +98,30 @@ public class Items {
 		banner.setItemMeta((ItemMeta) bannerM);
 		return banner;
 	}
+
+	public static ItemStack createHead(String owner, String name, int amount, List<String> lores) {
+		ItemStack is = new ItemStack(Material.SKULL_ITEM, amount, (short) 3);
+		GameProfile profile = new GameProfile(UUID.randomUUID(), null);
+		PropertyMap propertyMap = profile.getProperties();
+		propertyMap.put("textures", new Property("textures", owner));
+		SkullMeta skullMeta = (SkullMeta) is.getItemMeta();
+		Class<?> c_skullMeta = skullMeta.getClass();
+		try {
+			Field f_profile = c_skullMeta.getDeclaredField("profile");
+			f_profile.setAccessible(true);
+			f_profile.set(skullMeta, profile);
+			f_profile.setAccessible(false);
+			if (lores != null)
+				skullMeta.setLore(lores);
+			skullMeta.setDisplayName(name);
+			is.setItemMeta(skullMeta);
+		} catch (IllegalAccessException e) {
+			e.printStackTrace();
+		} catch (NoSuchFieldException e) {
+			e.printStackTrace();
+		}
+
+		return is;
+	}
+
 }

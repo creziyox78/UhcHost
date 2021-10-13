@@ -1,20 +1,14 @@
 package fr.lastril.uhchost.scenario.scenarios;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
-
+import fr.lastril.uhchost.player.events.GameStartEvent;
+import fr.lastril.uhchost.scenario.Scenario;
+import fr.lastril.uhchost.tools.I18n;
 import org.bukkit.Material;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.entity.ItemSpawnEvent;
 import org.bukkit.inventory.ItemStack;
 
-import fr.lastril.uhchost.player.events.GameStartEvent;
-import fr.lastril.uhchost.scenario.Scenario;
-import fr.lastril.uhchost.tools.I18n;
+import java.util.*;
 
 public class RandomLoot extends Scenario {
 

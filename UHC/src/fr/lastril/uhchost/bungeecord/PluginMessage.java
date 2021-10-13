@@ -1,13 +1,12 @@
 package fr.lastril.uhchost.bungeecord;
 
-import java.io.ByteArrayInputStream;
-import java.io.DataInputStream;
-import java.io.IOException;
-
+import fr.lastril.uhchost.tools.API.BungeeAPI;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.messaging.PluginMessageListener;
 
-import fr.lastril.uhchost.tools.API.BungeeAPI;
+import java.io.ByteArrayInputStream;
+import java.io.DataInputStream;
+import java.io.IOException;
 
 public class PluginMessage implements PluginMessageListener {
 	public void onPluginMessageReceived(String channel, Player player, byte[] message) {
