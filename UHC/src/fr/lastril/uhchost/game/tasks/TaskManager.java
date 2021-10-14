@@ -145,11 +145,13 @@ public class TaskManager {
 	public void game() {
 		if (this.game)
 			return;
+		Bukkit.getWorld("game").setTime(0);
 		this.game = true;
 		this.count = 0;
 		new BukkitRunnable() {
 			public void run() {
-				long time = Bukkit.getWorld("world").getTime();
+
+				long time = Bukkit.getWorld("game").getTime();
 
 				if (time >= 13000) {
 					if (pl.getGamemanager().getWorldState() == WorldState.DAY) {
@@ -162,6 +164,9 @@ public class TaskManager {
 								}
 							}
 						}
+						Bukkit.broadcastMessage("");
+						Bukkit.broadcastMessage("§9La nuit vient de tomber.");
+						Bukkit.broadcastMessage("");
 					}
 				} else {
 					if (pl.getGamemanager().getWorldState() == WorldState.NIGHT) {
@@ -172,9 +177,13 @@ public class TaskManager {
 								if (joueur.getRole() != null) {
 									joueur.getRole().day(player);
 									joueur.getRole().onNewDay(player);
+
 								}
 							}
 						}
+						Bukkit.broadcastMessage("");
+						Bukkit.broadcastMessage("§eLe jour vient de se lever.");
+						Bukkit.broadcastMessage("");
 					}
 				}
 				TaskManager.this.count++;

@@ -46,9 +46,15 @@ public class RulesGui extends Gui {
 
         inventory.setItem(18, Items.getItem(Material.CHEST, ChatColor.YELLOW + "Inventaire de départ", true));
 
+
+        ic = new ItemsCreator(Material.WATCH, I18n.tl("guis.main.cycle"), Collections.singletonList(I18n.tl("guis.main.cycleLore"))).create();
+
+        inventory.setItem(20, ic);
+
         inventory.setItem(22, new ItemsCreator(Material.CARROT_ITEM, "§dVie dans le tab", Arrays.asList("", "§cDésactivé"), 1).create());
         if(pl.gameManager.isViewHealth())
             inventory.setItem(22, new ItemsCreator(Material.GOLDEN_CARROT, "§dVie dans le tab", Arrays.asList("", "§aActivé"), 1).create());
+
         inventory.setItem(26, Items.getItem(Material.ARROW, I18n.tl("guis.back"), false));
         ic = new ItemsCreator(Material.POTION, I18n.tl("guis.main.potions", ""), Collections.singletonList(I18n.tl("guis.main.potionsLore"))).create();
         inventory.setItem(24, ic);
@@ -103,6 +109,9 @@ public class RulesGui extends Gui {
             } else if(current.getType() == Material.POTION){
                 player.closeInventory();
                 new PotionsGui(player).show();
+            } else if(current.getType() == Material.WATCH){
+                player.closeInventory();
+                new CycleTimeGui(player).show();
             }
 
         }

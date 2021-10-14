@@ -1,6 +1,7 @@
 package fr.lastril.uhchost.player.events.custom;
 
 import fr.lastril.uhchost.UhcHost;
+import fr.lastril.uhchost.game.tasks.CycleTask;
 import fr.lastril.uhchost.player.PlayerManager;
 import fr.lastril.uhchost.player.events.GameStartEvent;
 import fr.lastril.uhchost.player.manager.WolfPlayerManager;
@@ -23,6 +24,7 @@ public class GameStart implements Listener {
 	
 	@EventHandler
 	public void onStart(GameStartEvent e) {
+		new CycleTask(pl).runTaskTimer(pl, 0, 1);
 		e.getPlayers().forEach(player -> {
 			pl.getPlayerManager(player.getUniqueId()).setPlayedGame(true);
 		});

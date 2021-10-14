@@ -1,8 +1,10 @@
 package fr.lastril.uhchost.modes.lg.roles.lg;
 
 import fr.lastril.uhchost.UhcHost;
+import fr.lastril.uhchost.enums.Messages;
 import fr.lastril.uhchost.enums.WorldState;
 import fr.lastril.uhchost.modes.lg.roles.LGRole;
+import fr.lastril.uhchost.modes.lg.roles.solo.LoupGarouBlanc;
 import fr.lastril.uhchost.modes.lg.roles.village.PetiteFille;
 import fr.lastril.uhchost.modes.roles.Camps;
 import fr.lastril.uhchost.modes.roles.Role;
@@ -19,10 +21,14 @@ import org.bukkit.potion.PotionEffectType;
 
 import net.minecraft.server.v1_8_R3.EnumParticle;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class LoupGarouPerfide extends Role implements LGRole {
-	
+
+	private final List<PlayerManager> loupGarouList = new ArrayList<>();
+
 	public LoupGarouPerfide() {
-		super.addEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, Integer.MAX_VALUE, 0, false, false), When.NIGHT);
 		super.addEffect(new PotionEffect(PotionEffectType.NIGHT_VISION, Integer.MAX_VALUE, 0, false, false), When.START);
 		super.addEffect(new PotionEffect(PotionEffectType.SPEED, 20*60*1, 0, false, false), When.AT_KILL);
 		super.addEffect(new PotionEffect(PotionEffectType.ABSORPTION, 20*60*1, 0, false, false), When.AT_KILL);
@@ -55,6 +61,29 @@ public class LoupGarouPerfide extends Role implements LGRole {
 	@Override
 	public void onNewEpisode(Player player) {
 
+	}
+
+	@Override
+	public void afterRoles(Player player) {
+		player.sendMessage(sendList());
+	}
+
+	@Override
+	public String sendList() {
+		String list = Messages.LOUP_GAROU_PREFIX.getPrefix() + "Voici la liste entière des Loups-Garous : \n";
+		for (PlayerManager joueur : main.gameManager.getLoupGarouManager().getJoueursWithCamps(Camps.LOUP_GAROU)) {
+			loupGarouList.add(joueur);
+		}
+		for(PlayerManager joueur : main.gameManager.getLoupGarouManager().getJoueursWithRole(LoupGarouBlanc.class)){
+			loupGarouList.add(joueur);
+		}
+		int numberOfElements = loupGarouList.size();
+		for (int i = 0; i < numberOfElements; i++) {
+			int index = UhcHost.getRANDOM().nextInt(loupGarouList.size());
+			list += "§c- " + loupGarouList.get(index).getPlayerName() + "\n";
+			loupGarouList.remove(index);
+		}
+		return list;
 	}
 
 	@Override

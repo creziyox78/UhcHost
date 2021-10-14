@@ -15,13 +15,13 @@ import org.bukkit.inventory.ItemStack;
 
 import java.util.Arrays;
 
-public class PvpTimeGui extends TimerGui {
+public class CycleTimeGui extends TimerGui {
 
-	public PvpTimeGui(Player player) {
-		super(player, I18n.tl("guis.pvpTime.name", new String[0]));
-		ItemsCreator ic = new ItemsCreator(Material.DIAMOND_SWORD,
-				"§e" + ((UhcHost.getInstance()).taskManager.getPvpTime() / 60),
-				Arrays.asList(I18n.tl("guis.pvpTime.lore", new String[0]), I18n.tl("guis.pvpTime.lore1", new String[0])));
+	public CycleTimeGui(Player player) {
+		super(player, I18n.tl("guis.cycleTime.name"));
+		ItemsCreator ic = new ItemsCreator(Material.WATCH,
+				"§e" + (UhcHost.getInstance().gameManager.getCycleTime() / 60),
+				Arrays.asList(I18n.tl("guis.cycleTime.lore"), I18n.tl("guis.cycleTime.lore1")));
 		inventory.setItem(4, ic.create());
 	}
 
@@ -38,19 +38,19 @@ public class PvpTimeGui extends TimerGui {
 				return;
 			event.setCancelled(true);
 			switch (is.getType()) {
-			case DIAMOND_SWORD:
+			case WATCH:
 				this.player.closeInventory();
-				new HostConfig(player).show();
+				new RulesGui(player).show();
 				break;
 			case BANNER:
 				name = ChatColor.stripColor(is.getItemMeta().getDisplayName());
-				value = (UhcHost.getInstance()).taskManager.getPvpTime() + Integer.parseInt(name) * 60;
+				value = (int) ((UhcHost.getInstance()).gameManager.getCycleTime() + Integer.parseInt(name) * 60);
 				if (value < 0)
 					break;
-				(UhcHost.getInstance()).taskManager.setPvpTime(value);
-				ic = new ItemsCreator(Material.DIAMOND_SWORD,
-						"§e" + ((UhcHost.getInstance()).taskManager.getPvpTime() / 60),
-						Arrays.asList(I18n.tl("guis.pvpTime.lore"), I18n.tl("guis.pvpTime.lore1")));
+				(UhcHost.getInstance()).gameManager.setCycleTime(value);
+				ic = new ItemsCreator(Material.WATCH,
+						"§e" + (UhcHost.getInstance().gameManager.getCycleTime() / 60),
+						Arrays.asList(I18n.tl("guis.cycleTime.lore"), I18n.tl("guis.cycleTime.lore1")));
 				inventory.setItem(4, ic.create());
 				break;
 			default:

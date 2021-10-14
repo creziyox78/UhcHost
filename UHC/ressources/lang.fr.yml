@@ -161,9 +161,11 @@ guis:
     maxPlayers: "&bJoueurs Maximum"
     maxPlayersLore: "&7Choisis le nombre de joueurs maximum."
     potions: "&ePotions"
-    potionsLore: "&7Choisis les potions +,+ activer et d[,]sactiver"
+    potionsLore: "&7Choisis les potions +,+ activer et d[,]sactiver."
     nether: "&bNether"
     netherLore: "&7Configure le nether"
+    cycle: "§eCycle Jour/Nuit"
+    cycleLore: "§eConfigure le cycle Jour/Nuit pendant la partie."
   maxPlayers:
     name: "&5Nombre de joueurs maximum"
     lore: "&7Choisis le nombre de joueurs maximum"
@@ -171,6 +173,11 @@ guis:
     name: "&bTemps avant le pvp en minute"
     lore: "&7Choisis au bout de combien"
     lore1: "&7de minutes le pvp est activ[,]."
+  cycleTime:
+    name: "&bCycle Jour/Nuit"
+    lore: "&7Choisis le cycle du jour/nuit"
+    lore1: "&7qui influencera les pouvoirs des roles"
+
 
 scenarios:
   bestpve:

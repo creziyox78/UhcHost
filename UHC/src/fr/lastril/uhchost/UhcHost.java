@@ -2,6 +2,7 @@ package fr.lastril.uhchost;
 
 import fr.lastril.uhchost.bungeecord.PluginMessage;
 import fr.lastril.uhchost.commands.CmdMode;
+import fr.lastril.uhchost.commands.CmdRole;
 import fr.lastril.uhchost.commands.CommandHost;
 import fr.lastril.uhchost.commands.CommandRules;
 import fr.lastril.uhchost.game.GameManager;
@@ -118,6 +119,7 @@ public class UhcHost extends JavaPlugin {
 		Bukkit.getConsoleSender().sendMessage(ChatColor.YELLOW + "Register commands...");
 		getCommand("h").setExecutor(new CommandHost(this));
 		getCommand("scenarios").setExecutor(new CommandRules());
+		getCommand("role").setExecutor(new CmdRole(this));
 
 		for (Modes mode : Modes.values()) {
 			if (mode.getMode() instanceof ModeCommand) {

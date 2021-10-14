@@ -3,6 +3,7 @@ package fr.lastril.uhchost.game;
 import fr.lastril.uhchost.UhcHost;
 import fr.lastril.uhchost.enums.BiomeState;
 import fr.lastril.uhchost.enums.WorldState;
+import fr.lastril.uhchost.game.tasks.CycleTask;
 import fr.lastril.uhchost.inventory.CustomInv;
 import fr.lastril.uhchost.modes.Modes;
 import fr.lastril.uhchost.modes.lg.LoupGarouManager;
@@ -80,6 +81,8 @@ public class GameManager {
 	private GameState gameState;
 
 	private WorldState worldState;
+
+	private double cycleTime = 10*60;
 
 	private final LoupGarouManager loupGarouManager;
 
@@ -505,7 +508,7 @@ public class GameManager {
 		List<UUID> listPlayer = new ArrayList<>();
 		pl.getPlayerManagerOnlines().forEach(playerManager -> listPlayer.add(playerManager.getUuid()));
 		Bukkit.getPluginManager().callEvent(new GameStartEvent(listPlayer));
-		Bukkit.broadcastMessage(I18n.tl("damageWillBeActivated", new String[0]));
+		Bukkit.broadcastMessage(I18n.tl("damageWillBeActivated"));
 		this.pl.taskManager.game();
 		GameState.setCurrentState(GameState.STARTED);
 	}
@@ -653,5 +656,13 @@ public class GameManager {
 
 	public void setNotchApple(boolean notchApple) {
 		this.notchApple = notchApple;
+	}
+
+	public double getCycleTime() {
+		return cycleTime;
+	}
+
+	public void setCycleTime(double cycleTime) {
+		this.cycleTime = cycleTime;
 	}
 }

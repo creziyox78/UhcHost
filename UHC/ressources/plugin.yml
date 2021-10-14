@@ -1,5 +1,5 @@
 name: UHCHost
-version: 0.8.2
+version: 0.9.1
 author: Lastril
 main: fr.lastril.uhchost.UhcHost
 commands:
@@ -10,4 +10,6 @@ commands:
     description: Command show actives scenarios.
   lg:
     description: Command of LG Mode.
+  role:
+    description: Command to see Role.
   

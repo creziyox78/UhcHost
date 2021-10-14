@@ -1,12 +1,16 @@
 package fr.lastril.uhchost.modes.lg.roles.lg;
 
+import fr.lastril.uhchost.UhcHost;
 import fr.lastril.uhchost.enums.Messages;
 import fr.lastril.uhchost.modes.command.ModeSubCommand;
+import fr.lastril.uhchost.modes.lg.commands.CmdFausseNuit;
 import fr.lastril.uhchost.modes.lg.roles.LGRole;
+import fr.lastril.uhchost.modes.lg.roles.solo.LoupGarouBlanc;
 import fr.lastril.uhchost.modes.roles.Camps;
 import fr.lastril.uhchost.modes.roles.Role;
 import fr.lastril.uhchost.modes.roles.RoleCommand;
 import fr.lastril.uhchost.modes.roles.When;
+import fr.lastril.uhchost.player.PlayerManager;
 import fr.lastril.uhchost.tools.creators.ItemsCreator;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -14,12 +18,14 @@ import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 public class LoupGarouLunaire extends Role implements LGRole, RoleCommand {
 
 	private boolean usedFausseNuit = false, useFausseNuit = false;
+	private final List<PlayerManager> loupGarouList = new ArrayList<>();
 
 	public LoupGarouLunaire() {
 		super.addEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, Integer.MAX_VALUE, 0, false, false), When.NIGHT);
@@ -35,7 +41,7 @@ public class LoupGarouLunaire extends Role implements LGRole, RoleCommand {
 
 	@Override
 	public String getRoleName() {
-		return "Loup-Garou";
+		return "Loup-Garou Lunaire";
 	}
 
 	@Override
@@ -58,12 +64,38 @@ public class LoupGarouLunaire extends Role implements LGRole, RoleCommand {
 	}
 
 	@Override
+	public void afterRoles(Player player) {
+		player.sendMessage(sendList());
+	}
+
+	@Override
+	public String sendList() {
+		String list = Messages.LOUP_GAROU_PREFIX.getPrefix() + "Voici la liste entière des Loups-Garous : \n";
+		for (PlayerManager joueur : main.gameManager.getLoupGarouManager().getJoueursWithCamps(Camps.LOUP_GAROU)) {
+			loupGarouList.add(joueur);
+		}
+		for(PlayerManager joueur : main.gameManager.getLoupGarouManager().getJoueursWithRole(LoupGarouBlanc.class)){
+			loupGarouList.add(joueur);
+		}
+		int numberOfElements = loupGarouList.size();
+		for (int i = 0; i < numberOfElements; i++) {
+			int index = UhcHost.getRANDOM().nextInt(loupGarouList.size());
+			list += "§c- " + loupGarouList.get(index).getPlayerName() + "\n";
+			loupGarouList.remove(index);
+		}
+		return list;
+	}
+
+	@Override
 	public void onNewDay(Player player) {
 		if(!usedFausseNuit){
 			player.sendMessage(Messages.LOUP_GAROU_PREFIX.getPrefix() + "§eVous avez 30 secondes pour remettre la nuit en utilisant la commande: /lg fs");
 			useFausseNuit = false;
 			Bukkit.getScheduler().runTaskLater(main, () -> {
-				useFausseNuit = true;
+				if(!usedFausseNuit){
+					player.sendMessage(Messages.LOUP_GAROU_PREFIX.getPrefix() + "§cVous ne pouvez plus mettre la fausse nuit.");
+					useFausseNuit = true;
+				}
 			}, 20*30);
 		}
 	}
@@ -84,7 +116,7 @@ public class LoupGarouLunaire extends Role implements LGRole, RoleCommand {
 
 	@Override
 	public List<ModeSubCommand> getSubCommands() {
-		return null;
+		return Arrays.asList(new CmdFausseNuit(main));
 	}
 
 	public boolean isUsedFausseNuit() {

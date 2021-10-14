@@ -49,7 +49,7 @@ public class MontreurDours extends Role implements LGRole {
 				if(target.getGameMode() != GameMode.SPECTATOR) {
 					if(UhcHost.getInstance().getPlayerManager(target.getUniqueId()) != null) {
 						PlayerManager joueur = UhcHost.getInstance().getPlayerManager(target.getUniqueId());
-						if(joueur.isAlive()) {
+						if(joueur.isAlive() && joueur.hasRole()) {
 							if(!(joueur.getRole() instanceof LGFacadeRole)){
 								if(joueur.getWolfPlayerManager().getLgRole().getCamp() == Camps.LOUP_GAROU|| joueur.getRole() instanceof LoupGarouBlanc) {
 									Bukkit.broadcastMessage("§6Grrrrrrrrrrrrrr !");

@@ -1,8 +1,10 @@
 package fr.lastril.uhchost.modes.lg.roles.lg;
 
 import fr.lastril.uhchost.UhcHost;
+import fr.lastril.uhchost.enums.Messages;
 import fr.lastril.uhchost.modes.lg.roles.LGFacadeRole;
 import fr.lastril.uhchost.modes.lg.roles.LGRole;
+import fr.lastril.uhchost.modes.lg.roles.solo.LoupGarouBlanc;
 import fr.lastril.uhchost.modes.roles.Camps;
 import fr.lastril.uhchost.modes.roles.Role;
 import fr.lastril.uhchost.modes.roles.When;
@@ -12,11 +14,14 @@ import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public final class LoupGarouFeutre extends Role implements LGRole, LGFacadeRole {
 
 	private Role roleFaçade;
+
+	private final List<PlayerManager> loupGarouList = new ArrayList<>();
 
 	public LoupGarouFeutre() {
 		super.addEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, Integer.MAX_VALUE, 0, false, false), When.NIGHT);
@@ -47,15 +52,7 @@ public final class LoupGarouFeutre extends Role implements LGRole, LGFacadeRole 
 	public void onNight(Player player) {}
 
 	@Override
-	public void onDay(Player player) {}
-
-	@Override
-	public void onNewEpisode(Player player) {
-
-	}
-
-	@Override
-	public void onNewDay(Player player) {
+	public void onDay(Player player) {
 		List<PlayerManager> alivesJoueurs = UhcHost.getInstance().getPlayerManagerAlives();
 		PlayerManager randomJoueur = alivesJoueurs.get(UhcHost.getRANDOM().nextInt(alivesJoueurs.size()));
 		Class<? extends Role> displayRole = randomJoueur.getRole().getClass();
@@ -65,7 +62,39 @@ public final class LoupGarouFeutre extends Role implements LGRole, LGFacadeRole 
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+	}
+
+	@Override
+	public void onNewEpisode(Player player) {
+
+	}
+	@Override
+	public void afterRoles(Player player) {
+		player.sendMessage(sendList());
+	}
+
+	@Override
+	public String sendList() {
+		String list = Messages.LOUP_GAROU_PREFIX.getPrefix() + "Voici la liste entière des Loups-Garous : \n";
+		for (PlayerManager joueur : main.gameManager.getLoupGarouManager().getJoueursWithCamps(Camps.LOUP_GAROU)) {
+			loupGarouList.add(joueur);
+		}
+		for(PlayerManager joueur : main.gameManager.getLoupGarouManager().getJoueursWithRole(LoupGarouBlanc.class)){
+			loupGarouList.add(joueur);
+		}
+		int numberOfElements = loupGarouList.size();
+		for (int i = 0; i < numberOfElements; i++) {
+			int index = UhcHost.getRANDOM().nextInt(loupGarouList.size());
+			list += "§c- " + loupGarouList.get(index).getPlayerName() + "\n";
+			loupGarouList.remove(index);
+		}
+		return list;
+	}
+
+
+	@Override
+	public void onNewDay(Player player) {
+
 	}
 
 	@Override

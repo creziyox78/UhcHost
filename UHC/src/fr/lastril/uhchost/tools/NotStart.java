@@ -24,7 +24,8 @@ public class NotStart {
 		player.getInventory().setLeggings(null);
 		player.getInventory().setChestplate(null);
 		player.getInventory().setHelmet(null);
-		player.setExp(0.0F);
+		player.setTotalExperience(0);
+		player.setExp(0);
 		player.getInventory().clear();
 		player.setMaxHealth(20.0D);
 		player.setHealth(20.0D);
@@ -50,7 +51,8 @@ public class NotStart {
 		player.getInventory().setLeggings(null);
 		player.getInventory().setChestplate(null);
 		player.getInventory().setHelmet(null);
-		player.setExp(0.0F);
+		player.setTotalExperience(0);
+		player.setExp(0);
 		player.getInventory().clear();
 		player.setMaxHealth(20.0D);
 		player.setHealth(20.0D);

@@ -131,7 +131,7 @@ public class ScoreboardUtils {
 					: (t.getName() + this.playersInTeam + t.getEntries().size() + this.playersInTeamEnd)));
 			sb.setLine(line++, "§3");
 		}
-		sb.setLine(line++, this.players + this.pl.getPlayerManagerOnlines().size() + "/" + this.pl.gameManager.getMaxPlayers());
+		sb.setLine(line++, this.players + Bukkit.getOnlinePlayers().size() + "/" + this.pl.gameManager.getMaxPlayers());
 
 		sb.setLine(line++, "§8§m                   §r");
 		sb.setLine(line++, this.credit);

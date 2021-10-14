@@ -48,6 +48,9 @@ public class Join implements Listener {
 		if (gameManager.getGameState() == GameState.LOBBY || gameManager.getGameState() == GameState.STARTING) {
 			e.setJoinMessage("[" + ChatColor.GREEN + "+"+ ChatColor.WHITE+ "] " + player.getDisplayName());
 			player.setGameMode(GameMode.ADVENTURE);
+			player.setTotalExperience(0);
+			player.setExp(0);
+			player.setLevel(0);
 			NotStart.PreHosting(player);
 			if(player.isOp())
 				UpdateMessage(player);
@@ -58,7 +61,7 @@ public class Join implements Listener {
 		else if(gameManager.getGameState() == GameState.STARTED) {
 			PlayerManager playerManager = pl.getPlayerManager(playersUuid);
 			player.setScoreboard(this.pl.scoreboardUtil.getBoard());
-			if(!playerManager.isAlive()) {
+			if(!playerManager.isAlive() && !playerManager.isPlayedGame()) {
 				e.setJoinMessage("");
 				player.setGameMode(GameMode.SPECTATOR);
 			}

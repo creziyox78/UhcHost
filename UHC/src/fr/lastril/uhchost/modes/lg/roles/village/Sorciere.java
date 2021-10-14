@@ -83,19 +83,20 @@ public class Sorciere extends Role implements LGRole, RoleListener {
 							return;
 						}
 					}
-					if (super.getPlayer() != null) {
-						Player soso = super.getPlayer();
-						new ClickableMessage(soso, onClick -> {
-							main.getPlayerManager(player.getUniqueId()).getWolfPlayerManager()
-									.setResurectType(ResurectType.SORCIERE);
-							onClick.sendMessage( "Vous avez bien ressuscité "
-									+ player.getName() + " !");
-							hasRez = true;
-						}, "§c" + player.getName()
-								+ " est mort vous pouvez le ressusciter en cliquant sur le message ! ",
-								"§a Pour ressusciter §c" + player.getName());
-					}
+
 				}
+			}
+			if (super.getPlayer() != null) {
+				Player soso = super.getPlayer();
+				new ClickableMessage(soso, onClick -> {
+					main.getPlayerManager(player.getUniqueId()).getWolfPlayerManager()
+							.setResurectType(ResurectType.SORCIERE);
+					onClick.sendMessage( "Vous avez bien ressuscité "
+							+ player.getName() + " !");
+					hasRez = true;
+				}, "§c" + player.getName()
+						+ " est mort vous pouvez le ressusciter en cliquant sur le message ! ",
+						"§a Pour ressusciter §c" + player.getName());
 			}
 		}
 	}

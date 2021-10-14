@@ -1,6 +1,7 @@
 package fr.lastril.uhchost.modes.lg.roles.village;
 
 import fr.lastril.uhchost.modes.command.ModeSubCommand;
+import fr.lastril.uhchost.modes.lg.commands.CmdCouple;
 import fr.lastril.uhchost.modes.lg.roles.LGRole;
 import fr.lastril.uhchost.modes.roles.Camps;
 import fr.lastril.uhchost.modes.roles.Role;
@@ -12,6 +13,7 @@ import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
+import java.util.Arrays;
 import java.util.List;
 
 public class Cupidon extends Role implements LGRole, RoleCommand {
@@ -78,6 +80,6 @@ public class Cupidon extends Role implements LGRole, RoleCommand {
 
 	@Override
 	public List<ModeSubCommand> getSubCommands() {
-		return null;
+		return Arrays.asList(new CmdCouple(main));
 	}
 }

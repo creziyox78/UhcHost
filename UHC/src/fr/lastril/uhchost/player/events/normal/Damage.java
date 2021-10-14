@@ -37,6 +37,10 @@ public class Damage implements Listener {
 							String.valueOf((int) (((Player) event.getEntity()).getHealth() - event.getDamage()))));
 			}
 		}
+		if(event.getEntity() instanceof Player && event.getDamager() instanceof Player){
+			Player player = (Player) event.getEntity();
+			pl.getPlayerManager(player.getUniqueId()).getRole().onDamage((Player) event.getDamager(), player);
+		}
 	}
 
 	@EventHandler(priority = EventPriority.LOWEST)
