@@ -136,9 +136,9 @@ public class InfectPereDesLoups extends Role implements LGRole, RoleListener {
 						if (super.getPlayer() != null) {
 							Player infect = super.getPlayer();
 							new ClickableMessage(infect, onClick -> {
-								main.getPlayerManager(player.getUniqueId()).getWolfPlayerManager().setInfected(true);
-								main.getPlayerManager(player.getUniqueId()).getWolfPlayerManager()
-										.setResurectType(ResurectType.INFECT);
+
+
+								main.gameManager.getLoupGarouManager().addInfect(joueur);
 								onClick.sendMessage( "Vous avez bien infecté "
 										+ player.getName() + " !");
 								hasInfected = true;

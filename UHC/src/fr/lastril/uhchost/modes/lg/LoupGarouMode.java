@@ -156,7 +156,7 @@ public class LoupGarouMode extends Mode implements ModeCommand, RoleMode<LGRole>
 
     @Override
     public boolean isEpisodeMode() {
-        return false;
+        return true;
     }
 
     @Override
@@ -184,9 +184,9 @@ public class LoupGarouMode extends Mode implements ModeCommand, RoleMode<LGRole>
 
     public void win(Camps winner) {
         this.pl.gameManager.setDamage(false);
-        Bukkit.broadcastMessage(I18n.tl("endGame", new String[0]));
+        Bukkit.broadcastMessage(I18n.tl("endGame"));
         Bukkit.broadcastMessage(I18n.tl("winOfPlayer", winner.name()));
-        Bukkit.broadcastMessage(I18n.tl("rebootSoon", new String[0]));
+        Bukkit.broadcastMessage(I18n.tl("rebootSoon"));
         Bukkit.getScheduler().runTaskLater(this.pl, () -> {
             if (this.pl.getConfig().getBoolean("bungeecord")) {
                 if (this.pl.getConfig().getString("server-redirection") != null && !this.pl

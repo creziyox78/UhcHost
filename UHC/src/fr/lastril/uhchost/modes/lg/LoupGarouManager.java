@@ -6,6 +6,8 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 
 import fr.lastril.uhchost.UhcHost;
+import fr.lastril.uhchost.enums.Messages;
+import fr.lastril.uhchost.enums.ResurectType;
 import fr.lastril.uhchost.modes.ModeManager;
 import fr.lastril.uhchost.modes.lg.roles.solo.LoupGarouBlanc;
 import fr.lastril.uhchost.modes.lg.roles.village.Cupidon;
@@ -18,21 +20,27 @@ import org.bukkit.Material;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
+import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
 
-public class LoupGarouManager extends ModeManager {
+public class LoupGarouManager extends ModeManager implements Listener {
 
 	private final UhcHost main;
 
 	private final List<UUID> waitingRessurect;
 
+	private final List<PlayerManager> inCouple;
+
 	private boolean randomCouple = false;
 
 	public LoupGarouManager(UhcHost main) {
 		this.main = main;
+		this.inCouple = new ArrayList<>();
 		this.waitingRessurect = new ArrayList<>();
 	}
 
@@ -79,6 +87,9 @@ public class LoupGarouManager extends ModeManager {
 					joueur.getWolfPlayerManager().setResurectType(null);
 				}else {
 					kill(player, player.getInventory().getContents(), player.getInventory().getArmorContents(), player.getKiller(), deathLocation);
+					if(joueur.getWolfPlayerManager().isInCouple()){
+						killCouple();
+					}
 				}
 				waitingRessurect.remove(player.getUniqueId());
 			}
@@ -135,6 +146,18 @@ public class LoupGarouManager extends ModeManager {
 		this.main.gameManager.getModes().getMode().checkWin();
 	}
 
+	public void killCouple(){
+		for (PlayerManager playerManager : main.getPlayerManagerAlives()){
+			if(playerManager.getWolfPlayerManager().isInCouple()){
+				Player player = playerManager.getPlayer();
+				if(player != null){
+					kill(player, player.getInventory().getContents(), player.getInventory().getArmorContents(), player.getKiller(), player.getLocation());
+				}
+			}
+		}
+	}
+
+
 	public List<PlayerManager> getLoupGarous() {
 		List<PlayerManager> lgs = new ArrayList<>(super.getJoueursWithCamps(Camps.LOUP_GAROU));
 		lgs.addAll(super.getJoueursWithRole(LoupGarouBlanc.class));
@@ -145,6 +168,42 @@ public class LoupGarouManager extends ModeManager {
 		return this.getLoupGarous().contains(main.getPlayerManager(id));
 	}
 
+	@EventHandler
+    public void onFallDamage(EntityDamageEvent event){
+        if(event.getCause() == EntityDamageEvent.DamageCause.FALL){
+            if(event.getEntity() instanceof Player){
+                Player player = (Player) event.getEntity();
+                PlayerManager playerManager = main.getPlayerManager(player.getUniqueId());
+                if(playerManager.getWolfPlayerManager().isSalvation()){
+                    event.setCancelled(true);
+                }
+            }
+        }
+    }
+
+	public void addInfect(PlayerManager playerManager){
+		playerManager.getWolfPlayerManager().setInfected(true);
+		playerManager.getWolfPlayerManager().setResurectType(ResurectType.INFECT);
+		if(playerManager.getPlayer() != null){
+			playerManager.getPlayer().sendMessage(Messages.LOUP_GAROU_PREFIX.getPrefix() + "§cVous venez d'être infecté par l'Infect Père des Loups-Garou ! Vous devez gagner avec les loups, et vous garder vos pouvoirs d'origine.");
+		}
+		if(playerManager.getWolfPlayerManager().isInCouple())
+			playerManager.setCamps(Camps.COUPLE);
+
+		sendNewLG();
+	}
+
+	public void sendNewLG(){
+		for(PlayerManager playerManagers : main.getPlayerManagerOnlines()){
+			if(playerManagers.hasRole()){
+				if(playerManagers.getCamps() == Camps.LOUP_GAROU || playerManagers.getCamps() == Camps.LOUP_GAROU_BLANC){
+					if(playerManagers.getPlayer() != null){
+						playerManagers.getPlayer().sendMessage(Messages.LOUP_GAROU_PREFIX.getPrefix() + "§cUn joueur vient de rejoindre le camp des Loup-Garou.");
+					}
+				}
+			}
+		}
+	}
 
 	public boolean isRandomCouple() {
 		return randomCouple;
@@ -153,4 +212,5 @@ public class LoupGarouManager extends ModeManager {
 	public void setRandomCouple(boolean randomCouple) {
 		this.randomCouple = randomCouple;
 	}
+
 }

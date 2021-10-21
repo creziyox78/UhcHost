@@ -17,7 +17,8 @@ public class CycleTask extends BukkitRunnable {
 	public void run() {
 		long time = (long) (Bukkit.getWorld("game").getTime() + (10 / (main.gameManager.getCycleTime() / 60)));
 		for(PlayerManager playerManager : main.getPlayerManagerOnlines()){
-			playerManager.getRole().checkRunnable(playerManager.getPlayer());
+			if(playerManager.hasRole())
+				playerManager.getRole().checkRunnable(playerManager.getPlayer());
 		}
 		Bukkit.getWorld("game").setTime(time);
 	}

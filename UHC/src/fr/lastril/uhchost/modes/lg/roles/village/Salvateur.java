@@ -1,14 +1,24 @@
 package fr.lastril.uhchost.modes.lg.roles.village;
 
+import fr.lastril.uhchost.enums.Messages;
+import fr.lastril.uhchost.modes.command.ModeSubCommand;
+import fr.lastril.uhchost.modes.lg.commands.CmdSalvation;
 import fr.lastril.uhchost.modes.lg.roles.LGRole;
 import fr.lastril.uhchost.modes.roles.Camps;
 import fr.lastril.uhchost.modes.roles.Role;
+import fr.lastril.uhchost.modes.roles.RoleCommand;
 import fr.lastril.uhchost.tools.API.PotionItem;
 import fr.lastril.uhchost.tools.creators.ItemsCreator;
 import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionType;
 
-public class Salvateur extends Role implements LGRole {
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+
+public class Salvateur extends Role implements LGRole, RoleCommand {
+
+	private boolean salvate = false;
 
 	@Override
 	public String getSkullValue() {
@@ -24,7 +34,10 @@ public class Salvateur extends Role implements LGRole {
 	public void onNight(Player player) {}
 
 	@Override
-	public void onDay(Player player) {}
+	public void onDay(Player player) {
+		salvate = false;
+		player.sendMessage(Messages.LOUP_GAROU_PREFIX.getPrefix() + "§BVous avez 2 minutes pour choisir la personne que vous souhaiter protéger.");
+	}
 
 	@Override
 	public void onNewEpisode(Player player) {
@@ -41,7 +54,7 @@ public class Salvateur extends Role implements LGRole {
 
 	@Override
 	public String getDescription() {
-		return "Vous n'avez pas de pouvoir particulier.";
+		return "Au début de chaque journée, vous avez la possibilité de protéger un villageois en lui conférant Résistance 1 ainsi que NoFall pendant 20 minutes avec la commande \"/lg salvation\". Vous ne pouvez pas protéger 2 fois de suite le même villageois. Vous pouvez vous protéger vous-même.";
 	}
 
 
@@ -56,9 +69,22 @@ public class Salvateur extends Role implements LGRole {
 		
 	}
 
+
+	public void setSalvate(boolean salvate) {
+		this.salvate = salvate;
+	}
+
+	public boolean isSalvate() {
+		return salvate;
+	}
+
 	@Override
 	public Camps getCamp() {
 		return Camps.VILLAGEOIS;
 	}
 
+	@Override
+	public List<ModeSubCommand> getSubCommands() {
+		return Collections.singletonList(new CmdSalvation(main));
+	}
 }
