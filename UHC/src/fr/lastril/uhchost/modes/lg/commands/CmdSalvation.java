@@ -9,6 +9,8 @@ import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -50,8 +52,10 @@ public class CmdSalvation implements ModeSubCommand {
                             if(!targetManager.getWolfPlayerManager().isSalvation()){
                                 salvateur.setSalvate(true);
                                 player.sendMessage(Messages.LOUP_GAROU_PREFIX.getPrefix() + "§9Vous venez de protéger " + targetName);
+                                target.sendMessage(Messages.LOUP_GAROU_PREFIX.getPrefix() + "§bLe Salvateur vient de vous protéger, vous obtenez Résistance I ainsi que NoFall pendant les 20 prochaines minutes.");
+                                target.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 20*60*20, 0, false, false));
+                                Bukkit.getScheduler().runTaskLater(pl, () -> targetManager.getWolfPlayerManager().setSalvation(false), 20*60*20);
                                 targetManager.getWolfPlayerManager().setSalvation(true);
-
                             } else {
                                 player.sendMessage(Messages.LOUP_GAROU_PREFIX.getPrefix() + "§cCe joueur ne peut pas être ciblé !");
                             }
