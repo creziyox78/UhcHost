@@ -1,7 +1,6 @@
 package fr.lastril.uhchost.inventory.guis.modes;
 
 import fr.lastril.uhchost.inventory.Gui;
-import fr.lastril.uhchost.inventory.guis.CompositionGui;
 import fr.lastril.uhchost.modes.lg.LoupGarouMode;
 import fr.lastril.uhchost.tools.creators.ItemsCreator;
 import org.bukkit.Material;

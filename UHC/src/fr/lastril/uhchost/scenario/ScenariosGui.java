@@ -41,7 +41,7 @@ public class ScenariosGui extends Gui {
 						scenario.getScenario().getName(), scenario.getScenario().getDescritpion(), -1)).create());
 			}
 		}
-		inventory.setItem(53, (new ItemsCreator(Material.BARRIER, I18n.tl("guis.back", new String[0]),
+		inventory.setItem(53, (new ItemsCreator(Material.BARRIER, I18n.tl("guis.back"),
 				Arrays.asList(""))).create());
 	}
 
@@ -68,8 +68,8 @@ public class ScenariosGui extends Gui {
 							Constructor<?> ctor = null;
 							ctor = clazz.getConstructor(Player.class);
 							Object object = ctor.newInstance(this.player);
-							Method method = object.getClass().getMethod("show", new Class[0]);
-							method.invoke(object, new Object[0]);
+							Method method = object.getClass().getMethod("show");
+							method.invoke(object);
 						} catch (NoSuchMethodException e) {
 							e.printStackTrace();
 						} catch (IllegalAccessException e) {

@@ -7,7 +7,7 @@ import org.bukkit.event.world.PortalCreateEvent;
 
 public class Portal implements Listener {
 
-	private UhcHost pl;
+	private final UhcHost pl;
 
 	public Portal(UhcHost pl) {
 		this.pl = pl;

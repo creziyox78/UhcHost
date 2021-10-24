@@ -2,6 +2,7 @@ package fr.lastril.uhchost.modes.lg.roles.village;
 
 import fr.lastril.uhchost.UhcHost;
 import fr.lastril.uhchost.enums.WorldState;
+import fr.lastril.uhchost.modes.lg.LoupGarouManager;
 import fr.lastril.uhchost.modes.lg.roles.LGRole;
 import fr.lastril.uhchost.modes.lg.roles.lg.LoupGarouPerfide;
 import fr.lastril.uhchost.modes.roles.Camps;
@@ -80,24 +81,28 @@ public class PetiteFille extends Role implements LGRole {
 
 	@Override
 	public void checkRunnable(Player player) {
-		if(UhcHost.getInstance().gameManager.getWorldState() == WorldState.NIGHT) {
-			if(isWithoutArmor(player)) {
-				for(PlayerManager joueur : UhcHost.getInstance().gameManager.getLoupGarouManager().getJoueursWithRole(LoupGarouPerfide.class)) {
-					if(joueur.getPlayer() != null) {
-						Player perfide = joueur.getPlayer();
-						for (int i = 0; i < 10; i++) {
-							ParticleEffect.playEffect(perfide, EnumParticle.REDSTONE, player.getLocation());
+		if(main.gameManager.getModes().getMode().getModeManager() instanceof LoupGarouManager){
+			LoupGarouManager loupGarouManager = (LoupGarouManager) main.gameManager.getModes().getMode().getModeManager();
+			if(main.gameManager.getWorldState() == WorldState.NIGHT) {
+				if(isWithoutArmor(player)) {
+					for(PlayerManager joueur : loupGarouManager.getJoueursWithRole(LoupGarouPerfide.class)) {
+						if(joueur.getPlayer() != null) {
+							Player perfide = joueur.getPlayer();
+							for (int i = 0; i < 10; i++) {
+								ParticleEffect.playEffect(perfide, EnumParticle.REDSTONE, player.getLocation());
+							}
 						}
 					}
+					player.addPotionEffect(new PotionEffect(PotionEffectType.WEAKNESS, 20, 0, false, false));
+					player.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, Integer.MAX_VALUE, 0, false, false));
+				}else {
+					if(player.hasPotionEffect(PotionEffectType.INVISIBILITY)) player.removePotionEffect(PotionEffectType.INVISIBILITY);
 				}
-				player.addPotionEffect(new PotionEffect(PotionEffectType.WEAKNESS, 20, 0, false, false));
-				player.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, Integer.MAX_VALUE, 0, false, false));
 			}else {
 				if(player.hasPotionEffect(PotionEffectType.INVISIBILITY)) player.removePotionEffect(PotionEffectType.INVISIBILITY);
 			}
-		}else {
-			if(player.hasPotionEffect(PotionEffectType.INVISIBILITY)) player.removePotionEffect(PotionEffectType.INVISIBILITY);
 		}
+
 	}
 	
 	public boolean isWithoutArmor(Player player) {

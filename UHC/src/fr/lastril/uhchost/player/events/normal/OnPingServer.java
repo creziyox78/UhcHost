@@ -9,7 +9,7 @@ import org.bukkit.event.server.ServerListPingEvent;
 
 public class OnPingServer implements Listener {
 	
-	private UhcHost pl;
+	private final UhcHost pl;
 	
 	public OnPingServer(UhcHost pl) {
 		this.pl = pl;

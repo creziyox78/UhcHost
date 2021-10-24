@@ -9,6 +9,7 @@ import fr.lastril.uhchost.UhcHost;
 import fr.lastril.uhchost.enums.Messages;
 import fr.lastril.uhchost.enums.ResurectType;
 import fr.lastril.uhchost.modes.ModeManager;
+import fr.lastril.uhchost.modes.lg.roles.lg.LoupGarou;
 import fr.lastril.uhchost.modes.lg.roles.solo.LoupGarouBlanc;
 import fr.lastril.uhchost.modes.lg.roles.village.Cupidon;
 import fr.lastril.uhchost.modes.roles.Camps;
@@ -36,17 +37,21 @@ public class LoupGarouManager extends ModeManager implements Listener {
 
 	private final List<PlayerManager> inCouple;
 
-	private boolean randomCouple = false;
+	private boolean randomCouple = false, voteTime;
 
-	public LoupGarouManager(UhcHost main) {
+	private final LoupGarouMode loupGarouMode;
+	private final List<PlayerManager> loupGarouList = new ArrayList<>();
+
+	public LoupGarouManager(UhcHost main, LoupGarouMode loupGarouMode) {
 		this.main = main;
 		this.inCouple = new ArrayList<>();
 		this.waitingRessurect = new ArrayList<>();
+		this.loupGarouMode = loupGarouMode;
 	}
 
 	public void startDeathTask(Player player) {
 		Location deathLocation = player.getLocation().clone();
-		player.sendMessage("§bVous avez toujours une chance de vous faire réssusciter. Merci de patienter.");
+		player.sendMessage(Messages.LOUP_GAROU_PREFIX.getPrefix() + "§bVous avez toujours une chance de vous faire réssusciter. Merci de patienter.");
 		this.waitingRessurect.add(player.getUniqueId());
 		new BukkitRunnable() {
 
@@ -143,7 +148,7 @@ public class LoupGarouManager extends ModeManager implements Listener {
 		Bukkit.broadcastMessage(message);
 		Bukkit.broadcastMessage(" ");
 		Bukkit.broadcastMessage("§8§m----------------------------------");
-		this.main.gameManager.getModes().getMode().checkWin();
+		main.gameManager.getModes().getMode().checkWin();
 	}
 
 	public void killCouple(){
@@ -162,6 +167,23 @@ public class LoupGarouManager extends ModeManager implements Listener {
 		List<PlayerManager> lgs = new ArrayList<>(super.getJoueursWithCamps(Camps.LOUP_GAROU));
 		lgs.addAll(super.getJoueursWithRole(LoupGarouBlanc.class));
 		return lgs;
+	}
+
+	public String sendLGList(){
+		String list = Messages.LOUP_GAROU_PREFIX.getPrefix() + "Voici la liste entière des Loups-Garous : \n";
+		for (PlayerManager joueur : main.gameManager.getModes().getMode().getModeManager().getJoueursWithCamps(Camps.LOUP_GAROU)) {
+			loupGarouList.add(joueur);
+		}
+		for(PlayerManager joueur : main.gameManager.getModes().getMode().getModeManager().getJoueursWithRole(LoupGarouBlanc.class)){
+			loupGarouList.add(joueur);
+		}
+		int numberOfElements = loupGarouList.size();
+		for (int i = 0; i < numberOfElements; i++) {
+			int index = UhcHost.getRANDOM().nextInt(loupGarouList.size());
+			list += "§c- " + loupGarouList.get(index).getPlayerName() + "\n";
+			loupGarouList.remove(index);
+		}
+		return list;
 	}
 
 	public boolean isLoupGarou(UUID id) {
@@ -203,6 +225,19 @@ public class LoupGarouManager extends ModeManager implements Listener {
 				}
 			}
 		}
+	}
+
+	public void setVoteTime(boolean voteTime) {
+		this.voteTime = voteTime;
+		Bukkit.broadcastMessage(" ");
+		if(voteTime){
+			Bukkit.broadcastMessage(Messages.LOUP_GAROU_PREFIX.getPrefix() + "§eVous avez 1 minute pour voter pour le joueur de votre choix. " +
+					"Le joueur ayant le plus de voix sur lui perdra la moitié de sa vie jusqu'à la prochaine journée.");
+		} else {
+			Bukkit.broadcastMessage(Messages.LOUP_GAROU_PREFIX.getPrefix() + "§cLes votes sont désormais fermés !");
+		}
+		Bukkit.broadcastMessage(" ");
+
 	}
 
 	public boolean isRandomCouple() {

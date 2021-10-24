@@ -19,10 +19,10 @@ import java.util.Arrays;
 public class MaxPlayersGui extends TimerGui {
 
 	public MaxPlayersGui(Player player) {
-		super(player, I18n.tl("guis.maxPlayers.name", new String[0]));
+		super(player, I18n.tl("guis.maxPlayers.name"));
 		ItemsCreator ic = new ItemsCreator(Material.SKULL_ITEM,
 				"§e" + (UhcHost.getInstance()).gameManager.getMaxPlayers(),
-				Arrays.asList(I18n.tl("guis.maxPlayers.lore", new String[0])));
+				Arrays.asList(I18n.tl("guis.maxPlayers.lore")));
 		inventory.setItem(4, ic.createHead("MHF_Golem"));
 	}
 
@@ -50,7 +50,7 @@ public class MaxPlayersGui extends TimerGui {
 					break;
 				(UhcHost.getInstance()).gameManager.setMaxPlayers(value);
 				ic = new ItemsCreator(Material.SKULL_ITEM, "§e" + (UhcHost.getInstance()).gameManager.getMaxPlayers(),
-						Arrays.asList(new String[] { I18n.tl("guis.maxPlayers.lore", new String[0]) }));
+						Arrays.asList(I18n.tl("guis.maxPlayers.lore")));
 				inventory.setItem(4, ic.createHead("MHF_Golem"));
 				break;
 			default:
@@ -62,7 +62,7 @@ public class MaxPlayersGui extends TimerGui {
 	@EventHandler
 	public void onClick(InventoryCloseEvent event) {
 		if (event.getInventory().equals(inventory))
-			HandlerList.unregisterAll((Listener) this);
+			HandlerList.unregisterAll(this);
 	}
 
 }

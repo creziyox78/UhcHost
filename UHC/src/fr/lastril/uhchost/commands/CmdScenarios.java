@@ -1,27 +1,21 @@
 package fr.lastril.uhchost.commands;
 
-import fr.lastril.uhchost.scenario.ActiveScenariosGui;
+import fr.lastril.uhchost.inventory.guis.rules.RulesGui;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-public class CommandRules implements CommandExecutor {
+public class CmdScenarios implements CommandExecutor {
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-		
 		if(sender instanceof Player) {
-			
+
 			Player player = (Player)sender;
-			
-			if(cmd.getName().equalsIgnoreCase("scenarios")) {
-				(new ActiveScenariosGui(player)).show();
-				return true;
-			}
-			
+
+			new RulesGui(player).show();
 		}
-		
 		return false;
 	}
 

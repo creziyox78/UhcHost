@@ -20,10 +20,10 @@ import java.util.UUID;
 
 public class GoToHell extends Scenario {
 
-	private List<UUID> netherDamageds;
+	private final List<UUID> netherDamageds;
 
 	public GoToHell() {
-		super("Go To Hell", Arrays.asList(I18n.tl("scenarios.gotohell.lore", new String[0]), I18n.tl("scenarios.gotohell.lore1", new String[0]), I18n.tl("scenarios.gotohell.lore2", new String[0])), Material.NETHERRACK);
+		super("Go To Hell", Arrays.asList(I18n.tl("scenarios.gotohell.lore"), I18n.tl("scenarios.gotohell.lore1"), I18n.tl("scenarios.gotohell.lore2")), Material.NETHERRACK);
 		this.netherDamageds = new ArrayList<>();
 	}
 	
@@ -36,9 +36,9 @@ public class GoToHell extends Scenario {
 			if (this.netherDamageds.contains(player.getUniqueId()))
 				return;
 			player.damage(2.0D);
-			player.sendMessage(I18n.tl("scenarios.gotohell.message", new String[0]));
+			player.sendMessage(I18n.tl("scenarios.gotohell.message"));
 			this.netherDamageds.add(player.getUniqueId());
-			Bukkit.getScheduler().runTaskLater((Plugin) UhcHost.getInstance(), new Runnable() {
+			Bukkit.getScheduler().runTaskLater(UhcHost.getInstance(), new Runnable() {
 				public void run() {
 					GoToHell.this.netherDamageds.remove(player.getUniqueId());
 				}

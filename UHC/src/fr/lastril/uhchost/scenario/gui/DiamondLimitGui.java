@@ -20,9 +20,9 @@ import java.util.Arrays;
 public class DiamondLimitGui extends TimerGui {
 
 	public DiamondLimitGui(Player player) {
-		super(player, I18n.tl("guis.diamondlimit.name", new String[0]));
+		super(player, I18n.tl("guis.diamondlimit.name"));
 		ItemsCreator ic = new ItemsCreator(Material.DIAMOND_ORE, "§e" + DiamondLimit.getMaxDiamond(),
-				Arrays.asList(I18n.tl("guis.diamondlimit.lore", new String[0])));
+				Arrays.asList(I18n.tl("guis.diamondlimit.lore")));
 		inventory.setItem(4, ic.create());
 	}
 
@@ -50,7 +50,7 @@ public class DiamondLimitGui extends TimerGui {
 					break;
 				DiamondLimit.setMaxDiamond(value);
 				ic = new ItemsCreator(Material.DIAMOND, "§e" + DiamondLimit.getMaxDiamond(),
-						Arrays.asList(I18n.tl("guis.diamondlimit.lore", new String[0])));
+						Arrays.asList(I18n.tl("guis.diamondlimit.lore")));
 				inventory.setItem(4, ic.create());
 				break;
 			default:

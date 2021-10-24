@@ -22,10 +22,10 @@ public class LobbyPopulator {
 		ArrayList<Block> chestList = new ArrayList<>();
 		try {
 			FileInputStream fis = new FileInputStream(new File(UhcHost.instance.getDataFolder(), filename));
-			Object nbtData = NBTCompressedStreamTools.class.getMethod("a", new Class[] { InputStream.class })
-					.invoke(null, new Object[] { fis });
-			Method getShort = nbtData.getClass().getMethod("getShort", new Class[] { String.class });
-			Method getByteArray = nbtData.getClass().getMethod("getByteArray", new Class[] { String.class });
+			Object nbtData = NBTCompressedStreamTools.class.getMethod("a", InputStream.class)
+					.invoke(null, fis);
+			Method getShort = nbtData.getClass().getMethod("getShort", String.class);
+			Method getByteArray = nbtData.getClass().getMethod("getByteArray", String.class);
 			short width = ((Short) getShort.invoke(nbtData, new Object[] { "Width" })).shortValue();
 			short height = ((Short) getShort.invoke(nbtData, new Object[] { "Height" })).shortValue();
 			short length = ((Short) getShort.invoke(nbtData, new Object[] { "Length" })).shortValue();

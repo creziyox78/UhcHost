@@ -20,7 +20,7 @@ import java.util.UUID;
 
 public class Join implements Listener {
 
-	private UhcHost pl;
+	private final UhcHost pl;
 
 	public Join(UhcHost pl) {
 		this.pl = pl;
@@ -30,7 +30,7 @@ public class Join implements Listener {
 	public void onLogin(PlayerLoginEvent e) {
 		if (Bukkit.getOnlinePlayers().size() >= this.pl.gameManager.getMaxPlayers()) {
 		      e.setResult(PlayerLoginEvent.Result.KICK_FULL);
-		      e.setKickMessage(I18n.tl("serverFull", new String[0]));
+		      e.setKickMessage(I18n.tl("serverFull"));
 		}
 	}
 
@@ -69,7 +69,7 @@ public class Join implements Listener {
 				e.setJoinMessage("[" + ChatColor.GREEN + "+"+ ChatColor.WHITE+ "] " + player.getDisplayName());
 			}
 		}
-		Bukkit.getOnlinePlayers().stream().forEach(player1 -> {
+		Bukkit.getOnlinePlayers().forEach(player1 -> {
 			player.hidePlayer(player1);
 			player1.hidePlayer(player);
 			player.showPlayer(player1);
@@ -80,11 +80,10 @@ public class Join implements Listener {
 	private void UpdateMessage(Player player) {
 		player.sendMessage(" ");
 		player.sendMessage(" ");
-		player.sendMessage(ChatColor.AQUA + "         UHC Host: jour V0.9.1");
+		player.sendMessage(ChatColor.AQUA + "         UHC Host: jour V0.9.2");
 		player.sendMessage(ChatColor.AQUA + "                    By Lastril");
 		player.sendMessage(" ");
-		player.sendMessage(ChatColor.GREEN + "+Ajout du scénario DiamondLimit (configurable).");
-		player.sendMessage(ChatColor.GREEN + "+Ajout des paramètres du monde.");
+		player.sendMessage(ChatColor.GREEN + "+Ajout des paramètres des loots.");
 		player.sendMessage(" ");
 		player.sendMessage(ChatColor.GOLD + "*Développement du mode de jeu LG UHC.");
 		player.sendMessage(" ");

@@ -25,7 +25,7 @@ public enum Camps {
 	
 	private final ChatColor compoColor;
 
-	private Camps(ChatColor compoColor) {
+	Camps(ChatColor compoColor) {
 		this.compoColor = compoColor;
 	}
 

@@ -16,7 +16,7 @@ import java.util.UUID;
 
 public class GameStart implements Listener {
 	
-	private UhcHost pl;
+	private final UhcHost pl;
 	
 	public GameStart(UhcHost pl) {
 		this.pl = pl;

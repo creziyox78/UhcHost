@@ -1,8 +1,10 @@
-package fr.lastril.uhchost.inventory.guis;
+package fr.lastril.uhchost.inventory.guis.timer;
 
 import fr.lastril.uhchost.UhcHost;
 import fr.lastril.uhchost.game.GameManager;
 import fr.lastril.uhchost.game.GameState;
+import fr.lastril.uhchost.inventory.guis.HostConfig;
+import fr.lastril.uhchost.inventory.guis.nether.NetherGui;
 import fr.lastril.uhchost.inventory.guis.items.PotionsGui;
 import fr.lastril.uhchost.inventory.guis.world.border.BorderGui;
 import fr.lastril.uhchost.team.ToGui;
@@ -25,11 +27,11 @@ import org.bukkit.inventory.ItemStack;
 import java.util.Arrays;
 import java.util.Collections;
 
-public class RulesGui extends Gui {
+public class RulesGuiHost extends Gui {
 
     private final UhcHost pl = UhcHost.getInstance();
 
-    public RulesGui(Player player) {
+    public RulesGuiHost(Player player) {
         super(player, 9*3, ChatColor.AQUA + "Règles");
         ItemStack ic = new ItemsCreator(Material.BLAZE_ROD, I18n.tl("guis.main.teams"),
                 Collections.singletonList(I18n.tl("guis.main.teamsLore"))).create();
@@ -37,11 +39,14 @@ public class RulesGui extends Gui {
         ic = new ItemsCreator(Material.DIAMOND_SWORD, I18n.tl("guis.main.pvp"), Arrays
                 .asList(I18n.tl("guis.main.pvpLore"), I18n.tl("guis.main.pvpLore1")))
                 .create();
-        inventory.setItem(3, ic);
+        inventory.setItem(2, ic);
         ic = new ItemsCreator(Material.BARRIER, I18n.tl("guis.main.border"),
                 Collections.singletonList(I18n.tl("guis.main.borderLore"))).create();
-        inventory.setItem(5, ic);
+        inventory.setItem(4, ic);
         ic = new ItemsCreator(Material.OBSIDIAN, I18n.tl("guis.main.nether"), Collections.singletonList(I18n.tl("guis.main.netherLore"))).create();
+        inventory.setItem(6, ic);
+
+        ic = new ItemsCreator(Material.APPLE, I18n.tl("guis.main.loots"), Collections.singletonList(I18n.tl("guis.main.lootsLore"))).create();
         inventory.setItem(8, ic);
 
         inventory.setItem(18, Items.getItem(Material.CHEST, ChatColor.YELLOW + "Inventaire de départ", true));
@@ -105,13 +110,16 @@ public class RulesGui extends Gui {
             } else if(current.getType() == Material.GOLDEN_CARROT || current.getType() == Material.CARROT_ITEM){
                 gamemanager.setViewHealth(!gamemanager.isViewHealth());
                 player.closeInventory();
-                new RulesGui(player).show();
+                new RulesGuiHost(player).show();
             } else if(current.getType() == Material.POTION){
                 player.closeInventory();
                 new PotionsGui(player).show();
             } else if(current.getType() == Material.WATCH){
                 player.closeInventory();
                 new CycleTimeGui(player).show();
+            } else if(current.getType() == Material.APPLE){
+                player.closeInventory();
+                new LootsGui(player).show();
             }
 
         }

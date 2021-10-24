@@ -16,7 +16,7 @@ import org.bukkit.event.entity.PlayerDeathEvent;
 
 public class DeathPlayer implements Listener {
 
-	private UhcHost hu;
+	private final UhcHost hu;
 
 	public DeathPlayer(UhcHost hu) {
 	    this.hu = hu;
@@ -32,11 +32,7 @@ public class DeathPlayer implements Listener {
 				Bukkit.getPluginManager().callEvent(new PlayerKillEvent(killer));
 			}
 		}
-		if (killer != null) {
-			gamemanager.getModes().getMode().onDeath(player, killer);
-		} else {
-			gamemanager.getModes().getMode().onDeath(player, null);
-		}
+		gamemanager.getModes().getMode().onDeath(player, killer);
 
 		Bukkit.getScheduler().runTaskLater(hu, () -> {
 			player.spigot().respawn();

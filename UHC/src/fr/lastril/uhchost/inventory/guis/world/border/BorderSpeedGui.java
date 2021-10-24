@@ -20,10 +20,10 @@ import java.util.Arrays;
 public class BorderSpeedGui extends TimerGui {
 
 	public BorderSpeedGui(Player player) {
-		super(player, I18n.tl("guis.borderSpeed.name", new String[0]));
+		super(player, I18n.tl("guis.borderSpeed.name"));
 		ItemsCreator ic = new ItemsCreator(Material.NETHER_STAR,
 				"§e" + (UhcHost.getInstance()).worldBorderUtils.getSpeed(),
-				Arrays.asList(I18n.tl("guis.borderSpeed.lore", I18n.tl("guis.borderSpeed.lore1", new String[0]))));
+				Arrays.asList(I18n.tl("guis.borderSpeed.lore", I18n.tl("guis.borderSpeed.lore1"))));
 		inventory.setItem(4, ic.create());
 	}
 
@@ -51,7 +51,7 @@ public class BorderSpeedGui extends TimerGui {
 					break;
 				(UhcHost.getInstance()).worldBorderUtils.setSpeed(value);
 				ic = new ItemsCreator(Material.NETHER_STAR, "§e" + (UhcHost.getInstance()).worldBorderUtils.getSpeed(),
-						Arrays.asList(I18n.tl("guis.borderSpeed.lore", new String[0])));
+						Arrays.asList(I18n.tl("guis.borderSpeed.lore")));
 				inventory.setItem(4, ic.create());
 				break;
 			default:
@@ -63,7 +63,7 @@ public class BorderSpeedGui extends TimerGui {
 	@EventHandler
 	public void onClick(InventoryCloseEvent event) {
 		if (event.getInventory().equals(inventory))
-			HandlerList.unregisterAll((Listener) this);
+			HandlerList.unregisterAll(this);
 	}
 
 }

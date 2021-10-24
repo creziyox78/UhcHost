@@ -14,7 +14,7 @@ import java.util.Arrays;
 public class Rodless extends Scenario {
 
 	public Rodless() {
-		super("Rodless", Arrays.asList(I18n.tl("scenarios.rodless", new String[0])),
+		super("Rodless", Arrays.asList(I18n.tl("scenarios.rodless")),
 				Material.COOKED_FISH);
 	}
 

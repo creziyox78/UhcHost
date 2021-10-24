@@ -1,6 +1,7 @@
-package fr.lastril.uhchost.inventory.guis;
+package fr.lastril.uhchost.inventory.guis.timer;
 
 import fr.lastril.uhchost.UhcHost;
+import fr.lastril.uhchost.inventory.guis.HostConfig;
 import fr.lastril.uhchost.scenario.gui.TimerGui;
 import fr.lastril.uhchost.tools.I18n;
 import fr.lastril.uhchost.tools.creators.ItemsCreator;
@@ -18,10 +19,10 @@ import java.util.Arrays;
 public class PvpTimeGui extends TimerGui {
 
 	public PvpTimeGui(Player player) {
-		super(player, I18n.tl("guis.pvpTime.name", new String[0]));
+		super(player, I18n.tl("guis.pvpTime.name"));
 		ItemsCreator ic = new ItemsCreator(Material.DIAMOND_SWORD,
 				"§e" + ((UhcHost.getInstance()).taskManager.getPvpTime() / 60),
-				Arrays.asList(I18n.tl("guis.pvpTime.lore", new String[0]), I18n.tl("guis.pvpTime.lore1", new String[0])));
+				Arrays.asList(I18n.tl("guis.pvpTime.lore"), I18n.tl("guis.pvpTime.lore1")));
 		inventory.setItem(4, ic.create());
 	}
 

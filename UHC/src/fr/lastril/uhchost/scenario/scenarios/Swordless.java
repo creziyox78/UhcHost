@@ -12,7 +12,7 @@ import java.util.Arrays;
 public class Swordless extends Scenario {
 
 	public Swordless() {
-		super("Swordless", Arrays.asList(I18n.tl("scenarios.swordless", new String[0])), Material.DIAMOND_SWORD);
+		super("Swordless", Arrays.asList(I18n.tl("scenarios.swordless")), Material.DIAMOND_SWORD);
 	}
 
 	@EventHandler

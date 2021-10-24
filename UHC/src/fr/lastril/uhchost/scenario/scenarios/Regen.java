@@ -12,7 +12,7 @@ import java.util.Arrays;
 public class Regen extends Scenario {
 
 	public Regen() {
-		super("Regen", Arrays.asList(new String[] { I18n.tl("scenarios.regen", new String[0]) }), Material.RED_ROSE);
+		super("Regen", Arrays.asList(I18n.tl("scenarios.regen")), Material.RED_ROSE);
 	}
 
 	@EventHandler

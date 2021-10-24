@@ -20,12 +20,12 @@ import java.util.Arrays;
 public class FinalBorderSizeGui extends TimerGui {
 
 	public FinalBorderSizeGui(Player player) {
-		super(player, I18n.tl("guis.finalBorderSize.name", new String[0]));
+		super(player, I18n.tl("guis.finalBorderSize.name"));
 		ItemsCreator ic = new ItemsCreator(Material.STAINED_GLASS_PANE,
 				"§c" + (UhcHost.getInstance()).worldBorderUtils.getFinalSize(),
-				Arrays.asList(I18n.tl("guis.finalBorderSize.lore", new String[0]),
-						I18n.tl("guis.finalBorderSize.lore1", new String[0]),
-						I18n.tl("guis.finalBorderSize.lore2", new String[0])),
+				Arrays.asList(I18n.tl("guis.finalBorderSize.lore"),
+						I18n.tl("guis.finalBorderSize.lore1"),
+						I18n.tl("guis.finalBorderSize.lore2")),
 				1, (byte) 14);
 		inventory.setItem(4, ic.create());
 	}
@@ -55,9 +55,9 @@ public class FinalBorderSizeGui extends TimerGui {
 				(UhcHost.getInstance()).worldBorderUtils.setFinalSize(value);
 				ic = new ItemsCreator(Material.STAINED_GLASS_PANE,
 						"§c" + (UhcHost.getInstance()).worldBorderUtils.getFinalSize(),
-						Arrays.asList(I18n.tl("guis.finalBorderSize.lore", new String[0]),
-								I18n.tl("guis.finalBorderSize.lore1", new String[0]),
-								I18n.tl("guis.finalBorderSize.lore2", new String[0])),
+						Arrays.asList(I18n.tl("guis.finalBorderSize.lore"),
+								I18n.tl("guis.finalBorderSize.lore1"),
+								I18n.tl("guis.finalBorderSize.lore2")),
 						1, (byte) 14);
 				inventory.setItem(4, ic.create());
 				break;

@@ -12,7 +12,7 @@ import java.util.Arrays;
 public class DoubleOres extends Scenario {
 	
 	public DoubleOres() {
-		super("Double Ores", Arrays.asList(I18n.tl("scenarios.doubleores", new String[0])), Material.COAL_ORE);
+		super("Double Ores", Arrays.asList(I18n.tl("scenarios.doubleores")), Material.COAL_ORE);
 	}
 	
 	@EventHandler

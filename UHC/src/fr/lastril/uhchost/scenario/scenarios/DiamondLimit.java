@@ -26,8 +26,8 @@ public class DiamondLimit extends Scenario {
     private final UhcHost pl = UhcHost.getInstance();
 
     public DiamondLimit() {
-        super("DiamondLimit", Arrays.asList(I18n.tl("scenarios.diamondlimit.lore", new String[0]),
-                I18n.tl("scenarios.diamondlimit.lore1", new String[0])), Material.DIAMOND_ORE, DiamondLimitGui.class);
+        super("DiamondLimit", Arrays.asList(I18n.tl("scenarios.diamondlimit.lore"),
+                I18n.tl("scenarios.diamondlimit.lore1")), Material.DIAMOND_ORE, DiamondLimitGui.class);
     }
 
     @EventHandler
@@ -39,7 +39,7 @@ public class DiamondLimit extends Scenario {
                 if(diamondLimit.get(playerManager) >= maxDiamond){
                     event.setCancelled(true);
                     event.getBlock().setType(Material.AIR);
-                    player.sendMessage(I18n.tl("scenarios.diamondlimit.message", new String[0]));
+                    player.sendMessage(I18n.tl("scenarios.diamondlimit.message"));
                     event.getBlock().getLocation().getWorld().dropItemNaturally(event.getBlock().getLocation(), new ItemStack(Material.GOLD_ORE));
                 } else {
                     diamondLimit.put(playerManager, diamondLimit.get(playerManager) + 1);

@@ -49,7 +49,7 @@ public class Timber extends Scenario {
 					if (bList.size() == 0)
 						cancel();
 				}
-			}).runTaskTimer((Plugin) UhcHost.getInstance(), 1L, 1L);
+			}).runTaskTimer(UhcHost.getInstance(), 1L, 1L);
 		}
 	}
 
@@ -61,7 +61,7 @@ public class Timber extends Scenario {
 		int z = loc.getBlockZ();
 		if (!validChunk(world, x - 5, y - 5, z - 5, x + 5, y + 5, z + 5))
 			return;
-		Bukkit.getServer().getScheduler().runTask((Plugin) UhcHost.getInstance(), () -> {
+		Bukkit.getServer().getScheduler().runTask(UhcHost.getInstance(), () -> {
 			for (int offX = -4; offX <= 4; offX++) {
 				for (int offY = -4; offY <= 4; offY++) {
 					for (int offZ = -4; offZ <= 4; offZ++) {
@@ -128,7 +128,7 @@ public class Timber extends Scenario {
 		}
 		if (blocks[div * mul + div * max + div] < 0) {
 			LeavesDecayEvent event = new LeavesDecayEvent(block);
-			Bukkit.getServer().getPluginManager().callEvent((Event) event);
+			Bukkit.getServer().getPluginManager().callEvent(event);
 			if (event.isCancelled())
 				return;
 			block.breakNaturally();

@@ -20,7 +20,7 @@ public class BowSwap extends Scenario {
 
 	public BowSwap() {
 		super("Bow Swap",
-				Arrays.asList(I18n.tl("scenarios.bowswap.lore", new String[0]),
+				Arrays.asList(I18n.tl("scenarios.bowswap.lore"),
 						I18n.tl("scenarios.bowswap.lore1", String.valueOf(tpPercentage))),
 				Material.SNOW_BALL, BowSwapGui.class);
 	}

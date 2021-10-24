@@ -1,7 +1,7 @@
 package fr.lastril.uhchost.inventory.guis.world.border;
 
 import fr.lastril.uhchost.inventory.Gui;
-import fr.lastril.uhchost.inventory.guis.*;
+import fr.lastril.uhchost.inventory.guis.timer.RulesGuiHost;
 import fr.lastril.uhchost.tools.I18n;
 import fr.lastril.uhchost.tools.creators.ItemsCreator;
 import org.bukkit.Material;
@@ -17,21 +17,21 @@ import java.util.Arrays;
 public class BorderGui extends Gui {
 
 	public BorderGui(Player player) {
-		super(player, 18, I18n.tl("guis.border.name", new String[0]));
+		super(player, 18, I18n.tl("guis.border.name"));
 		ItemsCreator ic = new ItemsCreator(Material.STAINED_GLASS_PANE,
-				I18n.tl("guis.border.initialSize", new String[0]),
-				Arrays.asList(I18n.tl("guis.border.initialSizeLore", new String[0])), 1, (byte) 13);
+				I18n.tl("guis.border.initialSize"),
+				Arrays.asList(I18n.tl("guis.border.initialSizeLore")), 1, (byte) 13);
 		inventory.setItem(3, ic.create());
-		ic = new ItemsCreator(Material.NETHER_STAR, I18n.tl("guis.border.speed", new String[0]),
-				Arrays.asList(I18n.tl("guis.border.speedLore", new String[0])));
+		ic = new ItemsCreator(Material.NETHER_STAR, I18n.tl("guis.border.speed"),
+				Arrays.asList(I18n.tl("guis.border.speedLore")));
 		inventory.setItem(4, ic.create());
-		ic = new ItemsCreator(Material.STAINED_GLASS_PANE, I18n.tl("guis.border.finalSize", new String[0]),
-				Arrays.asList(I18n.tl("guis.border.finalSizeLore", new String[0])), 1, (byte) 14);
+		ic = new ItemsCreator(Material.STAINED_GLASS_PANE, I18n.tl("guis.border.finalSize"),
+				Arrays.asList(I18n.tl("guis.border.finalSizeLore")), 1, (byte) 14);
 		inventory.setItem(5, ic.create());
-		ic = new ItemsCreator(Material.COBBLE_WALL, I18n.tl("guis.border.time", new String[0]),
-				Arrays.asList(I18n.tl("guis.border.timeLore", new String[0])));
+		ic = new ItemsCreator(Material.COBBLE_WALL, I18n.tl("guis.border.time"),
+				Arrays.asList(I18n.tl("guis.border.timeLore")));
 		inventory.setItem(13, ic.create());
-		inventory.setItem(17, (new ItemsCreator(Material.BARRIER, I18n.tl("guis.back", new String[0]), null)).create());
+		inventory.setItem(17, (new ItemsCreator(Material.BARRIER, I18n.tl("guis.back"), null)).create());
 	}
 
 	@EventHandler
@@ -57,7 +57,7 @@ public class BorderGui extends Gui {
 				(new BorderTimeGui(this.player)).show();
 			} else if (is.getType() == Material.BARRIER) {
 				event.getWhoClicked().closeInventory();
-				new RulesGui(player).show();
+				new RulesGuiHost(player).show();
 			}
 		}
 	}

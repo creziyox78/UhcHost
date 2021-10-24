@@ -5,6 +5,6 @@ public enum When {
 	AT_KILL,
 	START,
 	DAY,
-	NIGHT;
-	
+	NIGHT
+
 }

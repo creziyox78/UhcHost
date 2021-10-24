@@ -14,7 +14,7 @@ import java.util.UUID;
 
 public class Quit implements Listener {
 	
-	private UhcHost pl;
+	private final UhcHost pl;
 	
 	public Quit(UhcHost pl) {
 		this.pl = pl;
@@ -35,7 +35,7 @@ public class Quit implements Listener {
 		    if(pl.gameManager.getHost() == player) pl.gameManager.setHost(null);
 		}
 		else if(gameManager.getGameState() == GameState.STARTED) {
-			if(pl.getAllPlayerManager().keySet().contains(playersUuid)) {
+			if(pl.getAllPlayerManager().containsKey(playersUuid)) {
 				e.setQuitMessage("[" + ChatColor.RED + "-"+ ChatColor.WHITE+ "] " + player.getDisplayName());
 				if(gameManager.isBorder()) {
 					pl.getAllPlayerManager().get(playersUuid).setAlive(false);

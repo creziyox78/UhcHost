@@ -22,7 +22,7 @@ public class FastMelting extends Scenario {
 	@EventHandler
 	public void onFurnace(FurnaceBurnEvent e) {
 		final Block block = e.getBlock();
-		Bukkit.getScheduler().runTaskLater((Plugin)UhcHost.instance, new Runnable() {
+		Bukkit.getScheduler().runTaskLater(UhcHost.instance, new Runnable() {
 
 			@Override
 			public void run() {
@@ -34,7 +34,7 @@ public class FastMelting extends Scenario {
 					return;
 				}
 				if(furnace.getCookTime() <= 0) {
-					Bukkit.getScheduler().runTaskLater((Plugin)UhcHost.instance, this, 5L);
+					Bukkit.getScheduler().runTaskLater(UhcHost.instance, this, 5L);
 					return;
 				}
 				short newCookeTime = (short)(furnace.getCookTime() + 10);
@@ -43,7 +43,7 @@ public class FastMelting extends Scenario {
 				}
 				furnace.setCookTime(newCookeTime);
 				furnace.update();
-				Bukkit.getScheduler().runTaskLater((Plugin)UhcHost.instance, this, 2L);
+				Bukkit.getScheduler().runTaskLater(UhcHost.instance, this, 2L);
 			}
 				
 		}, 1L);

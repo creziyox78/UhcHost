@@ -2,8 +2,7 @@ package fr.lastril.uhchost.inventory.guis.items;
 
 import fr.lastril.uhchost.UhcHost;
 import fr.lastril.uhchost.inventory.Gui;
-import fr.lastril.uhchost.inventory.guis.HostConfig;
-import fr.lastril.uhchost.inventory.guis.RulesGui;
+import fr.lastril.uhchost.inventory.guis.timer.RulesGuiHost;
 import fr.lastril.uhchost.tools.I18n;
 import fr.lastril.uhchost.tools.creators.ItemsCreator;
 import org.bukkit.GameMode;
@@ -15,7 +14,6 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.inventory.ItemStack;
 
-import java.util.Arrays;
 import java.util.Collections;
 
 public class PotionsGui extends Gui {
@@ -54,7 +52,7 @@ public class PotionsGui extends Gui {
             switch (is.getType()) {
                 case BARRIER:
                     event.getWhoClicked().closeInventory();
-                    new RulesGui(this.player).show();
+                    new RulesGuiHost(this.player).show();
                     break;
                 case GOLDEN_APPLE:
                     (UhcHost.getInstance()).gameManager.setNotchApple(!(UhcHost.getInstance()).gameManager.isNotchApple());

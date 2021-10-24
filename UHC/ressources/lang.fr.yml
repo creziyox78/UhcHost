@@ -50,6 +50,7 @@ damageActived: "&cD[,]gats activ[,]s !"
 netherEndIn: "&cLe nether va devenir mortel dans {0} minute(s) !"
 netherEnd: "&cLe nether est d[,]sormais mortel !"
 serverFull: "Le serveur est plein"
+rebootSoon: "&cLe serveur va bientôt redémarrer !"
 
 teams: "Equipes"
 teamFull: "Cette [,]quipe est pleine"
@@ -92,6 +93,8 @@ guis:
     lore: "&7Choisis la taille finale de la bordure"
     lore1: "&7Tu choisis la longeur de la bordure donc"
     lore2: "&7si tu mets 1000 tu auras une map de 1000x1000"
+  rules:
+    name: "&bSc[,]narios"
   potions:
     name: "&5Potions"
     notchAppleOn: "&5Pomme de notch : &aOn"
@@ -117,6 +120,28 @@ guis:
   deniedPotions:
     name: "&5Potions d[,]sactiv[,]es"
     lore: "&7Clique pour r[,]activer"
+  appleLoot:
+    name: "&5Pommes"
+    lore: "&7Choisis le taux de loot suppl[,]mentaire des pommes"
+  featherLoot:
+    name: "&5Plumes"
+    lore: "&7Choisis le taux de loot suppl[,]mentaire des plumes"
+  flintLoot:
+    name: "&5Silex"
+    lore: "&7Choisis le taux de loot suppl[,]mentaire des silex"
+  stringLoot:
+    name: "&5Ficelles"
+    lore: "&7Choisis le taux de loot suppl[,]mentaire des ficelles"
+  loots:
+    name: "&5Loots"
+    apple: "&6Pommes"
+    appleLore: "&7Taux de loot supl[,]mentaire des &6pommes &r: &a{0}%"
+    feather: "&6Plumes"
+    featherLore: "&7Taux de loot supl[,]mentaire des &6plumes &r: &a{0}%"
+    flint: "&6Silex"
+    flintLore: "&7Taux de loot supl[,]mentaire des &6silex &r: &a{0}%"
+    string: "&6Ficelles"
+    stringLore: "&7Taux de loot supl[,]mentaire des &6ficelles &r: &a{0}%"
   startBorderSize:
     name: "&5Taille initiale"
     lore: "&7Choisis la taille initiale de la bordure"
@@ -166,6 +191,8 @@ guis:
     netherLore: "&7Configure le nether"
     cycle: "§eCycle Jour/Nuit"
     cycleLore: "§eConfigure le cycle Jour/Nuit pendant la partie."
+    loots: "&eLoots"
+    lootsLore: "&7Choisis les taux de loots pour certains items"
   maxPlayers:
     name: "&5Nombre de joueurs maximum"
     lore: "&7Choisis le nombre de joueurs maximum"
@@ -289,8 +316,5 @@ scenarios:
     lore1: "&7Il est remlit avec son stuff."
     lore2: "&7Il finit par exploser au bout de {0} seconde(s)."
   tripleores: "&7Trois fois plus de minerais dropp[,]s"
-  vanillaplus:
-    lore: "&7Les pommes et les silex"
-    lore1: "&7ont beaucoup plus de chance de drop."
   
   

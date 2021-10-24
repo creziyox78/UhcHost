@@ -57,7 +57,7 @@ public class BannerCreator {
 			for (Pattern pattern : this.patterns)
 				this.meta.addPattern(pattern);
 		this.meta.addItemFlags(ItemFlag.values());
-		this.banner.setItemMeta((ItemMeta) this.meta);
+		this.banner.setItemMeta(this.meta);
 		return this.banner;
 	}
 

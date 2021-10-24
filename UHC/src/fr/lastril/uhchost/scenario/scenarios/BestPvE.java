@@ -20,12 +20,12 @@ import java.util.UUID;
 
 public class BestPvE extends Scenario implements Runnable {
 
-	private HashMap<UUID, Long> map;
+	private final HashMap<UUID, Long> map;
 
 	public BestPvE() {
-		super("BestPvE", Arrays.asList(I18n.tl("scenarios.bestpve.lore", new String[0]),
-				I18n.tl("scenarios.bestpve.lore1", ""), I18n.tl("scenarios.bestpve.lore2", new String[0]),
-				I18n.tl("scenarios.bestpve.lore3", new String[0]), I18n.tl("scenarios.bestpve.lore4", new String[0])),
+		super("BestPvE", Arrays.asList(I18n.tl("scenarios.bestpve.lore"),
+				I18n.tl("scenarios.bestpve.lore1", ""), I18n.tl("scenarios.bestpve.lore2"),
+				I18n.tl("scenarios.bestpve.lore3"), I18n.tl("scenarios.bestpve.lore4")),
 				Material.ROTTEN_FLESH);
 		this.map = new HashMap<>();
 	}
@@ -35,7 +35,7 @@ public class BestPvE extends Scenario implements Runnable {
 		for (Player player : e.getPlayers()) {
 			this.map.put(player.getUniqueId(), Long.valueOf(System.currentTimeMillis()));
 		}
-		Bukkit.getScheduler().runTaskTimer((Plugin) UhcHost.getInstance(), (Runnable) this, 20L, 20L);
+		Bukkit.getScheduler().runTaskTimer(UhcHost.getInstance(), this, 20L, 20L);
 	}
 
 	@EventHandler
@@ -45,7 +45,7 @@ public class BestPvE extends Scenario implements Runnable {
 				if(e.getCause() == DamageCause.FALL)
 					return;
 			this.map.remove(e.getEntity().getUniqueId());
-			e.getEntity().sendMessage(I18n.tl("scenarios.bestpve.removeList", new String[0]));
+			e.getEntity().sendMessage(I18n.tl("scenarios.bestpve.removeList"));
 		}
 	}
 
@@ -53,7 +53,7 @@ public class BestPvE extends Scenario implements Runnable {
 	public void onPlayerKill(PlayerKillEvent e) {
 		if (!this.map.containsKey(e.getPlayer().getUniqueId())) {
 			this.map.put(e.getPlayer().getUniqueId(), Long.valueOf(System.currentTimeMillis()));
-			e.getPlayer().sendMessage(I18n.tl("scenarios.bestpve.addList", new String[0]));
+			e.getPlayer().sendMessage(I18n.tl("scenarios.bestpve.addList"));
 		}
 	}
 
@@ -70,7 +70,7 @@ public class BestPvE extends Scenario implements Runnable {
 				} else {
 					p.setHealth(p.getHealth() + 2.0D);
 				}
-				p.sendMessage(I18n.tl("scenarios.bestpve.regainHealth", new String[0]));
+				p.sendMessage(I18n.tl("scenarios.bestpve.regainHealth"));
 				this.map.replace(p.getUniqueId(), Long.valueOf(System.currentTimeMillis()));
 			}
 		});

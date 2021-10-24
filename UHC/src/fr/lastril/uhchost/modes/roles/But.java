@@ -14,7 +14,7 @@ public enum But {
 	
 	public String desc;
 
-	private But(String desc) {
+	But(String desc) {
 		this.desc = desc;
 	}
 

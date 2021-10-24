@@ -23,7 +23,7 @@ public class BungeeAPI {
 		} catch (IOException e) {
 			System.out.println("ERROR:" + e.getMessage());
 		}
-		p.sendPluginMessage((Plugin) UhcHost.instance, "BungeeCord", b.toByteArray());
+		p.sendPluginMessage(UhcHost.instance, "BungeeCord", b.toByteArray());
 	}
 
 	public static void GetPlayerCount(Player p, String ServerName) {
@@ -35,7 +35,7 @@ public class BungeeAPI {
 		} catch (IOException e) {
 			System.out.println("ERROR:" + e.getMessage());
 		}
-		p.sendPluginMessage((Plugin) UhcHost.instance, "BungeeCord", b.toByteArray());
+		p.sendPluginMessage(UhcHost.instance, "BungeeCord", b.toByteArray());
 	}
 
 	public static void GetServers(Player p) {
@@ -46,6 +46,6 @@ public class BungeeAPI {
 		} catch (IOException e) {
 			System.out.println("ERROR:" + e.getMessage());
 		}
-		p.sendPluginMessage((Plugin) UhcHost.instance, "BungeeCord", b.toByteArray());
+		p.sendPluginMessage(UhcHost.instance, "BungeeCord", b.toByteArray());
 	}
 }

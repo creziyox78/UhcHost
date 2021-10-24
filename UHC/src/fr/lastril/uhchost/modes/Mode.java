@@ -27,4 +27,6 @@ public abstract class Mode {
 
     public abstract void checkWin();
 
+    public abstract ModeManager getModeManager();
+
 }

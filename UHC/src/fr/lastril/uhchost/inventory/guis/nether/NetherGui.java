@@ -1,7 +1,8 @@
-package fr.lastril.uhchost.inventory.guis;
+package fr.lastril.uhchost.inventory.guis.nether;
 
 import fr.lastril.uhchost.UhcHost;
 import fr.lastril.uhchost.inventory.Gui;
+import fr.lastril.uhchost.inventory.guis.HostConfig;
 import fr.lastril.uhchost.tools.I18n;
 import fr.lastril.uhchost.tools.creators.ItemsCreator;
 import org.bukkit.Material;
@@ -17,19 +18,19 @@ import java.util.Arrays;
 public class NetherGui extends Gui {
 
 	public NetherGui(Player player) {
-		super(player, 9, I18n.tl("guis.nether.name", new String[0]));
-		ItemsCreator ic = new ItemsCreator(Material.OBSIDIAN, I18n.tl("guis.nether.time", new String[0]),
-				Arrays.asList(I18n.tl("guis.nether.timeLore", new String[0])), 1, (byte) 13);
+		super(player, 9, I18n.tl("guis.nether.name"));
+		ItemsCreator ic = new ItemsCreator(Material.OBSIDIAN, I18n.tl("guis.nether.time"),
+				Arrays.asList(I18n.tl("guis.nether.timeLore")), 1, (byte) 13);
 		inventory.setItem(3, ic.create());
 		if ((UhcHost.getInstance()).gameManager.isNether()) {
-			ic = new ItemsCreator(Material.STAINED_GLASS_PANE, I18n.tl("guis.nether.stateOn", new String[0]),
-					Arrays.asList(I18n.tl("guis.nether.stateOnLore", new String[0])), 1, (byte) 13);
+			ic = new ItemsCreator(Material.STAINED_GLASS_PANE, I18n.tl("guis.nether.stateOn"),
+					Arrays.asList(I18n.tl("guis.nether.stateOnLore")), 1, (byte) 13);
 		} else {
-			ic = new ItemsCreator(Material.STAINED_GLASS_PANE, I18n.tl("guis.nether.stateOff", new String[0]),
-					Arrays.asList(I18n.tl("guis.nether.stateOffLore", new String[0])), -1, (byte) 14);
+			ic = new ItemsCreator(Material.STAINED_GLASS_PANE, I18n.tl("guis.nether.stateOff"),
+					Arrays.asList(I18n.tl("guis.nether.stateOffLore")), -1, (byte) 14);
 		}
 		inventory.setItem(4, ic.create());
-		ic = new ItemsCreator(Material.BARRIER, I18n.tl("guis.back", new String[0]), null);
+		ic = new ItemsCreator(Material.BARRIER, I18n.tl("guis.back"), null);
 		inventory.setItem(5, ic.create());
 	}
 
@@ -51,12 +52,12 @@ public class NetherGui extends Gui {
 			case STAINED_GLASS_PANE:
 				(UhcHost.getInstance()).gameManager.setNether(!(UhcHost.getInstance()).gameManager.isNether());
 				if ((UhcHost.getInstance()).gameManager.isNether()) {
-					ic = new ItemsCreator(Material.STAINED_GLASS_PANE, I18n.tl("guis.nether.stateOn", new String[0]),
-							Arrays.asList(I18n.tl("guis.nether.stateOnLore", new String[0])), 1,
+					ic = new ItemsCreator(Material.STAINED_GLASS_PANE, I18n.tl("guis.nether.stateOn"),
+							Arrays.asList(I18n.tl("guis.nether.stateOnLore")), 1,
 							(byte) 13);
 				} else {
-					ic = new ItemsCreator(Material.STAINED_GLASS_PANE, I18n.tl("guis.nether.stateOff", new String[0]),
-							Arrays.asList(I18n.tl("guis.nether.stateOffLore", new String[0])), -1,
+					ic = new ItemsCreator(Material.STAINED_GLASS_PANE, I18n.tl("guis.nether.stateOff"),
+							Arrays.asList(I18n.tl("guis.nether.stateOffLore")), -1,
 							(byte) 14);
 				}
 				inventory.setItem(4, ic.create());

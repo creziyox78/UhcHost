@@ -1,10 +1,7 @@
 package fr.lastril.uhchost;
 
 import fr.lastril.uhchost.bungeecord.PluginMessage;
-import fr.lastril.uhchost.commands.CmdMode;
-import fr.lastril.uhchost.commands.CmdRole;
-import fr.lastril.uhchost.commands.CommandHost;
-import fr.lastril.uhchost.commands.CommandRules;
+import fr.lastril.uhchost.commands.*;
 import fr.lastril.uhchost.game.GameManager;
 import fr.lastril.uhchost.game.GameState;
 import fr.lastril.uhchost.game.tasks.TaskManager;
@@ -51,7 +48,7 @@ public class UhcHost extends JavaPlugin {
 
 	private NotStart notstart;
 
-	private Map<UUID, PlayerManager> playerManagers = new HashMap<>();
+	private final Map<UUID, PlayerManager> playerManagers = new HashMap<>();
 
 	public WorldUtils worldUtils;
 
@@ -117,9 +114,11 @@ public class UhcHost extends JavaPlugin {
 
 	private void commandsRegister() {
 		Bukkit.getConsoleSender().sendMessage(ChatColor.YELLOW + "Register commands...");
-		getCommand("h").setExecutor(new CommandHost(this));
-		getCommand("scenarios").setExecutor(new CommandRules());
+		getCommand("h").setExecutor(new CmdHost(this));
+		getCommand("scenarios").setExecutor(new CmdScenarios());
 		getCommand("role").setExecutor(new CmdRole(this));
+		getCommand("loots").setExecutor(new CmdLoots());
+		getCommand("potions").setExecutor(new CmdPotions());
 
 		for (Modes mode : Modes.values()) {
 			if (mode.getMode() instanceof ModeCommand) {
@@ -146,7 +145,6 @@ public class UhcHost extends JavaPlugin {
 		this.gameManager.setHostname(ChatColor.RED + "" + ChatColor.BOLD + "Personne");
 		this.gameManager.setSlot(50);
 		CustomInv.createInventory();
-
 		this.scoreboardUtil = new ScoreboardUtils(this);
 		this.teamUtils = new TeamUtils(this, this.scoreboardUtil.getBoard());
 	}

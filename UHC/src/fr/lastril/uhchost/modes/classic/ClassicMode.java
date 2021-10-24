@@ -2,6 +2,7 @@ package fr.lastril.uhchost.modes.classic;
 
 import fr.lastril.uhchost.UhcHost;
 import fr.lastril.uhchost.modes.Mode;
+import fr.lastril.uhchost.modes.ModeManager;
 import fr.lastril.uhchost.modes.Modes;
 import fr.lastril.uhchost.scenario.Scenarios;
 import fr.lastril.uhchost.tools.API.BungeeAPI;
@@ -83,11 +84,16 @@ public class ClassicMode extends Mode {
         }
     }
 
+    @Override
+    public ModeManager getModeManager() {
+        return null;
+    }
+
     public void win(Player winner) {
         this.pl.gameManager.setDamage(false);
-        Bukkit.broadcastMessage(I18n.tl("endGame", new String[0]));
+        Bukkit.broadcastMessage(I18n.tl("endGame"));
         Bukkit.broadcastMessage(I18n.tl("winOfPlayer", winner.getName()));
-        Bukkit.broadcastMessage(I18n.tl("rebootSoon", new String[0]));
+        Bukkit.broadcastMessage(I18n.tl("rebootSoon"));
         doParticle(winner.getLocation(), Effect.HEART, 4.0D, 10.0D, 0.5D, 1.0D, 1000.0D, 0.1D, 1.0D, 1.0D);
         Bukkit.getScheduler().runTaskLater(this.pl, () -> {
             if (this.pl.getConfig().getBoolean("bungeecord")) {
@@ -103,9 +109,9 @@ public class ClassicMode extends Mode {
 
     public void win(Team winner) {
         this.pl.gameManager.setDamage(false);
-        Bukkit.broadcastMessage(I18n.tl("endGame", new String[0]));
+        Bukkit.broadcastMessage(I18n.tl("endGame"));
         Bukkit.broadcastMessage(I18n.tl("winOfTeam", winner.getName()));
-        Bukkit.broadcastMessage(I18n.tl("endGame", new String[0]));
+        Bukkit.broadcastMessage(I18n.tl("endGame"));
         Bukkit.getScheduler().runTaskLater(this.pl, () -> {
             if (this.pl.getConfig().getBoolean("bungeecord")) {
                 if (this.pl.getConfig().getString("server-redirection") != null && !this.pl

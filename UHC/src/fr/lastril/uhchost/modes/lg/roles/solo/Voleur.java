@@ -1,18 +1,26 @@
 package fr.lastril.uhchost.modes.lg.roles.solo;
 
+import fr.lastril.uhchost.enums.Messages;
 import fr.lastril.uhchost.modes.lg.roles.LGRole;
 import fr.lastril.uhchost.modes.roles.Camps;
 import fr.lastril.uhchost.modes.roles.Role;
+import fr.lastril.uhchost.modes.roles.RoleListener;
 import fr.lastril.uhchost.modes.roles.When;
+import fr.lastril.uhchost.player.PlayerManager;
+import fr.lastril.uhchost.player.events.PlayerKillEvent;
 import fr.lastril.uhchost.tools.creators.ItemsCreator;
 import org.bukkit.Material;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.SkullType;
 import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
 public class Voleur extends Role implements LGRole {
-	
+
+	private boolean killed;
+
 	public Voleur() {
 		super.addEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, Integer.MAX_VALUE, 0, false, false), When.START);
 	}
@@ -37,6 +45,23 @@ public class Voleur extends Role implements LGRole {
 	}
 
 	@Override
+	public void onKill(OfflinePlayer player, Player killer) {
+		PlayerManager killerManager = main.getPlayerManager(killer.getUniqueId());
+		PlayerManager playerManager = main.getPlayerManager(killer.getUniqueId());
+		if(killerManager.hasRole()){
+			if(killerManager.getRole() instanceof Voleur){
+				Voleur voleur = (Voleur) killerManager.getRole();
+				if(!voleur.hasKilled()){
+					killer.sendMessage(Messages.LOUP_GAROU_PREFIX.getPrefix()
+							+ "§bVous venez de tuer quelqu'un pour la 1ère fois. Vous n'avez plus Résistance et héritez du rôle de la personne que vous avez tué.");
+					killerManager.setRole(playerManager.getRole());
+
+				}
+			}
+		}
+	}
+
+	@Override
 	public void onNewDay(Player player) {}
 
 	@Override
@@ -46,7 +71,7 @@ public class Voleur extends Role implements LGRole {
 
 	@Override
 	public String getDescription() {
-		return " Vous n'avez pas de pouvoir particulier.";
+		return "Vous pouvez voler le rôle d'un autre joueur en le tuant. Pour vous aider, vous avez l'effet Résistance I tant que vous n'avez pas voler de rôle.";
 	}
 
 	@Override
@@ -65,4 +90,11 @@ public class Voleur extends Role implements LGRole {
 		return Camps.NEUTRES;
 	}
 
+	public boolean hasKilled() {
+		return killed;
+	}
+
+	public void setKilled(boolean killed) {
+		this.killed = killed;
+	}
 }

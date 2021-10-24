@@ -11,11 +11,11 @@ import org.bukkit.plugin.Plugin;
 import java.util.List;
 
 public abstract class Scenario implements Listener {
-	private String name;
+	private final String name;
 
-	private List<String> descritpion;
+	private final List<String> descritpion;
 
-	private Material type;
+	private final Material type;
 
 	private byte data;
 
@@ -25,7 +25,7 @@ public abstract class Scenario implements Listener {
 		this.name = ChatColor.AQUA + name;
 		this.descritpion = descritpion;
 		this.type = type;
-		Bukkit.getPluginManager().registerEvents(this, (Plugin) UhcHost.getInstance());
+		Bukkit.getPluginManager().registerEvents(this, UhcHost.getInstance());
 	}
 
 	public Scenario(String name, List<String> descritpion, Material type, byte data) {
@@ -33,7 +33,7 @@ public abstract class Scenario implements Listener {
 		this.descritpion = descritpion;
 		this.type = type;
 		this.data = data;
-		Bukkit.getPluginManager().registerEvents(this, (Plugin) UhcHost.getInstance());
+		Bukkit.getPluginManager().registerEvents(this, UhcHost.getInstance());
 	}
 
 	public Scenario(String name, List<String> descritpion, Material type, Class<? extends Gui> gui) {
@@ -41,7 +41,7 @@ public abstract class Scenario implements Listener {
 		this.descritpion = descritpion;
 		this.type = type;
 		this.gui = gui;
-		Bukkit.getPluginManager().registerEvents(this, (Plugin) UhcHost.getInstance());
+		Bukkit.getPluginManager().registerEvents(this, UhcHost.getInstance());
 	}
 
 	public Scenario(String name, List<String> descritpion, Material type, byte data, Class<? extends Gui> gui) {
@@ -50,7 +50,7 @@ public abstract class Scenario implements Listener {
 		this.type = type;
 		this.data = data;
 		this.gui = gui;
-		Bukkit.getPluginManager().registerEvents(this, (Plugin) UhcHost.getInstance());
+		Bukkit.getPluginManager().registerEvents(this, UhcHost.getInstance());
 	}
 
 	public String getName() {

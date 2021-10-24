@@ -12,9 +12,9 @@ public enum BiomeState {
     ROOFED_FOREST(BiomeBase.ROOFED_FOREST, new ItemsCreator(Material.SAPLING, "§aRoof Forest", Arrays.asList("§7Idéal pour des", "§7modes de jeu stratégique !"), 1, (byte) 5).create()),
     FOREST(BiomeBase.FOREST, new ItemsCreator(Material.SAPLING, "§aForêt de chaîne", Arrays.asList("§7Une forêt des plus classiques !"), 1).create());
 
-    private BiomeBase biomeBase;
+    private final BiomeBase biomeBase;
 
-    private ItemStack itemBiome;
+    private final ItemStack itemBiome;
 
     BiomeState(BiomeBase biomeBase, ItemStack itemColored) {
         this.biomeBase = biomeBase;

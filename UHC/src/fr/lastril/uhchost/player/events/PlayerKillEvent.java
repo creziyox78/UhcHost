@@ -6,7 +6,7 @@ import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 
 public class PlayerKillEvent extends Event implements Cancellable {
-	private Player player;
+	private final Player player;
 
 	private static final HandlerList handlers = new HandlerList();
 

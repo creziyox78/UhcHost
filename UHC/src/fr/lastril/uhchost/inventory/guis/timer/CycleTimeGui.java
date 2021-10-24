@@ -1,4 +1,4 @@
-package fr.lastril.uhchost.inventory.guis;
+package fr.lastril.uhchost.inventory.guis.timer;
 
 import fr.lastril.uhchost.UhcHost;
 import fr.lastril.uhchost.scenario.gui.TimerGui;
@@ -40,7 +40,7 @@ public class CycleTimeGui extends TimerGui {
 			switch (is.getType()) {
 			case WATCH:
 				this.player.closeInventory();
-				new RulesGui(player).show();
+				new RulesGuiHost(player).show();
 				break;
 			case BANNER:
 				name = ChatColor.stripColor(is.getItemMeta().getDisplayName());

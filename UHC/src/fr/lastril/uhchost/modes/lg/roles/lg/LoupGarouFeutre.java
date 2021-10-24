@@ -2,6 +2,7 @@ package fr.lastril.uhchost.modes.lg.roles.lg;
 
 import fr.lastril.uhchost.UhcHost;
 import fr.lastril.uhchost.enums.Messages;
+import fr.lastril.uhchost.modes.lg.LoupGarouManager;
 import fr.lastril.uhchost.modes.lg.roles.LGFacadeRole;
 import fr.lastril.uhchost.modes.lg.roles.LGRole;
 import fr.lastril.uhchost.modes.lg.roles.solo.LoupGarouBlanc;
@@ -75,20 +76,11 @@ public final class LoupGarouFeutre extends Role implements LGRole, LGFacadeRole 
 
 	@Override
 	public String sendList() {
-		String list = Messages.LOUP_GAROU_PREFIX.getPrefix() + "Voici la liste entière des Loups-Garous : \n";
-		for (PlayerManager joueur : main.gameManager.getLoupGarouManager().getJoueursWithCamps(Camps.LOUP_GAROU)) {
-			loupGarouList.add(joueur);
+		if(main.gameManager.getModes().getMode().getModeManager() instanceof LoupGarouManager){
+			LoupGarouManager loupGarouManager = (LoupGarouManager) main.gameManager.getModes().getMode().getModeManager();
+			return loupGarouManager.sendLGList();
 		}
-		for(PlayerManager joueur : main.gameManager.getLoupGarouManager().getJoueursWithRole(LoupGarouBlanc.class)){
-			loupGarouList.add(joueur);
-		}
-		int numberOfElements = loupGarouList.size();
-		for (int i = 0; i < numberOfElements; i++) {
-			int index = UhcHost.getRANDOM().nextInt(loupGarouList.size());
-			list += "§c- " + loupGarouList.get(index).getPlayerName() + "\n";
-			loupGarouList.remove(index);
-		}
-		return list;
+		return null;
 	}
 
 

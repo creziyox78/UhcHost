@@ -12,7 +12,7 @@ import java.util.Arrays;
 public class TripleOres extends Scenario {
 	
 	public TripleOres() {
-		super("Triple Ores", Arrays.asList(I18n.tl("scenarios.tripleores", new String[0])), Material.EMERALD_ORE);
+		super("Triple Ores", Arrays.asList(I18n.tl("scenarios.tripleores")), Material.EMERALD_ORE);
 	}
 	
 	@EventHandler

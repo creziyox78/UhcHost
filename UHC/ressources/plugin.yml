@@ -1,5 +1,5 @@
 name: UHCHost
-version: 0.9.1
+version: 0.9.2
 author: Lastril
 main: fr.lastril.uhchost.UhcHost
 commands:
@@ -12,4 +12,8 @@ commands:
     description: Command of LG Mode.
   role:
     description: Command to see Role.
+  potions:
+    description: Command active potions.
+  loots:
+    description: Command loots settings.
   

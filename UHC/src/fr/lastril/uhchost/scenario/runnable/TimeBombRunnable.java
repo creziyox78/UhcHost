@@ -8,7 +8,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 public class TimeBombRunnable extends BukkitRunnable {
 
-	private Chest chest;
+	private final Chest chest;
 
 	private ArmorStand armorStand;
 

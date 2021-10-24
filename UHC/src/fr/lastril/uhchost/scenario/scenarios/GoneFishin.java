@@ -14,10 +14,10 @@ public class GoneFishin extends Scenario {
 
 	public GoneFishin() {
 		super("Gone Fishin",
-				Arrays.asList(I18n.tl("scenarios.gonefishin.lore", new String[0]),
-						I18n.tl("scenarios.gonefishin.lore1", new String[0]),
-						I18n.tl("scenarios.gonefishin.lore2", new String[0]),
-						I18n.tl("scenarios.gonefishin.lore3", new String[0])),
+				Arrays.asList(I18n.tl("scenarios.gonefishin.lore"),
+						I18n.tl("scenarios.gonefishin.lore1"),
+						I18n.tl("scenarios.gonefishin.lore2"),
+						I18n.tl("scenarios.gonefishin.lore3")),
 				Material.FISHING_ROD);
 	}
 

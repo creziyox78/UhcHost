@@ -1,6 +1,7 @@
-package fr.lastril.uhchost.inventory.guis;
+package fr.lastril.uhchost.inventory.guis.nether;
 
 import fr.lastril.uhchost.UhcHost;
+import fr.lastril.uhchost.inventory.guis.nether.NetherGui;
 import fr.lastril.uhchost.scenario.gui.TimerGui;
 import fr.lastril.uhchost.tools.I18n;
 import fr.lastril.uhchost.tools.creators.ItemsCreator;
@@ -9,7 +10,6 @@ import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.HandlerList;
-import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.inventory.ItemStack;
@@ -19,10 +19,10 @@ import java.util.Arrays;
 public class NetherEndTimeGui extends TimerGui {
 
 	public NetherEndTimeGui(Player player) {
-		super(player, I18n.tl("guis.netherEndTime.name", new String[0]));
+		super(player, I18n.tl("guis.netherEndTime.name"));
 		ItemsCreator ic = new ItemsCreator(Material.OBSIDIAN,
 				"§e" + ((UhcHost.getInstance()).taskManager.getNetherEndTime() / 60),
-				Arrays.asList(I18n.tl("guis.netherEndTime.lore", new String[0])));
+				Arrays.asList(I18n.tl("guis.netherEndTime.lore")));
 		inventory.setItem(4, ic.create());
 	}
 
@@ -51,7 +51,7 @@ public class NetherEndTimeGui extends TimerGui {
 				(UhcHost.getInstance()).taskManager.setNetherEndTime(value);
 				ic = new ItemsCreator(Material.OBSIDIAN,
 						"§e" + ((UhcHost.getInstance()).taskManager.getNetherEndTime() / 60),
-						Arrays.asList(I18n.tl("guis.netherEndTime.lore", new String[0])));
+						Arrays.asList(I18n.tl("guis.netherEndTime.lore")));
 				inventory.setItem(4, ic.create());
 				break;
 			default:
@@ -63,7 +63,7 @@ public class NetherEndTimeGui extends TimerGui {
 	@EventHandler
 	public void onClick(InventoryCloseEvent event) {
 		if (event.getInventory().equals(inventory))
-			HandlerList.unregisterAll((Listener) this);
+			HandlerList.unregisterAll(this);
 	}
 
 }

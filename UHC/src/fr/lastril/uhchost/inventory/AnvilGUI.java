@@ -39,9 +39,9 @@ public class AnvilGUI {
     public enum AnvilSlot {
         INPUT_LEFT(0), INPUT_RIGHT(1), OUTPUT(2);
 
-        private int slot;
+        private final int slot;
 
-        private AnvilSlot(int slot) {
+        AnvilSlot(int slot) {
             this.slot = slot;
         }
 
@@ -88,7 +88,7 @@ public class AnvilGUI {
     private final Consumer<AnvilClickEvent> onClick;
     private Player player;
 
-    private HashMap<AnvilSlot, ItemStack> items = new HashMap<>();
+    private final HashMap<AnvilSlot, ItemStack> items = new HashMap<>();
 
     private Inventory inv;
 
@@ -96,7 +96,7 @@ public class AnvilGUI {
 
     public AnvilGUI(Consumer<AnvilClickEvent> onClick) {
         this.onClick = onClick;
-        this.listener = new Listener() {
+        listener = new Listener() {
             @EventHandler
             public void onInventoryClick(InventoryClickEvent event) {
                 if (event.getWhoClicked() instanceof Player) {
@@ -157,7 +157,7 @@ public class AnvilGUI {
 
         // Send the packet
         p.playerConnection.sendPacket(
-                new PacketPlayOutOpenWindow(c, "minecraft:anvil", new ChatMessage("Repairing", new Object[] {}), 0));
+                new PacketPlayOutOpenWindow(c, "minecraft:anvil", new ChatMessage("Repairing"), 0));
 
         // Set their active container to the container
         p.activeContainer = container;

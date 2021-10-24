@@ -15,7 +15,7 @@ import java.util.List;
 public class CutClean extends Scenario {
 
 	public CutClean() {
-		super("Cut Clean", Arrays.asList( I18n.tl("scenarios.cutclean.lore", new String[0]), I18n.tl("scenarios.cutclean.lore1", new String[0])), Material.IRON_INGOT);
+		super("Cut Clean", Arrays.asList( I18n.tl("scenarios.cutclean.lore"), I18n.tl("scenarios.cutclean.lore1")), Material.IRON_INGOT);
 	}
 
 	@EventHandler

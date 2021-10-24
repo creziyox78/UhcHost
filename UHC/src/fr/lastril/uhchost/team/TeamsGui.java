@@ -24,7 +24,7 @@ import java.util.UUID;
 public class TeamsGui {
 
 	public TeamsGui(Player player) {
-		Inventory inventory = Bukkit.createInventory(null, 54, I18n.tl("guis.teams.name", new String[0]));
+		Inventory inventory = Bukkit.createInventory(null, 54, I18n.tl("guis.teams.name"));
 		int add = 0;
 		for (TeamUtils.Teams team : TeamUtils.Teams.values()) {
 			if (add < (UhcHost.getInstance()).teamUtils.getNeededTeam()) {
@@ -46,7 +46,7 @@ public class TeamsGui {
 				break;
 			}
 		}
-		inventory.setItem(53, (new ItemsCreator(Material.BARRIER, I18n.tl("guis.back", new String[0]), null)).create());
+		inventory.setItem(53, (new ItemsCreator(Material.BARRIER, I18n.tl("guis.back"), null)).create());
 		player.openInventory(inventory);
 	}
 

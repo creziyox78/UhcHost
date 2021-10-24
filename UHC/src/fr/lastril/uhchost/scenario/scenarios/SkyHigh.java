@@ -21,10 +21,10 @@ import java.util.UUID;
 
 public class SkyHigh extends Scenario {
 
-	private List<UUID> damaged;
+	private final List<UUID> damaged;
 
 	public SkyHigh() {
-		super("Sky High", Arrays.asList(I18n.tl("scenarios.skyhigh.lore", new String[0]), I18n.tl("scenarios.skyhigh.lore1", new String[0])),
+		super("Sky High", Arrays.asList(I18n.tl("scenarios.skyhigh.lore"), I18n.tl("scenarios.skyhigh.lore1")),
 				Material.LADDER);
 		this.damaged = new ArrayList<>();
 	}
@@ -44,8 +44,8 @@ public class SkyHigh extends Scenario {
 				&& !this.damaged.contains(event.getPlayer().getUniqueId())) {
 			event.getPlayer().damage(2.0D);
 			this.damaged.add(event.getPlayer().getUniqueId());
-			event.getPlayer().sendMessage(I18n.tl("scenarios.skyhigh.message", new String[0]));
-			Bukkit.getScheduler().runTaskLater((Plugin) UhcHost.getInstance(), new Runnable() {
+			event.getPlayer().sendMessage(I18n.tl("scenarios.skyhigh.message"));
+			Bukkit.getScheduler().runTaskLater(UhcHost.getInstance(), new Runnable() {
 				public void run() {
 					SkyHigh.this.damaged.remove(event.getPlayer().getUniqueId());
 				}
@@ -56,7 +56,7 @@ public class SkyHigh extends Scenario {
 	@EventHandler
 	public void onBlockPlace(final BlockPlaceEvent event) {
 		if (event.getBlock().getType() == Material.DIRT)
-			Bukkit.getScheduler().runTaskLater((Plugin) UhcHost.getInstance(), new Runnable() {
+			Bukkit.getScheduler().runTaskLater(UhcHost.getInstance(), new Runnable() {
 				public void run() {
 					event.getPlayer().getInventory().addItem(new ItemStack(Material.DIRT));
 				}

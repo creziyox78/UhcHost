@@ -12,8 +12,8 @@ import java.util.Arrays;
 public class NoEnchant extends Scenario {
 
 	public NoEnchant() {
-		super("No Enchant", Arrays.asList(I18n.tl("scenarios.noenchant.lore", new String[0]),
-				I18n.tl("scenarios.noenchant.lore1", new String[0])), Material.BOOK);
+		super("No Enchant", Arrays.asList(I18n.tl("scenarios.noenchant.lore"),
+				I18n.tl("scenarios.noenchant.lore1")), Material.BOOK);
 	}
 
 	@EventHandler
@@ -21,7 +21,7 @@ public class NoEnchant extends Scenario {
 		if (event.getInventory().getType() == InventoryType.ENCHANTING
 				|| event.getInventory().getType() == InventoryType.ANVIL) {
 			event.setCancelled(true);
-			event.getPlayer().sendMessage(I18n.tl("scenarios.noenchant.message", new String[0]));
+			event.getPlayer().sendMessage(I18n.tl("scenarios.noenchant.message"));
 		}
 	}
 

@@ -16,10 +16,10 @@ public class InfiniteEnchanter extends Scenario {
 
 	public InfiniteEnchanter() {
 		super("Infinite Enchanter",
-				Arrays.asList(I18n.tl("scenarios.infiniteenchanter.lore", new String[0]),
-						I18n.tl("scenarios.infiniteenchanter.lore1", new String[0]),
-						I18n.tl("scenarios.infiniteenchanter.lore2", new String[0]),
-						I18n.tl("scenarios.infiniteenchanter.lore3", new String[0])),
+				Arrays.asList(I18n.tl("scenarios.infiniteenchanter.lore"),
+						I18n.tl("scenarios.infiniteenchanter.lore1"),
+						I18n.tl("scenarios.infiniteenchanter.lore2"),
+						I18n.tl("scenarios.infiniteenchanter.lore3")),
 				Material.ENCHANTMENT_TABLE);
 	}
 

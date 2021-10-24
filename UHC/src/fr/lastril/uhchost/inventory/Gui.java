@@ -24,7 +24,7 @@ public abstract class Gui implements Listener {
 		this.size = size;
 		this.name = name;
 		inventory = Bukkit.createInventory(null, size, name);
-		Bukkit.getPluginManager().registerEvents(this, (Plugin) UhcHost.getInstance());
+		Bukkit.getPluginManager().registerEvents(this, UhcHost.getInstance());
 	}
 
 	public Gui(Player player, InventoryType type, String name) {
@@ -32,7 +32,7 @@ public abstract class Gui implements Listener {
 		this.type = type;
 		this.name = name;
 		inventory = Bukkit.createInventory(null, type, name);
-		Bukkit.getPluginManager().registerEvents(this, (Plugin) UhcHost.getInstance());
+		Bukkit.getPluginManager().registerEvents(this, UhcHost.getInstance());
 	}
 
 	public void show() {

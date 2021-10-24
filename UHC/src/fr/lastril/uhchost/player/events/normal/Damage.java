@@ -12,7 +12,7 @@ import org.bukkit.event.entity.EntityDamageEvent;
 
 public class Damage implements Listener {
 
-	private UhcHost pl;
+	private final UhcHost pl;
 
 	public Damage(UhcHost pl) {
 		this.pl = pl;

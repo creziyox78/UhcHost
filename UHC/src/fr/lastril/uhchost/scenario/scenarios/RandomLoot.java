@@ -13,8 +13,8 @@ import java.util.*;
 public class RandomLoot extends Scenario {
 
 	public RandomLoot() {
-		super("Random Loot", Arrays.asList(I18n.tl("scenarios.randomloot.lore", new String[0]),
-				I18n.tl("scenarios.randomloot.lore1", new String[0])), Material.COMMAND);
+		super("Random Loot", Arrays.asList(I18n.tl("scenarios.randomloot.lore"),
+				I18n.tl("scenarios.randomloot.lore1")), Material.COMMAND);
 	}
 
 	public Map<Material, Material> rdmLoots = new HashMap<>();

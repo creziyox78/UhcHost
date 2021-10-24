@@ -14,7 +14,7 @@ import java.util.*;
 public class RandomCraft extends Scenario {
 
 	public RandomCraft() {
-		super("Random Craft", Arrays.asList(I18n.tl("scenarios.randomcraft.lore", new String[0]), I18n.tl("scenarios.randomcraft.lore1", new String[0])), Material.WORKBENCH);
+		super("Random Craft", Arrays.asList(I18n.tl("scenarios.randomcraft.lore"), I18n.tl("scenarios.randomcraft.lore1")), Material.WORKBENCH);
 	}
 
 	public Map<Material, Material> rdmCrafts = new HashMap<>();

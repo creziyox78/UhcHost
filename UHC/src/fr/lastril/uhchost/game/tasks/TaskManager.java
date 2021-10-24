@@ -76,11 +76,11 @@ public class TaskManager {
 		this.teleportTime = teleportTime;
 	}
 
-	private int _x = 0;
+	private final int _x = 0;
 
-	private int _y = 0;
+	private final int _y = 0;
 
-	private int _z = 0;
+	private final int _z = 0;
 
 	private BukkitTask lobbyTask;
 

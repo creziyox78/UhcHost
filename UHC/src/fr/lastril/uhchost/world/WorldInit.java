@@ -19,8 +19,8 @@ import java.lang.reflect.Field;
 public class WorldInit implements Listener {
 
     private final UhcHost main;
-    private int x;
-    private int z;
+    private final int x;
+    private final int z;
 
     public WorldInit(UhcHost main, int x, int z) {
         this.main = main;
@@ -51,9 +51,9 @@ public class WorldInit implements Listener {
 
     private class WorldChunkManagerPatched extends WorldChunkManager {
 
-        private int cx;
-        private int cz;
-        private BiomeState biomeChoosed;
+        private final int cx;
+        private final int cz;
+        private final BiomeState biomeChoosed;
 
         public WorldChunkManagerPatched(WorldChunkManager worldChunkManager, int x, int z, BiomeState biomeChoosed) {
             this.biomeChoosed = biomeChoosed;

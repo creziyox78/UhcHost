@@ -21,7 +21,7 @@ public class Ancien extends Role implements LGRole {
 
 	@Override
 	public String getSkullValue() {
-		return null;
+		return "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZGViZTk1NWI3MjhiYTBiNzcyNDQ0ZDc4Yjc2OTI0YmE4Yjg5ZjE5NzRhZTFkMmZlOGUyMTYyYzc4ODViMmRlIn19fQ==";
 	}
 
 	@Override

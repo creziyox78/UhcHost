@@ -13,11 +13,11 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-public class CommandHost implements CommandExecutor {
+public class CmdHost implements CommandExecutor {
 
-	private UhcHost pl;
+	private final UhcHost pl;
 
-	public CommandHost(UhcHost pl) {
+	public CmdHost(UhcHost pl) {
 		this.pl = pl;
 	}
 

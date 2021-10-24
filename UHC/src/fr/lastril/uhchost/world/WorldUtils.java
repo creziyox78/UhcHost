@@ -11,17 +11,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class WorldUtils {
-	private UhcHost pl;
+	private final UhcHost pl;
 
 	private boolean lobby;
 
-	private List<Block> lobbyBlocks;
+	private final List<Block> lobbyBlocks;
 
 	private World world;
 
-	private World nether;
+	private final World nether;
 
-	private World end;
+	private final World end;
 
 	private Location center;
 

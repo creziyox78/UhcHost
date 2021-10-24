@@ -19,15 +19,15 @@ import java.util.Arrays;
 
 public class ToGui extends Gui {
 
-	private int[] possibilities = new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 15, 20, 25, 50 };
+	private final int[] possibilities = new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 15, 20, 25, 50 };
 
 	public ToGui(Player player) {
-		super(player, 9, I18n.tl("guis.teamsOf.name", new String[0]));
+		super(player, 9, I18n.tl("guis.teamsOf.name"));
 		ItemsCreator ic = new ItemsCreator(Material.BLAZE_ROD,
 				"§e" + (UhcHost.getInstance()).teamUtils.getPlayersPerTeams(),
-				Arrays.asList(I18n.tl("guis.teamsOf.lore", new String[0])));
+				Arrays.asList(I18n.tl("guis.teamsOf.lore")));
 		inventory.setItem(4, ic.create());
-		BannerCreator bc = new BannerCreator(I18n.tl("guis.timer.previous", new String[0]), Arrays.asList(""), 1, true);
+		BannerCreator bc = new BannerCreator(I18n.tl("guis.timer.previous"), Arrays.asList(""), 1, true);
 		bc.setBaseColor(DyeColor.RED);
 		inventory.setItem(0, bc.create());
 		bc = new BannerCreator("§aSuivant", Arrays.asList(""), 1, true);
@@ -53,7 +53,7 @@ public class ToGui extends Gui {
 				break;
 			case BANNER:
 				name = is.getItemMeta().getDisplayName();
-				if (name.equalsIgnoreCase(I18n.tl("guis.timer.previous", new String[0]))) {
+				if (name.equalsIgnoreCase(I18n.tl("guis.timer.previous"))) {
 					for (int i = 0; i < this.possibilities.length; i++) {
 						if (this.possibilities[i] == (UhcHost.getInstance()).teamUtils.getPlayersPerTeams()) {
 							if (i <= 0) {
@@ -65,7 +65,7 @@ public class ToGui extends Gui {
 							break;
 						}
 					}
-				} else if (name.equalsIgnoreCase(I18n.tl("guis.timer.next", new String[0]))) {
+				} else if (name.equalsIgnoreCase(I18n.tl("guis.timer.next"))) {
 					for (int i = 0; i < this.possibilities.length; i++) {
 						if (this.possibilities[i] == (UhcHost.getInstance()).teamUtils.getPlayersPerTeams()) {
 							if (i + 1 >= this.possibilities.length) {

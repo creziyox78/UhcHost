@@ -22,7 +22,7 @@ public class Salvateur extends Role implements LGRole, RoleCommand {
 
 	@Override
 	public String getSkullValue() {
-		return null;
+		return "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYjg5MjFhZTQ0ZjBhN2FlMjZhOGFjMWVhZWU2ZjA5ZWI2NjhkZjI4NzI4YWZiYWEzMThlZmQ4ZmVkYmRmNjkifX19";
 	}
 
 	@Override

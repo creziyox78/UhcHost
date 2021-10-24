@@ -22,7 +22,7 @@ public enum Modes {
     private final Mode mode;
     private final ItemStack item;
 
-    private Modes(String name, String headHash, Mode mode, ItemStack item) {
+    Modes(String name, String headHash, Mode mode, ItemStack item) {
         this.name = name;
         this.headHash = headHash;
         this.mode = mode;

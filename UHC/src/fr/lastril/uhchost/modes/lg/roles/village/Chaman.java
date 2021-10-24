@@ -12,7 +12,7 @@ public class Chaman extends Role implements LGRole {
 
 	@Override
 	public String getSkullValue() {
-		return null;
+		return "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvOGM4N2YwMTA2ZGY2ZWZmMjg2ZDc2OGE3NGZiNzc5ZTA1OTVlZGQ3NjZlMzdhZGVmYzMxMWI2OWZlNmQzMTk0NiJ9fX0=";
 	}
 
 	@Override

@@ -39,7 +39,7 @@ public class EnchantBook {
 		ItemStack customItem = new ItemStack(Material.BEDROCK, 1);
 		ItemMeta customMItem = customItem.getItemMeta();
 		customMItem.spigot().setUnbreakable(true);
-		customMItem.addItemFlags(new ItemFlag[] { ItemFlag.HIDE_UNBREAKABLE });
+		customMItem.addItemFlags(ItemFlag.HIDE_UNBREAKABLE);
 		if (status) {
 			customMItem.setDisplayName(ChatColor.AQUA + "Unbreakable: " + ChatColor.GREEN + "enabled");
 		} else {
@@ -106,7 +106,7 @@ public class EnchantBook {
 		}
 		customItem.setAmount(level);
 		customMItem.spigot().setUnbreakable(true);
-		customMItem.addItemFlags(new ItemFlag[] { ItemFlag.HIDE_UNBREAKABLE });
+		customMItem.addItemFlags(ItemFlag.HIDE_UNBREAKABLE);
 		customMItem.setLore(Arrays.asList("", ChatColor.GREEN + "Clique Gauche: Ajouter un niveau d'enchantement",
 				ChatColor.RED + "Clique Droit: Retirer un niveau d'enchantement"));
 		customItem.setItemMeta(customMItem);

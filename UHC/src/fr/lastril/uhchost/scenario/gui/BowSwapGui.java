@@ -22,9 +22,9 @@ import java.util.Arrays;
 public class BowSwapGui extends TimerGui {
 
 	public BowSwapGui(Player player) {
-		super(player, I18n.tl("guis.bowswap.name", new String[0]));
+		super(player, I18n.tl("guis.bowswap.name"));
 		ItemsCreator ic = new ItemsCreator(Material.SNOW_BALL, "§e" + BowSwap.getTpPercentage(),
-				Arrays.asList(I18n.tl("guis.bowswap.lore", new String[0])));
+				Arrays.asList(I18n.tl("guis.bowswap.lore")));
 		inventory.setItem(4, ic.create());
 	}
 
@@ -44,7 +44,7 @@ public class BowSwapGui extends TimerGui {
 			case SNOW_BALL:
 				this.player.closeInventory();
 				(UhcHost.getInstance()).getGamemanager().removeScenario(Scenarios.BOWSWAP.getScenario());
-				Scenarios.BOWSWAP.setScenario((Scenario) new BowSwap());
+				Scenarios.BOWSWAP.setScenario(new BowSwap());
 				(UhcHost.getInstance()).getGamemanager().addScenario(Scenarios.BOWSWAP.getScenario());
 				(new ScenariosGui(this.player)).show();
 				break;
@@ -55,7 +55,7 @@ public class BowSwapGui extends TimerGui {
 					break;
 				BowSwap.setTpPercentage(value);
 				ic = new ItemsCreator(Material.SNOW_BALL, "§e" + BowSwap.getTpPercentage(),
-						Arrays.asList(I18n.tl("guis.bowswap.lore", new String[0])));
+						Arrays.asList(I18n.tl("guis.bowswap.lore")));
 				inventory.setItem(4, ic.create());
 				break;
 			default:
@@ -67,7 +67,7 @@ public class BowSwapGui extends TimerGui {
 	@EventHandler
 	public void onClick(InventoryCloseEvent event) {
 		if (event.getInventory().equals(inventory))
-			HandlerList.unregisterAll((Listener) this);
+			HandlerList.unregisterAll(this);
 	}
 
 }

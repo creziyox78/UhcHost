@@ -34,7 +34,7 @@ public class Bookception extends Scenario {
 		if(level > enchantement.getMaxLevel())
 			level = enchantement.getMaxLevel();
 		m.addEnchant(enchantement, level, false);
-		is.setItemMeta((ItemMeta) m);
+		is.setItemMeta(m);
 		event.getEntity().getWorld().dropItemNaturally(event.getEntity().getLocation(), is);
 	}
 

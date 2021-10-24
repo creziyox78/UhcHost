@@ -19,9 +19,9 @@ import java.util.Arrays;
 public class DiamondlessGui extends TimerGui {
 
 	public DiamondlessGui(Player player) {
-		super(player, I18n.tl("guis.diamondless.name", new String[0]));
+		super(player, I18n.tl("guis.diamondless.name"));
 		ItemsCreator ic = new ItemsCreator(Material.DIAMOND, "§e" + Diamondless.getLootNumber(),
-				Arrays.asList(I18n.tl("guis.diamondless.lore", new String[0])));
+				Arrays.asList(I18n.tl("guis.diamondless.lore")));
 		inventory.setItem(4, ic.create());
 	}
 
@@ -49,7 +49,7 @@ public class DiamondlessGui extends TimerGui {
 					break;
 				Diamondless.setLootNumber(value);
 				ic = new ItemsCreator(Material.DIAMOND, "§e" + Diamondless.getLootNumber(),
-						Arrays.asList(I18n.tl("guis.diamondless.lore", new String[0])));
+						Arrays.asList(I18n.tl("guis.diamondless.lore")));
 				inventory.setItem(4, ic.create());
 				break;
 			default:
@@ -61,7 +61,7 @@ public class DiamondlessGui extends TimerGui {
 	@EventHandler
 	public void onClick(InventoryCloseEvent event) {
 		if (event.getInventory().equals(inventory))
-			HandlerList.unregisterAll((Listener) this);
+			HandlerList.unregisterAll(this);
 	}
 
 }

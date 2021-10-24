@@ -19,7 +19,8 @@ public class Renard extends Role implements LGRole, RoleCommand {
 
 	private boolean canRenifle;
 
-	private int renifledUse = 0, maxRenifled = 3;
+	private int renifledUse = 0;
+    private final int maxRenifled = 3;
 
 	public Renard() {
 		super.addEffect(new PotionEffect(PotionEffectType.SPEED, Integer.MAX_VALUE, 0, false, false), When.START);

@@ -17,8 +17,8 @@ public class Diamondless extends Scenario {
 	private static int lootNumber = 1;
 
 	public Diamondless() {
-		super("Diamondless", Arrays.asList(I18n.tl("scenarios.diamondless.lore", new String[0]),
-				I18n.tl("scenarios.diamondless.lore1", new String[0])), Material.DIAMOND, DiamondlessGui.class);
+		super("Diamondless", Arrays.asList(I18n.tl("scenarios.diamondless.lore"),
+				I18n.tl("scenarios.diamondless.lore1")), Material.DIAMOND, DiamondlessGui.class);
 	}
 
 	@EventHandler(priority = EventPriority.LOWEST)
@@ -30,7 +30,7 @@ public class Diamondless extends Scenario {
 	public void onBlockBreak(BlockBreakEvent event) {
 		if (event.getBlock().getType() == Material.DIAMOND_ORE) {
 			event.setCancelled(true);
-			event.getPlayer().sendMessage(I18n.tl("scenarios.diamondless.message", new String[0]));
+			event.getPlayer().sendMessage(I18n.tl("scenarios.diamondless.message"));
 		}
 	}
 

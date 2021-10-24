@@ -17,64 +17,64 @@ import java.util.UUID;
 
 public class ScoreboardUtils {
 
-	private UhcHost pl;
+	private final UhcHost pl;
 
-	private Scoreboard board;
+	private final Scoreboard board;
 
-	private Map<UUID, ScoreboardSign> sbs = new HashMap<>();
+	private final Map<UUID, ScoreboardSign> sbs = new HashMap<>();
 
 	private String name;
 
-	private String startIn;
+	private final String startIn;
 
-	private String players;
+	private final String players;
 
-	private String credit;
+	private final String credit;
 
-	private String ip;
+	private final String ip;
 
-	private String time;
+	private final String time;
 
-	private String border;
+	private final String border;
 
-	private String spawn;
+	private final String spawn;
 
-	private String pvp;
+	private final String pvp;
 
-	private String actived;
+	private final String actived;
 
-	private String activedFem;
+	private final String activedFem;
 
-	private String teleport;
+	private final String teleport;
 
-	private String team;
+	private final String team;
 
-	private String host;
+	private final String host;
 
-	private String waitForPlayers;
+	private final String waitForPlayers;
 
-	private String playersInTeam;
+	private final String playersInTeam;
 
-	private String playersInTeamEnd;
+	private final String playersInTeamEnd;
 
 	public ScoreboardUtils(UhcHost pl) {
 		this.pl = pl;
-		this.startIn = I18n.tl("scoreboard.startIn", new String[0]);
-		this.players = I18n.tl("scoreboard.players", new String[0]);
+		this.startIn = I18n.tl("scoreboard.startIn");
+		this.players = I18n.tl("scoreboard.players");
 		this.credit = "§cPlugin by Lastril";
-		this.ip = I18n.tl("scoreboard.ip", new String[0]);
-		this.time = I18n.tl("scoreboard.time", new String[0]);
-		this.border = I18n.tl("scoreboard.border", new String[0]);
-		this.spawn = I18n.tl("scoreboard.spawn", new String[0]);
-		this.pvp = I18n.tl("scoreboard.pvp", new String[0]);
-		this.actived = I18n.tl("scoreboard.actived", new String[0]);
-		this.activedFem = I18n.tl("scoreboard.activedFem", new String[0]);
-		this.teleport = I18n.tl("scoreboard.teleport", new String[0]);
-		this.team = I18n.tl("scoreboard.team", new String[0]);
-		this.host = I18n.tl("scoreboard.host", new String[0]);
-		this.waitForPlayers = I18n.tl("scoreboard.waitForPlayers", new String[0]);
-		this.playersInTeam = I18n.tl("scoreboard.playersInTeam", new String[0]);
-		this.playersInTeamEnd = I18n.tl("scoreboard.playersInTeamEnd", new String[0]);
+		this.ip = I18n.tl("scoreboard.ip");
+		this.time = I18n.tl("scoreboard.time");
+		this.border = I18n.tl("scoreboard.border");
+		this.spawn = I18n.tl("scoreboard.spawn");
+		this.pvp = I18n.tl("scoreboard.pvp");
+		this.actived = I18n.tl("scoreboard.actived");
+		this.activedFem = I18n.tl("scoreboard.activedFem");
+		this.teleport = I18n.tl("scoreboard.teleport");
+		this.team = I18n.tl("scoreboard.team");
+		this.host = I18n.tl("scoreboard.host");
+		this.waitForPlayers = I18n.tl("scoreboard.waitForPlayers");
+		this.playersInTeam = I18n.tl("scoreboard.playersInTeam");
+		this.playersInTeamEnd = I18n.tl("scoreboard.playersInTeamEnd");
 		this.board = Bukkit.getScoreboardManager().getMainScoreboard();
 		this.board.getTeams().forEach(t -> t.unregister());
 		this.board.getObjectives().forEach(o -> o.unregister());

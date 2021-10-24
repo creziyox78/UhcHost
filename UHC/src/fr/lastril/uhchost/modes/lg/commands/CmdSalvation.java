@@ -63,10 +63,7 @@ public class CmdSalvation implements ModeSubCommand {
                             player.sendMessage(Messages.LOUP_GAROU_PREFIX.getPrefix() + "§cCe joueur ne fait pas partie de la partie !");
                         }
                     }
-
                 }
-
-
             }
         }
         return false;

@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.UUID;
 
 public class GameStartEvent extends Event implements Cancellable {
-	private List<Player> players;
+	private final List<Player> players;
 
 	private static final HandlerList handlers = new HandlerList();
 

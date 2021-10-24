@@ -1,4 +1,4 @@
-package fr.lastril.uhchost.inventory.guis;
+package fr.lastril.uhchost.inventory.guis.modes;
 
 import fr.lastril.uhchost.UhcHost;
 import fr.lastril.uhchost.inventory.Gui;
@@ -8,7 +8,6 @@ import fr.lastril.uhchost.modes.roles.RoleMode;
 import fr.lastril.uhchost.tools.Items;
 import fr.lastril.uhchost.tools.creators.ItemsCreator;
 import org.bukkit.Material;
-import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.HandlerList;

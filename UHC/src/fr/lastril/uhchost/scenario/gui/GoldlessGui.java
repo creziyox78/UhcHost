@@ -19,9 +19,9 @@ import java.util.Arrays;
 public class GoldlessGui extends TimerGui {
 
 	public GoldlessGui(Player player) {
-		super(player, I18n.tl("guis.goldless.name", new String[0]));
+		super(player, I18n.tl("guis.goldless.name"));
 		ItemsCreator ic = new ItemsCreator(Material.GOLD_ORE, "§e" + Goldless.getLootNumber(),
-				Arrays.asList(new String[] { I18n.tl("guis.goldless.lore", new String[0]) }));
+				Arrays.asList(I18n.tl("guis.goldless.lore")));
 		inventory.setItem(4, ic.create());
 	}
 
@@ -49,7 +49,7 @@ public class GoldlessGui extends TimerGui {
 					break;
 				Goldless.setLootNumber(value);
 				ic = new ItemsCreator(Material.GOLD_ORE, "§e" + Goldless.getLootNumber(),
-						Arrays.asList(new String[] { I18n.tl("guis.goldless.lore", new String[0]) }));
+						Arrays.asList(I18n.tl("guis.goldless.lore")));
 				inventory.setItem(4, ic.create());
 				break;
 			default:
@@ -61,7 +61,7 @@ public class GoldlessGui extends TimerGui {
 	@EventHandler
 	public void onClick(InventoryCloseEvent event) {
 		if (event.getInventory().equals(inventory))
-			HandlerList.unregisterAll((Listener) this);
+			HandlerList.unregisterAll(this);
 	}
 
 }

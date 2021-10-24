@@ -17,7 +17,7 @@ public class Goldless extends Scenario {
 	private static int lootNumber = 1;
 
 	public Goldless() {
-		super("Goldless", Arrays.asList(I18n.tl("scenarios.goldless.lore", new String[0]), I18n.tl("scenarios.goldless.lore1", new String[0])),
+		super("Goldless", Arrays.asList(I18n.tl("scenarios.goldless.lore"), I18n.tl("scenarios.goldless.lore1")),
 				Material.GOLD_ORE, GoldlessGui.class);
 	}
 
@@ -30,7 +30,7 @@ public class Goldless extends Scenario {
 	public void onBlockBreak(BlockBreakEvent event) {
 		if (event.getBlock().getType() == Material.GOLD_ORE) {
 			event.setCancelled(true);
-			event.getPlayer().sendMessage(I18n.tl("scenarios.goldless.message", new String[0]));
+			event.getPlayer().sendMessage(I18n.tl("scenarios.goldless.message"));
 		}
 	}
 

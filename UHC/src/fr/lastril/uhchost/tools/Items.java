@@ -25,7 +25,7 @@ public class Items {
 		ItemStack customItem = new ItemStack(material, 1, color);
 		ItemMeta customMItem = customItem.getItemMeta();
 		customMItem.spigot().setUnbreakable(unbreakable);
-		customMItem.addItemFlags(new ItemFlag[] { ItemFlag.HIDE_UNBREAKABLE });
+		customMItem.addItemFlags(ItemFlag.HIDE_UNBREAKABLE);
 		if (customName != null)
 			customMItem.setDisplayName(customName);
 		customItem.setItemMeta(customMItem);
@@ -36,7 +36,7 @@ public class Items {
 		ItemStack customItem = new ItemStack(material, 1);
 		ItemMeta customMItem = customItem.getItemMeta();
 		customMItem.spigot().setUnbreakable(unbreakable);
-		customMItem.addItemFlags(new ItemFlag[] { ItemFlag.HIDE_UNBREAKABLE });
+		customMItem.addItemFlags(ItemFlag.HIDE_UNBREAKABLE);
 		if (customName != null)
 			customMItem.setDisplayName(customName);
 		customItem.setItemMeta(customMItem);
@@ -95,7 +95,7 @@ public class Items {
 			break;
 		}
 		bannerM.setPatterns(patterns);
-		banner.setItemMeta((ItemMeta) bannerM);
+		banner.setItemMeta(bannerM);
 		return banner;
 	}
 

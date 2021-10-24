@@ -1,6 +1,7 @@
 package fr.lastril.uhchost.modes.lg.roles.village;
 
 import fr.lastril.uhchost.UhcHost;
+import fr.lastril.uhchost.modes.lg.LoupGarouManager;
 import fr.lastril.uhchost.modes.lg.roles.LGFacadeRole;
 import fr.lastril.uhchost.modes.lg.roles.LGRole;
 import fr.lastril.uhchost.modes.roles.Camps;
@@ -27,7 +28,7 @@ public class Soeur extends Role implements LGRole {
 
 	@Override
 	public String getSkullValue() {
-		return null;
+		return "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYjhlZGE4YjhmOTUyNzA2MzU3ZTZjMjJmMTZmYmU2NjJjZDIxMWI5NmNmZmU5ZWJiOWY3OWRmYzAyZjQwYjgifX19";
 	}
 
 	@Override
@@ -65,17 +66,21 @@ public class Soeur extends Role implements LGRole {
 
 	@Override
 	public void checkRunnable(Player player) {
-		for(PlayerManager joueur : UhcHost.getInstance().gameManager.getLoupGarouManager().getJoueursWithRole(Soeur.class)) {
-			if(joueur.getPlayer() != player){
-				if(joueur.getPlayer() != null) {
-					Player soeur = joueur.getPlayer();
-					if(player.getLocation().distance(soeur.getLocation()) <= 20) {
-						player.addPotionEffect(ressistance);
-						soeur.addPotionEffect(ressistance);
+		if(main.gameManager.getModes().getMode().getModeManager() instanceof LoupGarouManager){
+			LoupGarouManager loupGarouManager = (LoupGarouManager) main.gameManager.getModes().getMode().getModeManager();
+			for(PlayerManager joueur : loupGarouManager.getJoueursWithRole(Soeur.class)) {
+				if(joueur.getPlayer() != player){
+					if(joueur.getPlayer() != null) {
+						Player soeur = joueur.getPlayer();
+						if(player.getLocation().distance(soeur.getLocation()) <= 20) {
+							player.addPotionEffect(ressistance);
+							soeur.addPotionEffect(ressistance);
+						}
 					}
 				}
 			}
 		}
+
 	}
 
 	@Override

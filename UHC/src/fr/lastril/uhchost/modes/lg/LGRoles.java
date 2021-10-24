@@ -17,7 +17,7 @@ public enum LGRoles {
      * CAMP DES LOUPS
      */
     LG(LoupGarou.class), //FINISHED
-    INFECT(InfectPereDesLoups.class), //FINISHED TODO Remake messages
+    INFECT(InfectPereDesLoups.class), //FINISHED
     LG_AMNESIQUE(LoupGarouAmnesique.class), //TODO BE TESTED
     LG_ANONYME(LoupGarouAnonyme.class),
     LG_ALPHA(LoupGarouAlpha.class),
@@ -37,15 +37,16 @@ public enum LGRoles {
     CHASSEUR(Chasseur.class),
     CITOYEN(Citoyen.class),
     CORBEAU(Corbeau.class),
-    CUPIDON(Cupidon.class),
+    CUPIDON(Cupidon.class), //TODO BE TESTED
     DETECTIVE(Detective.class),
     ENFANT_SAUVAGE(EnfantSauvage.class), //TODO BE TESTED
+    GARDE(Garde.class),
     MINEUR(Mineur.class), //FINISHED
     MONTREUR_DOURS(MontreurDours.class), //TODO BE TESTED
     PETITE_FILLE(PetiteFille.class), //TODO BE TESTED
     PRETRESSE(Pretresse.class),
     RENARD(Renard.class),
-    SALVATEUR(Salvateur.class),
+    SALVATEUR(Salvateur.class), //TODO BE TESTED
     SOEUR(Soeur.class), //TODO BE TESTED
     SORCIERE(Sorciere.class), //TODO BE TESTED
     TRUBLION(Trublion.class),
@@ -57,19 +58,19 @@ public enum LGRoles {
      * CAMP DES NEUTRES
      */
 
-    VOLEUR(Voleur.class),
+    VOLEUR(Voleur.class), //TODO BE TESTED
     CHIEN_LOUP(ChienLoup.class),
     /*
      * CAMP DES SOLOS
      */
     IMITATEUR(Imitateur.class),
     ANGE(Ange.class),
-    LGB(LoupGarouBlanc.class),
+    LGB(LoupGarouBlanc.class), //TODO BE TESTED
     ASSASSIN(Assassin.class), //FINISHED TODO Place Heads
     ;
 
 
-    private Class<? extends Role> role;
+    private final Class<? extends Role> role;
 
     LGRoles(Class<? extends Role> role) {
         this.role = role;

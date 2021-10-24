@@ -20,12 +20,12 @@ import java.util.Arrays;
 public class StartBorderSizeGui extends LargeTimerGui {
 
 	public StartBorderSizeGui(Player player) {
-		super(player, I18n.tl("guis.startBorderSize.name", new String[0]));
+		super(player, I18n.tl("guis.startBorderSize.name"));
 		ItemsCreator ic = new ItemsCreator(Material.STAINED_GLASS_PANE,
 				"§a" + (UhcHost.getInstance()).worldBorderUtils.getStartSize(),
-				Arrays.asList(I18n.tl("guis.startBorderSize.lore", new String[0]),
-						I18n.tl("guis.startBorderSize.lore1", new String[0]),
-						I18n.tl("guis.startBorderSize.lore2", new String[0])),
+				Arrays.asList(I18n.tl("guis.startBorderSize.lore"),
+						I18n.tl("guis.startBorderSize.lore1"),
+						I18n.tl("guis.startBorderSize.lore2")),
 				1, (byte) 13);
 		inventory.setItem(4, ic.create());
 	}
@@ -55,9 +55,9 @@ public class StartBorderSizeGui extends LargeTimerGui {
 				(UhcHost.getInstance()).worldBorderUtils.setStartSize(value);
 				ic = new ItemsCreator(Material.STAINED_GLASS_PANE,
 						"§a" + (UhcHost.getInstance()).worldBorderUtils.getStartSize(),
-						Arrays.asList(I18n.tl("guis.startBorderSize.lore", new String[0]),
-								I18n.tl("guis.startBorderSize.lore1", new String[0]),
-								I18n.tl("guis.startBorderSize.lore2", new String[0])),
+						Arrays.asList(I18n.tl("guis.startBorderSize.lore"),
+								I18n.tl("guis.startBorderSize.lore1"),
+								I18n.tl("guis.startBorderSize.lore2")),
 						1, (byte) 13);
 				inventory.setItem(4, ic.create());
 				break;

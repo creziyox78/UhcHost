@@ -22,9 +22,9 @@ import java.util.Arrays;
 public class TimeBombGui extends TimerGui {
 
 	public TimeBombGui(Player player) {
-		super(player, I18n.tl("guis.timebomb.name", new String[0]));
+		super(player, I18n.tl("guis.timebomb.name"));
 		ItemsCreator ic = new ItemsCreator(Material.TNT, "§e" + TimeBomb.getCount(),
-				Arrays.asList(I18n.tl("guis.timebomb.lore", new String[0])));
+				Arrays.asList(I18n.tl("guis.timebomb.lore")));
 		inventory.setItem(4, ic.create());
 	}
 
@@ -44,7 +44,7 @@ public class TimeBombGui extends TimerGui {
 			case TNT:
 				this.player.closeInventory();
 				(UhcHost.getInstance()).getGamemanager().removeScenario(Scenarios.TIMEBOMB.getScenario());
-				Scenarios.TIMEBOMB.setScenario((Scenario) new TimeBomb());
+				Scenarios.TIMEBOMB.setScenario(new TimeBomb());
 				(UhcHost.getInstance()).getGamemanager().addScenario(Scenarios.TIMEBOMB.getScenario());
 				(new ScenariosGui(this.player)).show();
 				break;
@@ -55,7 +55,7 @@ public class TimeBombGui extends TimerGui {
 					break;
 				TimeBomb.setCount(value);
 				ic = new ItemsCreator(Material.TNT, "§e" + TimeBomb.getCount(),
-						Arrays.asList(I18n.tl("guis.timebomb.lore", new String[0])));
+						Arrays.asList(I18n.tl("guis.timebomb.lore")));
 				inventory.setItem(4, ic.create());
 				break;
 			default:
@@ -67,7 +67,7 @@ public class TimeBombGui extends TimerGui {
 	@EventHandler
 	public void onClick(InventoryCloseEvent event) {
 		if (event.getInventory().equals(inventory))
-			HandlerList.unregisterAll((Listener) this);
+			HandlerList.unregisterAll(this);
 	}
 
 }

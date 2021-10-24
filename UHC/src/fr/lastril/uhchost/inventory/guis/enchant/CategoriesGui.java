@@ -44,11 +44,7 @@ public class CategoriesGui extends Gui {
             if (current != null){
                 if (current.getType() == Material.BEDROCK) {
                     if (current.hasItemMeta() && current.getItemMeta().hasDisplayName() && current.getItemMeta().getDisplayName().contains(ChatColor.AQUA + "Unbreakable:")) {
-                        if (hand.getItemMeta().spigot().isUnbreakable()) {
-                            EnchantBook.SetUnbreakable(hand, false);
-                        } else {
-                            EnchantBook.SetUnbreakable(hand, true);
-                        }
+                        EnchantBook.SetUnbreakable(hand, !hand.getItemMeta().spigot().isUnbreakable());
                     } else {
                         return;
                     }

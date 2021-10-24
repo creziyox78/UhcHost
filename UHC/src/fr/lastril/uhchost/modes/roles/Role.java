@@ -23,7 +23,7 @@ public abstract class Role implements RoleDescription {
 	private final Map<Integer, Consumer<Player>> timeEvent;
 	private final List<Class<? extends Role>> roleToKnow;
 	public UUID player;
-	private TaskManager taskManager = new TaskManager(main);
+	private final TaskManager taskManager = new TaskManager(main);
 	
 	public Role() {
 		this.effects = new HashMap<>();

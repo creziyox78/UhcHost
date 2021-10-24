@@ -50,17 +50,17 @@ public class Interact implements Listener {
 					gameManager.setHost(player);
 					this.notstart.PreHost(player);
 					player.playSound(player.getLocation(), Sound.LEVEL_UP, 1.0F, 20.0F);
-					ActionBar.sendMessage(player, I18n.tl("became-host", new String[0]));
+					ActionBar.sendMessage(player, I18n.tl("became-host"));
 				} else {
-					ActionBar.sendMessage(player, I18n.tl("already-host", new String[0]));
+					ActionBar.sendMessage(player, I18n.tl("already-host"));
 				}
 			} else {
-				ActionBar.sendMessage(player, I18n.tl("no-permission", new String[0]));
+				ActionBar.sendMessage(player, I18n.tl("no-permission"));
 			}
 		
 		if (current.getItemMeta().getDisplayName().equalsIgnoreCase(ChatColor.GOLD + "Ne plus être Host")) {
 			
-			ActionBar.sendMessage(player, I18n.tl("not-became-host", new String[0]));
+			ActionBar.sendMessage(player, I18n.tl("not-became-host"));
 			gameManager.setHost(null);
 			gameManager.setHostname(null);
 			this.notstart.PreHost(player);
@@ -91,7 +91,7 @@ public class Interact implements Listener {
 			this.pl.gameManager.setPotionsEditMode(false);
 			new PotionsGui(player).show();
 		}
-		if (current.getItemMeta().getDisplayName().equalsIgnoreCase(I18n.tl("teams", new String[0]))) {
+		if (current.getItemMeta().getDisplayName().equalsIgnoreCase(I18n.tl("teams"))) {
 			new TeamsGui(player);
 		}
 	}

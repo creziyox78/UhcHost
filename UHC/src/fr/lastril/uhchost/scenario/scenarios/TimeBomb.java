@@ -22,8 +22,8 @@ public class TimeBomb extends Scenario {
 
 	public TimeBomb() {
 		super("Time Bomb",
-				Arrays.asList(I18n.tl("scenarios.timebomb.lore", new String[0]),
-						I18n.tl("scenarios.timebomb.lore1", new String[0]),
+				Arrays.asList(I18n.tl("scenarios.timebomb.lore"),
+						I18n.tl("scenarios.timebomb.lore1"),
 						I18n.tl("scenarios.timebomb.lore2", String.valueOf(TimeBomb.getCount()))),
 				Material.TNT, TimeBombGui.class);
 	}
@@ -40,7 +40,7 @@ public class TimeBomb extends Scenario {
 		}
 		chest.update();
 		event.getDrops().clear();
-		(new TimeBombRunnable(chest, TimeBomb.getCount())).runTaskTimer((Plugin) UhcHost.getInstance(), 0L, 20L);
+		(new TimeBombRunnable(chest, TimeBomb.getCount())).runTaskTimer(UhcHost.getInstance(), 0L, 20L);
 	}
 
 	public static int getCount() {

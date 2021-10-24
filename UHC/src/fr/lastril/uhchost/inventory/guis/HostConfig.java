@@ -5,6 +5,8 @@ import fr.lastril.uhchost.UhcHost;
 import fr.lastril.uhchost.game.GameManager;
 import fr.lastril.uhchost.game.GameState;
 import fr.lastril.uhchost.inventory.Gui;
+import fr.lastril.uhchost.inventory.guis.modes.ModesGui;
+import fr.lastril.uhchost.inventory.guis.timer.RulesGuiHost;
 import fr.lastril.uhchost.inventory.guis.world.WorldGui;
 import fr.lastril.uhchost.scenario.ScenariosGui;
 import fr.lastril.uhchost.tools.API.ActionBar;
@@ -133,7 +135,7 @@ public class HostConfig extends Gui {
 			}
 			if (current.getItemMeta().getDisplayName().equalsIgnoreCase(ChatColor.AQUA + "Règles")){
 				player.closeInventory();
-				new RulesGui(player).show();
+				new RulesGuiHost(player).show();
 			}
 
 			if(current.getItemMeta().getDisplayName().equalsIgnoreCase(ChatColor.AQUA + "Scenarios")) {

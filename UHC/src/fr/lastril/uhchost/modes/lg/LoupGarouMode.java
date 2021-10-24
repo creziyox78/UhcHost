@@ -5,18 +5,19 @@ import fr.lastril.uhchost.inventory.Gui;
 import fr.lastril.uhchost.inventory.guis.modes.LoupGarouGui;
 import fr.lastril.uhchost.modes.Mode;
 import fr.lastril.uhchost.modes.ModeConfig;
+import fr.lastril.uhchost.modes.ModeManager;
 import fr.lastril.uhchost.modes.Modes;
 import fr.lastril.uhchost.modes.command.ModeCommand;
 import fr.lastril.uhchost.modes.command.ModeSubCommand;
+import fr.lastril.uhchost.modes.command.CmdCompo;
+import fr.lastril.uhchost.modes.command.CmdMe;
+import fr.lastril.uhchost.modes.lg.commands.CmdVote;
 import fr.lastril.uhchost.modes.lg.roles.LGRole;
-import fr.lastril.uhchost.modes.lg.roles.lg.InfectPereDesLoups;
-import fr.lastril.uhchost.modes.lg.roles.lg.LoupGarou;
 import fr.lastril.uhchost.modes.roles.*;
 import fr.lastril.uhchost.player.PlayerManager;
 import fr.lastril.uhchost.tools.API.BungeeAPI;
 import fr.lastril.uhchost.tools.I18n;
 import org.bukkit.Bukkit;
-import org.bukkit.Effect;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
@@ -36,7 +37,7 @@ public class LoupGarouMode extends Mode implements ModeCommand, RoleMode<LGRole>
     public LoupGarouMode() {
         super(Modes.LOUP_GAROU);
         this.pl = UhcHost.getInstance();
-        this.loupGarouManager = new LoupGarouManager(pl);
+        this.loupGarouManager = new LoupGarouManager(pl, this);
     }
 
     @Override
@@ -182,6 +183,11 @@ public class LoupGarouMode extends Mode implements ModeCommand, RoleMode<LGRole>
         }
     }
 
+    @Override
+    public ModeManager getModeManager() {
+        return loupGarouManager;
+    }
+
     public void win(Camps winner) {
         this.pl.gameManager.setDamage(false);
         Bukkit.broadcastMessage(I18n.tl("endGame"));
@@ -207,7 +213,9 @@ public class LoupGarouMode extends Mode implements ModeCommand, RoleMode<LGRole>
     public List<ModeSubCommand> getSubCommands() {
 
         List<ModeSubCommand> subCommands = new ArrayList<>();
-
+        subCommands.add(new CmdCompo(pl));
+        subCommands.add(new CmdVote(pl, loupGarouManager));
+        subCommands.add(new CmdMe(pl));
         this.getRoles().stream().filter(role -> role instanceof RoleCommand).map(role -> ((RoleCommand) role).getSubCommands()).forEach(subCommands::addAll);
 
         return subCommands;

@@ -20,10 +20,10 @@ import java.util.Arrays;
 public class BorderTimeGui extends TimerGui {
 
 	public BorderTimeGui(Player player) {
-		super(player, I18n.tl("guis.borderTime.name", new String[0]));
+		super(player, I18n.tl("guis.borderTime.name"));
 		ItemsCreator ic = new ItemsCreator(Material.COBBLE_WALL,
 				"§e" + (UhcHost.getInstance().taskManager.getBorderTime() / 60),
-				Arrays.asList(I18n.tl("guis.borderTime.lore", new String[0])));
+				Arrays.asList(I18n.tl("guis.borderTime.lore")));
 		inventory.setItem(4, ic.create());
 	}
 
@@ -52,7 +52,7 @@ public class BorderTimeGui extends TimerGui {
 				(UhcHost.getInstance()).taskManager.setBorderTime(value);
 				ic = new ItemsCreator(Material.COBBLE_WALL,
 						"§e" + ((UhcHost.getInstance()).taskManager.getBorderTime() / 60),
-						Arrays.asList(I18n.tl("guis.borderTime.lore", new String[0])));
+						Arrays.asList(I18n.tl("guis.borderTime.lore")));
 				inventory.setItem(4, ic.create());
 				break;
 			default:

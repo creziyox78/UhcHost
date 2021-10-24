@@ -19,17 +19,17 @@ public class ChunkLoader extends BukkitRunnable {
 
 	private double currentChunkLoad;
 
-	private double totalChunkToLoad;
+	private final double totalChunkToLoad;
 
 	private int cx;
 
 	private int cz;
 
-	private int radius;
+	private final int radius;
 
 	private boolean finished;
 
-	private World world;
+	private final World world;
 
 	public ChunkLoader(UhcHost main, int radius) {
 		this.main = main;

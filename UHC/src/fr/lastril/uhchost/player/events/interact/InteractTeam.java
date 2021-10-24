@@ -35,7 +35,7 @@ public class InteractTeam implements Listener {
 							if (teams.getTeam().getEntries().size() >= (UhcHost.getInstance()).teamUtils
 									.getPlayersPerTeams()) {
 								event.getWhoClicked().closeInventory();
-								event.getWhoClicked().sendMessage(teams.getPrefix() + I18n.tl("teamFull", new String[0]));
+								event.getWhoClicked().sendMessage(teams.getPrefix() + I18n.tl("teamFull"));
 								break;
 							}
 							(UhcHost.getInstance()).teamUtils.setTeam((Player) event.getWhoClicked(), teams.getTeam());

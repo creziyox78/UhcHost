@@ -68,7 +68,7 @@ public class GameManager {
 
 	private int playersBeforeStart = 10;
 
-	private Map<UUID, UUID> lastDamager;
+	private final Map<UUID, UUID> lastDamager;
 
 	private long elapsedTime;
 
@@ -84,15 +84,13 @@ public class GameManager {
 
 	private double cycleTime = 10*60;
 
-	private final LoupGarouManager loupGarouManager;
-
 	private String hostName;
 
 	private String gameName;
 
 	private Player host;
 
-	private UhcHost pl;
+	private final UhcHost pl;
 
 	private List<Scenario> scenarios;
 
@@ -161,7 +159,6 @@ public class GameManager {
 		this.gameName = ChatColor.AQUA + "UHC Host";
 		this.playerCheckingWorld = false;
 		this.setNether(true);
-		this.loupGarouManager = new LoupGarouManager(pl);
 		this.validateWorld = false;
 		this.biomeState = BiomeState.ROOFED_FOREST;
 		this.lastDamager = new HashMap<>();
@@ -176,9 +173,7 @@ public class GameManager {
 	}
 
 	public void removeScenario(Scenario scenario) {
-		if (this.scenarios.contains(scenario)) {
-			this.scenarios.remove(scenario);
-		}
+		this.scenarios.remove(scenario);
 	}
 
 	public boolean hasScenario(Scenario scenario) {
@@ -381,7 +376,7 @@ public class GameManager {
 			}
 			this.task = Bukkit.getScheduler().runTaskTimer(this.pl, new Runnable() {
 
-				List<Location> locs = GameManager.this.generateLocations(GameManager.this.count);
+				final List<Location> locs = GameManager.this.generateLocations(GameManager.this.count);
 
 				@Override
 				public void run() {
@@ -410,7 +405,7 @@ public class GameManager {
 			}, 10L, 10L);
 		} else {
 			this.task = Bukkit.getScheduler().runTaskTimer(this.pl, new Runnable() {
-				List<Location> locs = GameManager.this.generateLocations(pl.getPlayerManagerOnlines().size());
+				final List<Location> locs = GameManager.this.generateLocations(pl.getPlayerManagerOnlines().size());
 
 				@Override
 				public void run() {
@@ -439,15 +434,15 @@ public class GameManager {
 		for (int i = 0; i < count; i++) {
 			for (Player player : Bukkit.getOnlinePlayers()) {
 				TitleAPI.sendTitle(player, Integer.valueOf(5), Integer.valueOf(20), Integer.valueOf(5),
-						I18n.tl("spawnLoad", new String[0]),
-						I18n.tl("spawnLoadCount", new String[] { String.valueOf(i + 1), String.valueOf(count) }));
+						I18n.tl("spawnLoad"),
+						I18n.tl("spawnLoadCount", String.valueOf(i + 1), String.valueOf(count)));
 			}
 			result.add(generateLocation());
 		}
 		return result;
 	}
 
-	private List<Block> temp;
+	private final List<Block> temp;
 
 
 	public void generateLocationOnGround(Player player){
@@ -529,7 +524,7 @@ public class GameManager {
 			public void run() {
 				GameManager.this.setDamage(true);
 				GameManager.this.setPvp(true);
-				Bukkit.broadcastMessage(I18n.tl("damageAndPvpActived", new String[0]));
+				Bukkit.broadcastMessage(I18n.tl("damageAndPvpActived"));
 			}
 		}.runTaskLater(this.pl, 400L);
 	}
@@ -628,10 +623,6 @@ public class GameManager {
 
 	public void setPlayerCheckingWorld(boolean playerCheckingWorld) {
 		this.playerCheckingWorld = playerCheckingWorld;
-	}
-
-	public LoupGarouManager getLoupGarouManager() {
-		return loupGarouManager;
 	}
 
 	public boolean isAllPotionsEnable() {
