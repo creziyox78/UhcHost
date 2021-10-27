@@ -2,8 +2,10 @@ package fr.lastril.uhchost.inventory.guis.modes;
 
 import fr.lastril.uhchost.UhcHost;
 import fr.lastril.uhchost.inventory.Gui;
+import fr.lastril.uhchost.inventory.guis.HostConfig;
 import fr.lastril.uhchost.modes.ModeConfig;
 import fr.lastril.uhchost.modes.Modes;
+import fr.lastril.uhchost.tools.I18n;
 import fr.lastril.uhchost.tools.creators.ItemsCreator;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -17,6 +19,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.Arrays;
+import java.util.Collections;
 
 public class ModesGui extends Gui {
 
@@ -35,6 +38,7 @@ public class ModesGui extends Gui {
             }
             inventory.setItem(index, is);
         }
+        inventory.setItem(inventory.getSize() - 1, (new ItemsCreator(Material.BARRIER, I18n.tl("guis.back"), Collections.singletonList(""))).create());
     }
 
     @EventHandler
@@ -47,18 +51,23 @@ public class ModesGui extends Gui {
             if (is == null || is.getType() == Material.AIR)
                 return;
             event.setCancelled(true);
-            for(Modes modes : Modes.values()){
-                if(event.getClick() == ClickType.LEFT){
-                    if(is.isSimilar(modes.getItem()) && modes != Modes.SOON_1){
-                        pl.gameManager.setModes(modes);
-                        player.closeInventory();
-                        new ModesGui(player).show();
-                    }
-                } else if(event.getClick() == ClickType.RIGHT){
-                    if(is.isSimilar(modes.getItem()) && modes.getMode() instanceof ModeConfig){
-                        player.closeInventory();
-                        ModeConfig config = (ModeConfig) modes.getMode();
-                        config.getGui(player).show();
+            if(is.getType() == Material.BARRIER){
+                player.closeInventory();
+                new HostConfig(player).show();
+            } else {
+                for(Modes modes : Modes.values()){
+                    if(event.getClick() == ClickType.LEFT){
+                        if(is.isSimilar(modes.getItem()) && modes != Modes.SOON_1){
+                            pl.gameManager.setModes(modes);
+                            player.closeInventory();
+                            new ModesGui(player).show();
+                        }
+                    } else if(event.getClick() == ClickType.RIGHT){
+                        if(is.isSimilar(modes.getItem()) && modes.getMode() instanceof ModeConfig){
+                            player.closeInventory();
+                            ModeConfig config = (ModeConfig) modes.getMode();
+                            config.getGui(player).show();
+                        }
                     }
                 }
             }

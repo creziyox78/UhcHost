@@ -2,6 +2,9 @@ package fr.lastril.uhchost.inventory.guis.world;
 
 import fr.lastril.uhchost.UhcHost;
 import fr.lastril.uhchost.inventory.Gui;
+import fr.lastril.uhchost.inventory.guis.HostConfig;
+import fr.lastril.uhchost.inventory.guis.modes.ModesGui;
+import fr.lastril.uhchost.tools.I18n;
 import fr.lastril.uhchost.tools.Items;
 import fr.lastril.uhchost.tools.NotStart;
 import fr.lastril.uhchost.tools.creators.ItemsCreator;
@@ -18,6 +21,7 @@ import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.Arrays;
+import java.util.Collections;
 
 public class WorldGui extends Gui {
 
@@ -28,18 +32,21 @@ public class WorldGui extends Gui {
         for (int i = 0; i < inventory.getSize(); i++) {
             inventory.setItem(i, Items.getItemColored(Material.STAINED_GLASS_PANE, " ", (byte) 7, true));
         }
-        ItemStack is = pl.gameManager.getBiomeState().getItemBiome();
-        inventory.setItem(10, is);
 
+        if(!pl.gameManager.isValidateWorld()){
+            ItemStack is = pl.gameManager.getBiomeState().getItemBiome();
+            inventory.setItem(10, is);
+        }
         if(pl.gameManager.isValidateWorld()){
             if(!pl.getGamemanager().isPregen())
-                inventory.setItem(13, new ItemsCreator(Material.EMPTY_MAP, "§aPrégénération", Arrays.asList("", "§7Configurer sur:§b " + pl.worldBorderUtils.getStartSize() +"x" + pl.worldBorderUtils.getStartSize()), 1).create());
+                inventory.setItem(13, new ItemsCreator(Material.EMPTY_MAP, "§aPrégénération", Arrays.asList("", "§7Configurer sur:§b "
+                        + pl.worldBorderUtils.getStartSize() +"x" + pl.worldBorderUtils.getStartSize()), 1).create());
         } else {
             inventory.setItem(13, new ItemsCreator(Material.BARRIER, "§cMonde non validé !", Arrays.asList("§7Vous devez valider le monde", "§7en le pré-visualisant (bouton à droite)."), 1).create());
         }
         if(!pl.getGamemanager().isPregen() && !pl.gameManager.isValidateWorld())
             inventory.setItem(16, new ItemsCreator(Material.GRASS, "§ePré-visualisation", Arrays.asList("§7Vérifiez que le centre", "§7est celui dont vous voulez !"), 1).create());
-
+        inventory.setItem(inventory.getSize() - 1, (new ItemsCreator(Material.BARRIER, I18n.tl("guis.back"), Collections.singletonList(""))).create());
     }
 
     @EventHandler
@@ -75,6 +82,10 @@ public class WorldGui extends Gui {
                     player.sendMessage("§aMonde créé ! Téléportation au centre...");
                     player.teleport(new Location(Bukkit.getWorld("game"), 0, 100, 0));
                     NotStart.checkingWorld(player);
+                    break;
+                case BARRIER:
+                    player.closeInventory();
+                    new HostConfig(player).show();
                     break;
             }
         }

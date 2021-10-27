@@ -3,6 +3,8 @@ package fr.lastril.uhchost.inventory.guis.world;
 import fr.lastril.uhchost.UhcHost;
 import fr.lastril.uhchost.enums.BiomeState;
 import fr.lastril.uhchost.inventory.Gui;
+import fr.lastril.uhchost.inventory.guis.HostConfig;
+import fr.lastril.uhchost.tools.I18n;
 import fr.lastril.uhchost.tools.Items;
 import fr.lastril.uhchost.tools.creators.ItemsCreator;
 import org.bukkit.Material;
@@ -15,6 +17,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.Arrays;
+import java.util.Collections;
 
 public class BiomeChooseGui extends Gui {
 
@@ -31,6 +34,7 @@ public class BiomeChooseGui extends Gui {
             inventory.setItem(index, is);
             index++;
         }
+        inventory.setItem(inventory.getSize() - 1, (new ItemsCreator(Material.BARRIER, I18n.tl("guis.back"), Collections.singletonList(""))).create());
     }
 
     @EventHandler
@@ -43,12 +47,17 @@ public class BiomeChooseGui extends Gui {
             if (is == null || is.getType() == Material.AIR)
                 return;
             event.setCancelled(true);
-            for(BiomeState biomeState : BiomeState.values()){
-                if(is.isSimilar(biomeState.getItemBiome())){
-                    pl.gameManager.setBiomeState(biomeState);
-                    player.closeInventory();
-                    new BiomeChooseGui(player).show();
-                    return;
+            if(is.getType() == Material.BARRIER){
+                player.closeInventory();
+                new WorldGui(player).show();
+            } else {
+                for(BiomeState biomeState : BiomeState.values()){
+                    if(is.isSimilar(biomeState.getItemBiome())){
+                        pl.gameManager.setBiomeState(biomeState);
+                        player.closeInventory();
+                        new BiomeChooseGui(player).show();
+                        return;
+                    }
                 }
             }
         }

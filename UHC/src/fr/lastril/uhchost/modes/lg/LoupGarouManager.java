@@ -26,8 +26,6 @@ public class LoupGarouManager extends ModeManager implements Listener {
 
 	private final List<UUID> waitingRessurect;
 
-	private final List<PlayerManager> inCouple;
-
 	private boolean randomCouple = false, voteTime;
 
 	private int startVoteEpisode = 3;
@@ -41,7 +39,6 @@ public class LoupGarouManager extends ModeManager implements Listener {
 
 	public LoupGarouManager(UhcHost main) {
 		this.main = main;
-		this.inCouple = new ArrayList<>();
 		this.waitingRessurect = new ArrayList<>();
 		this.playerVote = new HashMap<>();
 		this.main.getServer().getPluginManager().registerEvents(this, main);

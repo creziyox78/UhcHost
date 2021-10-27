@@ -3,6 +3,7 @@ package fr.lastril.uhchost.team;
 import fr.lastril.uhchost.UhcHost;
 import fr.lastril.uhchost.inventory.Gui;
 import fr.lastril.uhchost.inventory.guis.HostConfig;
+import fr.lastril.uhchost.inventory.guis.rules.RulesGui;
 import fr.lastril.uhchost.tools.I18n;
 import fr.lastril.uhchost.tools.creators.BannerCreator;
 import fr.lastril.uhchost.tools.creators.ItemsCreator;
@@ -49,7 +50,7 @@ public class ToGui extends Gui {
 			switch (is.getType()) {
 			case BLAZE_ROD:
 				this.player.closeInventory();
-				new HostConfig(player).show();
+				new RulesGui(player).show();
 				break;
 			case BANNER:
 				name = is.getItemMeta().getDisplayName();

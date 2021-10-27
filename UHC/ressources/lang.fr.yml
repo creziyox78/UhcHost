@@ -195,7 +195,7 @@ guis:
     lootsLore: "&7Choisis les taux de loots pour certains items"
   maxPlayers:
     name: "&5Nombre de joueurs maximum"
-    lore: "&7Choisis le nombre de joueurs maximum"
+    lore: "&7Choisis le nombre de joueurs maximum."
   pvpTime:
     name: "&bTemps avant le pvp en minute"
     lore: "&7Choisis au bout de combien"
@@ -203,7 +203,22 @@ guis:
   cycleTime:
     name: "&bCycle Jour/Nuit"
     lore: "&7Choisis le cycle du jour/nuit"
-    lore1: "&7qui influencera les pouvoirs des roles"
+    lore1: "&7qui influencera les pouvoirs des roles."
+  lg:
+    main:
+      name: "&eLoup-Garou"
+      composition: "&aCompostion de la partie"
+      episodetime: "&9Dur[,]e d#,#un [,]pisode:&b {0} minutes"
+      votetime: "&9D[,]but des premiers votes:&b [,]pisode {0}"
+      randomcouple: "&aCouple aléatoire"
+    vote:
+      name: "&bPremiers votes"
+      lore: "&9Active les votes uniquement"
+      lore1: "&9+,+ partir d#,#un [,]pisode donn[,]."
+    episodetime:
+      name: "&bDurée d#,#un [,]pisode"
+      lore: "&9Configure la dur[,]e"
+      lore1: "&9de chaque [,]pisode."
 
 
 scenarios:

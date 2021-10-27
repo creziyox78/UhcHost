@@ -2,9 +2,12 @@ package fr.lastril.uhchost.inventory.guis.modes;
 
 import fr.lastril.uhchost.UhcHost;
 import fr.lastril.uhchost.inventory.Gui;
+import fr.lastril.uhchost.inventory.guis.HostConfig;
+import fr.lastril.uhchost.modes.ModeConfig;
 import fr.lastril.uhchost.modes.lg.LGRoles;
 import fr.lastril.uhchost.modes.roles.Role;
 import fr.lastril.uhchost.modes.roles.RoleMode;
+import fr.lastril.uhchost.tools.I18n;
 import fr.lastril.uhchost.tools.Items;
 import fr.lastril.uhchost.tools.creators.ItemsCreator;
 import org.bukkit.Material;
@@ -17,6 +20,7 @@ import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.Arrays;
+import java.util.Collections;
 
 public class CompositionGui extends Gui {
 
@@ -27,6 +31,7 @@ public class CompositionGui extends Gui {
         for (int i = 0; i < inventory.getSize() - 3; i++) {
             inventory.setItem(i, new ItemStack(Material.AIR));
         }
+        inventory.setItem(inventory.getSize() - 1, (new ItemsCreator(Material.BARRIER, I18n.tl("guis.back"), Collections.singletonList(""))).create());
         if(pl.gameManager.getModes().getMode() instanceof RoleMode<?>){
             RoleMode<?> mode = (RoleMode<?>) pl.getGamemanager().getModes().getMode();
             for (Role roles : mode.getRoles()) {
@@ -69,27 +74,34 @@ public class CompositionGui extends Gui {
             if (is == null || is.getType() == Material.AIR)
                 return;
             event.setCancelled(true);
-            for(LGRoles lgRoles : LGRoles.values()){
-                try {
-                    Role role = lgRoles.getRole().newInstance();
-                    if(event.getClick() == ClickType.LEFT){
-                        if(role.getRoleName().equalsIgnoreCase(is.getItemMeta().getDisplayName())){
-                            pl.gameManager.addRoleToComposition(role);
-                            new CompositionGui(player).show();
-                            return;
+            if(is.getType() == Material.BARRIER){
+                player.closeInventory();
+                if(UhcHost.getInstance().gameManager.getModes().getMode() instanceof ModeConfig){
+                    ModeConfig modeConfig = (ModeConfig) UhcHost.getInstance().gameManager.getModes().getMode();
+                    modeConfig.getGui(player).show();
+                }
+            } else {
+                for(LGRoles lgRoles : LGRoles.values()){
+                    try {
+                        Role role = lgRoles.getRole().newInstance();
+                        if(event.getClick() == ClickType.LEFT){
+                            if(role.getRoleName().equalsIgnoreCase(is.getItemMeta().getDisplayName())){
+                                pl.gameManager.addRoleToComposition(role);
+                                new CompositionGui(player).show();
+                                return;
+                            }
+                        } else if(event.getClick() == ClickType.RIGHT){
+                            if(role.getRoleName().equalsIgnoreCase(is.getItemMeta().getDisplayName())){
+                                pl.gameManager.removeRoleToComposition(role);
+                                new CompositionGui(player).show();
+                                return;
+                            }
                         }
-                    } else if(event.getClick() == ClickType.RIGHT){
-                        if(role.getRoleName().equalsIgnoreCase(is.getItemMeta().getDisplayName())){
-                            pl.gameManager.removeRoleToComposition(role);
-                            new CompositionGui(player).show();
-                            return;
-                        }
+                    } catch (InstantiationException | IllegalAccessException e) {
+                        e.printStackTrace();
                     }
-                } catch (InstantiationException | IllegalAccessException e) {
-                    e.printStackTrace();
                 }
             }
-
         }
     }
 

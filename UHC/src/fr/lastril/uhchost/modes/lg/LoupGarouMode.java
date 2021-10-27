@@ -2,7 +2,7 @@ package fr.lastril.uhchost.modes.lg;
 
 import fr.lastril.uhchost.UhcHost;
 import fr.lastril.uhchost.inventory.Gui;
-import fr.lastril.uhchost.inventory.guis.modes.LoupGarouGui;
+import fr.lastril.uhchost.inventory.guis.modes.lg.LoupGarouGui;
 import fr.lastril.uhchost.modes.Mode;
 import fr.lastril.uhchost.modes.ModeConfig;
 import fr.lastril.uhchost.modes.ModeManager;
