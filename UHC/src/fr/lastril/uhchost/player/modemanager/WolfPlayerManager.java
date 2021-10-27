@@ -7,14 +7,14 @@ import fr.lastril.uhchost.modes.lg.roles.LGRole;
 import fr.lastril.uhchost.modes.roles.Camps;
 import fr.lastril.uhchost.player.PlayerManager;
 
-public class WolfPlayerManager {
+public class WolfPlayerManager implements Comparable<WolfPlayerManager> {
 
 	private final PlayerManager joueur;
 	private LGRole lgRole;
 	private Camps camp;
 	private UUID otherCouple;
 	
-	private boolean infected, salvation, transformed;
+	private boolean infected, salvation, transformed, voted;
 	
 	private int votes;
 	
@@ -85,8 +85,12 @@ public class WolfPlayerManager {
 		return this.votes;
 	}
 
-	public void setVotes(int votes) {
-		this.votes = votes;
+	public void resetVote(){
+		this.votes = 0;
+	}
+
+	public void addVote(){
+		this.votes++;
 	}
 
 	public ResurectType getResurectType() {
@@ -101,5 +105,17 @@ public class WolfPlayerManager {
 		this.otherCouple = otherCouple;
 		if(otherCouple != null) this.setCamp(Camps.COUPLE);
 	}
-	
+
+	@Override
+	public int compareTo(WolfPlayerManager o) {
+		return this.getVotes() - o.getVotes();
+	}
+
+	public boolean hasVoted() {
+		return voted;
+	}
+
+	public void setVoted(boolean voted) {
+		this.voted = voted;
+	}
 }

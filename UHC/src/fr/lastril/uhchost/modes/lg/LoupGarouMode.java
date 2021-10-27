@@ -37,7 +37,7 @@ public class LoupGarouMode extends Mode implements ModeCommand, RoleMode<LGRole>
     public LoupGarouMode() {
         super(Modes.LOUP_GAROU);
         this.pl = UhcHost.getInstance();
-        this.loupGarouManager = new LoupGarouManager(pl, this);
+        this.loupGarouManager = new LoupGarouManager(pl);
     }
 
     @Override
@@ -142,13 +142,18 @@ public class LoupGarouMode extends Mode implements ModeCommand, RoleMode<LGRole>
 
     @Override
     public void onNewEpisode() {
-        loupGarouManager.setVoteTime(true);
-        Bukkit.getScheduler().runTaskLater(pl, () ->  {
-            loupGarouManager.setVoteTime(false);
-        }, 20*30);
-        Bukkit.getScheduler().runTaskLater(pl, () ->  {
-
-        }, 20*60);
+        if(pl.gameManager.episode >= getLoupGarouManager().getStartVoteEpisode()){
+            loupGarouManager.setVoteTime(true);
+            Bukkit.getScheduler().runTaskLater(pl, () -> loupGarouManager.setVoteTime(false), 20*30);
+            Bukkit.getScheduler().runTaskLater(pl, () -> loupGarouManager.applyVote(getLoupGarouManager().getMostVoted()), 20*60);
+        }
+        if(loupGarouManager.getCurrentVotedPlayer() != null){
+            Player voted = loupGarouManager.getCurrentVotedPlayer().getJoueur().getPlayer();
+            if(voted != null){
+                voted.setMaxHealth(loupGarouManager.getOriginalVotedHealth());
+            }
+            loupGarouManager.setCurrentVotedPlayer(null);
+        }
     }
 
     @Override

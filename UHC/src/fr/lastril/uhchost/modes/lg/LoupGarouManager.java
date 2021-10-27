@@ -1,31 +1,24 @@
 package fr.lastril.uhchost.modes.lg;
 
-import java.util.*;
-import java.util.stream.Collectors;
-
 import fr.lastril.uhchost.UhcHost;
 import fr.lastril.uhchost.enums.Messages;
 import fr.lastril.uhchost.enums.ResurectType;
 import fr.lastril.uhchost.modes.ModeManager;
-import fr.lastril.uhchost.modes.lg.roles.lg.LoupGarou;
 import fr.lastril.uhchost.modes.lg.roles.solo.LoupGarouBlanc;
 import fr.lastril.uhchost.modes.lg.roles.village.Cupidon;
 import fr.lastril.uhchost.modes.roles.Camps;
 import fr.lastril.uhchost.player.PlayerManager;
-import org.bukkit.Bukkit;
-import org.bukkit.GameMode;
-import org.bukkit.Location;
-import org.bukkit.Material;
-import org.bukkit.OfflinePlayer;
-import org.bukkit.Sound;
+import fr.lastril.uhchost.player.modemanager.WolfPlayerManager;
+import org.bukkit.*;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageEvent;
-import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffectType;
-import org.bukkit.scheduler.BukkitRunnable;
+
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class LoupGarouManager extends ModeManager implements Listener {
 
@@ -37,17 +30,19 @@ public class LoupGarouManager extends ModeManager implements Listener {
 
 	private boolean randomCouple = false, voteTime;
 
-	private int startVoteEpisode;
+	private int startVoteEpisode = 3;
 
-	private final LoupGarouMode loupGarouMode;
+	private double originalVotedHealth;
+
+	private WolfPlayerManager currentVotedPlayer;
+
 	private final List<PlayerManager> loupGarouList = new ArrayList<>();
 	private final Map<PlayerManager, Integer> playerVote;
 
-	public LoupGarouManager(UhcHost main, LoupGarouMode loupGarouMode) {
+	public LoupGarouManager(UhcHost main) {
 		this.main = main;
 		this.inCouple = new ArrayList<>();
 		this.waitingRessurect = new ArrayList<>();
-		this.loupGarouMode = loupGarouMode;
 		this.playerVote = new HashMap<>();
 		this.main.getServer().getPluginManager().registerEvents(this, main);
 	}
@@ -161,29 +156,42 @@ public class LoupGarouManager extends ModeManager implements Listener {
 		}
 	}
 
-	private void resetVote(){
+	public void resetVote(){
 		main.getPlayerManagerAlives().forEach(playerManager -> {
 			if(!playerVote.containsKey(playerManager))
 				playerVote.put(playerManager, 0);
+			playerManager.getWolfPlayerManager().setVoted(false);
 		});
-		playerVote.forEach((playerManager, integer) -> {
-			integer = 0;
-		});
+		playerVote.forEach((playerManager, integer) -> integer = 0);
 	}
 
-	public static List<PlayerManager> getKeysWithMaxValue(Map<PlayerManager, Integer> map){
-		final List<PlayerManager> resultList = new ArrayList<>();
-		int currentMaxValuevalue = Integer.MIN_VALUE;
-		for (Map.Entry<PlayerManager, Integer> entry : map.entrySet()){
-			if (entry.getValue() > currentMaxValuevalue){
-				resultList.clear();
-				resultList.add(entry.getKey());
-				currentMaxValuevalue = entry.getValue();
-			} else if (entry.getValue() == currentMaxValuevalue){
-				resultList.add(entry.getKey());
+	public WolfPlayerManager getMostVoted(){
+		List<WolfPlayerManager> players = new ArrayList<>(main.getAllWolfPlayerManager().values());
+		return calculateTopVoted(players).get(0);
+	}
+
+	private List<WolfPlayerManager> calculateTopVoted(List<WolfPlayerManager> players) {
+		players.sort(WolfPlayerManager::compareTo);
+		return players;
+	}
+
+	public void applyVote(WolfPlayerManager mostVoted){
+		Bukkit.broadcastMessage("§8§m----------------------------");
+		Bukkit.broadcastMessage("§eRésultat du vote");
+		if(mostVoted == null){
+			Bukkit.broadcastMessage("§cPersonne n'a pas réussi à se mettre d'accord.");
+		}
+		else {
+			Bukkit.broadcastMessage("§bLa personne ayant reçu le plus de vote est " + mostVoted.getJoueur().getPlayerName() + ", il perd donc la moitié de sa vie jusqu'au prochain épisode.");
+			setCurrentVotedPlayer(mostVoted.getJoueur().getWolfPlayerManager());
+			Player target = mostVoted.getJoueur().getPlayer();
+			if(target != null){
+				setOriginalVotedHealth(target.getMaxHealth());
+				target.setMaxHealth(target.getMaxHealth() / 2);
 			}
 		}
-		return resultList;
+		Bukkit.broadcastMessage("§8§m----------------------------");
+		resetVote();
 	}
 
 
@@ -195,12 +203,8 @@ public class LoupGarouManager extends ModeManager implements Listener {
 
 	public String sendLGList(){
 		String list = Messages.LOUP_GAROU_PREFIX.getPrefix() + "Voici la liste entière des Loups-Garous : \n";
-		for (PlayerManager joueur : main.gameManager.getModes().getMode().getModeManager().getJoueursWithCamps(Camps.LOUP_GAROU)) {
-			loupGarouList.add(joueur);
-		}
-		for(PlayerManager joueur : main.gameManager.getModes().getMode().getModeManager().getJoueursWithRole(LoupGarouBlanc.class)){
-			loupGarouList.add(joueur);
-		}
+		loupGarouList.addAll(main.gameManager.getModes().getMode().getModeManager().getJoueursWithCamps(Camps.LOUP_GAROU));
+		loupGarouList.addAll(main.gameManager.getModes().getMode().getModeManager().getJoueursWithRole(LoupGarouBlanc.class));
 		int numberOfElements = loupGarouList.size();
 		for (int i = 0; i < numberOfElements; i++) {
 			int index = UhcHost.getRANDOM().nextInt(loupGarouList.size());
@@ -253,14 +257,14 @@ public class LoupGarouManager extends ModeManager implements Listener {
 
 	public void setVoteTime(boolean voteTime) {
 		this.voteTime = voteTime;
-		Bukkit.broadcastMessage(" ");
+		Bukkit.broadcastMessage("§8§m----------------------------");
 		if(voteTime){
-			Bukkit.broadcastMessage(Messages.LOUP_GAROU_PREFIX.getPrefix() + "§eVous avez 1 minute pour voter pour le joueur de votre choix. " +
+			Bukkit.broadcastMessage(Messages.LOUP_GAROU_PREFIX.getPrefix() + "§eVous avez 30 secondes pour voter pour le joueur de votre choix avec la commande§6 \"/lg vote <pseudo>\". " +
 					"Le joueur ayant le plus de voix sur lui perdra la moitié de sa vie jusqu'à la prochaine journée.");
 		} else {
 			Bukkit.broadcastMessage(Messages.LOUP_GAROU_PREFIX.getPrefix() + "§cLes votes sont désormais fermés !");
 		}
-		Bukkit.broadcastMessage(" ");
+		Bukkit.broadcastMessage("§8§m----------------------------");
 
 	}
 
@@ -276,8 +280,6 @@ public class LoupGarouManager extends ModeManager implements Listener {
 		return startVoteEpisode;
 	}
 
-
-
 	public boolean isRandomCouple() {
 		return randomCouple;
 	}
@@ -286,4 +288,19 @@ public class LoupGarouManager extends ModeManager implements Listener {
 		this.randomCouple = randomCouple;
 	}
 
+	public void setCurrentVotedPlayer(WolfPlayerManager currentVotedPlayer) {
+		this.currentVotedPlayer = currentVotedPlayer;
+	}
+
+	public WolfPlayerManager getCurrentVotedPlayer() {
+		return currentVotedPlayer;
+	}
+
+	public void setOriginalVotedHealth(double originalVotedHealth) {
+		this.originalVotedHealth = originalVotedHealth;
+	}
+
+	public double getOriginalVotedHealth() {
+		return originalVotedHealth;
+	}
 }

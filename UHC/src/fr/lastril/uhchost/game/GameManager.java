@@ -53,7 +53,7 @@ public class GameManager {
 
 	public int episode = 1;
 	
-	public int episodeEvery = 60;
+	public int episodeEvery = 60*2;
 
 	private boolean editInv;
 

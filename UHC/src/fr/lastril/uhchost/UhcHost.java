@@ -9,6 +9,7 @@ import fr.lastril.uhchost.inventory.CustomInv;
 import fr.lastril.uhchost.modes.Modes;
 import fr.lastril.uhchost.modes.command.ModeCommand;
 import fr.lastril.uhchost.player.events.interact.InteractCheckWorld;
+import fr.lastril.uhchost.player.modemanager.WolfPlayerManager;
 import fr.lastril.uhchost.tools.API.clickable_messages.ClickableMessageManager;
 import fr.lastril.uhchost.tools.InventoryUtils;
 import fr.lastril.uhchost.tools.NotStart;
@@ -63,6 +64,7 @@ public class UhcHost extends JavaPlugin {
 	public TaskManager taskManager;
 
 	public static UhcHost instance;
+	private Map<UUID, WolfPlayerManager> wolfPlayersManagers = new HashMap<>();
 
 	public static UhcHost getInstance() {
 		return instance;
@@ -252,6 +254,10 @@ public class UhcHost extends JavaPlugin {
 
 	public PlayerManager getRandomPlayerManagerAlive() {
 		return this.getPlayerManagerAlives().get(RANDOM.nextInt(this.getPlayerManagerAlives().size()));
+	}
+
+	public Map<UUID, WolfPlayerManager> getAllWolfPlayerManager() {
+		return this.wolfPlayersManagers;
 	}
 
 	public static Random getRANDOM() {

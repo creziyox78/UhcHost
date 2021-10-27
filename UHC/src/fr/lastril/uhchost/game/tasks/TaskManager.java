@@ -166,6 +166,7 @@ public class TaskManager {
 								}
 							}
 						}
+						pl.gameManager.getModes().getMode().onNewEpisode();
 					}
 				}
 

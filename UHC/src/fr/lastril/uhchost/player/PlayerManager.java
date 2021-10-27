@@ -47,6 +47,7 @@ public class PlayerManager {
 		this.cooldowns = new HashMap<>();
 		this.playerName = player.getName();
 		this.setWolfPlayerManager(new WolfPlayerManager(this));
+		UhcHost.getInstance().getAllWolfPlayerManager().put(uuid, getWolfPlayerManager());
 	}
 
 	public void removeCooldowns() {

@@ -1,8 +1,11 @@
 package fr.lastril.uhchost.modes.lg.commands;
 
 import fr.lastril.uhchost.UhcHost;
+import fr.lastril.uhchost.enums.Messages;
 import fr.lastril.uhchost.modes.command.ModeSubCommand;
 import fr.lastril.uhchost.modes.lg.LoupGarouManager;
+import fr.lastril.uhchost.player.PlayerManager;
+import fr.lastril.uhchost.player.modemanager.WolfPlayerManager;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -32,7 +35,32 @@ public class CmdVote implements ModeSubCommand {
     }
 
     @Override
-    public boolean onCommand(CommandSender commandSender, Command command, String s, String[] strings) {
+    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+        Player player = (Player) sender;
+        PlayerManager playerManager = pl.getPlayerManager(player.getUniqueId());
+        if(!playerManager.hasRole() || !playerManager.isAlive()){
+            return false;
+        }
+        if (args.length == 2) {
+            String targetName = args[1];
+            Player target = Bukkit.getPlayer(targetName);
+            if(target != null){
+                WolfPlayerManager wolfPlayerManager = pl.getPlayerManager(player.getUniqueId()).getWolfPlayerManager();
+                if(!wolfPlayerManager.hasVoted()){
+                    wolfPlayerManager.setVoted(true);
+                    WolfPlayerManager wolfTargetManager = pl.getPlayerManager(target.getUniqueId()).getWolfPlayerManager();
+                    if(wolfTargetManager != null){
+                        wolfTargetManager.addVote();
+                        player.sendMessage(Messages.LOUP_GAROU_PREFIX.getPrefix() + "§aVotre vote a bien été pris en compte.");
+                    }
+                } else {
+                    player.sendMessage(Messages.LOUP_GAROU_PREFIX.getPrefix() + "§cVous avez déjà voté !");
+                }
+            } else {
+                player.sendMessage(Messages.LOUP_GAROU_PREFIX.getPrefix() + "§cCe joueur n'est pas en ligne.");
+            }
+        }
+
         return false;
     }
 }
