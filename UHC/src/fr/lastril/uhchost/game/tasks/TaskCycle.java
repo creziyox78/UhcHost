@@ -5,11 +5,11 @@ import fr.lastril.uhchost.player.PlayerManager;
 import org.bukkit.Bukkit;
 import org.bukkit.scheduler.BukkitRunnable;
 
-public class CycleTask extends BukkitRunnable {
+public class TaskCycle extends BukkitRunnable {
 
 	private final UhcHost main;
 
-	public CycleTask(UhcHost main) {
+	public TaskCycle(UhcHost main) {
 		this.main = main;
 	}
 

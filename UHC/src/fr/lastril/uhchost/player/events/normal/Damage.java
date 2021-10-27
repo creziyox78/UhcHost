@@ -39,7 +39,9 @@ public class Damage implements Listener {
 		}
 		if(event.getEntity() instanceof Player && event.getDamager() instanceof Player){
 			Player player = (Player) event.getEntity();
-			pl.getPlayerManager(player.getUniqueId()).getRole().onDamage((Player) event.getDamager(), player);
+			if(pl.getPlayerManager(player.getUniqueId()).hasRole()){
+				pl.getPlayerManager(player.getUniqueId()).getRole().onDamage((Player) event.getDamager(), player);
+			}
 		}
 	}
 

@@ -56,7 +56,6 @@ public final class LoupGarouFeutre extends Role implements LGRole, LGFacadeRole 
 	public void onDay(Player player) {
 		List<PlayerManager> alivesJoueurs = UhcHost.getInstance().getPlayerManagerAlives();
 		PlayerManager randomJoueur = alivesJoueurs.get(UhcHost.getRANDOM().nextInt(alivesJoueurs.size()));
-		Class<? extends Role> displayRole = randomJoueur.getRole().getClass();
 		try {
 			roleFaçade = randomJoueur.getRole();
 			player.sendMessage("Votre nouveau rôle est : " + roleFaçade.getRoleName());
@@ -72,6 +71,14 @@ public final class LoupGarouFeutre extends Role implements LGRole, LGFacadeRole 
 	@Override
 	public void afterRoles(Player player) {
 		player.sendMessage(sendList());
+		List<PlayerManager> alivesJoueurs = UhcHost.getInstance().getPlayerManagerAlives();
+		PlayerManager randomJoueur = alivesJoueurs.get(UhcHost.getRANDOM().nextInt(alivesJoueurs.size()));
+		try {
+			roleFaçade = randomJoueur.getRole();
+			player.sendMessage("Votre nouveau rôle est : " + roleFaçade.getRoleName());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override

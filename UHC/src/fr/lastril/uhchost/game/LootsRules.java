@@ -36,13 +36,13 @@ public class LootsRules implements Listener{
 
     public int getLoot(Material material) {
         if (lootsRules.containsKey(material))
-            return lootsRules.get(material).intValue();
+            return lootsRules.get(material);
         return 0;
     }
 
     public void setLoot(Material material, int value) {
         if (lootsRules.containsKey(material))
-            lootsRules.replace(material, Integer.valueOf(value));
+            lootsRules.replace(material, value);
     }
 
     @EventHandler
@@ -70,11 +70,9 @@ public class LootsRules implements Listener{
         if (is == null)
             return;
         ItemStack replace = null;
-        switch (is.getType()) {
-            case GRAVEL:
-                if ((new Random()).nextInt(100) + 1 <= getLoot(Material.FLINT))
-                    replace = new ItemStack(Material.FLINT);
-                break;
+        if (is.getType() == Material.GRAVEL) {
+            if ((new Random()).nextInt(100) + 1 <= getLoot(Material.FLINT))
+                replace = new ItemStack(Material.FLINT);
         }
         if (replace != null)
             event.getEntity().setItemStack(replace);

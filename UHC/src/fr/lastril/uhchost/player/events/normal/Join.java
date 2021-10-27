@@ -4,7 +4,6 @@ import fr.lastril.uhchost.UhcHost;
 import fr.lastril.uhchost.game.GameManager;
 import fr.lastril.uhchost.game.GameState;
 import fr.lastril.uhchost.player.PlayerManager;
-import fr.lastril.uhchost.player.manager.WolfPlayerManager;
 import fr.lastril.uhchost.tools.NotStart;
 import fr.lastril.uhchost.tools.I18n;
 import net.md_5.bungee.api.ChatColor;

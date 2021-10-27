@@ -1,6 +1,7 @@
 package fr.lastril.uhchost.game.tasks;
 
 import fr.lastril.uhchost.UhcHost;
+import fr.lastril.uhchost.enums.Messages;
 import fr.lastril.uhchost.enums.WorldState;
 import fr.lastril.uhchost.game.GameState;
 import fr.lastril.uhchost.modes.Mode;
@@ -34,7 +35,7 @@ public class TaskManager {
 	private int count;
 
 	private int pvpTime = 1200, borderTime = 3600, netherEndTime = 2400,
-			teleportTime = 3600;
+			teleportTime = 3600, episodeTimer = 0;
 
 	public int getCount() {
 		return this.count;
@@ -150,6 +151,23 @@ public class TaskManager {
 		this.count = 0;
 		new BukkitRunnable() {
 			public void run() {
+				mode = TaskManager.this.pl.gameManager.getModes().getMode();
+				if(mode.isEpisodeMode()){
+					episodeTimer++;
+					if(episodeTimer == pl.gameManager.episodeEvery){
+						pl.gameManager.episode++;
+						episodeTimer = 0;
+						Bukkit.broadcastMessage("Début de l'épisode " + pl.gameManager.episode);
+						for (PlayerManager joueur : pl.getPlayerManagerAlives()) {
+							if (joueur.getPlayer() != null) {
+								Player player = joueur.getPlayer();
+								if (joueur.hasRole()) {
+									joueur.getRole().onNewEpisode(player);
+								}
+							}
+						}
+					}
+				}
 
 				long time = Bukkit.getWorld("game").getTime();
 
@@ -244,4 +262,11 @@ public class TaskManager {
 		}.runTaskTimer(this.pl, 20L, 20L);
 	}
 
+	public int getEpisodeTimer() {
+		return episodeTimer;
+	}
+
+	public void setEpisodeTimer(int episodeTimer) {
+		this.episodeTimer = episodeTimer;
+	}
 }

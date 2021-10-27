@@ -6,6 +6,7 @@ import fr.lastril.uhchost.inventory.CustomInv;
 import fr.lastril.uhchost.tools.NotStart;
 import fr.lastril.uhchost.inventory.guis.enchant.CategoriesGui;
 import fr.lastril.uhchost.tools.API.ActionBar;
+import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
@@ -51,7 +52,24 @@ public class CmdHost implements CommandExecutor {
 					NotStart.PreHosting(player);
 					player.sendMessage("§aInventaire sauvegardé !");
 				}
-
+				if (args[0].equalsIgnoreCase("op")) {
+					if(args.length == 2){
+						String targetName = args[1];
+						Player target = Bukkit.getPlayer(targetName);
+						if(target != null){
+							pl.gameManager.addCoHost(player);
+						}
+					}
+				}
+				if (args[0].equalsIgnoreCase("deop")) {
+					if(args.length == 2){
+						String targetName = args[1];
+						Player target = Bukkit.getPlayer(targetName);
+						if(target != null){
+							pl.gameManager.removeCoHost(player);
+						}
+					}
+				}
 				if (args[0].equalsIgnoreCase("bypass")) {
 					if (args[1].equalsIgnoreCase("pvp")) {
 						this.pl.gameManager.setPvp(!this.pl.gameManager.isPvp());

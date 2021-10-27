@@ -44,12 +44,12 @@ public class Garde extends Role implements LGRole {
 
     @Override
     public Camps getCamp() {
-        return null;
+        return Camps.VILLAGEOIS;
     }
 
     @Override
     public String getRoleName() {
-        return null;
+        return "Garde";
     }
 
     @Override

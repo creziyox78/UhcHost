@@ -45,7 +45,7 @@ public enum LGRoles {
     MONTREUR_DOURS(MontreurDours.class), //TODO BE TESTED
     PETITE_FILLE(PetiteFille.class), //TODO BE TESTED
     PRETRESSE(Pretresse.class),
-    RENARD(Renard.class),
+    RENARD(Renard.class), //TODO BE TESTED
     SALVATEUR(Salvateur.class), //TODO BE TESTED
     SOEUR(Soeur.class), //TODO BE TESTED
     SORCIERE(Sorciere.class), //TODO BE TESTED

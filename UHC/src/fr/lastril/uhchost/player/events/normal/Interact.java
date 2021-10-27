@@ -51,9 +51,13 @@ public class Interact implements Listener {
 					this.notstart.PreHost(player);
 					player.playSound(player.getLocation(), Sound.LEVEL_UP, 1.0F, 20.0F);
 					ActionBar.sendMessage(player, I18n.tl("became-host"));
+				} else if(UhcHost.getInstance().gameManager.isCoHost(player)) {
+					this.notstart.PreHost(player);
+					player.playSound(player.getLocation(), Sound.LEVEL_UP, 1.0F, 20.0F);
 				} else {
 					ActionBar.sendMessage(player, I18n.tl("already-host"));
 				}
+
 			} else {
 				ActionBar.sendMessage(player, I18n.tl("no-permission"));
 			}

@@ -1,8 +1,6 @@
 package fr.lastril.uhchost.modes.lg;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import fr.lastril.uhchost.UhcHost;
@@ -39,33 +37,35 @@ public class LoupGarouManager extends ModeManager implements Listener {
 
 	private boolean randomCouple = false, voteTime;
 
+	private int startVoteEpisode;
+
 	private final LoupGarouMode loupGarouMode;
 	private final List<PlayerManager> loupGarouList = new ArrayList<>();
+	private final Map<PlayerManager, Integer> playerVote;
 
 	public LoupGarouManager(UhcHost main, LoupGarouMode loupGarouMode) {
 		this.main = main;
 		this.inCouple = new ArrayList<>();
 		this.waitingRessurect = new ArrayList<>();
 		this.loupGarouMode = loupGarouMode;
+		this.playerVote = new HashMap<>();
+		this.main.getServer().getPluginManager().registerEvents(this, main);
 	}
 
 	public void startDeathTask(Player player) {
 		Location deathLocation = player.getLocation().clone();
 		player.sendMessage(Messages.LOUP_GAROU_PREFIX.getPrefix() + "§bVous avez toujours une chance de vous faire réssusciter. Merci de patienter.");
 		this.waitingRessurect.add(player.getUniqueId());
-		new BukkitRunnable() {
-
-			@Override
-			public void run() {
-				PlayerManager joueur = main.getPlayerManager(player.getUniqueId());
-				if(joueur.getWolfPlayerManager().getResurectType() != null) {
-					if(player.getPlayer() != null) {
-						Player onlinePlayer = player.getPlayer();
-						onlinePlayer.setGameMode(GameMode.SURVIVAL);
-						onlinePlayer.getInventory().setContents(player.getInventory().getContents());
-						onlinePlayer.getInventory().setArmorContents(player.getInventory().getArmorContents());
-						onlinePlayer.updateInventory();
-						switch (joueur.getWolfPlayerManager().getResurectType()) {
+		Bukkit.getScheduler().runTaskLater(main, () ->  {
+			PlayerManager joueur = main.getPlayerManager(player.getUniqueId());
+			if(joueur.getWolfPlayerManager().getResurectType() != null) {
+				if(player.getPlayer() != null) {
+					Player onlinePlayer = player.getPlayer();
+					onlinePlayer.setGameMode(GameMode.SURVIVAL);
+					onlinePlayer.getInventory().setContents(player.getInventory().getContents());
+					onlinePlayer.getInventory().setArmorContents(player.getInventory().getArmorContents());
+					onlinePlayer.updateInventory();
+					switch (joueur.getWolfPlayerManager().getResurectType()) {
 						case INFECT:{
 							onlinePlayer.sendMessage("Vous avez été infecté par l'Infect Pères des loups.");
 							joueur.getWolfPlayerManager().setResurectType(null);
@@ -87,18 +87,17 @@ public class LoupGarouManager extends ModeManager implements Listener {
 						}
 						default:
 							break;
-						}
-					}
-					joueur.getWolfPlayerManager().setResurectType(null);
-				}else {
-					kill(player, player.getInventory().getContents(), player.getInventory().getArmorContents(), player.getKiller(), deathLocation);
-					if(joueur.getWolfPlayerManager().isInCouple()){
-						killCouple();
 					}
 				}
-				waitingRessurect.remove(player.getUniqueId());
+				joueur.getWolfPlayerManager().setResurectType(null);
+			}else {
+				kill(player, player.getInventory().getContents(), player.getInventory().getArmorContents(), player.getKiller(), deathLocation);
+				if(joueur.getWolfPlayerManager().isInCouple()){
+					killCouple();
+				}
 			}
-		}.runTaskLater(main, 20 * 10);
+			waitingRessurect.remove(player.getUniqueId());
+		}, 20 * 10);
 	}
 
 	public void kill(OfflinePlayer player, ItemStack[] items, ItemStack[] armors, Player killer,
@@ -162,6 +161,31 @@ public class LoupGarouManager extends ModeManager implements Listener {
 		}
 	}
 
+	private void resetVote(){
+		main.getPlayerManagerAlives().forEach(playerManager -> {
+			if(!playerVote.containsKey(playerManager))
+				playerVote.put(playerManager, 0);
+		});
+		playerVote.forEach((playerManager, integer) -> {
+			integer = 0;
+		});
+	}
+
+	public static List<PlayerManager> getKeysWithMaxValue(Map<PlayerManager, Integer> map){
+		final List<PlayerManager> resultList = new ArrayList<>();
+		int currentMaxValuevalue = Integer.MIN_VALUE;
+		for (Map.Entry<PlayerManager, Integer> entry : map.entrySet()){
+			if (entry.getValue() > currentMaxValuevalue){
+				resultList.clear();
+				resultList.add(entry.getKey());
+				currentMaxValuevalue = entry.getValue();
+			} else if (entry.getValue() == currentMaxValuevalue){
+				resultList.add(entry.getKey());
+			}
+		}
+		return resultList;
+	}
+
 
 	public List<PlayerManager> getLoupGarous() {
 		List<PlayerManager> lgs = new ArrayList<>(super.getJoueursWithCamps(Camps.LOUP_GAROU));
@@ -196,7 +220,7 @@ public class LoupGarouManager extends ModeManager implements Listener {
             if(event.getEntity() instanceof Player){
                 Player player = (Player) event.getEntity();
                 PlayerManager playerManager = main.getPlayerManager(player.getUniqueId());
-                if(playerManager.getWolfPlayerManager().isSalvation()){
+                if(playerManager.getWolfPlayerManager().isSalvation() || waitingRessurect.contains(player.getUniqueId())){
                     event.setCancelled(true);
                 }
             }
@@ -239,6 +263,20 @@ public class LoupGarouManager extends ModeManager implements Listener {
 		Bukkit.broadcastMessage(" ");
 
 	}
+
+	public boolean isVoteTime() {
+		return voteTime;
+	}
+
+	public void setStartVoteEpisode(int startVoteEpisode) {
+		this.startVoteEpisode = startVoteEpisode;
+	}
+
+	public int getStartVoteEpisode() {
+		return startVoteEpisode;
+	}
+
+
 
 	public boolean isRandomCouple() {
 		return randomCouple;

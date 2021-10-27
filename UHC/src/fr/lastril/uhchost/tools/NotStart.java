@@ -33,7 +33,7 @@ public class NotStart {
 			ItemStack ic = new ItemsCreator(Material.BANNER, "Equipes", null).create();
 			player.getInventory().setItem(0, ic);
 		}
-		if (player == UhcHost.getInstance().getGamemanager().getHost()) {
+		if (player == UhcHost.getInstance().getGamemanager().getHost() || UhcHost.getInstance().gameManager.isCoHost(player)) {
 			player.getInventory().setItem(4, Items.getItem(Material.CHEST, ChatColor.GOLD + "Configuration", true));
 			player.getInventory().setItem(7, Items.getItem(Material.REDSTONE, ChatColor.GOLD + "Ne plus être Host", true));
 		} else {
@@ -62,7 +62,7 @@ public class NotStart {
 			ItemStack ic = new ItemsCreator(Material.BANNER, "Equipes", null).create();
 			player.getInventory().setItem(0, ic);
 		}
-		if (player == UhcHost.getInstance().getGamemanager().getHost()) {
+		if (player == UhcHost.getInstance().getGamemanager().getHost() || UhcHost.getInstance().gameManager.isCoHost(player)) {
 			player.getInventory().setItem(4, Items.getItem(Material.CHEST, ChatColor.GOLD + "Configuration", true));
 			player.getInventory().setItem(7, Items.getItem(Material.REDSTONE, ChatColor.GOLD +  "Ne plus être Host", true));
 		} else {

@@ -53,7 +53,7 @@ public class Sorciere extends Role implements LGRole, RoleListener {
 
 	@Override
 	public String getDescription() {
-		return " Vous n'avez pas de pouvoir particulier.";
+		return "Vous avez la possibilité de ressusciter un joueur dans la partie. Vous ne voyez pas le joueur mort si l'Infect Père des Loups à infecté le joueur. Vous pouvez vous ressusciter vous-même.";
 	}
 
 	@Override

@@ -3,34 +3,27 @@ package fr.lastril.uhchost.game;
 import fr.lastril.uhchost.UhcHost;
 import fr.lastril.uhchost.enums.BiomeState;
 import fr.lastril.uhchost.enums.WorldState;
-import fr.lastril.uhchost.game.tasks.CycleTask;
 import fr.lastril.uhchost.inventory.CustomInv;
 import fr.lastril.uhchost.modes.Modes;
-import fr.lastril.uhchost.modes.lg.LoupGarouManager;
 import fr.lastril.uhchost.modes.roles.Role;
 import fr.lastril.uhchost.player.PlayerManager;
 import fr.lastril.uhchost.player.events.GameStartEvent;
 import fr.lastril.uhchost.player.events.TeamUnregisteredEvent;
-import fr.lastril.uhchost.player.manager.WolfPlayerManager;
 import fr.lastril.uhchost.scenario.Scenario;
 import fr.lastril.uhchost.scenario.Scenarios;
 import fr.lastril.uhchost.scoreboard.TeamUtils;
-import fr.lastril.uhchost.tools.API.BungeeAPI;
 import fr.lastril.uhchost.tools.API.TitleAPI;
 import fr.lastril.uhchost.tools.I18n;
 import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
-import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
-import org.bukkit.plugin.Plugin;
 import org.bukkit.potion.Potion;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitTask;
 import org.bukkit.scoreboard.Team;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class GameManager {
 
@@ -57,6 +50,10 @@ public class GameManager {
 	private boolean playerCheckingWorld;
 
 	private Modes modes;
+
+	public int episode = 1;
+	
+	public int episodeEvery = 60;
 
 	private boolean editInv;
 
@@ -89,6 +86,8 @@ public class GameManager {
 	private String gameName;
 
 	private Player host;
+
+	private List<Player> cohost;
 
 	private final UhcHost pl;
 
@@ -154,6 +153,7 @@ public class GameManager {
 		this.deniedPotions = new ArrayList<>();
 		this.scenarios = new ArrayList<>();
 		this.composition = new ArrayList<>();
+		this.cohost = new ArrayList<>();
 		this.setGameState(GameState.LOBBY);
 		this.worldState = WorldState.DAY;
 		this.gameName = ChatColor.AQUA + "UHC Host";
@@ -170,6 +170,29 @@ public class GameManager {
 		if (!this.scenarios.contains(scenario)) {
 			this.scenarios.add(scenario);
 		}
+	}
+
+	public void addCoHost(Player player){
+		if(!isCoHost(player)){
+			player.sendMessage("§a" + player.getName() + " a bien été ajouté en tant que co-host.");
+			cohost.add(player);
+		} else {
+			player.sendMessage("Erreur: §c" + player.getName() + " ne fait pas partie des co-hosts.");
+		}
+	}
+
+	public boolean isCoHost(Player player){
+		return cohost.contains(player);
+	}
+
+	public void removeCoHost(Player player){
+		if(!isCoHost(player)){
+			player.sendMessage("Erreur: §c" + player.getName() + " ne fait pas partie des co-hosts.");
+		} else {
+			player.sendMessage("§c" + player.getName() + " n'est plus co-host.");
+			cohost.remove(player);
+		}
+
 	}
 
 	public void removeScenario(Scenario scenario) {
@@ -433,7 +456,7 @@ public class GameManager {
 		List<Location> result = new ArrayList<>();
 		for (int i = 0; i < count; i++) {
 			for (Player player : Bukkit.getOnlinePlayers()) {
-				TitleAPI.sendTitle(player, Integer.valueOf(5), Integer.valueOf(20), Integer.valueOf(5),
+				TitleAPI.sendTitle(player, 5, 20, 5,
 						I18n.tl("spawnLoad"),
 						I18n.tl("spawnLoadCount", String.valueOf(i + 1), String.valueOf(count)));
 			}
@@ -453,7 +476,7 @@ public class GameManager {
 			x *= -1;
 		if (r.nextBoolean())
 			z *= -1;
-		Location loc = new Location(Bukkit.getWorld("game"), x, player.getWorld().getHighestBlockYAt(player.getLocation()) + 2, z);
+		Location loc = new Location(Bukkit.getWorld("game"), x, Bukkit.getWorld("game").getHighestBlockYAt(player.getLocation()) + 1, z);
 		player.teleport(loc);
 	}
 

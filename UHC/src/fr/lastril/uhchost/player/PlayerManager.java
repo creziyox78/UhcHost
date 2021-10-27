@@ -1,10 +1,9 @@
 package fr.lastril.uhchost.player;
 
 import fr.lastril.uhchost.UhcHost;
-import fr.lastril.uhchost.game.GameState;
 import fr.lastril.uhchost.modes.roles.Camps;
 import fr.lastril.uhchost.modes.roles.Role;
-import fr.lastril.uhchost.player.manager.WolfPlayerManager;
+import fr.lastril.uhchost.player.modemanager.WolfPlayerManager;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;

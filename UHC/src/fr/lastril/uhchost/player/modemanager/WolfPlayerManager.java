@@ -1,4 +1,4 @@
-package fr.lastril.uhchost.player.manager;
+package fr.lastril.uhchost.player.modemanager;
 
 import java.util.UUID;
 

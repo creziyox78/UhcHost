@@ -142,7 +142,13 @@ public class LoupGarouMode extends Mode implements ModeCommand, RoleMode<LGRole>
 
     @Override
     public void onNewEpisode() {
+        loupGarouManager.setVoteTime(true);
+        Bukkit.getScheduler().runTaskLater(pl, () ->  {
+            loupGarouManager.setVoteTime(false);
+        }, 20*30);
+        Bukkit.getScheduler().runTaskLater(pl, () ->  {
 
+        }, 20*60);
     }
 
     @Override
