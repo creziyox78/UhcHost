@@ -1,8 +1,8 @@
 package fr.lastril.uhchost.scoreboard;
 
 import fr.lastril.uhchost.UhcHost;
-import fr.lastril.uhchost.tools.creators.BannerCreator;
-import fr.lastril.uhchost.tools.creators.ItemsCreator;
+import fr.lastril.uhchost.tools.API.items.BannerCreator;
+import fr.lastril.uhchost.tools.API.items.ItemsCreator;
 import org.bukkit.Bukkit;
 import org.bukkit.DyeColor;
 import org.bukkit.Material;

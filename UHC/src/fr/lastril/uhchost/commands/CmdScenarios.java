@@ -14,7 +14,7 @@ public class CmdScenarios implements CommandExecutor {
 
 			Player player = (Player)sender;
 
-			new RulesGui(player).show();
+			new RulesGui().open(player);
 		}
 		return false;
 	}

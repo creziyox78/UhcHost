@@ -9,7 +9,7 @@ public interface ModeCommand {
 
     List<ModeSubCommand> getSubCommands();
 
-    default Optional<ModeSubCommand> getSubCommand(String name){
+    default Optional<ModeSubCommand> getSubCommand(String name) {
         return getSubCommands().stream().filter(modSubCommand -> modSubCommand.getSubCommandName().equalsIgnoreCase(name)).findAny();
     }
 

@@ -16,7 +16,7 @@ public class CmdMe implements ModeSubCommand {
 
     private final UhcHost pl;
 
-    public CmdMe(UhcHost pl){
+    public CmdMe(UhcHost pl) {
         this.pl = pl;
     }
 
@@ -32,18 +32,18 @@ public class CmdMe implements ModeSubCommand {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String s, String[] strings) {
-        if(sender instanceof Player) {
+        if (sender instanceof Player) {
             Player player = (Player) sender;
             if (pl.gameManager.getGameState() == GameState.STARTED) {
                 if (pl.gameManager.getModes().getMode() instanceof RoleMode) {
-                    PlayerManager joueur = pl.getPlayerManager(player.getUniqueId());
-                    if(joueur.hasRole()) {
-                        joueur.getRole().sendDescription(player);
-                        if(joueur.getRole() != joueur.getRole()) {
+                    PlayerManager playerManager = pl.getPlayerManager(player.getUniqueId());
+                    if (playerManager.hasRole()) {
+                        playerManager.getRole().sendDescription(player);
+                        if (playerManager.getRole() != playerManager.getRole()) {
                             player.sendMessage("§8§m----------------------------");
-                            joueur.getRole().sendDescription(player);
+                            playerManager.getRole().sendDescription(player);
                         }
-                    }else {
+                    } else {
                         player.sendMessage("§cVous n'avez pas rôle !");
                     }
                 } else {

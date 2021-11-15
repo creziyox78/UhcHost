@@ -1,6 +1,9 @@
 package fr.lastril.uhchost.tools.API;
 
-import net.minecraft.server.v1_8_R3.*;
+import net.minecraft.server.v1_8_R3.IChatBaseComponent;
+import net.minecraft.server.v1_8_R3.PacketPlayOutPlayerListHeaderFooter;
+import net.minecraft.server.v1_8_R3.PacketPlayOutTitle;
+import net.minecraft.server.v1_8_R3.PlayerConnection;
 import org.bukkit.ChatColor;
 import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
 import org.bukkit.entity.Player;
@@ -39,8 +42,8 @@ public class TitleAPI {
 	    if (title != null) {
 	      title = title.replaceAll("%player%", player.getDisplayName());
 	      title = ChatColor.translateAlternateColorCodes('&', title);
-	      IChatBaseComponent titleMain = IChatBaseComponent.ChatSerializer.a("{\"text\": \"" + title + "\"}");
-	      PacketPlayOutTitle packetPlayOutTitle = new PacketPlayOutTitle(PacketPlayOutTitle.EnumTitleAction.TITLE, titleMain);
+	      IChatBaseComponent titleUhcHost = IChatBaseComponent.ChatSerializer.a("{\"text\": \"" + title + "\"}");
+	      PacketPlayOutTitle packetPlayOutTitle = new PacketPlayOutTitle(PacketPlayOutTitle.EnumTitleAction.TITLE, titleUhcHost);
 	      connection.sendPacket(packetPlayOutTitle);
 	    } 
 	  }

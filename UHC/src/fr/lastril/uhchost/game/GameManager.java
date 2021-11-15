@@ -593,6 +593,18 @@ public class GameManager {
 		return roles;
 	}
 
+	public Map<Class<? extends Role>, Integer> getCompositionSorted() {
+		Map<Class<? extends Role>, Integer> rolesMap = new HashMap<>();
+		for (Class<? extends Role> role : getComposition()) {
+			int i = 1;
+			if (rolesMap.containsKey(role)) {
+				i = rolesMap.get(role) + 1;
+			}
+			rolesMap.put(role, i);
+		}
+		return rolesMap;
+	}
+
 	public int countRolesInComposition(Role role){
 		return (int) getComposition().stream().filter(aClass -> {
 			try {

@@ -35,12 +35,12 @@ public class CmdFausseNuit implements ModeSubCommand {
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         Player player = (Player) sender;
         PlayerManager playerManager = pl.getPlayerManager(player.getUniqueId());
-        if(!playerManager.hasRole() || !playerManager.isAlive()){
+        if (!playerManager.hasRole() || !playerManager.isAlive()) {
             return false;
         }
-        if(playerManager.getRole() instanceof LoupGarouLunaire){
+        if (playerManager.getRole() instanceof LoupGarouLunaire) {
             LoupGarouLunaire loupGarouLunaire = (LoupGarouLunaire) playerManager.getRole();
-            if(!loupGarouLunaire.isUsedFausseNuit() && !loupGarouLunaire.isUseFausseNuit()){
+            if (!loupGarouLunaire.isUsedFausseNuit() && !loupGarouLunaire.isUseFausseNuit()) {
                 Bukkit.getWorld("game").setTime(12999);
                 Bukkit.broadcastMessage("§9Le Loup-Garou Lunaire a décider de remettre la nuit.");
                 loupGarouLunaire.setUsedFausseNuit(true);

@@ -9,7 +9,6 @@ import org.bukkit.block.Block;
 import org.bukkit.block.Furnace;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.inventory.FurnaceBurnEvent;
-import org.bukkit.plugin.Plugin;
 
 import java.util.Arrays;
 

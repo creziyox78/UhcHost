@@ -1,10 +1,9 @@
 package fr.lastril.uhchost.modes;
 
-import fr.lastril.uhchost.inventory.Gui;
-import org.bukkit.entity.Player;
+import fr.lastril.uhchost.tools.API.inventory.crafter.IQuickInventory;
 
 public interface ModeConfig {
 
-    Gui getGui(Player player);
+    IQuickInventory getGui();
 
 }

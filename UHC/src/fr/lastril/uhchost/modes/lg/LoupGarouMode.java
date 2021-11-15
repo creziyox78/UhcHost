@@ -1,21 +1,22 @@
 package fr.lastril.uhchost.modes.lg;
 
 import fr.lastril.uhchost.UhcHost;
-import fr.lastril.uhchost.inventory.Gui;
 import fr.lastril.uhchost.inventory.guis.modes.lg.LoupGarouGui;
 import fr.lastril.uhchost.modes.Mode;
 import fr.lastril.uhchost.modes.ModeConfig;
 import fr.lastril.uhchost.modes.ModeManager;
 import fr.lastril.uhchost.modes.Modes;
-import fr.lastril.uhchost.modes.command.ModeCommand;
-import fr.lastril.uhchost.modes.command.ModeSubCommand;
 import fr.lastril.uhchost.modes.command.CmdCompo;
 import fr.lastril.uhchost.modes.command.CmdMe;
+import fr.lastril.uhchost.modes.command.ModeCommand;
+import fr.lastril.uhchost.modes.command.ModeSubCommand;
+import fr.lastril.uhchost.modes.lg.commands.CmdDesc;
 import fr.lastril.uhchost.modes.lg.commands.CmdVote;
 import fr.lastril.uhchost.modes.lg.roles.LGRole;
 import fr.lastril.uhchost.modes.roles.*;
 import fr.lastril.uhchost.player.PlayerManager;
 import fr.lastril.uhchost.tools.API.BungeeAPI;
+import fr.lastril.uhchost.tools.API.inventory.crafter.IQuickInventory;
 import fr.lastril.uhchost.tools.I18n;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
@@ -31,8 +32,8 @@ import java.util.stream.Collectors;
 public class LoupGarouMode extends Mode implements ModeCommand, RoleMode<LGRole>, ModeConfig, RoleAnnounceMode {
 
     private final UhcHost pl;
-    private int announceRoles = 30;
     private final LoupGarouManager loupGarouManager;
+    private int announceRoles = 30;
 
     public LoupGarouMode() {
         super(Modes.LOUP_GAROU);
@@ -42,14 +43,14 @@ public class LoupGarouMode extends Mode implements ModeCommand, RoleMode<LGRole>
 
     @Override
     public void tick(int timer) {
-        if(announceRoles == 0){
+        if (announceRoles == 0) {
             annonceRoles();
         }
     }
 
-    public void annonceRoles(){
+    public void annonceRoles() {
         List<Class<? extends Role>> compo = pl.getGamemanager().getComposition();
-        long missedRoles = pl.getPlayerManagerAlives().stream().filter(joueur -> joueur.isAlive() && joueur.isPlayedGame()).count() - compo.size();
+        long missedRoles = pl.getPlayerManagerAlives().stream().filter(PlayerManager -> PlayerManager.isAlive() && PlayerManager.isPlayedGame()).count() - compo.size();
         Bukkit.broadcastMessage("§6§lAttribution des rôles !");
         if (missedRoles > 0) {
             for (int i = 0; i < missedRoles; i++) {
@@ -58,8 +59,8 @@ public class LoupGarouMode extends Mode implements ModeCommand, RoleMode<LGRole>
             }
         }
         List<Role> roles = new ArrayList<>();
-        for (PlayerManager joueur : pl.getPlayerManagerAlives().stream().filter(joueur -> joueur.isAlive() && joueur.isPlayedGame()).collect(Collectors.toList())) {
-            OfflinePlayer offlinePlayer = Bukkit.getOfflinePlayer(joueur.getUuid());
+        for (PlayerManager playerManager : pl.getPlayerManagerAlives().stream().filter(PlayerManager -> PlayerManager.isAlive() && PlayerManager.isPlayedGame()).collect(Collectors.toList())) {
+            OfflinePlayer offlinePlayer = Bukkit.getOfflinePlayer(playerManager.getUuid());
             int index = UhcHost.getRANDOM().nextInt(compo.size());
             Bukkit.getConsoleSender().sendMessage("index " + index);
             Role role = null;
@@ -79,30 +80,30 @@ public class LoupGarouMode extends Mode implements ModeCommand, RoleMode<LGRole>
                 role.stuff(player);
             }
             role.setPlayerID(offlinePlayer.getUniqueId());
-            joueur.setRole(role);
+            playerManager.setRole(role);
             compo.remove(index);
             roles.add(role);
         }
-        for (PlayerManager joueur : pl.getPlayerManagerAlives()) {
-            if (joueur.getPlayer() != null) {
-                Player player = joueur.getPlayer();
+        for (PlayerManager playerManager : pl.getPlayerManagerAlives()) {
+            if (playerManager.getPlayer() != null) {
+                Player player = playerManager.getPlayer();
                 player.setHealth(player.getMaxHealth());
-                joueur.getRole().afterRoles(player);
+                playerManager.getRole().afterRoles(player);
             }
         }
         /*try {
-            for (PlayerManager joueur : pl.getPlayerManagerAlives()) {
-                if (joueur.getPlayer() != null) {
-                    Player player = joueur.getPlayer();
+            for (PlayerManager PlayerManager : pl.getPlayerManagerAlives()) {
+                if (PlayerManager.getPlayer() != null) {
+                    Player player = PlayerManager.getPlayer();
                     player.setHealth(player.getMaxHealth());
-                    if (joueur.getRole() != null) {
-                        joueur.getRole().afterRoles(player);
-                        if (!joueur.getRole().getRoleToKnow().isEmpty()) {
-                            for (Class<? extends Role> roleToKnow : joueur.getRole().getRoleToKnow()) {
-                                if (!main.getNarutoManager().getJoueursWithRole(roleToKnow).isEmpty()) {
-                                    player.sendMessage(Messages.PREFIX_WITH_ARROW.getMessage() + "§eLe(s) joueur(s) possédant le rôle §6" + roleToKnow.newInstance().getRoleName() + "§e sont :");
-                                    for (Joueur joueurHasRole : main.getNarutoManager().getJoueursWithRole(roleToKnow)) {
-                                        player.sendMessage("§6- " + joueurHasRole.getPlayerName());
+                    if (PlayerManager.getRole() != null) {
+                        PlayerManager.getRole().afterRoles(player);
+                        if (!PlayerManager.getRole().getRoleToKnow().isEmpty()) {
+                            for (Class<? extends Role> roleToKnow : PlayerManager.getRole().getRoleToKnow()) {
+                                if (!main.getNarutoManager().getPlayerManagersWithRole(roleToKnow).isEmpty()) {
+                                    player.sendMessage(Messages.PREFIX_WITH_ARROW.getMessage() + "§eLe(s) PlayerManager(s) possédant le rôle §6" + roleToKnow.newInstance().getRoleName() + "§e sont :");
+                                    for (PlayerManager PlayerManagerHasRole : main.getNarutoManager().getPlayerManagersWithRole(roleToKnow)) {
+                                        player.sendMessage("§6- " + PlayerManagerHasRole.getPlayerName());
                                     }
                                 }
                             }
@@ -142,14 +143,14 @@ public class LoupGarouMode extends Mode implements ModeCommand, RoleMode<LGRole>
 
     @Override
     public void onNewEpisode() {
-        if(pl.gameManager.episode >= getLoupGarouManager().getStartVoteEpisode()){
+        if (pl.gameManager.episode >= getLoupGarouManager().getStartVoteEpisode()) {
             loupGarouManager.setVoteTime(true);
-            Bukkit.getScheduler().runTaskLater(pl, () -> loupGarouManager.setVoteTime(false), 20*30);
-            Bukkit.getScheduler().runTaskLater(pl, () -> loupGarouManager.applyVote(getLoupGarouManager().getMostVoted()), 20*60);
+            Bukkit.getScheduler().runTaskLater(pl, () -> loupGarouManager.setVoteTime(false), 20 * 30);
+            Bukkit.getScheduler().runTaskLater(pl, () -> loupGarouManager.applyVote(getLoupGarouManager().getMostVoted()), 20 * 60);
         }
-        if(loupGarouManager.getCurrentVotedPlayer() != null){
-            Player voted = loupGarouManager.getCurrentVotedPlayer().getJoueur().getPlayer();
-            if(voted != null){
+        if (loupGarouManager.getCurrentVotedPlayer() != null) {
+            Player voted = loupGarouManager.getCurrentVotedPlayer().getPlayerManager().getPlayer();
+            if (voted != null) {
                 voted.setMaxHealth(loupGarouManager.getOriginalVotedHealth());
             }
             loupGarouManager.setCurrentVotedPlayer(null);
@@ -180,16 +181,16 @@ public class LoupGarouMode extends Mode implements ModeCommand, RoleMode<LGRole>
     public void checkWin() {
         Set<Camps> lastCamps = new HashSet<>();
         for (Player players : Bukkit.getOnlinePlayers()) {
-            PlayerManager joueur = pl.getPlayerManager(players.getUniqueId());
-            if (joueur.isAlive()) {
-                lastCamps.add(joueur.getCamps());
+            PlayerManager playerManager = pl.getPlayerManager(players.getUniqueId());
+            if (playerManager.isAlive()) {
+                lastCamps.add(playerManager.getCamps());
             }
         }
         if (lastCamps.size() == 1) {
             Camps winners = lastCamps.stream().findFirst().get();
             Bukkit.getConsoleSender().sendMessage("Founded 1 last camp (" + winners + ")");
             win(winners);
-        } else if(lastCamps.size() == 0){
+        } else if (lastCamps.size() == 0) {
             win(Camps.EGALITE);
         }
     }
@@ -227,6 +228,7 @@ public class LoupGarouMode extends Mode implements ModeCommand, RoleMode<LGRole>
         subCommands.add(new CmdCompo(pl));
         subCommands.add(new CmdVote(pl, loupGarouManager));
         subCommands.add(new CmdMe(pl));
+        subCommands.add(new CmdDesc(pl));
         this.getRoles().stream().filter(role -> role instanceof RoleCommand).map(role -> ((RoleCommand) role).getSubCommands()).forEach(subCommands::addAll);
 
         return subCommands;
@@ -256,8 +258,8 @@ public class LoupGarouMode extends Mode implements ModeCommand, RoleMode<LGRole>
     }
 
     @Override
-    public Gui getGui(Player player) {
-        return new LoupGarouGui(player, this);
+    public IQuickInventory getGui() {
+        return new LoupGarouGui(this);
     }
 
     @Override

@@ -8,37 +8,46 @@ import fr.lastril.uhchost.game.tasks.TaskManager;
 import fr.lastril.uhchost.inventory.CustomInv;
 import fr.lastril.uhchost.modes.Modes;
 import fr.lastril.uhchost.modes.command.ModeCommand;
-import fr.lastril.uhchost.player.events.interact.InteractCheckWorld;
-import fr.lastril.uhchost.player.modemanager.WolfPlayerManager;
-import fr.lastril.uhchost.tools.API.clickable_messages.ClickableMessageManager;
-import fr.lastril.uhchost.tools.InventoryUtils;
-import fr.lastril.uhchost.tools.NotStart;
 import fr.lastril.uhchost.player.PlayerManager;
 import fr.lastril.uhchost.player.events.custom.GameStart;
+import fr.lastril.uhchost.player.events.interact.InteractCheckWorld;
 import fr.lastril.uhchost.player.events.interact.InteractTeam;
 import fr.lastril.uhchost.player.events.normal.*;
+import fr.lastril.uhchost.player.modemanager.WolfPlayerManager;
 import fr.lastril.uhchost.scoreboard.ScoreboardUtils;
 import fr.lastril.uhchost.scoreboard.TeamUtils;
+import fr.lastril.uhchost.tools.API.clickable_messages.ClickableMessageManager;
+import fr.lastril.uhchost.tools.API.inventory.InventoryUtils;
+import fr.lastril.uhchost.tools.API.inventory.crafter.QuickInventoryManager;
+import fr.lastril.uhchost.tools.API.items.crafter.QuickItemManager;
 import fr.lastril.uhchost.tools.I18n;
 import fr.lastril.uhchost.tools.Lang;
+import fr.lastril.uhchost.tools.NotStart;
 import fr.lastril.uhchost.tools.server.Tablist;
 import fr.lastril.uhchost.tools.server.TpsServer;
 import fr.lastril.uhchost.world.*;
 import fr.lastril.uhchost.world.schematics.LobbyPopulator;
+import org.apache.commons.io.FileUtils;
 import org.bukkit.*;
 import org.bukkit.command.PluginCommand;
+import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
+import java.io.IOException;
+import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ThreadLocalRandom;
 import java.util.stream.Collectors;
 
 public class UhcHost extends JavaPlugin {
 
-	private static final Random RANDOM = new Random();
+	private static final ThreadLocalRandom RANDOM = ThreadLocalRandom.current();
 	public GameManager gameManager;
 
 	public ScoreboardUtils scoreboardUtil;
@@ -47,7 +56,12 @@ public class UhcHost extends JavaPlugin {
 
 	private ClickableMessageManager clickableMessageManager;
 
+	private static final DecimalFormat decimalFormater = new DecimalFormat("#.##");
+	private final SimpleDateFormat dateFormater = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+
 	private NotStart notstart;
+	private QuickInventoryManager inventoryManager;
+	private QuickItemManager itemManager;
 
 	private final Map<UUID, PlayerManager> playerManagers = new HashMap<>();
 
@@ -121,6 +135,7 @@ public class UhcHost extends JavaPlugin {
 		getCommand("role").setExecutor(new CmdRole(this));
 		getCommand("loots").setExecutor(new CmdLoots());
 		getCommand("potions").setExecutor(new CmdPotions());
+		getCommand("test").setExecutor(new TestCommand());
 
 		for (Modes mode : Modes.values()) {
 			if (mode.getMode() instanceof ModeCommand) {
@@ -141,6 +156,8 @@ public class UhcHost extends JavaPlugin {
 		this.taskManager = new TaskManager(this);
 		this.inventoryUtils = new InventoryUtils(this);
 		this.taskManager.lobbyTask();
+		this.inventoryManager = new QuickInventoryManager(this);
+		this.itemManager = new QuickItemManager(this);
 		this.scoreboardUtil = new ScoreboardUtils(this);
 		this.clickableMessageManager = new ClickableMessageManager(this);
 		this.gameManager.setGameState(GameState.REBUILDING);
@@ -149,6 +166,7 @@ public class UhcHost extends JavaPlugin {
 		CustomInv.createInventory();
 		this.scoreboardUtil = new ScoreboardUtils(this);
 		this.teamUtils = new TeamUtils(this, this.scoreboardUtil.getBoard());
+		checkingDescriptionUpdate();
 	}
 
 	private void taskRegister() {
@@ -260,8 +278,24 @@ public class UhcHost extends JavaPlugin {
 		return this.wolfPlayersManagers;
 	}
 
-	public static Random getRANDOM() {
+	public static ThreadLocalRandom getRANDOM() {
 		return RANDOM;
+	}
+	public void sendMessageToModsInModeration(String message) {
+		this.getAllPlayerManager().values().stream().filter(PlayerManager::isModerator).forEach(PlayerManagers -> {
+			if (PlayerManagers.getPlayer() != null && !PlayerManagers.isAlive()) {
+				Player player = PlayerManagers.getPlayer();
+				player.sendMessage(message);
+			}
+		});
+	}
+
+	public static DecimalFormat getDecimalformater() {
+		return decimalFormater;
+	}
+
+	public SimpleDateFormat getDateformater() {
+		return dateFormater;
 	}
 
 	public Map<UUID, PlayerManager> getAllPlayerManager() {
@@ -275,4 +309,58 @@ public class UhcHost extends JavaPlugin {
 	public InventoryUtils getInventoryUtils() {
 		return inventoryUtils;
 	}
+
+	public void checkingDescriptionUpdate(){
+        if (!new File(getDataFolder(), "description").exists())
+            new File(getDataFolder(), "description").mkdir();
+
+
+        File f = new File(getDataFolder() + File.separator + "description",
+                "lg.yml");
+        System.out.println("Checking lg description...");
+        if (!f.exists()) {
+            getLogger().warning("The file lg.yml doesn't exist ! Creating...");
+            try {
+                f.createNewFile();
+                FileUtils.copyInputStreamToFile(getResource("lg.yml"), f);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        else if (f.exists()) {
+            try {
+                YamlConfiguration yamlConfiguration1 = YamlConfiguration.loadConfiguration(f);
+                File configFile = new File("temp.yml");
+                FileUtils.copyInputStreamToFile(getResource("lg.yml"),configFile);
+                YamlConfiguration yamlConfiguration2 = YamlConfiguration.loadConfiguration(configFile);
+                for (String s : yamlConfiguration2.getKeys(true)) {
+                    if (yamlConfiguration1.get(s) == null) {
+                        Bukkit.getConsoleSender().sendMessage(
+                                ChatColor.RED + "Description file : " + f.getName() + " has receive new path : " + s);
+                        yamlConfiguration1.set(s, yamlConfiguration2.get(s));
+                        yamlConfiguration1.save(f);
+                    }
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+    }
+
+	public String getLGRoleDescription(String pathRole) {
+
+		String description = "\n";
+		checkingDescriptionUpdate();
+        File file = new File(getDataFolder() + "/description/lg.yml");
+        YamlConfiguration lgYaml = YamlConfiguration.loadConfiguration(file);
+
+        for(String line : lgYaml.getStringList(pathRole)){
+            description += line.replace("&", "§") + " \n";
+        }
+
+		return description;
+	}
+
 }

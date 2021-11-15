@@ -4,7 +4,7 @@ import fr.lastril.uhchost.UhcHost;
 import fr.lastril.uhchost.player.events.GameStartEvent;
 import fr.lastril.uhchost.scenario.Scenario;
 import fr.lastril.uhchost.tools.I18n;
-import fr.lastril.uhchost.tools.creators.ItemsCreator;
+import fr.lastril.uhchost.tools.API.items.ItemsCreator;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -12,7 +12,6 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.plugin.Plugin;
 
 import java.util.ArrayList;
 import java.util.Arrays;

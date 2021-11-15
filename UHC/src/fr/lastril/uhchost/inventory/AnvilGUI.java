@@ -1,9 +1,7 @@
 package fr.lastril.uhchost.inventory;
 
-import java.util.HashMap;
-import java.util.function.Consumer;
-
 import fr.lastril.uhchost.UhcHost;
+import net.minecraft.server.v1_8_R3.*;
 import org.bukkit.Bukkit;
 import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
 import org.bukkit.entity.Player;
@@ -16,12 +14,8 @@ import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
-import net.minecraft.server.v1_8_R3.BlockPosition;
-import net.minecraft.server.v1_8_R3.ChatMessage;
-import net.minecraft.server.v1_8_R3.ContainerAnvil;
-import net.minecraft.server.v1_8_R3.EntityHuman;
-import net.minecraft.server.v1_8_R3.EntityPlayer;
-import net.minecraft.server.v1_8_R3.PacketPlayOutOpenWindow;
+import java.util.HashMap;
+import java.util.function.Consumer;
 
 public class AnvilGUI {
 

@@ -1,100 +1,67 @@
 package fr.lastril.uhchost.inventory.guis.world;
 
 import fr.lastril.uhchost.UhcHost;
-import fr.lastril.uhchost.inventory.Gui;
 import fr.lastril.uhchost.inventory.guis.HostConfig;
-import fr.lastril.uhchost.inventory.guis.modes.ModesGui;
+import fr.lastril.uhchost.tools.API.inventory.crafter.IQuickInventory;
+import fr.lastril.uhchost.tools.API.inventory.crafter.QuickInventory;
+import fr.lastril.uhchost.tools.API.items.ItemsCreator;
+import fr.lastril.uhchost.tools.API.items.crafter.QuickItem;
 import fr.lastril.uhchost.tools.I18n;
-import fr.lastril.uhchost.tools.Items;
 import fr.lastril.uhchost.tools.NotStart;
-import fr.lastril.uhchost.tools.creators.ItemsCreator;
 import fr.lastril.uhchost.world.tasks.ChunkLoader;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.WorldCreator;
-import org.bukkit.entity.Player;
-import org.bukkit.event.EventHandler;
-import org.bukkit.event.HandlerList;
-import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.Arrays;
 import java.util.Collections;
 
-public class WorldGui extends Gui {
+public class WorldGui extends IQuickInventory {
 
     private final UhcHost pl = UhcHost.getInstance();
 
-    public WorldGui(Player player) {
-        super(player, 3*9, "§bParamètre du monde");
-        for (int i = 0; i < inventory.getSize(); i++) {
-            inventory.setItem(i, Items.getItemColored(Material.STAINED_GLASS_PANE, " ", (byte) 7, true));
-        }
-
-        if(!pl.gameManager.isValidateWorld()){
-            ItemStack is = pl.gameManager.getBiomeState().getItemBiome();
-            inventory.setItem(10, is);
-        }
-        if(pl.gameManager.isValidateWorld()){
-            if(!pl.getGamemanager().isPregen())
-                inventory.setItem(13, new ItemsCreator(Material.EMPTY_MAP, "§aPrégénération", Arrays.asList("", "§7Configurer sur:§b "
-                        + pl.worldBorderUtils.getStartSize() +"x" + pl.worldBorderUtils.getStartSize()), 1).create());
-        } else {
-            inventory.setItem(13, new ItemsCreator(Material.BARRIER, "§cMonde non validé !", Arrays.asList("§7Vous devez valider le monde", "§7en le pré-visualisant (bouton à droite)."), 1).create());
-        }
-        if(!pl.getGamemanager().isPregen() && !pl.gameManager.isValidateWorld())
-            inventory.setItem(16, new ItemsCreator(Material.GRASS, "§ePré-visualisation", Arrays.asList("§7Vérifiez que le centre", "§7est celui dont vous voulez !"), 1).create());
-        inventory.setItem(inventory.getSize() - 1, (new ItemsCreator(Material.BARRIER, I18n.tl("guis.back"), Collections.singletonList(""))).create());
+    public WorldGui() {
+        super("§bParamètre du monde", 3*9);
     }
+    @Override
+    public void contents(QuickInventory inv) {
+        inv.updateItem("update", taskUpdate -> {
+            for (int i = 0; i < inv.getInventory().getSize(); i++) {
+                inv.setItem(new QuickItem(Material.STAINED_GLASS_PANE, 1,(byte) 7).toItemStack(), i);
+            }
 
-    @EventHandler
-    public void onClick(InventoryClickEvent event) {
-        if (event.getClickedInventory() == null)
-            return;
-        if (event.getClickedInventory().equals(inventory)) {
-            ItemsCreator ic;
-            ItemStack is = event.getCurrentItem();
-            if (is == null || is.getType() == Material.AIR)
-                return;
-            event.setCancelled(true);
-            switch (is.getType()){
-                case EMPTY_MAP:
-                    player.closeInventory();
-                    Bukkit.broadcastMessage("§6Prégénération du monde ! Risque de lags !");
-                    new ChunkLoader(pl, pl.worldBorderUtils.getStartSize());
-                    break;
-                case SAPLING:
-                    if(pl.gameManager.isPregen() || pl.gameManager.isValidateWorld()){
-                        player.closeInventory();
-                        player.sendMessage("§cErreur: Le monde a déjà été crée. Vous ne pouvez plus changer de biome.");
-                    } else {
-                        player.closeInventory();
-                        new BiomeChooseGui(player).show();
-                    }
-                    break;
-                case GRASS:
-                    player.closeInventory();
-                    player.sendMessage("§eCréation du monde... Merci de patienter.");
+            if(!pl.gameManager.isValidateWorld()){
+                ItemStack is = pl.gameManager.getBiomeState().getItemBiome();
+                inv.setItem(is, onClick -> {
+                    new BiomeChooseGui().open(onClick.getPlayer());
+                },10);
+            }
+            if(pl.gameManager.isValidateWorld()){
+                if(!pl.getGamemanager().isPregen())
+                    inv.setItem(new ItemsCreator(Material.EMPTY_MAP, "§aPrégénération", Arrays.asList("", "§7Configurer sur:§b "
+                                                + pl.worldBorderUtils.getStartSize() +"x" + pl.worldBorderUtils.getStartSize()), 1).create(), onClick -> {
+                        onClick.getPlayer().closeInventory();
+                        Bukkit.broadcastMessage("§6Prégénération du monde ! Risque de lags !");
+                        new ChunkLoader(pl, pl.worldBorderUtils.getStartSize());
+                    },13);
+            } else {
+                inv.setItem(new ItemsCreator(Material.BARRIER, "§cMonde non validé !", Arrays.asList("§7Vous devez valider le monde", "§7en le pré-visualisant (bouton à droite)."), 1).create(), 13);
+            }
+            if(!pl.getGamemanager().isPregen() && !pl.gameManager.isValidateWorld())
+                inv.setItem(new ItemsCreator(Material.GRASS, "§ePré-visualisation", Arrays.asList("§7Vérifiez que le centre", "§7est celui dont vous voulez !"), 1).create(), onClick -> {
+                    onClick.getPlayer().closeInventory();
+                    onClick.getPlayer().sendMessage("§eCréation du monde... Merci de patienter.");
                     pl.gameManager.setPlayerCheckingWorld(true);
                     WorldCreator.name("game").createWorld();
-                    player.sendMessage("§aMonde créé ! Téléportation au centre...");
-                    player.teleport(new Location(Bukkit.getWorld("game"), 0, 100, 0));
-                    NotStart.checkingWorld(player);
-                    break;
-                case BARRIER:
-                    player.closeInventory();
-                    new HostConfig(player).show();
-                    break;
-            }
-        }
-
-    }
-
-    @EventHandler
-    public void onClick(InventoryCloseEvent event) {
-        if (event.getInventory().equals(inventory))
-            HandlerList.unregisterAll(this);
+                    onClick.getPlayer().sendMessage("§aMonde créé ! Téléportation au centre...");
+                    onClick.getPlayer().teleport(new Location(Bukkit.getWorld("game"), 0, 100, 0));
+                    NotStart.checkingWorld(onClick.getPlayer());
+                },16);
+            inv.setItem((new ItemsCreator(Material.BARRIER, I18n.tl("guis.back"), Collections.singletonList(""))).create(), onClick -> {
+                new HostConfig().open(onClick.getPlayer());
+            },inv.getInventory().getSize() - 1);
+        });
     }
 }

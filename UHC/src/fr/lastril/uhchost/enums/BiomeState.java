@@ -1,6 +1,6 @@
 package fr.lastril.uhchost.enums;
 
-import fr.lastril.uhchost.tools.creators.ItemsCreator;
+import fr.lastril.uhchost.tools.API.items.ItemsCreator;
 import net.minecraft.server.v1_8_R3.BiomeBase;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;

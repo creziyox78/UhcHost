@@ -11,7 +11,6 @@ import org.bukkit.Bukkit;
 import org.bukkit.Effect;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
-import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scoreboard.Team;
 
@@ -133,7 +132,7 @@ public class ClassicMode extends Mode {
                 final double y = degrees / 360.0D * curve / height;
                 final double x = Math.cos(degrees) * (radius - radiusChange * y);
                 final double z = Math.sin(degrees) * (radius - radiusChange * y);
-                if (radius - radiusChange * y >= 0.0D){
+                if (radius - radiusChange * y >= 0.0D) {
                     new BukkitRunnable() {
                         public void run() {
                             center.getWorld().playEffect(center.clone().add(x, y, z), effect, 0);

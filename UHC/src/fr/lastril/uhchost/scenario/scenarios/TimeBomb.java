@@ -2,7 +2,7 @@ package fr.lastril.uhchost.scenario.scenarios;
 
 import fr.lastril.uhchost.UhcHost;
 import fr.lastril.uhchost.scenario.Scenario;
-import fr.lastril.uhchost.scenario.gui.TimeBombGui;
+import fr.lastril.uhchost.inventory.guis.scenarios.TimeBombGui;
 import fr.lastril.uhchost.scenario.runnable.TimeBombRunnable;
 import fr.lastril.uhchost.tools.I18n;
 import org.bukkit.Material;
@@ -12,7 +12,6 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.plugin.Plugin;
 
 import java.util.Arrays;
 

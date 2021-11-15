@@ -2,15 +2,14 @@ package fr.lastril.uhchost.player.events.normal;
 
 import fr.lastril.uhchost.UhcHost;
 import fr.lastril.uhchost.game.GameManager;
+import fr.lastril.uhchost.inventory.guis.HostConfig;
 import fr.lastril.uhchost.inventory.guis.items.PotionsGui;
 import fr.lastril.uhchost.team.TeamsGui;
-import fr.lastril.uhchost.tools.NotStart;
-import fr.lastril.uhchost.inventory.guis.HostConfig;
 import fr.lastril.uhchost.tools.API.ActionBar;
 import fr.lastril.uhchost.tools.API.BungeeAPI;
 import fr.lastril.uhchost.tools.I18n;
+import fr.lastril.uhchost.tools.NotStart;
 import org.bukkit.ChatColor;
-import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
@@ -80,7 +79,7 @@ public class Interact implements Listener {
 			}
 		if (current.getItemMeta().getDisplayName().equalsIgnoreCase(ChatColor.GOLD + "Configuration")) {
 			player.closeInventory();
-			new HostConfig(player).show();
+			new HostConfig().open(player);
 		}
 
 		if (this.pl.gameManager.isPotionsEditMode()) {
@@ -93,7 +92,7 @@ public class Interact implements Listener {
 			}
 			this.notstart.PreHost(player);
 			this.pl.gameManager.setPotionsEditMode(false);
-			new PotionsGui(player).show();
+			new PotionsGui(player).open(player);
 		}
 		if (current.getItemMeta().getDisplayName().equalsIgnoreCase(I18n.tl("teams"))) {
 			new TeamsGui(player);

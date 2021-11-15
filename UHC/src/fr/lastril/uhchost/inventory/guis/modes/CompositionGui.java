@@ -1,109 +1,81 @@
 package fr.lastril.uhchost.inventory.guis.modes;
 
 import fr.lastril.uhchost.UhcHost;
-import fr.lastril.uhchost.inventory.Gui;
-import fr.lastril.uhchost.inventory.guis.HostConfig;
 import fr.lastril.uhchost.modes.ModeConfig;
-import fr.lastril.uhchost.modes.lg.LGRoles;
 import fr.lastril.uhchost.modes.roles.Role;
 import fr.lastril.uhchost.modes.roles.RoleMode;
+import fr.lastril.uhchost.tools.API.inventory.crafter.IQuickInventory;
+import fr.lastril.uhchost.tools.API.inventory.crafter.QuickInventory;
+import fr.lastril.uhchost.tools.API.items.ItemsCreator;
+import fr.lastril.uhchost.tools.API.items.crafter.QuickItem;
 import fr.lastril.uhchost.tools.I18n;
-import fr.lastril.uhchost.tools.Items;
-import fr.lastril.uhchost.tools.creators.ItemsCreator;
 import org.bukkit.Material;
-import org.bukkit.entity.Player;
-import org.bukkit.event.EventHandler;
-import org.bukkit.event.HandlerList;
 import org.bukkit.event.inventory.ClickType;
-import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.inventory.ItemStack;
 
-import java.util.Arrays;
 import java.util.Collections;
 
-public class CompositionGui extends Gui {
+public class CompositionGui extends IQuickInventory {
 
     private final UhcHost pl = UhcHost.getInstance();
 
-    public CompositionGui(Player player) {
-        super(player, 9*6, "§bComposition");
-        for (int i = 0; i < inventory.getSize() - 3; i++) {
-            inventory.setItem(i, new ItemStack(Material.AIR));
-        }
-        inventory.setItem(inventory.getSize() - 1, (new ItemsCreator(Material.BARRIER, I18n.tl("guis.back"), Collections.singletonList(""))).create());
-        if(pl.gameManager.getModes().getMode() instanceof RoleMode<?>){
-            RoleMode<?> mode = (RoleMode<?>) pl.getGamemanager().getModes().getMode();
-            for (Role roles : mode.getRoles()) {
-                if(roles.getCamp() != null) {
-                    ItemsCreator ic;
-                    if(roles.getItem() == null)
-                        ic = new ItemsCreator(Material.EMERALD, roles.getRoleName(), Arrays.asList("§7Camps : "+roles.getCamp().getCompoColor() + roles.getCamp().name(), "", "§7Clique droit pour", "§7retirer de la composition.")
-                                , pl.gameManager.countRolesInComposition(roles));
-                    else
-                        ic = roles.getItem();
-                    if(roles.getSkullValue() != null)
-                        inventory.addItem(Items.createHead(roles.getSkullValue(), roles.getRoleName(), pl.gameManager.countRolesInComposition(roles), Arrays.asList("§7Camps : "+roles.getCamp().getCompoColor() + roles.getCamp().name(),
-                                "", "§7Clique droit pour", "§7retirer de la composition.")));
-                        /*inventory.addItem(ic.setLores(Arrays.asList("§7Camps : "+roles.getCamp().getCompoColor() + roles.getCamp().name(),
-                                "", "§7Clique droit pour", "§7retirer de la composition."))
-                                .setAmount(pl.gameManager.countRolesInComposition(roles)).createHead(roles.getSkullValue()));*/
-                    else
-                        inventory.addItem(ic.setLores(Arrays.asList("§7Camps : "+roles.getCamp().getCompoColor() + roles.getCamp().name(),
-                                "", "§7Clique droit pour", "§7retirer de la composition."))
-                                .setAmount(pl.gameManager.countRolesInComposition(roles)).create());
-                } else {
-                    inventory.addItem(roles.getItem().setLores(Arrays.asList("", "§7Clique droit pour", "§7retirer de la composition.")).create());
-                }
+    public CompositionGui() {
+        super("§bComposition", 9*6);
+    }
+
+
+    @Override
+    public void contents(QuickInventory inv) {
+        inv.updateItem("roles", taskUpdate -> {
+            for (int i = 0; i < inv.getInventory().getSize() - 3; i++) {
+                inv.setItem(new ItemStack(Material.AIR), i);
             }
-        }
-    }
 
-    @EventHandler
-    public void onClick(InventoryCloseEvent event) {
-        if (event.getInventory().equals(inventory))
-            HandlerList.unregisterAll(this);
-    }
-
-    @EventHandler
-    public void onClick(InventoryClickEvent event) {
-        if (event.getClickedInventory() == null)
-            return;
-        if (event.getClickedInventory().equals(inventory)) {
-            ItemStack is = event.getCurrentItem();
-            if (is == null || is.getType() == Material.AIR)
-                return;
-            event.setCancelled(true);
-            if(is.getType() == Material.BARRIER){
-                player.closeInventory();
+            inv.setItem((new ItemsCreator(Material.BARRIER, I18n.tl("guis.back"), Collections.singletonList(""))).create(), onClick->{
                 if(UhcHost.getInstance().gameManager.getModes().getMode() instanceof ModeConfig){
                     ModeConfig modeConfig = (ModeConfig) UhcHost.getInstance().gameManager.getModes().getMode();
-                    modeConfig.getGui(player).show();
+                    modeConfig.getGui().open(onClick.getPlayer());
                 }
-            } else {
-                for(LGRoles lgRoles : LGRoles.values()){
-                    try {
-                        Role role = lgRoles.getRole().newInstance();
-                        if(event.getClick() == ClickType.LEFT){
-                            if(role.getRoleName().equalsIgnoreCase(is.getItemMeta().getDisplayName())){
-                                pl.gameManager.addRoleToComposition(role);
-                                new CompositionGui(player).show();
-                                return;
-                            }
-                        } else if(event.getClick() == ClickType.RIGHT){
-                            if(role.getRoleName().equalsIgnoreCase(is.getItemMeta().getDisplayName())){
-                                pl.gameManager.removeRoleToComposition(role);
-                                new CompositionGui(player).show();
-                                return;
-                            }
+            },inv.getInventory().getSize() - 1);
+
+            if(pl.gameManager.getModes().getMode() instanceof RoleMode<?>){
+                RoleMode<?> mode = (RoleMode<?>) pl.getGamemanager().getModes().getMode();
+                int index = -1;
+                for (Role roles : mode.getRoles()) {
+                    index++;
+                    if(roles.getCamp() != null) {
+                        if(roles.getItem() == null){
+                            inv.setItem(new QuickItem(Material.EMERALD,pl.gameManager.countRolesInComposition(roles)).setName(roles.getCamp().getCompoColor()
+                                    +roles.getRoleName()).toItemStack(), onClick -> {
+                                if(onClick.getClickType() == ClickType.LEFT){
+                                    pl.gameManager.addRoleToComposition(roles);
+                                } else if(onClick.getClickType() == ClickType.RIGHT){
+                                    pl.gameManager.removeRoleToComposition(roles);
+                                }
+                            },index);
                         }
-                    } catch (InstantiationException | IllegalAccessException e) {
-                        e.printStackTrace();
+                        else {
+                            inv.setItem(roles.getItem().setAmount(pl.gameManager.countRolesInComposition(roles)).toItemStack(), onClick -> {
+                                if(onClick.getClickType() == ClickType.LEFT){
+                                    pl.gameManager.addRoleToComposition(roles);
+                                } else if(onClick.getClickType() == ClickType.RIGHT){
+                                    pl.gameManager.removeRoleToComposition(roles);
+                                }
+                            },index);
+                        }
+                    } else {
+                        inv.setItem(roles.getItem().setAmount(pl.gameManager.countRolesInComposition(roles)).toItemStack(), onClick -> {
+                            if(onClick.getClickType() == ClickType.LEFT){
+                                pl.gameManager.addRoleToComposition(roles);
+                            } else if(onClick.getClickType() == ClickType.RIGHT){
+                                pl.gameManager.removeRoleToComposition(roles);
+                            }
+                        },index);
                     }
                 }
             }
-        }
+        });
+
+
     }
-
-
 }

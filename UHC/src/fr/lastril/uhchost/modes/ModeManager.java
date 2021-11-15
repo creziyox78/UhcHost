@@ -12,24 +12,24 @@ import java.util.stream.Collectors;
 
 public abstract class ModeManager {
 
-    public List<PlayerManager> getJoueursWithCamps(Camps camp) {
+    public List<PlayerManager> getPlayerManagersWithCamps(Camps camp) {
         return UhcHost.getInstance().getAllPlayerManager().values().stream()
                 .filter(PlayerManager::hasRole)
-                .filter(joueur -> Objects.equals(joueur.getRole().getCamp(), camp))
+                .filter(PlayerManager -> Objects.equals(PlayerManager.getRole().getCamp(), camp))
                 .collect(Collectors.toList());
     }
 
-    public List<PlayerManager> getJoueursWithRole(Class<? extends Role> role) {
+    public List<PlayerManager> getPlayerManagersWithRole(Class<? extends Role> role) {
         return UhcHost.getInstance().getAllPlayerManager().values().stream()
                 .filter(PlayerManager::hasRole)
-                .filter(joueur -> joueur.getRole().getClass().getSimpleName().equalsIgnoreCase(role.getSimpleName()))
+                .filter(PlayerManager -> PlayerManager.getRole().getClass().getSimpleName().equalsIgnoreCase(role.getSimpleName()))
                 .collect(Collectors.toList());
     }
 
-    public List<PlayerManager> getJoueursNotInCamps(Camps camp){
+    public List<PlayerManager> getPlayerManagersNotInCamps(Camps camp) {
         return UhcHost.getInstance().getAllPlayerManager().values().stream()
                 .filter(PlayerManager::hasRole)
-                .filter(joueur -> !Objects.equals(joueur.getRole().getCamp(), camp))
+                .filter(PlayerManager -> !Objects.equals(PlayerManager.getRole().getCamp(), camp))
                 .collect(Collectors.toList());
     }
 

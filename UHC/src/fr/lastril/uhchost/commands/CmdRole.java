@@ -1,7 +1,6 @@
 package fr.lastril.uhchost.commands;
 
 import fr.lastril.uhchost.UhcHost;
-import fr.lastril.uhchost.enums.Messages;
 import fr.lastril.uhchost.game.GameState;
 import fr.lastril.uhchost.modes.roles.RoleMode;
 import fr.lastril.uhchost.player.PlayerManager;
@@ -24,12 +23,12 @@ public class CmdRole implements CommandExecutor {
             Player player = (Player) sender;
             if (main.gameManager.getGameState() == GameState.STARTED) {
                 if (main.gameManager.getModes().getMode() instanceof RoleMode<?>) {
-                    PlayerManager joueur = main.getPlayerManager(player.getUniqueId());
-                    if(joueur.hasRole()) {
-                        joueur.getRole().sendDescription(player);
-                        if(joueur.getRole() != joueur.getRole()) {
+                    PlayerManager playerManager = main.getPlayerManager(player.getUniqueId());
+                    if(playerManager.hasRole()) {
+                        playerManager.getRole().sendDescription(player);
+                        if(playerManager.getRole() != playerManager.getRole()) {
                             player.sendMessage("§8§m----------------------------");
-                            joueur.getRole().sendDescription(player);
+                            playerManager.getRole().sendDescription(player);
                         }
                     }else {
                         player.sendMessage("§cVous n'avez pas rôle !");

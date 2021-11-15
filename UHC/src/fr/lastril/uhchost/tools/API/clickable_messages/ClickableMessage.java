@@ -1,14 +1,13 @@
 package fr.lastril.uhchost.tools.API.clickable_messages;
 
-import java.util.function.Consumer;
-
 import fr.lastril.uhchost.UhcHost;
-import org.bukkit.entity.Player;
-
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.ComponentBuilder;
 import net.md_5.bungee.api.chat.HoverEvent;
 import net.md_5.bungee.api.chat.TextComponent;
+import org.bukkit.entity.Player;
+
+import java.util.function.Consumer;
 
 public class ClickableMessage {
 

@@ -1,76 +1,90 @@
 package fr.lastril.uhchost.inventory.guis.world.border;
 
 import fr.lastril.uhchost.UhcHost;
-import fr.lastril.uhchost.inventory.guis.world.border.BorderGui;
-import fr.lastril.uhchost.scenario.gui.TimerGui;
+import fr.lastril.uhchost.tools.API.inventory.crafter.IQuickInventory;
+import fr.lastril.uhchost.tools.API.inventory.crafter.QuickInventory;
+import fr.lastril.uhchost.tools.API.items.BannerCreator;
+import fr.lastril.uhchost.tools.API.items.ItemsCreator;
 import fr.lastril.uhchost.tools.I18n;
-import fr.lastril.uhchost.tools.creators.ItemsCreator;
 import org.bukkit.ChatColor;
+import org.bukkit.DyeColor;
 import org.bukkit.Material;
-import org.bukkit.entity.Player;
-import org.bukkit.event.EventHandler;
-import org.bukkit.event.HandlerList;
-import org.bukkit.event.Listener;
-import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.event.inventory.InventoryCloseEvent;
-import org.bukkit.inventory.ItemStack;
 
 import java.util.Arrays;
 
-public class FinalBorderSizeGui extends TimerGui {
+public class FinalBorderSizeGui extends IQuickInventory {
 
-	public FinalBorderSizeGui(Player player) {
-		super(player, I18n.tl("guis.finalBorderSize.name"));
-		ItemsCreator ic = new ItemsCreator(Material.STAINED_GLASS_PANE,
-				"§c" + (UhcHost.getInstance()).worldBorderUtils.getFinalSize(),
-				Arrays.asList(I18n.tl("guis.finalBorderSize.lore"),
-						I18n.tl("guis.finalBorderSize.lore1"),
-						I18n.tl("guis.finalBorderSize.lore2")),
-				1, (byte) 14);
-		inventory.setItem(4, ic.create());
+	private BannerCreator bc;
+	public FinalBorderSizeGui() {
+		super(I18n.tl("guis.finalBorderSize.name"), 1*9);
 	}
 
-	@EventHandler
-	public void onClick(InventoryClickEvent event) {
-		if (event.getClickedInventory() == null)
-			return;
-		if (event.getClickedInventory().equals(inventory)) {
-			String name;
-			int value;
-			ItemsCreator ic;
-			ItemStack is = event.getCurrentItem();
-			if (is == null || is.getType() == Material.AIR)
-				return;
-			event.setCancelled(true);
-			switch (is.getType()) {
-			case STAINED_GLASS_PANE:
-				this.player.closeInventory();
-				(new BorderGui(this.player)).show();
-				break;
-			case BANNER:
-				name = ChatColor.stripColor(is.getItemMeta().getDisplayName());
-				value = (UhcHost.getInstance()).worldBorderUtils.getFinalSize() + Integer.parseInt(name);
-				if (value < 1)
-					break;
+	@Override
+	public void contents(QuickInventory inv) {
+		inv.updateItem("update", taskUpdate -> {
+
+
+			bc = new BannerCreator("§c-10", Arrays.asList(""), 1, true);
+			bc.setBaseColor(DyeColor.RED);
+
+
+			inv.setItem(bc.create(), onClick -> {
+				String bannerName = ChatColor.stripColor(onClick.getEvent().getCurrentItem().getItemMeta().getDisplayName());
+				int value = (UhcHost.getInstance()).worldBorderUtils.getFinalSize() + Integer.parseInt(bannerName);
 				(UhcHost.getInstance()).worldBorderUtils.setFinalSize(value);
-				ic = new ItemsCreator(Material.STAINED_GLASS_PANE,
-						"§c" + (UhcHost.getInstance()).worldBorderUtils.getFinalSize(),
-						Arrays.asList(I18n.tl("guis.finalBorderSize.lore"),
-								I18n.tl("guis.finalBorderSize.lore1"),
-								I18n.tl("guis.finalBorderSize.lore2")),
-						1, (byte) 14);
-				inventory.setItem(4, ic.create());
-				break;
-			default:
-				break;
-			}
-		}
-	}
+			}, 0);
+			bc = new BannerCreator("§c-5", Arrays.asList(""), 1, true);
+			bc.setBaseColor(DyeColor.RED);
+			inv.setItem(bc.create(), onClick -> {
+				String bannerName = ChatColor.stripColor(onClick.getEvent().getCurrentItem().getItemMeta().getDisplayName());
+				int value = (UhcHost.getInstance()).worldBorderUtils.getFinalSize() + Integer.parseInt(bannerName);
+				(UhcHost.getInstance()).worldBorderUtils.setFinalSize(value);
 
-	@EventHandler
-	public void onClick(InventoryCloseEvent event) {
-		if (event.getInventory().equals(inventory))
-			HandlerList.unregisterAll(this);
-	}
+			}, 1);
+			bc = new BannerCreator("§c-1", Arrays.asList(""), 1, true);
+			bc.setBaseColor(DyeColor.RED);
+			inv.setItem(bc.create(), onClick -> {
+				String bannerName = ChatColor.stripColor(onClick.getEvent().getCurrentItem().getItemMeta().getDisplayName());
+				int value = (UhcHost.getInstance()).worldBorderUtils.getFinalSize() + Integer.parseInt(bannerName);
+				(UhcHost.getInstance()).worldBorderUtils.setFinalSize(value);
+			}, 2);
+			bc = new BannerCreator("§a+1", Arrays.asList(""), 1, true);
+			bc.setBaseColor(DyeColor.GREEN);
 
+
+
+			ItemsCreator  ic = new ItemsCreator(Material.STAINED_GLASS_PANE,
+					"§c" + (UhcHost.getInstance()).worldBorderUtils.getFinalSize(),
+					Arrays.asList(I18n.tl("guis.finalBorderSize.lore"),
+							I18n.tl("guis.finalBorderSize.lore1"),
+							I18n.tl("guis.finalBorderSize.lore2")),
+					1, (byte) 14);
+			inv.setItem(ic.create(), onClick -> {
+				new BorderGui().open(onClick.getPlayer());
+			},4);
+
+
+			inv.setItem(bc.create(), onClick -> {
+				String bannerName = ChatColor.stripColor(onClick.getEvent().getCurrentItem().getItemMeta().getDisplayName());
+				int value = (UhcHost.getInstance()).worldBorderUtils.getFinalSize() + Integer.parseInt(bannerName);
+				(UhcHost.getInstance()).worldBorderUtils.setFinalSize(value);
+			}, 6);
+			bc = new BannerCreator("§a+5", Arrays.asList(""), 1, true);
+			bc.setBaseColor(DyeColor.GREEN);
+			inv.setItem(bc.create(), onClick -> {
+				String bannerName = ChatColor.stripColor(onClick.getEvent().getCurrentItem().getItemMeta().getDisplayName());
+				int value = (UhcHost.getInstance()).worldBorderUtils.getFinalSize() + Integer.parseInt(bannerName);
+				(UhcHost.getInstance()).worldBorderUtils.setFinalSize(value);
+			}, 7);
+			bc = new BannerCreator("§a+10", Arrays.asList(""), 1, true);
+			bc.setBaseColor(DyeColor.GREEN);
+			inv.setItem(bc.create(), onClick -> {
+				String bannerName = ChatColor.stripColor(onClick.getEvent().getCurrentItem().getItemMeta().getDisplayName());
+				int value = (UhcHost.getInstance()).worldBorderUtils.getFinalSize() + Integer.parseInt(bannerName);
+				(UhcHost.getInstance()).worldBorderUtils.setFinalSize(value);
+			}, 8);
+
+		});
+
+	}
 }

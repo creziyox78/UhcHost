@@ -2,74 +2,89 @@ package fr.lastril.uhchost.inventory.guis.modes.lg;
 
 import fr.lastril.uhchost.UhcHost;
 import fr.lastril.uhchost.modes.ModeConfig;
-import fr.lastril.uhchost.modes.lg.LoupGarouManager;
-import fr.lastril.uhchost.scenario.gui.TimerGui;
+import fr.lastril.uhchost.tools.API.inventory.crafter.IQuickInventory;
+import fr.lastril.uhchost.tools.API.inventory.crafter.QuickInventory;
+import fr.lastril.uhchost.tools.API.items.BannerCreator;
+import fr.lastril.uhchost.tools.API.items.ItemsCreator;
 import fr.lastril.uhchost.tools.I18n;
-import fr.lastril.uhchost.tools.creators.ItemsCreator;
 import org.bukkit.ChatColor;
+import org.bukkit.DyeColor;
 import org.bukkit.Material;
-import org.bukkit.entity.Player;
-import org.bukkit.event.EventHandler;
-import org.bukkit.event.HandlerList;
-import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.event.inventory.InventoryCloseEvent;
-import org.bukkit.inventory.ItemStack;
 
 import java.util.Arrays;
 
-public class TimerPerEpisodeGui extends TimerGui {
-    public TimerPerEpisodeGui(Player player) {
-        super(player, I18n.tl("guis.lg.episodetime.name"));
+public class TimerPerEpisodeGui extends IQuickInventory {
 
-            ItemsCreator ic = new ItemsCreator(Material.PAPER,
+    private BannerCreator bc;
+    private ItemsCreator ic;
+    public TimerPerEpisodeGui() {
+        super(I18n.tl("guis.lg.episodetime.name"), 1*9);
+    }
+
+
+    @Override
+    public void contents(QuickInventory inv) {
+
+
+        inv.updateItem("update", taskUpdate -> {
+            bc = new BannerCreator("§c-10", Arrays.asList(""), 1, true);
+            bc.setBaseColor(DyeColor.RED);
+
+
+            inv.setItem(bc.create(), onClick -> {
+                String bannerName = ChatColor.stripColor(onClick.getEvent().getCurrentItem().getItemMeta().getDisplayName());
+                int value = UhcHost.getInstance().gameManager.episodeEvery + Integer.parseInt(bannerName) * 60;
+                UhcHost.getInstance().gameManager.episodeEvery = value;
+
+            }, 0);
+            bc = new BannerCreator("§c-5", Arrays.asList(""), 1, true);
+            bc.setBaseColor(DyeColor.RED);
+            inv.setItem(bc.create(), onClick -> {
+                String bannerName = ChatColor.stripColor(onClick.getEvent().getCurrentItem().getItemMeta().getDisplayName());
+                int value = UhcHost.getInstance().gameManager.episodeEvery+ Integer.parseInt(bannerName) * 60;
+                UhcHost.getInstance().gameManager.episodeEvery = value;
+
+            }, 1);
+            bc = new BannerCreator("§c-1", Arrays.asList(""), 1, true);
+            bc.setBaseColor(DyeColor.RED);
+            inv.setItem(bc.create(), onClick -> {
+                String bannerName = ChatColor.stripColor(onClick.getEvent().getCurrentItem().getItemMeta().getDisplayName());
+                int value = UhcHost.getInstance().gameManager.episodeEvery + Integer.parseInt(bannerName) * 60;
+                UhcHost.getInstance().gameManager.episodeEvery = value;
+            }, 2);
+            bc = new BannerCreator("§a+1", Arrays.asList(""), 1, true);
+            bc.setBaseColor(DyeColor.GREEN);
+
+
+
+            ic = new ItemsCreator(Material.PAPER,
                     "§e" + UhcHost.getInstance().gameManager.episodeEvery / 60,
                     Arrays.asList(I18n.tl("guis.lg.episodetime.lore"), I18n.tl("guis.lg.episodetime.lore1")));
-            inventory.setItem(4, ic.create());
+            inv.setItem(ic.create(), onClick-> {
+                if(UhcHost.getInstance().gameManager.getModes().getMode() instanceof ModeConfig){
+                    ModeConfig modeConfig = (ModeConfig) UhcHost.getInstance().gameManager.getModes().getMode();
+                    modeConfig.getGui().open(onClick.getPlayer());
+                }
+            },4);
+            inv.setItem(bc.create(), onClick -> {
+                String bannerName = ChatColor.stripColor(onClick.getEvent().getCurrentItem().getItemMeta().getDisplayName());
+                int value = UhcHost.getInstance().gameManager.episodeEvery + Integer.parseInt(bannerName) * 60;
+                UhcHost.getInstance().gameManager.episodeEvery = value;
+            }, 6);
+            bc = new BannerCreator("§a+5", Arrays.asList(""), 1, true);
+            bc.setBaseColor(DyeColor.GREEN);
+            inv.setItem(bc.create(), onClick -> {
+                String bannerName = ChatColor.stripColor(onClick.getEvent().getCurrentItem().getItemMeta().getDisplayName());
+                int value = UhcHost.getInstance().gameManager.episodeEvery + Integer.parseInt(bannerName) * 60;
+                UhcHost.getInstance().gameManager.episodeEvery = value;
+            }, 7);
+            bc = new BannerCreator("§a+10", Arrays.asList(""), 1, true);
+            bc.setBaseColor(DyeColor.GREEN);
+            inv.setItem(bc.create(), onClick -> {
+                String bannerName = ChatColor.stripColor(onClick.getEvent().getCurrentItem().getItemMeta().getDisplayName());
+                int value = UhcHost.getInstance().gameManager.episodeEvery + Integer.parseInt(bannerName) * 60;
+                UhcHost.getInstance().gameManager.episodeEvery = value;
+            }, 8);
+        });
     }
-
-    @EventHandler
-    public void onClick(InventoryClickEvent event) {
-        if (event.getClickedInventory() == null)
-            return;
-        if (event.getClickedInventory().equals(inventory)) {
-            String name;
-            int value;
-            ItemsCreator ic;
-            ItemStack is = event.getCurrentItem();
-            if (is == null || is.getType() == Material.AIR)
-                return;
-            event.setCancelled(true);
-            switch (is.getType()) {
-                case PAPER:
-                    this.player.closeInventory();
-                    if(UhcHost.getInstance().gameManager.getModes().getMode() instanceof ModeConfig){
-                        ModeConfig modeConfig = (ModeConfig) UhcHost.getInstance().gameManager.getModes().getMode();
-                        modeConfig.getGui(player).show();
-                    }
-                    break;
-                case BANNER:
-                        name = ChatColor.stripColor(is.getItemMeta().getDisplayName());
-                                UhcHost.getInstance().gameManager.getModes().getMode().getModeManager();
-                        value = UhcHost.getInstance().gameManager.episodeEvery + Integer.parseInt(name) * 60;
-                        if (value < 0)
-                            break;
-                        UhcHost.getInstance().gameManager.episodeEvery = value;
-                        ic = new ItemsCreator(Material.PAPER,
-                            "§e" + UhcHost.getInstance().gameManager.episodeEvery / 60,
-                            Arrays.asList(I18n.tl("guis.lg.vote.lore"), I18n.tl("guis.lg.vote.lore1")));
-                        inventory.setItem(4, ic.create());
-
-                    break;
-                default:
-                    break;
-            }
-        }
-    }
-
-    @EventHandler
-    public void onClick(InventoryCloseEvent event) {
-        if (event.getInventory().equals(inventory))
-            HandlerList.unregisterAll(this);
-    }
-
 }

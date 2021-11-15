@@ -6,7 +6,7 @@ public interface RoleAnnounceMode {
 
     void setRoleAnnouncement(int roleAnnouncement);
 
-    default boolean isRoleAnnonced(int roleAnnouncement){
+    default boolean isRoleAnnonced(int roleAnnouncement) {
         return roleAnnouncement <= 0;
     }
 

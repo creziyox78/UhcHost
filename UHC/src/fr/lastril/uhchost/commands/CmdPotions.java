@@ -19,7 +19,7 @@ public class CmdPotions implements CommandExecutor {
                 player.sendMessage(I18n.tl("allPotionsDisable", new String[0]));
                 return true;
             }
-            (new RulesPotionsGui(player)).show();
+            new RulesPotionsGui().open(player);
         }
         return false;
     }

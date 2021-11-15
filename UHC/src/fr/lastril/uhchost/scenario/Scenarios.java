@@ -11,7 +11,7 @@ public enum Scenarios {
 	BLOODIAMOND(new BloodDiamond()),
 	BOOKCEPTION(new Bookception()),
 	BOWSWAP(new BowSwap()),
-	CATEEYES(new CatEyes()),
+	CATEYES(new CatEyes()),
 	CUTCLEAN(new CutClean()),
 	DIAMONDLESS(new Diamondless()),
 	DIAMONDLIMIT(new DiamondLimit()),

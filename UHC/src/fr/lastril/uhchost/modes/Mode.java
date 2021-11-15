@@ -12,13 +12,21 @@ public abstract class Mode {
     }
 
     public abstract void tick(int timer);
+
     public abstract void onPvp();
+
     public abstract void onBorder();
+
     public abstract void onTeleportation();
+
     public abstract void onNewEpisode();
+
     public abstract void onDeath(Player player, Player killer);
+
     public abstract boolean isScheduledDeath();
+
     public abstract boolean isEpisodeMode();
+
     public abstract void onDamage(Player target, Player damager);
 
     public boolean isCancelDamage(EntityDamageByEntityEvent event) {

@@ -3,79 +3,95 @@ package fr.lastril.uhchost.inventory.guis.modes.lg;
 import fr.lastril.uhchost.UhcHost;
 import fr.lastril.uhchost.modes.ModeConfig;
 import fr.lastril.uhchost.modes.lg.LoupGarouManager;
-import fr.lastril.uhchost.scenario.gui.TimerGui;
+import fr.lastril.uhchost.tools.API.inventory.crafter.IQuickInventory;
+import fr.lastril.uhchost.tools.API.inventory.crafter.QuickInventory;
+import fr.lastril.uhchost.tools.API.items.BannerCreator;
+import fr.lastril.uhchost.tools.API.items.ItemsCreator;
 import fr.lastril.uhchost.tools.I18n;
-import fr.lastril.uhchost.tools.creators.ItemsCreator;
 import org.bukkit.ChatColor;
+import org.bukkit.DyeColor;
 import org.bukkit.Material;
-import org.bukkit.entity.Player;
-import org.bukkit.event.EventHandler;
-import org.bukkit.event.HandlerList;
-import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.event.inventory.InventoryCloseEvent;
-import org.bukkit.inventory.ItemStack;
 
 import java.util.Arrays;
 
-public class RegionChatGui extends TimerGui {
-    public RegionChatGui(Player player) {
-        super(player, I18n.tl("guis.lg.vote.name"));
-        if(UhcHost.getInstance().gameManager.getModes().getMode().getModeManager() instanceof LoupGarouManager){
-            LoupGarouManager loupGarouManager = (LoupGarouManager)
-                    UhcHost.getInstance().gameManager.getModes().getMode().getModeManager();
+public class RegionChatGui extends IQuickInventory {
 
-            ItemsCreator ic = new ItemsCreator(Material.PAPER,
-                    "§e" + loupGarouManager.getStartVoteEpisode(),
-                    Arrays.asList(I18n.tl("guis.lg.vote.lore"), I18n.tl("guis.lg.vote.lore1")));
-            inventory.setItem(4, ic.create());
-        }
+    private BannerCreator bc;
+    private ItemsCreator ic;
+    public RegionChatGui() {
+        super(I18n.tl("guis.lg.vote.name"), 1*9);
     }
 
-    @EventHandler
-    public void onClick(InventoryClickEvent event) {
-        if (event.getClickedInventory() == null)
-            return;
-        if (event.getClickedInventory().equals(inventory)) {
-            String name;
-            int value;
-            ItemsCreator ic;
-            ItemStack is = event.getCurrentItem();
-            if (is == null || is.getType() == Material.AIR)
-                return;
-            event.setCancelled(true);
-            switch (is.getType()) {
-                case PAPER:
-                    this.player.closeInventory();
+    @Override
+    public void contents(QuickInventory inv) {
+
+
+        inv.updateItem("update", taskUpdate -> {
+            if(UhcHost.getInstance().gameManager.getModes().getMode().getModeManager() instanceof LoupGarouManager){
+
+                LoupGarouManager loupGarouManager = (LoupGarouManager)
+                        UhcHost.getInstance().gameManager.getModes().getMode().getModeManager();
+
+                bc = new BannerCreator("§c-10", Arrays.asList(""), 1, true);
+                bc.setBaseColor(DyeColor.RED);
+
+
+                inv.setItem(bc.create(), onClick -> {
+                    String bannerName = ChatColor.stripColor(onClick.getEvent().getCurrentItem().getItemMeta().getDisplayName());
+                    int value = loupGarouManager.getStartVoteEpisode() + Integer.parseInt(bannerName);
+                    loupGarouManager.setStartVoteEpisode(value);
+
+                }, 0);
+                bc = new BannerCreator("§c-5", Arrays.asList(""), 1, true);
+                bc.setBaseColor(DyeColor.RED);
+                inv.setItem(bc.create(), onClick -> {
+                    String bannerName = ChatColor.stripColor(onClick.getEvent().getCurrentItem().getItemMeta().getDisplayName());
+                    int value = loupGarouManager.getStartVoteEpisode() + Integer.parseInt(bannerName);
+                    loupGarouManager.setStartVoteEpisode(value);
+
+                }, 1);
+                bc = new BannerCreator("§c-1", Arrays.asList(""), 1, true);
+                bc.setBaseColor(DyeColor.RED);
+                inv.setItem(bc.create(), onClick -> {
+                    String bannerName = ChatColor.stripColor(onClick.getEvent().getCurrentItem().getItemMeta().getDisplayName());
+                    int value = loupGarouManager.getStartVoteEpisode() + Integer.parseInt(bannerName);
+                    loupGarouManager.setStartVoteEpisode(value);
+                }, 2);
+                bc = new BannerCreator("§a+1", Arrays.asList(""), 1, true);
+                bc.setBaseColor(DyeColor.GREEN);
+
+
+
+                ic = new ItemsCreator(Material.PAPER,
+                        "§e" + loupGarouManager.getStartVoteEpisode(),
+                        Arrays.asList(I18n.tl("guis.lg.vote.lore"), I18n.tl("guis.lg.vote.lore1")));
+                inv.setItem(ic.create(), onClick-> {
                     if(UhcHost.getInstance().gameManager.getModes().getMode() instanceof ModeConfig){
                         ModeConfig modeConfig = (ModeConfig) UhcHost.getInstance().gameManager.getModes().getMode();
-                        modeConfig.getGui(player).show();
+                        modeConfig.getGui().open(onClick.getPlayer());
                     }
-                    break;
-                case BANNER:
-                    if(UhcHost.getInstance().gameManager.getModes().getMode().getModeManager() instanceof LoupGarouManager){
-                        name = ChatColor.stripColor(is.getItemMeta().getDisplayName());
-                        LoupGarouManager loupGarouManager = (LoupGarouManager)
-                                UhcHost.getInstance().gameManager.getModes().getMode().getModeManager();
-                        value = loupGarouManager.getStartVoteEpisode() + Integer.parseInt(name);
-                        if (value < 0)
-                            break;
-                        loupGarouManager.setStartVoteEpisode(value);
-                        ic = new ItemsCreator(Material.PAPER,
-                                "§e" + loupGarouManager.getStartVoteEpisode(),
-                                Arrays.asList(I18n.tl("guis.lg.vote.lore"), I18n.tl("guis.lg.vote.lore1")));
-                        inventory.setItem(4, ic.create());
-                    }
-                    break;
-                default:
-                    break;
+                },4);
+                inv.setItem(bc.create(), onClick -> {
+                    String bannerName = ChatColor.stripColor(onClick.getEvent().getCurrentItem().getItemMeta().getDisplayName());
+                    int value = loupGarouManager.getStartVoteEpisode() + Integer.parseInt(bannerName);
+                    loupGarouManager.setStartVoteEpisode(value);
+                }, 6);
+                bc = new BannerCreator("§a+5", Arrays.asList(""), 1, true);
+                bc.setBaseColor(DyeColor.GREEN);
+                inv.setItem(bc.create(), onClick -> {
+                    String bannerName = ChatColor.stripColor(onClick.getEvent().getCurrentItem().getItemMeta().getDisplayName());
+                    int value = loupGarouManager.getStartVoteEpisode() + Integer.parseInt(bannerName);
+                    loupGarouManager.setStartVoteEpisode(value);
+                }, 7);
+                bc = new BannerCreator("§a+10", Arrays.asList(""), 1, true);
+                bc.setBaseColor(DyeColor.GREEN);
+                inv.setItem(bc.create(), onClick -> {
+                    String bannerName = ChatColor.stripColor(onClick.getEvent().getCurrentItem().getItemMeta().getDisplayName());
+                    int value = loupGarouManager.getStartVoteEpisode() + Integer.parseInt(bannerName);
+                    loupGarouManager.setStartVoteEpisode(value);
+                }, 8);
             }
-        }
-    }
 
-    @EventHandler
-    public void onClick(InventoryCloseEvent event) {
-        if (event.getInventory().equals(inventory))
-            HandlerList.unregisterAll(this);
+        });
     }
-
 }

@@ -19,7 +19,7 @@ public class CmdVote implements ModeSubCommand {
     private final LoupGarouManager loupGarouManager;
     private final UhcHost pl;
 
-    public CmdVote(UhcHost pl, LoupGarouManager loupGarouManager){
+    public CmdVote(UhcHost pl, LoupGarouManager loupGarouManager) {
         this.pl = pl;
         this.loupGarouManager = loupGarouManager;
     }
@@ -38,26 +38,26 @@ public class CmdVote implements ModeSubCommand {
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         Player player = (Player) sender;
         PlayerManager playerManager = pl.getPlayerManager(player.getUniqueId());
-        if(!playerManager.hasRole() || !playerManager.isAlive()){
+        if (!playerManager.hasRole() || !playerManager.isAlive()) {
             return false;
         }
         if (args.length == 2) {
             String targetName = args[1];
             Player target = Bukkit.getPlayer(targetName);
-            if(target != null){
+            if (target != null) {
                 WolfPlayerManager wolfPlayerManager = pl.getPlayerManager(player.getUniqueId()).getWolfPlayerManager();
-                if(!wolfPlayerManager.hasVoted()){
+                if (!wolfPlayerManager.hasVoted()) {
                     wolfPlayerManager.setVoted(true);
                     WolfPlayerManager wolfTargetManager = pl.getPlayerManager(target.getUniqueId()).getWolfPlayerManager();
-                    if(wolfTargetManager != null){
+                    if (wolfTargetManager != null) {
                         wolfTargetManager.addVote();
-                        player.sendMessage(Messages.LOUP_GAROU_PREFIX.getPrefix() + "§aVotre vote a bien été pris en compte.");
+                        player.sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage() + "§aVotre vote a bien été pris en compte.");
                     }
                 } else {
-                    player.sendMessage(Messages.LOUP_GAROU_PREFIX.getPrefix() + "§cVous avez déjà voté !");
+                    player.sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage() + "§cVous avez déjà voté !");
                 }
             } else {
-                player.sendMessage(Messages.LOUP_GAROU_PREFIX.getPrefix() + "§cCe joueur n'est pas en ligne.");
+                player.sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage() + "§cCe PlayerManager n'est pas en ligne.");
             }
         }
 

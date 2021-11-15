@@ -3,9 +3,9 @@ package fr.lastril.uhchost.commands;
 import fr.lastril.uhchost.UhcHost;
 import fr.lastril.uhchost.game.GameManager;
 import fr.lastril.uhchost.inventory.CustomInv;
-import fr.lastril.uhchost.tools.NotStart;
 import fr.lastril.uhchost.inventory.guis.enchant.CategoriesGui;
 import fr.lastril.uhchost.tools.API.ActionBar;
+import fr.lastril.uhchost.tools.NotStart;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
@@ -37,7 +37,7 @@ public class CmdHost implements CommandExecutor {
 					if (!gameManager.isEditInv())
 						return false;
 					if (player.getItemInHand() != null && player.getItemInHand().getType() != Material.AIR) {
-						new CategoriesGui(player).show();
+						new CategoriesGui(player).open(player);
 						return true;
 					}
 					player.sendMessage("§cTu ne possède rien dans ta main !");

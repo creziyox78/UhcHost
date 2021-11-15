@@ -37,77 +37,77 @@ public class CmdVoir implements ModeSubCommand {
     public boolean onCommand(CommandSender sender, Command command, String s, String[] args) {
         Player player = (Player) sender;
         PlayerManager playerManager = pl.getPlayerManager(player.getUniqueId());
-        if(!playerManager.hasRole() || !playerManager.isAlive()){
+        if (!playerManager.hasRole() || !playerManager.isAlive()) {
             return false;
         }
-        if(playerManager.getRole() instanceof Voyante){
+        if (playerManager.getRole() instanceof Voyante) {
             Voyante voyante = (Voyante) playerManager.getRole();
-            if(voyante.canSeeRole()){
+            if (voyante.canSeeRole()) {
                 if (args.length == 2) {
                     String targetName = args[1];
                     Player target = Bukkit.getPlayer(targetName);
-                    if(target != null){
+                    if (target != null) {
                         PlayerManager targetManager = pl.getPlayerManager(target.getUniqueId());
-                        if(targetManager.isAlive() && targetManager.hasRole()){
+                        if (targetManager.isAlive() && targetManager.hasRole()) {
                             sendRole(player, targetManager, false);
                             voyante.setSeeRole(false);
                         } else {
-                            player.sendMessage(Messages.LOUP_GAROU_PREFIX.getPrefix() + "§cCe joueur n'est pas/plus dans la partie !");
+                            player.sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage() + "§cCe PlayerManager n'est pas/plus dans la partie !");
                         }
                     } else {
-                        player.sendMessage(Messages.LOUP_GAROU_PREFIX.getPrefix() + "§cCe joueur n'est pas en ligne.");
+                        player.sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage() + "§cCe PlayerManager n'est pas en ligne.");
                     }
                 } else {
-                    player.sendMessage(Messages.LOUP_GAROU_PREFIX.getPrefix() + "§6Précisez un joueur.");
+                    player.sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage() + "§6Précisez un PlayerManager.");
                 }
             } else {
-                player.sendMessage(Messages.LOUP_GAROU_PREFIX.getPrefix() + "§cVous ne pouvez pas utiliser votre pouvoir pour le moment.");
+                player.sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage() + "§cVous ne pouvez pas utiliser votre pouvoir pour le moment.");
             }
-        } else if(playerManager.getRole() instanceof VoyanteBavarde){
+        } else if (playerManager.getRole() instanceof VoyanteBavarde) {
             VoyanteBavarde voyante = (VoyanteBavarde) playerManager.getRole();
-            if(voyante.canSeeRole()){
+            if (voyante.canSeeRole()) {
                 if (args.length == 2) {
                     String targetName = args[1];
                     Player target = Bukkit.getPlayer(targetName);
-                    if(target != null){
+                    if (target != null) {
                         PlayerManager targetManager = pl.getPlayerManager(target.getUniqueId());
-                        if(targetManager.isAlive() && targetManager.hasRole()){
+                        if (targetManager.isAlive() && targetManager.hasRole()) {
                             sendRole(player, targetManager, true);
                             voyante.setSeeRole(false);
                         } else {
-                            player.sendMessage(Messages.LOUP_GAROU_PREFIX.getPrefix() + "§cCe joueur n'est pas/plus dans la partie !");
+                            player.sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage() + "§cCe PlayerManager n'est pas/plus dans la partie !");
                         }
                     } else {
-                        player.sendMessage(Messages.LOUP_GAROU_PREFIX.getPrefix() + "§cCe joueur n'est pas en ligne.");
+                        player.sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage() + "§cCe PlayerManager n'est pas en ligne.");
                     }
                 } else {
-                    player.sendMessage(Messages.LOUP_GAROU_PREFIX.getPrefix() + "§6Précisez un joueur.");
+                    player.sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage() + "§6Précisez un PlayerManager.");
                 }
             } else {
-                player.sendMessage(Messages.LOUP_GAROU_PREFIX.getPrefix() + "§cVous ne pouvez pas utiliser votre pouvoir pour le moment.");
+                player.sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage() + "§cVous ne pouvez pas utiliser votre pouvoir pour le moment.");
             }
         }
         return false;
     }
 
-    private void sendRole(Player player, PlayerManager targetManager,boolean broadcasted){
-        if(targetManager.getRole() instanceof LGFacadeRole){
+    private void sendRole(Player player, PlayerManager targetManager, boolean broadcasted) {
+        if (targetManager.getRole() instanceof LGFacadeRole) {
             LGFacadeRole lgFacadeRole = (LGFacadeRole) targetManager.getRole();
-            player.sendMessage(Messages.LOUP_GAROU_PREFIX.getPrefix()
+            player.sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage()
                     + "§bVous venez d'espionner " + targetManager.getPlayerName()
-                    + ". Ce joueur est: " + lgFacadeRole.getRoleFacade().getRoleName());
-            if(broadcasted){
+                    + ". Ce PlayerManager est: " + lgFacadeRole.getRoleFacade().getRoleName());
+            if (broadcasted) {
                 Bukkit.broadcastMessage("");
-                Bukkit.broadcastMessage("§bLa Voyante Bavarde a espionner un joueur qui est " + lgFacadeRole.getRoleFacade().getRoleName());
+                Bukkit.broadcastMessage("§bLa Voyante Bavarde a espionner un PlayerManager qui est " + lgFacadeRole.getRoleFacade().getRoleName());
                 Bukkit.broadcastMessage("");
             }
         } else {
-            player.sendMessage(Messages.LOUP_GAROU_PREFIX.getPrefix()
+            player.sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage()
                     + "§bVous venez d'espionner " + targetManager.getPlayerName()
-                    + ". Ce joueur est: " + targetManager.getRole().getRoleName());
-            if(broadcasted){
+                    + ". Ce PlayerManager est: " + targetManager.getRole().getRoleName());
+            if (broadcasted) {
                 Bukkit.broadcastMessage("");
-                Bukkit.broadcastMessage("§bLa Voyante Bavarde a espionner un joueur qui est " + targetManager.getRole().getRoleName());
+                Bukkit.broadcastMessage("§bLa Voyante Bavarde a espionner un PlayerManager qui est " + targetManager.getRole().getRoleName());
                 Bukkit.broadcastMessage("");
             }
         }

@@ -1,15 +1,15 @@
 package fr.lastril.uhchost.player.modemanager;
 
-import java.util.UUID;
-
 import fr.lastril.uhchost.enums.ResurectType;
 import fr.lastril.uhchost.modes.lg.roles.LGRole;
 import fr.lastril.uhchost.modes.roles.Camps;
 import fr.lastril.uhchost.player.PlayerManager;
 
+import java.util.UUID;
+
 public class WolfPlayerManager implements Comparable<WolfPlayerManager> {
 
-	private final PlayerManager joueur;
+	private final PlayerManager playerManager;
 	private LGRole lgRole;
 	private Camps camp;
 	private UUID otherCouple;
@@ -20,16 +20,16 @@ public class WolfPlayerManager implements Comparable<WolfPlayerManager> {
 	
 	private ResurectType resurectType;
 	
-	public WolfPlayerManager(PlayerManager joueur) {
-		this.joueur = joueur;
-		if(joueur.getRole() instanceof LGRole) {
-			this.lgRole = (LGRole) joueur.getRole();
+	public WolfPlayerManager(PlayerManager playerManager) {
+		this.playerManager = playerManager;
+		if(playerManager.getRole() instanceof LGRole) {
+			this.lgRole = (LGRole) playerManager.getRole();
 			this.camp = lgRole.getCamp();
 		}
 	}
 	
-	public PlayerManager getJoueur() {
-		return joueur;
+	public PlayerManager getPlayerManager() {
+		return playerManager;
 	}
 
 	public UUID getOtherCouple() {

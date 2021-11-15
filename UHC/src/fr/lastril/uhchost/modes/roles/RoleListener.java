@@ -6,8 +6,8 @@ import org.bukkit.plugin.PluginManager;
 
 public interface RoleListener extends Listener {
 
-	default void registerListener(UhcHost main, PluginManager pm) {
-		pm.registerEvents(this, main);
-	}
-	
+    default void registerListener(UhcHost main, PluginManager pm) {
+        pm.registerEvents(this, main);
+    }
+
 }

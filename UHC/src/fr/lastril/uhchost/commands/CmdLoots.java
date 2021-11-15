@@ -13,7 +13,7 @@ public class CmdLoots implements CommandExecutor {
 
             Player player = (Player)sender;
 
-            (new RulesLootsGui(player)).show();
+            new RulesLootsGui().open(player);
         }
         return false;
     }

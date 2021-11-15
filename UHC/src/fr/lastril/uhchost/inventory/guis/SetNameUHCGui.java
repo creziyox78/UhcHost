@@ -2,8 +2,7 @@ package fr.lastril.uhchost.inventory.guis;
 
 import fr.lastril.uhchost.UhcHost;
 import fr.lastril.uhchost.inventory.AnvilGUI;
-import fr.lastril.uhchost.tools.Items;
-import org.bukkit.ChatColor;
+import fr.lastril.uhchost.tools.API.items.crafter.QuickItem;
 import org.bukkit.Material;
 
 public class SetNameUHCGui extends AnvilGUI {
@@ -22,6 +21,6 @@ public class SetNameUHCGui extends AnvilGUI {
                 }
             }
         });
-        super.setSlot(AnvilSlot.INPUT_LEFT, Items.getItem(Material.PAPER, ChatColor.YELLOW + "Nom du serveur", true));
+        super.setSlot(AnvilSlot.INPUT_LEFT, new QuickItem(Material.PAPER).setName("§eNom du serveur").toItemStack());
     }
 }

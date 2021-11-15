@@ -1,0 +1,138 @@
+
+#Format pour les descriptions
+#
+#Chaque ligne commençant par "fr.lastril.uhchost.modes.lg.roles" ne DOIVENT PAS ÊTRE MODIFIER !
+#
+#Pour sauter une ligne, faite juste une nouvelle ligne (pas besoin d'espace).
+#
+#Pour le code couleur, utilisez le symbole "&".
+#
+#Votre description commencera après "Vous êtes <ROLE>."
+#Donc il faut faire l'objectif ainsi que les pouvoirs.
+#La liste est donné et les rôles tels que les soeurs se connaissent et sont déjà implémentés.
+#
+
+
+fr.lastril.uhchost.modes.lg.roles.lg.InfectPereDesLoups:
+  - "&7C'est une autre description:."
+  - " "
+fr.lastril.uhchost.modes.lg.roles.lg.LoupGarou:
+  - "&7C'est une autre description:."
+  - " "
+fr.lastril.uhchost.modes.lg.roles.lg.LoupGarouAlpha:
+  - "&7C'est une description."
+  - " "
+fr.lastril.uhchost.modes.lg.roles.lg.LoupGarouAmnesique:
+  - "&7C'est une autre description:."
+  - " "
+fr.lastril.uhchost.modes.lg.roles.lg.LoupGarouAnonyme:
+  - "&7C'est une autre description:."
+  - " "
+fr.lastril.uhchost.modes.lg.roles.lg.LoupGarouFeutre:
+  - "&7C'est une autre description:."
+  - " "
+fr.lastril.uhchost.modes.lg.roles.lg.LoupGarouGrimeur:
+  - "&7C'est une autre description:."
+  - " "
+fr.lastril.uhchost.modes.lg.roles.lg.LoupGarouJumeau:
+  - "&7C'est une autre description:."
+  - " "
+fr.lastril.uhchost.modes.lg.roles.lg.LoupGarouLunaire:
+  - "&7C'est une autre description:."
+  - " "
+fr.lastril.uhchost.modes.lg.roles.lg.LoupGarouPerfide:
+  - "&7C'est une autre description:."
+  - " "
+fr.lastril.uhchost.modes.lg.roles.lg.LouveMaudite:
+  - "&7C'est une autre description:."
+  - " "
+fr.lastril.uhchost.modes.lg.roles.lg.VilainPetitLoup:
+  - "&7C'est une autre description:."
+  - " "
+
+
+
+fr.lastril.uhchost.modes.lg.roles.solo.Assassin:
+  - "&7C'est une autre description:."
+  - " "
+fr.lastril.uhchost.modes.lg.roles.solo.Imitateur:
+  - "&7C'est une autre description:."
+  - " "
+fr.lastril.uhchost.modes.lg.roles.solo.LoupGarouBlance:
+  - "&7C'est une autre description:."
+  - " "
+fr.lastril.uhchost.modes.lg.roles.solo.Voleur:
+  - "&7C'est une autre description:."
+  - " "
+
+
+
+fr.lastril.uhchost.modes.lg.roles.village.voyante.Voyante:
+  - "&7C'est une autre description:."
+  - " "
+fr.lastril.uhchost.modes.lg.roles.village.voyante.VoyanteBavarde:
+  - "&7C'est une autre description:."
+  - " "
+fr.lastril.uhchost.modes.lg.roles.village.Ancien:
+  - "&7C'est une autre description:."
+  - " "
+fr.lastril.uhchost.modes.lg.roles.village.Ange:
+  - "&7C'est une autre description:."
+  - " "
+fr.lastril.uhchost.modes.lg.roles.village.Chaman:
+  - "&7C'est une autre description:."
+  - " "
+fr.lastril.uhchost.modes.lg.roles.village.Chasseur:
+  - "&7C'est une autre description:."
+  - " "
+fr.lastril.uhchost.modes.lg.roles.village.ChienLoup:
+  - "&7C'est une autre description:."
+  - " "
+fr.lastril.uhchost.modes.lg.roles.village.Citoyen:
+  - "&7C'est une autre description:."
+  - " "
+fr.lastril.uhchost.modes.lg.roles.village.Corbeau:
+  - "&7C'est une autre description:."
+  - " "
+fr.lastril.uhchost.modes.lg.roles.village.Cupidon:
+  - "&7C'est une autre description:."
+  - " "
+fr.lastril.uhchost.modes.lg.roles.village.Detective:
+  - "&7C'est une autre description:."
+  - " "
+fr.lastril.uhchost.modes.lg.roles.village.EnfantSauvage:
+  - "&7C'est une autre description:."
+  - " "
+fr.lastril.uhchost.modes.lg.roles.village.Garde:
+  - "&7C'est une autre description:."
+  - " "
+fr.lastril.uhchost.modes.lg.roles.village.Mineur:
+  - "&7C'est une autre description:."
+  - " "
+fr.lastril.uhchost.modes.lg.roles.village.MontreurDours:
+  - "&7C'est une autre description:."
+  - " "
+fr.lastril.uhchost.modes.lg.roles.village.PetiteFille:
+  - "&7C'est une autre description:."
+  - " "
+fr.lastril.uhchost.modes.lg.roles.village.Pretresse:
+  - "&7C'est une autre description:."
+  - " "
+fr.lastril.uhchost.modes.lg.roles.village.Renard:
+  - "&7C'est une autre description:."
+  - " "
+fr.lastril.uhchost.modes.lg.roles.village.Salvateur:
+  - "&7C'est une autre description:."
+  - " "
+fr.lastril.uhchost.modes.lg.roles.village.Soeur:
+  - "&7C'est une autre description:."
+  - " "
+fr.lastril.uhchost.modes.lg.roles.village.Sorciere:
+  - "&7C'est une autre description:."
+  - " "
+fr.lastril.uhchost.modes.lg.roles.village.Trublion:
+  - "&7C'est une autre description:."
+  - " "
+fr.lastril.uhchost.modes.lg.roles.village.Villageois:
+  - "&7C'est une autre description:."
+  - " "

@@ -1,8 +1,8 @@
 package fr.lastril.uhchost.tools;
 
 import fr.lastril.uhchost.UhcHost;
-import fr.lastril.uhchost.tools.Items;
-import fr.lastril.uhchost.tools.creators.ItemsCreator;
+import fr.lastril.uhchost.tools.API.items.ItemsCreator;
+import fr.lastril.uhchost.tools.API.items.crafter.QuickItem;
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
@@ -34,12 +34,12 @@ public class NotStart {
 			player.getInventory().setItem(0, ic);
 		}
 		if (player == UhcHost.getInstance().getGamemanager().getHost() || UhcHost.getInstance().gameManager.isCoHost(player)) {
-			player.getInventory().setItem(4, Items.getItem(Material.CHEST, ChatColor.GOLD + "Configuration", true));
-			player.getInventory().setItem(7, Items.getItem(Material.REDSTONE, ChatColor.GOLD + "Ne plus être Host", true));
+			player.getInventory().setItem(4, new QuickItem(Material.CHEST).setName(ChatColor.GOLD + "Configuration").toItemStack());
+			player.getInventory().setItem(7, new QuickItem(Material.REDSTONE).setName(ChatColor.GOLD + "Ne plus être Host").toItemStack());
 		} else {
-			player.getInventory().setItem(7, Items.getItem(Material.DIAMOND, ChatColor.AQUA + "Devenir Host", true));
+			player.getInventory().setItem(7, new QuickItem(Material.DIAMOND).setName(ChatColor.AQUA + "Devenir Host").toItemStack());
 		}
-		player.getInventory().setItem(8, Items.getItem(Material.BED, ChatColor.RED + "Lobby", true));
+		player.getInventory().setItem(8, new QuickItem(Material.BED).setName(ChatColor.RED + "Lobby").toItemStack());
 	}
 
 	public static void PreHosting(Player player) {
@@ -63,12 +63,12 @@ public class NotStart {
 			player.getInventory().setItem(0, ic);
 		}
 		if (player == UhcHost.getInstance().getGamemanager().getHost() || UhcHost.getInstance().gameManager.isCoHost(player)) {
-			player.getInventory().setItem(4, Items.getItem(Material.CHEST, ChatColor.GOLD + "Configuration", true));
-			player.getInventory().setItem(7, Items.getItem(Material.REDSTONE, ChatColor.GOLD +  "Ne plus être Host", true));
+			player.getInventory().setItem(4, new QuickItem(Material.CHEST).setName(ChatColor.GOLD + "Configuration").toItemStack());
+			player.getInventory().setItem(7, new QuickItem(Material.REDSTONE).setName(ChatColor.GOLD + "Ne plus être Host").toItemStack());
 		} else {
-			player.getInventory().setItem(7, Items.getItem(Material.DIAMOND, ChatColor.AQUA + "Devenir Host", true));
+			player.getInventory().setItem(7, new QuickItem(Material.DIAMOND).setName(ChatColor.AQUA + "Devenir Host").toItemStack());
 		}
-		player.getInventory().setItem(8, Items.getItem(Material.BED, ChatColor.RED + "Lobby", true));
+		player.getInventory().setItem(8, new QuickItem(Material.BED).setName(ChatColor.RED + "Lobby").toItemStack());
 	}
 
 	public static void checkingWorld(Player player) {

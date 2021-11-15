@@ -5,8 +5,6 @@ import fr.lastril.uhchost.enums.Messages;
 import fr.lastril.uhchost.modes.command.ModeSubCommand;
 import fr.lastril.uhchost.modes.lg.roles.LGFacadeRole;
 import fr.lastril.uhchost.modes.lg.roles.village.Renard;
-import fr.lastril.uhchost.modes.lg.roles.village.voyante.Voyante;
-import fr.lastril.uhchost.modes.lg.roles.village.voyante.VoyanteBavarde;
 import fr.lastril.uhchost.modes.roles.Camps;
 import fr.lastril.uhchost.player.PlayerManager;
 import org.bukkit.Bukkit;
@@ -39,29 +37,29 @@ public class CmdFlairer implements ModeSubCommand {
     public boolean onCommand(CommandSender sender, Command command, String s, String[] args) {
         Player player = (Player) sender;
         PlayerManager playerManager = pl.getPlayerManager(player.getUniqueId());
-        if(!playerManager.hasRole() || !playerManager.isAlive()){
+        if (!playerManager.hasRole() || !playerManager.isAlive()) {
             return false;
         }
-        if(playerManager.getRole() instanceof Renard){
+        if (playerManager.getRole() instanceof Renard) {
             Renard renard = (Renard) playerManager.getRole();
-            if(!renard.notReached()){
-                if(!renard.isCanRenifle()){
+            if (!renard.notReached()) {
+                if (!renard.isCanRenifle()) {
                     if (args.length == 2) {
                         String targetName = args[1];
                         Player target = Bukkit.getPlayer(targetName);
-                        if(target != null){
+                        if (target != null) {
                             PlayerManager targetManager = pl.getPlayerManager(target.getUniqueId());
-                            if(targetManager.isAlive() && targetManager.hasRole()){
+                            if (targetManager.isAlive() && targetManager.hasRole()) {
                                 sendCamps(player, targetManager);
                                 renard.addUse();
                             } else {
-                                player.sendMessage(Messages.LOUP_GAROU_PREFIX.getPrefix() + "§cCe joueur n'est pas/plus dans la partie !");
+                                player.sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage() + "§cCe PlayerManager n'est pas/plus dans la partie !");
                             }
                         } else {
-                            player.sendMessage(Messages.LOUP_GAROU_PREFIX.getPrefix() + "§cCe joueur n'est pas en ligne.");
+                            player.sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage() + "§cCe PlayerManager n'est pas en ligne.");
                         }
                     } else {
-                        player.sendMessage(Messages.LOUP_GAROU_PREFIX.getPrefix() + "§6Précisez un joueur.");
+                        player.sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage() + "§6Précisez un PlayerManager.");
                     }
                 }
             }
@@ -70,28 +68,28 @@ public class CmdFlairer implements ModeSubCommand {
         return false;
     }
 
-    private void sendCamps(Player player, PlayerManager targetManager){
-        if(targetManager.getRole() instanceof LGFacadeRole){
+    private void sendCamps(Player player, PlayerManager targetManager) {
+        if (targetManager.getRole() instanceof LGFacadeRole) {
             LGFacadeRole lgFacadeRole = (LGFacadeRole) targetManager.getRole();
-            if(lgFacadeRole.getRoleFacade().getCamp() == Camps.LOUP_GAROU ||
+            if (lgFacadeRole.getRoleFacade().getCamp() == Camps.LOUP_GAROU ||
                     lgFacadeRole.getRoleFacade().getCamp() == Camps.LOUP_GAROU_BLANC)
-                player.sendMessage(Messages.LOUP_GAROU_PREFIX.getPrefix()
-                    + "§bVous venez de renifler " + targetManager.getPlayerName()
-                    + ". Ce joueur est un loup-garou.");
+                player.sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage()
+                        + "§bVous venez de renifler " + targetManager.getPlayerName()
+                        + ". Ce PlayerManager est un loup-garou.");
             else
-                player.sendMessage(Messages.LOUP_GAROU_PREFIX.getPrefix()
+                player.sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage()
                         + "§bVous venez de renifler " + targetManager.getPlayerName()
-                        + ". Ce joueur n'est pas un loup-garou.");
+                        + ". Ce PlayerManager n'est pas un loup-garou.");
         } else {
-            if(targetManager.getRole().getCamp() == Camps.LOUP_GAROU_BLANC ||
-                targetManager.getRole().getCamp() == Camps.LOUP_GAROU){
-                player.sendMessage(Messages.LOUP_GAROU_PREFIX.getPrefix()
+            if (targetManager.getRole().getCamp() == Camps.LOUP_GAROU_BLANC ||
+                    targetManager.getRole().getCamp() == Camps.LOUP_GAROU) {
+                player.sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage()
                         + "§bVous venez de renifler " + targetManager.getPlayerName()
-                        + ". Ce joueur n'est pas un loup-garou.");
+                        + ". Ce PlayerManager n'est pas un loup-garou.");
             } else {
-                player.sendMessage(Messages.LOUP_GAROU_PREFIX.getPrefix()
+                player.sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage()
                         + "§bVous venez de renifler " + targetManager.getPlayerName()
-                        + ". Ce joueur n'est pas un loup-garou.");
+                        + ". Ce PlayerManager n'est pas un loup-garou.");
             }
         }
     }

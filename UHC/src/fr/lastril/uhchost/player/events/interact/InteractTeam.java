@@ -2,8 +2,8 @@ package fr.lastril.uhchost.player.events.interact;
 
 import fr.lastril.uhchost.UhcHost;
 import fr.lastril.uhchost.player.events.GameStartEvent;
-import fr.lastril.uhchost.team.TeamsGui;
 import fr.lastril.uhchost.scoreboard.TeamUtils;
+import fr.lastril.uhchost.team.TeamsGui;
 import fr.lastril.uhchost.tools.I18n;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;

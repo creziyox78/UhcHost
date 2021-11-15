@@ -2,9 +2,6 @@ package fr.lastril.uhchost.modes.command;
 
 import fr.lastril.uhchost.UhcHost;
 import fr.lastril.uhchost.modes.Mode;
-import fr.lastril.uhchost.modes.ModeManager;
-import fr.lastril.uhchost.modes.command.ModeSubCommand;
-import fr.lastril.uhchost.modes.lg.LoupGarouManager;
 import fr.lastril.uhchost.modes.roles.Camps;
 import fr.lastril.uhchost.modes.roles.RoleMode;
 import fr.lastril.uhchost.player.PlayerManager;
@@ -38,15 +35,15 @@ public class CmdCompo implements ModeSubCommand {
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         Player player = (Player) sender;
         Mode mode = pl.gameManager.getModes().getMode();
-        if(mode instanceof RoleMode && mode.getModeManager() != null){
+        if (mode instanceof RoleMode && mode.getModeManager() != null) {
             sender.sendMessage("§8§m----------------------------------");
             for (Camps camp : Camps.values()) {
-                for (PlayerManager joueurs : mode.getModeManager().getJoueursWithCamps(camp)) {
-                    if (joueurs.isAlive()) {
-                        sender.sendMessage(camp.getCompoColor() + joueurs.getRole().getRoleName() + (player.isOp() ? " §l(" + joueurs.getPlayerName() + " | Camps: " + joueurs.getCamps().name() + ")" : ""));
+                for (PlayerManager PlayerManagers : mode.getModeManager().getPlayerManagersWithCamps(camp)) {
+                    if (PlayerManagers.isAlive()) {
+                        sender.sendMessage(camp.getCompoColor() + PlayerManagers.getRole().getRoleName() + (player.isOp() ? " §l(" + PlayerManagers.getPlayerName() + " | Camps: " + PlayerManagers.getCamps().name() + ")" : ""));
                     }
                 }
-                if (!mode.getModeManager().getJoueursWithCamps(camp).isEmpty())
+                if (!mode.getModeManager().getPlayerManagersWithCamps(camp).isEmpty())
                     sender.sendMessage(" ");
             }
             sender.sendMessage("§8§m----------------------------------");

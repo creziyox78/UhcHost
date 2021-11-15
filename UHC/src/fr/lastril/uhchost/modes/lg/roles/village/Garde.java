@@ -3,11 +3,12 @@ package fr.lastril.uhchost.modes.lg.roles.village;
 import fr.lastril.uhchost.modes.lg.roles.LGRole;
 import fr.lastril.uhchost.modes.roles.Camps;
 import fr.lastril.uhchost.modes.roles.Role;
-import fr.lastril.uhchost.tools.creators.ItemsCreator;
+import fr.lastril.uhchost.tools.API.items.crafter.QuickItem;
 import org.bukkit.entity.Player;
 
 public class Garde extends Role implements LGRole {
-    @Override
+
+
     public String getSkullValue() {
         return "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYzNmZDMyMDMyODY2ZThkYTI2ZWVmZGZlOGU5M2Y1MWQ1YTE0MjAzN2YxZGJhMjljNTJjMTYxZDc5YjNmOWYifX19";
     }
@@ -38,7 +39,7 @@ public class Garde extends Role implements LGRole {
     }
 
     @Override
-    public ItemsCreator getItem() {
+    public QuickItem getItem() {
         return null;
     }
 

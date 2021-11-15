@@ -1,7 +1,6 @@
 package fr.lastril.uhchost.scoreboard;
 
 import fr.lastril.uhchost.UhcHost;
-import fr.lastril.uhchost.game.tasks.TaskManager;
 import fr.lastril.uhchost.modes.roles.RoleAnnounceMode;
 import fr.lastril.uhchost.tools.I18n;
 import org.bukkit.Bukkit;

@@ -1,14 +1,14 @@
 package fr.lastril.uhchost.tools.API.clickable_messages;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import fr.lastril.uhchost.UhcHost;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class ClickableMessageManager implements Listener{
 	

@@ -1,12 +1,11 @@
 package fr.lastril.uhchost.scenario;
 
 import fr.lastril.uhchost.UhcHost;
-import fr.lastril.uhchost.inventory.Gui;
+import fr.lastril.uhchost.tools.API.inventory.crafter.IQuickInventory;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.event.Listener;
-import org.bukkit.plugin.Plugin;
 
 import java.util.List;
 
@@ -19,7 +18,7 @@ public abstract class Scenario implements Listener {
 
 	private byte data;
 
-	private Class<? extends Gui> gui;
+	private Class<? extends IQuickInventory> gui;
 
 	public Scenario(String name, List<String> descritpion, Material type) {
 		this.name = ChatColor.AQUA + name;
@@ -36,7 +35,7 @@ public abstract class Scenario implements Listener {
 		Bukkit.getPluginManager().registerEvents(this, UhcHost.getInstance());
 	}
 
-	public Scenario(String name, List<String> descritpion, Material type, Class<? extends Gui> gui) {
+	public Scenario(String name, List<String> descritpion, Material type, Class<? extends IQuickInventory> gui) {
 		this.name = ChatColor.AQUA +name;
 		this.descritpion = descritpion;
 		this.type = type;
@@ -44,7 +43,7 @@ public abstract class Scenario implements Listener {
 		Bukkit.getPluginManager().registerEvents(this, UhcHost.getInstance());
 	}
 
-	public Scenario(String name, List<String> descritpion, Material type, byte data, Class<? extends Gui> gui) {
+	public Scenario(String name, List<String> descritpion, Material type, byte data, Class<? extends IQuickInventory> gui) {
 		this.name = ChatColor.AQUA + name;
 		this.descritpion = descritpion;
 		this.type = type;
@@ -69,7 +68,7 @@ public abstract class Scenario implements Listener {
 		return this.data;
 	}
 
-	public Class<? extends Gui> getGui() {
+	public Class<? extends IQuickInventory> getGui() {
 		return this.gui;
 	}
 }

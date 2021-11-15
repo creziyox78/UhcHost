@@ -1,7 +1,6 @@
 package fr.lastril.uhchost.game.tasks;
 
 import fr.lastril.uhchost.UhcHost;
-import fr.lastril.uhchost.enums.Messages;
 import fr.lastril.uhchost.enums.WorldState;
 import fr.lastril.uhchost.game.GameState;
 import fr.lastril.uhchost.modes.Mode;
@@ -12,15 +11,10 @@ import fr.lastril.uhchost.scenario.Scenarios;
 import fr.lastril.uhchost.tools.API.TitleAPI;
 import fr.lastril.uhchost.tools.I18n;
 import org.bukkit.Bukkit;
-import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
-import org.bukkit.event.Event;
-import org.bukkit.plugin.Plugin;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitTask;
-
-import java.util.stream.Collectors;
 
 public class TaskManager {
 
@@ -158,11 +152,11 @@ public class TaskManager {
 						pl.gameManager.episode++;
 						episodeTimer = 0;
 						Bukkit.broadcastMessage("Début de l'épisode " + pl.gameManager.episode);
-						for (PlayerManager joueur : pl.getPlayerManagerAlives()) {
-							if (joueur.getPlayer() != null) {
-								Player player = joueur.getPlayer();
-								if (joueur.hasRole()) {
-									joueur.getRole().onNewEpisode(player);
+						for (PlayerManager playerManager : pl.getPlayerManagerAlives()) {
+							if (playerManager.getPlayer() != null) {
+								Player player = playerManager.getPlayer();
+								if (playerManager.hasRole()) {
+									playerManager.getRole().onNewEpisode(player);
 								}
 							}
 						}
@@ -175,11 +169,11 @@ public class TaskManager {
 				if (time >= 13000) {
 					if (pl.getGamemanager().getWorldState() == WorldState.DAY) {
 						pl.getGamemanager().setWorldState(WorldState.NIGHT);
-						for (PlayerManager joueur : pl.getAllPlayerManager().values()) {
-							if (joueur.getPlayer() != null) {
-								Player player = joueur.getPlayer();
-								if (joueur.getRole() != null) {
-									joueur.getRole().night(player);
+						for (PlayerManager playerManager : pl.getAllPlayerManager().values()) {
+							if (playerManager.getPlayer() != null) {
+								Player player = playerManager.getPlayer();
+								if (playerManager.getRole() != null) {
+									playerManager.getRole().night(player);
 								}
 							}
 						}
@@ -190,12 +184,12 @@ public class TaskManager {
 				} else {
 					if (pl.getGamemanager().getWorldState() == WorldState.NIGHT) {
 						pl.getGamemanager().setWorldState(WorldState.DAY);
-						for (PlayerManager joueur : pl.getAllPlayerManager().values()) {
-							if (joueur.getPlayer() != null) {
-								Player player = joueur.getPlayer();
-								if (joueur.getRole() != null) {
-									joueur.getRole().day(player);
-									joueur.getRole().onNewDay(player);
+						for (PlayerManager playerManager : pl.getAllPlayerManager().values()) {
+							if (playerManager.getPlayer() != null) {
+								Player player = playerManager.getPlayer();
+								if (playerManager.getRole() != null) {
+									playerManager.getRole().day(player);
+									playerManager.getRole().onNewDay(player);
 
 								}
 							}

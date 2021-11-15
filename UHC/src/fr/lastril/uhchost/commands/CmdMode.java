@@ -50,20 +50,22 @@ public class CmdMode implements TabExecutor {
     @Override
     public List<String> onTabComplete(CommandSender sender, Command command, String label, String[] args) {
         List<String> possibilities = new ArrayList<>();
-
+        System.out.println("Tabing...");
         if (args.length == 1) {
             modeCommand.getSubCommands().stream().map(ModeSubCommand::getSubCommandName).filter(subCommand -> subCommand.startsWith(args[0])).forEach(possibilities::add);
+            System.out.println("Tab with 1 arg.");
         } else if (args.length == 2) {
+            System.out.println("Tab with 2 args.");
             String subCommandName = args[0];
-            modeCommand.getSubCommand(subCommandName).ifPresent(subCommand -> {
-                subCommand.getSubArgs().stream().filter(subArg -> subArg.startsWith(args[0])).forEach(possibilities::add);
-            });
+            modeCommand.getSubCommand(subCommandName).ifPresent(subCommand -> subCommand.getSubArgs().stream().filter(subArg ->
+                    subArg.startsWith(args[0].toUpperCase()) || subArg.startsWith(args[0].toLowerCase()))
+                    .forEach(possibilities::add));
         }
 
         return possibilities;
     }
 
-    private final void sendUse(Player player, String labelUsed){
+    private void sendUse(Player player, String labelUsed){
         String commands = Strings.join(modeCommand.getSubCommands().stream().map(ModeSubCommand::getSubCommandName).collect(Collectors.toList()), "/");
 
         player.sendMessage(("§cUtilisation: /" + labelUsed + " <" + commands + ">"));

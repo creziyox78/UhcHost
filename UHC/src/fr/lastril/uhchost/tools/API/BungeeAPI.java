@@ -2,7 +2,6 @@ package fr.lastril.uhchost.tools.API;
 
 import fr.lastril.uhchost.UhcHost;
 import org.bukkit.entity.Player;
-import org.bukkit.plugin.Plugin;
 
 import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
