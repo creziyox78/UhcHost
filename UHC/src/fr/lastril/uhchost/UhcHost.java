@@ -8,6 +8,7 @@ import fr.lastril.uhchost.game.tasks.TaskManager;
 import fr.lastril.uhchost.inventory.CustomInv;
 import fr.lastril.uhchost.modes.Modes;
 import fr.lastril.uhchost.modes.command.ModeCommand;
+import fr.lastril.uhchost.modes.roles.Role;
 import fr.lastril.uhchost.player.PlayerManager;
 import fr.lastril.uhchost.player.events.custom.GameStart;
 import fr.lastril.uhchost.player.events.interact.InteractCheckWorld;
@@ -349,15 +350,15 @@ public class UhcHost extends JavaPlugin {
 
     }
 
-	public String getLGRoleDescription(String pathRole) {
+	public String getLGRoleDescription(Role role, String rolePath) {
 
 		String description = "\n";
 		checkingDescriptionUpdate();
         File file = new File(getDataFolder() + "/description/lg.yml");
         YamlConfiguration lgYaml = YamlConfiguration.loadConfiguration(file);
 
-        for(String line : lgYaml.getStringList(pathRole)){
-            description += line.replace("&", "§") + " \n";
+        for(String line : lgYaml.getStringList(rolePath)){
+            description += line.replace("&", "§").replace("{role}", role.getRoleName()) + " \n";
         }
 
 		return description;

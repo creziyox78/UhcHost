@@ -39,7 +39,7 @@ public class LoupGarouAlpha extends Role implements LGRole {
 
     @Override
     public String getDescription() {
-        return main.getLGRoleDescription(this.getClass().getName());
+        return main.getLGRoleDescription(this,this.getClass().getName());
     }
 
     @Override

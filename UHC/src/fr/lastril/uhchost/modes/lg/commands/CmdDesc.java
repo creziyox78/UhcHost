@@ -40,19 +40,16 @@ public class CmdDesc implements ModeSubCommand{
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
         Player player = (Player) sender;
         if(args.length >= 2){
-            String pathRole = "";
+            String roleName = "";
             for(int i = 1; i < args.length; i++){
-                pathRole += args[i] + " ";
+                roleName += args[i] + " ";
             }
             if(pl.gameManager.getModes().getMode() instanceof RoleMode<?>){
                 RoleMode<?> mode = (RoleMode<?>) pl.getGamemanager().getModes().getMode();
                 for (Role roles : mode.getRoles()) {
-                    System.out.println(roles.getRoleName() + " : " + pathRole);
-                    if(pathRole.equalsIgnoreCase(roles.getRoleName() + " ")){
-                        player.sendMessage("------- §aDescription --------");
-                        player.sendMessage("§6Vous êtes <nom du rôle>.");
-                        player.sendMessage(UhcHost.getInstance().getLGRoleDescription(roles.getClass().getName()));
-                        player.sendMessage("------- §aFin de description --------");
+                    System.out.println(roles.getRoleName() + " : " + roleName);
+                    if(roleName.equalsIgnoreCase(roles.getRoleName() + " ")){
+                        player.sendMessage(UhcHost.getInstance().getLGRoleDescription(roles, roles.getClass().getName()));
                         return true;
                     }
                 }
