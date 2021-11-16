@@ -70,7 +70,7 @@ public class PetiteFille extends Role implements LGRole {
 
     @Override
     public String getDescription() {
-        return " Vous n'avez pas de pouvoir particulier.";
+        return main.getLGRoleDescription(this,this.getClass().getName());
     }
 
     @Override

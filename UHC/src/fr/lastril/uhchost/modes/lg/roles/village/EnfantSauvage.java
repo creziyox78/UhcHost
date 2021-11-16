@@ -50,8 +50,7 @@ public class EnfantSauvage extends Role implements LGRole {
 
     @Override
     public String getDescription() {
-        //TODO
-        return " Vous n'avez pas de pouvoir particulier.";
+        return main.getLGRoleDescription(this,this.getClass().getName());
     }
 
 

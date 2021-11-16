@@ -59,7 +59,7 @@ public class Renard extends Role implements LGRole, RoleCommand {
 
     @Override
     public String getDescription() {
-        return "Pendant la nuit, vous pouvez flairer 3 PlayerManagers dans la partie et savoir s'il fait partie du camp des Loups-Garous ou non.";
+        return main.getLGRoleDescription(this,this.getClass().getName());
     }
 
 

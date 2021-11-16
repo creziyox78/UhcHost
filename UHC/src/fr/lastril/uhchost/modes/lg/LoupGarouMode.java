@@ -72,10 +72,10 @@ public class LoupGarouMode extends Mode implements ModeCommand, RoleMode<LGRole>
             Bukkit.getConsoleSender().sendMessage("role " + role.getRoleName());
             if (offlinePlayer.isOnline()) {
                 Player player = offlinePlayer.getPlayer();
-                player.sendMessage("§7§m------------------------------------------");
-                player.sendMessage("§7Vous êtes " + role.getCamp().getCompoColor() + "" + role.getRoleName() + "§7.");
+                //player.sendMessage("§7§m------------------------------------------");
+                //player.sendMessage("§7Vous êtes " + role.getCamp().getCompoColor() + "" + role.getRoleName() + "§7.");
                 player.sendMessage(role.getDescription() != null ? "§7" + role.getDescription() : "§c§lDESCRIPTION NULL");
-                player.sendMessage("§7§m------------------------------------------");
+                //player.sendMessage("§7§m------------------------------------------");
                 player.playSound(player.getLocation(), Sound.LEVEL_UP, 1, 10);
                 role.stuff(player);
             }

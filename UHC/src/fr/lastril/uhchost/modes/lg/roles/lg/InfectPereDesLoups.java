@@ -39,10 +39,7 @@ public class InfectPereDesLoups extends Role implements LGRole, RoleListener {
 
     @Override
     public String getDescription() {
-        return " Pour ce faire, vous disposez de l'effet Force I la nuit et Night Vision. "
-                + "A chaque kill, vous gagnez 1 minute de Speed et 2 coeurs d'absorbtion pendant 2 minutes."
-                + "Une fois dans la partie, vous pouvez décider de ressusciter un PlayerManager mort des griffes des Loups-Garous."
-                + "Ce PlayerManager deviendra alors un Loup-Garou, tout en gardant ses pouvoirs d'origine.";
+        return main.getLGRoleDescription(this,this.getClass().getName());
     }
 
     @Override

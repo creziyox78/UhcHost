@@ -41,7 +41,7 @@ public class LoupGarouPerfide extends Role implements LGRole {
 
     @Override
     public String getDescription() {
-        return " ";
+        return main.getLGRoleDescription(this,this.getClass().getName());
     }
 
     @Override

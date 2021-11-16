@@ -53,9 +53,7 @@ public class Cupidon extends Role implements LGRole, RoleCommand {
 
     @Override
     public String getDescription() {
-        return "Vous avez la possibilité de mettre 2 PlayerManagers de la partie en couple.\n" +
-                "Si l'un vient à mourir, l'autre mourra également instantanément.\n" +
-                "Vous possèdez un livre Punch I ainsi que de 64 flèches.";
+        return main.getLGRoleDescription(this,this.getClass().getName());
     }
 
     @Override

@@ -39,7 +39,7 @@ public class LoupGarouAnonyme extends Role implements LGRole, LGFacadeRole {
 
     @Override
     public String getDescription() {
-        return null;
+        return main.getLGRoleDescription(this,this.getClass().getName());
     }
 
     @Override

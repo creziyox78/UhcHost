@@ -29,8 +29,7 @@ public class LoupGarouBlanc extends Role implements LGRole {
 
     @Override
     public String getDescription() {
-        return " Pour ce faire, vous disposez de l'effet Force I la nuit et Night Vision ainsi que de 5 coeurs permanent en plus. "
-                + "A chaque kill, vous gagnez 1 minute de Speed et 2 coeurs d'absorbtion pendant 2 minutes.";
+        return main.getLGRoleDescription(this,this.getClass().getName());
     }
 
     @Override

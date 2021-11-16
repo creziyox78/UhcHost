@@ -79,7 +79,7 @@ public class MontreurDours extends Role implements LGRole {
 
     @Override
     public String getDescription() {
-        return "Vous avez le pouvoir de détecter les Loups-Garous à chaque début d'épisode, il y a un ou plusieurs \"Grrrr !\" en fonction du nombre de Loups-Garous se trouvant dans un rayon de 50 blocks autour de vous.";
+        return main.getLGRoleDescription(this,this.getClass().getName());
     }
 
     @Override

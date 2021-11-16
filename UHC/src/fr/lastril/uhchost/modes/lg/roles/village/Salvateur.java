@@ -54,7 +54,7 @@ public class Salvateur extends Role implements LGRole, RoleCommand {
 
     @Override
     public String getDescription() {
-        return "Au début de chaque journée, vous avez la possibilité de protéger un villageois en lui conférant Résistance 1 ainsi que NoFall pendant 20 minutes avec la commande \"/lg salvation\". Vous ne pouvez pas protéger 2 fois de suite le même villageois. Vous pouvez vous protéger vous-même.";
+        return main.getLGRoleDescription(this,this.getClass().getName());
     }
 
 

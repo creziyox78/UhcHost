@@ -352,7 +352,7 @@ public class UhcHost extends JavaPlugin {
 
 	public String getLGRoleDescription(Role role, String rolePath) {
 
-		String description = "\n";
+		String description = null;
 		checkingDescriptionUpdate();
         File file = new File(getDataFolder() + "/description/lg.yml");
         YamlConfiguration lgYaml = YamlConfiguration.loadConfiguration(file);

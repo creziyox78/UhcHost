@@ -30,7 +30,7 @@ public class Mineur extends Role implements LGRole {
 
     @Override
     public String getDescription() {
-        return "Pour ce faire, vous disposez d'un un livre efficiency 3 et de l'effet Haste 1.";
+        return main.getLGRoleDescription(this,this.getClass().getName());
     }
 
 

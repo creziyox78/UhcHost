@@ -25,6 +25,7 @@ public enum LGRoles {
     LG_PERFIDE(LoupGarouPerfide.class), //TODO BE TESTED
     LG_LUNAIRE(LoupGarouLunaire.class), //TODO BE TESTED
     LG_GRIMEUR(LoupGarouGrimeur.class),
+    LG_CRAINTIF(LoupGarouCraintif.class),
     LG_JUMEAU(LoupGarouJumeau.class),
     LV_MAUDITE(LouveMaudite.class),
     VPL(VilainPetitLoup.class), //TODO BE TESTED

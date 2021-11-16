@@ -69,7 +69,7 @@ public class Voleur extends Role implements LGRole {
 
     @Override
     public String getDescription() {
-        return "Vous pouvez voler le rôle d'un autre PlayerManager en le tuant. Pour vous aider, vous avez l'effet Résistance I tant que vous n'avez pas voler de rôle.";
+        return main.getLGRoleDescription(this,this.getClass().getName());
     }
 
     @Override

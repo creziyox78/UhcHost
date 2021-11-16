@@ -52,7 +52,7 @@ public class Sorciere extends Role implements LGRole, RoleListener {
 
     @Override
     public String getDescription() {
-        return "Vous avez la possibilité de ressusciter un PlayerManager dans la partie. Vous ne voyez pas le PlayerManager mort si l'Infect Père des Loups à infecté le PlayerManager. Vous pouvez vous ressusciter vous-même.";
+        return main.getLGRoleDescription(this,this.getClass().getName());
     }
 
     @Override

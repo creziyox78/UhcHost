@@ -31,7 +31,7 @@ public class ChienLoup extends Role implements LGRole {
 
     @Override
     public String getDescription() {
-        return null;
+        return main.getLGRoleDescription(this,this.getClass().getName());
     }
 
     @Override
