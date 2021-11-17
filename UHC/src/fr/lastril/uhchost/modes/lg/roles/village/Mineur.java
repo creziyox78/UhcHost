@@ -67,7 +67,7 @@ public class Mineur extends Role implements LGRole {
 
     @Override
     public QuickItem getItem() {
-        return new QuickItem(Material.GOLD_PICKAXE).setName("§a" + getRoleName());
+        return new QuickItem(Material.GOLD_PICKAXE).setName(getCamp().getCompoColor() + getRoleName());
     }
 
 }

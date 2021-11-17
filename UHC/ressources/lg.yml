@@ -1,21 +1,31 @@
 
 #Format pour les descriptions
 #
-#Chaque ligne commençant par "fr.lastril.uhchost.modes.lg.roles" ne DOIVENT PAS ÊTRE MODIFIER !
+#Chaque ligne commençant par "fr.lastril.uhchost.modes.lg.roles" ne DOIVENT PAS ETRE MODIFIER !
 #
 #Pour sauter une ligne, faite juste une nouvelle ligne (pas besoin d'espace).
 #
 #Pour le code couleur, utilisez le symbole "&".
 #
-#Votre description commencera après "Vous êtes <ROLE>."
 #Donc il faut faire l'objectif ainsi que les pouvoirs.
-#La liste est donné et les rôles tels que les soeurs se connaissent et sont déjà implémentés.
+#La liste est donné.
+#
+#Pour avoir le nom des rôles, il suffit de les retrouver dans le menu de la composition, sur le serveur minecraft.
 #
 
 
 fr.lastril.uhchost.modes.lg.roles.lg.InfectPereDesLoups:
-  - "&7C'est une autre description:."
-  - " "
+  - "&8&m-------------------------------------------&r"
+  - ""
+  - "&7Vous êtes &4{role}&7, vous appartenez au camp des&4&o Loups-Garous&r&7."
+  - "&7Au début de la partie vous recevez la liste des Loups-Garous&r&7."
+  - "&7Comme la plus part des Loups-Garous&r&7, vous bénéficiez des effets &oForce I &7et &oNightVisoin &7la nuit."
+  - "&7De la même façon que les autres Loups-Garous, vous avez accès au chat des loups la nuit."
+  - ""
+  - "&7Votre rôle vous permet d'infecter un joueur durant la partie, seulement si c'est un Loup-Garou ou vous-même qui"
+  - "le tué selon la configuration de la partie."
+  - ""
+  - "&8&m-------------------------------------------&r"
 fr.lastril.uhchost.modes.lg.roles.lg.LoupGarou:
   - "&7C'est une autre description:."
   - " "
@@ -26,6 +36,9 @@ fr.lastril.uhchost.modes.lg.roles.lg.LoupGarouAmnesique:
   - "&7C'est une autre description:."
   - " "
 fr.lastril.uhchost.modes.lg.roles.lg.LoupGarouAnonyme:
+  - "&7C'est une autre description:."
+  - " "
+fr.lastril.uhchost.modes.lg.roles.lg.LoupGarouCraintif:
   - "&7C'est une autre description:."
   - " "
 fr.lastril.uhchost.modes.lg.roles.lg.LoupGarouFeutre:

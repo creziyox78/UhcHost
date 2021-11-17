@@ -53,10 +53,10 @@ public class CmdFlairer implements ModeSubCommand {
                                 sendCamps(player, targetManager);
                                 renard.addUse();
                             } else {
-                                player.sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage() + "§cCe PlayerManager n'est pas/plus dans la partie !");
+                                player.sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage() + "§cCe joueur n'est pas/plus dans la partie !");
                             }
                         } else {
-                            player.sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage() + "§cCe PlayerManager n'est pas en ligne.");
+                            player.sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage() + "§cCe joueur n'est pas en ligne.");
                         }
                     } else {
                         player.sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage() + "§6Précisez un PlayerManager.");
@@ -75,21 +75,21 @@ public class CmdFlairer implements ModeSubCommand {
                     lgFacadeRole.getRoleFacade().getCamp() == Camps.LOUP_GAROU_BLANC)
                 player.sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage()
                         + "§bVous venez de renifler " + targetManager.getPlayerName()
-                        + ". Ce PlayerManager est un loup-garou.");
+                        + ". Ce joueur est un loup-garou.");
             else
                 player.sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage()
                         + "§bVous venez de renifler " + targetManager.getPlayerName()
-                        + ". Ce PlayerManager n'est pas un loup-garou.");
+                        + ". Ce joueur n'est pas un loup-garou.");
         } else {
             if (targetManager.getRole().getCamp() == Camps.LOUP_GAROU_BLANC ||
                     targetManager.getRole().getCamp() == Camps.LOUP_GAROU) {
                 player.sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage()
                         + "§bVous venez de renifler " + targetManager.getPlayerName()
-                        + ". Ce PlayerManager n'est pas un loup-garou.");
+                        + ". Ce joueur n'est pas un loup-garou.");
             } else {
                 player.sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage()
                         + "§bVous venez de renifler " + targetManager.getPlayerName()
-                        + ". Ce PlayerManager n'est pas un loup-garou.");
+                        + ". Ce joueur n'est pas un loup-garou.");
             }
         }
     }

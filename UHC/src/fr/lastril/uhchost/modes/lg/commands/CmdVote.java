@@ -57,7 +57,7 @@ public class CmdVote implements ModeSubCommand {
                     player.sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage() + "§cVous avez déjà voté !");
                 }
             } else {
-                player.sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage() + "§cCe PlayerManager n'est pas en ligne.");
+                player.sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage() + "§cCe joueur n'est pas en ligne.");
             }
         }
 

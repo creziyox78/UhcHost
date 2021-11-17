@@ -1,21 +1,33 @@
 package fr.lastril.uhchost.modes.lg.roles.village;
 
+import fr.lastril.uhchost.enums.Messages;
+import fr.lastril.uhchost.modes.command.ModeSubCommand;
+import fr.lastril.uhchost.modes.lg.commands.CmdShot;
 import fr.lastril.uhchost.modes.lg.roles.LGRole;
 import fr.lastril.uhchost.modes.roles.Camps;
 import fr.lastril.uhchost.modes.roles.Role;
+import fr.lastril.uhchost.modes.roles.RoleCommand;
+import fr.lastril.uhchost.player.PlayerManager;
 import fr.lastril.uhchost.tools.API.items.Oeuf;
 import fr.lastril.uhchost.tools.API.items.crafter.QuickItem;
+import net.md_5.bungee.api.chat.ClickEvent;
+import net.md_5.bungee.api.chat.TextComponent;
+import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.SkullType;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
-public class Chasseur extends Role implements LGRole {
+import java.util.Arrays;
+import java.util.List;
 
-    public String getSkullValue() {
-        return null;
-    }
+public class Chasseur extends Role implements LGRole, RoleCommand {
+
+    private boolean shot;
+    private int reminingTime = 30;
 
     @Override
     public void giveItems(Player player) {
@@ -32,6 +44,18 @@ public class Chasseur extends Role implements LGRole {
 
     @Override
     public void onDay(Player player) {
+    }
+
+    @Override
+    public void onPlayerDeathRealy(PlayerManager player, ItemStack[] items, ItemStack[] armors, Player killer, Location deathLocation) {
+        super.onPlayerDeathRealy(player, items, armors, killer, deathLocation);
+        if(player.hasRole()){
+            if(player.getRole() instanceof Chasseur){
+                TextComponent message = new TextComponent("§aTir : " + Messages.CLICK_HERE.getMessage());
+                message.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/lg tir"));
+                Bukkit.getScheduler().runTaskLater(main, () -> setShot(true), 20*reminingTime);
+            }
+        }
     }
 
     @Override
@@ -55,8 +79,7 @@ public class Chasseur extends Role implements LGRole {
 
     @Override
     public QuickItem getItem() {
-        return null;
-        //return new QuickItem(Material.SKULL_ITEM, 1, SkullType.PLAYER.ordinal()).setName("§a" + getRoleName()).setTexture("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNDFiODMwZWI0MDgyYWNlYzgzNmJjODM1ZTQwYTExMjgyYmI1MTE5MzMxNWY5MTE4NDMzN2U4ZDM1NTU1ODMifX19");
+        return new QuickItem(Material.SKULL_ITEM, 1, SkullType.PLAYER.ordinal()).setName(getCamp().getCompoColor() + getRoleName()).setTexture("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNDFiODMwZWI0MDgyYWNlYzgzNmJjODM1ZTQwYTExMjgyYmI1MTE5MzMxNWY5MTE4NDMzN2U4ZDM1NTU1ODMifX19");
     }
 
     @Override
@@ -67,6 +90,25 @@ public class Chasseur extends Role implements LGRole {
     @Override
     public Camps getCamp() {
         return Camps.VILLAGEOIS;
+    }
+
+    @Override
+    public List<ModeSubCommand> getSubCommands() {
+        return Arrays.asList(new CmdShot(main));
+    }
+
+    public void setShot(boolean shot) {
+        this.shot = shot;
+    }
+
+    public boolean isShot() {
+        return shot;
+    }
+
+    public void shot(Player player){
+        player.setHealth(player.getHealth() / 2);
+        player.sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage() + "§eLe chasseur vient de vous tirer dessus. Vous perdez la moitié de votre vie.");
+        setShot(true);
     }
 
 }

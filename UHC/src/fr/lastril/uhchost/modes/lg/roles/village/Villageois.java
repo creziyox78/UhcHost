@@ -10,11 +10,6 @@ import org.bukkit.entity.Player;
 
 public class Villageois extends Role implements LGRole {
 
-
-    public String getSkullValue() {
-        return "";
-    }
-
     @Override
     public void giveItems(Player player) {
     }

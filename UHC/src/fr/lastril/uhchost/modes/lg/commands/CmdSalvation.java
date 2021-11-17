@@ -57,10 +57,10 @@ public class CmdSalvation implements ModeSubCommand {
                                 Bukkit.getScheduler().runTaskLater(pl, () -> targetManager.getWolfPlayerManager().setSalvation(false), 20 * 60 * 20);
                                 targetManager.getWolfPlayerManager().setSalvation(true);
                             } else {
-                                player.sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage() + "§cCe PlayerManager ne peut pas être ciblé !");
+                                player.sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage() + "§cCe joueur ne peut pas être ciblé !");
                             }
                         } else {
-                            player.sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage() + "§cCe PlayerManager ne fait pas partie de la partie !");
+                            player.sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage() + "§cCe joueur ne fait pas partie de la partie !");
                         }
                     }
                 }

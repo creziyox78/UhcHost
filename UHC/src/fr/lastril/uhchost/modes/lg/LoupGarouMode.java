@@ -13,6 +13,7 @@ import fr.lastril.uhchost.modes.command.ModeSubCommand;
 import fr.lastril.uhchost.modes.lg.commands.CmdDesc;
 import fr.lastril.uhchost.modes.lg.commands.CmdVote;
 import fr.lastril.uhchost.modes.lg.roles.LGRole;
+import fr.lastril.uhchost.modes.lg.roles.village.Trublion;
 import fr.lastril.uhchost.modes.roles.*;
 import fr.lastril.uhchost.player.PlayerManager;
 import fr.lastril.uhchost.tools.API.BungeeAPI;
@@ -46,7 +47,12 @@ public class LoupGarouMode extends Mode implements ModeCommand, RoleMode<LGRole>
         if (announceRoles == 0) {
             annonceRoles();
         }
+        if(loupGarouManager.getSendWerewolfListTime() == timer){
+            sendLgList();
+        }
     }
+
+
 
     public void annonceRoles() {
         List<Class<? extends Role>> compo = pl.getGamemanager().getComposition();
@@ -124,6 +130,26 @@ public class LoupGarouMode extends Mode implements ModeCommand, RoleMode<LGRole>
             }
         }
 
+    }
+
+    public void sendLgList(){
+        loupGarouManager.setSendedlist(true);
+        for(PlayerManager playerManager : getLoupGarouManager().getPlayerManagersWithCamps(Camps.LOUP_GAROU)){
+            Player player = playerManager.getPlayer();
+            if(playerManager.getPlayer() != null){
+                player.sendMessage(getLoupGarouManager().sendLGList());
+            }
+        }
+        for(PlayerManager playerManager : getLoupGarouManager().getPlayerManagersWithCamps(Camps.LOUP_GAROU_BLANC)){
+            Player player = playerManager.getPlayer();
+            if(playerManager.getPlayer() != null){
+                player.sendMessage(getLoupGarouManager().sendLGList());
+            }
+        }
+        for(PlayerManager playerManager : getLoupGarouManager().getPlayerManagersWithRole(Trublion.class)){
+            Trublion trublion = (Trublion) playerManager.getRole();
+            trublion.setSwitched(true);
+        }
     }
 
     @Override

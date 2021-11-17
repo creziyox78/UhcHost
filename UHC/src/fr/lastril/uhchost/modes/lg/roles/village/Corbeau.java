@@ -8,10 +8,6 @@ import org.bukkit.entity.Player;
 
 public class Corbeau extends Role implements LGRole {
 
-    public String getSkullValue() {
-        return null;
-    }
-
     @Override
     public void giveItems(Player player) {
     }
@@ -46,7 +42,7 @@ public class Corbeau extends Role implements LGRole {
     @Override
     public QuickItem getItem() {
         return null;
-        //return new QuickItem(Material.SKULL_ITEM, 1, SkullType.PLAYER.ordinal()).setName("§a"+getRoleName()).setTexture("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZGVjNTE3MTdhMTEyNTBiMGIxOTQ2ZmE1YTc2MWY4ZTk3YzJmNjdkMjg3MWM0YTg5YTgyYjliZWE1N2VjNyJ9fX0=");
+        //return new QuickItem(Material.SKULL_ITEM, 1, SkullType.PLAYER.ordinal()).setName(getCamp().getCompoColor()+getRoleName()).setTexture("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZGVjNTE3MTdhMTEyNTBiMGIxOTQ2ZmE1YTc2MWY4ZTk3YzJmNjdkMjg3MWM0YTg5YTgyYjliZWE1N2VjNyJ9fX0=");
     }
 
     @Override

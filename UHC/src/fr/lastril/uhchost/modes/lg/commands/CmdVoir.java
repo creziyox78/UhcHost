@@ -52,10 +52,10 @@ public class CmdVoir implements ModeSubCommand {
                             sendRole(player, targetManager, false);
                             voyante.setSeeRole(false);
                         } else {
-                            player.sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage() + "§cCe PlayerManager n'est pas/plus dans la partie !");
+                            player.sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage() + "§cCe joueur n'est pas/plus dans la partie !");
                         }
                     } else {
-                        player.sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage() + "§cCe PlayerManager n'est pas en ligne.");
+                        player.sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage() + "§cCe joueur n'est pas en ligne.");
                     }
                 } else {
                     player.sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage() + "§6Précisez un PlayerManager.");
@@ -75,10 +75,10 @@ public class CmdVoir implements ModeSubCommand {
                             sendRole(player, targetManager, true);
                             voyante.setSeeRole(false);
                         } else {
-                            player.sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage() + "§cCe PlayerManager n'est pas/plus dans la partie !");
+                            player.sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage() + "§cCe joueur n'est pas/plus dans la partie !");
                         }
                     } else {
-                        player.sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage() + "§cCe PlayerManager n'est pas en ligne.");
+                        player.sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage() + "§cCe joueur n'est pas en ligne.");
                     }
                 } else {
                     player.sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage() + "§6Précisez un PlayerManager.");
@@ -95,7 +95,7 @@ public class CmdVoir implements ModeSubCommand {
             LGFacadeRole lgFacadeRole = (LGFacadeRole) targetManager.getRole();
             player.sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage()
                     + "§bVous venez d'espionner " + targetManager.getPlayerName()
-                    + ". Ce PlayerManager est: " + lgFacadeRole.getRoleFacade().getRoleName());
+                    + ". Ce joueur est: " + lgFacadeRole.getRoleFacade().getRoleName());
             if (broadcasted) {
                 Bukkit.broadcastMessage("");
                 Bukkit.broadcastMessage("§bLa Voyante Bavarde a espionner un PlayerManager qui est " + lgFacadeRole.getRoleFacade().getRoleName());
@@ -104,7 +104,7 @@ public class CmdVoir implements ModeSubCommand {
         } else {
             player.sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage()
                     + "§bVous venez d'espionner " + targetManager.getPlayerName()
-                    + ". Ce PlayerManager est: " + targetManager.getRole().getRoleName());
+                    + ". Ce joueur est: " + targetManager.getRole().getRoleName());
             if (broadcasted) {
                 Bukkit.broadcastMessage("");
                 Bukkit.broadcastMessage("§bLa Voyante Bavarde a espionner un PlayerManager qui est " + targetManager.getRole().getRoleName());

@@ -468,7 +468,7 @@ public class GameManager {
 	private final List<Block> temp;
 
 
-	public void generateLocationOnGround(Player player){
+	public void teleportPlayerOnGround(Player player){
 		Random r = UhcHost.getRANDOM();
 		int x = r.nextInt((int) (Bukkit.getWorld("game").getWorldBorder().getSize() / 2)),
 				z = r.nextInt((int) (Bukkit.getWorld("game").getWorldBorder().getSize() / 2));

@@ -1,6 +1,5 @@
 package fr.lastril.uhchost.commands;
 
-import fr.lastril.uhchost.UhcHost;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -11,8 +10,7 @@ public class TestCommand implements CommandExecutor {
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
         if(sender instanceof Player){
             Player player = (Player) sender;
-
-
+            player.sendMessage("§cCette commande est inutile.");
         }
         return false;
     }

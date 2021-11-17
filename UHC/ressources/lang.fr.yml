@@ -211,6 +211,7 @@ guis:
       episodetime: "&9Dur[,]e d#,#un [,]pisode:&b {0} minutes"
       votetime: "&9D[,]but des premiers votes:&b [,]pisode {0}"
       randomcouple: "&aCouple aléatoire"
+      lglisttime: "&9Liste des Loup-Garou:&b {0}"
     vote:
       name: "&bPremiers votes"
       lore: "&9Active les votes uniquement"
@@ -219,6 +220,9 @@ guis:
       name: "&bDurée d#,#un [,]pisode"
       lore: "&9Configure la dur[,]e"
       lore1: "&9de chaque [,]pisode."
+    lglisttime:
+      name: "&bListe des Loup-Garou"
+      lor
 
 
 scenarios:

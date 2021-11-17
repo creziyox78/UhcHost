@@ -3,6 +3,7 @@ package fr.lastril.uhchost.inventory.guis.modes.lg;
 import fr.lastril.uhchost.UhcHost;
 import fr.lastril.uhchost.inventory.guis.modes.CompositionGui;
 import fr.lastril.uhchost.modes.lg.LoupGarouMode;
+import fr.lastril.uhchost.tools.API.FormatTime;
 import fr.lastril.uhchost.tools.API.inventory.crafter.IQuickInventory;
 import fr.lastril.uhchost.tools.API.inventory.crafter.QuickInventory;
 import fr.lastril.uhchost.tools.API.items.ItemsCreator;
@@ -36,6 +37,12 @@ public class LoupGarouGui extends IQuickInventory {
         inv.setItem(new ItemsCreator(Material.PAPER, I18n.tl("guis.lg.main.votetime", String.valueOf(lgMode.getLoupGarouManager().getStartVoteEpisode())), null, 1).create(), onClick -> {
             new VoteStartGui().open(onClick.getPlayer());
         },7);
+
+        inv.setItem(new ItemsCreator(Material.EMPTY_MAP, I18n.tl("guis.lg.main.lglisttime", new FormatTime(lgMode.getLoupGarouManager().getSendWerewolfListTime()).toFormatString()),
+                null, 1).create(), onClick-> {
+            new SendLGListGui().open(onClick.getPlayer());
+        }, 10);
+
         inv.setItem((new ItemsCreator(Material.BARRIER, I18n.tl("guis.back"), Collections.singletonList(""))).create(), inv.getInventory().getSize() - 1);
     }
 }

@@ -13,6 +13,7 @@ import fr.lastril.uhchost.tools.API.particles.ParticleEffect;
 import net.minecraft.server.v1_8_R3.EnumParticle;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
+import org.bukkit.SkullType;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.EntityEquipment;
@@ -75,8 +76,7 @@ public class PetiteFille extends Role implements LGRole {
 
     @Override
     public QuickItem getItem() {
-        return null;
-        //return new QuickItem(Material.SKULL_ITEM, 1, SkullType.PLAYER.ordinal()).setName("§a"+getRoleName()).setTexture("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvN2I3MzRmODdkZDdkZjViZTJhNzZmMjUwNjc4NmIzOWE2NDY2ZTQyOTJkMTllZmI0ZTk5ODk4MWNlYjg5MSJ9fX0=");
+        return new QuickItem(Material.SKULL_ITEM, 1, SkullType.PLAYER.ordinal()).setName(getCamp().getCompoColor()+getRoleName()).setTexture("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvN2I3MzRmODdkZDdkZjViZTJhNzZmMjUwNjc4NmIzOWE2NDY2ZTQyOTJkMTllZmI0ZTk5ODk4MWNlYjg5MSJ9fX0=");
     }
 
     @Override
