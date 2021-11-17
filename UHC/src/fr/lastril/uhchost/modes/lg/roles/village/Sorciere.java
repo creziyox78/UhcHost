@@ -1,6 +1,7 @@
 package fr.lastril.uhchost.modes.lg.roles.village;
 
 import fr.lastril.uhchost.UhcHost;
+import fr.lastril.uhchost.enums.Messages;
 import fr.lastril.uhchost.enums.ResurectType;
 import fr.lastril.uhchost.modes.lg.roles.LGRole;
 import fr.lastril.uhchost.modes.roles.Camps;
@@ -10,6 +11,7 @@ import fr.lastril.uhchost.player.PlayerManager;
 import fr.lastril.uhchost.tools.API.clickable_messages.ClickableMessage;
 import fr.lastril.uhchost.tools.API.items.PotionItem;
 import fr.lastril.uhchost.tools.API.items.crafter.QuickItem;
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.SkullType;
 import org.bukkit.entity.Player;
@@ -19,7 +21,7 @@ import org.bukkit.potion.PotionType;
 
 public class Sorciere extends Role implements LGRole, RoleListener {
 
-    private boolean hasRez;
+    private boolean hasRez, rez;
 
     @Override
     public void giveItems(Player player) {
@@ -84,18 +86,27 @@ public class Sorciere extends Role implements LGRole, RoleListener {
 
                 }
             }
-            if (super.getPlayer() != null) {
-                Player soso = super.getPlayer();
-                new ClickableMessage(soso, onClick -> {
-                    main.getPlayerManager(player.getUniqueId()).getWolfPlayerManager()
-                            .setResurectType(ResurectType.SORCIERE);
-                    onClick.sendMessage("Vous avez bien ressuscité "
-                            + player.getName() + " !");
-                    hasRez = true;
-                }, "§c" + player.getName()
-                        + " est mort vous pouvez le ressusciter en cliquant sur le message ! ",
-                        "§a Pour ressusciter §c" + player.getName());
-            }
+            Bukkit.getScheduler().runTaskLater(main, () -> {
+                Bukkit.getScheduler().runTaskLater(main, () -> rez = false, 20*6);
+                if (super.getPlayer() != null) {
+                    Player soso = super.getPlayer();
+                    new ClickableMessage(soso, onClick -> {
+                        if(rez){
+                            main.getPlayerManager(player.getUniqueId()).getWolfPlayerManager()
+                                    .setResurectType(ResurectType.SORCIERE);
+                            onClick.sendMessage("Vous avez bien ressuscité "
+                                    + player.getName() + " !");
+                            hasRez = true;
+                        } else {
+                            onClick.sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage() + "§cVous ne pouvez plus ressusciter "
+                                    + player.getName() + " !");
+                        }
+                    }, "§c" + player.getName()
+                            + " est mort vous pouvez le ressusciter en cliquant sur le message ! ",
+                            "§a Pour ressusciter §c" + player.getName());
+                }
+            }, 20*6);
+
         }
     }
 

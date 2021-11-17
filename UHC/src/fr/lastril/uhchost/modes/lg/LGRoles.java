@@ -1,10 +1,7 @@
 package fr.lastril.uhchost.modes.lg;
 
 import fr.lastril.uhchost.modes.lg.roles.lg.*;
-import fr.lastril.uhchost.modes.lg.roles.solo.Assassin;
-import fr.lastril.uhchost.modes.lg.roles.solo.Imitateur;
-import fr.lastril.uhchost.modes.lg.roles.solo.LoupGarouBlanc;
-import fr.lastril.uhchost.modes.lg.roles.solo.Voleur;
+import fr.lastril.uhchost.modes.lg.roles.solo.*;
 import fr.lastril.uhchost.modes.lg.roles.village.*;
 import fr.lastril.uhchost.modes.lg.roles.village.voyante.Voyante;
 import fr.lastril.uhchost.modes.lg.roles.village.voyante.VoyanteBavarde;
@@ -21,7 +18,7 @@ public enum LGRoles {
     LG_AMNESIQUE(LoupGarouAmnesique.class), //TODO BE TESTED
     LG_ANONYME(LoupGarouAnonyme.class),
     LG_ALPHA(LoupGarouAlpha.class),
-    LG_FEUTRE(LoupGarouFeutre.class), //TODO BE TESTED (Adaptation Voyante / Voyante bavarde)
+    LG_FEUTRE(LoupGarouFeutre.class), //TODO BE TESTED (Adaptation Voyante and more)
     LG_PERFIDE(LoupGarouPerfide.class), //TODO BE TESTED
     LG_LUNAIRE(LoupGarouLunaire.class), //TODO BE TESTED
     LG_GRIMEUR(LoupGarouGrimeur.class), //TODO BE TESTED

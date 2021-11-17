@@ -31,7 +31,7 @@ public class GoToHell extends Scenario {
 		Player player = event.getPlayer();
 		GameManager gameManager = UhcHost.getInstance().getGamemanager();
 		player.getWorld().getEnvironment();
-		if (gameManager.getGameState() == GameState.STARTED && event.getTo().getWorld().getEnvironment() != Environment.NETHER && gameManager.isPvp()) {
+		if (GameState.isState(GameState.STARTED) && event.getTo().getWorld().getEnvironment() != Environment.NETHER && gameManager.isPvp()) {
 			if (this.netherDamageds.contains(player.getUniqueId()))
 				return;
 			player.damage(2.0D);

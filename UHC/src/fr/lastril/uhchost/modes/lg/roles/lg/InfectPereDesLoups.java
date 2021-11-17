@@ -1,6 +1,7 @@
 package fr.lastril.uhchost.modes.lg.roles.lg;
 
 import fr.lastril.uhchost.UhcHost;
+import fr.lastril.uhchost.enums.Messages;
 import fr.lastril.uhchost.modes.lg.LoupGarouManager;
 import fr.lastril.uhchost.modes.lg.roles.LGRole;
 import fr.lastril.uhchost.modes.lg.roles.village.Ancien;
@@ -11,6 +12,7 @@ import fr.lastril.uhchost.modes.roles.When;
 import fr.lastril.uhchost.player.PlayerManager;
 import fr.lastril.uhchost.tools.API.clickable_messages.ClickableMessage;
 import fr.lastril.uhchost.tools.API.items.crafter.QuickItem;
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.SkullType;
 import org.bukkit.entity.Player;
@@ -21,7 +23,7 @@ import org.bukkit.potion.PotionEffectType;
 
 public class InfectPereDesLoups extends Role implements LGRole, RoleListener {
 
-    private boolean hasInfected;
+    private boolean hasInfected, infecte;
 
     public InfectPereDesLoups() {
         super.addEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, Integer.MAX_VALUE, 0, false, false),
@@ -102,6 +104,7 @@ public class InfectPereDesLoups extends Role implements LGRole, RoleListener {
                     UhcHost main = UhcHost.getInstance();
                     PlayerManager playerManagerKiller = main.getPlayerManager(killer.getUniqueId());
                     PlayerManager playerManager = main.getPlayerManager(player.getUniqueId());
+                    Bukkit.getScheduler().runTaskLater(main, () -> infecte = false, 20*6);
                     if (playerManagerKiller.hasRole() && playerManager.hasRole()) {
                         if (playerManager.getRole() instanceof Ancien) {
                             Ancien ancien = (Ancien) playerManager.getRole();
@@ -114,11 +117,16 @@ public class InfectPereDesLoups extends Role implements LGRole, RoleListener {
                                 Player infect = super.getPlayer();
                                 new ClickableMessage(infect, onClick -> {
 
+                                    if(infecte){
+                                        loupGarouManager.addInfect(playerManager);
+                                        onClick.sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage() + "§aVous avez bien infecté "
+                                                + player.getName() + " !");
+                                        hasInfected = true;
+                                    } else {
+                                        onClick.sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage() + "§cVous ne pouvez plus infecter"
+                                                + player.getName() + " !");
+                                    }
 
-                                    loupGarouManager.addInfect(playerManager);
-                                    onClick.sendMessage("Vous avez bien infecté "
-                                            + player.getName() + " !");
-                                    hasInfected = true;
                                 }, "§c" + player.getName()
                                         + " est mort vous pouvez l'infecter en cliquant sur le message ! ",
                                         "§a Pour infecter §c" + player.getName());

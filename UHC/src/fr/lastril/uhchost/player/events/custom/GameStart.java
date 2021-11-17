@@ -20,6 +20,7 @@ public class GameStart implements Listener {
 	
 	@EventHandler
 	public void onStart(GameStartEvent e) {
+
 		new TaskCycle(pl).runTaskTimer(pl, 0, 1);
 		e.getPlayers().forEach(player -> {
 			pl.getPlayerManager(player.getUniqueId()).setPlayedGame(true);

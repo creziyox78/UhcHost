@@ -17,7 +17,7 @@ import org.bukkit.potion.PotionEffectType;
 
 import java.util.List;
 
-public final class LoupGarouFeutre extends Role implements LGRole, LGFacadeRole {
+public class LoupGarouFeutre extends Role implements LGRole, LGFacadeRole {
 
     private Role roleFaçade;
 

@@ -5,13 +5,11 @@ import fr.lastril.uhchost.game.GameManager;
 import fr.lastril.uhchost.inventory.guis.HostConfig;
 import fr.lastril.uhchost.inventory.guis.items.PotionsGui;
 import fr.lastril.uhchost.team.TeamsGui;
-import fr.lastril.uhchost.tools.API.ActionBar;
 import fr.lastril.uhchost.tools.API.BungeeAPI;
 import fr.lastril.uhchost.tools.I18n;
 import fr.lastril.uhchost.tools.NotStart;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
-import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -42,7 +40,7 @@ public class Interact implements Listener {
 			return;
 		if (!current.getItemMeta().hasDisplayName())
 			return;
-		if (current.getItemMeta().getDisplayName().equalsIgnoreCase(ChatColor.AQUA + "Devenir Host"))
+		/*if (current.getItemMeta().getDisplayName().equalsIgnoreCase(ChatColor.AQUA + "Devenir Host"))
 			if (player.hasPermission("uhc.host")) {
 				if (gameManager.getHost() == null) {
 					gameManager.setHostname(player.getName());
@@ -59,16 +57,16 @@ public class Interact implements Listener {
 
 			} else {
 				ActionBar.sendMessage(player, I18n.tl("no-permission"));
-			}
+			}*/
 		
-		if (current.getItemMeta().getDisplayName().equalsIgnoreCase(ChatColor.GOLD + "Ne plus être Host")) {
+		/*if (current.getItemMeta().getDisplayName().equalsIgnoreCase(ChatColor.GOLD + "Ne plus être Host")) {
 			
 			ActionBar.sendMessage(player, I18n.tl("not-became-host"));
 			gameManager.setHost(null);
 			gameManager.setHostname(null);
 			this.notstart.PreHost(player);
 			player.playSound(player.getLocation(), Sound.CAT_MEOW, 1.0F, 0.6F);
-		}
+		}*/
 		if (current.getItemMeta().getDisplayName().equalsIgnoreCase(ChatColor.RED + "Lobby"))
 			if (UhcHost.getInstance().getConfig().getBoolean("bungeecord")) {
 				BungeeAPI.ConnectBungeeServer(player,

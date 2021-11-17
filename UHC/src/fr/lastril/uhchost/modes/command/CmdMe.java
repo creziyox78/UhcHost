@@ -34,13 +34,12 @@ public class CmdMe implements ModeSubCommand {
     public boolean onCommand(CommandSender sender, Command command, String s, String[] strings) {
         if (sender instanceof Player) {
             Player player = (Player) sender;
-            if (pl.gameManager.getGameState() == GameState.STARTED) {
+            if (GameState.isState(GameState.STARTED)) {
                 if (pl.gameManager.getModes().getMode() instanceof RoleMode) {
                     PlayerManager playerManager = pl.getPlayerManager(player.getUniqueId());
                     if (playerManager.hasRole()) {
                         playerManager.getRole().sendDescription(player);
                         if (playerManager.getRole() != playerManager.getRole()) {
-                            player.sendMessage("§8§m----------------------------");
                             playerManager.getRole().sendDescription(player);
                         }
                     } else {

@@ -80,7 +80,7 @@ public class Trublion extends Role implements LGRole, RoleCommand {
 
     @Override
     public Camps getCamp() {
-        return Camps.VILLAGEOIS;
+        return Camps.TRUBLION;
     }
 
     @Override

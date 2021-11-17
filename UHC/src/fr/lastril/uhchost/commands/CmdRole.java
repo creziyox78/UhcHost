@@ -21,7 +21,7 @@ public class CmdRole implements CommandExecutor {
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
         if(sender instanceof Player) {
             Player player = (Player) sender;
-            if (main.gameManager.getGameState() == GameState.STARTED) {
+            if (GameState.isState(GameState.STARTED)) {
                 if (main.gameManager.getModes().getMode() instanceof RoleMode<?>) {
                     PlayerManager playerManager = main.getPlayerManager(player.getUniqueId());
                     if(playerManager.hasRole()) {

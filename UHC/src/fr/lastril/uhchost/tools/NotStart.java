@@ -35,9 +35,6 @@ public class NotStart {
 		}
 		if (player == UhcHost.getInstance().getGamemanager().getHost() || UhcHost.getInstance().gameManager.isCoHost(player)) {
 			player.getInventory().setItem(4, new QuickItem(Material.CHEST).setName(ChatColor.GOLD + "Configuration").toItemStack());
-			player.getInventory().setItem(7, new QuickItem(Material.REDSTONE).setName(ChatColor.GOLD + "Ne plus être Host").toItemStack());
-		} else {
-			player.getInventory().setItem(7, new QuickItem(Material.DIAMOND).setName(ChatColor.AQUA + "Devenir Host").toItemStack());
 		}
 		player.getInventory().setItem(8, new QuickItem(Material.BED).setName(ChatColor.RED + "Lobby").toItemStack());
 	}
@@ -64,9 +61,6 @@ public class NotStart {
 		}
 		if (player == UhcHost.getInstance().getGamemanager().getHost() || UhcHost.getInstance().gameManager.isCoHost(player)) {
 			player.getInventory().setItem(4, new QuickItem(Material.CHEST).setName(ChatColor.GOLD + "Configuration").toItemStack());
-			player.getInventory().setItem(7, new QuickItem(Material.REDSTONE).setName(ChatColor.GOLD + "Ne plus être Host").toItemStack());
-		} else {
-			player.getInventory().setItem(7, new QuickItem(Material.DIAMOND).setName(ChatColor.AQUA + "Devenir Host").toItemStack());
 		}
 		player.getInventory().setItem(8, new QuickItem(Material.BED).setName(ChatColor.RED + "Lobby").toItemStack());
 	}

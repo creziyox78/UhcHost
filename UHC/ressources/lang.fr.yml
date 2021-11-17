@@ -221,8 +221,9 @@ guis:
       lore: "&9Configure la dur[,]e"
       lore1: "&9de chaque [,]pisode."
     lglisttime:
-      name: "&bListe des Loup-Garou"
-      lor
+      name: "&bListe des Loups-Garous"
+      lore: "&7Défini le temps avant que les"
+      lore1: "&c Loups-Garous&7 ne re),(oivent la liste"
 
 
 scenarios:

@@ -38,28 +38,34 @@ public class Join implements Listener {
 		Player player = e.getPlayer();
 		GameManager gameManager = UhcHost.getInstance().getGamemanager();
 		UUID playersUuid = player.getUniqueId();
-
+		this.pl.scoreboardUtil.reset(player);
 		if(!pl.getAllPlayerManager().containsKey(playersUuid)){
 			Bukkit.getConsoleSender().sendMessage("Creating new player data...");
 			pl.getAllPlayerManager().put(playersUuid, new PlayerManager(playersUuid));
 			Bukkit.getConsoleSender().sendMessage("Created player data !");
 		}
-		if (gameManager.getGameState() == GameState.LOBBY || gameManager.getGameState() == GameState.STARTING) {
+		if (GameState.isState(GameState.STARTING) || GameState.isState(GameState.LOBBY) ) {
+
 			e.setJoinMessage("[" + ChatColor.GREEN + "+"+ ChatColor.WHITE+ "] " + player.getDisplayName());
 			player.setGameMode(GameMode.ADVENTURE);
 			player.setTotalExperience(0);
 			player.setExp(0);
 			player.setLevel(0);
-			NotStart.PreHosting(player);
-			if(player.isOp())
+
+			if(player.isOp()){
+				if(pl.gameManager.getHost() == null){
+					pl.gameManager.setHost(player);
+					pl.gameManager.setHostname(player.getName());
+				}
 				UpdateMessage(player);
+			}
+			NotStart.PreHosting(player);
 			player.teleport(gameManager.spawn);
-			this.pl.scoreboardUtil.reset(player);
+
 
 		}
-		else if(gameManager.getGameState() == GameState.STARTED) {
+		else if(GameState.isState(GameState.STARTED)) {
 			PlayerManager playerManager = pl.getPlayerManager(playersUuid);
-			player.setScoreboard(this.pl.scoreboardUtil.getBoard());
 			if(!playerManager.isAlive() && !playerManager.isPlayedGame()) {
 				e.setJoinMessage("");
 				player.setGameMode(GameMode.SPECTATOR);

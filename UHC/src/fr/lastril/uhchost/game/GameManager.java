@@ -75,8 +75,6 @@ public class GameManager {
 
 	private long finalBorderSize;
 
-	private GameState gameState;
-
 	private WorldState worldState;
 
 	private double cycleTime = 10*60;
@@ -154,7 +152,6 @@ public class GameManager {
 		this.scenarios = new ArrayList<>();
 		this.composition = new ArrayList<>();
 		this.cohost = new ArrayList<>();
-		this.setGameState(GameState.LOBBY);
 		this.worldState = WorldState.DAY;
 		this.gameName = ChatColor.AQUA + "UHC Host";
 		this.playerCheckingWorld = false;
@@ -195,6 +192,10 @@ public class GameManager {
 
 	}
 
+	public List<Player> getCohost() {
+		return cohost;
+	}
+
 	public void removeScenario(Scenario scenario) {
 		this.scenarios.remove(scenario);
 	}
@@ -224,14 +225,6 @@ public class GameManager {
 
 	public void setScenarios(List<Scenario> scenarios) {
 		this.scenarios = scenarios;
-	}
-
-	public GameState getGameState() {
-		return this.gameState;
-	}
-
-	public void setGameState(GameState gameState) {
-		this.gameState = gameState;
 	}
 
 	public UhcHost getUhcHost() {

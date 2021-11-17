@@ -25,16 +25,24 @@ public class Quit implements Listener {
 		Player player = e.getPlayer();
 		GameManager gameManager = UhcHost.getInstance().getGamemanager();
 		UUID playersUuid = player.getUniqueId();
-		if (gameManager.getGameState() == GameState.LOBBY || gameManager.getGameState() == GameState.STARTING) {
+		if (GameState.isState(GameState.LOBBY)|| GameState.isState(GameState.STARTING)) {
 			e.setQuitMessage("[" + ChatColor.RED + "-"+ ChatColor.WHITE+ "] " + player.getDisplayName());
 			if(pl.teamUtils.getTeam(player) != null){
 				this.pl.teamUtils.unsetTeam(player, this.pl.teamUtils.getTeam(player));
 			}
 		    this.pl.scoreboardUtil.reset(player);
 		    this.pl.gameManager.removePlayer(player, false);
-		    if(pl.gameManager.getHost() == player) pl.gameManager.setHost(null);
+		    if(pl.gameManager.getHost() == player) {
+		    	if(!pl.gameManager.getCohost().isEmpty()){
+		    		pl.gameManager.setHost(pl.gameManager.getCohost().get(0));
+					pl.gameManager.setHostname(player.getName());
+				} else {
+					pl.gameManager.setHost(null);
+					pl.gameManager.setHostname(null);
+				}
+			}
 		}
-		else if(gameManager.getGameState() == GameState.STARTED) {
+		else if(GameState.isState(GameState.STARTED)) {
 			if(pl.getAllPlayerManager().containsKey(playersUuid)) {
 				e.setQuitMessage("[" + ChatColor.RED + "-"+ ChatColor.WHITE+ "] " + player.getDisplayName());
 				if(gameManager.isBorder()) {

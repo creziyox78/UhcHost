@@ -86,7 +86,7 @@ public class LoupGarouManager extends ModeManager implements Listener {
                 }
             }
             waitingRessurect.remove(player.getUniqueId());
-        }, 20 * 10);
+        }, 20 * 13);
     }
 
     public void kill(OfflinePlayer player, ItemStack[] items, ItemStack[] armors, Player killer,
@@ -179,7 +179,13 @@ public class LoupGarouManager extends ModeManager implements Listener {
 
     public WolfPlayerManager getMostVoted() {
         List<WolfPlayerManager> players = new ArrayList<>(main.getAllWolfPlayerManager().values());
-        return calculateTopVoted(players).get(0);
+        if(calculateTopVoted(players).size() >= 2){
+            if(calculateTopVoted(players).get(0) == calculateTopVoted(players).get(1) || calculateTopVoted(players).get(0).getVotes() == 0){
+                return null;
+            }
+            return calculateTopVoted(players).get(0);
+        }
+        return null;
     }
 
     private List<WolfPlayerManager> calculateTopVoted(List<WolfPlayerManager> players) {
@@ -208,7 +214,8 @@ public class LoupGarouManager extends ModeManager implements Listener {
         if (mostVoted == null) {
             Bukkit.broadcastMessage("§cPersonne n'a pas réussi à se mettre d'accord.");
         } else {
-            Bukkit.broadcastMessage("§bLa personne ayant reçu le plus de vote est " + mostVoted.getPlayerManager().getPlayerName() + ", il perd donc la moitié de sa vie jusqu'au prochain épisode.");
+            Bukkit.broadcastMessage("§bLa personne ayant reçu le plus de vote est " + mostVoted.getPlayerManager().getPlayerName()
+                    + ", il perd donc la moitié de sa vie jusqu'au prochain épisode.");
             setCurrentVotedPlayer(mostVoted.getPlayerManager().getWolfPlayerManager());
             Player target = mostVoted.getPlayerManager().getPlayer();
             if (target != null) {
@@ -240,7 +247,7 @@ public class LoupGarouManager extends ModeManager implements Listener {
             }
             return list;
         } else {
-            return Messages.LOUP_GAROU_PREFIX.getMessage() + "§cVous devez attendre " + sendWerewolfListTime + " minutes de jeu.";
+            return Messages.LOUP_GAROU_PREFIX.getMessage() + "§cVous devez attendre " + sendWerewolfListTime/60 + " minutes de jeu avant de recevoir la liste des Loups-Garous.";
         }
     }
 
@@ -278,7 +285,7 @@ public class LoupGarouManager extends ModeManager implements Listener {
             if (playerManagers.hasRole()) {
                 if (playerManagers.getCamps() == Camps.LOUP_GAROU || playerManagers.getCamps() == Camps.LOUP_GAROU_BLANC) {
                     if (playerManagers.getPlayer() != null) {
-                        playerManagers.getPlayer().sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage() + "§cUn PlayerManager vient de rejoindre le camp des Loup-Garou.");
+                        playerManagers.getPlayer().sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage() + "§cUn joueur vient de rejoindre le camp des Loup-Garou.");
                     }
                 }
             }
@@ -293,8 +300,8 @@ public class LoupGarouManager extends ModeManager implements Listener {
         this.voteTime = voteTime;
         Bukkit.broadcastMessage("§8§m----------------------------");
         if (voteTime) {
-            Bukkit.broadcastMessage(Messages.LOUP_GAROU_PREFIX.getMessage() + "§eVous avez 30 secondes pour voter pour le PlayerManager de votre choix avec la commande§6 \"/lg vote <pseudo>\". " +
-                    "Le PlayerManager ayant le plus de voix sur lui perdra la moitié de sa vie jusqu'à la prochaine journée.");
+            Bukkit.broadcastMessage(Messages.LOUP_GAROU_PREFIX.getMessage() + "§eVous avez 30 secondes pour voter pour le joueur de votre choix avec la commande§6 \"/lg vote <pseudo>\". " +
+                    "Le joueur ayant le plus de voix sur lui perdra la moitié de sa vie jusqu'à la prochaine journée.");
         } else {
             Bukkit.broadcastMessage(Messages.LOUP_GAROU_PREFIX.getMessage() + "§cLes votes sont désormais fermés !");
         }

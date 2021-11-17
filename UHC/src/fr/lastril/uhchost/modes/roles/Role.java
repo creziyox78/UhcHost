@@ -77,10 +77,10 @@ public abstract class Role implements RoleDescription {
     }
 
     public void sendDescription(Player player) {
-        player.sendMessage("§7§m------------------------------------------");
+        /*player.sendMessage("§7§m------------------------------------------");
         player.sendMessage("§7Vous êtes " + this.getCamp().getCompoColor() + "" + this.getRoleName() + "§7.");
+        player.sendMessage("§7§m------------------------------------------");*/
         player.sendMessage(this.getDescription() != null ? "§7" + this.getDescription() : "§c§lDESCRIPTION NULL");
-        player.sendMessage("§7§m------------------------------------------");
         if (!this.getRoleToKnow().isEmpty()) {
             for (Class<? extends Role> roleToKnow : this.getRoleToKnow()) {
 				/*if(!UhcHost.getInstance().getNarutoManager().getPlayerManagersWithRole(roleToKnow).isEmpty()) {

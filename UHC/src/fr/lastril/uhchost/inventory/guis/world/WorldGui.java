@@ -55,8 +55,11 @@ public class WorldGui extends IQuickInventory {
                     onClick.getPlayer().sendMessage("§eCréation du monde... Merci de patienter.");
                     pl.gameManager.setPlayerCheckingWorld(true);
                     WorldCreator.name("game").createWorld();
+                    Bukkit.getWorld("game").setGameRuleValue("doDaylightCycle", "false");
+                    Bukkit.getWorld("game").setGameRuleValue("showDeathMessages", "false");
                     onClick.getPlayer().sendMessage("§aMonde créé ! Téléportation au centre...");
                     onClick.getPlayer().teleport(new Location(Bukkit.getWorld("game"), 0, 100, 0));
+
                     NotStart.checkingWorld(onClick.getPlayer());
                 },16);
             inv.setItem((new ItemsCreator(Material.BARRIER, I18n.tl("guis.back"), Collections.singletonList(""))).create(), onClick -> {

@@ -107,7 +107,7 @@ public class UhcHost extends JavaPlugin {
 		Bukkit.getScheduler().runTaskLater(this, () -> Bukkit.getOnlinePlayers()
 				.forEach(p -> Bukkit.getPluginManager().callEvent(new PlayerJoinEvent(p, null))), 60L);
 		Bukkit.getConsoleSender().sendMessage(ChatColor.GREEN + "[" + getName() + "] ON !");
-		this.gameManager.setGameState(GameState.LOBBY);
+		GameState.setCurrentState(GameState.LOBBY);
 	}
 
 	@Override
@@ -161,7 +161,7 @@ public class UhcHost extends JavaPlugin {
 		this.itemManager = new QuickItemManager(this);
 		this.scoreboardUtil = new ScoreboardUtils(this);
 		this.clickableMessageManager = new ClickableMessageManager(this);
-		this.gameManager.setGameState(GameState.REBUILDING);
+		GameState.setCurrentState(GameState.REBUILDING);
 		this.gameManager.setHostname(ChatColor.RED + "" + ChatColor.BOLD + "Personne");
 		this.gameManager.setSlot(50);
 		CustomInv.createInventory();

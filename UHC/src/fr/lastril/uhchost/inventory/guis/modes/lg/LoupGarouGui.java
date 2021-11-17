@@ -2,6 +2,7 @@ package fr.lastril.uhchost.inventory.guis.modes.lg;
 
 import fr.lastril.uhchost.UhcHost;
 import fr.lastril.uhchost.inventory.guis.modes.CompositionGui;
+import fr.lastril.uhchost.inventory.guis.modes.ModesGui;
 import fr.lastril.uhchost.modes.lg.LoupGarouMode;
 import fr.lastril.uhchost.tools.API.FormatTime;
 import fr.lastril.uhchost.tools.API.inventory.crafter.IQuickInventory;
@@ -43,6 +44,8 @@ public class LoupGarouGui extends IQuickInventory {
             new SendLGListGui().open(onClick.getPlayer());
         }, 10);
 
-        inv.setItem((new ItemsCreator(Material.BARRIER, I18n.tl("guis.back"), Collections.singletonList(""))).create(), inv.getInventory().getSize() - 1);
+        inv.setItem((new ItemsCreator(Material.BARRIER, I18n.tl("guis.back"), null)).create(), onClick -> {
+            new ModesGui().open(onClick.getPlayer());
+        },inv.getInventory().getSize() - 1);
     }
 }

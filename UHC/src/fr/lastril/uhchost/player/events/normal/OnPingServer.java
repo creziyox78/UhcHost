@@ -18,10 +18,10 @@ public class OnPingServer implements Listener {
 	@EventHandler
 	public void on(ServerListPingEvent event) {
 		event.setMaxPlayers(pl.gameManager.getMaxPlayers());
-		if (UhcHost.getInstance().getGamemanager().getGameState() == GameState.REBUILDING) {
+		if (GameState.isState(GameState.REBUILDING)) {
 			event.setMotd("§7HOST »§9 Rebuilding...");
 		
-		} else if (UhcHost.getInstance().getGamemanager().getGameState() == GameState.LOBBY) {
+		} else if (GameState.isState(GameState.LOBBY)) {
 			if (Bukkit.hasWhitelist()) {
 				event.setMotd("§7                          HOST »§f Whitelist \n" +
 						"§7                          Nom »§6 " + pl.gameManager.getGameName());
@@ -30,7 +30,7 @@ public class OnPingServer implements Listener {
 						"§7                          Nom »§6 " + pl.gameManager.getGameName());
 			}
 		} else {
-			event.setMotd("HOST " + UhcHost.getInstance().getGamemanager().getGameState());
+			event.setMotd("HOST " + GameState.getCurrentState());
 		} 
 	}
 }
