@@ -45,16 +45,20 @@ public class CmdVote implements ModeSubCommand {
             String targetName = args[1];
             Player target = Bukkit.getPlayer(targetName);
             if (target != null) {
-                WolfPlayerManager wolfPlayerManager = pl.getPlayerManager(player.getUniqueId()).getWolfPlayerManager();
-                if (!wolfPlayerManager.hasVoted()) {
-                    wolfPlayerManager.setVoted(true);
-                    WolfPlayerManager wolfTargetManager = pl.getPlayerManager(target.getUniqueId()).getWolfPlayerManager();
-                    if (wolfTargetManager != null) {
-                        wolfTargetManager.addVote();
-                        player.sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage() + "§aVotre vote a bien été pris en compte.");
+                if(loupGarouManager.isVoteTime()){
+                    WolfPlayerManager wolfPlayerManager = pl.getPlayerManager(player.getUniqueId()).getWolfPlayerManager();
+                    if (!wolfPlayerManager.hasVoted()) {
+                        wolfPlayerManager.setVoted(true);
+                        WolfPlayerManager wolfTargetManager = pl.getPlayerManager(target.getUniqueId()).getWolfPlayerManager();
+                        if (wolfTargetManager != null) {
+                            wolfTargetManager.addVote();
+                            player.sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage() + "§aVotre vote a bien été pris en compte.");
+                        }
+                    } else {
+                        player.sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage() + "§cVous avez déjà voté !");
                     }
                 } else {
-                    player.sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage() + "§cVous avez déjà voté !");
+                    player.sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage() + "§cLes votes sont clos !");
                 }
             } else {
                 player.sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage() + "§cCe joueur n'est pas en ligne.");
