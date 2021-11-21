@@ -31,15 +31,6 @@ public class MontreurDours extends Role implements LGRole {
 
     @Override
     public void onDay(Player player) {
-    }
-
-    @Override
-    public void onNewEpisode(Player player) {
-
-    }
-
-    @Override
-    public void onNewDay(Player player) {
         boolean founded = false;
         for (Entity entity : player.getNearbyEntities(DISTANCE, DISTANCE, DISTANCE)) {
             if (entity instanceof Player) {
@@ -49,7 +40,7 @@ public class MontreurDours extends Role implements LGRole {
                         PlayerManager playerManager = UhcHost.getInstance().getPlayerManager(target.getUniqueId());
                         if (playerManager.isAlive() && playerManager.hasRole()) {
                             if (!(playerManager.getRole() instanceof LGFacadeRole)) {
-                                if (playerManager.getWolfPlayerManager().getLgRole().getCamp() == Camps.LOUP_GAROU || playerManager.getRole() instanceof LoupGarouBlanc) {
+                                if (playerManager.getCamps() == Camps.LOUP_GAROU || playerManager.getRole() instanceof LoupGarouBlanc) {
                                     Bukkit.broadcastMessage("§6Grrrrrrrrrrrrrr !");
                                     founded = true;
                                 }
@@ -70,6 +61,17 @@ public class MontreurDours extends Role implements LGRole {
                 players.playSound(players.getLocation(), Sound.WOLF_GROWL, 1, 1);
             }
         }
+    }
+
+    @Override
+    public void onNewEpisode(Player player) {
+
+    }
+
+    @Override
+    public void onNewDay(Player player) {
+
+
     }
 
     @Override

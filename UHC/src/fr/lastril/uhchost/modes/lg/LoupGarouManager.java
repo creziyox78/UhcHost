@@ -6,6 +6,8 @@ import fr.lastril.uhchost.enums.ResurectType;
 import fr.lastril.uhchost.modes.ModeManager;
 import fr.lastril.uhchost.modes.lg.roles.lg.LoupGarouGrimeur;
 import fr.lastril.uhchost.modes.lg.roles.solo.LoupGarouBlanc;
+import fr.lastril.uhchost.modes.lg.roles.village.Ancien;
+import fr.lastril.uhchost.modes.lg.roles.village.ChienLoup;
 import fr.lastril.uhchost.modes.lg.roles.village.Cupidon;
 import fr.lastril.uhchost.modes.roles.Camps;
 import fr.lastril.uhchost.player.PlayerManager;
@@ -56,20 +58,22 @@ public class LoupGarouManager extends ModeManager implements Listener {
                     onlinePlayer.updateInventory();
                     switch (playerManager.getWolfPlayerManager().getResurectType()) {
                         case INFECT: {
-                            onlinePlayer.sendMessage("Vous avez été infecté par l'Infect Pères des loups.");
+                            onlinePlayer.sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage() + "Vous avez été infecté par l'Infect Pères des loups.");
                             playerManager.getWolfPlayerManager().setResurectType(null);
                             main.gameManager.teleportPlayerOnGround(player);
                             break;
                         }
                         case ANCIEN: {
-                            onlinePlayer.sendMessage("Vous avez utilisé votre deuxième vie, par conséquant, vous ne pourrez plus réssuciter.");
+                            Ancien ancien = (Ancien) playerManager.getRole();
+                            ancien.setRevived(true);
+                            onlinePlayer.sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage() + "Vous avez utilisé votre deuxième vie, par conséquant, vous ne pourrez plus réssuciter.");
                             onlinePlayer.removePotionEffect(PotionEffectType.DAMAGE_RESISTANCE);
                             playerManager.getWolfPlayerManager().setResurectType(null);
                             main.gameManager.teleportPlayerOnGround(player);
                             break;
                         }
                         case SORCIERE: {
-                            onlinePlayer.sendMessage("Vous avez été réssucité par la Sorcière.");
+                            onlinePlayer.sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage() + "Vous avez été réssuscité par la Sorcière.");
                             playerManager.getWolfPlayerManager().setResurectType(null);
                             main.gameManager.teleportPlayerOnGround(player);
                             break;
@@ -78,7 +82,7 @@ public class LoupGarouManager extends ModeManager implements Listener {
                             break;
                     }
                 }
-                playerManager.getWolfPlayerManager().setResurectType(null);
+
             } else {
                 kill(player, player.getInventory().getContents(), player.getInventory().getArmorContents(), player.getKiller(), deathLocation);
                 if (playerManager.getWolfPlayerManager().isInCouple()) {
@@ -239,6 +243,14 @@ public class LoupGarouManager extends ModeManager implements Listener {
             String list = Messages.LOUP_GAROU_PREFIX.getMessage() + "§cVoici la liste entière des Loups-Garous : \n";
             loupGarouList.addAll(main.gameManager.getModes().getMode().getModeManager().getPlayerManagersWithCamps(Camps.LOUP_GAROU));
             loupGarouList.addAll(main.gameManager.getModes().getMode().getModeManager().getPlayerManagersWithRole(LoupGarouBlanc.class));
+            for(PlayerManager playerManager : super.getPlayerManagersWithRole(ChienLoup.class)){
+                ChienLoup chienLoup = (ChienLoup) playerManager.getRole();
+                if(chienLoup.getChoosenCamp() == Camps.VILLAGEOIS){
+                    loupGarouList.add(playerManager);
+                } else if(chienLoup.getChoosenCamp() == Camps.LOUP_GAROU){
+                    loupGarouList.remove(playerManager);
+                }
+            }
             int numberOfElements = loupGarouList.size();
             for (int i = 0; i < numberOfElements; i++) {
                 int index = UhcHost.getRANDOM().nextInt(loupGarouList.size());
@@ -268,11 +280,16 @@ public class LoupGarouManager extends ModeManager implements Listener {
         }
     }
 
+    public List<UUID> getWaitingRessurect() {
+        return waitingRessurect;
+    }
+
     public void addInfect(PlayerManager playerManager) {
         playerManager.getWolfPlayerManager().setInfected(true);
         playerManager.getWolfPlayerManager().setResurectType(ResurectType.INFECT);
         if (playerManager.getPlayer() != null) {
             playerManager.getPlayer().sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage() + "§cVous venez d'être infecté par l'Infect Père des Loups-Garou ! Vous devez gagner avec les loups, et vous garder vos pouvoirs d'origine.");
+            playerManager.setCamps(Camps.LOUP_GAROU);
         }
         if (playerManager.getWolfPlayerManager().isInCouple())
             playerManager.setCamps(Camps.COUPLE);

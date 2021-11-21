@@ -88,6 +88,7 @@ public class Sorciere extends Role implements LGRole, RoleListener {
             }
             Bukkit.getScheduler().runTaskLater(main, () -> {
                 Bukkit.getScheduler().runTaskLater(main, () -> rez = false, 20*6);
+                rez = true;
                 if (super.getPlayer() != null) {
                     Player soso = super.getPlayer();
                     new ClickableMessage(soso, onClick -> {

@@ -30,7 +30,7 @@ public class CmdDesc implements ModeSubCommand{
         if(pl.gameManager.getModes().getMode() instanceof RoleMode<?>){
             RoleMode<?> mode = (RoleMode<?>) pl.getGamemanager().getModes().getMode();
             for (Role roles : mode.getRoles()) {
-                rolesName.add(roles.getClass().getName());
+                rolesName.add(roles.getRoleName());
             }
         }
         return rolesName;

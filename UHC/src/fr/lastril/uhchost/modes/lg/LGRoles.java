@@ -30,7 +30,7 @@ public enum LGRoles {
     /*
      * CAMP DU VILLAGE
      */
-    ANCIEN(Ancien.class), //TODO BE TESTED AND MAKE (Adaptation Sorcier / IDPL)
+    ANCIEN(Ancien.class), //TODO BE TESTED
     CHAMAN(Chaman.class),
     CHASSEUR(Chasseur.class), //TODO BE TESTED
     CITOYEN(Citoyen.class),
@@ -56,7 +56,7 @@ public enum LGRoles {
      */
 
     VOLEUR(Voleur.class), //TODO BE TESTED
-    CHIEN_LOUP(ChienLoup.class),
+    CHIEN_LOUP(ChienLoup.class), //TODO BE TESTED
     TRUBLION(Trublion.class), //TODO BE TESTED
     /*
      * CAMP DES SOLOS

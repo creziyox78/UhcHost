@@ -3,6 +3,7 @@ package fr.lastril.uhchost.commands;
 import fr.lastril.uhchost.UhcHost;
 import fr.lastril.uhchost.game.GameManager;
 import fr.lastril.uhchost.inventory.CustomInv;
+import fr.lastril.uhchost.inventory.guis.HostConfig;
 import fr.lastril.uhchost.inventory.guis.enchant.CategoriesGui;
 import fr.lastril.uhchost.tools.API.ActionBar;
 import fr.lastril.uhchost.tools.NotStart;
@@ -52,12 +53,16 @@ public class CmdHost implements CommandExecutor {
 					NotStart.PreHosting(player);
 					player.sendMessage("§aInventaire sauvegardé !");
 				}
+				if (args[0].equalsIgnoreCase("config")) {
+					new HostConfig().open(player);
+				}
 				if (args[0].equalsIgnoreCase("op")) {
 					if(args.length == 2){
 						String targetName = args[1];
 						Player target = Bukkit.getPlayer(targetName);
 						if(target != null){
-							pl.gameManager.addCoHost(player);
+							pl.gameManager.addCoHost(target);
+							NotStart.PreHosting(target);
 						}
 					}
 				}
@@ -66,7 +71,8 @@ public class CmdHost implements CommandExecutor {
 						String targetName = args[1];
 						Player target = Bukkit.getPlayer(targetName);
 						if(target != null){
-							pl.gameManager.removeCoHost(player);
+							pl.gameManager.removeCoHost(target);
+							NotStart.PreHosting(target);
 						}
 					}
 				}

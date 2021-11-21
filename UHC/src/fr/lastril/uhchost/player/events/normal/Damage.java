@@ -1,7 +1,6 @@
 package fr.lastril.uhchost.player.events.normal;
 
 import fr.lastril.uhchost.UhcHost;
-import fr.lastril.uhchost.tools.I18n;
 import org.bukkit.entity.Arrow;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -28,14 +27,14 @@ public class Damage implements Listener {
 				event.setCancelled(true);
 			this.pl.gameManager.setLastDamager((Player) event.getEntity(),
 					(Player) ((Arrow) event.getDamager()).getShooter());
-			if (event.getCause() == EntityDamageEvent.DamageCause.PROJECTILE) {
+			/*if (event.getCause() == EntityDamageEvent.DamageCause.PROJECTILE) {
 				Arrow a = (Arrow) event.getDamager();
 				Player p = (Player) a.getShooter();
 				if ((int) (((Player) event.getEntity()).getHealth() - event.getDamage()) > 0)
 					p.sendMessage(I18n.tl("bowTouchMessage",
 							event.getEntity().getName(),
 							String.valueOf((int) (((Player) event.getEntity()).getHealth() - event.getDamage()))));
-			}
+			}*/
 		}
 		if(event.getEntity() instanceof Player && event.getDamager() instanceof Player){
 			Player player = (Player) event.getEntity();

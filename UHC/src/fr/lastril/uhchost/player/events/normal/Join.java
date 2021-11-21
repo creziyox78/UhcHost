@@ -51,6 +51,8 @@ public class Join implements Listener {
 			player.setTotalExperience(0);
 			player.setExp(0);
 			player.setLevel(0);
+			player.setFoodLevel(20);
+			player.setSaturation(20);
 
 			if(player.isOp()){
 				if(pl.gameManager.getHost() == null){

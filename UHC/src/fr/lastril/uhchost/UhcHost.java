@@ -191,6 +191,8 @@ public class UhcHost extends JavaPlugin {
 		getServer().getPluginManager().registerEvents(new Drop(), this);
 		getServer().getPluginManager().registerEvents(new PreparePotion(this), this);
 		getServer().getPluginManager().registerEvents(new BreakBlock(), this);
+		getServer().getPluginManager().registerEvents(new Consume(), this);
+		getServer().getPluginManager().registerEvents(new Chat(), this);
 		getServer().getPluginManager().registerEvents(new PlaceBlock(), this);
 		getServer().getPluginManager().registerEvents(new InteractTeam(), this);
 		getServer().getPluginManager().registerEvents(new RespawnPlayer(), this);
@@ -358,6 +360,9 @@ public class UhcHost extends JavaPlugin {
         YamlConfiguration lgYaml = YamlConfiguration.loadConfiguration(file);
 
         for(String line : lgYaml.getStringList(rolePath)){
+        	if(description == null){
+        		description = "";
+			}
             description += line.replace("&", "§").replace("{role}", role.getRoleName()) + " \n";
         }
 

@@ -48,12 +48,12 @@ public class Chasseur extends Role implements LGRole, RoleCommand {
 
     @Override
     public void onPlayerDeathRealy(PlayerManager player, ItemStack[] items, ItemStack[] armors, Player killer, Location deathLocation) {
-        super.onPlayerDeathRealy(player, items, armors, killer, deathLocation);
         if(player.hasRole()){
             if(player.getRole() instanceof Chasseur){
                 TextComponent message = new TextComponent("§aTir : " + Messages.CLICK_HERE.getMessage());
                 message.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/lg tir"));
                 Bukkit.getScheduler().runTaskLater(main, () -> setShot(true), 20*reminingTime);
+                player.getPlayer().sendMessage(message.getText());
             }
         }
     }
@@ -106,8 +106,14 @@ public class Chasseur extends Role implements LGRole, RoleCommand {
     }
 
     public void shot(Player player){
-        player.setHealth(player.getHealth() / 2);
-        player.sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage() + "§eLe chasseur vient de vous tirer dessus. Vous perdez la moitié de votre vie.");
+        if(player.getHealth() - 2*6 <= 0){
+            player.setHealth(0.5);
+        } else {
+            player.setHealth(player.getHealth() - 2*6);
+        }
+        Bukkit.broadcastMessage(" ");
+        Bukkit.broadcastMessage(Messages.LOUP_GAROU_PREFIX.getMessage() + "§eLe chasseur vient de tirer sur " + player.getName() + ". Il perd 6 coeurs.");
+        Bukkit.broadcastMessage(" ");
         setShot(true);
     }
 

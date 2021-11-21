@@ -4,6 +4,7 @@ import fr.lastril.uhchost.enums.Messages;
 import fr.lastril.uhchost.modes.command.ModeSubCommand;
 import fr.lastril.uhchost.modes.lg.LoupGarouManager;
 import fr.lastril.uhchost.modes.lg.commands.CmdSwitch;
+import fr.lastril.uhchost.modes.lg.commands.CmdTp;
 import fr.lastril.uhchost.modes.lg.roles.LGRole;
 import fr.lastril.uhchost.modes.roles.Camps;
 import fr.lastril.uhchost.modes.roles.Role;
@@ -85,7 +86,7 @@ public class Trublion extends Role implements LGRole, RoleCommand {
 
     @Override
     public List<ModeSubCommand> getSubCommands() {
-        return Arrays.asList(new CmdSwitch(main));
+        return Arrays.asList(new CmdSwitch(main), new CmdTp(main));
     }
 
     public void applySwitch(PlayerManager playerManager, PlayerManager targetManager1, PlayerManager targetManager2){

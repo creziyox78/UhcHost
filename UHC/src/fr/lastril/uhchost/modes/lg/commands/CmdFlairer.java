@@ -42,8 +42,8 @@ public class CmdFlairer implements ModeSubCommand {
         }
         if (playerManager.getRole() instanceof Renard) {
             Renard renard = (Renard) playerManager.getRole();
-            if (!renard.notReached()) {
-                if (!renard.isCanRenifle()) {
+            if (renard.notReached()) {
+                if (renard.isCanRenifle()) {
                     if (args.length == 2) {
                         String targetName = args[1];
                         Player target = Bukkit.getPlayer(targetName);
@@ -59,11 +59,17 @@ public class CmdFlairer implements ModeSubCommand {
                             player.sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage() + "§cCe joueur n'est pas en ligne.");
                         }
                     } else {
-                        player.sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage() + "§6Précisez un PlayerManager.");
+                        player.sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage() + "§6Précisez un joueur.");
                     }
+                } else {
+                    player.sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage() + "§cVous devez attendre la nuit.");
                 }
+            } else {
+                player.sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage() + Messages.CANT_USE_MORE_POWER.getMessage());
             }
 
+        } else {
+            player.sendMessage(Messages.not("Renard"));
         }
         return false;
     }

@@ -1,151 +1,183 @@
-
-#Format pour les descriptions
-#
-#Chaque ligne commençant par "fr.lastril.uhchost.modes.lg.roles" ne DOIVENT PAS ETRE MODIFIER !
-#
-#Pour sauter une ligne, faite juste une nouvelle ligne (pas besoin d'espace).
-#
-#Pour le code couleur, utilisez le symbole "&".
-#
-#Donc il faut faire l'objectif ainsi que les pouvoirs.
-#La liste est donné.
-#
-#Pour avoir le nom des rôles, il suffit de les retrouver dans le menu de la composition, sur le serveur minecraft.
-#
-
-
-fr.lastril.uhchost.modes.lg.roles.lg.InfectPereDesLoups:
-  - "&8&m-------------------------------------------&r"
-  - ""
-  - "&7Vous êtes &4{role}&7, vous appartenez au camp des&4&o Loups-Garous&r&7."
-  - "&7Au début de la partie vous recevez la liste des Loups-Garous&r&7."
-  - "&7Comme la plus part des Loups-Garous&r&7, vous bénéficiez des effets &oForce I &7et &oNightVisoin &7la nuit."
-  - "&7De la même façon que les autres Loups-Garous, vous avez accès au chat des loups la nuit."
-  - ""
-  - "&7Votre rôle vous permet d'infecter un joueur durant la partie, seulement si c'est un Loup-Garou ou vous-même qui"
-  - "le tué selon la configuration de la partie."
-  - ""
-  - "&8&m-------------------------------------------&r"
-fr.lastril.uhchost.modes.lg.roles.lg.LoupGarou:
-  - "&7C'est une autre description:."
-  - " "
-fr.lastril.uhchost.modes.lg.roles.lg.LoupGarouAlpha:
-  - "&7C'est une description."
-  - " "
-fr.lastril.uhchost.modes.lg.roles.lg.LoupGarouAmnesique:
-  - "&7C'est une autre description:."
-  - " "
-fr.lastril.uhchost.modes.lg.roles.lg.LoupGarouAnonyme:
-  - "&7C'est une autre description:."
-  - " "
-fr.lastril.uhchost.modes.lg.roles.lg.LoupGarouCraintif:
-  - "&7C'est une autre description:."
-  - " "
-fr.lastril.uhchost.modes.lg.roles.lg.LoupGarouFeutre:
-  - "&7C'est une autre description:."
-  - " "
-fr.lastril.uhchost.modes.lg.roles.lg.LoupGarouGrimeur:
-  - "&7C'est une autre description:."
-  - " "
-fr.lastril.uhchost.modes.lg.roles.lg.LoupGarouJumeau:
-  - "&7C'est une autre description:."
-  - " "
-fr.lastril.uhchost.modes.lg.roles.lg.LoupGarouLunaire:
-  - "&7C'est une autre description:."
-  - " "
-fr.lastril.uhchost.modes.lg.roles.lg.LoupGarouPerfide:
-  - "&7C'est une autre description:."
-  - " "
-fr.lastril.uhchost.modes.lg.roles.lg.LouveMaudite:
-  - "&7C'est une autre description:."
-  - " "
-fr.lastril.uhchost.modes.lg.roles.lg.VilainPetitLoup:
-  - "&7C'est une autre description:."
-  - " "
-
-
-
-fr.lastril.uhchost.modes.lg.roles.solo.Assassin:
-  - "&7C'est une autre description:."
-  - " "
-fr.lastril.uhchost.modes.lg.roles.solo.Imitateur:
-  - "&7C'est une autre description:."
-  - " "
-fr.lastril.uhchost.modes.lg.roles.solo.LoupGarouBlance:
-  - "&7C'est une autre description:."
-  - " "
-fr.lastril.uhchost.modes.lg.roles.solo.Voleur:
-  - "&7C'est une autre description:."
-  - " "
-
-
-
-fr.lastril.uhchost.modes.lg.roles.village.voyante.Voyante:
-  - "&7C'est une autre description:."
-  - " "
-fr.lastril.uhchost.modes.lg.roles.village.voyante.VoyanteBavarde:
-  - "&7C'est une autre description:."
-  - " "
-fr.lastril.uhchost.modes.lg.roles.village.Ancien:
-  - "&7C'est une autre description:."
-  - " "
-fr.lastril.uhchost.modes.lg.roles.village.Ange:
-  - "&7C'est une autre description:."
-  - " "
-fr.lastril.uhchost.modes.lg.roles.village.Chaman:
-  - "&7C'est une autre description:."
-  - " "
-fr.lastril.uhchost.modes.lg.roles.village.Chasseur:
-  - "&7C'est une autre description:."
-  - " "
-fr.lastril.uhchost.modes.lg.roles.village.ChienLoup:
-  - "&7C'est une autre description:."
-  - " "
-fr.lastril.uhchost.modes.lg.roles.village.Citoyen:
-  - "&7C'est une autre description:."
-  - " "
-fr.lastril.uhchost.modes.lg.roles.village.Corbeau:
-  - "&7C'est une autre description:."
-  - " "
-fr.lastril.uhchost.modes.lg.roles.village.Cupidon:
-  - "&7C'est une autre description:."
-  - " "
-fr.lastril.uhchost.modes.lg.roles.village.Detective:
-  - "&7C'est une autre description:."
-  - " "
-fr.lastril.uhchost.modes.lg.roles.village.EnfantSauvage:
-  - "&7C'est une autre description:."
-  - " "
-fr.lastril.uhchost.modes.lg.roles.village.Garde:
-  - "&7C'est une autre description:."
-  - " "
-fr.lastril.uhchost.modes.lg.roles.village.Mineur:
-  - "&7C'est une autre description:."
-  - " "
-fr.lastril.uhchost.modes.lg.roles.village.MontreurDours:
-  - "&7C'est une autre description:."
-  - " "
-fr.lastril.uhchost.modes.lg.roles.village.PetiteFille:
-  - "&7C'est une autre description:."
-  - " "
-fr.lastril.uhchost.modes.lg.roles.village.Pretresse:
-  - "&7C'est une autre description:."
-  - " "
-fr.lastril.uhchost.modes.lg.roles.village.Renard:
-  - "&7C'est une autre description:."
-  - " "
-fr.lastril.uhchost.modes.lg.roles.village.Salvateur:
-  - "&7C'est une autre description:."
-  - " "
-fr.lastril.uhchost.modes.lg.roles.village.Soeur:
-  - "&7C'est une autre description:."
-  - " "
-fr.lastril.uhchost.modes.lg.roles.village.Sorciere:
-  - "&7C'est une autre description:."
-  - " "
-fr.lastril.uhchost.modes.lg.roles.village.Trublion:
-  - "&7C'est une autre description:."
-  - " "
-fr.lastril.uhchost.modes.lg.roles.village.Villageois:
-  - "&7C'est une autre description:."
-  - " "
+fr:
+  lastril:
+    uhchost:
+      modes:
+        lg:
+          roles:
+            lg:
+              InfectPereDesLoups:
+              - '&8&m-------------------------------------------&r'
+              - '&7Vous êtes &cInfect Père des Loups&7, vous devez donc gagner avec les &f&oLoups-Garous&7.'
+              - '&7Comme les autres &fLG &7vous disposez des effets &fForce I &7 &fet NightVision &7la nuit.'
+              - 'Vous avez accès au chat LG la nuit durant 30 secondes.'
+              - 'Vous pouvez consulter la liste (/lg list).'
+              - 'Vous avez le pouvoir d''infecter un joueur durant la partie.'
+              - '&8&m-------------------------------------------&r'
+              LoupGarou:
+              - '&8&m-------------------------------------------&r'
+              - '&7Vous êtes &cLoup-Garou&7, vous devez donc gagner avec les &f&oLoups-Garous&7.'
+              - '&7Comme les autres &fLG &7vous disposez des effets &fForce I &7 &fet NightVision &7la nuit.'
+              - 'Vous pouvez consulter la liste (/lg list).'
+              - 'Vous avez accès au chat LG la nuit durant 30 secondes.'
+              - '&8&m-------------------------------------------&r'
+              LoupGarouAlpha:
+              - '&8&m-------------------------------------------&r'
+              - '&7Vous êtes &c{role}&7, vous devez donc gagner avec les &f&oLoups-Garous&7.'
+              - '&7Comme les autres &fLG &7vous disposez des effets &fForce I &7 &fet NightVision &7la nuit.'
+              - 'Vous pouvez consulter la liste (/lg list).'
+              - 'Vous avez accès au chat LG la nuit durant 30 secondes.'
+              LoupGarouAmnesique:
+              - '&8&m-------------------------------------------&r'
+              - '&7Vous êtes &c{role}&7, vous devez donc gagner avec les &f&oLoups-Garous&7.'
+              - '&7Comme les autres &fLG &7vous disposez des effets &fForce I &7 &fet NightVision &7la nuit.'
+              - 'Vous pouvez consulter la liste (/lg list).'
+              - 'Vous avez accès au chat LG la nuit durant 30 secondes.'
+              LoupGarouAnonyme:
+              - '&8&m-------------------------------------------&r'
+              - '&7Vous êtes &c{role}&7, vous devez donc gagner avec les &f&oLoups-Garous&7.'
+              - '&7Comme les autres &fLG &7vous disposez des effets &fForce I &7 &fet NightVision &7la nuit.'
+              - 'Vous pouvez consulter la liste (/lg list).'
+              - 'Vous avez accès au chat LG la nuit durant 30 secondes.'
+              LoupGarouCraintif:
+              - '&8&m-------------------------------------------&r'
+              - '&7Vous êtes &c{role}&7, vous devez donc gagner avec les &f&oLoups-Garous&7.'
+              - '&7Comme les autres &fLG &7vous disposez des effets &fForce I &7 &fet NightVision &7la nuit.'
+              - 'Vous pouvez consulter la liste (/lg list).'
+              - 'Vous avez accès au chat LG la nuit durant 30 secondes.'
+              LoupGarouFeutre:
+              - '&8&m-------------------------------------------&r'
+              - '&7Vous êtes &c{role}&7, vous devez donc gagner avec les &f&oLoups-Garous&7.'
+              - '&7Comme les autres &fLG &7vous disposez des effets &fForce I &7 &fet NightVision &7la nuit.'
+              - 'Vous pouvez consulter la liste (/lg list).'
+              - 'Vous avez accès au chat LG la nuit durant 30 secondes.'
+              LoupGarouGrimeur:
+              - '&8&m-------------------------------------------&r'
+              - '&7Vous êtes &c{role}&7, vous devez donc gagner avec les &f&oLoups-Garous&7.'
+              - '&7Comme les autres &fLG &7vous disposez des effets &fForce I &7 &fet NightVision &7la nuit.'
+              - 'Vous pouvez consulter la liste (/lg list).'
+              - 'Vous avez accès au chat LG la nuit durant 30 secondes.'
+              LoupGarouJumeau:
+              - '&8&m-------------------------------------------&r'
+              - '&7Vous êtes &c{role}&7, vous devez donc gagner avec les &f&oLoups-Garous&7.'
+              - '&7Comme les autres &fLG &7vous disposez des effets &fForce I &7 &fet NightVision &7la nuit.'
+              - 'Vous pouvez consulter la liste (/lg list).'
+              - 'Vous avez accès au chat LG la nuit durant 30 secondes.'
+              LoupGarouLunaire:
+              - '&8&m-------------------------------------------&r'
+              - '&7Vous êtes &c{role}&7, vous devez donc gagner avec les &f&oLoups-Garous&7.'
+              - '&7Comme les autres &fLG &7vous disposez des effets &fForce I &7 &fet NightVision &7la nuit.'
+              - 'Vous pouvez consulter la liste (/lg list).'
+              - 'Vous avez accès au chat LG la nuit durant 30 secondes.'
+              LoupGarouPerfide:
+              - '&8&m-------------------------------------------&r'
+              - '&7Vous êtes &c{role}&7, vous devez donc gagner avec les &f&oLoups-Garous&7.'
+              - '&7Comme les autres &fLG &7vous disposez des effets &fForce I &7 &fet NightVision &7la nuit.'
+              - 'Vous pouvez consulter la liste (/lg list).'
+              - 'Vous avez accès au chat LG la nuit durant 30 secondes.'
+              LouveMaudite:
+              - '&8&m-------------------------------------------&r'
+              - '&7Vous êtes &c{role}&7, vous devez donc gagner avec les &f&oLoups-Garous&7.'
+              - '&7Comme les autres &fLG &7vous disposez des effets &fForce I &7 &fet NightVision &7la nuit.'
+              - 'Vous pouvez consulter la liste (/lg list).'
+              - 'Vous avez accès au chat LG la nuit durant 30 secondes.'
+              VilainPetitLoup:
+              - '&8&m-------------------------------------------&r'
+              - '&7Vous êtes &c{role}&7, vous devez donc gagner avec les &f&oLoups-Garous&7.'
+              - '&7Comme les autres &fLG &7vous disposez des effets &fForce I &7 &fet NightVision &7la nuit.'
+              - 'Vous pouvez consulter la liste (/lg list).'
+              - 'Vous avez accès au chat LG la nuit durant 30 secondes.'
+            solo:
+              Assassin:
+              - '&8&m-------------------------------------------&r'
+              - '&7Vous êtes &6Assassin&7, vous devez donc gagner tout seul.'
+              - '&7Pour vous aider durant la partie vous disposez de l''effet &fForce I &7le jour.'
+              - 'Vous recevez les items:'
+              - '&7Livre enchanté Sharpness 3'
+              - '&7Livre enchanté Protection 3'
+              - '&7Livre enchanté Efficiency 3'
+              - '&8&m-------------------------------------------&r'
+              Imitateur:
+              - '&7C''est une autre description:.'
+              - ' '
+              LoupGarouBlanc:
+              - '&8&m-------------------------------------------&r'
+              - '&7Vous êtes &6Loup-Garou Blanc&7, vous devez donc gagner tout seul.'
+              - '&7Comme les autres &fLG &7vous disposez des effets &fForce I &7 &fet NightVision &7la nuit.'
+              - 'Vous avez accès au chat LG la nuit durant 30 secondes.'
+              - 'Vous pouvez consulter la liste (/lg list).'
+              - 'Pour vous aider durant la partie vous avez 5 coeurs permanents supplémentaires.'
+              - '&8&m-------------------------------------------&r'
+              Voleur:
+              - '&7C''est une autre description:.'
+              - ' '
+            village:
+              voyante:
+                Voyante:
+                - '&7C''est une autre description:.'
+                - ' '
+                VoyanteBavarde:
+                - '&7C''est une autre description:.'
+                - ' '
+              Ancien:
+              - '&7C''est une autre description:.'
+              - ' '
+              Ange:
+              - '&7C''est une autre description:.'
+              - ' '
+              Chaman:
+              - '&7C''est une autre description:.'
+              - ' '
+              Chasseur:
+              - '&7C''est une autre description:.'
+              - ' '
+              ChienLoup:
+              - '&7C''est une autre description:.'
+              - ' '
+              Citoyen:
+              - '&7C''est une autre description:.'
+              - ' '
+              Corbeau:
+              - '&7C''est une autre description:.'
+              - ' '
+              Cupidon:
+              - '&7C''est une autre description:.'
+              - ' '
+              Detective:
+              - '&7C''est une autre description:.'
+              - ' '
+              EnfantSauvage:
+              - '&7C''est une autre description:.'
+              - ' '
+              Garde:
+              - '&7C''est une autre description:.'
+              - ' '
+              Mineur:
+              - '&7C''est une autre description:.'
+              - ' '
+              MontreurDours:
+              - '&7C''est une autre description:.'
+              - ' '
+              PetiteFille:
+              - '&7C''est une autre description:.'
+              - ' '
+              Pretresse:
+              - '&7C''est une autre description:.'
+              - ' '
+              Renard:
+              - '&7C''est une autre description:.'
+              - ' '
+              Salvateur:
+              - '&7C''est une autre description:.'
+              - ' '
+              Soeur:
+              - '&7C''est une autre description:.'
+              - ' '
+              Sorciere:
+              - '&7C''est une autre description:.'
+              - ' '
+              Trublion:
+              - '&7C''est une autre description:.'
+              - ' '
+              Villageois:
+              - '&7C''est une autre description:.'
+              - ' '

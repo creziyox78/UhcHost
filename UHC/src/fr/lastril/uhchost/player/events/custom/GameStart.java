@@ -24,6 +24,7 @@ public class GameStart implements Listener {
 		new TaskCycle(pl).runTaskTimer(pl, 0, 1);
 		e.getPlayers().forEach(player -> {
 			pl.getPlayerManager(player.getUniqueId()).setPlayedGame(true);
+			pl.getPlayerManager(player.getUniqueId()).setAlive(true);
 		});
 		Bukkit.getWorld("game").setGameRuleValue("keepInventory", "true");
 		if(pl.gameManager.isViewHealth()) {

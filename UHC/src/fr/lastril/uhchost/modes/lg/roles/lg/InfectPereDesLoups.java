@@ -101,7 +101,7 @@ public class InfectPereDesLoups extends Role implements LGRole, RoleListener {
                 Player killer = event.getEntity().getKiller();
                 Player player = event.getEntity();
                 if (killer != null) {
-                    UhcHost main = UhcHost.getInstance();
+                    infecte = true;
                     PlayerManager playerManagerKiller = main.getPlayerManager(killer.getUniqueId());
                     PlayerManager playerManager = main.getPlayerManager(player.getUniqueId());
                     Bukkit.getScheduler().runTaskLater(main, () -> infecte = false, 20*6);

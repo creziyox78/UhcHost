@@ -10,12 +10,15 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class CmdCompo implements ModeSubCommand {
 
     private final UhcHost pl;
+
+    private final List<Camps> listSoloCamp = Arrays.asList(Camps.LOUP_GAROU_BLANC, Camps.COUPLE, Camps.ASSASSIN, Camps.TRUBLION, Camps.ANGE);
 
     public CmdCompo(UhcHost pl) {
         this.pl = pl;
@@ -39,8 +42,11 @@ public class CmdCompo implements ModeSubCommand {
             sender.sendMessage("§8§m----------------------------------");
             for (Camps camp : Camps.values()) {
                 for (PlayerManager PlayerManagers : mode.getModeManager().getPlayerManagersWithCamps(camp)) {
-                    if (PlayerManagers.isAlive()) {
+                    if (PlayerManagers.isAlive() && !listSoloCamp.contains(PlayerManagers.getCamps())) {
                         sender.sendMessage(camp.getCompoColor() + PlayerManagers.getRole().getRoleName() + (player.isOp() ? " §l(" + PlayerManagers.getPlayerName() + " | Camps: " + PlayerManagers.getCamps().name() + ")" : ""));
+                    } else {
+                        if(PlayerManagers.isAlive())
+                            sender.sendMessage("§6"+PlayerManagers.getRole().getRoleName() + (player.isOp() ? " §l(" + PlayerManagers.getPlayerName() + " | Camps: " + PlayerManagers.getCamps().name() + ")" : ""));
                     }
                 }
                 if (!mode.getModeManager().getPlayerManagersWithCamps(camp).isEmpty())

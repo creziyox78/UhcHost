@@ -24,7 +24,9 @@ public class EnfantSauvage extends Role implements LGRole {
 
     @Override
     public void afterRoles(Player player) {
-        modele = main.getRandomPlayerManagerAlive();
+        while (modele == null || modele == player){
+            modele = main.getRandomPlayerManagerAlive();
+        }
         player.sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage() + "§bVoici votre modèle qui a été choisi aléatoirement: " + modele.getPlayerName());
     }
 

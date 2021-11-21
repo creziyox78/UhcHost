@@ -11,6 +11,7 @@ import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class CmdMode implements TabExecutor {
@@ -50,16 +51,17 @@ public class CmdMode implements TabExecutor {
     @Override
     public List<String> onTabComplete(CommandSender sender, Command command, String label, String[] args) {
         List<String> possibilities = new ArrayList<>();
-        System.out.println("Tabing...");
         if (args.length == 1) {
             modeCommand.getSubCommands().stream().map(ModeSubCommand::getSubCommandName).filter(subCommand -> subCommand.startsWith(args[0])).forEach(possibilities::add);
-            System.out.println("Tab with 1 arg.");
         } else if (args.length == 2) {
-            System.out.println("Tab with 2 args.");
             String subCommandName = args[0];
-            modeCommand.getSubCommand(subCommandName).ifPresent(subCommand -> subCommand.getSubArgs().stream().filter(subArg ->
-                    subArg.startsWith(args[0].toUpperCase()) || subArg.startsWith(args[0].toLowerCase()))
-                    .forEach(possibilities::add));
+            Optional<ModeSubCommand> optionalModeSubCommand = modeCommand.getSubCommand(subCommandName);
+            if(optionalModeSubCommand.isPresent()){
+                modeCommand.getSubCommand(subCommandName).ifPresent(subCommand -> subCommand.getSubArgs().stream().filter(subArg ->
+                        subArg.startsWith(args[1].toUpperCase()) || subArg.startsWith(args[1].toLowerCase()))
+                        .forEach(possibilities::add));
+            }
+
         }
 
         return possibilities;

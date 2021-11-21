@@ -223,7 +223,7 @@ public class TaskManager {
 							TaskManager.this.pl.gameManager.setNether(false);
 						}
 				}
-				if (TaskManager.this.pl.gameManager.isFightTeleport()) {
+				/*if (TaskManager.this.pl.gameManager.isFightTeleport()) {
 					if (TaskManager.this.count == TaskManager.this.teleportTime - 60
 							|| TaskManager.this.count == TaskManager.this.teleportTime - 120
 							|| TaskManager.this.count == TaskManager.this.teleportTime - 180
@@ -235,7 +235,7 @@ public class TaskManager {
 							TaskManager.this.pl.gameManager.reTeleport();
 							TaskManager.this.pl.gameManager.setFightTeleport(false);
 						}
-				}
+				}*/
 				if (TaskManager.this.count == TaskManager.this.pvpTime) {
 					Bukkit.broadcastMessage(I18n.tl("pvpActived"));
 					TaskManager.this.pl.gameManager.setPvp(true);

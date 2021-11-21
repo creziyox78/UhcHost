@@ -44,6 +44,10 @@ public class LoupGarouGui extends IQuickInventory {
             new SendLGListGui().open(onClick.getPlayer());
         }, 10);
 
+        inv.setItem(new ItemsCreator(Material.WATCH, I18n.tl("guis.lg.main.specialsevents"), null, 1).create(), onClick -> {
+            new SpecialsEventsGui(lgMode).open(onClick.getPlayer());
+        },12);
+
         inv.setItem((new ItemsCreator(Material.BARRIER, I18n.tl("guis.back"), null)).create(), onClick -> {
             new ModesGui().open(onClick.getPlayer());
         },inv.getInventory().getSize() - 1);

@@ -10,10 +10,6 @@ import org.bukkit.inventory.ItemStack;
 
 public class Pretresse extends Role implements LGRole {
 
-    public String getSkullValue() {
-        return null;
-    }
-
     @Override
     public void giveItems(Player player) {
         player.getInventory().addItem(new ItemStack(Material.OBSIDIAN, 4));
@@ -62,5 +58,6 @@ public class Pretresse extends Role implements LGRole {
     public Camps getCamp() {
         return Camps.VILLAGEOIS;
     }
+
 
 }

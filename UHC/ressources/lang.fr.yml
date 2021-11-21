@@ -28,6 +28,7 @@ scoreboard:
   host: "&3Host : &b"
   waitForPlayers: "&bEn attente de joueurs..."
   ip: "&bdiscord.gg/9G2VQGV9Hz"
+  roles: "&3Rôles:&b  "
 
 no-permission: "&cTu n#,#as pas la permission !"
 team-must-enabled: "&6Les [,]quipes doivent ],[tre activ[,]s !"
@@ -212,6 +213,7 @@ guis:
       votetime: "&9D[,]but des premiers votes:&b [,]pisode {0}"
       randomcouple: "&aCouple aléatoire"
       lglisttime: "&9Liste des Loup-Garou:&b {0}"
+      specialsevents: "&eEvénements Aléatoire"
     vote:
       name: "&bPremiers votes"
       lore: "&9Active les votes uniquement"
@@ -224,6 +226,8 @@ guis:
       name: "&bListe des Loups-Garous"
       lore: "&7Défini le temps avant que les"
       lore1: "&c Loups-Garous&7 ne re),(oivent la liste"
+    specialsevents:
+      name: ""
 
 
 scenarios:

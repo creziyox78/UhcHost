@@ -8,6 +8,7 @@ import fr.lastril.uhchost.tools.API.items.crafter.QuickItem;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.OfflinePlayer;
+import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
@@ -83,22 +84,22 @@ public abstract class Role implements RoleDescription {
         player.sendMessage(this.getDescription() != null ? "§7" + this.getDescription() : "§c§lDESCRIPTION NULL");
         if (!this.getRoleToKnow().isEmpty()) {
             for (Class<? extends Role> roleToKnow : this.getRoleToKnow()) {
-				/*if(!UhcHost.getInstance().getNarutoManager().getPlayerManagersWithRole(roleToKnow).isEmpty()) {
+				if(!UhcHost.getInstance().gameManager.getModes().getMode().getModeManager().getPlayerManagersWithRole(roleToKnow).isEmpty()) {
 					try {
-						player.sendMessage( "§eLe(s) PlayerManager(s) possédant le rôle §6" + roleToKnow.newInstance().getRoleName() + "§e :");
+						player.sendMessage( "§eLe(s) joueur(s) possédant le rôle §6" + roleToKnow.newInstance().getRoleName() + "§e :");
 					} catch (InstantiationException | IllegalAccessException e) {
 						e.printStackTrace();
 					}
-					for (PlayerManager PlayerManagerHasRole : UhcHost.getInstance().getNarutoManager().getPlayerManagersWithRole(roleToKnow)) {
+					for (PlayerManager PlayerManagerHasRole : UhcHost.getInstance().gameManager.getModes().getMode().getModeManager().getPlayerManagersWithRole(roleToKnow)) {
 						player.sendMessage("§6- " + PlayerManagerHasRole.getPlayerName());
 					}
-				}*/
+				}
             }
         }
         if (sendList() != null) {
             player.sendMessage(sendList());
         }
-        //player.playSound(player.getLocation(), Sound.LEVEL_UP, 1, 10);
+        player.playSound(player.getLocation(), Sound.LEVEL_UP, 1, 10);
     }
 
     public void onKill(OfflinePlayer player, Player killer) {

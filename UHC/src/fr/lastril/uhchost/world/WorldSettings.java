@@ -12,7 +12,7 @@ public class WorldSettings {
 		border.setDamageAmount(3.0D);
 		border.setDamageBuffer(10.0D);
 		border.setWarningDistance(20);
-		border.setSize(2000.0D);
+		border.setSize(200.0D);
 		world.setPVP(true);
 		world.setWeatherDuration(0);
 		world.setThundering(false);

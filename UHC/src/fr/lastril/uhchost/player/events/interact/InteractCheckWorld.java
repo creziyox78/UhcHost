@@ -28,7 +28,7 @@ public class InteractCheckWorld implements Listener {
         if(itemStack == null)
             return;
 
-        if(pl.gameManager.getHost() == player){
+        if(pl.gameManager.getHost() == player || pl.gameManager.isCoHost(player)){
             if(pl.gameManager.isPlayerCheckingWorld()){
                 if(itemStack.getType() == Material.INK_SACK){
                     if(event.getAction() == Action.RIGHT_CLICK_AIR ||event.getAction() == Action.RIGHT_CLICK_BLOCK){

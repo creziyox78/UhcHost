@@ -2,13 +2,14 @@ package fr.lastril.uhchost.modes.lg.roles.village;
 
 import fr.lastril.uhchost.UhcHost;
 import fr.lastril.uhchost.modes.lg.LoupGarouManager;
-import fr.lastril.uhchost.modes.lg.roles.LGFacadeRole;
 import fr.lastril.uhchost.modes.lg.roles.LGRole;
 import fr.lastril.uhchost.modes.roles.Camps;
 import fr.lastril.uhchost.modes.roles.Role;
 import fr.lastril.uhchost.player.PlayerManager;
-import fr.lastril.uhchost.tools.API.clickable_messages.ClickableMessage;
+import fr.lastril.uhchost.tools.API.TextComponentBuilder;
 import fr.lastril.uhchost.tools.API.items.crafter.QuickItem;
+import net.md_5.bungee.api.chat.ClickEvent;
+import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.SkullType;
@@ -74,9 +75,11 @@ public class Soeur extends Role implements LGRole {
                 if (playerManager.getPlayer() != player) {
                     if (playerManager.getPlayer() != null) {
                         Player soeur = playerManager.getPlayer();
-                        if (player.getLocation().distance(soeur.getLocation()) <= 20) {
-                            player.addPotionEffect(ressistance);
-                            soeur.addPotionEffect(ressistance);
+                        if(soeur.getWorld() == player.getWorld()){
+                            if (player.getLocation().distance(soeur.getLocation()) <= 20) {
+                                player.addPotionEffect(ressistance);
+                                soeur.addPotionEffect(ressistance);
+                            }
                         }
                     }
                 }
@@ -98,18 +101,11 @@ public class Soeur extends Role implements LGRole {
                 if (this.getPlayer() != null) {
                     Player soeur = this.getPlayer();
                     soeur.sendMessage("Votre soeur (" + player.getPlayerName() + ") est morte ! Vous pouvez décider de voir le pseudo du tueur ou son rôle.");
-                    new ClickableMessage(soeur, onClick -> {
-                        //VOIR PSEUDO
-                        soeur.sendMessage("Le tueur de votre soeur est " + killer.getName() + " !");
-                    }, "§eVoir le pseudo ");
-                    new ClickableMessage(soeur, onClick -> {
-                        //VOIR RÔLE
-                        PlayerManager playerManager = main.getPlayerManager(killer.getUniqueId());
-                        if (playerManager.getRole() instanceof LGFacadeRole) {
-                            LGFacadeRole lgFacadeRole = (LGFacadeRole) playerManager.getRole();
-                        }
-                        soeur.sendMessage("Le rôle du tueur de votre soeur  est " + playerManager.getRole().getRoleName() + " !");
-                    }, "§eVoir le rôle ");
+                    TextComponent textComponent = new TextComponent(new TextComponentBuilder("§a§l[Pseudo]").setClickEvent(ClickEvent.Action.RUN_COMMAND, "/lg soeur_pseudo" + player.getPlayerName()).toText());
+                    textComponent.addExtra(new TextComponent(" "));
+                    textComponent.addExtra(new TextComponentBuilder("§5§l[Rôle]").setClickEvent(ClickEvent.Action.RUN_COMMAND, "/lg soeur_role").toText());
+                    textComponent.addExtra(new TextComponent(" "));
+                    soeur.spigot().sendMessage(textComponent);
                 }
             }
         }

@@ -1,6 +1,7 @@
 package fr.lastril.uhchost.player;
 
 import fr.lastril.uhchost.UhcHost;
+import fr.lastril.uhchost.enums.Messages;
 import fr.lastril.uhchost.modes.roles.Camps;
 import fr.lastril.uhchost.modes.roles.Role;
 import fr.lastril.uhchost.player.modemanager.WolfPlayerManager;
@@ -42,7 +43,7 @@ public class PlayerManager {
 		this.playerstats = PlayerState.WAITING;
 		this.player = Bukkit.getPlayer(uuid);
 		this.pl = UhcHost.getInstance();
-		this.alive = true;
+		this.alive = false;
 		this.playedGame = false;
 		this.lastDisconnection = player.getLocation();
 		this.cooldowns = new HashMap<>();
@@ -58,7 +59,7 @@ public class PlayerManager {
 			int newCooldown = e.getValue()-1;
 			if(newCooldown == 0){
 				if(getPlayer() != null){
-					getPlayer().sendMessage("§aLe cooldown§e " + e.getKey() + "§a est à 0. Vous pouvez réutiliser ce pouvoir.");
+					getPlayer().sendMessage(Messages.COOLDOWNPREFIX.getMessage() + "§aLe cooldown§e " + e.getKey() + "§a est à 0. Vous pouvez réutiliser ce pouvoir.");
 				}
 				continue;
 			}

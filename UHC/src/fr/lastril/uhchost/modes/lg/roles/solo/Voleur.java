@@ -7,10 +7,11 @@ import fr.lastril.uhchost.modes.roles.Role;
 import fr.lastril.uhchost.modes.roles.When;
 import fr.lastril.uhchost.player.PlayerManager;
 import fr.lastril.uhchost.tools.API.items.crafter.QuickItem;
+import org.bukkit.Location;
 import org.bukkit.Material;
-import org.bukkit.OfflinePlayer;
 import org.bukkit.SkullType;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
@@ -40,16 +41,15 @@ public class Voleur extends Role implements LGRole {
     }
 
     @Override
-    public void onKill(OfflinePlayer player, Player killer) {
+    public void onPlayerDeathRealy(PlayerManager player, ItemStack[] items, ItemStack[] armors, Player killer, Location deathLocation) {
         PlayerManager killerManager = main.getPlayerManager(killer.getUniqueId());
-        PlayerManager playerManager = main.getPlayerManager(killer.getUniqueId());
         if (killerManager.hasRole()) {
             if (killerManager.getRole() instanceof Voleur) {
                 Voleur voleur = (Voleur) killerManager.getRole();
                 if (!voleur.hasKilled()) {
                     killer.sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage()
                             + "§bVous venez de tuer quelqu'un pour la 1ère fois. Vous n'avez plus Résistance et héritez du rôle de la personne que vous avez tué.");
-                    killerManager.setRole(playerManager.getRole());
+                    killerManager.setRole(player.getRole());
 
                 }
             }

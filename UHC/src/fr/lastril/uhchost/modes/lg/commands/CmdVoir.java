@@ -58,7 +58,7 @@ public class CmdVoir implements ModeSubCommand {
                         player.sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage() + "§cCe joueur n'est pas en ligne.");
                     }
                 } else {
-                    player.sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage() + "§6Précisez un PlayerManager.");
+                    player.sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage() + "§6Précisez un joueur.");
                 }
             } else {
                 player.sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage() + "§cVous ne pouvez pas utiliser votre pouvoir pour le moment.");
@@ -81,7 +81,7 @@ public class CmdVoir implements ModeSubCommand {
                         player.sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage() + "§cCe joueur n'est pas en ligne.");
                     }
                 } else {
-                    player.sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage() + "§6Précisez un PlayerManager.");
+                    player.sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage() + "§6Précisez un joueur.");
                 }
             } else {
                 player.sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage() + "§cVous ne pouvez pas utiliser votre pouvoir pour le moment.");
@@ -98,8 +98,16 @@ public class CmdVoir implements ModeSubCommand {
                     + ". Ce joueur est: " + lgFacadeRole.getRoleFacade().getRoleName());
             if (broadcasted) {
                 Bukkit.broadcastMessage("");
-                Bukkit.broadcastMessage("§bLa Voyante Bavarde a espionner un PlayerManager qui est " + lgFacadeRole.getRoleFacade().getRoleName());
+                Bukkit.broadcastMessage("§bLa Voyante Bavarde a espionner un joueur qui est " + lgFacadeRole.getRoleFacade().getRoleName());
                 Bukkit.broadcastMessage("");
+            }
+            switch (lgFacadeRole.getRoleFacade().getCamp()){
+                case LOUP_GAROU:
+                case LOUP_GAROU_BLANC:
+                    break;
+                default:
+                    player.setHealth(player.getHealth() - 6);
+                    break;
             }
         } else {
             player.sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage()
@@ -107,8 +115,16 @@ public class CmdVoir implements ModeSubCommand {
                     + ". Ce joueur est: " + targetManager.getRole().getRoleName());
             if (broadcasted) {
                 Bukkit.broadcastMessage("");
-                Bukkit.broadcastMessage("§bLa Voyante Bavarde a espionner un PlayerManager qui est " + targetManager.getRole().getRoleName());
+                Bukkit.broadcastMessage("§bLa Voyante Bavarde a espionner un joueur qui est " + targetManager.getRole().getRoleName());
                 Bukkit.broadcastMessage("");
+            }
+            switch (targetManager.getRole().getCamp()){
+                case LOUP_GAROU:
+                case LOUP_GAROU_BLANC:
+                    break;
+                default:
+                    player.setHealth(player.getHealth() - 6);
+                    break;
             }
         }
 

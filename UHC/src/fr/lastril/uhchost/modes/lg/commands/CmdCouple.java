@@ -60,6 +60,8 @@ public class CmdCouple implements ModeSubCommand {
                             PlayerManager targetManager2 = pl.getPlayerManager(target1.getUniqueId());
                             if (targetManager1.isAlive() && targetManager1.hasRole() && targetManager2.isAlive() && targetManager2.hasRole()) {
                                 targetManager1.setCamps(Camps.COUPLE);
+                                targetManager2.getWolfPlayerManager().setOtherCouple(target1.getUniqueId());
+                                targetManager1.getWolfPlayerManager().setOtherCouple(target2.getUniqueId());
                                 targetManager2.setCamps(Camps.COUPLE);
                                 target1.sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage() +
                                         "§dLe cupidon vient de vous lié d'amour avec " + target2.getName()

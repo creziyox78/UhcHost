@@ -99,7 +99,7 @@ public class GameManager {
 
 	private Map<UUID, Location> teleportations;
 
-	private boolean fightTeleport;
+	//private boolean fightTeleport;
 
 	private boolean viewHealth;
 	private final List<String> composition;
@@ -116,13 +116,13 @@ public class GameManager {
 		return this.maxPlayers;
 	}
 
-	public boolean isFightTeleport() {
+	/*public boolean isFightTeleport() {
 		return fightTeleport;
 	}
 
 	public void setFightTeleport(boolean b) {
 		fightTeleport = b;
-	}
+	}*/
 
 	public UUID getLastDamager(Player player) {
 		if (!this.lastDamager.containsKey(player.getUniqueId()))
@@ -139,9 +139,9 @@ public class GameManager {
 		this.temp = new ArrayList<>();
 		this.pvpTime = 60000L;
 		this.pvp = false;
-		this.fightTeleport = false;
+		//this.fightTeleport = false;
 		this.viewHealth = true;
-		this.borderSize = 2000L;
+		this.borderSize = 200L;
 		this.finalBorderSize = 200L;
 		this.damage = false;
 		this.potionsEditMode = false;
@@ -404,9 +404,9 @@ public class GameManager {
 								teams.getTeam().getEntries().forEach(s -> {
 									Player p = Bukkit.getPlayer(s);
 									p.teleport(loc.clone().add(0.5D, 1.0D, 0.5D));
-									if (GameManager.this.fightTeleport)
+									/*if (GameManager.this.fightTeleport)
 										GameManager.this.teleportations.put(p.getUniqueId(),
-												loc.clone().add(0.5D, 1.0D, 0.5D));
+												loc.clone().add(0.5D, 1.0D, 0.5D));*/
 								});
 								this.locs.remove(loc);
 							}
@@ -421,22 +421,25 @@ public class GameManager {
 			}, 10L, 10L);
 		} else {
 			this.task = Bukkit.getScheduler().runTaskTimer(this.pl, new Runnable() {
-				final List<Location> locs = GameManager.this.generateLocations(pl.getPlayerManagerOnlines().size());
+				final List<Location> locs = GameManager.this.generateLocations(Bukkit.getOnlinePlayers().size());
 
 				@Override
 				public void run() {
 					if (GameManager.this.count == this.locs.size()) {
-						for (PlayerManager playerManager : pl.getPlayerManagerOnlines()) {
-							Player p = playerManager.getPlayer();
+						Bukkit.getOnlinePlayers().forEach(players -> {
+							PlayerManager playerManager = pl.getPlayerManager(players.getUniqueId());
+							playerManager.setPlayedGame(true);
+							playerManager.setAlive(true);
 							Location loc = this.locs.stream().findAny().get();
-							p.teleport(loc.clone().add(0.5D, 1.0D, 0.5D));
-							if (GameManager.this.fightTeleport)
-								GameManager.this.teleportations.put(p.getUniqueId(), loc.clone().add(0.5D, 1.0D, 0.5D));
+							players.teleport(loc.clone().add(0.5D, 1.0D, 0.5D));
+							/*if (GameManager.this.fightTeleport)
+								GameManager.this.teleportations.put(players.getUniqueId(), loc.clone().add(0.5D, 1.0D, 0.5D));*/
 							this.locs.remove(loc);
-						}
+						});
 						GameManager.this.pl.taskManager.preGame();
 						GameManager.this.task.cancel();
 						return;
+
 					}
 					this.locs.get(GameManager.this.count).getChunk().load(true);
 					GameManager.this.count++;

@@ -9,8 +9,8 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class CmdFausseNuit implements ModeSubCommand {
 
@@ -28,7 +28,7 @@ public class CmdFausseNuit implements ModeSubCommand {
 
     @Override
     public List<String> getSubArgs() {
-        return Collections.singletonList("");
+        return Bukkit.getOnlinePlayers().stream().map(Player::getName).collect(Collectors.toList());
     }
 
     @Override

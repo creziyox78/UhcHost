@@ -6,6 +6,7 @@ import fr.lastril.uhchost.tools.I18n;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
+import org.bukkit.scoreboard.Objective;
 import org.bukkit.scoreboard.Scoreboard;
 import org.bukkit.scoreboard.Team;
 import org.bukkit.util.Vector;
@@ -27,6 +28,8 @@ public class ScoreboardUtils {
 	private final String startIn;
 
 	private final String players;
+
+	private final String roles;
 
 	private final String credit;
 
@@ -64,6 +67,7 @@ public class ScoreboardUtils {
 		this.ip = I18n.tl("scoreboard.ip");
 		this.time = I18n.tl("scoreboard.time");
 		this.border = I18n.tl("scoreboard.border");
+		this.roles = I18n.tl("scoreboard.roles");
 		this.spawn = I18n.tl("scoreboard.spawn");
 		this.pvp = I18n.tl("scoreboard.pvp");
 		this.actived = I18n.tl("scoreboard.actived");
@@ -75,8 +79,8 @@ public class ScoreboardUtils {
 		this.playersInTeam = I18n.tl("scoreboard.playersInTeam");
 		this.playersInTeamEnd = I18n.tl("scoreboard.playersInTeamEnd");
 		this.board = Bukkit.getScoreboardManager().getMainScoreboard();
-		this.board.getTeams().forEach(t -> t.unregister());
-		this.board.getObjectives().forEach(o -> o.unregister());
+		this.board.getTeams().forEach(Team::unregister);
+		this.board.getObjectives().forEach(Objective::unregister);
 	}
 
 	public void reset(Player player) {
@@ -119,22 +123,31 @@ public class ScoreboardUtils {
 		if (this.pl.getPlayerManagerAlives().size() < this.pl.gameManager.getPlayersBeforeStart()) {
 			sb.setLine(line++, this.waitForPlayers);
 		} else {
-			sb.setLine(line++, this.startIn + count);
+			if(pl.getConfig().getBoolean("scoreboard.startIn"))
+				sb.setLine(line++, this.startIn + count);
 		}
-		sb.setLine(line++, "§2");
-		if (this.pl.gameManager.getHost() != null)
-			sb.setLine(line++, this.host + this.pl.gameManager.getHost().getName());
-		if (this.pl.teamUtils.getPlayersPerTeams() != 1) {
-			Team t = this.pl.teamUtils.getTeam(player);
-			sb.setLine(line++, this.team + ((t == null) ? "-"
-					: (t.getName() + this.playersInTeam + t.getEntries().size() + this.playersInTeamEnd)));
-			sb.setLine(line++, "§3");
+		if(pl.getConfig().getBoolean("scoreboard.host")){
+			sb.setLine(line++, "§2");
+			if (this.pl.gameManager.getHost() != null)
+				sb.setLine(line++, this.host + this.pl.gameManager.getHost().getName());
 		}
-		sb.setLine(line++, this.players + Bukkit.getOnlinePlayers().size() + "/" + this.pl.gameManager.getMaxPlayers());
+
+		if(pl.getConfig().getBoolean("scoreboard.team")){
+			if (this.pl.teamUtils.getPlayersPerTeams() != 1) {
+				Team t = this.pl.teamUtils.getTeam(player);
+				sb.setLine(line++, this.team + ((t == null) ? "-"
+						: (t.getName() + this.playersInTeam + t.getEntries().size() + this.playersInTeamEnd)));
+				sb.setLine(line++, "§3");
+			}
+		}
+
+		if(pl.getConfig().getBoolean("scoreboard.players"))
+			sb.setLine(line++, this.players + Bukkit.getOnlinePlayers().size() + "/" + this.pl.gameManager.getMaxPlayers());
 
 		sb.setLine(line++, "§8§m                   §r");
 		sb.setLine(line++, this.credit);
-		sb.setLine(line++, this.ip);
+		if(pl.getConfig().getBoolean("scoreboard.ip"))
+			sb.setLine(line++, this.ip);
 	}
 
 	public void updatePreGame(Player player, int count) {
@@ -162,22 +175,35 @@ public class ScoreboardUtils {
 		}
 		int line = 0;
 		sb.setLine(line++, "§1");
-		sb.setLine(line++, this.startIn + count);
-		if (this.pl.gameManager.getHost() != null)
-			sb.setLine(line++, this.host + this.pl.gameManager.getHost().getName());
-		sb.setLine(line++, "§2");
-		if (this.pl.teamUtils.getPlayersPerTeams() != 1) {
-			sb.setLine(line++,
-					this.team + ((this.pl.teamUtils.getTeam(player) == null) ? "-"
-							: (this.pl.teamUtils.getTeam(player).getName() + this.playersInTeam
-									+ this.pl.teamUtils.getTeam(player).getEntries().size() + this.playersInTeamEnd)));
-			sb.setLine(line++, "");
+		if(pl.getConfig().getBoolean("scoreboard.startIn"))
+			sb.setLine(line++, this.startIn + count);
+		if(pl.getConfig().getBoolean("scoreboard.host")){
+			if (this.pl.gameManager.getHost() != null)
+				sb.setLine(line++, this.host + this.pl.gameManager.getHost().getName());
+			sb.setLine(line++, "§2");
 		}
 
-		sb.setLine(line++, this.players + this.pl.getPlayerManagerOnlines().size());
+		if(pl.getConfig().getBoolean("scoreboard.team")){
+			if (this.pl.teamUtils.getPlayersPerTeams() != 1) {
+				sb.setLine(line++,
+						this.team + ((this.pl.teamUtils.getTeam(player) == null) ? "-"
+								: (this.pl.teamUtils.getTeam(player).getName() + this.playersInTeam
+								+ this.pl.teamUtils.getTeam(player).getEntries().size() + this.playersInTeamEnd)));
+				sb.setLine(line++, "§9");
+			}
+		}
+
+
+		if(pl.getConfig().getBoolean("scoreboard.players")){
+			sb.setLine(line++, this.players + this.pl.getPlayerManagerOnlines().size());
+		}
+
 		sb.setLine(line++, "§8§m                   §r");
 		sb.setLine(line++, this.credit);
-		sb.setLine(line++, this.ip);
+		if(pl.getConfig().getBoolean("scoreboard.ip")){
+			sb.setLine(line++, this.ip);
+		}
+
 		this.sbs.replace(player.getUniqueId(), sb);
 	}
 
@@ -206,66 +232,88 @@ public class ScoreboardUtils {
 			this.sbs.put(player.getUniqueId(), sb);
 		}
 		int line = 0;
-		if (this.pl.gameManager.getHost() != null)
-			sb.setLine(line++, this.host + this.pl.gameManager.getHost().getName());
+		if(pl.getConfig().getBoolean("scoreboard.host")){
+			if (this.pl.gameManager.getHost() != null)
+				sb.setLine(line++, this.host + this.pl.gameManager.getHost().getName());
 
-		sb.setLine(line++, "§r");
-		Location loc = this.pl.worldUtils.getCenter().getWorld().getHighestBlockAt(
-				this.pl.worldUtils.getCenter().getBlockX(), this.pl.worldUtils.getCenter().getBlockZ()).getLocation();
-		loc.setY(player.getLocation().getY());
-		if(player.getWorld() == loc.getWorld())
-			sb.setLine(line++, this.spawn + getDirectionOf(player.getLocation(), loc) + " (" + (int) player.getLocation().distance(loc.add(0, player.getLocation().getY(), 0)) + ")");
-		else
-			sb.setLine(line++, this.spawn + "?");
-		sb.setLine(line++, this.players + this.pl.getPlayerManagerAlives().size());
-		if (this.pl.teamUtils.getPlayersPerTeams() != 1)
-			sb.setLine(line++,
-					this.team + ((this.pl.teamUtils.getTeam(player) == null) ? "-"
-							: (this.pl.teamUtils.getTeam(player).getName() + this.playersInTeam
-									+ this.pl.teamUtils.getTeam(player).getEntries().size() + this.playersInTeamEnd)));
-		sb.setLine(line++, "§r");
-		if (count / 60 < 10 && count % 60 < 10) {
-			sb.setLine(line++, this.time + "0" + (count / 60) + ":0" + (count % 60));
-		} else if (count / 60 < 10) {
-			sb.setLine(line++, this.time + "0" + (count / 60) + ":" + (count % 60));
-		} else if (count % 60 < 10) {
-			sb.setLine(line++, this.time + (count / 60) + ":0" + (count % 60));
-		} else {
-			sb.setLine(line++, this.time + (count / 60) + ":" + (count % 60));
+			sb.setLine(line++, "§r");
 		}
-		if (this.pl.gameManager.getModes().getMode() instanceof RoleAnnounceMode) {
-			RoleAnnounceMode roleAnnounceMode = (RoleAnnounceMode) this.pl.gameManager.getModes().getMode();
-			int roleTime = roleAnnounceMode.getRoleAnnouncement();
 
-			if(!roleAnnounceMode.isRoleAnnonced(roleTime)){
-				if (roleTime / 60 < 10 && roleTime % 60 < 10) {
-					sb.setLine(line++, "§3Rôles:§b " + "0" + (roleTime / 60) + ":0" + (roleTime % 60));
-				} else if (roleTime / 60 < 10) {
-					sb.setLine(line++, "§3Rôles:§b " + "0" + (roleTime / 60) + ":" + (roleTime % 60));
-				} else if (roleTime % 60 < 10) {
-					sb.setLine(line++, "§3Rôles:§b " + (roleTime / 60) + ":0" + (roleTime % 60));
+		if(pl.getConfig().getBoolean("scoreboard.spawn")){
+			Location loc = this.pl.worldUtils.getCenter().getWorld().getHighestBlockAt(
+					this.pl.worldUtils.getCenter().getBlockX(), this.pl.worldUtils.getCenter().getBlockZ()).getLocation();
+			loc.setY(player.getLocation().getY());
+			if(player.getWorld() == loc.getWorld())
+				sb.setLine(line++, this.spawn + getDirectionOf(player.getLocation(), loc) + " (" + (int) player.getLocation().distance(loc.add(0, player.getLocation().getY(), 0)) + ")");
+			else
+				sb.setLine(line++, this.spawn + "?");
+		}
+
+		if(pl.getConfig().getBoolean("scoreboard.players")){
+			sb.setLine(line++, this.players + this.pl.getPlayerManagerAlives().size());
+		}
+		if(pl.getConfig().getBoolean("scoreboard.team")){
+			if (this.pl.teamUtils.getPlayersPerTeams() != 1)
+				sb.setLine(line++,
+						this.team + ((this.pl.teamUtils.getTeam(player) == null) ? "-"
+								: (this.pl.teamUtils.getTeam(player).getName() + this.playersInTeam
+								+ this.pl.teamUtils.getTeam(player).getEntries().size() + this.playersInTeamEnd)));
+		}
+
+
+		if(pl.getConfig().getBoolean("scoreboard.time")){
+			sb.setLine(line++, "§r");
+			if (count / 60 < 10 && count % 60 < 10) {
+				sb.setLine(line++, this.time + "0" + (count / 60) + ":0" + (count % 60));
+			} else if (count / 60 < 10) {
+				sb.setLine(line++, this.time + "0" + (count / 60) + ":" + (count % 60));
+			} else if (count % 60 < 10) {
+				sb.setLine(line++, this.time + (count / 60) + ":0" + (count % 60));
+			} else {
+				sb.setLine(line++, this.time + (count / 60) + ":" + (count % 60));
+			}
+		}
+
+		if(pl.getConfig().getBoolean("scoreboard.roles")){
+			if (this.pl.gameManager.getModes().getMode() instanceof RoleAnnounceMode) {
+				RoleAnnounceMode roleAnnounceMode = (RoleAnnounceMode) this.pl.gameManager.getModes().getMode();
+				int roleTime = roleAnnounceMode.getRoleAnnouncement();
+
+				if(!roleAnnounceMode.isRoleAnnonced(roleTime)){
+					if (roleTime / 60 < 10 && roleTime % 60 < 10) {
+						sb.setLine(line++, this.roles + "0" + (roleTime / 60) + ":0" + (roleTime % 60));
+					} else if (roleTime / 60 < 10) {
+						sb.setLine(line++, this.roles + "0" + (roleTime / 60) + ":" + (roleTime % 60));
+					} else if (roleTime % 60 < 10) {
+						sb.setLine(line++, this.roles + (roleTime / 60) + ":0" + (roleTime % 60));
+					} else {
+						sb.setLine(line++, this.roles + (roleTime / 60) + ":" + (roleTime % 60));
+					}
 				} else {
-					sb.setLine(line++, "§3Rôles:§b " + (roleTime / 60) + ":" + (roleTime % 60));
+					sb.setLine(line++, this.roles + this.actived);
+				}
+			}
+		}
+
+		if(pl.getConfig().getBoolean("scoreboard.pvp")){
+			if (!this.pl.gameManager.isPvp()) {
+				int pvpTime = this.pl.taskManager.getPvpTime() - count;
+				if (pvpTime / 60 < 10 && pvpTime % 60 < 10) {
+					sb.setLine(line++, this.pvp + "0" + (pvpTime / 60) + ":0" + (pvpTime % 60));
+				} else if (pvpTime / 60 < 10) {
+					sb.setLine(line++, this.pvp + "0" + (pvpTime / 60) + ":" + (pvpTime % 60));
+				} else if (pvpTime % 60 < 10) {
+					sb.setLine(line++, this.pvp + (pvpTime / 60) + ":0" + (pvpTime % 60));
+				} else {
+					sb.setLine(line++, this.pvp + (pvpTime / 60) + ":" + (pvpTime % 60));
 				}
 			} else {
-				sb.setLine(line++, "§3Rôles:§b " + this.actived);
+				sb.setLine(line++, this.pvp + this.actived);
 			}
 		}
-		if (!this.pl.gameManager.isPvp()) {
-			int pvpTime = this.pl.taskManager.getPvpTime() - count;
-			if (pvpTime / 60 < 10 && pvpTime % 60 < 10) {
-				sb.setLine(line++, this.pvp + "0" + (pvpTime / 60) + ":0" + (pvpTime % 60));
-			} else if (pvpTime / 60 < 10) {
-				sb.setLine(line++, this.pvp + "0" + (pvpTime / 60) + ":" + (pvpTime % 60));
-			} else if (pvpTime % 60 < 10) {
-				sb.setLine(line++, this.pvp + (pvpTime / 60) + ":0" + (pvpTime % 60));
-			} else {
-				sb.setLine(line++, this.pvp + (pvpTime / 60) + ":" + (pvpTime % 60));
-			}
-		} else {
-			sb.setLine(line++, this.pvp + this.actived);
-		}
-		if (this.pl.gameManager.isFightTeleport()) {
+
+
+		/*if (this.pl.gameManager.isFightTeleport()) {
 			int teleportTime = this.pl.taskManager.getTeleportTime() - count;
 			if (teleportTime / 60 < 10 && teleportTime % 60 < 10) {
 				sb.setLine(line++, this.teleport + "0" + (teleportTime / 60) + ":0" + (teleportTime % 60));
@@ -278,27 +326,35 @@ public class ScoreboardUtils {
 			}
 		} else {
 			sb.removeLine(line++);
-		}
-		if (!this.pl.gameManager.isBorder()) {
-			int b = this.pl.taskManager.getBorderTime() - count;
-			if (b / 60 < 10 && b % 60 < 10) {
-				sb.setLine(line++, this.border + "0" + (b / 60) + ":0" + (b % 60));
-			} else if (b / 60 < 10) {
-				sb.setLine(line++, this.border + "0" + (b / 60) + ":" + (b % 60));
-			} else if (b % 60 < 10) {
-				sb.setLine(line++, this.border + (b / 60) + ":0" + (b % 60));
+		}*/
+		if(pl.getConfig().getBoolean("scoreboard.border")){
+			if (!this.pl.gameManager.isBorder()) {
+				int b = this.pl.taskManager.getBorderTime() - count;
+				if (b / 60 < 10 && b % 60 < 10) {
+					sb.setLine(line++, this.border + "0" + (b / 60) + ":0" + (b % 60));
+				} else if (b / 60 < 10) {
+					sb.setLine(line++, this.border + "0" + (b / 60) + ":" + (b % 60));
+				} else if (b % 60 < 10) {
+					sb.setLine(line++, this.border + (b / 60) + ":0" + (b % 60));
+				} else {
+					sb.setLine(line++, this.border + (b / 60) + ":" + (b % 60));
+				}
 			} else {
-				sb.setLine(line++, this.border + (b / 60) + ":" + (b % 60));
+				sb.setLine(line++, this.border + this.activedFem);
 			}
-		} else {
-			sb.setLine(line++, this.border + this.activedFem);
 		}
-		sb.setLine(line++, "§r  ");
-		sb.setLine(line++, this.border + (int) (this.pl.worldUtils.getWorld().getWorldBorder().getSize() / 2.0D) + "/-"
-				+ (int) (this.pl.worldUtils.getWorld().getWorldBorder().getSize() / 2.0D));
+
+
+		if(pl.getConfig().getBoolean("scoreboard.border")){
+			sb.setLine(line++, "§r  ");
+			sb.setLine(line++, this.border + (int) (this.pl.worldUtils.getWorld().getWorldBorder().getSize() / 2.0D) + "/-"
+					+ (int) (this.pl.worldUtils.getWorld().getWorldBorder().getSize() / 2.0D));
+		}
+
 		sb.setLine(line++, "§8§m                   §r");
 		sb.setLine(line++, this.credit);
-		sb.setLine(line++, this.ip);
+		if(pl.getConfig().getBoolean("scoreboard.ip"))
+			sb.setLine(line++, this.ip);
 		this.sbs.replace(player.getUniqueId(), sb);
 	}
 
@@ -335,7 +391,6 @@ public class ScoreboardUtils {
 		}else if(ploc.distance(to) < 250) {
 			color = "§a";
 		}*/
-
 		return arrows[((int) a / 45)];
 	}
 
