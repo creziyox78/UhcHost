@@ -1,10 +1,11 @@
-package fr.lastril.uhchost.modes.lg.roles.village;
+package fr.lastril.uhchost.modes.lg.roles.solo;
 
+import fr.lastril.uhchost.UhcHost;
 import fr.lastril.uhchost.enums.Messages;
 import fr.lastril.uhchost.modes.command.ModeSubCommand;
 import fr.lastril.uhchost.modes.lg.LoupGarouManager;
-import fr.lastril.uhchost.modes.lg.commands.CmdSwitch;
-import fr.lastril.uhchost.modes.lg.commands.CmdTp;
+import fr.lastril.uhchost.modes.lg.commands.trublion.CmdSwitch;
+import fr.lastril.uhchost.modes.lg.commands.trublion.CmdTp;
 import fr.lastril.uhchost.modes.lg.roles.LGRole;
 import fr.lastril.uhchost.modes.roles.Camps;
 import fr.lastril.uhchost.modes.roles.Role;
@@ -48,6 +49,19 @@ public class Trublion extends Role implements LGRole, RoleCommand {
     }
 
     @Override
+    public void afterRoles(Player player) {
+        PlayerManager playerManager = main.getPlayerManager(player.getUniqueId());
+        int value = UhcHost.getRANDOM().nextInt(2);
+        if(value == 1){
+            player.sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage() + "§eVotre objectif dans cette partie est de gagner seul.");
+            playerManager.setCamps(Camps.TRUBLION);
+        } else {
+            player.sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage() + "§eVotre objectif dans cette partie est de gagner avec le village.");
+            playerManager.setCamps(Camps.VILLAGEOIS);
+        }
+    }
+
+    @Override
     public void onPlayerDeathRealy(PlayerManager player, ItemStack[] items, ItemStack[] armors, Player killer, Location deathLocation) {
         super.onPlayerDeathRealy(player, items, armors, killer, deathLocation);
         if(player.getRole() instanceof Trublion){
@@ -81,7 +95,7 @@ public class Trublion extends Role implements LGRole, RoleCommand {
 
     @Override
     public Camps getCamp() {
-        return Camps.TRUBLION;
+        return Camps.NEUTRES;
     }
 
     @Override

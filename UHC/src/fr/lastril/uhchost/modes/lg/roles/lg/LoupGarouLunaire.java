@@ -5,6 +5,7 @@ import fr.lastril.uhchost.modes.command.ModeSubCommand;
 import fr.lastril.uhchost.modes.lg.LoupGarouManager;
 import fr.lastril.uhchost.modes.lg.commands.CmdFausseNuit;
 import fr.lastril.uhchost.modes.lg.roles.LGRole;
+import fr.lastril.uhchost.modes.lg.roles.RealLG;
 import fr.lastril.uhchost.modes.roles.Camps;
 import fr.lastril.uhchost.modes.roles.Role;
 import fr.lastril.uhchost.modes.roles.RoleCommand;
@@ -22,7 +23,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class LoupGarouLunaire extends Role implements LGRole, RoleCommand {
+public class LoupGarouLunaire extends Role implements LGRole, RoleCommand, RealLG {
 
     private final List<PlayerManager> loupGarouList = new ArrayList<>();
     private boolean usedFausseNuit = false, useFausseNuit = false;

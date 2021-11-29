@@ -3,6 +3,7 @@ package fr.lastril.uhchost.modes.lg.roles.lg;
 import fr.lastril.uhchost.enums.WorldState;
 import fr.lastril.uhchost.modes.lg.LoupGarouManager;
 import fr.lastril.uhchost.modes.lg.roles.LGRole;
+import fr.lastril.uhchost.modes.lg.roles.RealLG;
 import fr.lastril.uhchost.modes.lg.roles.village.PetiteFille;
 import fr.lastril.uhchost.modes.roles.Camps;
 import fr.lastril.uhchost.modes.roles.Role;
@@ -21,7 +22,7 @@ import org.bukkit.potion.PotionEffectType;
 import java.util.ArrayList;
 import java.util.List;
 
-public class LoupGarouPerfide extends Role implements LGRole {
+public class LoupGarouPerfide extends Role implements LGRole, RealLG {
 
     private final List<PlayerManager> loupGarouList = new ArrayList<>();
 

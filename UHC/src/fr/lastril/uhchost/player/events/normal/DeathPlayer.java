@@ -31,7 +31,6 @@ public class DeathPlayer implements Listener {
 			}
 		}
 		gamemanager.getModes().getMode().onDeath(player, killer);
-
 		Bukkit.getScheduler().runTaskLater(hu, () -> {
 			player.spigot().respawn();
 			player.teleport(new Location(hu.gameManager.spawn.getWorld(), hu.gameManager.spawn.getX(), 192, hu.gameManager.spawn.getZ()));

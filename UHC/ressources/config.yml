@@ -2,22 +2,3 @@ bungeecord: false
 server-redirection: "lobby"
 world_lobby: "lobby"
 lang: FRENCH
-scoreboard:
-  startIn: true
-  players: true
-  time: true
-  border: true
-  spawn: true
-  pvp: true
-  actived: true
-  activedFem: true
-  teleport: true
-  solo: true
-  teamsOf: true
-  team: true
-  playersInTeam: true
-  playersInTeamEnd: true
-  host: true
-  waitForPlayers: true
-  ip: true
-  roles: true

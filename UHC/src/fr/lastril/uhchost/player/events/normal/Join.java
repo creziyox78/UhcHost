@@ -87,12 +87,11 @@ public class Join implements Listener {
 	private void UpdateMessage(Player player) {
 		player.sendMessage(" ");
 		player.sendMessage(" ");
-		player.sendMessage(ChatColor.AQUA + "         UHC Host: jour V0.9.2");
+		player.sendMessage(ChatColor.AQUA + "         UHC Host: jour V0.9.3");
 		player.sendMessage(ChatColor.AQUA + "                    By Lastril");
 		player.sendMessage(" ");
-		player.sendMessage(ChatColor.GREEN + "+Ajout des paramètres des loots.");
-		player.sendMessage(" ");
-		player.sendMessage(ChatColor.GOLD + "*Développement du mode de jeu LG UHC.");
+		player.sendMessage(ChatColor.GREEN + "+Tabulation des commandes.");
+		player.sendMessage(ChatColor.GREEN + "+Commande /h help");
 		player.sendMessage(" ");
 	}
 }

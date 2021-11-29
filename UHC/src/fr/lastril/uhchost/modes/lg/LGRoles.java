@@ -16,54 +16,55 @@ public enum LGRoles {
     LG(LoupGarou.class), //FINISHED
     INFECT(InfectPereDesLoups.class), //FINISHED
     LG_AMNESIQUE(LoupGarouAmnesique.class), //TODO BE TESTED
-    LG_ANONYME(LoupGarouAnonyme.class),
     LG_ALPHA(LoupGarouAlpha.class),
-    LG_FEUTRE(LoupGarouFeutre.class), //TODO BE TESTED (Adaptation Voyante and more)
-    LG_PERFIDE(LoupGarouPerfide.class), //TODO BE TESTED
-    LG_LUNAIRE(LoupGarouLunaire.class), //TODO BE TESTED
-    LG_GRIMEUR(LoupGarouGrimeur.class), //TODO BE TESTED
-    LG_CRAINTIF(LoupGarouCraintif.class), //TODO BE TESTED
+    LG_FEUTRE(LoupGarouFeutre.class), //FINISHED
+    LG_PERFIDE(LoupGarouPerfide.class), //FINISHED
+    LG_LUNAIRE(LoupGarouLunaire.class), //FINISHED
+    LG_GRIMEUR(LoupGarouGrimeur.class), //FINISHED
+    LG_CRAINTIF(LoupGarouCraintif.class), //FINISHED
     LG_JUMEAU(LoupGarouJumeau.class),
     LV_MAUDITE(LouveMaudite.class),
     VPL(VilainPetitLoup.class), //TODO BE TESTED
+    GML(GrandMechantLoup.class),
+    LG_MYSTIQUE(LoupGarouMystique.class),
+    LG_VENGEUR(LoupGarouVengeur.class),
 
     /*
      * CAMP DU VILLAGE
      */
-    ANCIEN(Ancien.class), //TODO BE TESTED
+    ANCIEN(Ancien.class), //FINISHED
     CHAMAN(Chaman.class),
-    CHASSEUR(Chasseur.class), //TODO BE TESTED
+    CHASSEUR(Chasseur.class), //FINISHED
     CITOYEN(Citoyen.class),
     CORBEAU(Corbeau.class),
     CUPIDON(Cupidon.class), //TODO BE TESTED
-    DETECTIVE(Detective.class), //TODO BE TESTED
-    ENFANT_SAUVAGE(EnfantSauvage.class), //TODO BE TESTED
-    GARDE(Garde.class),
-    MINEUR(Mineur.class), //FINISHED
-    MONTREUR_DOURS(MontreurDours.class), //TODO BE TESTED
-    PETITE_FILLE(PetiteFille.class), //TODO BE TESTED
+    DETECTIVE(Detective.class), //FINISHED
+    ENFANT_SAUVAGE(EnfantSauvage.class), //FINISHED
+    GARDE(Garde.class), //TODO BE TESTED
+    MONTREUR_DOURS(MontreurDours.class), //FINISHED
+    PETITE_FILLE(PetiteFille.class), //TODO LG CHAT SEE
     PRETRESSE(Pretresse.class),
     RENARD(Renard.class), //TODO BE TESTED
-    SALVATEUR(Salvateur.class), //TODO BE TESTED
-    SOEUR(Soeur.class), //TODO BE TESTED
-    SORCIERE(Sorciere.class), //TODO BE TESTED
-    VOYANTE(Voyante.class), //TODO BE TESTED
-    VOYANTE_BAVARDE(VoyanteBavarde.class), //TODO BE TESTED
+    SALVATEUR(Salvateur.class), //FINISHED
+    SOEUR(Soeur.class), //FINISHED
+    SORCIERE(Sorciere.class), //FINISHED
+    VOYANTE(Voyante.class), //FINISHED
+    VOYANTE_BAVARDE(VoyanteBavarde.class), //FINISHED
     VILLAGEOIS(Villageois.class), //FINISHED
 
     /*
      * CAMP DES NEUTRES
      */
 
-    VOLEUR(Voleur.class), //TODO BE TESTED
     CHIEN_LOUP(ChienLoup.class), //TODO BE TESTED
     TRUBLION(Trublion.class), //TODO BE TESTED
+    VOLEUR(Voleur.class), //TODO BE TESTED
     /*
      * CAMP DES SOLOS
      */
-    IMITATEUR(Imitateur.class),
-    ANGE(Ange.class),
-    LGB(LoupGarouBlanc.class), //TODO BE TESTED
+    IMITATEUR(Imitateur.class), //TODO BE TESTED
+    ANGE(Ange.class), //TODO BE TESTED
+    LGB(LoupGarouBlanc.class), //FINISHED
     ASSASSIN(Assassin.class), //FINISHED
     ;
 

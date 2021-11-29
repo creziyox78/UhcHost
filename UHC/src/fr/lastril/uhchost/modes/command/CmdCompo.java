@@ -1,6 +1,7 @@
 package fr.lastril.uhchost.modes.command;
 
 import fr.lastril.uhchost.UhcHost;
+import fr.lastril.uhchost.enums.Messages;
 import fr.lastril.uhchost.modes.Mode;
 import fr.lastril.uhchost.modes.roles.Camps;
 import fr.lastril.uhchost.modes.roles.RoleMode;
@@ -37,22 +38,28 @@ public class CmdCompo implements ModeSubCommand {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         Player player = (Player) sender;
+        PlayerManager playerManager = pl.getPlayerManager(player.getUniqueId());
         Mode mode = pl.gameManager.getModes().getMode();
         if (mode instanceof RoleMode && mode.getModeManager() != null) {
-            sender.sendMessage("§8§m----------------------------------");
-            for (Camps camp : Camps.values()) {
-                for (PlayerManager PlayerManagers : mode.getModeManager().getPlayerManagersWithCamps(camp)) {
-                    if (PlayerManagers.isAlive() && !listSoloCamp.contains(PlayerManagers.getCamps())) {
-                        sender.sendMessage(camp.getCompoColor() + PlayerManagers.getRole().getRoleName() + (player.isOp() ? " §l(" + PlayerManagers.getPlayerName() + " | Camps: " + PlayerManagers.getCamps().name() + ")" : ""));
-                    } else {
-                        if(PlayerManagers.isAlive())
-                            sender.sendMessage("§6"+PlayerManagers.getRole().getRoleName() + (player.isOp() ? " §l(" + PlayerManagers.getPlayerName() + " | Camps: " + PlayerManagers.getCamps().name() + ")" : ""));
+            if(!mode.getModeManager().compositionHide || (!playerManager.isAlive() && player.isOp())){
+                sender.sendMessage("§8§m----------------------------------");
+                for (Camps camp : Camps.values()) {
+                    for (PlayerManager PlayerManagers : mode.getModeManager().getPlayerManagersWithCamps(camp)) {
+                        if (PlayerManagers.isAlive() && !listSoloCamp.contains(PlayerManagers.getCamps())) {
+                            sender.sendMessage(camp.getCompoColor() + PlayerManagers.getRole().getRoleName() + (player.isOp() && !pl.getPlayerManager(player.getUniqueId()).isAlive() ? " §l(" + PlayerManagers.getPlayerName() + " | Camps: " + PlayerManagers.getCamps().name() + ")" : ""));
+                        } else {
+                            if(PlayerManagers.isAlive())
+                                sender.sendMessage("§6"+PlayerManagers.getRole().getRoleName() + (player.isOp() && !pl.getPlayerManager(player.getUniqueId()).isAlive()? " §l(" + PlayerManagers.getPlayerName() + " | Camps: " + PlayerManagers.getCamps().name() + ")" : ""));
+                        }
                     }
+                    if (!mode.getModeManager().getPlayerManagersWithCamps(camp).isEmpty())
+                        sender.sendMessage(" ");
                 }
-                if (!mode.getModeManager().getPlayerManagersWithCamps(camp).isEmpty())
-                    sender.sendMessage(" ");
+                sender.sendMessage("§8§m----------------------------------");
+            } else {
+                player.sendMessage(Messages.error("La composition est cachée !"));
             }
-            sender.sendMessage("§8§m----------------------------------");
+
         }
         return false;
     }

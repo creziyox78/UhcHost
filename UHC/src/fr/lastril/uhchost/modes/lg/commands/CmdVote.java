@@ -52,7 +52,7 @@ public class CmdVote implements ModeSubCommand {
                         WolfPlayerManager wolfTargetManager = pl.getPlayerManager(target.getUniqueId()).getWolfPlayerManager();
                         if (wolfTargetManager != null) {
                             wolfTargetManager.addVote();
-                            player.sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage() + "§aVotre vote a bien été pris en compte.");
+                            player.sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage() + "§aVous venez de voter pour " + target.getName() + ".");
                         }
                     } else {
                         player.sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage() + "§cVous avez déjà voté !");

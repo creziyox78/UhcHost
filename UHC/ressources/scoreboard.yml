@@ -1,0 +1,55 @@
+#Placeholder
+#
+#
+# {roles} : Temps avant que les rôles soient distribués
+# {time} : Temps de jeu
+# {pvp} : Temps avant que le PvP soit activé
+# {border_time} : Temps avant que la bordure se réduisent
+# {border} : Taille de la bordure
+# {groupes} : Taille des groupes définis
+# {uhc_name} : Nom de l'UHC
+# {episode} : Numéro de l'épisode actuel
+# {gamemode} : Affiche le nom du mode de jeu actuel
+# {player_host_name} : Affiche le nom de l'host de la partie
+# {waitting_players} : Nombre de joueurs connectés pendant le lobby
+# {players_ingame} : Nombre de joueur (connectés ou non) étant encore dans la partie
+# {max_waitting_players} : Nombre de slots pendant le lobby
+# {spawn_direction} : Flèche montrant la direction vers le centre du monde par rapport au joueur
+#
+#
+
+status:
+  started:
+    gamemode:
+      classic:
+        - ""
+        - "&c&lHost&r: &e&l{player_host_name}"
+        - "&b"
+        - "&6Joueurs&r: &e{waitting_players}&7/&e{max_waitting_players}"
+        - "&6Kills&r: &e{player_kills}"
+        - "&a"
+        - "&6&lTimer&r: &e{time}"
+        - "&6&lPvP&r: &e{pvp}"
+        - ""
+        - "&6&lBordure&r: &e{border_time}"
+        - "&eTaille&r: {border}"
+        - "&eCentre&r: {spawn_direction}"
+        - "&c"
+        - "&eeu.lalalal.com"
+      lg:
+        - "&2Episode&r: &a{episode}"
+        - "&2Timer&r: &a{time}"
+        - "&2Rôles&r: &a{roles}"
+        - "&1"
+        - "&2Bordure&r: &a{border}"
+        - "&2"
+        - "&4&nGroupe&c: {groupes}"
+        - "&3"
+  lobby:
+    - "&4"
+    - "&2Host&r: &o&f{player_host_name}"
+    - "&2Mode de jeu&r: &o&6{gamemode}"
+    - "&5"
+    - "&2Joueurs&r: &f{waitting_players}&7/&f{max_waitting_players}"
+    - "&6"
+    - "uhchost"

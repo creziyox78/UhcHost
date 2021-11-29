@@ -10,25 +10,6 @@
 # *,* = â
 # & = §
 
-scoreboard:
-  startIn: "&3D[,]marrage dans : &b"
-  players: "&3Joueurs : &b"
-  time: "&3Temps : &b"
-  border: "&3Bordure : &b"
-  spawn: "&3Spawn : &b"
-  pvp: "&3PvP : &b"
-  actived: "&aActiv[,]"
-  activedFem: "&aActiv[,]e"
-  teleport: "&3T[,]l[,]portation : &b"
-  solo: " &3&lSOLO"
-  teamsOf: " &3&lTo"
-  team: "&3Equipe : &b"
-  playersInTeam: " &7("
-  playersInTeamEnd: "&7)"
-  host: "&3Host : &b"
-  waitForPlayers: "&bEn attente de joueurs..."
-  ip: "&bdiscord.gg/9G2VQGV9Hz"
-  roles: "&3Rôles:&b  "
 
 no-permission: "&cTu n#,#as pas la permission !"
 team-must-enabled: "&6Les [,]quipes doivent ],[tre activ[,]s !"
@@ -194,6 +175,7 @@ guis:
     cycleLore: "§eConfigure le cycle Jour/Nuit pendant la partie."
     loots: "&eLoots"
     lootsLore: "&7Choisis les taux de loots pour certains items"
+    healthtab: "&dVie dans le tab"
   maxPlayers:
     name: "&5Nombre de joueurs maximum"
     lore: "&7Choisis le nombre de joueurs maximum."
@@ -214,6 +196,7 @@ guis:
       randomcouple: "&aCouple aléatoire"
       lglisttime: "&9Liste des Loup-Garou:&b {0}"
       specialsevents: "&eEvénements Aléatoire"
+      compositionhide: "&eComposition Cachée"
     vote:
       name: "&bPremiers votes"
       lore: "&9Active les votes uniquement"

@@ -4,8 +4,10 @@ import fr.lastril.uhchost.UhcHost;
 import fr.lastril.uhchost.enums.Messages;
 import fr.lastril.uhchost.enums.ResurectType;
 import fr.lastril.uhchost.modes.ModeManager;
+import fr.lastril.uhchost.modes.lg.roles.RealLG;
 import fr.lastril.uhchost.modes.lg.roles.lg.LoupGarouGrimeur;
 import fr.lastril.uhchost.modes.lg.roles.solo.LoupGarouBlanc;
+import fr.lastril.uhchost.modes.lg.roles.solo.Voleur;
 import fr.lastril.uhchost.modes.lg.roles.village.Ancien;
 import fr.lastril.uhchost.modes.lg.roles.village.ChienLoup;
 import fr.lastril.uhchost.modes.lg.roles.village.Cupidon;
@@ -29,7 +31,6 @@ public class LoupGarouManager extends ModeManager implements Listener {
 
     private final List<UUID> waitingRessurect;
     private final List<PlayerManager> loupGarouList = new ArrayList<>();
-    private final Map<PlayerManager, Integer> playerVote;
     private boolean randomCouple = false, voteTime, sendedlist = false;
     private int startVoteEpisode = 3;
     private int sendWerewolfListTime = 50*60;
@@ -39,16 +40,16 @@ public class LoupGarouManager extends ModeManager implements Listener {
     public LoupGarouManager(UhcHost main) {
         this.main = main;
         this.waitingRessurect = new ArrayList<>();
-        this.playerVote = new HashMap<>();
         this.main.getServer().getPluginManager().registerEvents(this, main);
     }
 
-    public void startDeathTask(Player player) {
+    public void startDeathTask(Player player, Player killer) {
         Location deathLocation = player.getLocation().clone();
         player.sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage() + "§bVous avez toujours une chance de vous faire réssusciter. Merci de patienter.");
         this.waitingRessurect.add(player.getUniqueId());
         Bukkit.getScheduler().runTaskLater(main, () -> {
             PlayerManager playerManager = main.getPlayerManager(player.getUniqueId());
+            PlayerManager killerManager = main.getPlayerManager(killer.getUniqueId());
             if (playerManager.getWolfPlayerManager().getResurectType() != null) {
                 if (player.getPlayer() != null) {
                     Player onlinePlayer = player.getPlayer();
@@ -56,6 +57,9 @@ public class LoupGarouManager extends ModeManager implements Listener {
                     onlinePlayer.getInventory().setContents(player.getInventory().getContents());
                     onlinePlayer.getInventory().setArmorContents(player.getInventory().getArmorContents());
                     onlinePlayer.updateInventory();
+                    if(playerManager.getWolfPlayerManager().isProtect() && killerManager.hasRole() && killerManager.getRole() instanceof RealLG){
+                        playerManager.getWolfPlayerManager().setResurectType(ResurectType.GARDE);
+                    }
                     switch (playerManager.getWolfPlayerManager().getResurectType()) {
                         case INFECT: {
                             onlinePlayer.sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage() + "Vous avez été infecté par l'Infect Pères des loups.");
@@ -78,15 +82,22 @@ public class LoupGarouManager extends ModeManager implements Listener {
                             main.gameManager.teleportPlayerOnGround(player);
                             break;
                         }
+                        case GARDE:
+                            onlinePlayer.sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage() + "Vous avez été réssuscité par le Garde.");
+                            playerManager.getWolfPlayerManager().setResurectType(null);
+                            main.gameManager.teleportPlayerOnGround(player);
+                            break;
                         default:
                             break;
                     }
                 }
 
             } else {
-                kill(player, player.getInventory().getContents(), player.getInventory().getArmorContents(), player.getKiller(), deathLocation);
+                kill(player, player.getInventory().getContents(), player.getInventory().getArmorContents(), killer, deathLocation);
                 if (playerManager.getWolfPlayerManager().isInCouple()) {
-                    killCouple();
+                    if(killerManager.hasRole() && !(killerManager.getRole() instanceof Voleur)){
+                        killCouple();
+                    }
                 }
             }
             waitingRessurect.remove(player.getUniqueId());
@@ -134,6 +145,7 @@ public class LoupGarouManager extends ModeManager implements Listener {
                         Bukkit.broadcastMessage(message);
                         Bukkit.broadcastMessage(" ");
                         Bukkit.broadcastMessage("§8§m----------------------------------");
+                        main.gameManager.getModes().getMode().checkWin();
                         return;
                     }
                 }
@@ -166,6 +178,7 @@ public class LoupGarouManager extends ModeManager implements Listener {
             if (playerManager.getWolfPlayerManager().isInCouple()) {
                 Player player = playerManager.getPlayer();
                 if (player != null) {
+                    Bukkit.broadcastMessage("§dCe joueur était en couple, il meurt également.");
                     kill(player, player.getInventory().getContents(), player.getInventory().getArmorContents(), player.getKiller(), player.getLocation());
                 }
             }
@@ -174,15 +187,16 @@ public class LoupGarouManager extends ModeManager implements Listener {
 
     public void resetVote() {
         main.getPlayerManagerAlives().forEach(playerManager -> {
-            if (!playerVote.containsKey(playerManager))
-                playerVote.put(playerManager, 0);
+            playerManager.getWolfPlayerManager().resetVote();
             playerManager.getWolfPlayerManager().setVoted(false);
         });
-        playerVote.forEach((playerManager, integer) -> integer = 0);
     }
 
     public WolfPlayerManager getMostVoted() {
         List<WolfPlayerManager> players = new ArrayList<>(main.getAllWolfPlayerManager().values());
+        for(WolfPlayerManager wolfPlayerManager: players){
+            System.out.println("Player: " + wolfPlayerManager.getPlayerManager().getPlayerName() + " | vote: " + wolfPlayerManager.getVotes());
+        }
         if(calculateTopVoted(players).size() >= 2){
             if(calculateTopVoted(players).get(0) == calculateTopVoted(players).get(1) || calculateTopVoted(players).get(0).getVotes() == 0){
                 return null;
@@ -216,7 +230,7 @@ public class LoupGarouManager extends ModeManager implements Listener {
         Bukkit.broadcastMessage("§8§m----------------------------");
         Bukkit.broadcastMessage("§eRésultat du vote");
         if (mostVoted == null) {
-            Bukkit.broadcastMessage("§cPersonne n'a pas réussi à se mettre d'accord.");
+            Bukkit.broadcastMessage("§cPersonne n'a réussi à se mettre d'accord.");
         } else {
             Bukkit.broadcastMessage("§bLa personne ayant reçu le plus de vote est " + mostVoted.getPlayerManager().getPlayerName()
                     + ", il perd donc la moitié de sa vie jusqu'au prochain épisode.");
@@ -240,7 +254,7 @@ public class LoupGarouManager extends ModeManager implements Listener {
 
     public String sendLGList() {
         if(isSendedlist()){
-            String list = Messages.LOUP_GAROU_PREFIX.getMessage() + "§cVoici la liste entière des Loups-Garous : \n";
+            StringBuilder list = new StringBuilder(Messages.LOUP_GAROU_PREFIX.getMessage() + "§cVoici la liste entière des Loups-Garous : \n");
             loupGarouList.addAll(main.gameManager.getModes().getMode().getModeManager().getPlayerManagersWithCamps(Camps.LOUP_GAROU));
             loupGarouList.addAll(main.gameManager.getModes().getMode().getModeManager().getPlayerManagersWithRole(LoupGarouBlanc.class));
             for(PlayerManager playerManager : super.getPlayerManagersWithRole(ChienLoup.class)){
@@ -254,10 +268,10 @@ public class LoupGarouManager extends ModeManager implements Listener {
             int numberOfElements = loupGarouList.size();
             for (int i = 0; i < numberOfElements; i++) {
                 int index = UhcHost.getRANDOM().nextInt(loupGarouList.size());
-                list += "§c- " + loupGarouList.get(index).getPlayerName() + "\n";
+                list.append("§c- ").append(loupGarouList.get(index).getPlayerName()).append("\n");
                 loupGarouList.remove(index);
             }
-            return list;
+            return list.toString();
         } else {
             return Messages.LOUP_GAROU_PREFIX.getMessage() + "§cVous devez attendre " + sendWerewolfListTime/60 + " minutes de jeu avant de recevoir la liste des Loups-Garous.";
         }
@@ -309,6 +323,34 @@ public class LoupGarouManager extends ModeManager implements Listener {
         }
     }
 
+    public void randomCouple(){
+        List<PlayerManager> alivesPlayer = main.getPlayerManagerAlives();
+        for(PlayerManager playerManager : getPlayerManagersWithRole(Cupidon.class)){
+            alivesPlayer.remove(playerManager);
+        }
+        int value1 = UhcHost.getRANDOM().nextInt(alivesPlayer.size());
+        PlayerManager playerManager1 = alivesPlayer.get(value1);
+        alivesPlayer.remove(value1);
+        int value2 = UhcHost.getRANDOM().nextInt(alivesPlayer.size());
+        PlayerManager playerManager2 = alivesPlayer.get(value2);
+        alivesPlayer.remove(value2);
+        playerManager1.getWolfPlayerManager().setOtherCouple(playerManager2.getUuid());
+        playerManager2.getWolfPlayerManager().setOtherCouple(playerManager1.getUuid());
+        playerManager1.setCamps(Camps.COUPLE);
+        playerManager2.setCamps(Camps.COUPLE);
+        playerManager1.getPlayer().sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage() +
+                "§dLe cupidon vient de vous lié d'amour avec " + playerManager2.getPlayer().getName()
+                + ". Si l'un d'entre vous vient à mourir, l'autre mourra alors par amour pour l'autre.");
+        playerManager2.getPlayer().sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage() +
+                "§dLe cupidon vient de vous lié d'amour avec " + playerManager1.getPlayer().getName()
+                + ". Si l'un d'entre vous vient à mourir, l'autre mourra alors par amour pour l'autre.");
+        for(PlayerManager playerManager : getPlayerManagersWithRole(Cupidon.class)){
+            if(playerManager.getPlayer() != null){
+                playerManager.getPlayer().sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage() + "§aVos flèches ont atteints le coeur de " + playerManager1.getPlayerName() + " et " + playerManager2.getPlayerName() + ". Désormais, si l'un d'eux viennent à mourir, l'autre mourra également.");
+            }
+        }
+    }
+
     public boolean isVoteTime() {
         return voteTime;
     }
@@ -317,8 +359,8 @@ public class LoupGarouManager extends ModeManager implements Listener {
         this.voteTime = voteTime;
         Bukkit.broadcastMessage("§8§m----------------------------");
         if (voteTime) {
-            Bukkit.broadcastMessage(Messages.LOUP_GAROU_PREFIX.getMessage() + "§eVous avez 30 secondes pour voter pour le joueur de votre choix avec la commande§6 \"/lg vote <pseudo>\". " +
-                    "Le joueur ayant le plus de voix sur lui perdra la moitié de sa vie jusqu'à la prochaine journée.");
+            Bukkit.broadcastMessage(Messages.LOUP_GAROU_PREFIX.getMessage() + "§eVous avez 30 secondes pour voter pour le joueur de votre choix avec la commande§6 \"/lg vote <pseudo>\"§e. " +
+                    "Le joueur ciblé obtenant le plus de vote contre lui perdra la moitié de sa vie jusqu'au prochain épisode.");
         } else {
             Bukkit.broadcastMessage(Messages.LOUP_GAROU_PREFIX.getMessage() + "§cLes votes sont désormais fermés !");
         }
@@ -331,6 +373,8 @@ public class LoupGarouManager extends ModeManager implements Listener {
     }
 
     public void setStartVoteEpisode(int startVoteEpisode) {
+        if(sendWerewolfListTime < 1)
+            return;
         this.startVoteEpisode = startVoteEpisode;
     }
 
@@ -355,6 +399,8 @@ public class LoupGarouManager extends ModeManager implements Listener {
     }
 
     public void setSendWerewolfListTime(int sendWerewolfListTime) {
+        if(sendWerewolfListTime < 60)
+            return;
         this.sendWerewolfListTime = sendWerewolfListTime;
     }
 

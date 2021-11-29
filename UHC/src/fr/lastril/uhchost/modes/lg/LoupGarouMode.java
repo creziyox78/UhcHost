@@ -13,7 +13,7 @@ import fr.lastril.uhchost.modes.command.ModeSubCommand;
 import fr.lastril.uhchost.modes.lg.commands.CmdDesc;
 import fr.lastril.uhchost.modes.lg.commands.CmdVote;
 import fr.lastril.uhchost.modes.lg.roles.LGRole;
-import fr.lastril.uhchost.modes.lg.roles.village.Trublion;
+import fr.lastril.uhchost.modes.lg.roles.solo.Trublion;
 import fr.lastril.uhchost.modes.roles.*;
 import fr.lastril.uhchost.player.PlayerManager;
 import fr.lastril.uhchost.tools.API.BungeeAPI;
@@ -34,24 +34,45 @@ public class LoupGarouMode extends Mode implements ModeCommand, RoleMode<LGRole>
 
     private final UhcHost pl;
     private final LoupGarouManager loupGarouManager;
+    private final List<LoupGarouSpecialEvent> specialEventList = new ArrayList<>();
     private int announceRoles = 30;
 
     public LoupGarouMode() {
-        super(Modes.LOUP_GAROU);
+        super(Modes.LG);
         this.pl = UhcHost.getInstance();
         this.loupGarouManager = new LoupGarouManager(pl);
+        for(SpecialsEvents specialsEvents : SpecialsEvents.values()){
+            try {
+                LoupGarouSpecialEvent loupGarouSpecialEvent = specialsEvents.getSpecialEvent().newInstance();
+                specialEventList.add(loupGarouSpecialEvent);
+            } catch (InstantiationException | IllegalAccessException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     @Override
     public void tick(int timer) {
+        if(timer == 0){
+            setupParameter();
+        }
         if (announceRoles == 0) {
             annonceRoles();
         }
         if(loupGarouManager.getSendWerewolfListTime() == timer){
             sendLgList();
         }
+
     }
 
+    public void setupParameter() {
+        for(LoupGarouSpecialEvent loupGarouSpecialEvent: specialEventList){
+            loupGarouSpecialEvent.runTask();
+        }
+        if(loupGarouManager.isRandomCouple()){
+            Bukkit.getScheduler().runTaskLater(pl, () -> loupGarouManager.randomCouple(), 20*60*25);
+        }
+    }
 
 
     public void annonceRoles() {
@@ -90,36 +111,8 @@ public class LoupGarouMode extends Mode implements ModeCommand, RoleMode<LGRole>
             compo.remove(index);
             roles.add(role);
         }
-        for (PlayerManager playerManager : pl.getPlayerManagerAlives()) {
-            if (playerManager.getPlayer() != null) {
-                Player player = playerManager.getPlayer();
-                player.setHealth(player.getMaxHealth());
-                playerManager.getRole().afterRoles(player);
-            }
-        }
-        /*try {
-            for (PlayerManager PlayerManager : pl.getPlayerManagerAlives()) {
-                if (PlayerManager.getPlayer() != null) {
-                    Player player = PlayerManager.getPlayer();
-                    player.setHealth(player.getMaxHealth());
-                    if (PlayerManager.getRole() != null) {
-                        PlayerManager.getRole().afterRoles(player);
-                        if (!PlayerManager.getRole().getRoleToKnow().isEmpty()) {
-                            for (Class<? extends Role> roleToKnow : PlayerManager.getRole().getRoleToKnow()) {
-                                if (!main.getNarutoManager().getPlayerManagersWithRole(roleToKnow).isEmpty()) {
-                                    player.sendMessage(Messages.PREFIX_WITH_ARROW.getMessage() + "§eLe(s) PlayerManager(s) possédant le rôle §6" + roleToKnow.newInstance().getRoleName() + "§e sont :");
-                                    for (PlayerManager PlayerManagerHasRole : main.getNarutoManager().getPlayerManagersWithRole(roleToKnow)) {
-                                        player.sendMessage("§6- " + PlayerManagerHasRole.getPlayerName());
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        } catch (InstantiationException | IllegalAccessException e) {
-            e.printStackTrace();
-        }*/
+
+        getModeManager().sendRoleToKnow();
 
 
         for (Role role : roles) {
@@ -185,7 +178,7 @@ public class LoupGarouMode extends Mode implements ModeCommand, RoleMode<LGRole>
 
     @Override
     public void onDeath(Player player, Player killer) {
-        loupGarouManager.startDeathTask(player);
+        loupGarouManager.startDeathTask(player, killer);
     }
 
     @Override
@@ -229,7 +222,7 @@ public class LoupGarouMode extends Mode implements ModeCommand, RoleMode<LGRole>
     public void win(Camps winner) {
         this.pl.gameManager.setDamage(false);
         Bukkit.broadcastMessage(I18n.tl("endGame"));
-        Bukkit.broadcastMessage(I18n.tl("winOfPlayer", winner.name()));
+        Bukkit.broadcastMessage("§eVainqueur: " + winner.getCompoColor()+winner.name());
         Bukkit.broadcastMessage(I18n.tl("rebootSoon"));
         Bukkit.getScheduler().runTaskLater(this.pl, () -> {
             if (this.pl.getConfig().getBoolean("bungeecord")) {
@@ -291,6 +284,10 @@ public class LoupGarouMode extends Mode implements ModeCommand, RoleMode<LGRole>
     @Override
     public int getRoleAnnouncement() {
         return announceRoles;
+    }
+
+    public List<LoupGarouSpecialEvent> getSpecialEventList() {
+        return specialEventList;
     }
 
     @Override

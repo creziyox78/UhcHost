@@ -1,9 +1,9 @@
-package fr.lastril.uhchost.modes.lg.commands;
+package fr.lastril.uhchost.modes.lg.commands.trublion;
 
 import fr.lastril.uhchost.UhcHost;
 import fr.lastril.uhchost.enums.Messages;
 import fr.lastril.uhchost.modes.command.ModeSubCommand;
-import fr.lastril.uhchost.modes.lg.roles.village.Trublion;
+import fr.lastril.uhchost.modes.lg.roles.solo.Trublion;
 import fr.lastril.uhchost.player.PlayerManager;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;

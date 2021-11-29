@@ -90,6 +90,9 @@ public class ChienLoup extends Role implements LGRole, RoleCommand {
     }
 
     public void setChoosenCamp(Camps choosen) {
+        if(this.player != null){
+            main.getPlayerManager(this.player).setCamps(choosen);
+        }
         this.choosenCamp = choosen;
     }
 

@@ -25,8 +25,6 @@ public class SendLGListGui extends IQuickInventory {
 
     @Override
     public void contents(QuickInventory inv) {
-
-
         inv.updateItem("update", taskUpdate -> {
             if(UhcHost.getInstance().gameManager.getModes().getMode().getModeManager() instanceof LoupGarouManager){
                 LoupGarouManager loupGarouManager = (LoupGarouManager)

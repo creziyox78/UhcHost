@@ -1,9 +1,9 @@
-package fr.lastril.uhchost.modes.lg.commands;
+package fr.lastril.uhchost.modes.lg.commands.soeur;
 
 import fr.lastril.uhchost.UhcHost;
 import fr.lastril.uhchost.enums.Messages;
 import fr.lastril.uhchost.modes.command.ModeSubCommand;
-import fr.lastril.uhchost.modes.lg.roles.village.Trublion;
+import fr.lastril.uhchost.modes.lg.roles.village.Soeur;
 import fr.lastril.uhchost.player.PlayerManager;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
@@ -13,17 +13,17 @@ import org.bukkit.entity.Player;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class CmdTp implements ModeSubCommand {
+public class CmdSoeurRole implements ModeSubCommand {
 
     private final UhcHost main;
 
-    public CmdTp(UhcHost main) {
+    public CmdSoeurRole(UhcHost main) {
         this.main = main;
     }
 
     @Override
     public String getSubCommandName() {
-        return "tp";
+        return "soeur_role";
     }
 
     @Override
@@ -35,17 +35,19 @@ public class CmdTp implements ModeSubCommand {
     public boolean onCommand(CommandSender sender, Command command, String s, String[] strings) {
         Player player = (Player) sender;
         PlayerManager playerManager = main.getPlayerManager(player.getUniqueId());
-        if(playerManager.isAlive() && playerManager.hasRole()){
-            if(playerManager.getRole() instanceof Trublion){
-                Trublion trublion = (Trublion) playerManager.getRole();
-                if(!trublion.isTeleported()){
-                    trublion.teleportPower(player);
-                }  else {
-                    player.sendMessage(Messages.CANT_USE_MORE_POWER.getMessage());
-                }
+        if (!playerManager.hasRole() || !playerManager.isAlive()) {
+            return false;
+        }
+        if (playerManager.getRole() instanceof Soeur) {
+            Soeur soeur = (Soeur) playerManager.getRole();
+            if(soeur.isOtherDead()){
+                soeur.setOtherDead(false);
+                player.sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage() + "§eVoici le rôle du tueur de votre soeur: " + soeur.getPlayerKiller().getRole().getRoleName());
             } else {
-                player.sendMessage(Messages.not("Trublion"));
+                player.sendMessage(Messages.CANT_USE_MORE_POWER.getMessage());
             }
+        } else {
+            player.sendMessage(Messages.not("Soeur"));
         }
         return false;
     }

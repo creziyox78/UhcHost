@@ -40,7 +40,7 @@ public class PetiteFille extends Role implements LGRole {
 
     @Override
     public void onNight(Player player) {
-        player.sendMessage("§9Liste des PlayerManagers se trouvant dans un rayon de " + DISTANCE + " blocs :");
+        player.sendMessage("§9Liste des joueurs se trouvant dans un rayon de " + DISTANCE + " blocs :");
         for (Entity entity : player.getNearbyEntities(DISTANCE, DISTANCE, DISTANCE)) {
             if (entity instanceof Player) {
                 Player target = (Player) entity;

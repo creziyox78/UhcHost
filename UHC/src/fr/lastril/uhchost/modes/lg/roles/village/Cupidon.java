@@ -1,6 +1,7 @@
 package fr.lastril.uhchost.modes.lg.roles.village;
 
 import fr.lastril.uhchost.modes.command.ModeSubCommand;
+import fr.lastril.uhchost.modes.lg.LoupGarouManager;
 import fr.lastril.uhchost.modes.lg.commands.CmdCouple;
 import fr.lastril.uhchost.modes.lg.roles.LGRole;
 import fr.lastril.uhchost.modes.roles.Camps;
@@ -8,6 +9,7 @@ import fr.lastril.uhchost.modes.roles.Role;
 import fr.lastril.uhchost.modes.roles.RoleCommand;
 import fr.lastril.uhchost.tools.API.items.Livre;
 import fr.lastril.uhchost.tools.API.items.crafter.QuickItem;
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.SkullType;
 import org.bukkit.enchantments.Enchantment;
@@ -28,6 +30,19 @@ public class Cupidon extends Role implements LGRole, RoleCommand {
     @Override
     public void giveItems(Player player) {
         player.getInventory().addItem(new Livre(Enchantment.ARROW_KNOCKBACK, 1).toItemStack(), new ItemStack(Material.ARROW, 64), new ItemStack(Material.STRING, 3));
+    }
+
+    @Override
+    public void afterRoles(Player player) {
+        Bukkit.getScheduler().runTaskLater(main, () -> {
+            if(!usedPower){
+                usedPower = true;
+                if (main.gameManager.getModes().getMode().getModeManager() instanceof LoupGarouManager) {
+                    LoupGarouManager loupGarouManager = (LoupGarouManager) main.gameManager.getModes().getMode().getModeManager();
+                    loupGarouManager.randomCouple();
+                }
+            }
+        } , 20*60*5);
     }
 
     @Override

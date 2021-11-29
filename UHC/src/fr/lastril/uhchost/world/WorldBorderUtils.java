@@ -5,7 +5,7 @@ import org.bukkit.WorldBorder;
 
 public class WorldBorderUtils {
 
-	private int startSize = 1000, speed = 2, finalSize = 50;
+	private int startSize = 100, speed = 2, finalSize = 50;
 
 	public WorldBorderUtils() {
 		WorldBorder wb = (UhcHost.getInstance()).worldUtils.getNether().getWorldBorder();

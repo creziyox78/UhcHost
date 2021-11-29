@@ -17,6 +17,7 @@ public enum Camps {
     LOUP_GAROU_BLANC(ChatColor.WHITE),
     ASSASSIN(ChatColor.BLUE),
     TRUBLION(ChatColor.DARK_PURPLE),
+    IMITATEUR(ChatColor.DARK_AQUA),
 
 
     /*

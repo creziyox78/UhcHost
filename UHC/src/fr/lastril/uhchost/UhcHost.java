@@ -124,20 +124,23 @@ public class UhcHost extends JavaPlugin {
 	public void onDisable() {
 		Bukkit.getScheduler().cancelAllTasks();
 		Bukkit.getConsoleSender().sendMessage(ChatColor.RED + "Deleting worlds...");
-		if(Bukkit.getWorld("game").getWorldFolder().exists())
+		if(Bukkit.getWorld("game") != null && Bukkit.getWorld("game").getWorldFolder().exists())
 			WorldSettings.deleteWorld(Bukkit.getWorld("game").getWorldFolder());
+		/*if(Bukkit.getWorld("world_nether") != null && Bukkit.getWorld("world_nether").getWorldFolder().exists())
+			WorldSettings.deleteWorld(Bukkit.getWorld("world_nether").getWorldFolder());*/
 		Bukkit.getConsoleSender().sendMessage(ChatColor.RED + "[" + getName() + "] OFF !");
 	}
 
 	private void commandsRegister() {
 		Bukkit.getConsoleSender().sendMessage(ChatColor.YELLOW + "Register commands...");
-		getCommand("h").setExecutor(new CmdHost(this));
+		getCommand("h").setExecutor(new CmdHost2(this));
 		getCommand("scenarios").setExecutor(new CmdScenarios());
 		getCommand("role").setExecutor(new CmdRole(this));
 		getCommand("loots").setExecutor(new CmdLoots());
 		getCommand("potions").setExecutor(new CmdPotions());
 		getCommand("test").setExecutor(new TestCommand());
-
+		getCommand("say").setExecutor(new CmdSay(this));
+		getCommand("setgroupes").setExecutor(new CmdSetGroupes(this));
 		for (Modes mode : Modes.values()) {
 			if (mode.getMode() instanceof ModeCommand) {
 				ModeCommand modeCommand = (ModeCommand) mode.getMode();
@@ -148,7 +151,6 @@ public class UhcHost extends JavaPlugin {
 			}
 		}
 		Bukkit.getConsoleSender().sendMessage(ChatColor.GREEN + "Commands registered !");
-
 	}
 
 	private void utilsRegister() {
@@ -351,6 +353,39 @@ public class UhcHost extends JavaPlugin {
         }
 
     }
+
+	public void checkingScoreboardUpdate(){
+		File f = new File(getDataFolder() + File.separator + "scoreboard.yml");
+		//System.out.println("Checking scoreboard...");
+		if (!f.exists()) {
+			//getLogger().warning("The file scoreboard.yml doesn't exist ! Creating...");
+			try {
+				f.createNewFile();
+				FileUtils.copyInputStreamToFile(getResource("scoreboard.yml"), f);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+
+		else if (f.exists()) {
+			try {
+				YamlConfiguration yamlConfiguration1 = YamlConfiguration.loadConfiguration(f);
+				File configFile = new File("temp.yml");
+				FileUtils.copyInputStreamToFile(getResource("scoreboard.yml"),configFile);
+				YamlConfiguration yamlConfiguration2 = YamlConfiguration.loadConfiguration(configFile);
+				for (String s : yamlConfiguration2.getKeys(true)) {
+					if (yamlConfiguration1.get(s) == null) {
+						//Bukkit.getConsoleSender().sendMessage(ChatColor.RED + "Scoreboard file has receive new path : " + s);
+						yamlConfiguration1.set(s, yamlConfiguration2.get(s));
+						yamlConfiguration1.save(f);
+					}
+				}
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+
+	}
 
 	public String getLGRoleDescription(Role role, String rolePath) {
 

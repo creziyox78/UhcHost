@@ -41,6 +41,8 @@ public class LootsRules implements Listener{
     }
 
     public void setLoot(Material material, int value) {
+        if(value > 99 || value < 1)
+            return;
         if (lootsRules.containsKey(material))
             lootsRules.replace(material, value);
     }

@@ -10,10 +10,10 @@ public enum Messages {
      * COMMANDS
      */
     NOT_FOR_YOU(error("Vous ne pouvez pas faire cette commande sur vous !")),
-    NOT_INGAME("§cCe PlayerManager n'est pas en jeu !"),
-    UNKNOW_PLAYER("§cCe PlayerManager est introuvable !"),
-    ONLY_PLAYER("§cSeul les PlayerManagers peuvent exécuter cette commande !"),
-    NOT_PERM("§cVous n'avez pas la permission d'exécuter cette commande !"),
+    NOT_INGAME("§cCe joueur n'est pas en jeu !"),
+    UNKNOW_PLAYER("§cCe joueur est introuvable !"),
+    ONLY_PLAYER("§cSeul les joueurs peuvent éxécuter cette commande !"),
+    NOT_PERM("§cVous n'avez pas la permission d'éxécuter cette commande !"),
     NOT_NOW("§cVous ne pouvez pas faire cette commande maintenant !"),
     COMMAND_DISABLED("§cCette commande est désactivée !"),
     COOLDOWNPREFIX("§9Cooldown§8 »§B "),

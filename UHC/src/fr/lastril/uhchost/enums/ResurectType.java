@@ -7,6 +7,7 @@ public enum ResurectType {
 	 */
 	SORCIERE,
 	INFECT,
-	ANCIEN
+	ANCIEN,
+	GARDE,
 
 }

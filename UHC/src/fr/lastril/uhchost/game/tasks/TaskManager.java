@@ -28,6 +28,8 @@ public class TaskManager {
 
 	private int count;
 
+	public static int timeGame = 0;
+
 	private int pvpTime = 1200, borderTime = 3600, netherEndTime = 2400,
 			teleportTime = 3600, episodeTimer = 0;
 
@@ -200,6 +202,7 @@ public class TaskManager {
 					}
 				}
 				TaskManager.this.count++;
+				TaskManager.timeGame = count;
 				TaskManager.this.pl.gameManager.getModes().getMode().tick(count);
 				if(TaskManager.this.pl.gameManager.getModes().getMode() instanceof RoleAnnounceMode){
 					RoleAnnounceMode roleAnnounceMode = (RoleAnnounceMode) TaskManager.this.pl.gameManager.getModes().getMode();

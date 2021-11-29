@@ -159,7 +159,7 @@ public class QuickInventory {
 
 
     public void updateItem(String key, Consumer<TaskUpdate> consumer){
-        updateItem(key, consumer, 2);
+        updateItem(key, consumer, 0);
     }
 
     public void updateItem(String key, Consumer<TaskUpdate> consumer, int period){

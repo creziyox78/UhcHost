@@ -53,7 +53,8 @@ public class GameManager {
 
 	public int episode = 1;
 	
-	public int episodeEvery = 60*20;
+	//public int episodeEvery = 60*20;
+	public int episodeEvery = 2*20;
 
 	private boolean editInv;
 
@@ -77,7 +78,8 @@ public class GameManager {
 
 	private WorldState worldState;
 
-	private double cycleTime = 10*60;
+	//private double cycleTime = 10*60;
+	private double cycleTime = 2*60;
 
 	private String hostName;
 
@@ -96,6 +98,8 @@ public class GameManager {
 	public Location spawn;
 
 	private int maxPlayers = 50;
+
+	private int groupes = 5;
 
 	private Map<UUID, Location> teleportations;
 
@@ -141,7 +145,7 @@ public class GameManager {
 		this.pvp = false;
 		//this.fightTeleport = false;
 		this.viewHealth = true;
-		this.borderSize = 200L;
+		this.borderSize = 100L;
 		this.finalBorderSize = 200L;
 		this.damage = false;
 		this.potionsEditMode = false;
@@ -153,7 +157,7 @@ public class GameManager {
 		this.composition = new ArrayList<>();
 		this.cohost = new ArrayList<>();
 		this.worldState = WorldState.DAY;
-		this.gameName = ChatColor.AQUA + "UHC Host";
+		this.gameName = ChatColor.GOLD + "UHC Host";
 		this.playerCheckingWorld = false;
 		this.setNether(true);
 		this.validateWorld = false;
@@ -171,7 +175,7 @@ public class GameManager {
 
 	public void addCoHost(Player player){
 		if(!isCoHost(player)){
-			player.sendMessage("§a" + player.getName() + " a bien été ajouté en tant que co-host.");
+			player.sendMessage("§aVous avez été ajouté en tant que co-host.");
 			cohost.add(player);
 		} else {
 			player.sendMessage("Erreur: §c" + player.getName() + " ne fait pas partie des co-hosts.");
@@ -183,10 +187,8 @@ public class GameManager {
 	}
 
 	public void removeCoHost(Player player){
-		if(!isCoHost(player)){
-			player.sendMessage("Erreur: §c" + player.getName() + " ne fait pas partie des co-hosts.");
-		} else {
-			player.sendMessage("§c" + player.getName() + " n'est plus co-host.");
+		if(isCoHost(player)){
+			player.sendMessage("§cVous n'êtes plus co-host.");
 			cohost.remove(player);
 		}
 
@@ -686,5 +688,17 @@ public class GameManager {
 
 	public void setCycleTime(double cycleTime) {
 		this.cycleTime = cycleTime;
+	}
+
+	public int getGroupes() {
+		return groupes;
+	}
+
+	public void setGroupes(int groupes) {
+		this.groupes = groupes;
+	}
+
+	public void rappelGroupes(Player player) {
+		TitleAPI.sendTitle(player, 10, 20 * 2, 20, "§c§lGroupes", "§6" + groupes);
 	}
 }

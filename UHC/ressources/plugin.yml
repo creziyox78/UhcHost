@@ -18,4 +18,8 @@ commands:
     description: Command loots settings.
   test:
     description: Test command.
+  say:
+    description: Command say.
+  setgroupes:
+    description: Commande to set groups.
   

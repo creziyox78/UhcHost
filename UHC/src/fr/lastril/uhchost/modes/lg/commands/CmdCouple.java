@@ -74,7 +74,6 @@ public class CmdCouple implements ModeSubCommand {
                             }
                         }
                     }
-
                 } else {
                     player.sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage() + "§cVos flèches ont déjà été tirés !");
                 }

@@ -1,9 +1,9 @@
 package fr.lastril.uhchost.modes.lg.roles.lg;
 
-import fr.lastril.uhchost.UhcHost;
 import fr.lastril.uhchost.enums.Messages;
 import fr.lastril.uhchost.modes.lg.LoupGarouManager;
 import fr.lastril.uhchost.modes.lg.roles.LGRole;
+import fr.lastril.uhchost.modes.lg.roles.RealLG;
 import fr.lastril.uhchost.modes.lg.roles.village.Ancien;
 import fr.lastril.uhchost.modes.roles.Camps;
 import fr.lastril.uhchost.modes.roles.Role;
@@ -21,7 +21,7 @@ import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
-public class InfectPereDesLoups extends Role implements LGRole, RoleListener {
+public class InfectPereDesLoups extends Role implements LGRole, RoleListener, RealLG {
 
     private boolean hasInfected, infecte;
 

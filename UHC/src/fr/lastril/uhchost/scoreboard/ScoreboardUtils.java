@@ -1,16 +1,21 @@
 package fr.lastril.uhchost.scoreboard;
 
 import fr.lastril.uhchost.UhcHost;
+import fr.lastril.uhchost.game.GameState;
 import fr.lastril.uhchost.modes.roles.RoleAnnounceMode;
+import fr.lastril.uhchost.player.PlayerManager;
+import fr.lastril.uhchost.tools.API.FormatTime;
 import fr.lastril.uhchost.tools.I18n;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.scoreboard.Objective;
 import org.bukkit.scoreboard.Scoreboard;
 import org.bukkit.scoreboard.Team;
 import org.bukkit.util.Vector;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -58,6 +63,8 @@ public class ScoreboardUtils {
 	private final String playersInTeam;
 
 	private final String playersInTeamEnd;
+
+	private int pvpTime;
 
 	public ScoreboardUtils(UhcHost pl) {
 		this.pl = pl;
@@ -118,6 +125,15 @@ public class ScoreboardUtils {
 			this.sbs.put(player.getUniqueId(), sb);
 		}
 		int line = 0;
+		File file = new File(pl.getDataFolder() + "/scoreboard.yml");
+		YamlConfiguration lgYaml = YamlConfiguration.loadConfiguration(file);
+
+		for(String lines : lgYaml.getStringList("status.lobby")){
+			sb.setLine(line++, formatLine(lines, player, count));
+		}
+		//TODO DELETE IF WORK
+		/*
+
 		sb.setLine(line++, "§1");
 		sb.setLine(line++, "§bMode: " + pl.gameManager.getModes().getName());
 		if (this.pl.getPlayerManagerAlives().size() < this.pl.gameManager.getPlayersBeforeStart()) {
@@ -148,6 +164,9 @@ public class ScoreboardUtils {
 		sb.setLine(line++, this.credit);
 		if(pl.getConfig().getBoolean("scoreboard.ip"))
 			sb.setLine(line++, this.ip);
+
+		 */
+		this.sbs.replace(player.getUniqueId(), sb);
 	}
 
 	public void updatePreGame(Player player, int count) {
@@ -155,55 +174,18 @@ public class ScoreboardUtils {
 		this.name = pl.getGamemanager().getGameName();
 		if (this.sbs.containsKey(player.getUniqueId())) {
 			sb = this.sbs.get(player.getUniqueId());
-			/*if (sb.getObjectiveName()
-					.equalsIgnoreCase(this.name + this.teamsOf + this.pl.teamUtils.getPlayersPerTeams())
-					&& this.pl.teamUtils.getPlayersPerTeams() == 1) {
-				sb.setObjectiveName(this.name + this.solo);
-			} else if (sb.getObjectiveName().equalsIgnoreCase(this.name + this.solo)
-					&& this.pl.teamUtils.getPlayersPerTeams() != 1) {
-				sb.setObjectiveName(this.name + this.teamsOf + this.pl.teamUtils.getPlayersPerTeams());
-			}*/
 		} else {
 			sb = new ScoreboardSign(player, this.name);
-			/*if (this.pl.teamUtils.getPlayersPerTeams() != 1) {
-				sb = new ScoreboardSign(player, this.name + this.teamsOf + this.pl.teamUtils.getPlayersPerTeams());
-			} else {
-				sb = new ScoreboardSign(player, this.name + this.solo);
-			}*/
 			sb.create();
 			this.sbs.put(player.getUniqueId(), sb);
 		}
 		int line = 0;
-		sb.setLine(line++, "§1");
-		if(pl.getConfig().getBoolean("scoreboard.startIn"))
-			sb.setLine(line++, this.startIn + count);
-		if(pl.getConfig().getBoolean("scoreboard.host")){
-			if (this.pl.gameManager.getHost() != null)
-				sb.setLine(line++, this.host + this.pl.gameManager.getHost().getName());
-			sb.setLine(line++, "§2");
+		File file = new File(pl.getDataFolder() + "/scoreboard.yml");
+		YamlConfiguration lgYaml = YamlConfiguration.loadConfiguration(file);
+
+		for(String lines : lgYaml.getStringList("status.lobby")){
+			sb.setLine(line++, formatLine(lines, player, count));
 		}
-
-		if(pl.getConfig().getBoolean("scoreboard.team")){
-			if (this.pl.teamUtils.getPlayersPerTeams() != 1) {
-				sb.setLine(line++,
-						this.team + ((this.pl.teamUtils.getTeam(player) == null) ? "-"
-								: (this.pl.teamUtils.getTeam(player).getName() + this.playersInTeam
-								+ this.pl.teamUtils.getTeam(player).getEntries().size() + this.playersInTeamEnd)));
-				sb.setLine(line++, "§9");
-			}
-		}
-
-
-		if(pl.getConfig().getBoolean("scoreboard.players")){
-			sb.setLine(line++, this.players + this.pl.getPlayerManagerOnlines().size());
-		}
-
-		sb.setLine(line++, "§8§m                   §r");
-		sb.setLine(line++, this.credit);
-		if(pl.getConfig().getBoolean("scoreboard.ip")){
-			sb.setLine(line++, this.ip);
-		}
-
 		this.sbs.replace(player.getUniqueId(), sb);
 	}
 
@@ -213,24 +195,20 @@ public class ScoreboardUtils {
 		if (this.sbs.containsKey(player.getUniqueId())) {
 			sb = this.sbs.get(player.getUniqueId());
 			sb.setObjectiveName(this.name);
-			/*if (sb.getObjectiveName()
-					.equalsIgnoreCase(this.name + this.teamsOf + this.pl.teamUtils.getPlayersPerTeams())
-					&& this.pl.teamUtils.getPlayersPerTeams() == 1) {
-				sb.setObjectiveName(this.name + this.solo);
-			} else if (sb.getObjectiveName().equalsIgnoreCase(this.name + this.solo)
-					&& this.pl.teamUtils.getPlayersPerTeams() != 1) {
-				sb.setObjectiveName(this.name + this.teamsOf + this.pl.teamUtils.getPlayersPerTeams());
-			}*/
 		} else {
 			sb = new ScoreboardSign(player, this.name);
-			/*if (this.pl.teamUtils.getPlayersPerTeams() != 1) {
-				sb = new ScoreboardSign(player, this.name + this.teamsOf + this.pl.teamUtils.getPlayersPerTeams());
-			} else {
-				sb = new ScoreboardSign(player, this.name + this.solo);
-			}*/
 			sb.create();
 			this.sbs.put(player.getUniqueId(), sb);
 		}
+		int line = 0;
+		File file = new File(pl.getDataFolder() + "/scoreboard.yml");
+		YamlConfiguration lgYaml = YamlConfiguration.loadConfiguration(file);
+
+		for(String lines : lgYaml.getStringList("status.started.gamemode."
+				+ pl.gameManager.getModes().name().toLowerCase())){
+			sb.setLine(line++, formatLine(lines, player, count));
+		}
+		/* TODO DELETE IF WORK
 		int line = 0;
 		if(pl.getConfig().getBoolean("scoreboard.host")){
 			if (this.pl.gameManager.getHost() != null)
@@ -297,7 +275,7 @@ public class ScoreboardUtils {
 
 		if(pl.getConfig().getBoolean("scoreboard.pvp")){
 			if (!this.pl.gameManager.isPvp()) {
-				int pvpTime = this.pl.taskManager.getPvpTime() - count;
+				pvpTime = this.pl.taskManager.getPvpTime() - count;
 				if (pvpTime / 60 < 10 && pvpTime % 60 < 10) {
 					sb.setLine(line++, this.pvp + "0" + (pvpTime / 60) + ":0" + (pvpTime % 60));
 				} else if (pvpTime / 60 < 10) {
@@ -326,7 +304,7 @@ public class ScoreboardUtils {
 			}
 		} else {
 			sb.removeLine(line++);
-		}*/
+		}
 		if(pl.getConfig().getBoolean("scoreboard.border")){
 			if (!this.pl.gameManager.isBorder()) {
 				int b = this.pl.taskManager.getBorderTime() - count;
@@ -355,11 +333,46 @@ public class ScoreboardUtils {
 		sb.setLine(line++, this.credit);
 		if(pl.getConfig().getBoolean("scoreboard.ip"))
 			sb.setLine(line++, this.ip);
+		*/
 		this.sbs.replace(player.getUniqueId(), sb);
 	}
 
 	public Scoreboard getBoard() {
 		return this.board;
+	}
+
+	public String formatLine(String lines, Player player, int count){
+		pl.checkingScoreboardUpdate();
+		String newLine = lines;
+		if (this.pl.gameManager.getModes().getMode() instanceof RoleAnnounceMode) {
+			RoleAnnounceMode roleAnnounceMode = (RoleAnnounceMode) this.pl.gameManager.getModes().getMode();
+			int roleTime = roleAnnounceMode.getRoleAnnouncement();
+			newLine = newLine.replace("{roles}", roleTime <= 0 ? "§a✔" : new FormatTime(roleTime).toString());
+		}
+		if(GameState.isState(GameState.STARTED)){
+			Location loc = this.pl.worldUtils.getCenter().getWorld().getHighestBlockAt(
+					this.pl.worldUtils.getCenter().getBlockX(), this.pl.worldUtils.getCenter().getBlockZ()).getLocation();
+			loc.setY(player.getLocation().getY());
+			if(loc.getWorld() == player.getWorld())
+				newLine = newLine.replace("{spawn_direction}", getDirectionOf(player.getLocation(), loc) + "(" +(int) player.getLocation().distance(loc.add(0, player.getLocation().getY(), 0)) + ")").replace("{border}", (int) (this.pl.worldUtils.getWorld().getWorldBorder().getSize() / 2.0D) + "/-"
+					+ (int) (this.pl.worldUtils.getWorld().getWorldBorder().getSize() / 2.0D));
+
+		}
+		PlayerManager playerManager = pl.getPlayerManager(player.getUniqueId());
+		pvpTime = this.pl.taskManager.getPvpTime() - count;
+		int borderTime = this.pl.taskManager.getBorderTime() - count;
+		return newLine.replace("{pvp}", pvpTime <= 0 ? "§a✔" : new FormatTime(pvpTime).toString())
+				.replace("{time}", new FormatTime(count).toString())
+				.replace("{border_time}", borderTime <= 0 ? "§a✔" :  new FormatTime(borderTime).toString())
+				.replace("{gamemode}", pl.gameManager.getModes().getName())
+				.replace("{player_host_name}", pl.gameManager.getHost() != null ? pl.gameManager.getHost().getName() : "Aucun")
+				.replace("{waitting_players}", String.valueOf(Bukkit.getOnlinePlayers().size()))
+				.replace("{max_waitting_players}", String.valueOf(pl.gameManager.getMaxPlayers()))
+				.replace("{players_ingame}", String.valueOf(this.pl.getPlayerManagerAlives().size()))
+                .replace("{player_kill}", playerManager.getKills() != null ? String.valueOf(playerManager.getKills().size()) : "")
+				.replace("{episode}", String.valueOf(pl.gameManager.episode))
+				.replace("{groupes}", String.valueOf(pl.gameManager.getGroupes()))
+				.replace("&", "§");
 	}
 
 	public String getDirectionOf(Location ploc, Location to) {

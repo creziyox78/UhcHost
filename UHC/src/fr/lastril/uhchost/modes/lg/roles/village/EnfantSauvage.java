@@ -2,6 +2,7 @@ package fr.lastril.uhchost.modes.lg.roles.village;
 
 import fr.lastril.uhchost.UhcHost;
 import fr.lastril.uhchost.enums.Messages;
+import fr.lastril.uhchost.modes.lg.LoupGarouManager;
 import fr.lastril.uhchost.modes.lg.roles.LGRole;
 import fr.lastril.uhchost.modes.roles.Camps;
 import fr.lastril.uhchost.modes.roles.Role;
@@ -23,8 +24,13 @@ public class EnfantSauvage extends Role implements LGRole {
     }
 
     @Override
+    public String sendList() {
+        return "§eVotre modèle : " + modele.getPlayerName();
+    }
+
+    @Override
     public void afterRoles(Player player) {
-        while (modele == null || modele == player){
+        while (modele == null || modele == main.getPlayerManager(player.getUniqueId())){
             modele = main.getRandomPlayerManagerAlive();
         }
         player.sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage() + "§bVoici votre modèle qui a été choisi aléatoirement: " + modele.getPlayerName());
@@ -83,8 +89,10 @@ public class EnfantSauvage extends Role implements LGRole {
             PlayerManager enfant = UhcHost.getInstance().getPlayerManager(getPlayerId());
             enfant.getWolfPlayerManager().setCamp(Camps.LOUP_GAROU);
             enfant.getWolfPlayerManager().setTransformed(true);
-            if (getPlayer() != null) {
-                getPlayer().sendMessage("Votre modèle est mort, vous êtes donc transformé et devez gagner avec les Loups-Garous.");
+            if (super.getPlayer() != null) {
+                super.getPlayer().sendMessage("Votre modèle est mort, vous êtes donc transformé et devez gagner avec les Loups-Garous.");
+                LoupGarouManager loupGarouManager = (LoupGarouManager) main.gameManager.getModes().getMode().getModeManager();
+                loupGarouManager.sendNewLG();
             }
         }
     }

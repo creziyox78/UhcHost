@@ -30,7 +30,6 @@ public class TimerPerEpisodeGui extends IQuickInventory {
             bc = new BannerCreator("§c-10", Arrays.asList(""), 1, true);
             bc.setBaseColor(DyeColor.RED);
 
-
             inv.setItem(bc.create(), onClick -> {
                 String bannerName = ChatColor.stripColor(onClick.getEvent().getCurrentItem().getItemMeta().getDisplayName());
                 int value = UhcHost.getInstance().gameManager.episodeEvery + Integer.parseInt(bannerName) * 60;

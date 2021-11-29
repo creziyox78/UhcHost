@@ -52,7 +52,7 @@ public class WorldGui extends IQuickInventory {
             if(!pl.getGamemanager().isPregen() && !pl.gameManager.isValidateWorld())
                 inv.setItem(new ItemsCreator(Material.GRASS, "§ePré-visualisation", Arrays.asList("§7Vérifiez que le centre", "§7est celui dont vous voulez !"), 1).create(), onClick -> {
                     onClick.getPlayer().closeInventory();
-                    onClick.getPlayer().sendMessage("§eCréation du monde... Merci de patienter.");
+                    Bukkit.broadcastMessage("§eCréation du monde... Merci de patienter.");
                     pl.gameManager.setPlayerCheckingWorld(true);
                     WorldCreator.name("game").createWorld();
                     Bukkit.getWorld("game").setGameRuleValue("doDaylightCycle", "false");
