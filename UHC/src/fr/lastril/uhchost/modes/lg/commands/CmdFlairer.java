@@ -47,7 +47,7 @@ public class CmdFlairer implements ModeSubCommand {
                     if (args.length == 2) {
                         String targetName = args[1];
                         Player target = Bukkit.getPlayer(targetName);
-                        if (target != null) {
+                        if (target != null && target != player) {
                             PlayerManager targetManager = pl.getPlayerManager(target.getUniqueId());
                             if (targetManager.isAlive() && targetManager.hasRole()) {
                                 sendCamps(player, targetManager);

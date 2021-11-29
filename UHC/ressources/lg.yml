@@ -396,7 +396,7 @@ fr:
               - '&2Votre rôle est, &a&l{role}&2.'
               - '&2Vous avez une potion de &7Resistance I &2d''une minute. Durant
                 la partie'
-              - '&2vous pouvez protéger des joueurs (/lg garde <pseudo>) pendant 10 minutes à chaque épisode.'
+              - '&2vous pouvez protéger des joueurs &7&o(/lg proteger <pseudo>)&2 pendant 10 minutes à chaque épisode.'
               - '&2Si le joueur protéger est tuer par un &c&oLoups&r&2, il ressuscitera
                 mais'
               - '&2vous perdrez vos pouvoir. Vous ne pouvez pas vous protéger vous-même

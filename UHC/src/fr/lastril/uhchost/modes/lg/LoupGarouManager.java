@@ -85,6 +85,7 @@ public class LoupGarouManager extends ModeManager implements Listener {
                         case GARDE:
                             onlinePlayer.sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage() + "Vous avez été réssuscité par le Garde.");
                             playerManager.getWolfPlayerManager().setResurectType(null);
+                            playerManager.getWolfPlayerManager().setProtect(false);
                             main.gameManager.teleportPlayerOnGround(player);
                             break;
                         default:

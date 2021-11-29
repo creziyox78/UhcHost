@@ -13,17 +13,17 @@ import org.bukkit.entity.Player;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class CmdGarde implements ModeSubCommand {
+public class CmdProteger implements ModeSubCommand {
 
     private final UhcHost main;
 
-    public CmdGarde(UhcHost main) {
+    public CmdProteger(UhcHost main) {
         this.main = main;
     }
 
     @Override
     public String getSubCommandName() {
-        return "garde";
+        return "proteger";
     }
 
     @Override

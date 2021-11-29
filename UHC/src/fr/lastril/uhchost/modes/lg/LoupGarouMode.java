@@ -17,6 +17,7 @@ import fr.lastril.uhchost.modes.lg.roles.solo.Trublion;
 import fr.lastril.uhchost.modes.roles.*;
 import fr.lastril.uhchost.player.PlayerManager;
 import fr.lastril.uhchost.tools.API.BungeeAPI;
+import fr.lastril.uhchost.tools.API.TitleAPI;
 import fr.lastril.uhchost.tools.API.inventory.crafter.IQuickInventory;
 import fr.lastril.uhchost.tools.I18n;
 import org.bukkit.Bukkit;
@@ -222,7 +223,10 @@ public class LoupGarouMode extends Mode implements ModeCommand, RoleMode<LGRole>
     public void win(Camps winner) {
         this.pl.gameManager.setDamage(false);
         Bukkit.broadcastMessage(I18n.tl("endGame"));
-        Bukkit.broadcastMessage("§eVainqueur: " + winner.getCompoColor()+winner.name());
+        Bukkit.broadcastMessage(winner.getWinMessage());
+        Bukkit.getOnlinePlayers().forEach(player -> {
+            TitleAPI.sendTitle(player, 20, 20, 20, winner.getWinMessage(), "");
+        });
         Bukkit.broadcastMessage(I18n.tl("rebootSoon"));
         Bukkit.getScheduler().runTaskLater(this.pl, () -> {
             if (this.pl.getConfig().getBoolean("bungeecord")) {

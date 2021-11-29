@@ -19,12 +19,7 @@ import org.bukkit.inventory.EntityEquipment;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class LoupGarouPerfide extends Role implements LGRole, RealLG {
-
-    private final List<PlayerManager> loupGarouList = new ArrayList<>();
 
     public LoupGarouPerfide() {
         super.addEffect(new PotionEffect(PotionEffectType.NIGHT_VISION, Integer.MAX_VALUE, 0, false, false), When.START);

@@ -1,7 +1,7 @@
 package fr.lastril.uhchost.modes.lg.roles.village;
 
 import fr.lastril.uhchost.modes.command.ModeSubCommand;
-import fr.lastril.uhchost.modes.lg.commands.CmdGarde;
+import fr.lastril.uhchost.modes.lg.commands.CmdProteger;
 import fr.lastril.uhchost.modes.lg.roles.LGRole;
 import fr.lastril.uhchost.modes.roles.Camps;
 import fr.lastril.uhchost.modes.roles.Role;
@@ -80,7 +80,7 @@ public class Garde extends Role implements LGRole, RoleCommand {
 
     @Override
     public List<ModeSubCommand> getSubCommands() {
-        return Arrays.asList(new CmdGarde(main));
+        return Arrays.asList(new CmdProteger(main));
     }
 
     public void addProtected(PlayerManager playerManager){
