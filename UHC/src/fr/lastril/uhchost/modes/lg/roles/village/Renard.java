@@ -1,5 +1,6 @@
 package fr.lastril.uhchost.modes.lg.roles.village;
 
+import fr.lastril.uhchost.enums.Messages;
 import fr.lastril.uhchost.modes.command.ModeSubCommand;
 import fr.lastril.uhchost.modes.lg.commands.CmdFlairer;
 import fr.lastril.uhchost.modes.lg.roles.LGRole;
@@ -7,6 +8,7 @@ import fr.lastril.uhchost.modes.roles.Camps;
 import fr.lastril.uhchost.modes.roles.Role;
 import fr.lastril.uhchost.modes.roles.RoleCommand;
 import fr.lastril.uhchost.modes.roles.When;
+import fr.lastril.uhchost.player.PlayerManager;
 import fr.lastril.uhchost.tools.API.items.crafter.QuickItem;
 import org.bukkit.Material;
 import org.bukkit.SkullType;
@@ -14,6 +16,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -22,6 +25,7 @@ public class Renard extends Role implements LGRole, RoleCommand {
     private final int maxRenifled = 3;
     private boolean canRenifle;
     private int renifledUse = 0;
+    private final List<PlayerManager> renifledPlayer = new ArrayList<>();
 
     public Renard() {
         super.addEffect(new PotionEffect(PotionEffectType.SPEED, Integer.MAX_VALUE, 0, false, false), When.START);
@@ -42,6 +46,13 @@ public class Renard extends Role implements LGRole, RoleCommand {
 
     @Override
     public void onDay(Player player) {
+        renifledPlayer.forEach(playerManager -> {
+            if(playerManager.getPlayer() != null){
+                playerManager.getPlayer().sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage() + "§eVous avez été reniflé par le renard.");
+            }
+
+        });
+        renifledPlayer.stream().map(renifledPlayer::remove);
         canRenifle = false;
     }
 
@@ -96,4 +107,9 @@ public class Renard extends Role implements LGRole, RoleCommand {
     public boolean notReached() {
         return renifledUse < maxRenifled;
     }
+
+    public void addRenifled(PlayerManager playerManager){
+        renifledPlayer.add(playerManager);
+    }
+
 }

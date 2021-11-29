@@ -52,6 +52,7 @@ public class CmdFlairer implements ModeSubCommand {
                             if (targetManager.isAlive() && targetManager.hasRole()) {
                                 sendCamps(player, targetManager);
                                 renard.addUse();
+                                renard.addRenifled(targetManager);
                             } else {
                                 player.sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage() + "§cCe joueur n'est pas/plus dans la partie !");
                             }

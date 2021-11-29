@@ -2,6 +2,7 @@ package fr.lastril.uhchost.inventory.guis.modes;
 
 import fr.lastril.uhchost.UhcHost;
 import fr.lastril.uhchost.enums.Messages;
+import fr.lastril.uhchost.inventory.guis.HostConfig;
 import fr.lastril.uhchost.modes.ModeConfig;
 import fr.lastril.uhchost.modes.Modes;
 import fr.lastril.uhchost.tools.API.inventory.crafter.IQuickInventory;
@@ -58,6 +59,8 @@ public class ModesGui extends IQuickInventory {
                 }
             },index);
         }
-        inv.setItem((new ItemsCreator(Material.BARRIER, I18n.tl("guis.back"), Collections.singletonList(""))).create(), inv.getInventory().getSize() - 1);
+        inv.setItem((new ItemsCreator(Material.BARRIER, I18n.tl("guis.back"), Collections.singletonList(""))).create(), onClick -> {
+            new HostConfig().open(onClick.getPlayer());
+        },inv.getInventory().getSize() - 1);
     }
 }

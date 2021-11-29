@@ -2,6 +2,7 @@ package fr.lastril.uhchost.world.tasks;
 
 import com.google.common.base.Strings;
 import fr.lastril.uhchost.UhcHost;
+import fr.lastril.uhchost.enums.Messages;
 import fr.lastril.uhchost.tools.API.ActionBar;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -76,15 +77,15 @@ public class ChunkLoader extends BukkitRunnable {
 		}
 		this.percent = this.currentChunkLoad / this.totalChunkToLoad * 100.0D;
 		Bukkit.getOnlinePlayers().forEach(player -> {
-			ActionBar.sendMessage(player,
+			if(this.percent < 100)
+				ActionBar.sendMessage(player,
 					"[" + getProgressBar((int) this.percent, 100, 100, '|', ChatColor.GREEN, ChatColor.GRAY) + "§f] §9"
 							+ new DecimalFormat("###.##").format(this.percent) + "%");
 		});
 		if (this.finished) {
 			/*long secondsBetween = DateManager.getSecondsBetweenTwoDate(this.start, new Date());
-
-			Bukkit.broadcastMessage(Messages.PREFIX_WITH_ARROW.getMessage()+"§aLa map a été entièrement générée en "+new FormatTime(secondsBetween).toFormatString()+".");
-			*/
+			 */
+			Bukkit.broadcastMessage(Messages.PREFIX_WITH_ARROW.getMessage()+"§aLa map a été entièrement pré-générée !");
 			cancel();
 		}
 	}
@@ -93,11 +94,10 @@ public class ChunkLoader extends BukkitRunnable {
 			ChatColor notCompletedColor) {
 		float percent = (float) current / max;
 		int progressBars = (int) (totalBars * percent);
-		if(symbol >= 1){
-			if(totalBars >= 0)
-				return Strings.repeat("" + completedColor + symbol, progressBars)
-						+ Strings.repeat("" + notCompletedColor + symbol,
-						totalBars - progressBars);
+		if(current < 100){
+			return Strings.repeat("" + completedColor + symbol, progressBars)
+					+ Strings.repeat("" + notCompletedColor + symbol,
+					totalBars - progressBars);
 		}
 
 		return "";
