@@ -2,6 +2,7 @@ package fr.lastril.uhchost.modes.lg.roles.lg;
 
 import fr.lastril.uhchost.modes.lg.LoupGarouManager;
 import fr.lastril.uhchost.modes.lg.roles.LGChatRole;
+import fr.lastril.uhchost.modes.lg.roles.LGHideDeath;
 import fr.lastril.uhchost.modes.lg.roles.LGRole;
 import fr.lastril.uhchost.modes.lg.roles.RealLG;
 import fr.lastril.uhchost.modes.roles.Camps;
@@ -16,7 +17,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
-public class LoupGarouCraintif extends Role implements LGRole, RealLG, LGChatRole {
+public class LoupGarouCraintif extends Role implements LGRole, RealLG, LGChatRole, LGHideDeath {
 
     private int distance = 30;
     private boolean day;

@@ -5,6 +5,7 @@ import fr.lastril.uhchost.enums.Messages;
 import fr.lastril.uhchost.enums.ResurectType;
 import fr.lastril.uhchost.modes.ModeManager;
 import fr.lastril.uhchost.modes.lg.roles.LGChatRole;
+import fr.lastril.uhchost.modes.lg.roles.LGHideDeath;
 import fr.lastril.uhchost.modes.lg.roles.RealLG;
 import fr.lastril.uhchost.modes.lg.roles.lg.LoupGarouGrimeur;
 import fr.lastril.uhchost.modes.lg.roles.solo.LoupGarouBlanc;
@@ -224,15 +225,48 @@ public class LoupGarouManager extends ModeManager implements Listener {
 
         main.getInventoryUtils().dropInventory(deathLocation, items, armors);
 
-        for (Player players : Bukkit.getOnlinePlayers()) {
-            players.playSound(players.getLocation(), Sound.WOLF_HOWL, 1f, 1f);
-        }
-
         if (playerManager.getPlayer() != null) {
             Player onlinePlayer = playerManager.getPlayer();
             onlinePlayer.setGameMode(GameMode.SPECTATOR);
             onlinePlayer.getInventory().clear();
         }
+
+        if(killer != null){
+            PlayerManager playerManagerKiller = main.getPlayerManager(killer.getUniqueId());
+            if(playerManagerKiller.hasRole()){
+                playerManagerKiller.getRole().onKill(player, killer);
+            }
+        }
+
+        if (playerManager.getWolfPlayerManager().isInCouple()) {
+            System.out.println("Player in couple, cupidon win changed !");
+            for (PlayerManager cupidonPlayerManager : super.getPlayerManagersWithRole(Cupidon.class)) {
+                cupidonPlayerManager.setCamps(Camps.VILLAGEOIS);
+                if(cupidonPlayerManager.getWolfPlayerManager().isInfected())
+                    cupidonPlayerManager.setCamps(Camps.LOUP_GAROU);
+                /*for (PlayerManager angePlayer : super.getPlayerManagersWithRole(Ange.class)) {
+                    Ange ange = (Ange) angePlayer.getRole();
+                    if(ange.getCible() == cupidonPlayerManager)
+                        cupidonPlayerManager.setCamps(Camps.ANGE);
+                }*/
+            }
+        }
+
+        if(playerManager.hasRole()){
+            if(playerManager.getRole() instanceof LGHideDeath){
+                main.gameManager.getModes().getMode().checkWin();
+                return;
+            }
+        }
+
+
+
+
+        for (Player players : Bukkit.getOnlinePlayers()) {
+            players.playSound(players.getLocation(), Sound.WOLF_HOWL, 1f, 1f);
+        }
+
+
 
         if(killer != null){
             PlayerManager playerManagerKiller = main.getPlayerManager(killer.getUniqueId());
@@ -261,19 +295,27 @@ public class LoupGarouManager extends ModeManager implements Listener {
                     }
                 }
             }
-            playerManagerKiller.getRole().onKill(player, killer);
+
         }
         if(!isRandomSeeRole()){
+
             Bukkit.broadcastMessage("§8§m----------------------------------");
             Bukkit.broadcastMessage(" ");
-            String message = "§2§l" + playerManager.getPlayerName() +
-                    " est mort, il était §o" + playerManager.getRole().getRoleName();
-            if (playerManager.getWolfPlayerManager().isInfected()) {
-                message += "§2 (infecté)";
+            String message = "";
+            if(playerManager.hasRole()){
+                message = "§2§l" + playerManager.getPlayerName() +
+                        " est mort, il était §o" + playerManager.getRole().getRoleName();
+                if (playerManager.getWolfPlayerManager().isInfected()) {
+                    message += "§2 (infecté)";
+                }
+                if (playerManager.getWolfPlayerManager().isTransformed()) {
+                    message += "§2 (transformé)";
+                }
+            } else {
+                message = "§2§l" + playerManager.getPlayerName() +
+                        " est mort";
             }
-            if (playerManager.getWolfPlayerManager().isTransformed()) {
-                message += "§2 (transformé)";
-            }
+
 
             Bukkit.broadcastMessage(message);
             Bukkit.broadcastMessage(" ");
@@ -283,19 +325,7 @@ public class LoupGarouManager extends ModeManager implements Listener {
         }
 
 
-        if (playerManager.getWolfPlayerManager().isInCouple()) {
-            System.out.println("Player in couple, cupidon win changed !");
-            for (PlayerManager cupidonPlayerManager : super.getPlayerManagersWithRole(Cupidon.class)) {
-                cupidonPlayerManager.setCamps(Camps.VILLAGEOIS);
-                if(cupidonPlayerManager.getWolfPlayerManager().isInfected())
-                    cupidonPlayerManager.setCamps(Camps.LOUP_GAROU);
-                /*for (PlayerManager angePlayer : super.getPlayerManagersWithRole(Ange.class)) {
-                    Ange ange = (Ange) angePlayer.getRole();
-                    if(ange.getCible() == cupidonPlayerManager)
-                        cupidonPlayerManager.setCamps(Camps.ANGE);
-                }*/
-            }
-        }
+
         main.gameManager.getModes().getMode().checkWin();
     }
 

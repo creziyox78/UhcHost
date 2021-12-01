@@ -22,12 +22,14 @@ public enum LGRoles {
     LG_LUNAIRE(LoupGarouLunaire.class), //FINISHED
     LG_GRIMEUR(LoupGarouGrimeur.class), //FINISHED
     LG_CRAINTIF(LoupGarouCraintif.class), //FINISHED
+    LG_PISTEUR(LoupGarouPisteur.class),
     LG_JUMEAU(LoupGarouJumeau.class),
     LV_MAUDITE(LouveMaudite.class),
     VPL(VilainPetitLoup.class), //TODO BE TESTED
     GML(GrandMechantLoup.class),
     LG_MYSTIQUE(LoupGarouMystique.class),
     LG_VENGEUR(LoupGarouVengeur.class),
+    LG_HYBRIDE(LoupGarouHybride.class),
 
     /*
      * CAMP DU VILLAGE
@@ -42,6 +44,7 @@ public enum LGRoles {
     ENFANT_SAUVAGE(EnfantSauvage.class), //FINISHED
     GARDE(Garde.class), //TODO BE TESTED
     MONTREUR_DOURS(MontreurDours.class), //FINISHED
+    MESSAGER(Messager.class),
     PETITE_FILLE(PetiteFille.class), //TODO LG CHAT SEE
     PRETRESSE(Pretresse.class), //TODO BE TESTED
     RENARD(Renard.class), //FINISHED
@@ -50,6 +53,7 @@ public enum LGRoles {
     SORCIERE(Sorciere.class), //FINISHED
     VOYANTE(Voyante.class), //FINISHED
     VOYANTE_BAVARDE(VoyanteBavarde.class), //FINISHED
+    TRAPPEUR(Trappeur.class),
     VILLAGEOIS(Villageois.class), //FINISHED
 
     /*
@@ -59,6 +63,7 @@ public enum LGRoles {
     CHIEN_LOUP(ChienLoup.class), //TODO BE TESTED
     TRUBLION(Trublion.class), //TODO BE TESTED
     VOLEUR(Voleur.class), //TODO BE TESTED
+    REBELLE(Rebelle.class),
     /*
      * CAMP DES SOLOS
      */

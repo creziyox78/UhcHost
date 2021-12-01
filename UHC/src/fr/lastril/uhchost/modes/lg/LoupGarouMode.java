@@ -191,7 +191,7 @@ public class LoupGarouMode extends Mode implements ModeCommand, RoleMode<LGRole>
 
     @Override
     public boolean isScheduledDeath() {
-        return false;
+        return true;
     }
 
     @Override

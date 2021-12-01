@@ -14,9 +14,9 @@ import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
-public class LoupGarou extends Role implements LGRole, RealLG, LGChatRole {
+public class LoupGarouPisteur extends Role implements LGRole, RealLG, LGChatRole {
 
-    public LoupGarou() {
+    public LoupGarouPisteur() {
         super.addEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, Integer.MAX_VALUE, 0, false, false), When.NIGHT);
         super.addEffect(new PotionEffect(PotionEffectType.NIGHT_VISION, Integer.MAX_VALUE, 0, false, false), When.START);
         super.addEffect(new PotionEffect(PotionEffectType.SPEED, 20 * 60 * 1, 0, false, false), When.AT_KILL);
@@ -25,7 +25,7 @@ public class LoupGarou extends Role implements LGRole, RealLG, LGChatRole {
 
     @Override
     public String getRoleName() {
-        return "Loup-Garou";
+        return "Loup-Garou Pisteur";
     }
 
     @Override
