@@ -26,7 +26,7 @@ public class GameStart implements Listener {
 			pl.getPlayerManager(player.getUniqueId()).setPlayedGame(true);
 			pl.getPlayerManager(player.getUniqueId()).setAlive(true);
 		});
-		Bukkit.getWorld("game").setGameRuleValue("keepInventory", "true");
+
 		if(pl.gameManager.isViewHealth()) {
 			Objective health = pl.scoreboardUtil.getBoard().registerNewObjective("vie", "health");
 			health.setDisplaySlot(DisplaySlot.PLAYER_LIST);

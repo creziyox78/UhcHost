@@ -2,6 +2,7 @@ package fr.lastril.uhchost.modes.lg.roles.village;
 
 import fr.lastril.uhchost.enums.WorldState;
 import fr.lastril.uhchost.modes.lg.LoupGarouManager;
+import fr.lastril.uhchost.modes.lg.roles.LGChatRole;
 import fr.lastril.uhchost.modes.lg.roles.LGRole;
 import fr.lastril.uhchost.modes.lg.roles.lg.LoupGarouPerfide;
 import fr.lastril.uhchost.modes.roles.Camps;
@@ -21,7 +22,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
-public class PetiteFille extends Role implements LGRole {
+public class PetiteFille extends Role implements LGRole, LGChatRole {
 
     private static final int DISTANCE = 100;
 
@@ -117,4 +118,18 @@ public class PetiteFille extends Role implements LGRole {
         return Camps.VILLAGEOIS;
     }
 
+    @Override
+    public boolean canSee() {
+        return true;
+    }
+
+    @Override
+    public boolean canSend() {
+        return false;
+    }
+
+    @Override
+    public boolean sendPlayerName() {
+        return false;
+    }
 }

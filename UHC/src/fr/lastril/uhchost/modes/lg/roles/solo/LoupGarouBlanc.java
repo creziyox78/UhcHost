@@ -1,6 +1,7 @@
 package fr.lastril.uhchost.modes.lg.roles.solo;
 
 import fr.lastril.uhchost.modes.lg.LoupGarouManager;
+import fr.lastril.uhchost.modes.lg.roles.LGChatRole;
 import fr.lastril.uhchost.modes.lg.roles.LGRole;
 import fr.lastril.uhchost.modes.roles.Camps;
 import fr.lastril.uhchost.modes.roles.Role;
@@ -12,7 +13,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
-public class LoupGarouBlanc extends Role implements LGRole {
+public class LoupGarouBlanc extends Role implements LGRole, LGChatRole {
 
     public LoupGarouBlanc() {
         super.addEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, Integer.MAX_VALUE, 0, false, false), When.NIGHT);
@@ -82,4 +83,18 @@ public class LoupGarouBlanc extends Role implements LGRole {
         return Camps.LOUP_GAROU_BLANC;
     }
 
+    @Override
+    public boolean canSee() {
+        return true;
+    }
+
+    @Override
+    public boolean canSend() {
+        return true;
+    }
+
+    @Override
+    public boolean sendPlayerName() {
+        return false;
+    }
 }

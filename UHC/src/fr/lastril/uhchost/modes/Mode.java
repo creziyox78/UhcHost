@@ -37,4 +37,8 @@ public abstract class Mode {
 
     public abstract ModeManager getModeManager();
 
+    public abstract void onNight();
+
+    public abstract void onDay();
+
 }

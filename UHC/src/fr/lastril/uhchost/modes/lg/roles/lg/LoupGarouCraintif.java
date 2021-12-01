@@ -1,6 +1,7 @@
 package fr.lastril.uhchost.modes.lg.roles.lg;
 
 import fr.lastril.uhchost.modes.lg.LoupGarouManager;
+import fr.lastril.uhchost.modes.lg.roles.LGChatRole;
 import fr.lastril.uhchost.modes.lg.roles.LGRole;
 import fr.lastril.uhchost.modes.lg.roles.RealLG;
 import fr.lastril.uhchost.modes.roles.Camps;
@@ -15,7 +16,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
-public class LoupGarouCraintif extends Role implements LGRole, RealLG {
+public class LoupGarouCraintif extends Role implements LGRole, RealLG, LGChatRole {
 
     private int distance = 30;
     private boolean day;
@@ -149,4 +150,18 @@ public class LoupGarouCraintif extends Role implements LGRole, RealLG {
         }
     }
 
+    @Override
+    public boolean canSee() {
+        return true;
+    }
+
+    @Override
+    public boolean canSend() {
+        return true;
+    }
+
+    @Override
+    public boolean sendPlayerName() {
+        return false;
+    }
 }

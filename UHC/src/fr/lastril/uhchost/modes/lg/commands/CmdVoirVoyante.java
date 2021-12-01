@@ -15,11 +15,11 @@ import org.bukkit.entity.Player;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class CmdVoir implements ModeSubCommand {
+public class CmdVoirVoyante implements ModeSubCommand {
 
     private final UhcHost pl;
 
-    public CmdVoir(UhcHost pl) {
+    public CmdVoirVoyante(UhcHost pl) {
         this.pl = pl;
     }
 

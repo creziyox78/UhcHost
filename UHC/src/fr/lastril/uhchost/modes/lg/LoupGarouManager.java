@@ -4,6 +4,7 @@ import fr.lastril.uhchost.UhcHost;
 import fr.lastril.uhchost.enums.Messages;
 import fr.lastril.uhchost.enums.ResurectType;
 import fr.lastril.uhchost.modes.ModeManager;
+import fr.lastril.uhchost.modes.lg.roles.LGChatRole;
 import fr.lastril.uhchost.modes.lg.roles.RealLG;
 import fr.lastril.uhchost.modes.lg.roles.lg.LoupGarouGrimeur;
 import fr.lastril.uhchost.modes.lg.roles.solo.LoupGarouBlanc;
@@ -11,6 +12,7 @@ import fr.lastril.uhchost.modes.lg.roles.solo.Voleur;
 import fr.lastril.uhchost.modes.lg.roles.village.Ancien;
 import fr.lastril.uhchost.modes.lg.roles.village.ChienLoup;
 import fr.lastril.uhchost.modes.lg.roles.village.Cupidon;
+import fr.lastril.uhchost.modes.lg.roles.village.Pretresse;
 import fr.lastril.uhchost.modes.roles.Camps;
 import fr.lastril.uhchost.player.PlayerManager;
 import fr.lastril.uhchost.player.modemanager.WolfPlayerManager;
@@ -19,10 +21,13 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageEvent;
+import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffectType;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 public class LoupGarouManager extends ModeManager implements Listener {
@@ -31,8 +36,9 @@ public class LoupGarouManager extends ModeManager implements Listener {
 
     private final List<UUID> waitingRessurect;
     private final List<PlayerManager> loupGarouList = new ArrayList<>();
-    private boolean randomCouple = false, voteTime, sendedlist = false;
+    private boolean randomCouple = false, voteTime, sendedlist = false, randomSeeRole, lgChatTime;
     private int startVoteEpisode = 3;
+    private int soloValue = 95, loupValue = 20, villageValue = 80;
     private int sendWerewolfListTime = 50*60;
     private double originalVotedHealth;
     private WolfPlayerManager currentVotedPlayer;
@@ -41,6 +47,30 @@ public class LoupGarouManager extends ModeManager implements Listener {
         this.main = main;
         this.waitingRessurect = new ArrayList<>();
         this.main.getServer().getPluginManager().registerEvents(this, main);
+    }
+
+    @EventHandler
+    public void onLgChat(AsyncPlayerChatEvent event){
+        Player player = event.getPlayer();
+        PlayerManager playerManager = main.getPlayerManager(player.getUniqueId());
+        event.setCancelled(true);
+        if(playerManager.hasRole() && playerManager.isAlive()){
+            if(playerManager.getRole() instanceof LGChatRole){
+                LGChatRole lgChatRole = (LGChatRole) playerManager.getRole();
+                if(lgChatRole.canSend() && lgChatTime){
+                    main.getPlayerManagerOnlines().forEach(playerManagers -> {
+                        if(playerManagers.isAlive() && playerManagers.hasRole()){
+                            if(playerManagers.getRole() instanceof LGChatRole){
+                                LGChatRole lgChatRoles = (LGChatRole) playerManagers.getRole();
+                                if(lgChatRoles.canSee()){
+                                    playerManagers.getPlayer().sendMessage(Camps.LOUP_GAROU.getCompoColor() + (lgChatRole.sendPlayerName() ? playerManager.getPlayerName() + " » " : "Loup-garou » ") + event.getMessage());
+                                }
+                            }
+                        }
+                    });
+                }
+            }
+        }
     }
 
     public void startDeathTask(Player player, Player killer) {
@@ -105,6 +135,82 @@ public class LoupGarouManager extends ModeManager implements Listener {
         }, 20 * 13);
     }
 
+    public void randomRole(PlayerManager playerManager){
+        Bukkit.broadcastMessage("§8§m----------------------------------");
+        Bukkit.broadcastMessage(" ");
+        main.getPlayerManagerOnlines().forEach(playerManagers -> {
+            String message = "";
+            if(playerManagers.isAlive() && playerManagers.hasRole()){
+                if(playerManagers.getRole() instanceof Pretresse){
+                    message = "§2§l" + playerManager.getPlayerName() +
+                            " est mort, il était §o" + playerManager.getRole().getRoleName();
+                    if (playerManager.getWolfPlayerManager().isInfected()) {
+                        message += "§2 (infecté)";
+                    }
+                    if (playerManager.getWolfPlayerManager().isTransformed()) {
+                        message += "§2 (transformé)";
+                    }
+                } else {
+                    int value = UhcHost.getRANDOM().nextInt(100);
+                    System.out.println("Pretresse role value : " + value + " for " + playerManagers.getPlayerName() + " in camp : " + playerManagers.getCamps().name());
+                    if(playerManagers.getCamps() == Camps.VILLAGEOIS){
+                        if(value <= getVillageValue()){
+                            System.out.println(playerManagers.getPlayer() + " see role !");
+                            message = "§2§l" + playerManager.getPlayerName() +
+                                    " est mort, il était §o" + playerManager.getRole().getRoleName();
+                            if (playerManager.getWolfPlayerManager().isInfected()) {
+                                message += "§2 (infecté)";
+                            }
+                            if (playerManager.getWolfPlayerManager().isTransformed()) {
+                                message += "§2 (transformé)";
+                            }
+                        } else {
+                            System.out.println(playerManagers.getPlayer() + " not see role !");
+                            message = "§2§l" + playerManager.getPlayerName() +
+                                    " est mort, il était §o§kInconnue";
+                        }
+
+                    } else if(playerManagers.getCamps() == Camps.LOUP_GAROU){
+                        if(value <= getLoupValue()){
+                            System.out.println(playerManagers.getPlayer() + " see role !");
+                            message = "§2§l" + playerManager.getPlayerName() +
+                                    " est mort, il était §o" + playerManager.getRole().getRoleName();
+                            if (playerManager.getWolfPlayerManager().isInfected()) {
+                                message += "§2 (infecté)";
+                            }
+                            if (playerManager.getWolfPlayerManager().isTransformed()) {
+                                message += "§2 (transformé)";
+                            }
+                        } else {
+                            System.out.println(playerManagers.getPlayer() + " not see role !");
+                            message = "§2§l" + playerManager.getPlayerName() +
+                                    " est mort, il était §o§kInconnue";
+                        }
+                    } else {
+                        if(value <= getSoloValue()){
+                            System.out.println(playerManagers.getPlayer() + " see role !");
+                            message = "§2§l" + playerManager.getPlayerName() +
+                                    " est mort, il était §o" + playerManager.getRole().getRoleName();
+                            if (playerManager.getWolfPlayerManager().isInfected()) {
+                                message += "§2 (infecté)";
+                            }
+                            if (playerManager.getWolfPlayerManager().isTransformed()) {
+                                message += "§2 (transformé)";
+                            }
+                        } else {
+                            System.out.println(playerManagers.getPlayer() + " not see role !");
+                            message = "§2§l" + playerManager.getPlayerName() +
+                                    " est mort, il était §o§kInconnue";
+                        }
+                    }
+                }
+                playerManagers.getPlayer().sendMessage(message);
+                Bukkit.broadcastMessage(" ");
+                Bukkit.broadcastMessage("§8§m----------------------------------");
+            }
+        });
+    }
+
     public void kill(OfflinePlayer player, ItemStack[] items, ItemStack[] armors, Player killer,
                      Location deathLocation) {
         PlayerManager playerManager = main.getPlayerManager(player.getUniqueId());
@@ -138,39 +244,58 @@ public class LoupGarouManager extends ModeManager implements Listener {
                         Bukkit.broadcastMessage(" ");
                         String message = "§2§l" + playerManager.getPlayerName() +
                                 " est mort, il était §oLoup-Garou";
+
+                        Bukkit.broadcastMessage(message);
+                        Bukkit.broadcastMessage(" ");
+                        Bukkit.broadcastMessage("§8§m----------------------------------");
+                        main.gameManager.getModes().getMode().checkWin();
                         if (playerManager.getWolfPlayerManager().isInCouple()) {
                             for (PlayerManager cupidonPlayerManager : super.getPlayerManagersWithRole(Cupidon.class)) {
                                 cupidonPlayerManager.getWolfPlayerManager().setCamp(Camps.VILLAGEOIS);
                             }
                         }
-                        Bukkit.broadcastMessage(message);
-                        Bukkit.broadcastMessage(" ");
-                        Bukkit.broadcastMessage("§8§m----------------------------------");
-                        main.gameManager.getModes().getMode().checkWin();
+                        System.out.println(" ");
+                        System.out.println("!!! Fake LG dead, cause of LG Grimeur !!! ");
+                        System.out.println(" ");
                         return;
                     }
                 }
             }
             playerManagerKiller.getRole().onKill(player, killer);
         }
-        Bukkit.broadcastMessage("§8§m----------------------------------");
-        Bukkit.broadcastMessage(" ");
-        String message = "§2§l" + playerManager.getPlayerName() +
-                " est mort, il était §o" + playerManager.getRole().getRoleName();
-        if (playerManager.getWolfPlayerManager().isInfected()) {
-            message += "§2 (infecté)";
+        if(!isRandomSeeRole()){
+            Bukkit.broadcastMessage("§8§m----------------------------------");
+            Bukkit.broadcastMessage(" ");
+            String message = "§2§l" + playerManager.getPlayerName() +
+                    " est mort, il était §o" + playerManager.getRole().getRoleName();
+            if (playerManager.getWolfPlayerManager().isInfected()) {
+                message += "§2 (infecté)";
+            }
+            if (playerManager.getWolfPlayerManager().isTransformed()) {
+                message += "§2 (transformé)";
+            }
+
+            Bukkit.broadcastMessage(message);
+            Bukkit.broadcastMessage(" ");
+            Bukkit.broadcastMessage("§8§m----------------------------------");
+        } else {
+            randomRole(playerManager);
         }
-        if (playerManager.getWolfPlayerManager().isTransformed()) {
-            message += "§2 (transformé)";
-        }
+
+
         if (playerManager.getWolfPlayerManager().isInCouple()) {
+            System.out.println("Player in couple, cupidon win changed !");
             for (PlayerManager cupidonPlayerManager : super.getPlayerManagersWithRole(Cupidon.class)) {
-                cupidonPlayerManager.getWolfPlayerManager().setCamp(Camps.VILLAGEOIS);
+                cupidonPlayerManager.setCamps(Camps.VILLAGEOIS);
+                if(cupidonPlayerManager.getWolfPlayerManager().isInfected())
+                    cupidonPlayerManager.setCamps(Camps.LOUP_GAROU);
+                /*for (PlayerManager angePlayer : super.getPlayerManagersWithRole(Ange.class)) {
+                    Ange ange = (Ange) angePlayer.getRole();
+                    if(ange.getCible() == cupidonPlayerManager)
+                        cupidonPlayerManager.setCamps(Camps.ANGE);
+                }*/
             }
         }
-        Bukkit.broadcastMessage(message);
-        Bukkit.broadcastMessage(" ");
-        Bukkit.broadcastMessage("§8§m----------------------------------");
         main.gameManager.getModes().getMode().checkWin();
     }
 
@@ -419,5 +544,45 @@ public class LoupGarouManager extends ModeManager implements Listener {
 
     public void setOriginalVotedHealth(double originalVotedHealth) {
         this.originalVotedHealth = originalVotedHealth;
+    }
+
+    public boolean isRandomSeeRole() {
+        return randomSeeRole;
+    }
+
+    public void setRandomSeeRole(boolean randomSeeRole) {
+        this.randomSeeRole = randomSeeRole;
+    }
+
+    public void setLoupValue(int loupValue) {
+        this.loupValue = loupValue;
+    }
+
+    public void setSoloValue(int soloValue) {
+        this.soloValue = soloValue;
+    }
+
+    public void setVillageValue(int villageValue) {
+        this.villageValue = villageValue;
+    }
+
+    public int getLoupValue() {
+        return loupValue;
+    }
+
+    public int getSoloValue() {
+        return soloValue;
+    }
+
+    public int getVillageValue() {
+        return villageValue;
+    }
+
+    public void setLgChatTime(boolean lgChatTime) {
+        this.lgChatTime = lgChatTime;
+    }
+
+    public boolean isLgChatTime() {
+        return lgChatTime;
     }
 }

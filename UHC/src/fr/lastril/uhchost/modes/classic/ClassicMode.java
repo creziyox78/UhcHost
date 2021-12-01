@@ -88,6 +88,16 @@ public class ClassicMode extends Mode {
         return null;
     }
 
+    @Override
+    public void onNight() {
+
+    }
+
+    @Override
+    public void onDay() {
+
+    }
+
     public void win(Player winner) {
         this.pl.gameManager.setDamage(false);
         Bukkit.broadcastMessage(I18n.tl("endGame"));

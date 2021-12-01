@@ -3,6 +3,7 @@ package fr.lastril.uhchost.modes.lg.roles.village;
 import fr.lastril.uhchost.enums.Messages;
 import fr.lastril.uhchost.modes.command.ModeSubCommand;
 import fr.lastril.uhchost.modes.lg.commands.CmdChoose;
+import fr.lastril.uhchost.modes.lg.roles.LGChatRole;
 import fr.lastril.uhchost.modes.lg.roles.LGRole;
 import fr.lastril.uhchost.modes.roles.Camps;
 import fr.lastril.uhchost.modes.roles.Role;
@@ -19,7 +20,7 @@ import org.bukkit.potion.PotionEffectType;
 import java.util.Arrays;
 import java.util.List;
 
-public class ChienLoup extends Role implements LGRole, RoleCommand {
+public class ChienLoup extends Role implements LGRole, RoleCommand, LGChatRole {
 
     private boolean choosen;
     private Camps choosenCamp;
@@ -107,5 +108,20 @@ public class ChienLoup extends Role implements LGRole, RoleCommand {
     @Override
     public List<ModeSubCommand> getSubCommands() {
         return Arrays.asList(new CmdChoose(main));
+    }
+
+    @Override
+    public boolean canSee() {
+        return false;
+    }
+
+    @Override
+    public boolean canSend() {
+        return false;
+    }
+
+    @Override
+    public boolean sendPlayerName() {
+        return false;
     }
 }

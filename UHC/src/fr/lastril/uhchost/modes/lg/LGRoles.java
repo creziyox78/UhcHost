@@ -43,7 +43,7 @@ public enum LGRoles {
     GARDE(Garde.class), //TODO BE TESTED
     MONTREUR_DOURS(MontreurDours.class), //FINISHED
     PETITE_FILLE(PetiteFille.class), //TODO LG CHAT SEE
-    PRETRESSE(Pretresse.class),
+    PRETRESSE(Pretresse.class), //TODO BE TESTED
     RENARD(Renard.class), //FINISHED
     SALVATEUR(Salvateur.class), //FINISHED
     SOEUR(Soeur.class), //FINISHED

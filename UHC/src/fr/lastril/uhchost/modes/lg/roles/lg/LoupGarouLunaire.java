@@ -4,6 +4,7 @@ import fr.lastril.uhchost.enums.Messages;
 import fr.lastril.uhchost.modes.command.ModeSubCommand;
 import fr.lastril.uhchost.modes.lg.LoupGarouManager;
 import fr.lastril.uhchost.modes.lg.commands.CmdFausseNuit;
+import fr.lastril.uhchost.modes.lg.roles.LGChatRole;
 import fr.lastril.uhchost.modes.lg.roles.LGRole;
 import fr.lastril.uhchost.modes.lg.roles.RealLG;
 import fr.lastril.uhchost.modes.roles.Camps;
@@ -21,7 +22,7 @@ import org.bukkit.potion.PotionEffectType;
 import java.util.Arrays;
 import java.util.List;
 
-public class LoupGarouLunaire extends Role implements LGRole, RoleCommand, RealLG {
+public class LoupGarouLunaire extends Role implements LGRole, RoleCommand, RealLG, LGChatRole {
 
     private boolean usedFausseNuit = false, useFausseNuit = false;
 
@@ -125,5 +126,20 @@ public class LoupGarouLunaire extends Role implements LGRole, RoleCommand, RealL
 
     public void setUseFausseNuit(boolean useFausseNuit) {
         this.useFausseNuit = useFausseNuit;
+    }
+
+    @Override
+    public boolean canSee() {
+        return true;
+    }
+
+    @Override
+    public boolean canSend() {
+        return true;
+    }
+
+    @Override
+    public boolean sendPlayerName() {
+        return false;
     }
 }

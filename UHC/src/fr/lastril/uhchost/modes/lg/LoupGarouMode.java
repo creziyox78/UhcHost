@@ -1,6 +1,7 @@
 package fr.lastril.uhchost.modes.lg;
 
 import fr.lastril.uhchost.UhcHost;
+import fr.lastril.uhchost.enums.Messages;
 import fr.lastril.uhchost.inventory.guis.modes.lg.LoupGarouGui;
 import fr.lastril.uhchost.modes.Mode;
 import fr.lastril.uhchost.modes.ModeConfig;
@@ -12,8 +13,10 @@ import fr.lastril.uhchost.modes.command.ModeCommand;
 import fr.lastril.uhchost.modes.command.ModeSubCommand;
 import fr.lastril.uhchost.modes.lg.commands.CmdDesc;
 import fr.lastril.uhchost.modes.lg.commands.CmdVote;
+import fr.lastril.uhchost.modes.lg.roles.LGChatRole;
 import fr.lastril.uhchost.modes.lg.roles.LGRole;
 import fr.lastril.uhchost.modes.lg.roles.solo.Trublion;
+import fr.lastril.uhchost.modes.lg.roles.village.Pretresse;
 import fr.lastril.uhchost.modes.roles.*;
 import fr.lastril.uhchost.player.PlayerManager;
 import fr.lastril.uhchost.tools.API.BungeeAPI;
@@ -73,6 +76,10 @@ public class LoupGarouMode extends Mode implements ModeCommand, RoleMode<LGRole>
         if(loupGarouManager.isRandomCouple()){
             Bukkit.getScheduler().runTaskLater(pl, () -> loupGarouManager.randomCouple(), 20*60*25);
         }
+        if(pl.gameManager.getComposition().contains(Pretresse.class)){
+            loupGarouManager.setRandomSeeRole(true);
+        }
+        Bukkit.getWorld("game").setGameRuleValue("keepInventory", "true");
     }
 
 
@@ -218,6 +225,33 @@ public class LoupGarouMode extends Mode implements ModeCommand, RoleMode<LGRole>
     @Override
     public ModeManager getModeManager() {
         return loupGarouManager;
+    }
+
+    @Override
+    public void onNight() {
+        loupGarouManager.setLgChatTime(true);
+        pl.getPlayerManagerOnlines().forEach(playerManager -> {
+            if(playerManager.hasRole() && playerManager.isAlive()){
+                if(playerManager.getRole() instanceof LGChatRole){
+                    playerManager.getPlayer().sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage() + "§aLe chat des loups-garous est activé !");
+                }
+            }
+        });
+        Bukkit.getScheduler().runTaskLater(pl, () -> {
+            loupGarouManager.setLgChatTime(false);
+            pl.getPlayerManagerOnlines().forEach(playerManager -> {
+                if(playerManager.hasRole() && playerManager.isAlive()){
+                    if(playerManager.getRole() instanceof LGChatRole){
+                        playerManager.getPlayer().sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage() + "§cLe chat des loups-garous est désactivé !");
+                    }
+                }
+            });
+        } , 20*30);
+    }
+
+    @Override
+    public void onDay() {
+
     }
 
     public void win(Camps winner) {

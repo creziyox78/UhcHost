@@ -2,6 +2,7 @@ package fr.lastril.uhchost.modes.lg.roles.lg;
 
 import fr.lastril.uhchost.enums.Messages;
 import fr.lastril.uhchost.modes.lg.LoupGarouManager;
+import fr.lastril.uhchost.modes.lg.roles.LGChatRole;
 import fr.lastril.uhchost.modes.lg.roles.LGRole;
 import fr.lastril.uhchost.modes.lg.roles.RealLG;
 import fr.lastril.uhchost.modes.lg.roles.village.Ancien;
@@ -21,7 +22,7 @@ import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
-public class InfectPereDesLoups extends Role implements LGRole, RoleListener, RealLG {
+public class InfectPereDesLoups extends Role implements LGRole, RoleListener, RealLG, LGChatRole {
 
     private boolean hasInfected, infecte;
 
@@ -139,4 +140,18 @@ public class InfectPereDesLoups extends Role implements LGRole, RoleListener, Re
 
     }
 
+    @Override
+    public boolean canSee() {
+        return true;
+    }
+
+    @Override
+    public boolean canSend() {
+        return true;
+    }
+
+    @Override
+    public boolean sendPlayerName() {
+        return false;
+    }
 }

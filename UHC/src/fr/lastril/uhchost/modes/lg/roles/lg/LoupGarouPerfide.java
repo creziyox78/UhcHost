@@ -2,6 +2,7 @@ package fr.lastril.uhchost.modes.lg.roles.lg;
 
 import fr.lastril.uhchost.enums.WorldState;
 import fr.lastril.uhchost.modes.lg.LoupGarouManager;
+import fr.lastril.uhchost.modes.lg.roles.LGChatRole;
 import fr.lastril.uhchost.modes.lg.roles.LGRole;
 import fr.lastril.uhchost.modes.lg.roles.RealLG;
 import fr.lastril.uhchost.modes.lg.roles.village.PetiteFille;
@@ -19,17 +20,12 @@ import org.bukkit.inventory.EntityEquipment;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
-public class LoupGarouPerfide extends Role implements LGRole, RealLG {
+public class LoupGarouPerfide extends Role implements LGRole, RealLG, LGChatRole {
 
     public LoupGarouPerfide() {
         super.addEffect(new PotionEffect(PotionEffectType.NIGHT_VISION, Integer.MAX_VALUE, 0, false, false), When.START);
         super.addEffect(new PotionEffect(PotionEffectType.SPEED, 20 * 60 * 1, 0, false, false), When.AT_KILL);
         super.addEffect(new PotionEffect(PotionEffectType.ABSORPTION, 20 * 60 * 1, 0, false, false), When.AT_KILL);
-    }
-
-
-    public String getSkullValue() {
-        return null;
     }
 
     @Override
@@ -120,4 +116,18 @@ public class LoupGarouPerfide extends Role implements LGRole, RealLG {
         return Camps.LOUP_GAROU;
     }
 
+    @Override
+    public boolean canSee() {
+        return true;
+    }
+
+    @Override
+    public boolean canSend() {
+        return true;
+    }
+
+    @Override
+    public boolean sendPlayerName() {
+        return false;
+    }
 }

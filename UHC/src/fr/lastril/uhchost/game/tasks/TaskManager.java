@@ -171,6 +171,7 @@ public class TaskManager {
 				if (time >= 13000) {
 					if (pl.getGamemanager().getWorldState() == WorldState.DAY) {
 						pl.getGamemanager().setWorldState(WorldState.NIGHT);
+						mode.onNight();
 						for (PlayerManager playerManager : pl.getAllPlayerManager().values()) {
 							if (playerManager.getPlayer() != null) {
 								Player player = playerManager.getPlayer();
@@ -186,6 +187,7 @@ public class TaskManager {
 				} else {
 					if (pl.getGamemanager().getWorldState() == WorldState.NIGHT) {
 						pl.getGamemanager().setWorldState(WorldState.DAY);
+						mode.onDay();
 						for (PlayerManager playerManager : pl.getAllPlayerManager().values()) {
 							if (playerManager.getPlayer() != null) {
 								Player player = playerManager.getPlayer();

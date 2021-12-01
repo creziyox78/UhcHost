@@ -26,7 +26,9 @@ public class Tablist extends BukkitRunnable {
 		PacketPlayOutPlayerListHeaderFooter packet = new PacketPlayOutPlayerListHeaderFooter(tabHeader);
 		IChatBaseComponent tabFooter = IChatBaseComponent.ChatSerializer
 				.a("{\"text\":\"" + ChatColor.AQUA + "Ton ping: " + ChatColor.WHITE + ping + "ms" + ChatColor.AQUA
-						+ "  |  TPS du serveur: " + ChatColor.WHITE + tps + "\"}");
+						+ "  |  TPS du serveur: " + ChatColor.WHITE + tps + "\n" +
+						"§cPlugin by Lastril"
+						+" \"}");
 		try {
 			Field a = packet.getClass().getDeclaredField("b");
 			a.setAccessible(true);

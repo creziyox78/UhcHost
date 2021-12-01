@@ -2,6 +2,7 @@ package fr.lastril.uhchost.modes.lg.roles.lg;
 
 import fr.lastril.uhchost.UhcHost;
 import fr.lastril.uhchost.modes.lg.LoupGarouManager;
+import fr.lastril.uhchost.modes.lg.roles.LGChatRole;
 import fr.lastril.uhchost.modes.lg.roles.LGFacadeRole;
 import fr.lastril.uhchost.modes.lg.roles.LGRole;
 import fr.lastril.uhchost.modes.lg.roles.RealLG;
@@ -18,7 +19,7 @@ import org.bukkit.potion.PotionEffectType;
 
 import java.util.List;
 
-public class LoupGarouFeutre extends Role implements LGRole, LGFacadeRole, RealLG {
+public class LoupGarouFeutre extends Role implements LGRole, LGFacadeRole, RealLG, LGChatRole {
 
     private Role roleFaçade;
 
@@ -114,5 +115,20 @@ public class LoupGarouFeutre extends Role implements LGRole, LGFacadeRole, RealL
     @Override
     public Role getRoleFacade() {
         return roleFaçade;
+    }
+
+    @Override
+    public boolean canSee() {
+        return true;
+    }
+
+    @Override
+    public boolean canSend() {
+        return true;
+    }
+
+    @Override
+    public boolean sendPlayerName() {
+        return false;
     }
 }

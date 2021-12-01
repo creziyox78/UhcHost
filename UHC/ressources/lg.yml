@@ -337,8 +337,6 @@ fr:
               - '&2Si vous choisisez le &6Loup&2, vous devez gagner avec les &cLoups-Garous&2.'
               - '&2Il n’a pas Strength la nuit, ne figure pas dans la liste mais est
                 vu comme un Simple Villageois par les rôles à infos.'
-              - ''
-              - '&7&oChoisir mon rôle: &c{loup} &7ou &a{chien}&7.'
               - '&8&m--------------------------------------------------&r'
               Citoyen:
               - '&8&m--------------------------------------------------&r'
@@ -416,13 +414,13 @@ fr:
                 votre armure 1 fois par nuit.'
               - '&2Vous pouvez alors voir des particules générées par le &c&oLoup-Garou
                 Perfide &r&2et le &6&oFeu Follet&r&2.'
-              - '&2L''effet dure 5 minutes et est arrêté si le joueur remet une partie
-                de son armure.'
+              - '&2L''effet dure 5 minutes et est arrêté si vous mettez une partie
+                de votre armure.'
               - '&8&m--------------------------------------------------&r'
               Pretresse:
               - '&8&m--------------------------------------------------&r'
               - '&2Votre rôle est, &a&l{role}&2.'
-              - '&2Vous avez &7&o4 blocs d''obsidienne. &2Vous pouvez espionnez les
+              - '&2Vous avez &7&o4 blocs d''obsidienne. &2Vous pouvez espionnez &7&o(/lg voir <pseudo>)&2 les
                 joueurs à'
               - '&2proximité de vous &7&o(- de 10 blocs)&r&2, mais vous perdez &e2♥
                 permanents &2.'
@@ -469,18 +467,6 @@ fr:
                 Instant Damage&2,&71 Strength)&r&2.'
               - '&2Une fois dans la partie vous pouvez ressusciter un joueur mort.
                 Vous ne pouvez pas utilliser ce pouvoir sur vous-même.'
-              - '&8&m--------------------------------------------------&r'
-              Trublion:
-              - '&8&m--------------------------------------------------&r'
-              - '&2Votre rôle est, &6&l{role}&2, vous pouvez gagner avec le &a&oVillage&r&2
-                ou tout seul &7&o(déterminer aléatoirement)&r&2.'
-              - '&2Vous pouvez échanger les rôles de 2 joueurs à un moment aléatoire
-                entre 25 et 50 minutes.'
-              - '&2Vous pouvez téléporter les joueur aléatoirement sur la map avec
-                une commande une fois dans la partie &7&o(/lg tp)&r&2;'
-              - '&2Si vous ne le faite pas, la dispersion aura lieu à votre mort.'
-              - '&2Si vous êtes solo, vous connaitrez les 2 rôles échangés et vous
-                pourrez également re-téléporter un joueur 2 fois.'
               - '&8&m--------------------------------------------------&r'
               Villageois:
               - '&8&m--------------------------------------------------&r'

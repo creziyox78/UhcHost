@@ -1,14 +1,29 @@
 package fr.lastril.uhchost.modes.lg.roles.village;
 
+import fr.lastril.uhchost.enums.Messages;
+import fr.lastril.uhchost.modes.command.ModeSubCommand;
+import fr.lastril.uhchost.modes.lg.LoupGarouManager;
+import fr.lastril.uhchost.modes.lg.commands.CmdVoirPretresse;
 import fr.lastril.uhchost.modes.lg.roles.LGRole;
 import fr.lastril.uhchost.modes.roles.Camps;
 import fr.lastril.uhchost.modes.roles.Role;
+import fr.lastril.uhchost.modes.roles.RoleCommand;
+import fr.lastril.uhchost.player.PlayerManager;
 import fr.lastril.uhchost.tools.API.items.crafter.QuickItem;
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
-public class Pretresse extends Role implements LGRole {
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+public class Pretresse extends Role implements LGRole, RoleCommand {
+
+    private int distance = 10;
+    private boolean seeRole = true;
+    private final List<PlayerManager> playerLgSee = new ArrayList<>();
 
     @Override
     public void giveItems(Player player) {
@@ -25,6 +40,29 @@ public class Pretresse extends Role implements LGRole {
 
     @Override
     public void onNewEpisode(Player player) {
+
+    }
+
+    @Override
+    public void onPlayerDeathRealy(PlayerManager player, ItemStack[] items, ItemStack[] armors, Player killer, Location deathLocation) {
+        if(playerLgSee.contains(player)){
+            Player pretresse = super.getPlayer();
+            if(pretresse != null){
+                pretresse.setMaxHealth(pretresse.getMaxHealth() + 2D*1D);
+                pretresse.sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage() + "§cUn loup-garou que vous avez espionné est mort. Vous récupérez 1 coeur.");
+            }
+            playerLgSee.remove(player);
+        }
+        if(player.hasRole()){
+            if(player.getRole() instanceof Pretresse){
+                if (main.gameManager.getModes().getMode().getModeManager() instanceof LoupGarouManager) {
+                    LoupGarouManager loupGarouManager = (LoupGarouManager) main.gameManager.getModes().getMode().getModeManager();
+                    loupGarouManager.setLoupValue(80);
+                    loupGarouManager.setVillageValue(20);
+                }
+
+            }
+        }
 
     }
 
@@ -54,10 +92,26 @@ public class Pretresse extends Role implements LGRole {
 
     }
 
+    public void addPlayerLg(PlayerManager playerManager){
+        playerLgSee.add(playerManager);
+    }
+
     @Override
     public Camps getCamp() {
         return Camps.VILLAGEOIS;
     }
 
 
+    @Override
+    public List<ModeSubCommand> getSubCommands() {
+        return Arrays.asList(new CmdVoirPretresse(main));
+    }
+
+    public boolean canSeeRole() {
+        return seeRole;
+    }
+
+    public void setSeeRole(boolean seeRole) {
+        this.seeRole = seeRole;
+    }
 }

@@ -1,7 +1,7 @@
 package fr.lastril.uhchost.modes.lg.roles.village.voyante;
 
 import fr.lastril.uhchost.modes.command.ModeSubCommand;
-import fr.lastril.uhchost.modes.lg.commands.CmdVoir;
+import fr.lastril.uhchost.modes.lg.commands.CmdVoirVoyante;
 import fr.lastril.uhchost.modes.lg.roles.LGRole;
 import fr.lastril.uhchost.modes.roles.Camps;
 import fr.lastril.uhchost.modes.roles.Role;
@@ -41,7 +41,7 @@ public class VoyanteBavarde extends Role implements LGRole, RoleCommand {
 
     @Override
     public void onNewEpisode(Player player) {
-
+        seeRole = true;
     }
 
     @Override
@@ -77,7 +77,7 @@ public class VoyanteBavarde extends Role implements LGRole, RoleCommand {
 
     @Override
     public List<ModeSubCommand> getSubCommands() {
-        return Collections.singletonList(new CmdVoir(main));
+        return Collections.singletonList(new CmdVoirVoyante(main));
     }
 
     public boolean canSeeRole() {

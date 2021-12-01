@@ -6,6 +6,7 @@ import fr.lastril.uhchost.modes.command.ModeSubCommand;
 import fr.lastril.uhchost.modes.lg.LoupGarouManager;
 import fr.lastril.uhchost.modes.lg.commands.trublion.CmdSwitch;
 import fr.lastril.uhchost.modes.lg.commands.trublion.CmdTp;
+import fr.lastril.uhchost.modes.lg.roles.LGChatRole;
 import fr.lastril.uhchost.modes.lg.roles.LGRole;
 import fr.lastril.uhchost.modes.roles.Camps;
 import fr.lastril.uhchost.modes.roles.Role;
@@ -22,7 +23,7 @@ import org.bukkit.inventory.ItemStack;
 import java.util.Arrays;
 import java.util.List;
 
-public class Trublion extends Role implements LGRole, RoleCommand {
+public class Trublion extends Role implements LGRole, RoleCommand, LGChatRole {
 
     private boolean teleported = false, switched = false;
 
@@ -143,5 +144,20 @@ public class Trublion extends Role implements LGRole, RoleCommand {
             setTeleported(true);
             Bukkit.broadcastMessage(Messages.LOUP_GAROU_PREFIX.getMessage() + "§eLe Trublion vient de re-téléporter tous les joueurs dans la map.");
         }
+    }
+
+    @Override
+    public boolean canSee() {
+        return false;
+    }
+
+    @Override
+    public boolean canSend() {
+        return true;
+    }
+
+    @Override
+    public boolean sendPlayerName() {
+        return false;
     }
 }
