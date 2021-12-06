@@ -26,11 +26,13 @@ public class PlayerManager {
 
 	private final UhcHost pl;
 
-	private final Player player;
+	private Player player;
 
 	private final String playerName;
 
 	private PlayerState playerstats;
+
+	private int damages;
 
 	private Role role;
 	private Camps camps;
@@ -81,6 +83,18 @@ public class PlayerManager {
 		}
 		this.cooldowns.clear();
 		this.cooldowns.putAll(newCooldowns);
+	}
+
+	public void addDamages(int newDamage) {
+		this.damages += newDamage;
+	}
+
+	public int getDamages() {
+		return damages;
+	}
+
+	public void setDamages(int damages) {
+		this.damages = damages;
 	}
 
 	private int getRoleCooldown(String key) {
@@ -629,7 +643,7 @@ public class PlayerManager {
 	}
 
 	public Player getPlayer() {
-		return this.player;
+		return Bukkit.getPlayer(uuid);
 	}
 
 	public PlayerState getPlayerstats() {

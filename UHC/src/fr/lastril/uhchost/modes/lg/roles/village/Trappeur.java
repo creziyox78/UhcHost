@@ -33,7 +33,7 @@ public class Trappeur extends Role implements LGRole {
 
     @Override
     public String getRoleName() {
-        return "Villageois";
+        return "Trappeur";
     }
 
     @Override

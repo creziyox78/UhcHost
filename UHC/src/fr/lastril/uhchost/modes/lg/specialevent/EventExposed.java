@@ -45,9 +45,7 @@ public class EventExposed extends LoupGarouSpecialEvent {
             message.append(exposedRole.get(index).getRoleName()).append(", ");
             exposedRole.remove(index);
         }
-        Bukkit.getOnlinePlayers().forEach(player -> {
-            player.playSound(player.getLocation(), "mob.guardian.curse", 1, 1);
-        });
+        Bukkit.getOnlinePlayers().forEach(player -> player.playSound(player.getLocation(), "mob.guardian.curse", 1, 1));
         System.out.println("[Exposed - LG] Getted 2 random role.");
         Bukkit.broadcastMessage("§9[Exposed]§b " + randomPlayer.getPlayerName() + "§8 possède un rôle parmis les 3 suivants :§e " + message);
     }

@@ -11,7 +11,7 @@ public class WolfPlayerManager implements Comparable<WolfPlayerManager> {
 
 	private final PlayerManager playerManager;
 	private LGRole lgRole;
-	private Camps camp;
+	private Camps camp, zizanied;
 	private UUID otherCouple;
 	
 	private boolean infected, salvation, transformed, voted, protect;
@@ -125,5 +125,17 @@ public class WolfPlayerManager implements Comparable<WolfPlayerManager> {
 
 	public void setVoted(boolean voted) {
 		this.voted = voted;
+	}
+
+	public boolean isZizanied() {
+		return zizanied != null;
+	}
+
+	public boolean isZizanied(Camps zizanied){
+		return this.zizanied == zizanied;
+	}
+
+	public void setZizanied(Camps zizanied) {
+		this.zizanied = zizanied;
 	}
 }

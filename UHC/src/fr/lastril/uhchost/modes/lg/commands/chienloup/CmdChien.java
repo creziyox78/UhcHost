@@ -1,9 +1,9 @@
-package fr.lastril.uhchost.modes.lg.commands.ange.gardien;
+package fr.lastril.uhchost.modes.lg.commands.chienloup;
 
 import fr.lastril.uhchost.UhcHost;
 import fr.lastril.uhchost.enums.Messages;
 import fr.lastril.uhchost.modes.command.ModeSubCommand;
-import fr.lastril.uhchost.modes.lg.roles.solo.Ange;
+import fr.lastril.uhchost.modes.lg.roles.village.ChienLoup;
 import fr.lastril.uhchost.modes.roles.Camps;
 import fr.lastril.uhchost.player.PlayerManager;
 import org.bukkit.Bukkit;
@@ -14,17 +14,17 @@ import org.bukkit.entity.Player;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class CmdGardien implements ModeSubCommand {
+public class CmdChien implements ModeSubCommand {
 
     private final UhcHost main;
 
-    public CmdGardien(UhcHost main) {
+    public CmdChien(UhcHost main) {
         this.main = main;
     }
 
     @Override
     public String getSubCommandName() {
-        return "ange_gardien";
+        return "chien";
     }
 
     @Override
@@ -39,17 +39,14 @@ public class CmdGardien implements ModeSubCommand {
         if (!playerManager.hasRole() || !playerManager.isAlive()) {
             return false;
         }
-        if(playerManager.getRole() instanceof Ange){
-            Ange ange = (Ange) playerManager.getRole();
-            if(!ange.hasChoose()){
-                ange.setForm(Ange.Form.GARDIEN);
-                ange.setChoose(true);
-                player.sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage() + "§eVouc avez choisi \"§aAnge Gardien§e\", vous devez donc proteger : " + ange.getCible().getPlayerName());
-                player.setMaxHealth(player.getMaxHealth() + 2D*5D);
-                player.setHealth(player.getMaxHealth());
-                ange.getCible().setCamps(Camps.ANGE);
-                if(ange.getCible().getWolfPlayerManager().isInCouple())
-                    ange.getCible().setCamps(Camps.COUPLE);
+        if(playerManager.getRole() instanceof ChienLoup){
+            ChienLoup chienLoup = (ChienLoup) playerManager.getRole();
+            if(!chienLoup.isChoosen()){
+                chienLoup.setChoosenCamp(Camps.VILLAGEOIS);
+                playerManager.setCamps(Camps.VILLAGEOIS);
+                chienLoup.setChoosen(true);
+                player.sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage() + "§aVous avez décidé de gagner avec les villageois. " +
+                        "Vous n'avez donc aucun effet et vous apparaîtrez dans la liste des Loups-Garou.");
             }
         }
         return false;

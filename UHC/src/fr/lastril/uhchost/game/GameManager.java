@@ -54,7 +54,7 @@ public class GameManager {
 	public int episode = 1;
 	
 	//public int episodeEvery = 60*20;
-	public int episodeEvery = 2*20;
+	public int episodeEvery = 60*5;
 
 	private boolean editInv;
 

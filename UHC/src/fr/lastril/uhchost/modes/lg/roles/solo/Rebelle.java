@@ -39,16 +39,16 @@ public class Rebelle extends Role implements LGRole {
 
     @Override
     public Camps getCamp() {
-        return null;
+        return Camps.NEUTRES;
     }
 
     @Override
     public String getRoleName() {
-        return null;
+        return "Rebelle";
     }
 
     @Override
     public String getDescription() {
-        return null;
+        return main.getLGRoleDescription(this, this.getClass().getName());
     }
 }

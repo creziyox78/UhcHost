@@ -43,8 +43,12 @@ public class Ange extends Role implements LGRole, RoleCommand {
     @Override
     public String sendList() {
         if(form != null && hasChoose()){
-            return "§eVotre cible : " + cible.getPlayerName() + "\n" +
-                    "§eVotre forme : " + form.name().toLowerCase();
+            if(form == Form.DECHU)
+                return "§eVotre cible : " + cible.getPlayerName() + "\n" +
+                        "§eVotre forme : §c§l[Ange Déchu]";
+            else if(form == Form.GARDIEN)
+                return "§eVotre cible : " + cible.getPlayerName() + "\n" +
+                        "§eVotre forme : §a§l[Ange Gardien]";
         }
         return null;
     }
@@ -109,9 +113,6 @@ public class Ange extends Role implements LGRole, RoleCommand {
         player.spigot().sendMessage(angechoose);
         while (cible == null || cible == main.getPlayerManager(player.getUniqueId())){
             cible = main.getRandomPlayerManagerAlive();
-            cible.setCamps(Camps.ANGE);
-            if(cible.getWolfPlayerManager().isInCouple())
-                cible.setCamps(Camps.COUPLE);
         }
     }
 

@@ -119,7 +119,7 @@ public class InfectPereDesLoups extends Role implements LGRole, RoleListener, Re
                                 new ClickableMessage(infect, onClick -> {
 
                                     if(infecte){
-                                        loupGarouManager.addInfect(playerManager);
+                                        loupGarouManager.addInfect(playerManager, loupGarouManager.isVaccination());
                                         onClick.sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage() + "§aVous avez bien infecté "
                                                 + player.getName() + " !");
                                         hasInfected = true;

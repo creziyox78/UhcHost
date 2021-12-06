@@ -1,5 +1,5 @@
 name: UHCHost
-version: 0.9.3
+version: 0.9.7
 author: Lastril
 main: fr.lastril.uhchost.UhcHost
 commands:

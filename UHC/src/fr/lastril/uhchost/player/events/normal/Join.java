@@ -59,7 +59,6 @@ public class Join implements Listener {
 					pl.gameManager.setHost(player);
 					pl.gameManager.setHostname(player.getName());
 				}
-				UpdateMessage(player);
 			}
 			NotStart.PreHosting(player);
 			player.teleport(gameManager.spawn);
@@ -82,16 +81,5 @@ public class Join implements Listener {
 			player.showPlayer(player1);
 			player1.showPlayer(player);
 		});
-	}
-
-	private void UpdateMessage(Player player) {
-		player.sendMessage(" ");
-		player.sendMessage(" ");
-		player.sendMessage(ChatColor.AQUA + "         UHC Host: jour V0.9.3");
-		player.sendMessage(ChatColor.AQUA + "                    By Lastril");
-		player.sendMessage(" ");
-		player.sendMessage(ChatColor.GREEN + "+Tabulation des commandes.");
-		player.sendMessage(ChatColor.GREEN + "+Commande /h help");
-		player.sendMessage(" ");
 	}
 }

@@ -38,7 +38,7 @@ public class Assassin extends Role implements LGRole {
     public void giveItems(Player player) {
         player.getInventory().addItem(new Livre(Enchantment.DAMAGE_ALL, 3).toItemStack());
         player.getInventory().addItem(new Livre(Enchantment.PROTECTION_ENVIRONMENTAL, 3).toItemStack());
-        player.getInventory().addItem(new Livre(Enchantment.ARROW_DAMAGE, 3).toItemStack());
+        player.getInventory().addItem(new Livre(Enchantment.DIG_SPEED, 3).toItemStack());
     }
 
     @Override

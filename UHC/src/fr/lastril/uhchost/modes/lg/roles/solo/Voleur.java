@@ -55,6 +55,7 @@ public class Voleur extends Role implements LGRole {
                         killerManager.setCamps(Camps.COUPLE);
                         killerManager.getWolfPlayerManager().setOtherCouple(player.getWolfPlayerManager().getOtherCouple());
                         main.getPlayerManager(player.getWolfPlayerManager().getOtherCouple()).getWolfPlayerManager().setOtherCouple(killerManager.getUuid());
+                        killer.sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage() + "§Vous venez de voler le couple ! Vous devez maintenant gagner avec ce dernier !");
                     }
                 }
             }

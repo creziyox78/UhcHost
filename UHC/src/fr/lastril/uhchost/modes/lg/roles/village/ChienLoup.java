@@ -2,14 +2,18 @@ package fr.lastril.uhchost.modes.lg.roles.village;
 
 import fr.lastril.uhchost.enums.Messages;
 import fr.lastril.uhchost.modes.command.ModeSubCommand;
-import fr.lastril.uhchost.modes.lg.commands.CmdChoose;
+import fr.lastril.uhchost.modes.lg.commands.chienloup.CmdChien;
+import fr.lastril.uhchost.modes.lg.commands.chienloup.CmdLoup;
 import fr.lastril.uhchost.modes.lg.roles.LGChatRole;
 import fr.lastril.uhchost.modes.lg.roles.LGRole;
 import fr.lastril.uhchost.modes.roles.Camps;
 import fr.lastril.uhchost.modes.roles.Role;
 import fr.lastril.uhchost.modes.roles.RoleCommand;
 import fr.lastril.uhchost.modes.roles.When;
+import fr.lastril.uhchost.tools.API.TextComponentBuilder;
 import fr.lastril.uhchost.tools.API.items.crafter.QuickItem;
+import net.md_5.bungee.api.chat.ClickEvent;
+import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.SkullType;
@@ -31,6 +35,11 @@ public class ChienLoup extends Role implements LGRole, RoleCommand, LGChatRole {
 
     @Override
     public void afterRoles(Player player) {
+        TextComponent choose = new TextComponent("§7§oChoisir mon rôle: ");
+        choose.addExtra(new TextComponent(new TextComponentBuilder("§c§l[Loup-garou]").setClickEvent(ClickEvent.Action.RUN_COMMAND, "/lg loup").toText()));
+        choose.addExtra(new TextComponent(" ou "));
+        choose.addExtra(new TextComponent(new TextComponentBuilder("§a§l[Villageois]").setClickEvent(ClickEvent.Action.RUN_COMMAND, "/lg chien").toText()));
+        player.spigot().sendMessage(choose);
         Bukkit.getScheduler().runTaskLater(main, () -> {
             if(!choosen){
                 choosen = true;
@@ -107,7 +116,7 @@ public class ChienLoup extends Role implements LGRole, RoleCommand, LGChatRole {
 
     @Override
     public List<ModeSubCommand> getSubCommands() {
-        return Arrays.asList(new CmdChoose(main));
+        return Arrays.asList(new CmdChien(main), new CmdLoup(main));
     }
 
     @Override

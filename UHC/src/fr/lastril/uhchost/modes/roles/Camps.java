@@ -18,6 +18,7 @@ public enum Camps {
     ASSASSIN(ChatColor.BLUE, "§9Victoire de l'Assassin'"),
     TRUBLION(ChatColor.DARK_PURPLE, "§5Victoire du Trublion !"),
     IMITATEUR(ChatColor.DARK_AQUA, "§3Victoire de l'Imitateur !"),
+    ZIZANIE(ChatColor.DARK_GREEN, "§3Voictoire du rôle solo zizané !"),
 
 
     /*

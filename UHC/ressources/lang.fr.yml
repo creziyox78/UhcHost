@@ -197,6 +197,7 @@ guis:
       lglisttime: "&9Liste des Loup-Garou:&b {0}"
       specialsevents: "&eEvénements Aléatoire"
       compositionhide: "&eComposition Cachée"
+      masquedrole: "&6Rôles masqués"
     vote:
       name: "&bPremiers votes"
       lore: "&9Active les votes uniquement"

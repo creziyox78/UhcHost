@@ -10,13 +10,13 @@ fr:
               - '&2Votre rôle est, &c&lInfect Père des Loups&r&2.'
               - '&2La nuit vous avez &7Strength I &2et &7Night Vision &2en permanence.'
               - '&2Vous avez le pouvoir d''infecter un joueur durant la partie.'
-              - '&2Lorsque vous faite un kill, vous gagnez &7&oSpeed&r &2et &e2 ♥&2d''absorption pendant 1 minute.'
+              - '&2Lorsque vous faites un kill, vous gagnez &7&oSpeed&r &2et &e2 ♥&2d''absorption pendant 1 minute.'
               - '&8&m--------------------------------------------------&r'
               LoupGarou:
               - '&8&m--------------------------------------------------&r'
               - '&2Votre rôle est, &c&lLoup-Garou&r&2.'
               - '&2La nuit vous avez &7Strength I &2et &7Night Vision &2en permanence.'
-              - '&2Lorsque vous faite un kill, vous gagnez &7&oSpeed&r &2et &e2 ♥&2d''absorption pendant 1 minute.'
+              - '&2Lorsque vous faites un kill, vous gagnez &7&oSpeed&r &2et &e2 ♥&2d''absorption pendant 1 minute.'
               - '&8&m--------------------------------------------------&r'
               LoupGarouAlpha:
               - '&8&m--------------------------------------------------&r'
@@ -26,7 +26,7 @@ fr:
                 les autres Loups.'
               - '&2Vous obtenez &e2 ♥ &2d''absorption pendant 5 minutes au début de
                 chaque nuit.'
-              - '&2Lorsque vous faite un kill, vous gagnez &7&oSpeed&r &2et &e2 ♥
+              - '&2Lorsque vous faites un kill, vous gagnez &7&oSpeed&r &2et &e2 ♥
                 &2d''absorption pendant 1 minute.'
               - '&8&m--------------------------------------------------&r'
               LoupGarouAmnesique:
@@ -35,7 +35,7 @@ fr:
               - '&2La nuit vous avez &7Strength I &2et &7Night Vision &2en permanence.'
               - '&2Vous ne figurez pas sur la liste des &cLoups&2, jusqu''à un moment
                 aléatoire entre 70 et 90 min.'
-              - '&2Lorsque vous faite un kill, vous gagnez &7&oSpeed&r &2et &e2 ♥
+              - '&2Lorsque vous faites un kill, vous gagnez &7&oSpeed&r &2et &e2 ♥
                 &2d''absorption pendant 1 minute.'
               - '&8&m--------------------------------------------------&r'
               LoupGarouCraintif:
@@ -60,7 +60,7 @@ fr:
               - '&2au milieu de chaque épisode. Les rôles à infos &7(Voyante, Prêtresse,
                 Renard, Montreur d''Ours, Détective)'
               - '&2ne verront que ce rôle d''affichage.'
-              - '&2Lorsque vous faite un kill, vous gagnez &7&oSpeed&r &2et &e2 ♥
+              - '&2Lorsque vous faites un kill, vous gagnez &7&oSpeed&r &2et &e2 ♥
                 &2d''absorption pendant 1 minute.'
               - '&8&m--------------------------------------------------&r'
               LoupGarouGrimeur:
@@ -71,7 +71,7 @@ fr:
                 le message de mort.'
               - '&2Vous serez alors le seul à avoir connaissance du véritable rôle
                 du joueur.'
-              - '&2Lorsque vous faite un kill, vous gagnez &7&oSpeed&r &2et &e2 ♥
+              - '&2Lorsque vous faites un kill, vous gagnez &7&oSpeed&r &2et &e2 ♥
                 &2d''absorption pendant 1 minute.'
               - '&8&m--------------------------------------------------&r'
               LoupGarouJumeau:
@@ -88,7 +88,7 @@ fr:
               - '&2Si vous n''y parvenez pas, vous perdrez &e1♥ &2permanents toutes
                 les 3 minutes.'
               - '&2Si vous atteignez &e1♥ &2permanents, vous n''en perdrez plus'
-              - '&2Lorsque vous faite un kill, vous gagnez &7&oSpeed&r &2et &e2 ♥
+              - '&2Lorsque vous faites un kill, vous gagnez &7&oSpeed&r &2et &e2 ♥
                 &2d''absorption pendant 1 minute.'
               - '&8&m--------------------------------------------------&r'
               LoupGarouLunaire:
@@ -101,7 +101,7 @@ fr:
               - '&2Cette fausse nuit a pour effet de rendre aux &cLoups &2leur effets
                 et pouvoir.'
               - '&2Ainsi que de vous octroyer &7Speed I &2et &7Strenght I&2.'
-              - '&2Lorsque vous faite un kill, vous gagnez &7&oSpeed&r &2et &e2 ♥
+              - '&2Lorsque vous faites un kill, vous gagnez &7&oSpeed&r &2et &e2 ♥
                 &2d''absorption pendant 1 minute.'
               - '&8&m&l--------------------------------------------------&r'
               LoupGarouPerfide:
@@ -114,7 +114,7 @@ fr:
                 Fille&r &2et le &6&oFeu Follet&r&2.'
               - '&2L''effet dure 5 minutes et est arrêté si le joueur remet une partie
                 de son armure.'
-              - '&2Lorsque vous faite un kill, vous gagnez &7&oSpeed&r &2et &e2 ♥
+              - '&2Lorsque vous faites un kill, vous gagnez &7&oSpeed&r &2et &e2 ♥
                 &2d''absorption pendant 1 minute.'
               - '&8&m--------------------------------------------------&r'
               LouveMaudite:
@@ -124,7 +124,7 @@ fr:
               - '&2Vous pouvez maudire 2 joueur durant la partie &7(/lg maudire)&2.'
               - '&2La malédiction dure 3 minutes durant laquelle le joueur ciblé perd
                 ces effets.'
-              - '&2Lorsque vous faite un kill, vous gagnez &7&oSpeed&r &2et &e2 ♥
+              - '&2Lorsque vous faites un kill, vous gagnez &7&oSpeed&r &2et &e2 ♥
                 &2d''absorption pendant 1 minute.'
               - '&8&m--------------------------------------------------&r'
               VilainPetitLoup:
@@ -132,7 +132,7 @@ fr:
               - '&2Votre rôle est, &c&l{role}&r&2.'
               - '&2La nuit vous avez &7Strength 0.5 &2et &7Speed 0.5, ainsi que &7Night
                 Vision &2en permanence.'
-              - '&2Lorsque vous faite un kill, vous gagnez &7&oSpeed&r &2et &e2 ♥
+              - '&2Lorsque vous faites un kill, vous gagnez &7&oSpeed&r &2et &e2 ♥
                 &2d''absorption pendant 1 minute.'
               - '&8&m--------------------------------------------------&r'
               GrandMechantLoup:
@@ -142,7 +142,7 @@ fr:
               - '&2Dès qu’un &c&oLoup-Garou&r &2meurt de la main d''un autre joueur,
                 vous perdez &7&oStrength&r &2le jour et ne gardez cet avantage que
                 la nuit.'
-              - '&2Lorsque vous faite un kill, vous gagnez &7&oSpeed&r &2et &e2 ♥
+              - '&2Lorsque vous faites un kill, vous gagnez &7&oSpeed&r &2et &e2 ♥
                 &2d''absorption pendant 1 minute.'
               - '&8&m--------------------------------------------------&r'
               LoupGarouMystique:
@@ -154,7 +154,7 @@ fr:
                 recevez un'
               - '&2message contenant le pseudo + le rôle d''un joueur d''un autre
                 camp.'
-              - '&2Lorsque vous faite un kill, vous gagnez &7&oSpeed&r &2et &e2 ♥
+              - '&2Lorsque vous faites un kill, vous gagnez &7&oSpeed&r &2et &e2 ♥
                 &2d''absorption pendant 1 minute.'
               - '&8&m--------------------------------------------------&r'
               LoupGarouVengeur:
@@ -171,7 +171,7 @@ fr:
               - '&2Votre rôle est, &c&lLoup-Garou Hybride&r&2.'
               - '&2Vous ne pouvez être grogné, flairé ou détecté. Toutefois, la &a&oVoyante&r&2 et la &a&oPrêtresse&r&2 peuvent vous espionnez, cependant vous n''avez '
               - 'pas &7&oStrength&r&2 la nuit tant &2que vous n''avez pas fait de kill.'
-              - '&2Lorsque vous faite un kill, vous gagnez &7&oSpeed&r &2et &e2 ♥ &2d''absorption pendant 1 minute.'
+              - '&2Lorsque vous faites un kill, vous gagnez &7&oSpeed&r &2et &e2 ♥ &2d''absorption pendant 1 minute.'
               - '&8&m--------------------------------------------------&r'
             solo:
               Ange:
@@ -193,7 +193,7 @@ fr:
               - '&2Le jour vous avez &7Strenght I &2.'
               - '&2Vous recevez 3 livre enchanté: &7Sharpness III&2, &7Protection
                 III &2et &7Efficiency III/Unbreaking III&2.'
-              - '&2Lorsque vous faite un kill, vous gagnez &7Speed &2et &e2 ♥ &2d''absorption
+              - '&2Lorsque vous faiteslokuj un kill, vous gagnez &7Speed &2et &e2 ♥ &2d''absorption
                 pendant 1 minute.'
               - '&8&m--------------------------------------------------&r'
               Imitateur:

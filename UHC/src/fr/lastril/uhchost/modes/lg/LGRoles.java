@@ -36,7 +36,7 @@ public enum LGRoles {
      */
     ANCIEN(Ancien.class), //FINISHED
     CHAMAN(Chaman.class),
-    CHASSEUR(Chasseur.class), //FINISHED
+    CHASSEUR(Chasseur.class), //TODO MODIFIED
     CITOYEN(Citoyen.class),
     CORBEAU(Corbeau.class),
     CUPIDON(Cupidon.class), //TODO BE TESTED
@@ -45,8 +45,8 @@ public enum LGRoles {
     GARDE(Garde.class), //TODO BE TESTED
     MONTREUR_DOURS(MontreurDours.class), //FINISHED
     MESSAGER(Messager.class),
-    PETITE_FILLE(PetiteFille.class), //TODO LG CHAT SEE
-    PRETRESSE(Pretresse.class), //TODO BE TESTED
+    PETITE_FILLE(PetiteFille.class), //FINISHED
+    PRETRESSE(Pretresse.class), //FINISHED
     RENARD(Renard.class), //FINISHED
     SALVATEUR(Salvateur.class), //FINISHED
     SOEUR(Soeur.class), //FINISHED
@@ -64,11 +64,12 @@ public enum LGRoles {
     TRUBLION(Trublion.class), //TODO BE TESTED
     VOLEUR(Voleur.class), //TODO BE TESTED
     REBELLE(Rebelle.class),
+    RIVAL(Rival.class), //TODO BE TESTED
     /*
      * CAMP DES SOLOS
      */
     IMITATEUR(Imitateur.class), //TODO BE TESTED
-    ANGE(Ange.class), //TODO BE TESTED
+    ANGE(Ange.class), //FINISHED
     LGB(LoupGarouBlanc.class), //FINISHED
     ASSASSIN(Assassin.class), //FINISHED
     ;

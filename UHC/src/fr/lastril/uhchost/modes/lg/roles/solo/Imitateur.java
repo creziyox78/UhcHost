@@ -4,7 +4,6 @@ import fr.lastril.uhchost.enums.Messages;
 import fr.lastril.uhchost.modes.lg.roles.LGRole;
 import fr.lastril.uhchost.modes.roles.Camps;
 import fr.lastril.uhchost.modes.roles.Role;
-import fr.lastril.uhchost.modes.roles.When;
 import fr.lastril.uhchost.player.PlayerManager;
 import fr.lastril.uhchost.tools.API.items.crafter.QuickItem;
 import org.bukkit.Location;
@@ -20,7 +19,7 @@ public class Imitateur extends Role implements LGRole {
     private boolean killed;
 
     public Imitateur() {
-        super.addEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, Integer.MAX_VALUE, 0, false, false), When.START);
+
     }
 
     @Override

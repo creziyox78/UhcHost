@@ -15,6 +15,7 @@ public abstract class LoupGarouSpecialEvent {
         this.chance = chance;
         this.startMinute = startMinute;
         this.endMinute = endMinute;
+
     }
 
     public abstract void runEvent();
@@ -25,9 +26,11 @@ public abstract class LoupGarouSpecialEvent {
         Bukkit.getScheduler().runTaskLater(main, () -> {
             int value = UhcHost.getRANDOM().nextInt(1, 100);
             System.out.println("[LG - Events] Name: " + getName() + " | value: " + value);
-            if(value <= getChance())
+            if(value <= getChance()){
+                System.out.println("Run event: " + getName());
                 runEvent();
-        }, 20L  * randomMinute);
+            }
+        }, 20L * 1 * randomMinute);
     }
 
     public int getRandomMinute(){

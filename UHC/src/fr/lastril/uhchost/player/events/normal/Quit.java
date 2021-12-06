@@ -35,7 +35,8 @@ public class Quit implements Listener {
 		    if(pl.gameManager.getHost() == player) {
 		    	if(!pl.gameManager.getCohost().isEmpty()){
 		    		pl.gameManager.setHost(pl.gameManager.getCohost().get(0));
-					pl.gameManager.setHostname(player.getName());
+					pl.gameManager.setHostname(pl.gameManager.getCohost().get(0).getName());
+					pl.gameManager.getCohost().remove(0);
 				} else {
 					pl.gameManager.setHost(null);
 					pl.gameManager.setHostname(null);
@@ -47,7 +48,7 @@ public class Quit implements Listener {
 				e.setQuitMessage("[" + ChatColor.RED + "-"+ ChatColor.WHITE+ "] " + player.getDisplayName());
 				if(gameManager.isBorder()) {
 					pl.getAllPlayerManager().get(playersUuid).setAlive(false);
-					Bukkit.broadcastMessage("§c" + 	player.getName() + " has been eliminated !");
+					Bukkit.broadcastMessage("§c" + 	player.getName() + " a été éliminé !");
 				}
 			}
 			else {

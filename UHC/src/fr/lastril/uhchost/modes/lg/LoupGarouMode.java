@@ -12,6 +12,7 @@ import fr.lastril.uhchost.modes.command.CmdMe;
 import fr.lastril.uhchost.modes.command.ModeCommand;
 import fr.lastril.uhchost.modes.command.ModeSubCommand;
 import fr.lastril.uhchost.modes.lg.commands.CmdDesc;
+import fr.lastril.uhchost.modes.lg.commands.CmdList;
 import fr.lastril.uhchost.modes.lg.commands.CmdVote;
 import fr.lastril.uhchost.modes.lg.roles.LGChatRole;
 import fr.lastril.uhchost.modes.lg.roles.LGRole;
@@ -22,16 +23,13 @@ import fr.lastril.uhchost.player.PlayerManager;
 import fr.lastril.uhchost.tools.API.BungeeAPI;
 import fr.lastril.uhchost.tools.API.TitleAPI;
 import fr.lastril.uhchost.tools.API.inventory.crafter.IQuickInventory;
-import fr.lastril.uhchost.tools.I18n;
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class LoupGarouMode extends Mode implements ModeCommand, RoleMode<LGRole>, ModeConfig, RoleAnnounceMode {
@@ -74,7 +72,7 @@ public class LoupGarouMode extends Mode implements ModeCommand, RoleMode<LGRole>
             loupGarouSpecialEvent.runTask();
         }
         if(loupGarouManager.isRandomCouple()){
-            Bukkit.getScheduler().runTaskLater(pl, () -> loupGarouManager.randomCouple(), 20*60*25);
+            Bukkit.getScheduler().runTaskLater(pl, loupGarouManager::randomCouple, 20*60*25);
         }
         if(pl.gameManager.getComposition().contains(Pretresse.class)){
             loupGarouManager.setRandomSeeRole(true);
@@ -186,6 +184,10 @@ public class LoupGarouMode extends Mode implements ModeCommand, RoleMode<LGRole>
 
     @Override
     public void onDeath(Player player, Player killer) {
+        Bukkit.getScheduler().runTaskLater(pl, () -> {
+            player.spigot().respawn();
+            player.teleport(new Location(pl.gameManager.spawn.getWorld(), pl.gameManager.spawn.getX(), pl.gameManager.spawn.getY() + 5, pl.gameManager.spawn.getZ()));
+        }, 20* 2);
         loupGarouManager.startDeathTask(player, killer);
     }
 
@@ -256,12 +258,46 @@ public class LoupGarouMode extends Mode implements ModeCommand, RoleMode<LGRole>
 
     public void win(Camps winner) {
         this.pl.gameManager.setDamage(false);
-        Bukkit.broadcastMessage(I18n.tl("endGame"));
-        Bukkit.broadcastMessage(winner.getWinMessage());
-        Bukkit.getOnlinePlayers().forEach(player -> {
-            TitleAPI.sendTitle(player, 20, 20, 20, winner.getWinMessage(), "");
-        });
-        Bukkit.broadcastMessage(I18n.tl("rebootSoon"));
+
+        Map<PlayerManager, Integer> damages = new HashMap<>();
+        for (PlayerManager playerManager : pl.getAllPlayerManager().values()) {
+            damages.put(playerManager, playerManager.getDamages());
+        }
+        Map<PlayerManager, Integer> kills = new HashMap<>();
+        for (PlayerManager playerManager : pl.getAllPlayerManager().values()) {
+            kills.put(playerManager, playerManager.getKills().size());
+        }
+        PlayerManager mostDamages = damages.entrySet().stream().sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
+                .findFirst().get().getKey();
+        PlayerManager mostKills = kills.entrySet().stream().sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
+                .findFirst().get().getKey();
+
+        Bukkit.broadcastMessage("§8§m-------------------------------------------------");
+        Bukkit.broadcastMessage("§5");
+        Bukkit.broadcastMessage("       " + winner.getWinMessage());
+        Bukkit.broadcastMessage("       §cTop dégâts : " + mostDamages.getPlayerName() + " §l("
+                + mostDamages.getDamages() / 2 + " §4❤§c§l)");
+        Bukkit.broadcastMessage(
+                "       §cTop kills : " + mostKills.getPlayerName() + " §l(" + mostKills.getKills().size() + ")");
+        Bukkit.broadcastMessage("§5");
+        Bukkit.broadcastMessage("       §6Merci d'avoir participé à cet host de §e§l" + pl.gameManager.getHostname());
+        Bukkit.broadcastMessage("       §8Arrêt du serveur dans 30 secondes !");
+        Bukkit.broadcastMessage("§8§m-------------------------------------------------");
+        Bukkit.getOnlinePlayers().forEach(player -> TitleAPI.sendTitle(player, 20, 20, 20, winner.getWinMessage(), ""));
+
+        Map<PlayerManager,Role> playersRoles = new HashMap<>();
+
+        if (pl.gameManager.getModes().getMode() instanceof RoleMode<?>) {
+            for (PlayerManager joueurs : pl.getAllPlayerManager().values()) {
+                if (joueurs.hasRole()) {
+                    playersRoles.put(joueurs, joueurs.getRole());
+                }
+            }
+        }
+        for (Map.Entry<PlayerManager, Role> e : playersRoles.entrySet()) {
+            Bukkit.broadcastMessage((e.getKey().isAlive() ? "§6§l" : "§6§m") + e.getKey().getPlayerName() + " : " + e.getValue().getRoleName() + e.getKey().getCamps().getCompoColor() +" (Camps: " + e.getKey().getCamps().name() + ")");
+        }
+
         Bukkit.getScheduler().runTaskLater(this.pl, () -> {
             if (this.pl.getConfig().getBoolean("bungeecord")) {
                 if (this.pl.getConfig().getString("server-redirection") != null && !this.pl
@@ -286,6 +322,7 @@ public class LoupGarouMode extends Mode implements ModeCommand, RoleMode<LGRole>
         subCommands.add(new CmdVote(pl, loupGarouManager));
         subCommands.add(new CmdMe(pl));
         subCommands.add(new CmdDesc(pl));
+        subCommands.add(new CmdList(pl));
         this.getRoles().stream().filter(role -> role instanceof RoleCommand).map(role -> ((RoleCommand) role).getSubCommands()).forEach(subCommands::addAll);
 
         return subCommands;

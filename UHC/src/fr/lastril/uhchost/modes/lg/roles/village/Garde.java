@@ -1,7 +1,7 @@
 package fr.lastril.uhchost.modes.lg.roles.village;
 
 import fr.lastril.uhchost.modes.command.ModeSubCommand;
-import fr.lastril.uhchost.modes.lg.commands.CmdProteger;
+import fr.lastril.uhchost.modes.lg.commands.CmdGarde;
 import fr.lastril.uhchost.modes.lg.roles.LGRole;
 import fr.lastril.uhchost.modes.roles.Camps;
 import fr.lastril.uhchost.modes.roles.Role;
@@ -29,8 +29,11 @@ public class Garde extends Role implements LGRole, RoleCommand {
 
     @Override
     public void giveItems(Player player) {
-        ItemStack stack = new Potion(PotionType.NIGHT_VISION).toItemStack(1);
+        Potion potion = new Potion(PotionType.NIGHT_VISION);
+        potion.setSplash(true);
+        ItemStack stack = potion.toItemStack(1);
         PotionMeta meta = (PotionMeta) stack.getItemMeta();
+
         meta.clearCustomEffects();
         meta.addCustomEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 20*60, 0), true);
         stack.setItemMeta(meta);
@@ -80,7 +83,7 @@ public class Garde extends Role implements LGRole, RoleCommand {
 
     @Override
     public List<ModeSubCommand> getSubCommands() {
-        return Arrays.asList(new CmdProteger(main));
+        return Arrays.asList(new CmdGarde(main));
     }
 
     public void addProtected(PlayerManager playerManager){

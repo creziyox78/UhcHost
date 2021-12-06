@@ -13,17 +13,17 @@ import org.bukkit.entity.Player;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class CmdProteger implements ModeSubCommand {
+public class CmdGarde implements ModeSubCommand {
 
     private final UhcHost main;
 
-    public CmdProteger(UhcHost main) {
+    public CmdGarde(UhcHost main) {
         this.main = main;
     }
 
     @Override
     public String getSubCommandName() {
-        return "proteger";
+        return "garde";
     }
 
     @Override
@@ -52,6 +52,7 @@ public class CmdProteger implements ModeSubCommand {
                             garde.setProtect(true);
                             Bukkit.getScheduler().runTaskLater(main, () -> targetManager.getWolfPlayerManager().setProtect(false), 20*60*10);
                             target.sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage() + "§bLe garde vient de vous protéger pendant les 10 prochaines minutes.");
+                            player.sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage() + "§aVous avez bien protéger " + targetName + ".");
                         } else {
                             player.sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage() + "§cCe joueur a déjà eu votre protection auparavant.");
                         }

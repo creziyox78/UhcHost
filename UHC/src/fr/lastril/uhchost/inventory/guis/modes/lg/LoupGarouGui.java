@@ -1,9 +1,11 @@
 package fr.lastril.uhchost.inventory.guis.modes.lg;
 
 import fr.lastril.uhchost.UhcHost;
+import fr.lastril.uhchost.enums.Messages;
 import fr.lastril.uhchost.inventory.guis.modes.CompositionGui;
 import fr.lastril.uhchost.inventory.guis.modes.ModesGui;
 import fr.lastril.uhchost.modes.lg.LoupGarouMode;
+import fr.lastril.uhchost.modes.lg.roles.village.Pretresse;
 import fr.lastril.uhchost.tools.API.FormatTime;
 import fr.lastril.uhchost.tools.API.inventory.crafter.IQuickInventory;
 import fr.lastril.uhchost.tools.API.inventory.crafter.QuickInventory;
@@ -18,7 +20,7 @@ public class LoupGarouGui extends IQuickInventory {
     private final LoupGarouMode lgMode;
 
     public LoupGarouGui(LoupGarouMode lgMode) {
-        super(I18n.tl("guis.lg.main.name"), 9*2);
+        super(I18n.tl("guis.lg.main.name"), 9*3);
         this.lgMode = lgMode;
 
     }
@@ -52,6 +54,16 @@ public class LoupGarouGui extends IQuickInventory {
             inv.setItem(new ItemsCreator(Material.PAPER, I18n.tl("guis.lg.main.compositionhide"), Collections.singletonList(lgMode.getModeManager().compositionHide ? "§aActivée" : "§cDésactivée"), 1).create(), onClick -> {
                 lgMode.getModeManager().compositionHide = !lgMode.getModeManager().compositionHide;
             },14);
+
+            inv.setItem(new ItemsCreator(Material.PAPER, I18n.tl("guis.lg.main.masquedrole"), Collections.singletonList(lgMode.getLoupGarouManager().isRandomSeeRole() ? "§aActivée" : "§cDésactivée"), 1).create(), onClick -> {
+                if(UhcHost.getInstance().gameManager.getComposition().contains(Pretresse.class)){
+                    lgMode.getLoupGarouManager().setRandomSeeRole(true);
+                    onClick.getPlayer().sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage() + "§cLa Prêtresse fait partie de la composition. Retirez ce rôle afin de modifier ce paramètre.");
+                } else {
+                    lgMode.getLoupGarouManager().setRandomSeeRole(!lgMode.getLoupGarouManager().isRandomSeeRole());
+                }
+
+            },16);
 
             inv.setItem((new ItemsCreator(Material.BARRIER, I18n.tl("guis.back"), null)).create(), onClick -> {
                 new ModesGui().open(onClick.getPlayer());

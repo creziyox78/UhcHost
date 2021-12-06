@@ -14,7 +14,6 @@ import org.bukkit.event.inventory.ClickType;
 public class SpecialsEventsGui extends IQuickInventory {
 
     private final LoupGarouMode loupGarouMode;
-    private LoupGarouSpecialEvent loupGarouSpecialEvent;
 
     public SpecialsEventsGui(LoupGarouMode loupGarouMode) {
         super(I18n.tl("guis.lg.specialsevents.name"), 1*9);
@@ -27,36 +26,35 @@ public class SpecialsEventsGui extends IQuickInventory {
             int index = -1;
             for(LoupGarouSpecialEvent specialsEvents : loupGarouMode.getSpecialEventList()){
                 index++;
-                loupGarouSpecialEvent = specialsEvents;
-                if(loupGarouSpecialEvent != null){
-                    if(loupGarouSpecialEvent.getChance() <= 0){
+                if(specialsEvents != null){
+                    if(specialsEvents.getChance() <= 0){
                         inv.setItem(new QuickItem(Material.SKULL_ITEM, 1, SkullType.PLAYER.ordinal())
-                                .setName(loupGarouSpecialEvent.getName())
+                                .setName(specialsEvents.getName())
                                 .setTexture("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvOTY3YTJmMjE4YTZlNmUzOGYyYjU0NWY2YzE3NzMzZjRlZjliYmIyODhlNzU0MDI5NDljMDUyMTg5ZWUifX19")
-                                .setLore("§9Pourcentage:§b " + loupGarouSpecialEvent.getChance() +"%")
+                                .setLore("§9Pourcentage:§b " + specialsEvents.getChance() +"%")
                                 .setAmount(0)
                                 .toItemStack(), onClick -> {
                             if(onClick.getClickType() == ClickType.LEFT){
-                                if(loupGarouSpecialEvent.getChance() < 100)
-                                    loupGarouSpecialEvent.setChance(loupGarouSpecialEvent.getChance() + 1);
+                                if(specialsEvents.getChance() < 100)
+                                    specialsEvents.setChance(specialsEvents.getChance() + 1);
                             } else if(onClick.getClickType() == ClickType.RIGHT){
-                                if(loupGarouSpecialEvent.getChance() > 0)
-                                    loupGarouSpecialEvent.setChance(loupGarouSpecialEvent.getChance() - 1);
+                                if(specialsEvents.getChance() > 0)
+                                    specialsEvents.setChance(specialsEvents.getChance() - 1);
                             }
                         },index);
                     } else {
                         inv.setItem(new QuickItem(Material.SKULL_ITEM, 1, SkullType.PLAYER.ordinal())
-                                .setName(loupGarouSpecialEvent.getName())
+                                .setName(specialsEvents.getName())
                                 .setTexture("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZWVmNDI1YjRkYjdkNjJiMjAwZTg5YzAxM2U0MjFhOWUxMTBiZmIyN2YyZDhiOWY1ODg0ZDEwMTA0ZDAwZjRmNCJ9fX0=")
-                                .setLore("§9Pourcentage:§b " + loupGarouSpecialEvent.getChance() +"%")
-                                .setAmount(loupGarouSpecialEvent.getChance() > 64 ? 64 : loupGarouSpecialEvent.getChance())
+                                .setLore("§9Pourcentage:§b " + specialsEvents.getChance() +"%")
+                                .setAmount(specialsEvents.getChance() > 64 ? 64 : specialsEvents.getChance())
                                 .toItemStack(), onClick -> {
                             if(onClick.getClickType() == ClickType.LEFT){
-                                if(loupGarouSpecialEvent.getChance() < 100)
-                                    loupGarouSpecialEvent.setChance(loupGarouSpecialEvent.getChance() + 1);
+                                if(specialsEvents.getChance() < 100)
+                                    specialsEvents.setChance(specialsEvents.getChance() + 1);
                             } else if(onClick.getClickType() == ClickType.RIGHT){
-                                if(loupGarouSpecialEvent.getChance() > 0)
-                                    loupGarouSpecialEvent.setChance(loupGarouSpecialEvent.getChance() - 1);
+                                if(specialsEvents.getChance() > 0)
+                                    specialsEvents.setChance(specialsEvents.getChance() - 1);
                             }
                         },index);
                     }

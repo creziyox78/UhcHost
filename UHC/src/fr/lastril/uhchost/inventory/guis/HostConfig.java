@@ -60,7 +60,7 @@ public class HostConfig extends IQuickInventory {
 									timer--;
 									ticks = 20;
 									for(Player player: Bukkit.getOnlinePlayers()) {
-										player.playSound(player.getLocation(), Sound.NOTE_PLING, 1.0F, 1.0F);
+										player.playSound(player.getLocation(), Sound.ORB_PICKUP, 1.0F, 1.0F);
 									}
 								}
 								ticks--;
