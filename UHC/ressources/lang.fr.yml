@@ -198,6 +198,7 @@ guis:
       specialsevents: "&eEvénements Aléatoire"
       compositionhide: "&eComposition Cachée"
       masquedrole: "&6Rôles masqués"
+      rolestime: "&aAnnonces des rôles"
     vote:
       name: "&bPremiers votes"
       lore: "&9Active les votes uniquement"
@@ -211,7 +212,11 @@ guis:
       lore: "&7Défini le temps avant que les"
       lore1: "&c Loups-Garous&7 ne re),(oivent la liste"
     specialsevents:
-      name: ""
+      name: "&bEvenements aléatoires"
+    rolestime:
+      name: "&BTemps d'annonce des rôles"
+      lore: "&7Défini le moment d'attribution"
+      lore1: "&7des rôles aux joueurs."
 
 
 scenarios:

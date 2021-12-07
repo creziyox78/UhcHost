@@ -35,7 +35,7 @@ public enum LGRoles {
      * CAMP DU VILLAGE
      */
     ANCIEN(Ancien.class), //FINISHED
-    CHAMAN(Chaman.class),
+    CHAMAN(Chaman.class), //TODO BE TESTED
     CHASSEUR(Chasseur.class), //TODO MODIFIED
     CITOYEN(Citoyen.class),
     CORBEAU(Corbeau.class),
@@ -53,7 +53,7 @@ public enum LGRoles {
     SORCIERE(Sorciere.class), //FINISHED
     VOYANTE(Voyante.class), //FINISHED
     VOYANTE_BAVARDE(VoyanteBavarde.class), //FINISHED
-    TRAPPEUR(Trappeur.class),
+    TRAPPEUR(Trappeur.class), //TODO BE TESTED
     VILLAGEOIS(Villageois.class), //FINISHED
 
     /*

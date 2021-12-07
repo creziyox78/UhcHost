@@ -321,13 +321,13 @@ public class UhcHost extends JavaPlugin {
 
 
         File f = new File(getDataFolder() + File.separator + "description",
-                "lg.yml");
-        System.out.println("Checking lg description...");
+                "roles.yml");
+        System.out.println("Checking roles description...");
         if (!f.exists()) {
-            getLogger().warning("The file lg.yml doesn't exist ! Creating...");
+            getLogger().warning("The file roles.yml doesn't exist ! Creating...");
             try {
                 f.createNewFile();
-                FileUtils.copyInputStreamToFile(getResource("lg.yml"), f);
+                FileUtils.copyInputStreamToFile(getResource("roles.yml"), f);
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -337,7 +337,7 @@ public class UhcHost extends JavaPlugin {
             try {
                 YamlConfiguration yamlConfiguration1 = YamlConfiguration.loadConfiguration(f);
                 File configFile = new File("temp.yml");
-                FileUtils.copyInputStreamToFile(getResource("lg.yml"),configFile);
+                FileUtils.copyInputStreamToFile(getResource("roles.yml"),configFile);
                 YamlConfiguration yamlConfiguration2 = YamlConfiguration.loadConfiguration(configFile);
                 for (String s : yamlConfiguration2.getKeys(true)) {
                     if (yamlConfiguration1.get(s) == null) {
@@ -387,11 +387,11 @@ public class UhcHost extends JavaPlugin {
 
 	}
 
-	public String getLGRoleDescription(Role role, String rolePath) {
+	public String getRoleDescription(Role role, String rolePath) {
 
 		String description = null;
 		checkingDescriptionUpdate();
-        File file = new File(getDataFolder() + "/description/lg.yml");
+        File file = new File(getDataFolder() + "/description/roles.yml");
         YamlConfiguration lgYaml = YamlConfiguration.loadConfiguration(file);
 
         for(String line : lgYaml.getStringList(rolePath)){

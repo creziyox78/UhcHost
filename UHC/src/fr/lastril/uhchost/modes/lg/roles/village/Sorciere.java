@@ -54,7 +54,7 @@ public class Sorciere extends Role implements LGRole, RoleListener {
 
     @Override
     public String getDescription() {
-        return main.getLGRoleDescription(this,this.getClass().getName());
+        return main.getRoleDescription(this,this.getClass().getName());
     }
 
     @Override
@@ -72,10 +72,11 @@ public class Sorciere extends Role implements LGRole, RoleListener {
         if (!hasRez) {
             Player killer = event.getEntity().getKiller();
             Player player = event.getEntity();
+            PlayerManager playerManager = main.getPlayerManager(player.getUniqueId());
             if (killer != null) {
                 UhcHost main = UhcHost.getInstance();
                 PlayerManager playerManagerKiller = main.getPlayerManager(killer.getUniqueId());
-                PlayerManager playerManager = main.getPlayerManager(player.getUniqueId());
+
                 if (playerManagerKiller.hasRole() && playerManager.hasRole()) {
                     if (playerManager.getRole() instanceof Ancien) {
                         Ancien ancien = (Ancien) playerManager.getRole();
@@ -85,6 +86,9 @@ public class Sorciere extends Role implements LGRole, RoleListener {
                     }
 
                 }
+            }
+            if(playerManager.getWolfPlayerManager().isProtect()){
+                return;
             }
             Bukkit.getScheduler().runTaskLater(main, () -> {
                 Bukkit.getScheduler().runTaskLater(main, () -> rez = false, 20*6);

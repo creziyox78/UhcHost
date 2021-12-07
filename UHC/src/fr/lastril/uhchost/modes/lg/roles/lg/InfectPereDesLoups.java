@@ -42,7 +42,7 @@ public class InfectPereDesLoups extends Role implements LGRole, RoleListener, Re
 
     @Override
     public String getDescription() {
-        return main.getLGRoleDescription(this,this.getClass().getName());
+        return main.getRoleDescription(this,this.getClass().getName());
     }
 
     @Override
@@ -112,8 +112,9 @@ public class InfectPereDesLoups extends Role implements LGRole, RoleListener, Re
                             if (!ancien.isRevived()) {
                                 return;
                             }
-                        }
-                        if (loupGarouManager.isLoupGarou(killer.getUniqueId())) {
+                        } else if(playerManager.getWolfPlayerManager().isProtect()){
+                            return;
+                        } else if (loupGarouManager.isLoupGarou(killer.getUniqueId())) {
                             if (super.getPlayer() != null) {
                                 Player infect = super.getPlayer();
                                 new ClickableMessage(infect, onClick -> {

@@ -42,7 +42,7 @@ public class LoupGarouFeutre extends Role implements LGRole, LGFacadeRole, RealL
 
     @Override
     public String getDescription() {
-        return main.getLGRoleDescription(this,this.getClass().getName());
+        return main.getRoleDescription(this,this.getClass().getName());
     }
 
     @Override

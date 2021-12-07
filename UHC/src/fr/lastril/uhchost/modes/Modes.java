@@ -1,7 +1,7 @@
 package fr.lastril.uhchost.modes;
 
+import fr.lastril.uhchost.modes.bleach.BleachMode;
 import fr.lastril.uhchost.modes.classic.ClassicMode;
-import fr.lastril.uhchost.modes.ds.DemonSlayer;
 import fr.lastril.uhchost.modes.lg.LoupGarouMode;
 import fr.lastril.uhchost.tools.API.items.crafter.QuickItem;
 import org.bukkit.Material;
@@ -28,7 +28,23 @@ public enum Modes {
                             "",
                             "§6§k!§r §eClique droit§7 pour configurer le mode de jeu.")
                     .setName("§cLoup-Garou"), true),
-    DS("§6Demon Slayer", "", new DemonSlayer(),
+    NARUTO_V2("§6Naruto", "", null,
+            new QuickItem(Material.SKULL_ITEM, 1, SkullType.PLAYER.ordinal()).setTexture(
+                    "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYmFmOTFlOGViY2ZmNThlNzZmNTk3OWJjNjZmMzc3MzZjZjIxNmQ0ZGQzZjQwYWMxMzVkMGIxMDAwM2FjYWJkYiJ9fX0=")
+                    .setLore("",
+                            "§7Auteur:§b SteLeague",
+                            "§8Version : V2",
+                            "",
+                            "§7Participez à la 4ème grande guerre",
+                            "§7ninja en défendant le monde de§c l'Akatsuki",
+                            "§7ainsi que§5 d'Orochimaru et de ses aliés§7.",
+                            "§7Empêchez la renaissance de§d Jûbi§7 ou",
+                            "§7devenez le précurseur de l'Apocalypse.",
+                            "",
+                            "§6§k!§r §eClique droit§7 pour configurer le mode de jeu.")
+                    .setName("§6Naruto")
+            , false),
+    DS("§6Demon Slayer", "", null,
             new QuickItem(Material.SKULL_ITEM, 1, SkullType.PLAYER.ordinal())
                     .setTexture("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZTA5MzIzMmFlYTQ5NjAwYjUwOTJmYzE4MmUwZDVjZTg5OTlmNzgwNDVkZDdiZGEyM2M2NWNjYTZmY2Y1Y2Y2MCJ9fX0=")
                     .setLore("",
@@ -42,7 +58,7 @@ public enum Modes {
                             "§6§k!§r §eClique droit§7 pour configurer le mode de jeu.")
                     .setName("§6Demon Slayer"), false),
 
-    AOT("§eAOT", "", new DemonSlayer(),
+    AOT("§eAOT", "", null,
             new QuickItem(Material.SKULL_ITEM, 1, SkullType.PLAYER.ordinal())
                     .setTexture("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNGUzNWIxN2M5YmUyMDQ3NGJmZGE0Yjg0NGYwZTg2NzAyYTBkOGFkNTgzZDE5MDQ2OTNlYmQ4ZjA0MGFiOWJiYiJ9fX0=")
                     .setLore("",
@@ -57,7 +73,7 @@ public enum Modes {
                     .setName("§eAOT"), false),
 
 
-    CMS("§fChainsaw Man", "", new DemonSlayer(),
+    CMS("§fChainsaw Man", "", null,
             new QuickItem(Material.SKULL_ITEM, 1, SkullType.PLAYER.ordinal())
                     .setTexture("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvOTllMDFiM2EzNWFlM2JlNDQ4M2I2ZGY2OWI3MDcwYmQ2ZGM3NWIzOTlkN2UyZWJiYzdiODg0MDMzMmY3YjNhMCJ9fX0=")
                     .setLore("",
@@ -71,7 +87,7 @@ public enum Modes {
                             "§6§k!§r §eClique droit§7 pour configurer le mode de jeu.")
                     .setName("§fChainsaw Man"), false),
 
-    BLEACH("§3Bleach", "", null,
+    BLEACH("§3Bleach", "", new BleachMode(),
             new QuickItem(Material.SKULL_ITEM, 1, SkullType.PLAYER.ordinal())
                     .setTexture("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZDUzYjRmZjMyZTRkOTEyYWQ1ODk1YjZjMzdhMzUyZjYxYWY5ZTQxZDI0N2E4NzliNWY0OWE2MzUyZmM4NiJ9fX0=")
                     .setLore("",
@@ -85,9 +101,8 @@ public enum Modes {
                             "",
                             "§6§k!§r §eClique droit§7 pour configurer le mode de jeu.")
                     .setName("§3Bleach"), false),
-    /*NARUTO_V2("§6Naruto V2", "", new NarutoV2(),
-        Items.createHead("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNDZiYTYzMzQ0ZjQ5ZGQxYzRmNTQ4OGU5MjZiZjNkOWUyYjI5OTE2YTZjNTBkNjEwYmI0MGE1MjczZGM4YzgyIn19fQ=="
-                , "§cBientôt", 1, null)),*/
+
+
     SOON_1("§cBientôt", "", null,
             new QuickItem(Material.SKULL_ITEM, 1, SkullType.PLAYER.ordinal())
                     .setTexture("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNDZiYTYzMzQ0ZjQ5ZGQxYzRmNTQ4OGU5MjZiZjNkOWUyYjI5OTE2YTZjNTBkNjEwYmI0MGE1MjczZGM4YzgyIn19fQ==")

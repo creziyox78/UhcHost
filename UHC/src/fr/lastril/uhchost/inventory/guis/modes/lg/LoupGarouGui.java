@@ -10,8 +10,10 @@ import fr.lastril.uhchost.tools.API.FormatTime;
 import fr.lastril.uhchost.tools.API.inventory.crafter.IQuickInventory;
 import fr.lastril.uhchost.tools.API.inventory.crafter.QuickInventory;
 import fr.lastril.uhchost.tools.API.items.ItemsCreator;
+import fr.lastril.uhchost.tools.API.items.crafter.QuickItem;
 import fr.lastril.uhchost.tools.I18n;
 import org.bukkit.Material;
+import org.bukkit.SkullType;
 
 import java.util.Collections;
 
@@ -47,7 +49,10 @@ public class LoupGarouGui extends IQuickInventory {
                 new SendLGListGui().open(onClick.getPlayer());
             }, 10);
 
-            inv.setItem(new ItemsCreator(Material.WATCH, I18n.tl("guis.lg.main.specialsevents"), null, 1).create(), onClick -> {
+            inv.setItem(new QuickItem(Material.SKULL_ITEM, 1, SkullType.PLAYER.ordinal())
+                    .setName(I18n.tl("guis.lg.main.specialsevents"))
+                    .setTexture("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMTAzNWM1MjgwMzZiMzg0YzUzYzljOGExYTEyNTY4NWUxNmJmYjM2OWMxOTdjYzlmMDNkZmEzYjgzNWIxYWE1NSJ9fX0=")
+                    .toItemStack(), onClick -> {
                 new SpecialsEventsGui(lgMode).open(onClick.getPlayer());
             },12);
 
@@ -64,6 +69,12 @@ public class LoupGarouGui extends IQuickInventory {
                 }
 
             },16);
+
+            inv.setItem(new QuickItem(Material.WATCH).setName(I18n.tl("guis.lg.main.rolestime"))
+                    .setLore(new FormatTime(lgMode.getRoleAnnouncement()).toFormatString())
+                    .toItemStack(), onClick -> {
+                new RolesTimeGui(lgMode).open(onClick.getPlayer());
+            }, 19);
 
             inv.setItem((new ItemsCreator(Material.BARRIER, I18n.tl("guis.back"), null)).create(), onClick -> {
                 new ModesGui().open(onClick.getPlayer());

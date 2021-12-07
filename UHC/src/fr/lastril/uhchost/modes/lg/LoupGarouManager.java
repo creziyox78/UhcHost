@@ -13,10 +13,7 @@ import fr.lastril.uhchost.modes.lg.roles.lg.LoupGarouGrimeur;
 import fr.lastril.uhchost.modes.lg.roles.solo.LoupGarouBlanc;
 import fr.lastril.uhchost.modes.lg.roles.solo.Rival;
 import fr.lastril.uhchost.modes.lg.roles.solo.Voleur;
-import fr.lastril.uhchost.modes.lg.roles.village.Ancien;
-import fr.lastril.uhchost.modes.lg.roles.village.ChienLoup;
-import fr.lastril.uhchost.modes.lg.roles.village.Cupidon;
-import fr.lastril.uhchost.modes.lg.roles.village.Pretresse;
+import fr.lastril.uhchost.modes.lg.roles.village.*;
 import fr.lastril.uhchost.modes.roles.Camps;
 import fr.lastril.uhchost.player.PlayerManager;
 import fr.lastril.uhchost.player.modemanager.WolfPlayerManager;
@@ -168,7 +165,7 @@ public class LoupGarouManager extends ModeManager implements Listener {
         main.getPlayerManagerOnlines().forEach(playerManagers -> {
             String message = "";
             if(playerManagers.hasRole()){
-                if(playerManagers.getRole() instanceof Pretresse){
+                if(playerManagers.getRole() instanceof Pretresse || playerManagers.getRole() instanceof Chaman){
                     message = "§2§l" + playerManager.getPlayerName() +
                             " est mort, il était §o" + playerManager.getRole().getRoleName();
                     if (playerManager.getWolfPlayerManager().isInfected()) {

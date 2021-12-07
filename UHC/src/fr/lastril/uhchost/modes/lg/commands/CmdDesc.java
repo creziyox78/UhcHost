@@ -49,7 +49,7 @@ public class CmdDesc implements ModeSubCommand{
                 for (Role roles : mode.getRoles()) {
                     System.out.println(roles.getRoleName() + " : " + roleName);
                     if(roleName.equalsIgnoreCase(roles.getRoleName() + " ")){
-                        player.sendMessage(UhcHost.getInstance().getLGRoleDescription(roles, roles.getClass().getName()));
+                        player.sendMessage(UhcHost.getInstance().getRoleDescription(roles, roles.getClass().getName()));
                         return true;
                     }
                 }

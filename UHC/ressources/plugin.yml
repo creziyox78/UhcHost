@@ -22,4 +22,6 @@ commands:
     description: Command say.
   setgroupes:
     description: Commande to set groups.
+  bl:
+    description: Command of Bleach Mode.
   

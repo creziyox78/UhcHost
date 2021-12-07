@@ -20,7 +20,6 @@ public enum Camps {
     IMITATEUR(ChatColor.DARK_AQUA, "§3Victoire de l'Imitateur !"),
     ZIZANIE(ChatColor.DARK_GREEN, "§3Voictoire du rôle solo zizané !"),
 
-
     /*
      * NONE
      */

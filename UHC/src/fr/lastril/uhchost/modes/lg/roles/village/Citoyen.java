@@ -40,7 +40,7 @@ public class Citoyen extends Role implements LGRole {
 
     @Override
     public String getDescription() {
-        return main.getLGRoleDescription(this,this.getClass().getName());
+        return main.getRoleDescription(this,this.getClass().getName());
     }
 
 

@@ -1,12 +1,11 @@
-package fr.lastril.uhchost.modes.lg.roles.solo;
+package fr.lastril.uhchost.modes.bleach.roles.soulsociety;
 
-import fr.lastril.uhchost.modes.lg.roles.LGRole;
 import fr.lastril.uhchost.modes.roles.Camps;
 import fr.lastril.uhchost.modes.roles.Role;
 import fr.lastril.uhchost.tools.API.items.crafter.QuickItem;
 import org.bukkit.entity.Player;
 
-public class Rebelle extends Role implements LGRole {
+public class Yamamoto extends Role {
     @Override
     public void giveItems(Player player) {
 
@@ -39,16 +38,16 @@ public class Rebelle extends Role implements LGRole {
 
     @Override
     public Camps getCamp() {
-        return Camps.NEUTRES;
+        return null;
     }
 
     @Override
     public String getRoleName() {
-        return "Rebelle";
+        return null;
     }
 
     @Override
     public String getDescription() {
-        return main.getRoleDescription(this, this.getClass().getName());
+        return null;
     }
 }

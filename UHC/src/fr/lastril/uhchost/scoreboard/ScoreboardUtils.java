@@ -4,6 +4,7 @@ import fr.lastril.uhchost.UhcHost;
 import fr.lastril.uhchost.game.GameState;
 import fr.lastril.uhchost.modes.roles.RoleAnnounceMode;
 import fr.lastril.uhchost.player.PlayerManager;
+import fr.lastril.uhchost.tools.API.ClassUtils;
 import fr.lastril.uhchost.tools.API.FormatTime;
 import fr.lastril.uhchost.tools.I18n;
 import org.bukkit.Bukkit;
@@ -13,7 +14,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.scoreboard.Objective;
 import org.bukkit.scoreboard.Scoreboard;
 import org.bukkit.scoreboard.Team;
-import org.bukkit.util.Vector;
 
 import java.io.File;
 import java.util.HashMap;
@@ -341,7 +341,7 @@ public class ScoreboardUtils {
 		return this.board;
 	}
 
-	public String formatLine(String lines, Player player, int count){
+	public String formatLine(String lines, Player player, int count) {
 		pl.checkingScoreboardUpdate();
 		String newLine = lines;
 		if (this.pl.gameManager.getModes().getMode() instanceof RoleAnnounceMode) {
@@ -349,13 +349,13 @@ public class ScoreboardUtils {
 			int roleTime = roleAnnounceMode.getRoleAnnouncement();
 			newLine = newLine.replace("{roles}", roleTime <= 0 ? "§a✔" : new FormatTime(roleTime).toString());
 		}
-		if(GameState.isState(GameState.STARTED)){
+		if (GameState.isState(GameState.STARTED)) {
 			Location loc = this.pl.worldUtils.getCenter().getWorld().getHighestBlockAt(
 					this.pl.worldUtils.getCenter().getBlockX(), this.pl.worldUtils.getCenter().getBlockZ()).getLocation();
 			loc.setY(player.getLocation().getY());
-			if(loc.getWorld() == player.getWorld())
-				newLine = newLine.replace("{spawn_direction}", getDirectionOf(player.getLocation(), loc) + "(" +(int) player.getLocation().distance(loc.add(0, player.getLocation().getY(), 0)) + ")").replace("{border}", (int) (this.pl.worldUtils.getWorld().getWorldBorder().getSize() / 2.0D) + "/-"
-					+ (int) (this.pl.worldUtils.getWorld().getWorldBorder().getSize() / 2.0D));
+			if (loc.getWorld() == player.getWorld())
+				newLine = newLine.replace("{spawn_direction}", ClassUtils.getDirectionOf(player.getLocation(), loc) + "(" + (int) player.getLocation().distance(loc.add(0, player.getLocation().getY(), 0)) + ")").replace("{border}", (int) (this.pl.worldUtils.getWorld().getWorldBorder().getSize() / 2.0D) + "/-"
+						+ (int) (this.pl.worldUtils.getWorld().getWorldBorder().getSize() / 2.0D));
 
 		}
 		PlayerManager playerManager = pl.getPlayerManager(player.getUniqueId());
@@ -363,48 +363,16 @@ public class ScoreboardUtils {
 		int borderTime = this.pl.taskManager.getBorderTime() - count;
 		return newLine.replace("{pvp}", pvpTime <= 0 ? "§a✔" : new FormatTime(pvpTime).toString())
 				.replace("{time}", new FormatTime(count).toString())
-				.replace("{border_time}", borderTime <= 0 ? "§a✔" :  new FormatTime(borderTime).toString())
+				.replace("{border_time}", borderTime <= 0 ? "§a✔" : new FormatTime(borderTime).toString())
 				.replace("{gamemode}", pl.gameManager.getModes().getName())
 				.replace("{player_host_name}", pl.gameManager.getHost() != null ? pl.gameManager.getHost().getName() : "Aucun")
 				.replace("{waitting_players}", String.valueOf(Bukkit.getOnlinePlayers().size()))
 				.replace("{max_waitting_players}", String.valueOf(pl.gameManager.getMaxPlayers()))
 				.replace("{players_ingame}", String.valueOf(this.pl.getPlayerManagerAlives().size()))
-                .replace("{player_kill}", playerManager.getKills() != null ? String.valueOf(playerManager.getKills().size()) : "")
+				.replace("{player_kill}", playerManager.getKills() != null ? String.valueOf(playerManager.getKills().size()) : "")
 				.replace("{episode}", String.valueOf(pl.gameManager.episode))
 				.replace("{groupes}", String.valueOf(pl.gameManager.getGroupes()))
 				.replace("&", "§");
-	}
-
-	public String getDirectionOf(Location ploc, Location to) {
-		if(ploc.getWorld() != to.getWorld()) return "?";
-		ploc.setY(0.0D);
-		to.setY(0.0D);
-
-		String[] arrows = {"⬆", "⬈", "➡", "⬊", "⬇", "⬋", "⬅", "⬉", "⬆"};
-		Vector d = ploc.getDirection();
-
-		Vector v = to.subtract(ploc).toVector().normalize();
-
-		double a = Math.toDegrees(Math.atan2(d.getX(), d.getZ()));
-		a -= Math.toDegrees(Math.atan2(v.getX(), v.getZ()));
-
-		a = ((int)(a + 22.5D) % 360);
-
-		if (a < 0.0D) {
-			a += 360.0D;
-		}
-
-		/*String color = "§4";
-		if(ploc.distance(to) > 750 && ploc.distance(to) < 1000) {
-			color = "§c";
-		}else if(ploc.distance(to) > 500 && ploc.distance(to) < 750) {
-			color = "§6";
-		}else if(ploc.distance(to) > 250 && ploc.distance(to) < 500) {
-			color = "§e";
-		}else if(ploc.distance(to) < 250) {
-			color = "§a";
-		}*/
-		return arrows[((int) a / 45)];
 	}
 
 }
