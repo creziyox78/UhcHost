@@ -19,7 +19,7 @@ public class RegionChatGui extends IQuickInventory {
     private BannerCreator bc;
     private ItemsCreator ic;
     public RegionChatGui() {
-        super(I18n.tl("guis.lg.vote.name"), 1*9);
+        super(I18n.tl("guis.lg.region.name"), 1*9);
     }
 
     @Override
@@ -64,7 +64,7 @@ public class RegionChatGui extends IQuickInventory {
 
                 ic = new ItemsCreator(Material.PAPER,
                         "§e" + loupGarouManager.getStartVoteEpisode(),
-                        Arrays.asList(I18n.tl("guis.lg.vote.lore"), I18n.tl("guis.lg.vote.lore1")));
+                        Arrays.asList(I18n.tl("guis.lg.region.lore"), I18n.tl("guis.lg.region.lore1")));
                 inv.setItem(ic.create(), onClick-> {
                     if(UhcHost.getInstance().gameManager.getModes().getMode() instanceof ModeConfig){
                         ModeConfig modeConfig = (ModeConfig) UhcHost.getInstance().gameManager.getModes().getMode();

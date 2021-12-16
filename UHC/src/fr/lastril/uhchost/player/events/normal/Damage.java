@@ -8,6 +8,8 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 
 public class Damage implements Listener {
 
@@ -42,6 +44,26 @@ public class Damage implements Listener {
 				pl.getPlayerManager(player.getUniqueId()).getRole().onDamage((Player) event.getDamager(), player);
 			}
 		}
+
+		Player damager = (Player) event.getDamager();
+		double damages = event.getDamage();
+
+		if (damager.hasPotionEffect(PotionEffectType.INCREASE_DAMAGE)) {
+			for (PotionEffect effect : damager.getActivePotionEffects()) {
+				if (effect.getType().equals(PotionEffectType.INCREASE_DAMAGE)) {
+					double damagePercentage = (effect.getAmplifier() + 1) * 1.3D + 1.0D;
+
+					if (event.getDamage() / damagePercentage <= 1.0D) {
+						damages = (effect.getAmplifier() + 1) * 3 + 1;
+					} else {
+						damages = (int) (event.getDamage() / damagePercentage) + (effect.getAmplifier() + 1) * 3;
+					}
+					break;
+				}
+			}
+		}
+		event.setDamage(damages);
+
 	}
 
 	@EventHandler(priority = EventPriority.LOWEST)

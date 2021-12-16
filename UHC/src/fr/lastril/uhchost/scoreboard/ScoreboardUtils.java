@@ -369,7 +369,7 @@ public class ScoreboardUtils {
 				.replace("{waitting_players}", String.valueOf(Bukkit.getOnlinePlayers().size()))
 				.replace("{max_waitting_players}", String.valueOf(pl.gameManager.getMaxPlayers()))
 				.replace("{players_ingame}", String.valueOf(this.pl.getPlayerManagerAlives().size()))
-				.replace("{player_kill}", playerManager.getKills() != null ? String.valueOf(playerManager.getKills().size()) : "")
+				.replace("{player_kills}", playerManager != null && playerManager.getKills() != null? String.valueOf(playerManager.getKills().size()) : "")
 				.replace("{episode}", String.valueOf(pl.gameManager.episode))
 				.replace("{groupes}", String.valueOf(pl.gameManager.getGroupes()))
 				.replace("&", "§");

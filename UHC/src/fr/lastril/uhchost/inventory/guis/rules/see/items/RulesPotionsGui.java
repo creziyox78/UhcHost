@@ -1,6 +1,7 @@
-package fr.lastril.uhchost.inventory.guis.rules;
+package fr.lastril.uhchost.inventory.guis.rules.see.items;
 
 import fr.lastril.uhchost.UhcHost;
+import fr.lastril.uhchost.inventory.guis.rules.see.RulesGui;
 import fr.lastril.uhchost.tools.API.inventory.crafter.IQuickInventory;
 import fr.lastril.uhchost.tools.API.inventory.crafter.QuickInventory;
 import fr.lastril.uhchost.tools.API.items.ItemsCreator;
@@ -24,5 +25,7 @@ public class RulesPotionsGui extends IQuickInventory {
         inv.setItem(ic.create(), onClick -> {
             onClick.getPlayer().closeInventory();
         },53);
+
+        inv.addRetourItem(new RulesGui());
     }
 }

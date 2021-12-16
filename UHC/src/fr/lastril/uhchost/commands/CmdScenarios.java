@@ -1,6 +1,6 @@
 package fr.lastril.uhchost.commands;
 
-import fr.lastril.uhchost.inventory.guis.rules.RulesGui;
+import fr.lastril.uhchost.inventory.guis.rules.see.RulesScenariosGui;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -14,7 +14,7 @@ public class CmdScenarios implements CommandExecutor {
 
 			Player player = (Player)sender;
 
-			new RulesGui().open(player);
+			new RulesScenariosGui().open(player);
 		}
 		return false;
 	}

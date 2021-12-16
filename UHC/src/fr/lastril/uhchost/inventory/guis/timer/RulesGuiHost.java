@@ -26,7 +26,7 @@ public class RulesGuiHost extends IQuickInventory {
     private final UhcHost pl = UhcHost.getInstance();
 
     public RulesGuiHost() {
-        super(ChatColor.AQUA + "Règles", 9*3);
+        super(ChatColor.GOLD + "Règles UHC", 9*3);
     }
 
 
@@ -45,7 +45,7 @@ public class RulesGuiHost extends IQuickInventory {
             inv.setItem(ic, onClick -> {
                 new PvpTimeGui().open(onClick.getPlayer());
             },2);
-            ic = new ItemsCreator(Material.BARRIER, I18n.tl("guis.main.border"),
+            ic = new ItemsCreator(Material.BEDROCK, I18n.tl("guis.main.border"),
                     Collections.singletonList(I18n.tl("guis.main.borderLore"))).create();
             inv.setItem(ic, onClick -> {
                 new BorderGui().open(onClick.getPlayer());
@@ -83,12 +83,12 @@ public class RulesGuiHost extends IQuickInventory {
             ic = new ItemsCreator(Material.CARROT_ITEM, "§dVie dans le tab", Arrays.asList("", "§cDésactivé"), 1).create();
 
             if(pl.gameManager.isViewHealth())
-                ic = new ItemsCreator(Material.GOLDEN_CARROT, I18n.tl("guis.main.healttab"), Arrays.asList("", "§aActivé"), 1).create();
+                ic = new ItemsCreator(Material.GOLDEN_CARROT, I18n.tl("guis.main.healthtab"), Arrays.asList("", "§aActivé"), 1).create();
             inv.setItem(ic, onClick -> {
                 gamemanager.setViewHealth(!gamemanager.isViewHealth());
             },22);
 
-            ic = new QuickItem(Material.ARROW).setName(I18n.tl("guis.back")).toItemStack();
+            ic = new QuickItem(Material.BARRIER).setName(I18n.tl("guis.back")).toItemStack();
 
             inv.setItem(ic, onClick -> {
                 new HostConfig().open(onClick.getPlayer());

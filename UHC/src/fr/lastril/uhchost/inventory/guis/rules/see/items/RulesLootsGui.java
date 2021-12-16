@@ -1,6 +1,7 @@
-package fr.lastril.uhchost.inventory.guis.rules;
+package fr.lastril.uhchost.inventory.guis.rules.see.items;
 
-import fr.lastril.uhchost.game.LootsRules;
+import fr.lastril.uhchost.game.rules.world.LootsRules;
+import fr.lastril.uhchost.inventory.guis.rules.see.RulesGui;
 import fr.lastril.uhchost.tools.API.inventory.crafter.IQuickInventory;
 import fr.lastril.uhchost.tools.API.inventory.crafter.QuickInventory;
 import fr.lastril.uhchost.tools.API.items.ItemsCreator;
@@ -25,7 +26,9 @@ public class RulesLootsGui extends IQuickInventory {
         inv.addItem(ic.create());
         ic = new ItemsCreator(Material.FLINT, I18n.tl("guis.loots.flint"), Arrays.asList(I18n.tl("guis.loots.flintLore", String.valueOf(LootsRules.getInstance().getLoot(Material.FLINT)))));
         inv.addItem(ic.create());
-        ic = new ItemsCreator(Material.BARRIER, I18n.tl("guis.back"), null);
+        ic = new ItemsCreator(Material.STRING, I18n.tl("guis.loots.string"), Arrays.asList(I18n.tl("guis.loots.stringLore", String.valueOf(LootsRules.getInstance().getLoot(Material.STRING)))));
+        inv.addItem(ic.create());
+        inv.addRetourItem(new RulesGui());
 
     }
 }

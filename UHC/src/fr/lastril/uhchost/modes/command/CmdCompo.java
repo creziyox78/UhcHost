@@ -2,6 +2,8 @@ package fr.lastril.uhchost.modes.command;
 
 import fr.lastril.uhchost.UhcHost;
 import fr.lastril.uhchost.enums.Messages;
+import fr.lastril.uhchost.game.GameState;
+import fr.lastril.uhchost.inventory.guis.modes.CurrentCompoGui;
 import fr.lastril.uhchost.modes.Mode;
 import fr.lastril.uhchost.modes.roles.Camps;
 import fr.lastril.uhchost.modes.roles.RoleMode;
@@ -40,22 +42,28 @@ public class CmdCompo implements ModeSubCommand {
         Player player = (Player) sender;
         PlayerManager playerManager = pl.getPlayerManager(player.getUniqueId());
         Mode mode = pl.gameManager.getModes().getMode();
+
         if (mode instanceof RoleMode && mode.getModeManager() != null) {
             if(!mode.getModeManager().compositionHide || (!playerManager.isAlive() && player.isOp())){
-                sender.sendMessage("§8§m----------------------------------");
-                for (Camps camp : Camps.values()) {
-                    for (PlayerManager PlayerManagers : mode.getModeManager().getPlayerManagersWithCamps(camp)) {
-                        if (PlayerManagers.isAlive() && !listSoloCamp.contains(PlayerManagers.getCamps())) {
-                            sender.sendMessage(camp.getCompoColor() + PlayerManagers.getRole().getRoleName() + (player.isOp() && !pl.getPlayerManager(player.getUniqueId()).isAlive() ? " §l(" + PlayerManagers.getPlayerName() + " | Camps: " + PlayerManagers.getCamps().name() + ")" : ""));
-                        } else {
-                            if(PlayerManagers.isAlive())
-                                sender.sendMessage("§6"+PlayerManagers.getRole().getRoleName() + (player.isOp() && !pl.getPlayerManager(player.getUniqueId()).isAlive()? " §l(" + PlayerManagers.getPlayerName() + " | Camps: " + PlayerManagers.getCamps().name() + ")" : ""));
+                if(GameState.isState(GameState.STARTED)){
+                    sender.sendMessage("§8§m----------------------------------");
+                    for (Camps camp : Camps.values()) {
+                        for (PlayerManager PlayerManagers : mode.getModeManager().getPlayerManagersWithCamps(camp)) {
+                            if (PlayerManagers.isAlive() && !listSoloCamp.contains(PlayerManagers.getCamps())) {
+                                sender.sendMessage(camp.getCompoColor() + PlayerManagers.getRole().getRoleName() + (player.isOp() && !pl.getPlayerManager(player.getUniqueId()).isAlive() ? " §l(" + PlayerManagers.getPlayerName() + " | Camps: " + PlayerManagers.getCamps().name() + ")" : ""));
+                            } else {
+                                if(PlayerManagers.isAlive())
+                                    sender.sendMessage("§6"+PlayerManagers.getRole().getRoleName() + (player.isOp() && !pl.getPlayerManager(player.getUniqueId()).isAlive()? " §l(" + PlayerManagers.getPlayerName() + " | Camps: " + PlayerManagers.getCamps().name() + ")" : ""));
+                            }
                         }
+                        if (!mode.getModeManager().getPlayerManagersWithCamps(camp).isEmpty())
+                            sender.sendMessage(" ");
                     }
-                    if (!mode.getModeManager().getPlayerManagersWithCamps(camp).isEmpty())
-                        sender.sendMessage(" ");
+                    sender.sendMessage("§8§m----------------------------------");
+                }  else {
+                    player.closeInventory();
+                    new CurrentCompoGui(UhcHost.getInstance()).open(player);
                 }
-                sender.sendMessage("§8§m----------------------------------");
             } else {
                 player.sendMessage(Messages.error("La composition est cachée !"));
             }

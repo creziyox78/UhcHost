@@ -24,4 +24,6 @@ commands:
     description: Commande to set groups.
   bl:
     description: Command of Bleach Mode.
+  rules:
+    description: Command to see rules.
   

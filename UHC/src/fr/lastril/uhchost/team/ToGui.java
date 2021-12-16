@@ -1,7 +1,7 @@
 package fr.lastril.uhchost.team;
 
 import fr.lastril.uhchost.UhcHost;
-import fr.lastril.uhchost.inventory.guis.rules.RulesGui;
+import fr.lastril.uhchost.inventory.guis.rules.see.RulesScenariosGui;
 import fr.lastril.uhchost.tools.API.inventory.crafter.IQuickInventory;
 import fr.lastril.uhchost.tools.API.inventory.crafter.QuickInventory;
 import fr.lastril.uhchost.tools.API.items.BannerCreator;
@@ -32,7 +32,7 @@ public class ToGui extends IQuickInventory {
 				(UhcHost.getInstance()).teamUtils.setupTeams();
 			}
 			inv.setItem(ic.create(), onClick -> {
-				new RulesGui().open(onClick.getPlayer());
+				new RulesScenariosGui().open(onClick.getPlayer());
 			},4);
 			BannerCreator bc = new BannerCreator(I18n.tl("guis.timer.previous"), Arrays.asList(""), 1, true);
 			bc.setBaseColor(DyeColor.RED);

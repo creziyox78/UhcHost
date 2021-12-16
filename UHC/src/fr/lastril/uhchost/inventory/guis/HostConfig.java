@@ -2,11 +2,15 @@
 package fr.lastril.uhchost.inventory.guis;
 
 import fr.lastril.uhchost.UhcHost;
+import fr.lastril.uhchost.enums.Messages;
 import fr.lastril.uhchost.game.GameManager;
 import fr.lastril.uhchost.game.GameState;
 import fr.lastril.uhchost.inventory.guis.modes.ModesGui;
+import fr.lastril.uhchost.inventory.guis.rules.RulesCategoriesGui;
 import fr.lastril.uhchost.inventory.guis.timer.RulesGuiHost;
 import fr.lastril.uhchost.inventory.guis.world.WorldGui;
+import fr.lastril.uhchost.modes.ModeConfig;
+import fr.lastril.uhchost.modes.Modes;
 import fr.lastril.uhchost.scenario.ScenariosGui;
 import fr.lastril.uhchost.tools.API.ActionBar;
 import fr.lastril.uhchost.tools.API.inventory.crafter.IQuickInventory;
@@ -14,10 +18,7 @@ import fr.lastril.uhchost.tools.API.inventory.crafter.QuickInventory;
 import fr.lastril.uhchost.tools.API.items.ItemsCreator;
 import fr.lastril.uhchost.tools.API.items.crafter.QuickItem;
 import fr.lastril.uhchost.tools.I18n;
-import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
-import org.bukkit.Material;
-import org.bukkit.Sound;
+import org.bukkit.*;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 
@@ -25,15 +26,22 @@ import java.util.Collections;
 
 public class HostConfig extends IQuickInventory {
 	public HostConfig() {
-		super(ChatColor.GOLD + "Configuration", 9*5);
+		super(ChatColor.GOLD + "Configuration", 9*6);
 
 	}
 
 	@Override
 	public void contents(QuickInventory inv) {
 		inv.updateItem("update", taskUpdate -> {
+
+			inv.setHorizontalLine(new QuickItem(Material.STAINED_GLASS_PANE, 1, (byte)1).setName("").toItemStack(), 0, 8);
+			inv.setHorizontalLine(new QuickItem(Material.STAINED_GLASS_PANE, 1, (byte)1).setName("").toItemStack(), 9, 17);
+
+			inv.setHorizontalLine(new QuickItem(Material.STAINED_GLASS_PANE, 1, (byte)1).setName("").toItemStack(), 36, 44);
+			inv.setHorizontalLine(new QuickItem(Material.STAINED_GLASS_PANE, 1, (byte)1).setName("").toItemStack(), 45, 53);
+
 			if (!GameState.isState(GameState.STARTING)) {
-				inv.setItem(new QuickItem(Material.EMERALD_BLOCK).setName(ChatColor.GREEN + "Lancer la partie").toItemStack(), onClick -> {
+				inv.setItem(new QuickItem(Material.STAINED_CLAY, 1, (byte)5).setName(ChatColor.GOLD + "Lancer la partie").toItemStack(), onClick -> {
 					final GameManager gameManager = UhcHost.getInstance().getGamemanager();
 					if(!gameManager.isPregen()){
 						onClick.getPlayer().sendMessage("§cErreur: La map n'a pas été prégénéré !");
@@ -70,31 +78,36 @@ public class HostConfig extends IQuickInventory {
 
 						}
 					}.runTaskTimer(UhcHost.getInstance(), 0L, 1L);
-				},40);
+				},49);
 			} else {
-				inv.setItem(new QuickItem(Material.REDSTONE_BLOCK).setName(ChatColor.RED + "Annuler le lancement").toItemStack(), onClick -> {
+				inv.setItem(new QuickItem(Material.STAINED_CLAY, 1, (byte)14).setName(ChatColor.RED + "Annuler le lancement").toItemStack(), onClick -> {
 					GameState.setCurrentState(GameState.LOBBY);
-				},40);
+				},49);
 			}
+			Modes modes = UhcHost.getInstance().getGamemanager().getModes();
+			inv.setItem(modes.getItem().toItemStack(), onClick -> {
+				if(onClick.getEvent().getCurrentItem().isSimilar(modes.getItem().toItemStack()) && modes.getMode() instanceof ModeConfig){
+					ModeConfig config = (ModeConfig) modes.getMode();
+					config.getGui().open(onClick.getPlayer());
+				} else {
+					onClick.getPlayer().sendMessage(Messages.error("Ce mode n'est pas configurable ou vous ne l'avez pas séléctionné !"));
+				}
+			},22);
 
-			inv.setItem(new QuickItem(Material.PAPER).setName(ChatColor.AQUA + "Modes de jeu").toItemStack(), onClick -> {
+			inv.setItem(new QuickItem(Material.WATCH).setName(ChatColor.GOLD + "Modes de jeu").toItemStack(), onClick -> {
 				new ModesGui().open(onClick.getPlayer());
-			},11);
-			inv.setItem(new QuickItem(Material.PAPER).setName(ChatColor.AQUA + "Règles").toItemStack(), onClick -> {
+			},4);
+			inv.setItem(new QuickItem(Material.HOPPER_MINECART).setName(ChatColor.GOLD + "Paramètres UHC").toItemStack(), onClick -> {
 				new RulesGuiHost().open(onClick.getPlayer());
-			},13);
-			inv.setItem(new QuickItem(Material.NAME_TAG).setName(ChatColor.AQUA + "Scenarios").toItemStack(), onClick -> {
+			},28);
+
+			inv.setItem(new QuickItem(Material.ITEM_FRAME).setName(ChatColor.GOLD + "Règles UHC").toItemStack(), onClick -> {
+				new RulesCategoriesGui().open(onClick.getPlayer());
+			},31);
+
+			inv.setItem(new QuickItem(Material.NAME_TAG).setName(ChatColor.GOLD + "Scenarios").toItemStack(), onClick -> {
 				new ScenariosGui().open(onClick.getPlayer());
-			},15);
-			inv.setItem(new QuickItem(Material.EMERALD).setName(ChatColor.WHITE + "Whitelist")
-								.setLore(ChatColor.GRAY + "Status: " + ChatColor.RED + "OFF").toItemStack(), onClick -> {
-				Bukkit.setWhitelist(!Bukkit.hasWhitelist());
-			},44);
-			if (Bukkit.hasWhitelist())
-				inv.setItem(new QuickItem(Material.REDSTONE).setName(ChatColor.WHITE + "Whitelist")
-										.setLore(ChatColor.GRAY + "Status: " + ChatColor.GREEN + "ON").toItemStack(), onClick -> {
-					Bukkit.setWhitelist(!Bukkit.hasWhitelist());
-				},44);
+			},34);
 
 
 			ItemsCreator ic =
@@ -102,14 +115,16 @@ public class HostConfig extends IQuickInventory {
 							Collections.singletonList(I18n.tl("guis.main.maxPlayersLore")));
 			inv.setItem(ic.createHead("MHF_Golem"), onClick -> {
 				new MaxPlayersGui().open(onClick.getPlayer());
-			},19);
-			inv.setItem(new QuickItem(Material.PAPER).setName(ChatColor.YELLOW + "Nom du serveur").toItemStack(), onClick -> {
+			},1);
+			inv.setItem(new QuickItem(Material.DIODE).setName(ChatColor.YELLOW + "Nom du serveur").toItemStack(), onClick -> {
 				new SetNameUHCGui(UhcHost.getInstance()).open(onClick.getPlayer());
-			},29);
-			inv.setItem(new ItemsCreator(Material.GRASS, "§eParamètre du monde",
-								Collections.singletonList(""), 1).create(), onClick -> {
+			},52);
+			inv.setItem(new QuickItem(Material.SKULL_ITEM, 1, SkullType.PLAYER.ordinal()).setTexture("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYzY5MTk2YjMzMGM2Yjg5NjJmMjNhZDU2MjdmYjZlY2NlNDcyZWFmNWM5ZDQ0Zjc5MWY2NzA5YzdkMGY0ZGVjZSJ9fX0=")
+					.setName("§6Paramètre du monde").toItemStack(), onClick -> {
 				new WorldGui().open(onClick.getPlayer());
-			},33);
+			},7);
+
+
 		});
 	}
 }

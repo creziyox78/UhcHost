@@ -1,9 +1,10 @@
 package fr.lastril.uhchost.scenario.scenarios;
 
+import fr.lastril.uhchost.UhcHost;
+import fr.lastril.uhchost.game.rules.world.BlocsRules;
 import fr.lastril.uhchost.scenario.Scenario;
 import fr.lastril.uhchost.tools.I18n;
 import org.bukkit.Material;
-import org.bukkit.entity.ExperienceOrb;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.entity.ItemSpawnEvent;
@@ -13,6 +14,8 @@ import java.util.Arrays;
 import java.util.List;
 
 public class CutClean extends Scenario {
+
+	private final BlocsRules blocsRules = UhcHost.getInstance().getGamemanager().getBlocsRules();
 
 	public CutClean() {
 		super("Cut Clean", Arrays.asList( I18n.tl("scenarios.cutclean.lore"), I18n.tl("scenarios.cutclean.lore1")), Material.IRON_INGOT);
@@ -26,19 +29,22 @@ public class CutClean extends Scenario {
 			return;
 		ItemStack replace = null;
 		switch (is.getType()) {
-			
-		case IRON_ORE:
-			ExperienceOrb orb = event.getEntity().getLocation().getWorld().spawn(event.getEntity().getLocation().add(0.5, 0.5, 0.5), ExperienceOrb.class);
-			orb.setExperience(2);
-			replace = new ItemStack(Material.IRON_INGOT);
-			break;
-		case GOLD_ORE:
-			ExperienceOrb orb1 = event.getEntity().getLocation().getWorld().spawn(event.getEntity().getLocation().add(0.5, 0.5, 0.5), ExperienceOrb.class);
-			orb1.setExperience(2);
-			replace = new ItemStack(Material.GOLD_INGOT);
-			break;
-		default:
-			break;
+			case QUARTZ_ORE:
+			case COAL_ORE:
+			case LAPIS_ORE:
+			case EMERALD_ORE:
+			case DIAMOND_ORE:
+			case REDSTONE_ORE:
+				blocsRules.dropXP(event.getLocation(), blocsRules.getBoostXP());
+				break;
+			case IRON_ORE:
+				blocsRules.dropXP(event.getLocation(), blocsRules.getBoostXP());
+				replace = new ItemStack(Material.IRON_INGOT);
+				break;
+			case GOLD_ORE:
+				blocsRules.dropXP(event.getLocation(), blocsRules.getBoostXP());
+				replace = new ItemStack(Material.GOLD_INGOT);
+				break;
 		}
 		if (replace != null)
 			event.getEntity().setItemStack(replace);
@@ -55,22 +61,27 @@ public class CutClean extends Scenario {
 			case RAW_BEEF:
 				loots.remove(i);
 				loots.add(new ItemStack(Material.COOKED_BEEF));
+				blocsRules.dropXP(event.getEntity().getLocation(), blocsRules.getBoostXP());
 				break;
 			case PORK:
 				loots.remove(i);
 				loots.add(new ItemStack(Material.GRILLED_PORK));
+				blocsRules.dropXP(event.getEntity().getLocation(), blocsRules.getBoostXP());
 				break;
 			case RAW_CHICKEN:
 				loots.remove(i);
 				loots.add(new ItemStack(Material.COOKED_CHICKEN));
+				blocsRules.dropXP(event.getEntity().getLocation(), blocsRules.getBoostXP());
 				break;
 			case MUTTON:
 				loots.remove(i);
 				loots.add(new ItemStack(Material.COOKED_MUTTON));
+				blocsRules.dropXP(event.getEntity().getLocation(), blocsRules.getBoostXP());
 				break;
 			case RABBIT:
 				loots.remove(i);
 				loots.add(new ItemStack(Material.COOKED_RABBIT));
+				blocsRules.dropXP(event.getEntity().getLocation(), blocsRules.getBoostXP());
 				break;
 			default:
 				break;

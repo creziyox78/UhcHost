@@ -1,4 +1,4 @@
-package fr.lastril.uhchost.game;
+package fr.lastril.uhchost.game.rules.world;
 
 import fr.lastril.uhchost.UhcHost;
 import org.bukkit.Bukkit;
@@ -27,6 +27,7 @@ public class LootsRules implements Listener{
         lootsRules.put(Material.FLINT, 0);
         lootsRules.put(Material.FEATHER, 0);
         lootsRules.put(Material.STRING, 0);
+        lootsRules.put(Material.ENDER_PEARL, 0);
     }
 
     public LootsRules() {
@@ -60,9 +61,12 @@ public class LootsRules implements Listener{
         switch (entity) {
             case SPIDER:
             case CAVE_SPIDER:
-                if ((new Random()).nextInt(100) + 1 <= getLoot(Material.STRING))
+                if (UhcHost.getRANDOM().nextInt(100) + 1 <= getLoot(Material.STRING))
                     loots.add(new ItemStack(Material.STRING));
                 break;
+            case ENDERMAN:
+                if (UhcHost.getRANDOM().nextInt(100) + 1 <= getLoot(Material.ENDER_PEARL))
+                    loots.add(new ItemStack(Material.ENDER_PEARL));
         }
     }
 

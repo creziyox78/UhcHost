@@ -1,7 +1,6 @@
 package fr.lastril.uhchost.tools.API.inventory.crafter;
 
 import fr.lastril.uhchost.UhcHost;
-import fr.lastril.uhchost.enums.HeadTextures;
 import fr.lastril.uhchost.tools.API.items.crafter.QuickItem;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -60,7 +59,7 @@ public class QuickInventory {
     }
 
     public void addRetourItem(IQuickInventory inv, int slot) {
-        setItem(new QuickItem(Material.SKULL_ITEM, 1, (byte) 3).setName(inv == null ? "§cQuitter" : "§cRetour").setTexture(HeadTextures.RETOUR).toItemStack(), onClick -> {
+        setItem(new QuickItem(Material.BARRIER).setName(inv == null ? "§cQuitter" : "§cRetour").toItemStack(), onClick -> {
             if(inv != null)
                 inv.open(onClick.getPlayer());
             else

@@ -28,7 +28,7 @@ public class CmdHost2 implements CommandExecutor {
 		if (sender instanceof Player) {
 			Player player = (Player) sender;
 			GameManager gameManager = UhcHost.getInstance().getGamemanager();
-			if (gameManager.getHostname() != player.getName() && !gameManager.isCoHost(player)) {
+			if (!gameManager.getHostname().equalsIgnoreCase(player.getName()) && !gameManager.isCoHost(player)) {
 				ActionBar.sendMessage(player, "§cTu n'es pas host de la partie !");
 				return false;
 			}
@@ -64,7 +64,7 @@ public class CmdHost2 implements CommandExecutor {
 					if(args.length == 2){
 						String targetName = args[1];
 						Player target = Bukkit.getPlayer(targetName);
-						if(target != null){
+						if(target != null && pl.getGamemanager().getHost() != target){
 							pl.gameManager.addCoHost(target);
 							NotStart.PreHosting(target);
 							player.sendMessage("§a" + targetName + " a bien été ajouté des co-host.");

@@ -3,6 +3,7 @@ package fr.lastril.uhchost.inventory.guis.modes.lg;
 import fr.lastril.uhchost.UhcHost;
 import fr.lastril.uhchost.modes.ModeConfig;
 import fr.lastril.uhchost.modes.lg.LoupGarouMode;
+import fr.lastril.uhchost.tools.API.FormatTime;
 import fr.lastril.uhchost.tools.API.inventory.crafter.IQuickInventory;
 import fr.lastril.uhchost.tools.API.inventory.crafter.QuickInventory;
 import fr.lastril.uhchost.tools.API.items.BannerCreator;
@@ -58,7 +59,7 @@ public class RolesTimeGui extends IQuickInventory {
 
 
             ic = new ItemsCreator(Material.PAPER,
-                    "§e" + UhcHost.getInstance().gameManager.episodeEvery / 60,
+                    "§e" + new FormatTime(loupGarouMode.getRoleAnnouncement()).toFormatString(),
                     Arrays.asList(I18n.tl("guis.lg.rolestime.lore"), I18n.tl("guis.lg.rolestime.lore1")));
             inv.setItem(ic.create(), onClick-> {
                 if(UhcHost.getInstance().gameManager.getModes().getMode() instanceof ModeConfig){

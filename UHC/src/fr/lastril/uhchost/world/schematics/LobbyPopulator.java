@@ -16,8 +16,7 @@ import java.util.ArrayList;
 
 public class LobbyPopulator {
 	
-	
-	@SuppressWarnings("deprecation")
+
 	public static ArrayList<Block> generate(Location loc, String filename) {
 		ArrayList<Block> chestList = new ArrayList<>();
 		try {
@@ -26,9 +25,9 @@ public class LobbyPopulator {
 					.invoke(null, fis);
 			Method getShort = nbtData.getClass().getMethod("getShort", String.class);
 			Method getByteArray = nbtData.getClass().getMethod("getByteArray", String.class);
-			short width = ((Short) getShort.invoke(nbtData, new Object[] { "Width" })).shortValue();
-			short height = ((Short) getShort.invoke(nbtData, new Object[] { "Height" })).shortValue();
-			short length = ((Short) getShort.invoke(nbtData, new Object[] { "Length" })).shortValue();
+			short width = (short) getShort.invoke(nbtData, new Object[]{"Width"});
+			short height = (short) getShort.invoke(nbtData, new Object[]{"Height"});
+			short length = (short) getShort.invoke(nbtData, new Object[]{"Length"});
 			byte[] blocks = (byte[]) getByteArray.invoke(nbtData, new Object[] { "Blocks" });
 			byte[] data = (byte[]) getByteArray.invoke(nbtData, new Object[] { "Data" });
 			loc.add(0.0D, -1.0D, 0.0D);
@@ -39,7 +38,7 @@ public class LobbyPopulator {
 						int index = y * width * length + z * width + x;
 						int b = blocks[index] & 0xFF;
 						Material m = Material.getMaterial(b);
-						if (m != Material.AIR) {
+						if (m != Material.AIR && m != null) {
 							Block block = (new Location(loc.getWorld(), (loc.getBlockX() - width / 2 + x),
 									(loc.getBlockY() - 10 + y), (loc.getBlockZ() - length / 2 + z))).getBlock();
 							block.setType(m, true);

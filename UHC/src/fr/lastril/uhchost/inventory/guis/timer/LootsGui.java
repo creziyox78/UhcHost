@@ -1,6 +1,6 @@
 package fr.lastril.uhchost.inventory.guis.timer;
 
-import fr.lastril.uhchost.game.LootsRules;
+import fr.lastril.uhchost.game.rules.world.LootsRules;
 import fr.lastril.uhchost.inventory.guis.loots.AppleLootGui;
 import fr.lastril.uhchost.inventory.guis.loots.FeatherLootGui;
 import fr.lastril.uhchost.inventory.guis.loots.FlintLootGui;

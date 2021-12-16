@@ -71,7 +71,7 @@ public class LoupGarouGui extends IQuickInventory {
             },16);
 
             inv.setItem(new QuickItem(Material.WATCH).setName(I18n.tl("guis.lg.main.rolestime"))
-                    .setLore(new FormatTime(lgMode.getRoleAnnouncement()).toFormatString())
+                    .setLore("§b" + new FormatTime(lgMode.getRoleAnnouncement()).toFormatString())
                     .toItemStack(), onClick -> {
                 new RolesTimeGui(lgMode).open(onClick.getPlayer());
             }, 19);

@@ -12,7 +12,6 @@ import fr.lastril.uhchost.tools.API.items.crafter.QuickItem;
 import fr.lastril.uhchost.tools.I18n;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
-import org.bukkit.event.inventory.ClickType;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.Collections;
@@ -43,19 +42,10 @@ public class ModesGui extends IQuickInventory {
             }
             ItemStack is = quickItem.toItemStack();
             inv.setItem(is, onClick ->{
-                if(onClick.getClickType() == ClickType.LEFT){
-                    if(is.isSimilar(mode.getItem().toItemStack()) && mode.isAvailable()){
-                        pl.gameManager.setModes(mode);
-                    } else {
-                        onClick.getPlayer().sendMessage(Messages.PREFIX_WITH_SEPARATION.getMessage() + "§cCe mode de jeu n'est pas encore disponible !");
-                    }
-                } else if(onClick.getClickType() == ClickType.RIGHT){
-                    if(is.isSimilar(mode.getItem().toItemStack()) && mode.getMode() instanceof ModeConfig && pl.gameManager.getModes() == mode){
-                        ModeConfig config = (ModeConfig) mode.getMode();
-                        config.getGui().open(onClick.getPlayer());
-                    } else {
-                        onClick.getPlayer().sendMessage(Messages.error("Ce mode n'est pas configurable ou vous ne l'avez pas séléctionné !"));
-                    }
+                if(is.isSimilar(mode.getItem().toItemStack()) && mode.isAvailable()){
+                    pl.gameManager.setModes(mode);
+                } else {
+                    onClick.getPlayer().sendMessage(Messages.PREFIX_WITH_SEPARATION.getMessage() + "§cCe mode de jeu n'est pas encore disponible !");
                 }
             },index);
         }

@@ -3,6 +3,9 @@ package fr.lastril.uhchost.game;
 import fr.lastril.uhchost.UhcHost;
 import fr.lastril.uhchost.enums.BiomeState;
 import fr.lastril.uhchost.enums.WorldState;
+import fr.lastril.uhchost.game.rules.EnchantmentRules;
+import fr.lastril.uhchost.game.rules.StuffRules;
+import fr.lastril.uhchost.game.rules.world.BlocsRules;
 import fr.lastril.uhchost.inventory.CustomInv;
 import fr.lastril.uhchost.modes.Modes;
 import fr.lastril.uhchost.modes.roles.Role;
@@ -78,7 +81,6 @@ public class GameManager {
 
 	private WorldState worldState;
 
-	//private double cycleTime = 10*60;
 	private double cycleTime = 2*60;
 
 	private String hostName;
@@ -104,6 +106,12 @@ public class GameManager {
 	private Map<UUID, Location> teleportations;
 
 	//private boolean fightTeleport;
+
+	private final BlocsRules blocsRules;
+
+	private final EnchantmentRules enchantmentRules;
+
+	private final StuffRules stuffRules;
 
 	private boolean viewHealth;
 	private final List<String> composition;
@@ -163,8 +171,11 @@ public class GameManager {
 		this.validateWorld = false;
 		this.biomeState = BiomeState.ROOFED_FOREST;
 		this.lastDamager = new HashMap<>();
-		this.spawn = new Location(Bukkit.getWorld(pl.getConfig().getString("world_lobby")), 200, 200, 200);
+		this.spawn = new Location(Bukkit.getWorld(pl.getConfig().getString("world_lobby")), 200, 100, 200);
 		this.modes = Modes.CLASSIC;
+		this.blocsRules = new BlocsRules(pl);
+		this.enchantmentRules = new EnchantmentRules();
+		this.stuffRules = new StuffRules();
 	}
 
 	public void addScenario(Scenario scenario) {
@@ -700,5 +711,17 @@ public class GameManager {
 
 	public void rappelGroupes(Player player) {
 		TitleAPI.sendTitle(player, 10, 20 * 2, 20, "§c§lGroupes", "§6" + groupes);
+	}
+
+	public BlocsRules getBlocsRules() {
+		return blocsRules;
+	}
+
+	public StuffRules getStuffRules() {
+		return stuffRules;
+	}
+
+	public EnchantmentRules getEnchantmentRules() {
+		return enchantmentRules;
 	}
 }

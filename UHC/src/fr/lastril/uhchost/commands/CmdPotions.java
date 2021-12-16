@@ -1,7 +1,7 @@
 package fr.lastril.uhchost.commands;
 
 import fr.lastril.uhchost.UhcHost;
-import fr.lastril.uhchost.inventory.guis.rules.RulesPotionsGui;
+import fr.lastril.uhchost.inventory.guis.rules.see.items.RulesPotionsGui;
 import fr.lastril.uhchost.tools.I18n;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
