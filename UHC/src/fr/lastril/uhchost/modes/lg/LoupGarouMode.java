@@ -231,7 +231,11 @@ public class LoupGarouMode extends Mode implements ModeCommand, RoleMode<LGRole>
 
     @Override
     public void onNight() {
+        Bukkit.broadcastMessage("");
+        Bukkit.broadcastMessage("§9La nuit vient de tomber.");
+        Bukkit.broadcastMessage("");
         loupGarouManager.setLgChatTime(true);
+
         pl.getPlayerManagerOnlines().forEach(playerManager -> {
             if(playerManager.hasRole() && playerManager.isAlive()){
                 if(playerManager.getRole() instanceof LGChatRole){
@@ -253,7 +257,9 @@ public class LoupGarouMode extends Mode implements ModeCommand, RoleMode<LGRole>
 
     @Override
     public void onDay() {
-
+        Bukkit.broadcastMessage("");
+        Bukkit.broadcastMessage("§eLe jour vient de se lever.");
+        Bukkit.broadcastMessage("");
     }
 
     public void win(Camps winner) {

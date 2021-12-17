@@ -85,7 +85,7 @@ public class EnchantmentRulesGui extends IQuickInventory {
 
             },4);
 
-            inv.setItem(new QuickItem(Material.DIAMOND_SWORD).setName("§fSharpness Fer: " + enchantmentRules.getIronSharpnessLimit())
+            inv.setItem(new QuickItem(Material.IRON_SWORD).setName("§fSharpness Fer: " + enchantmentRules.getIronSharpnessLimit())
                     .setLore("",
                             "§aClique gauche: +1",
                             "§aClique droit: -1")
@@ -98,7 +98,7 @@ public class EnchantmentRulesGui extends IQuickInventory {
 
             },5);
 
-            inv.setItem(new QuickItem(Material.DIAMOND_SWORD).setName("§fKnockback: " + enchantmentRules.getKnockbackLimit())
+            inv.setItem(new QuickItem(Material.STICK).setName("§fKnockback: " + enchantmentRules.getKnockbackLimit())
                     .setLore("",
                             "§aClique gauche: +1",
                             "§aClique droit: -1")
@@ -111,7 +111,7 @@ public class EnchantmentRulesGui extends IQuickInventory {
 
             },6);
 
-            inv.setItem(new QuickItem(Material.DIAMOND_SWORD).setName("§§fFire Aspect: " + (enchantmentRules.isAutorisedFireAspect() ? "§aActivé" : "§cDésactivé"))
+            inv.setItem(new QuickItem(Material.LAVA_BUCKET).setName("§fFire Aspect: " + (enchantmentRules.isAutorisedFireAspect() ? "§aActivé" : "§cDésactivé"))
                     .setLore("")
                     .toItemStack(), onClick -> {
                 enchantmentRules.setAutorisedFireAspect(!enchantmentRules.isAutorisedFireAspect());
@@ -130,19 +130,19 @@ public class EnchantmentRulesGui extends IQuickInventory {
 
             },8);
 
-            inv.setItem(new QuickItem(Material.DIAMOND_SWORD).setName("§fFlame: " + (enchantmentRules.isAutorisedFlame() ? "§aActivé" : "§cDésactivé"))
+            inv.setItem(new QuickItem(Material.BLAZE_ROD).setName("§fFlame: " + (enchantmentRules.isAutorisedFlame() ? "§aActivé" : "§cDésactivé"))
                     .setLore("")
                     .toItemStack(), onClick -> {
                 enchantmentRules.setAutorisedFlame(!enchantmentRules.isAutorisedFlame());
             },9);
 
-            inv.setItem(new QuickItem(Material.DIAMOND_SWORD).setName("§fInfinity: " + (enchantmentRules.isAutorisedInfinity() ? "§aActivé" : "§cDésactivé"))
+            inv.setItem(new QuickItem(Material.ARROW).setName("§fInfinity: " + (enchantmentRules.isAutorisedInfinity() ? "§aActivé" : "§cDésactivé"))
                     .setLore("")
                     .toItemStack(), onClick -> {
                 enchantmentRules.setAutorisedInfinity(!enchantmentRules.isAutorisedInfinity());
             },10);
 
-            inv.setItem(new QuickItem(Material.BOW).setName("§fPunch: " + enchantmentRules.getMaxPunch())
+            inv.setItem(new QuickItem(Material.FIREBALL).setName("§fPunch: " + enchantmentRules.getMaxPunch())
                     .setLore("",
                             "§aClique gauche: +1",
                             "§aClique droit: -1")

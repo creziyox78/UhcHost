@@ -73,10 +73,14 @@ guis:
   finalBorderSize:
     name: "&5Taille finale"
     lore: "&7Choisis la taille finale de la bordure"
-    lore1: "&7Tu choisis la longeur de la bordure donc"
-    lore2: "&7si tu mets 1000 tu auras une map de 1000x1000"
+    lore1: "&7Tu choisis la longueur de la bordure donc"
+    lore2: "&7si tu mets 1000 tu auras une map de 500x500"
   rules:
-    name: "&bSc[,]narios"
+    name: "&bRègles UHC"
+  rulesscenarios:
+    name: "&bSc[,]narios activés"
+  rulespotions:
+    name: "&bPotions activés"
   potions:
     name: "&5Potions"
     notchAppleOn: "&5Pomme de notch : &aOn"

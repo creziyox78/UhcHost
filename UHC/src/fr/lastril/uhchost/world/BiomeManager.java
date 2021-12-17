@@ -27,6 +27,7 @@ public class BiomeManager {
 				biomes[BiomeBase.ICE_MOUNTAINS.id] = BiomeBase.ROOFED_FOREST;
 				biomes[BiomeBase.ICE_MOUNTAINS.id] = BiomeBase.ROOFED_FOREST;
 				biomes[BiomeBase.SWAMPLAND.id] = BiomeBase.PLAINS;
+				biomes[BiomeBase.RIVER.id] = BiomeBase.PLAINS;
 				biomesField.set(null, biomes);
 			}
 		} catch (IllegalArgumentException | IllegalAccessException | NoSuchFieldException | SecurityException e) {}

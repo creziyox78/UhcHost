@@ -1,7 +1,6 @@
 package fr.lastril.uhchost.inventory.guis.rules.see;
 
 import fr.lastril.uhchost.UhcHost;
-import fr.lastril.uhchost.inventory.guis.rules.see.RulesGui;
 import fr.lastril.uhchost.scenario.Scenario;
 import fr.lastril.uhchost.tools.API.inventory.crafter.IQuickInventory;
 import fr.lastril.uhchost.tools.API.inventory.crafter.QuickInventory;
@@ -13,7 +12,7 @@ import java.util.Collections;
 
 public class RulesScenariosGui extends IQuickInventory {
     public RulesScenariosGui() {
-        super(I18n.tl("guis.rules.name"), 54);
+        super(I18n.tl("guis.rulesscenarios.name"), 54);
 
     }
 

@@ -9,13 +9,13 @@ import org.bukkit.SkullType;
 
 public enum Modes {
 
-    CLASSIC("§fClassique", "", new ClassicMode(), new QuickItem(Material.IRON_SWORD).setName("§fClassique")
+    CLASSIC("§fClassique", new ClassicMode(), new QuickItem(Material.IRON_SWORD).setName("§fClassique")
             .setLore("",
                     "§7Equipez-vous et soyez le dernier joueur",
                     "§7en vie dans ce mode de jeu en difficulté",
                     "§7ultra-hardcore.",
                     ""), true),
-    LG("§cLoup-Garou", "", new LoupGarouMode(),
+    LG("§cLoup-Garou", new LoupGarouMode(),
             new QuickItem(Material.SKULL_ITEM, 1, SkullType.PLAYER.ordinal())
                     .setTexture("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMzY4ZDQzMTI5MzliYjMxMTFmYWUyOGQ2NWQ5YTMxZTc3N2Y4ZjJjOWZjNDI3NTAxY2RhOGZmZTNiMzY3NjU4In19fQ==")
                     .setLore("",
@@ -28,22 +28,7 @@ public enum Modes {
                             "",
                             "§6§k!§r §eClique droit§7 pour configurer le mode de jeu.")
                     .setName("§cLoup-Garou"), true),
-    /*NARUTO_V2("§6Naruto", "", null,
-            new QuickItem(Material.SKULL_ITEM, 1, SkullType.PLAYER.ordinal()).setTexture(
-                    "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYmFmOTFlOGViY2ZmNThlNzZmNTk3OWJjNjZmMzc3MzZjZjIxNmQ0ZGQzZjQwYWMxMzVkMGIxMDAwM2FjYWJkYiJ9fX0=")
-                    .setLore("",
-                            "§7Auteur:§b SteLeague",
-                            "§8Version : V2",
-                            "",
-                            "§7Participez à la 4ème grande guerre",
-                            "§7ninja en défendant le monde de§c l'Akatsuki",
-                            "§7ainsi que§5 d'Orochimaru et de ses aliés§7.",
-                            "§7Empêchez la renaissance de§d Jûbi§7 ou",
-                            "§7devenez le précurseur de l'Apocalypse.",
-                            "",
-                            "§6§k!§r §eClique droit§7 pour configurer le mode de jeu.")
-                    .setName("§6Naruto")
-            , false),
+    /*
     DS("§6Demon Slayer", "", null,
             new QuickItem(Material.SKULL_ITEM, 1, SkullType.PLAYER.ordinal())
                     .setTexture("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZTA5MzIzMmFlYTQ5NjAwYjUwOTJmYzE4MmUwZDVjZTg5OTlmNzgwNDVkZDdiZGEyM2M2NWNjYTZmY2Y1Y2Y2MCJ9fX0=")
@@ -87,7 +72,24 @@ public enum Modes {
                             "§6§k!§r §eClique droit§7 pour configurer le mode de jeu.")
                     .setName("§fChainsaw Man"), false),
     */
-    BLEACH("§3Bleach", "", new BleachMode(),
+    NARUTO_V2("§6Naruto", null,
+            new QuickItem(Material.SKULL_ITEM, 1, SkullType.PLAYER.ordinal()).setTexture(
+                    "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYmFmOTFlOGViY2ZmNThlNzZmNTk3OWJjNjZmMzc3MzZjZjIxNmQ0ZGQzZjQwYWMxMzVkMGIxMDAwM2FjYWJkYiJ9fX0=")
+                    .setLore("",
+                            "§7Auteur:§b SteLeague",
+                            "§8Version : V2",
+                            "",
+                            "§7Participez à la 4ème grande guerre",
+                            "§7ninja en défendant le monde de§c l'Akatsuki",
+                            "§7ainsi que§5 d'Orochimaru et de ses aliés§7.",
+                            "§7Empêchez la renaissance de§d Jûbi§7 ou",
+                            "§7devenez le précurseur de l'Apocalypse.",
+                            "",
+                            "§6§k!§r §eClique droit§7 pour configurer le mode de jeu.")
+                    .setName("§6Naruto")
+            , false),
+
+    BLEACH("§3Bleach", new BleachMode(),
             new QuickItem(Material.SKULL_ITEM, 1, SkullType.PLAYER.ordinal())
                     .setTexture("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZDUzYjRmZjMyZTRkOTEyYWQ1ODk1YjZjMzdhMzUyZjYxYWY5ZTQxZDI0N2E4NzliNWY0OWE2MzUyZmM4NiJ9fX0=")
                     .setLore("",
@@ -103,21 +105,33 @@ public enum Modes {
                     .setName("§3Bleach"), false),
 
 
-    SOON_1("§cBientôt", "", null,
+    YUGIOH("§eYu-Gi-Oh", null,
+            new QuickItem(Material.SKULL_ITEM, 1, SkullType.PLAYER.ordinal())
+                    .setTexture("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZDUzYjRmZjMyZTRkOTEyYWQ1ODk1YjZjMzdhMzUyZjYxYWY5ZTQxZDI0N2E4NzliNWY0OWE2MzUyZmM4NiJ9fX0=")
+                    .setLore("",
+                            "§7Auteur:§b ",
+                            "§8Version : V1",
+                            "",
+                            "§7",
+                            "",
+                            "§6§k!§r §eClique droit§7 pour configurer le mode de jeu.")
+                    .setName("§3Yu-Gi-Oh"), false),
+
+
+    SOON_1("§cBientôt", null,
             new QuickItem(Material.SKULL_ITEM, 1, SkullType.PLAYER.ordinal())
                     .setTexture("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNDZiYTYzMzQ0ZjQ5ZGQxYzRmNTQ4OGU5MjZiZjNkOWUyYjI5OTE2YTZjNTBkNjEwYmI0MGE1MjczZGM4YzgyIn19fQ==")
                     .setLore("")
                     .setName("§cSoon"), false);
 
 
-    private final String name, headHash;
+    private final String name;
     private final Mode mode;
     private final QuickItem item;
     private final boolean available;
 
-    Modes(String name, String headHash, Mode mode, QuickItem item, boolean available) {
+    Modes(String name, Mode mode, QuickItem item, boolean available) {
         this.name = name;
-        this.headHash = headHash;
         this.mode = mode;
         this.item = item;
         this.available = available;
@@ -125,10 +139,6 @@ public enum Modes {
 
     public String getName() {
         return name;
-    }
-
-    public String getHeadHash() {
-        return headHash;
     }
 
     public Mode getMode() {

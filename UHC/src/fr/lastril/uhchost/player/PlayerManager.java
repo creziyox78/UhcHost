@@ -748,4 +748,9 @@ public class PlayerManager {
     public boolean isModerator(){
 		return getPlayer().isOp();
 	}
+
+	public void addKill(UUID killed) {
+		kills.add(killed);
+		UhcHost.debug("added kill to " + playerName +". Amount Kills: " + kills.size());
+	}
 }

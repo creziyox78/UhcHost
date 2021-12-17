@@ -4,13 +4,13 @@ import fr.lastril.uhchost.UhcHost;
 import fr.lastril.uhchost.modes.Mode;
 import fr.lastril.uhchost.modes.ModeManager;
 import fr.lastril.uhchost.modes.Modes;
+import fr.lastril.uhchost.player.PlayerManager;
 import fr.lastril.uhchost.scenario.Scenarios;
 import fr.lastril.uhchost.tools.API.BungeeAPI;
 import fr.lastril.uhchost.tools.I18n;
-import org.bukkit.Bukkit;
-import org.bukkit.Effect;
-import org.bukkit.Location;
+import org.bukkit.*;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scoreboard.Team;
 
@@ -50,7 +50,34 @@ public class ClassicMode extends Mode {
 
     @Override
     public void onDeath(Player player, Player killer) {
+        Location deathLocation = player.getLocation().clone();
+        kill(player, player.getInventory().getContents(), player.getInventory().getArmorContents(), killer, deathLocation);
+    }
 
+    public void kill(OfflinePlayer player, ItemStack[] items, ItemStack[] armors, Player killer,
+                     Location deathLocation) {
+        PlayerManager playerManager = pl.getPlayerManager(player.getUniqueId());
+        playerManager.setAlive(false);
+
+
+        /* DROPING INVENTORY */
+        System.out.println("Droping inventory !");
+        pl.getInventoryUtils().dropInventory(deathLocation, items, armors);
+
+        System.out.println("Set spectator !");
+        if (playerManager.getPlayer() != null) {
+            Player onlinePlayer = playerManager.getPlayer();
+            onlinePlayer.setGameMode(GameMode.SPECTATOR);
+            onlinePlayer.getInventory().clear();
+        }
+
+
+        System.out.println("On Kill Role !");
+        if(killer != null){
+            PlayerManager playerManagerKiller = pl.getPlayerManager(killer.getUniqueId());
+            playerManagerKiller.addKill(player.getUniqueId());
+        }
+        checkWin();
     }
 
     @Override
@@ -80,6 +107,8 @@ public class ClassicMode extends Mode {
         } else if (this.pl.getPlayerManagerAlives().size() == 1) {
             Player winner = this.pl.getPlayerManagerAlives().get(0).getPlayer();
             win(winner);
+        } else {
+
         }
     }
 
@@ -101,9 +130,17 @@ public class ClassicMode extends Mode {
     public void win(Player winner) {
         this.pl.gameManager.setDamage(false);
         Bukkit.broadcastMessage(I18n.tl("endGame"));
-        Bukkit.broadcastMessage(I18n.tl("winOfPlayer", winner.getName()));
+        if(winner != null){
+            Bukkit.broadcastMessage(I18n.tl("winOfPlayer", winner.getName()));
+            doParticle(winner.getLocation(), Effect.HEART, 4.0D, 10.0D, 0.5D, 1.0D, 1000.0D, 20D, 100.0D, 1.0D);
+        } else {
+            Bukkit.broadcastMessage("§7Egalité");
+        }
+
+
+
         Bukkit.broadcastMessage(I18n.tl("rebootSoon"));
-        doParticle(winner.getLocation(), Effect.HEART, 4.0D, 10.0D, 0.5D, 1.0D, 1000.0D, 0.1D, 1.0D, 1.0D);
+
         Bukkit.getScheduler().runTaskLater(this.pl, () -> {
             if (this.pl.getConfig().getBoolean("bungeecord")) {
                 if (this.pl.getConfig().getString("server-redirection") != null && !this.pl

@@ -122,7 +122,7 @@ public class TaskManager {
 			public void run() {
 				if (TaskManager.this.count == 15 || (TaskManager.this.count <= 10 && TaskManager.this.count != 0)) {
 					for (Player player : Bukkit.getOnlinePlayers()) {
-						TitleAPI.sendTitle(player, Integer.valueOf(5), Integer.valueOf(20), Integer.valueOf(5),
+						TitleAPI.sendTitle(player, 5, 20, 5,
 								"§b" + TaskManager.this.count, "");
 						player.playSound(player.getLocation(), Sound.NOTE_PLING, 1.0F, 1.0F);
 					}
@@ -180,9 +180,7 @@ public class TaskManager {
 								}
 							}
 						}
-						Bukkit.broadcastMessage("");
-						Bukkit.broadcastMessage("§9La nuit vient de tomber.");
-						Bukkit.broadcastMessage("");
+
 					}
 				} else {
 					if (pl.getGamemanager().getWorldState() == WorldState.NIGHT) {
@@ -198,9 +196,7 @@ public class TaskManager {
 								}
 							}
 						}
-						Bukkit.broadcastMessage("");
-						Bukkit.broadcastMessage("§eLe jour vient de se lever.");
-						Bukkit.broadcastMessage("");
+
 					}
 				}
 				TaskManager.this.count++;

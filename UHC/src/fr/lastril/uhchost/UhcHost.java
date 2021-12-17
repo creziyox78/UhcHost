@@ -85,7 +85,11 @@ public class UhcHost extends JavaPlugin {
 		return instance;
 	}
 
-	public void onEnable() {
+    public static void debug(String log) {
+		Bukkit.getConsoleSender().sendMessage(log);
+    }
+
+    public void onEnable() {
 		instance = this;
 		saveDefaultConfig();
 		if (getConfig().getBoolean("bungeecord")) {

@@ -257,12 +257,14 @@ public class LoupGarouManager extends ModeManager implements Listener {
             onlinePlayer.getInventory().clear();
         }
 
+
         System.out.println("On Kill Role !");
         if(killer != null){
             PlayerManager playerManagerKiller = main.getPlayerManager(killer.getUniqueId());
             if(playerManagerKiller.hasRole()){
                 playerManagerKiller.getRole().onKill(player, killer);
             }
+            playerManagerKiller.addKill(player.getUniqueId());
         }
 
 

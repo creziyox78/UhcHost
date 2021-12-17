@@ -1,6 +1,7 @@
 package fr.lastril.uhchost.player.events.normal;
 
 import fr.lastril.uhchost.UhcHost;
+import fr.lastril.uhchost.player.PlayerManager;
 import org.bukkit.entity.Arrow;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -39,30 +40,36 @@ public class Damage implements Listener {
 			}*/
 		}
 		if(event.getEntity() instanceof Player && event.getDamager() instanceof Player){
+			Player damager = (Player) event.getDamager();
 			Player player = (Player) event.getEntity();
-			if(pl.getPlayerManager(player.getUniqueId()).hasRole()){
-				pl.getPlayerManager(player.getUniqueId()).getRole().onDamage((Player) event.getDamager(), player);
+			PlayerManager playerManager = pl.getPlayerManager(player.getUniqueId());
+			PlayerManager damagerManager = pl.getPlayerManager(damager.getUniqueId());
+			UhcHost.debug("damage to " + player.getName() + " by " + damager.getName());
+			if(playerManager.hasRole()){
+				playerManager.getRole().onDamage(damager, player);
 			}
-		}
 
-		Player damager = (Player) event.getDamager();
-		double damages = event.getDamage();
+			double damages = event.getDamage();
 
-		if (damager.hasPotionEffect(PotionEffectType.INCREASE_DAMAGE)) {
-			for (PotionEffect effect : damager.getActivePotionEffects()) {
-				if (effect.getType().equals(PotionEffectType.INCREASE_DAMAGE)) {
-					double damagePercentage = (effect.getAmplifier() + 1) * 1.3D + 1.0D;
+			if (damager.hasPotionEffect(PotionEffectType.INCREASE_DAMAGE)) {
+				for (PotionEffect effect : damager.getActivePotionEffects()) {
+					if (effect.getType().equals(PotionEffectType.INCREASE_DAMAGE)) {
+						double damagePercentage = (effect.getAmplifier() + 1) * 1.3D + 1.0D;
 
-					if (event.getDamage() / damagePercentage <= 1.0D) {
-						damages = (effect.getAmplifier() + 1) * 3 + 1;
-					} else {
-						damages = (int) (event.getDamage() / damagePercentage) + (effect.getAmplifier() + 1) * 3;
+						if (event.getDamage() / damagePercentage <= 1.0D) {
+							damages = (effect.getAmplifier() + 1) * 3 + 1;
+						} else {
+							damages = (int) (event.getDamage() / damagePercentage) + (effect.getAmplifier() + 1) * 3;
+						}
+						break;
 					}
-					break;
 				}
 			}
+			event.setDamage(damages);
+			damagerManager.addDamages((int)event.getFinalDamage());
 		}
-		event.setDamage(damages);
+
+
 
 	}
 
