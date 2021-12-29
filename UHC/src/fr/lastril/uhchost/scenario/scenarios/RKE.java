@@ -21,7 +21,7 @@ public class RKE extends Scenario {
 
 	@EventHandler
 	public void onKill(PlayerKillEvent e) {
-		Player player = e.getPlayer();
+		Player player = e.getKiller();
 		setEffect(player);
 	}
 

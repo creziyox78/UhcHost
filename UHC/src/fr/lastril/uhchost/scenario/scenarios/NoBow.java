@@ -12,7 +12,7 @@ import java.util.Arrays;
 public class NoBow extends Scenario {
 
 	public NoBow() {
-		super("Bowless", Arrays.asList(I18n.tl("scenarios.nobow")), Material.BOW);
+		super("NoBow", Arrays.asList(I18n.tl("scenarios.nobow")), Material.BOW);
 	}
 
 	@EventHandler

@@ -200,6 +200,7 @@ public class TaskManager {
 					}
 				}
 				TaskManager.this.count++;
+				Bukkit.getOnlinePlayers().forEach(player -> pl.getPlayerManager(player.getUniqueId()).removeCooldowns());
 				TaskManager.timeGame = count;
 				TaskManager.this.pl.gameManager.getModes().getMode().tick(count);
 				if(TaskManager.this.pl.gameManager.getModes().getMode() instanceof RoleAnnounceMode){

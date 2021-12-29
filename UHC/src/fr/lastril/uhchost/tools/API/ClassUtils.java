@@ -3,6 +3,9 @@ package fr.lastril.uhchost.tools.API;
 import org.bukkit.Location;
 import org.bukkit.util.Vector;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class ClassUtils {
 
     public static String getDirectionOf(Location ploc, Location to) {
@@ -36,6 +39,17 @@ public class ClassUtils {
 			color = "§a";
 		}*/
         return arrows[((int) a / 45)];
+    }
+
+    public static List<Location> getCircle(Location center, double radius, int points){
+        List<Location> locs = new ArrayList<>();
+
+        for (int i = 0; i < points; i++) {
+            double angle = 2 * Math.PI * i / points;
+            Location point = center.clone().add(radius * Math.sin(angle), 0.0d, radius * Math.cos(angle));
+            locs.add(point);
+        }
+        return locs;
     }
 
 

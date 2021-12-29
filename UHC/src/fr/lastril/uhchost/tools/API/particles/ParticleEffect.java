@@ -41,8 +41,7 @@ public abstract class ParticleEffect {
 	}
 	
 	public static void playEffect(Player player, EnumParticle particle, Location loc, int r, int g, int b) {
-		PacketPlayOutWorldParticles packet = new PacketPlayOutWorldParticles(particle,
-				true, (float) loc.getX(), (float) loc.getY(), (float) loc.getZ(), r, g, b, 1.0F, 0);
+		PacketPlayOutWorldParticles packet = new PacketPlayOutWorldParticles(particle, true, (float) loc.getX(), (float) loc.getY(), (float) loc.getZ(), r, g, b, 1.0F, 0);
 		((CraftPlayer) player).getHandle().playerConnection.sendPacket(packet);
 	}
 

@@ -59,7 +59,8 @@ public class ClassicMode extends Mode {
         PlayerManager playerManager = pl.getPlayerManager(player.getUniqueId());
         playerManager.setAlive(false);
 
-
+        playerManager.setItems(playerManager.getPlayer().getInventory().getContents());
+        playerManager.setArmors(playerManager.getPlayer().getInventory().getArmorContents());
         /* DROPING INVENTORY */
         System.out.println("Droping inventory !");
         pl.getInventoryUtils().dropInventory(deathLocation, items, armors);

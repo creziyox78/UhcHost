@@ -136,6 +136,9 @@ guis:
   diamondless:
     name: "&bDiamondless"
     lore: "&7Choisis le nombre de diamants que donne un joueur +,+ sa mort"
+  diamondlimit:
+    name: "&bDiamondLimit"
+    lore: "&7Choisis le nombre de diamants minables par joueur."
   goldless:
     name: "&bGoldless"
     lore: "&7Choisis le nombre d#,#or que donne un joueur +,+ sa mort"  
@@ -259,6 +262,10 @@ scenarios:
     lore: "&7Le seul moyen d#,#obtenir"
     lore1: "&7des diamants est de tuer des joueurs."
     message: "&5(&6Diamondless&5)&6 Impossible de miner du diamant."
+  diamondlimit:
+    lore: "&7Le nombre de diamants"
+    lore1: "&7minable par joueur est limité."
+    message: "&9(&bDiamondLimit&9)&e Vous avez atteint votre limite de diamant."
   doubleores: "&7Deux fois plus de minerais dropp[,]s"
   fastmelting:
     lore: "&7Acc[,]l(,)re le temps de cuisson."
@@ -318,12 +325,6 @@ scenarios:
     message: "&5(&6Sky High&5)&6 Montez au-dessus de la couche 150 pour survivre !"
   superheroes:
     lore: "&7Tu re),(ois un effet de potion positif al[,]atoire au d[,]but de la partie"
-    lore1: "&7Strenght : 15%"
-    lore2: "&7Resistance 15%"
-    lore3: "&7Jump Boost : 21%"
-    lore4: "&7Regeneration : 7%"
-    lore5: "&7Speed : 21%"
-    lore6: "&7Fire Resistance : 21%"
     message: "&5(&6Super Heroes&5)&6 Tu gagnes l#,#effet {0}."
   swordless: "&7Impossible d#,#utiliser l#,#[,]p[,]e"
   timber:

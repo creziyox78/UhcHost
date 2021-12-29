@@ -21,10 +21,42 @@ public enum Camps {
     ZIZANIE(ChatColor.DARK_GREEN, "§3Voictoire du rôle solo zizané !"),
 
     /*
+     * BLEACH
+     */
+
+    /*
+     * NARUTO
+     */
+    SHINOBI(ChatColor.GREEN, "§aVictoire des Shinobis !"),
+    AKATSUKI(ChatColor.RED, "§cVictoire de l'Akatsuki !"),
+
+    OROCHIMARU(ChatColor.DARK_PURPLE,"§aVictoire des membres d'Orochimaru !"),
+
+    /*
+     * NARUTO V2
+     */
+    TAKA(ChatColor.GOLD,"§6Victoire de Taka !"),
+    JUBI(ChatColor.LIGHT_PURPLE, "§aVictoire de Jûbi !"),
+    DANZO(ChatColor.GRAY, "§aVictoire de Danzo !"),
+    GAARA(ChatColor.YELLOW, "§aVictoire de Gaara !"),
+
+    /*
+     * Naruto V2.5
+     */
+
+    ZABUZA_HAKU(ChatColor.AQUA, "§aVictoire de Haku et Zabuza !"),
+
+
+    SHINIGAMIS(ChatColor.BLUE, "§6Victoire des Shinigamis"),
+    ARRANCARS(ChatColor.RED, "§cVictoire des Accancars"),
+
+    /*
      * NONE
      */
     EGALITE(ChatColor.GRAY, "§7Personne n'a gagné la partie !"),
     ;
+
+
 
 
     private final ChatColor compoColor;

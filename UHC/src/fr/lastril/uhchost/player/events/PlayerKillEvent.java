@@ -7,15 +7,17 @@ import org.bukkit.event.HandlerList;
 
 public class PlayerKillEvent extends Event implements Cancellable {
 	private final Player player;
+	private final Player killer;
 
 	private static final HandlerList handlers = new HandlerList();
 
-	public PlayerKillEvent(Player player) {
+	public PlayerKillEvent(Player player, Player killer) {
 		this.player = player;
+		this.killer = killer;
 		setCancelled(false);
 	}
 
-	public Player getPlayer() {
+	public Player getDeadPlayer() {
 		return this.player;
 	}
 
@@ -24,6 +26,10 @@ public class PlayerKillEvent extends Event implements Cancellable {
 	}
 
 	public void setCancelled(boolean b) {
+	}
+
+	public Player getKiller() {
+		return killer;
 	}
 
 	public HandlerList getHandlers() {

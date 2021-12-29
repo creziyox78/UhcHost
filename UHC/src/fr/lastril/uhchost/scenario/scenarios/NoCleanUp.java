@@ -17,7 +17,7 @@ public class NoCleanUp extends Scenario {
 
 	@EventHandler
 	public void onKill(PlayerKillEvent e) {
-		Player player = e.getPlayer();
+		Player player = e.getKiller();
 		if(player.getHealth() > 12)
 			player.setHealth(player.getHealth() + (player.getMaxHealth() - player.getHealth()));
 		else

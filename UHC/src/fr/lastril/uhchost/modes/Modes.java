@@ -3,6 +3,7 @@ package fr.lastril.uhchost.modes;
 import fr.lastril.uhchost.modes.bleach.BleachMode;
 import fr.lastril.uhchost.modes.classic.ClassicMode;
 import fr.lastril.uhchost.modes.lg.LoupGarouMode;
+import fr.lastril.uhchost.modes.naruto.NarutoV2;
 import fr.lastril.uhchost.tools.API.items.crafter.QuickItem;
 import org.bukkit.Material;
 import org.bukkit.SkullType;
@@ -72,7 +73,7 @@ public enum Modes {
                             "§6§k!§r §eClique droit§7 pour configurer le mode de jeu.")
                     .setName("§fChainsaw Man"), false),
     */
-    NARUTO_V2("§6Naruto", null,
+    NARUTO_V2("§6Naruto", new NarutoV2(),
             new QuickItem(Material.SKULL_ITEM, 1, SkullType.PLAYER.ordinal()).setTexture(
                     "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYmFmOTFlOGViY2ZmNThlNzZmNTk3OWJjNjZmMzc3MzZjZjIxNmQ0ZGQzZjQwYWMxMzVkMGIxMDAwM2FjYWJkYiJ9fX0=")
                     .setLore("",
@@ -87,7 +88,7 @@ public enum Modes {
                             "",
                             "§6§k!§r §eClique droit§7 pour configurer le mode de jeu.")
                     .setName("§6Naruto")
-            , false),
+            , true),
 
     BLEACH("§3Bleach", new BleachMode(),
             new QuickItem(Material.SKULL_ITEM, 1, SkullType.PLAYER.ordinal())
@@ -102,17 +103,18 @@ public enum Modes {
                             "§7une bataille sans merci.",
                             "",
                             "§6§k!§r §eClique droit§7 pour configurer le mode de jeu.")
-                    .setName("§3Bleach"), false),
+                    .setName("§3Bleach"), true),
 
 
     YUGIOH("§eYu-Gi-Oh", null,
             new QuickItem(Material.SKULL_ITEM, 1, SkullType.PLAYER.ordinal())
-                    .setTexture("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZDUzYjRmZjMyZTRkOTEyYWQ1ODk1YjZjMzdhMzUyZjYxYWY5ZTQxZDI0N2E4NzliNWY0OWE2MzUyZmM4NiJ9fX0=")
+                    .setTexture("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZjc0Y2E5YThkNjMxNGNkZmU2ZDU2MTEyODlhZDZmNTNkNTJmMzZkMGU4MGExODAwOGNkN2EzZjMzNzZkOGJkOSJ9fX0=")
                     .setLore("",
-                            "§7Auteur:§b ",
+                            "§7Auteur:§b NewMew",
                             "§8Version : V1",
                             "",
-                            "§7",
+                            "§7Ouvrez des packs de cartes",
+                            "§7et rassemblez les parties d'Exodia.",
                             "",
                             "§6§k!§r §eClique droit§7 pour configurer le mode de jeu.")
                     .setName("§3Yu-Gi-Oh"), false),

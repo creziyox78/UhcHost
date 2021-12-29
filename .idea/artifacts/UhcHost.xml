@@ -1,6 +1,6 @@
 <component name="ArtifactManager">
   <artifact type="jar" name="UhcHost">
-    <output-path>$USER_HOME$/Desktop/Guillaume</output-path>
+    <output-path>$PROJECT_DIR$/../../Fichier Bureau/Guillaume</output-path>
     <root id="archive" name="UhcHost.jar">
       <element id="directory" name="META-INF">
         <element id="file-copy" path="$PROJECT_DIR$/UHC/META-INF/MANIFEST.MF" />

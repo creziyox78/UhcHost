@@ -2,6 +2,52 @@ fr:
   lastril:
     uhchost:
       modes:
+        naruto:
+          v2:
+            roles:
+              akatsuki:
+                Deidara:
+                  - ""
+                Hidan:
+                  - ""
+              jubi:
+                Obito:
+                  - ""
+              orochimaru:
+                Orochimaru:
+                  - ""
+              shinobi:
+                Naruto:
+                  - '&8&m--------------------------------------------------&r'
+                  - "&7Vous êtes&a {role}"
+                  - '&8&m--------------------------------------------------&r'
+              solo:
+                Gaara:
+                  - ""
+                Danzo:
+                  - ""
+              taka:
+                Sasuke:
+                  - ""
+              zabuza:
+                Zabuza:
+                  - ""
+                Haku:
+                  - ""
+
+        bleach:
+          roles:
+            soulsociety:
+              Yamamoto:
+                - '&8&m--------------------------------------------------&r'
+                - "&3Vous êtes&9 {role}&3, leader de la Soul Society, votre but est d’éliminer le camp des Arrancars et de gagner avec les Shinigamis."
+                - ""
+                - "&3Vous possédez l’effet Force I et Résistance au feu. Vous possédez les Livres Fire Aspect 2 et Flame 1 et vous ne prenez pas de dégâts de chute en tombant dans de la lave. "
+                - "&3"
+                - "&3Activable &6\"Ryujin Jakka\"&3: Vous envoyez une vague de flammes sur une distance de 20 blocs. La vague fait 10 blocs de large et 3 blocs de hauteur. Tous les ennemis atteints par la vague ne reçoivent plus d'absorption lorsqu'ils mangent une pomme en or pendant 10 secondes. Ils sont également en feu pendant 10 secondes sans possibilité de s'éteindre. Il peut utiliser ce pouvoir 2 fois dans la partie. (Cooldown - 10 minutes)"
+                - "&3"
+                - "&3A l'aide de la commande /b ennetsu, des sources de lave apparaîtront tout autour de vous en cercle à un rayon de 7 blocs. La lave reste pendant 1 minute. Vous pouvez utiliser cette capacité 2 fois pendant la partie. (Cooldown - 10 minutes)."
+                - '&8&m--------------------------------------------------&r'
         lg:
           roles:
             lg:

@@ -5,10 +5,13 @@ import fr.lastril.uhchost.enums.Messages;
 import fr.lastril.uhchost.modes.roles.Camps;
 import fr.lastril.uhchost.modes.roles.Role;
 import fr.lastril.uhchost.player.modemanager.WolfPlayerManager;
+import fr.lastril.uhchost.tools.API.ActionBar;
 import fr.lastril.uhchost.tools.API.FormatTime;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.*;
 
@@ -20,7 +23,7 @@ public class PlayerManager {
 
 	private final List<UUID> kills;
 
-	private boolean alive, playedGame;
+	private boolean alive, playedGame, useHuitimePorte;
 
 	private WolfPlayerManager wolfPlayerManager;
 
@@ -31,6 +34,8 @@ public class PlayerManager {
 	private final String playerName;
 
 	private PlayerState playerstats;
+
+	ItemStack[] items , armors;
 
 	private int damages;
 
@@ -83,6 +88,35 @@ public class PlayerManager {
 		}
 		this.cooldowns.clear();
 		this.cooldowns.putAll(newCooldowns);
+	}
+
+	public void sendTimer(Player player, int timer, ItemStack item) {
+		int cooldown = timer;
+
+		new BukkitRunnable() {
+			int realCooldown = cooldown;
+			int ticks = 20;
+			@Override
+			public void run() {
+				if(ticks == 0){
+					realCooldown--;
+					ticks = 20;
+				}
+				if(player.getItemInHand().isSimilar(item)){
+					String msgCooldown = "§aCooldown restant : §e" + new FormatTime(realCooldown).toString();
+					ActionBar.sendMessage(player, msgCooldown);
+				}
+				if (realCooldown == 0) {
+					cancel();
+				}
+				ticks--;
+			}
+
+		}.runTaskTimer(UhcHost.getInstance(), 0, 1);
+	}
+
+	public void clearCooldowns() {
+		this.cooldowns.clear();
 	}
 
 	public void addDamages(int newDamage) {
@@ -638,6 +672,30 @@ public class PlayerManager {
 		this.setRoleCooldown("fix", i);
 	}
 
+	public int getRoleCooldownEnnetsu(){
+		return this.getRoleCooldown("ennestu");
+	}
+
+	public void setRoleCooldownEnnetsu(int i){
+		this.setRoleCooldown("ennestu", i);
+	}
+
+	public int getRoleCooldownRyujinJakka(){
+		return this.getRoleCooldown("RyujinJakka");
+	}
+
+	public void setRoleCooldownRyujinJakka(int i){
+		this.setRoleCooldown("RyujinJakka", i);
+	}
+
+	public int getRoleCooldownSuzumebachi(){
+		return this.getRoleCooldown("Suzumebachi");
+	}
+
+	public void setRoleCooldownSuzumebachi(int i){
+		this.setRoleCooldown("Suzumebachi", i);
+	}
+
 	public UUID getUuid() {
 		return this.uuid;
 	}
@@ -729,6 +787,14 @@ public class PlayerManager {
 		this.stunned = true;
 	}
 
+	public boolean isUseHuitimePorte() {
+		return useHuitimePorte;
+	}
+
+	public void setUseHuitimePorte(boolean useHuitimePorte) {
+		this.useHuitimePorte = useHuitimePorte;
+	}
+
 	public void setCamps(Camps camps) {
 		this.camps = camps;
 	}
@@ -752,5 +818,25 @@ public class PlayerManager {
 	public void addKill(UUID killed) {
 		kills.add(killed);
 		UhcHost.debug("added kill to " + playerName +". Amount Kills: " + kills.size());
+	}
+
+	public long getDeathTime() {
+		return deathTime;
+	}
+
+	public ItemStack[] getArmors() {
+		return armors;
+	}
+
+	public void setArmors(ItemStack[] armors) {
+		this.armors = armors;
+	}
+
+	public ItemStack[] getItems() {
+		return items;
+	}
+
+	public void setItems(ItemStack[] items) {
+		this.items = items;
 	}
 }

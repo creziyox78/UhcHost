@@ -97,7 +97,6 @@ public class UhcHost extends JavaPlugin {
 			getServer().getMessenger().registerIncomingPluginChannel(this, "BungeeCord",
 					new PluginMessage());
 		}
-
 		this.scheduledExecutorService = Executors.newScheduledThreadPool(16);
 		this.executorMonoThread = Executors.newScheduledThreadPool(1);
 
@@ -146,6 +145,7 @@ public class UhcHost extends JavaPlugin {
 		getCommand("say").setExecutor(new CmdSay(this));
 		getCommand("setgroupes").setExecutor(new CmdSetGroupes(this));
 		getCommand("rules").setExecutor(new CmdRules());
+		getCommand("revive").setExecutor(new CmdRevive(this));
 		for (Modes mode : Modes.values()) {
 			if (mode.getMode() instanceof ModeCommand) {
 				ModeCommand modeCommand = (ModeCommand) mode.getMode();

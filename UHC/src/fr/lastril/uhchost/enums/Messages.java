@@ -30,6 +30,7 @@ public enum Messages {
      */
     TEAMCRAFT_PREFIX("§2§lTeam Crafter §8»§a "),
     NARUTO_PREFIX("§6§lNaruto §8» §e"),
+    BLEACH_PREFIX("§3Bleach §8» §e"),
     LOUP_GAROU_PREFIX("§6LG UHC » §e"),
     PREFIX_WITH_ARROW("§6§lUHC §8» §a"),
     PREFIX_WITH_SEPARATION("§6§lUHC §8❘ §a"),
@@ -62,7 +63,7 @@ public enum Messages {
     }
 
     public static String cooldown(int roleCooldown) {
-        return error("Il vous reste "+ new FormatTime(roleCooldown));
+        return error("Il vous reste "+ new FormatTime(roleCooldown).toFormatString());
     }
 
     @Override

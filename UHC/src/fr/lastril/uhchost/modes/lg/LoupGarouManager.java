@@ -255,6 +255,8 @@ public class LoupGarouManager extends ModeManager implements Listener {
             Player onlinePlayer = playerManager.getPlayer();
             onlinePlayer.setGameMode(GameMode.SPECTATOR);
             onlinePlayer.getInventory().clear();
+            playerManager.setItems(playerManager.getPlayer().getInventory().getContents());
+            playerManager.setArmors(playerManager.getPlayer().getInventory().getArmorContents());
         }
 
 

@@ -2,6 +2,8 @@ package fr.lastril.uhchost.scoreboard;
 
 import fr.lastril.uhchost.UhcHost;
 import fr.lastril.uhchost.game.GameState;
+import fr.lastril.uhchost.modes.Modes;
+import fr.lastril.uhchost.modes.bleach.BleachMode;
 import fr.lastril.uhchost.modes.roles.RoleAnnounceMode;
 import fr.lastril.uhchost.player.PlayerManager;
 import fr.lastril.uhchost.tools.API.ClassUtils;
@@ -102,6 +104,7 @@ public class ScoreboardUtils {
 		if (this.sbs.containsKey(player.getUniqueId())) {
 			sb = this.sbs.get(player.getUniqueId());
 			sb.setObjectiveName(this.name);
+
 			/*if (sb.getObjectiveName().contains(this.name + this.teamsOf)
 					&& this.pl.teamUtils.getPlayersPerTeams() == 1) {
 				sb.setObjectiveName(this.name + this.solo);
@@ -114,6 +117,7 @@ public class ScoreboardUtils {
 				sb.setObjectiveName(this.name + this.teamsOf + this.pl.teamUtils.getPlayersPerTeams());
 				this.lastTo = this.pl.teamUtils.getPlayersPerTeams();
 			}*/
+
 		} else {
 			sb = new ScoreboardSign(player, this.name);
 			/*if (this.pl.teamUtils.getPlayersPerTeams() != 1) {
@@ -174,6 +178,7 @@ public class ScoreboardUtils {
 		this.name = pl.getGamemanager().getGameName();
 		if (this.sbs.containsKey(player.getUniqueId())) {
 			sb = this.sbs.get(player.getUniqueId());
+			sb.setObjectiveName(this.name);
 		} else {
 			sb = new ScoreboardSign(player, this.name);
 			sb.create();
@@ -343,11 +348,23 @@ public class ScoreboardUtils {
 
 	public String formatLine(String lines, Player player, int count) {
 		pl.checkingScoreboardUpdate();
+		PlayerManager playerManager = pl.getPlayerManager(player.getUniqueId());
 		String newLine = lines;
-		if (this.pl.gameManager.getModes().getMode() instanceof RoleAnnounceMode) {
-			RoleAnnounceMode roleAnnounceMode = (RoleAnnounceMode) this.pl.gameManager.getModes().getMode();
+		Modes modes = pl.getGamemanager().getModes();
+		if (modes.getMode() instanceof RoleAnnounceMode) {
+			RoleAnnounceMode roleAnnounceMode = (RoleAnnounceMode) modes.getMode();
 			int roleTime = roleAnnounceMode.getRoleAnnouncement();
-			newLine = newLine.replace("{roles}", roleTime <= 0 ? "§a✔" : new FormatTime(roleTime).toString());
+			if(pl.getGamemanager().getModes() == Modes.BLEACH){
+				BleachMode bleachMode = (BleachMode) modes.getMode();
+				if(playerManager.hasRole()){
+					newLine = newLine.replace("{roles}", roleTime <= 0 ? playerManager.getRole().getRoleName() : new FormatTime(roleTime).toString());
+					newLine = newLine.replace("{phase}", String.valueOf(bleachMode.getPhase()));
+				} else {
+					newLine = newLine.replace("{roles}", roleTime <= 0 ? "Aucun" : new FormatTime(roleTime).toString());
+				}
+			} else {
+				newLine = newLine.replace("{roles}", roleTime <= 0 ? "§a✔" : new FormatTime(roleTime).toString());
+			}
 		}
 		if (GameState.isState(GameState.STARTED)) {
 			Location loc = this.pl.worldUtils.getCenter().getWorld().getHighestBlockAt(
@@ -358,13 +375,12 @@ public class ScoreboardUtils {
 						+ (int) (this.pl.worldUtils.getWorld().getWorldBorder().getSize() / 2.0D));
 
 		}
-		PlayerManager playerManager = pl.getPlayerManager(player.getUniqueId());
 		pvpTime = this.pl.taskManager.getPvpTime() - count;
 		int borderTime = this.pl.taskManager.getBorderTime() - count;
 		return newLine.replace("{pvp}", pvpTime <= 0 ? "§a✔" : new FormatTime(pvpTime).toString())
 				.replace("{time}", new FormatTime(count).toString())
 				.replace("{border_time}", borderTime <= 0 ? "§a✔" : new FormatTime(borderTime).toString())
-				.replace("{gamemode}", pl.gameManager.getModes().getName())
+				.replace("{gamemode}", modes.getName())
 				.replace("{player_host_name}", pl.gameManager.getHost() != null ? pl.gameManager.getHost().getName() : "Aucun")
 				.replace("{waitting_players}", String.valueOf(Bukkit.getOnlinePlayers().size()))
 				.replace("{max_waitting_players}", String.valueOf(pl.gameManager.getMaxPlayers()))

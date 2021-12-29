@@ -50,9 +50,9 @@ public class BestPvE extends Scenario implements Runnable {
 
 	@EventHandler
 	public void onPlayerKill(PlayerKillEvent e) {
-		if (!this.map.containsKey(e.getPlayer().getUniqueId())) {
-			this.map.put(e.getPlayer().getUniqueId(), Long.valueOf(System.currentTimeMillis()));
-			e.getPlayer().sendMessage(I18n.tl("scenarios.bestpve.addList"));
+		if (!this.map.containsKey(e.getKiller().getUniqueId())) {
+			this.map.put(e.getKiller().getUniqueId(), Long.valueOf(System.currentTimeMillis()));
+			e.getKiller().sendMessage(I18n.tl("scenarios.bestpve.addList"));
 		}
 	}
 

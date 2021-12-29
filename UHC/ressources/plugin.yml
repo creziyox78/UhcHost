@@ -21,9 +21,17 @@ commands:
   say:
     description: Command say.
   setgroupes:
+    aliases:
+      - groupes
     description: Commande to set groups.
-  bl:
+  b:
     description: Command of Bleach Mode.
   rules:
     description: Command to see rules.
+  revive:
+    description: Command to revive players ingame.
+  narutos:
+    aliases:
+      - ns
+    description: Command of Naruto Mode.
   

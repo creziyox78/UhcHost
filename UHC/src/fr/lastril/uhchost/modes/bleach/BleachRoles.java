@@ -1,11 +1,14 @@
 package fr.lastril.uhchost.modes.bleach;
 
+import fr.lastril.uhchost.modes.bleach.roles.soulsociety.SoiFon;
 import fr.lastril.uhchost.modes.bleach.roles.soulsociety.Yamamoto;
 import fr.lastril.uhchost.modes.roles.Role;
 
 public enum BleachRoles {
 
-    YAMAMOTO(Yamamoto.class);
+    YAMAMOTO(Yamamoto.class),
+    SOIFON(SoiFon.class),
+    ;
 
     private final Class<? extends Role> role;
 

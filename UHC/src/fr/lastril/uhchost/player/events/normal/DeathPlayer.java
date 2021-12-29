@@ -5,7 +5,6 @@ import fr.lastril.uhchost.game.GameManager;
 import fr.lastril.uhchost.game.GameState;
 import fr.lastril.uhchost.player.events.PlayerKillEvent;
 import org.bukkit.Bukkit;
-import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -27,7 +26,7 @@ public class DeathPlayer implements Listener {
 		GameManager gamemanager = UhcHost.getInstance().getGamemanager();
 		if (GameState.isState(GameState.STARTED)) {
 			if (killer != null) {
-				Bukkit.getPluginManager().callEvent(new PlayerKillEvent(killer));
+				Bukkit.getPluginManager().callEvent(new PlayerKillEvent(player, killer));
 			}
 		}
 		gamemanager.getModes().getMode().onDeath(player, killer);

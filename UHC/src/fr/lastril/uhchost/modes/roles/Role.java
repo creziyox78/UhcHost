@@ -135,7 +135,7 @@ public abstract class Role implements RoleDescription {
     public abstract void onNewDay(Player player);
 
     public void checkRunnable(Player player) {
-        UhcHost.getInstance().getPlayerManager(player.getUniqueId()).removeCooldowns();
+        //UhcHost.getInstance().getPlayerManager(player.getUniqueId()).removeCooldowns();
         int timer = taskManager.getCount();
         this.timeEvent.entrySet().stream().filter(e -> e.getKey() == timer).forEach(e -> e.getValue().accept(player));
     }
