@@ -19,7 +19,7 @@ import org.bukkit.potion.PotionEffectType;
 public class Sakon extends Role implements NarutoV2Role {
 
     public Sakon() {
-        super.addRoleToKnow(Kimimaro.class);
+        super.addRoleToKnow(Orochimaru.class);
         super.addRoleToKnow(Ukon.class);
     }
 

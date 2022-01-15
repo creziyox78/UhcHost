@@ -27,7 +27,7 @@ public class Jirobo extends Role implements NarutoV2Role, RoleListener, MarqueMa
 	private int durationHunger = 0;
 
 	public Jirobo() {
-		super.addRoleToKnow(Kimimaro.class);
+		super.addRoleToKnow(Orochimaru.class);
 		super.addEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, Integer.MAX_VALUE, 0, false, false),
 				When.START);
 	}

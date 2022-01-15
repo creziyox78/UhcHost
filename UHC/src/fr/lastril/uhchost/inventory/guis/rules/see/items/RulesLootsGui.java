@@ -20,15 +20,18 @@ public class RulesLootsGui extends IQuickInventory {
 
     @Override
     public void contents(QuickInventory inv) {
-        ic = new ItemsCreator(Material.APPLE, I18n.tl("guis.loots.apple"), Arrays.asList(I18n.tl("guis.loots.appleLore", String.valueOf(LootsRules.getInstance().getLoot(Material.APPLE)))));
-        inv.addItem(ic.create());
-        ic = new ItemsCreator(Material.FEATHER, I18n.tl("guis.loots.feather"), Arrays.asList(I18n.tl("guis.loots.featherLore", String.valueOf(LootsRules.getInstance().getLoot(Material.FEATHER)))));
-        inv.addItem(ic.create());
-        ic = new ItemsCreator(Material.FLINT, I18n.tl("guis.loots.flint"), Arrays.asList(I18n.tl("guis.loots.flintLore", String.valueOf(LootsRules.getInstance().getLoot(Material.FLINT)))));
-        inv.addItem(ic.create());
-        ic = new ItemsCreator(Material.STRING, I18n.tl("guis.loots.string"), Arrays.asList(I18n.tl("guis.loots.stringLore", String.valueOf(LootsRules.getInstance().getLoot(Material.STRING)))));
-        inv.addItem(ic.create());
-        inv.addRetourItem(new RulesGui());
+        inv.updateItem("rulesloot", taskUpdate -> {
+            ic = new ItemsCreator(Material.APPLE, I18n.tl("guis.loots.apple"), Arrays.asList(I18n.tl("guis.loots.appleLore", String.valueOf(LootsRules.getInstance().getLoot(Material.APPLE)))));
+            inv.setItem(ic.create(), 0);
+            ic = new ItemsCreator(Material.FEATHER, I18n.tl("guis.loots.feather"), Arrays.asList(I18n.tl("guis.loots.featherLore", String.valueOf(LootsRules.getInstance().getLoot(Material.FEATHER)))));
+            inv.setItem(ic.create(), 1);
+            ic = new ItemsCreator(Material.FLINT, I18n.tl("guis.loots.flint"), Arrays.asList(I18n.tl("guis.loots.flintLore", String.valueOf(LootsRules.getInstance().getLoot(Material.FLINT)))));
+            inv.setItem(ic.create(), 2);
+            ic = new ItemsCreator(Material.STRING, I18n.tl("guis.loots.string"), Arrays.asList(I18n.tl("guis.loots.stringLore", String.valueOf(LootsRules.getInstance().getLoot(Material.STRING)))));
+            inv.setItem(ic.create(), 3);
+            inv.addRetourItem(new RulesGui());
+        });
+
 
     }
 }

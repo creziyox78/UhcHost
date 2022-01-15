@@ -5,6 +5,7 @@ import fr.lastril.uhchost.game.GameManager;
 import fr.lastril.uhchost.inventory.CustomInv;
 import fr.lastril.uhchost.inventory.guis.HostConfig;
 import fr.lastril.uhchost.inventory.guis.items.PotionsGui;
+import fr.lastril.uhchost.inventory.guis.loots.LootsGui;
 import fr.lastril.uhchost.inventory.guis.nether.NetherGui;
 import fr.lastril.uhchost.inventory.guis.world.border.BorderGui;
 import fr.lastril.uhchost.team.ToGui;

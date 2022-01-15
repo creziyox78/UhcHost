@@ -34,6 +34,7 @@ public class ShukakuItem extends QuickItem {
                                 @Override
                                 public void run() {
                                     gaara.setInShukaku(false);
+                                    player.sendMessage(Messages.NARUTO_PREFIX.getMessage() + "§cVous n'êtes plus sous Shukaku.");
                                 }
                             }.runTaskLater(main, 20*60*5);
                             gaara.usePower(joueur);

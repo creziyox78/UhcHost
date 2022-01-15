@@ -41,10 +41,10 @@ public class WorldGui extends IQuickInventory {
             if(pl.gameManager.isValidateWorld()){
                 if(!pl.getGamemanager().isPregen())
                     inv.setItem(new ItemsCreator(Material.EMPTY_MAP, "§aPrégénération", Arrays.asList("", "§7Configurer sur:§b "
-                                                + pl.worldBorderUtils.getStartSize() +"x" + pl.worldBorderUtils.getStartSize()), 1).create(), onClick -> {
+                                                + pl.worldBorderUtils.getStartSize()/2 +"x" + pl.worldBorderUtils.getStartSize()/2), 1).create(), onClick -> {
                         onClick.getPlayer().closeInventory();
+                        new ChunkLoader(pl, pl.worldBorderUtils.getStartSize()/2);
                         Bukkit.broadcastMessage("§6Prégénération du monde ! Risque de lags !");
-                        new ChunkLoader(pl, pl.worldBorderUtils.getStartSize());
                     },13);
             } else {
                 inv.setItem(new ItemsCreator(Material.BARRIER, "§cMonde non validé !", Arrays.asList("§7Vous devez valider le monde", "§7en le pré-visualisant (bouton à droite)."), 1).create(), 13);

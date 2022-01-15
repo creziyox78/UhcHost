@@ -13,11 +13,13 @@ import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
+import java.util.List;
+
 public class SoiFon extends Role implements RoleListener {
 
-    private PlayerManager marquedPlayer;
+    private List<PlayerManager> marquedPlayers;
     private boolean inMarque;
-
+    private int marquePhase = 1;
 
     public SoiFon(){
         super.addEffect(new PotionEffect(PotionEffectType.SPEED, Integer.MAX_VALUE, 0, false, false), When.START);
@@ -91,6 +93,17 @@ public class SoiFon extends Role implements RoleListener {
     }
 
     @Override
+    public void onDamage(Player damager, Player target) {
+        PlayerManager damagerManager = main.getPlayerManager(damager.getUniqueId());
+        PlayerManager targetManager = main.getPlayerManager(target.getUniqueId());
+        if(damagerManager.hasRole()){
+            if(damagerManager.getRole() instanceof SoiFon){
+
+            }
+        }
+    }
+
+    @Override
     public Camps getCamp() {
         return Camps.SHINIGAMIS;
     }
@@ -111,5 +124,25 @@ public class SoiFon extends Role implements RoleListener {
 
     public void setInMarque(boolean inMarque) {
         this.inMarque = inMarque;
+    }
+
+    public void setMarquePhase(int marquePhase) {
+        this.marquePhase = marquePhase;
+    }
+
+    public int getMarquePhase() {
+        return marquePhase;
+    }
+
+    public void addPlayerMarqued(PlayerManager playerManager){
+        marquedPlayers.add(playerManager);
+    }
+
+    public void removePlayerMarqued(PlayerManager playerManager){
+        marquedPlayers.remove(playerManager);
+    }
+
+    public boolean isMarqued(PlayerManager playerManager){
+        return marquedPlayers.contains(playerManager);
     }
 }

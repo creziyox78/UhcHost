@@ -17,7 +17,6 @@ import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
-import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -75,11 +74,9 @@ public class BarriereItem extends QuickItem {
                     }
                 } else {
                     player.sendMessage(Messages.not("Sakon ou Ukon"));
-                    return;
                 }
             } else {
                 player.sendMessage(Messages.error("Vous n'avez pas de rôle !"));
-                return;
             }
         });
     }

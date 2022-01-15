@@ -52,7 +52,7 @@ public class ShurikenJutsuGUI extends IQuickInventory {
                 playerClick.sendMessage(Messages.NARUTO_PREFIX.getMessage()+"§aVous avez téléporté "+target.getName()+" à la balise #"+this.balises.indexOf(balise)+1+" !");
                 target.sendMessage(Messages.NARUTO_PREFIX.getMessage()+"Minato vous à téléporté à une de ses balises !");
 
-                joueur.setRoleCooldownShurikenJustuTP(5 * 60);
+                joueur.setRoleCooldownShurikenJustuTP(10 * 60);
                 if (joueur.getRole() instanceof NarutoV2Role) {
                     NarutoV2Role narutoRole = (NarutoV2Role) joueur.getRole();
                     narutoRole.usePower(joueur);

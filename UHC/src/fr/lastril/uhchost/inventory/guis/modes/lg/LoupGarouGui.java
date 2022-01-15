@@ -2,8 +2,8 @@ package fr.lastril.uhchost.inventory.guis.modes.lg;
 
 import fr.lastril.uhchost.UhcHost;
 import fr.lastril.uhchost.enums.Messages;
+import fr.lastril.uhchost.inventory.guis.HostConfig;
 import fr.lastril.uhchost.inventory.guis.modes.CompositionGui;
-import fr.lastril.uhchost.inventory.guis.modes.ModesGui;
 import fr.lastril.uhchost.modes.lg.LoupGarouMode;
 import fr.lastril.uhchost.modes.lg.roles.village.Pretresse;
 import fr.lastril.uhchost.tools.API.FormatTime;
@@ -77,7 +77,7 @@ public class LoupGarouGui extends IQuickInventory {
             }, 19);
 
             inv.setItem((new ItemsCreator(Material.BARRIER, I18n.tl("guis.back"), null)).create(), onClick -> {
-                new ModesGui().open(onClick.getPlayer());
+                new HostConfig().open(onClick.getPlayer());
             },inv.getInventory().getSize() - 1);
         });
 

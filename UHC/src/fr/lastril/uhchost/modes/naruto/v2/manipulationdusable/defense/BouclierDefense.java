@@ -23,8 +23,11 @@ public class BouclierDefense extends SandShape {
                 block.setType(Material.SAND);
                 gaara.getBouclierBlock().add(block);
             });
-            sarcophage.getCenter().add(0 , 1, 0).getBlock().setType(Material.AIR);
-            sarcophage.getCenter().getBlock().setType(Material.AIR);
+            for (int i = 0; i < 5; i++) {
+                sarcophage.getCenter().add(0 , i, 0).getBlock().setType(Material.AIR);
+                sarcophage.getCenter().subtract(0, i, 0);
+            }
+
         }
         return true;
     }

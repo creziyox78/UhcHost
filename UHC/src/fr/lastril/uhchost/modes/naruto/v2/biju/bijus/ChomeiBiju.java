@@ -33,7 +33,6 @@ public class ChomeiBiju extends Biju {
 
 
     public ChomeiBiju() {
-        super(UhcHost.getInstance());
         nameBiju = "§aChômei";
         timerRespawn = 1;
         main.getServer().getPluginManager().registerEvents(this, main);

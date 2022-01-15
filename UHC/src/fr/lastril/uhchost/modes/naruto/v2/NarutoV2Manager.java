@@ -6,6 +6,7 @@ import fr.lastril.uhchost.config.modes.NarutoV2Config;
 import fr.lastril.uhchost.enums.Messages;
 import fr.lastril.uhchost.game.GameState;
 import fr.lastril.uhchost.modes.ModeManager;
+import fr.lastril.uhchost.modes.Modes;
 import fr.lastril.uhchost.modes.naruto.v2.biju.BijuManager;
 import fr.lastril.uhchost.modes.naruto.v2.crafter.Chakra;
 import fr.lastril.uhchost.modes.naruto.v2.crafter.NarutoV2Role;
@@ -16,12 +17,15 @@ import fr.lastril.uhchost.modes.naruto.v2.items.swords.SusanoSword;
 import fr.lastril.uhchost.modes.naruto.v2.roles.akatsuki.ZetsuBlanc;
 import fr.lastril.uhchost.modes.naruto.v2.roles.akatsuki.ZetsuNoir;
 import fr.lastril.uhchost.modes.naruto.v2.roles.jubi.Madara;
+import fr.lastril.uhchost.modes.naruto.v2.roles.jubi.Obito;
 import fr.lastril.uhchost.modes.naruto.v2.roles.orochimaru.*;
 import fr.lastril.uhchost.modes.naruto.v2.roles.shinobi.*;
 import fr.lastril.uhchost.modes.naruto.v2.roles.solo.Danzo;
 import fr.lastril.uhchost.modes.naruto.v2.roles.solo.Gaara;
 import fr.lastril.uhchost.modes.naruto.v2.roles.taka.Jugo;
 import fr.lastril.uhchost.modes.naruto.v2.roles.taka.Sasuke;
+import fr.lastril.uhchost.modes.naruto.v2.roles.zabuza.Haku;
+import fr.lastril.uhchost.modes.naruto.v2.roles.zabuza.Zabuza;
 import fr.lastril.uhchost.modes.naruto.v2.sakonukon.SakonUkonManager;
 import fr.lastril.uhchost.modes.roles.Role;
 import fr.lastril.uhchost.player.PlayerManager;
@@ -39,8 +43,8 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.*;
+import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerBucketEmptyEvent;
-import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
@@ -139,7 +143,7 @@ public class NarutoV2Manager extends ModeManager implements Listener {
 
 
             }
-        }.runTaskTimer(main, 0, 2);
+        }.runTaskTimer(main, 0, 5);
     }
 
     public boolean isInSamehada(UUID uniqueId) {
@@ -159,24 +163,65 @@ public class NarutoV2Manager extends ModeManager implements Listener {
         UhcHost.debug("added " + uuid + " in shosenjutsu, now to : " + this.inShosenjutsu.toString());
     }
 
+    public void removeInShosenJutsu(UUID uuid) {
+        this.inShosenjutsu.remove(uuid);
+        UhcHost.debug("removed " + uuid + " in shosenjutsu, now to : " + this.inShosenjutsu.toString());
+    }
+
+    public boolean isInShosenJutsu(UUID uuid){
+        return this.inShosenjutsu.contains(uuid);
+    }
+
     @EventHandler
-    public void onPlayerMove(PlayerMoveEvent event) {
+    public void onChat(AsyncPlayerChatEvent event){
         Player player = event.getPlayer();
-        double distance = event.getFrom().distance(event.getTo());
-        boolean hasMoved = distance >= 0.2;
-        PlayerManager joueur = main.getPlayerManager(player.getUniqueId());
-        if (hasMoved && this.inShosenjutsu.contains(player.getUniqueId())) {
-            UhcHost.debug(player.getUniqueId() + " (" + player.getName() + ") in shosenjutsu (" + this.inShosenjutsu.toString() + ") moved so clear everyone");
-            for (UUID uuid : this.inShosenjutsu) {
-                Player shosenjutsu = Bukkit.getPlayer(uuid);
-                if (shosenjutsu != null) {
-                    shosenjutsu.removePotionEffect(PotionEffectType.REGENERATION);
-                    shosenjutsu.sendMessage(Messages.NARUTO_PREFIX.getMessage() + "§cVous avez bougé donc votre régénération ne fait plus effet.");
+        PlayerManager playerManager = main.getPlayerManager(player.getUniqueId());
+        if(GameState.isState(GameState.STARTED)){
+            if(main.getGamemanager().getModes() == Modes.NARUTO_V2){
+                event.setCancelled(true);
+                if(playerManager.hasRole() && playerManager.isAlive()){
+                    if(event.getMessage().startsWith("!")) {
+                        if(playerManager.getRole() instanceof Madara || playerManager.getRole() instanceof Obito || playerManager.getRole() instanceof Haku || playerManager.getRole() instanceof Zabuza){
+                            if(playerManager.getRole() instanceof Madara){
+                                for(PlayerManager mate : getPlayerManagersWithRole(Obito.class)){
+                                    if(mate.getPlayer() != null){
+                                        mate.getPlayer().sendMessage(playerManager.getRole().getCamp().getCompoColor() + playerManager.getRole().getRoleName() + " » " + event.getMessage().replaceFirst("!", ""));
+                                    }
+                                }
+                            }
+                            if(playerManager.getRole() instanceof Obito){
+                                for(PlayerManager mate : getPlayerManagersWithRole(Madara.class)){
+                                    if(mate.getPlayer() != null){
+                                        mate.getPlayer().sendMessage(playerManager.getRole().getCamp().getCompoColor() + playerManager.getRole().getRoleName()+ " » " + event.getMessage().replaceFirst("!", ""));
+                                    }
+
+                                }
+                            }
+                            if(playerManager.getRole() instanceof Zabuza){
+                                for(PlayerManager mate : getPlayerManagersWithRole(Haku.class)){
+                                    if(mate.getPlayer() != null){
+                                        mate.getPlayer().sendMessage(playerManager.getRole().getCamp().getCompoColor() + playerManager.getRole().getRoleName() + " » " + event.getMessage().replaceFirst("!", ""));
+                                    }
+                                }
+                            }
+                            if(playerManager.getRole() instanceof Haku){
+                                for(PlayerManager mate : getPlayerManagersWithRole(Zabuza.class)){
+
+                                    if(mate.getPlayer() != null){
+                                        mate.getPlayer().sendMessage(playerManager.getRole().getCamp().getCompoColor() + playerManager.getRole().getRoleName() + " » " + event.getMessage().replaceFirst("!", ""));
+                                    }
+                                }
+                            }
+                            player.sendMessage(playerManager.getRole().getCamp().getCompoColor() + playerManager.getRole().getRoleName() + " » " + event.getMessage().replaceFirst("!", ""));
+                        }
+
+                    }
                 }
             }
-            this.inShosenjutsu.clear();
         }
     }
+
+
 
     public World getKamuiWorld() {
         return kamuiWorld;
@@ -189,7 +234,7 @@ public class NarutoV2Manager extends ModeManager implements Listener {
 
             new BukkitRunnable(){
 
-                int timer = 60*5;
+                int timer = 60*2;
 
                 @Override
                 public void run() {
@@ -266,23 +311,19 @@ public class NarutoV2Manager extends ModeManager implements Listener {
 
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onBlockBreak(BlockBreakEvent event) {
-        Player player = event.getPlayer();
         Block block = event.getBlock();
-
         if (block.getWorld() == this.kamuiWorld) {
             event.setCancelled(true);
-            player.sendMessage(Messages.error("Vous ne pouvez pas casser de blocs dans le "+this.getPlaceInKamuiWorld(block.getLocation())));
+            event.getPlayer().sendMessage(Messages.error("Vous ne pouvez pas casser de blocs dans le "+this.getPlaceInKamuiWorld(block.getLocation())));
         }
     }
 
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onBlockPlace(BlockPlaceEvent event) {
-        Player player = event.getPlayer();
         Block block = event.getBlock();
-
         if (block.getWorld() == this.kamuiWorld) {
             event.setCancelled(true);
-            player.sendMessage(Messages.error("Vous ne pouvez pas poser de blocs dans le "+this.getPlaceInKamuiWorld(block.getLocation())));
+            event.getPlayer().sendMessage(Messages.error("Vous ne pouvez pas poser de blocs dans le "+this.getPlaceInKamuiWorld(block.getLocation())));
         }
     }
 

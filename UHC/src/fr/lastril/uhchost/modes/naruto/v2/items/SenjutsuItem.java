@@ -53,7 +53,7 @@ public class SenjutsuItem extends QuickItem {
                                 }
                             }
                             player.sendMessage(Messages.NARUTO_PREFIX.getMessage() + Messages.USED_POWER.getMessage());
-                            joueur.setRoleCooldownSenjutsu(30 * 60);
+                            joueur.setRoleCooldownSenjutsu(20 * 60);
                             joueur.sendTimer(player, joueur.getRoleCooldownSenjutsu(), player.getItemInHand());
                             if (joueur.getRole() instanceof NarutoV2Role) {
                                 NarutoV2Role narutoRole = (NarutoV2Role) joueur.getRole();

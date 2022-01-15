@@ -132,7 +132,7 @@ guis:
     name: "&5Taille initiale"
     lore: "&7Choisis la taille initiale de la bordure"
     lore1: "&7Tu choisis la longeur de la bordure donc"
-    lore2: "&7si tu mets 1000 tu auras une map de 1000x1000"
+    lore2: "&7si tu mets 1000 tu auras une map de 500x500"
   diamondless:
     name: "&bDiamondless"
     lore: "&7Choisis le nombre de diamants que donne un joueur +,+ sa mort"

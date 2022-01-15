@@ -41,6 +41,7 @@ public class Orochimaru extends Role implements NarutoV2Role, RoleListener, EdoT
 	public Orochimaru() {
 		super.addRoleToKnow(Kabuto.class);
 		super.addEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, Integer.MAX_VALUE, 0, false, false), When.START);
+		super.addEffect(new PotionEffect(PotionEffectType.SPEED, Integer.MAX_VALUE, 0, false, false), When.START);
 	}
 	
 	@EventHandler
@@ -136,17 +137,18 @@ public class Orochimaru extends Role implements NarutoV2Role, RoleListener, EdoT
 	@Override
 	public void checkRunnable(Player player) {
 		super.checkRunnable(player);
-		if(player.getHealth() <= (2D* 4D)){
+		if(player.hasPotionEffect(PotionEffectType.DAMAGE_RESISTANCE)){
+			player.removePotionEffect(PotionEffectType.DAMAGE_RESISTANCE);
+		}
+		player.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 20*3, 0, false, false));
+		/*if(player.getHealth() <= (2D* 4D)){
 			if(player.hasPotionEffect(PotionEffectType.DAMAGE_RESISTANCE)){
 				player.removePotionEffect(PotionEffectType.DAMAGE_RESISTANCE);
 			}
 			player.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 20*4, 1, false, false));
 		} else {
-			if(player.hasPotionEffect(PotionEffectType.DAMAGE_RESISTANCE)){
-				player.removePotionEffect(PotionEffectType.DAMAGE_RESISTANCE);
-			}
-			player.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 20*3, 0, false, false));
-		}
+
+		}*/
 	}
 
 	@Override

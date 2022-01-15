@@ -45,7 +45,6 @@ public class MatatabiBiju extends Biju {
 	}
 
 	public MatatabiBiju() {
-		super(UhcHost.getInstance());
 		timerRespawn = 1;
 		main.getServer().getPluginManager().registerEvents(this, main);
 		int value = UhcHost.getRANDOM().nextInt(3);

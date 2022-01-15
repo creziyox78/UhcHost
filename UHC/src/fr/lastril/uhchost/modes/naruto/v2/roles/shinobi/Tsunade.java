@@ -26,7 +26,8 @@ import org.bukkit.scheduler.BukkitRunnable;
 public class Tsunade extends Role implements NarutoV2Role, RoleListener {
 
     private double healthLost = 0;
-	private int chance = 5;
+	private final int chance = 5;
+    private final int maxHealthLost = 30;
 
 	private boolean useByakugo;
 
@@ -49,7 +50,7 @@ public class Tsunade extends Role implements NarutoV2Role, RoleListener {
                 Tsunade tsunade = (Tsunade) joueur.getRole();
                 if(joueur.getPlayer() != null) {
                     if(tsunade.isUseByakugo()){
-                        ActionBar.sendMessage(joueur.getPlayer(), "§dDégâts reçu: " + tsunade.getHealthLost() + "/30");
+                        ActionBar.sendMessage(joueur.getPlayer(), "§dDégâts reçu: " + tsunade.getHealthLost() + "/" + maxHealthLost);
                     }
                 }
             }
@@ -65,7 +66,7 @@ public class Tsunade extends Role implements NarutoV2Role, RoleListener {
                 Tsunade tsunade = (Tsunade) joueur.getRole();
                 if (tsunade.isUseByakugo()) {
                     tsunade.healthLost += event.getFinalDamage();
-                    if (tsunade.healthLost >= 30) {
+                    if (tsunade.healthLost >= maxHealthLost) {
                         tsunade.healthLost = 0;
                         tsunade.setUseByakugo(false);
                         player.setMaxHealth(player.getMaxHealth() - 4);
@@ -81,7 +82,7 @@ public class Tsunade extends Role implements NarutoV2Role, RoleListener {
                             player.removePotionEffect(PotionEffectType.REGENERATION);
                         }
                         player.sendMessage(Messages.NARUTO_PREFIX.getMessage() + "§6Vous venez de perdre l'effet de byakugô.");
-                        joueur.setRoleCooldownByakugo(30*60);
+                        joueur.setRoleCooldownByakugo(20*60);
                         joueur.sendTimer(player, joueur.getRoleCooldownByakugo(), new ByakugoItem(main).toItemStack());
                     }
                 }

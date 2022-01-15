@@ -231,7 +231,7 @@ public class BijuManager extends BukkitRunnable implements Listener {
 				bijuListClass.add(bijuInstance);
 				bijuItem.add(bijuInstance.getItem().toItemStack());
 				bijuInstance.setFirstSpawn(value);
-				bijuInstance.runTaskTimer(main, value*20*60, 20);
+				bijuInstance.runTaskTimer(main, value* 60*20L, 20);
 			}
 		}
 	}

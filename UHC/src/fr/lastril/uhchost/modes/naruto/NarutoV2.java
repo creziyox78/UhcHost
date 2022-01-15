@@ -2,12 +2,14 @@ package fr.lastril.uhchost.modes.naruto;
 
 
 import fr.lastril.uhchost.UhcHost;
+import fr.lastril.uhchost.game.GameState;
 import fr.lastril.uhchost.inventory.guis.modes.naruto.NarutoGUI;
 import fr.lastril.uhchost.modes.Mode;
 import fr.lastril.uhchost.modes.ModeConfig;
 import fr.lastril.uhchost.modes.ModeManager;
 import fr.lastril.uhchost.modes.Modes;
 import fr.lastril.uhchost.modes.command.CmdCompo;
+import fr.lastril.uhchost.modes.command.CmdMe;
 import fr.lastril.uhchost.modes.command.ModeCommand;
 import fr.lastril.uhchost.modes.command.ModeSubCommand;
 import fr.lastril.uhchost.modes.lg.commands.CmdDesc;
@@ -164,6 +166,7 @@ public class NarutoV2 extends Mode implements ModeConfig, RoleMode<NarutoV2Role>
 			Bukkit.broadcastMessage("§b§l" + player.getName() + "§7 est mort.");
 			Bukkit.broadcastMessage("§3§m----------------------------------");
 		}
+		checkWin();
 	}
 
 	@Override
@@ -205,7 +208,7 @@ public class NarutoV2 extends Mode implements ModeConfig, RoleMode<NarutoV2Role>
 
 	@Override
 	public String getDocLink() {
-		return "https://docs.mcatlantis.fr";
+		return "https://docs.mcatlantis.fr/naruto-uhc-v2/presentation";
 	}
 
 	@Override
@@ -222,6 +225,7 @@ public class NarutoV2 extends Mode implements ModeConfig, RoleMode<NarutoV2Role>
 		subCommands.add(new CmdBoost(main));
 		subCommands.add(new CmdDesc(main));
 		subCommands.add(new CmdReveal(main));
+		subCommands.add(new CmdMe(main));
 		return subCommands;
 	}
 
@@ -249,56 +253,61 @@ public class NarutoV2 extends Mode implements ModeConfig, RoleMode<NarutoV2Role>
 	}
 
 	public void win(Camps winner) {
-		this.main.gameManager.setDamage(false);
+		if(GameState.isState(GameState.STARTED)){
+			this.main.gameManager.setDamage(true);
 
-		Map<PlayerManager, Integer> damages = new HashMap<>();
-		for (PlayerManager playerManager : main.getAllPlayerManager().values()) {
-			damages.put(playerManager, playerManager.getDamages());
-		}
-		Map<PlayerManager, Integer> kills = new HashMap<>();
-		for (PlayerManager playerManager : main.getAllPlayerManager().values()) {
-			kills.put(playerManager, playerManager.getKills().size());
-		}
-		PlayerManager mostDamages = damages.entrySet().stream().sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
-				.findFirst().get().getKey();
-		PlayerManager mostKills = kills.entrySet().stream().sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
-				.findFirst().get().getKey();
+			Map<PlayerManager, Integer> damages = new HashMap<>();
+			for (PlayerManager playerManager : main.getAllPlayerManager().values()) {
+				damages.put(playerManager, playerManager.getDamages());
+			}
+			Map<PlayerManager, Integer> kills = new HashMap<>();
+			for (PlayerManager playerManager : main.getAllPlayerManager().values()) {
+				kills.put(playerManager, playerManager.getKills().size());
+			}
+			PlayerManager mostDamages = damages.entrySet().stream().sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
+					.findFirst().get().getKey();
+			PlayerManager mostKills = kills.entrySet().stream().sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
+					.findFirst().get().getKey();
 
-		Bukkit.broadcastMessage("§8§m-------------------------------------------------");
-		Bukkit.broadcastMessage("§5");
-		Bukkit.broadcastMessage("       " + winner.getWinMessage());
-		Bukkit.broadcastMessage("       §cTop dégâts : " + mostDamages.getPlayerName() + " §l("
-				+ mostDamages.getDamages() / 2 + " §4❤§c§l)");
-		Bukkit.broadcastMessage(
-				"       §cTop kills : " + mostKills.getPlayerName() + " §l(" + mostKills.getKills().size() + ")");
-		Bukkit.broadcastMessage("§5");
-		Bukkit.broadcastMessage("       §6Merci d'avoir participé à cet host de §e§l" + main.gameManager.getHostname());
-		Bukkit.broadcastMessage("       §8Arrêt du serveur dans 30 secondes !");
-		Bukkit.broadcastMessage("§8§m-------------------------------------------------");
-		Bukkit.getOnlinePlayers().forEach(player -> TitleAPI.sendTitle(player, 20, 20, 20, winner.getWinMessage(), ""));
+			Bukkit.broadcastMessage("§8§m-------------------------------------------------");
+			Bukkit.broadcastMessage("§5");
+			Bukkit.broadcastMessage("       " + winner.getWinMessage());
+			Bukkit.broadcastMessage("       §cTop dégâts : " + mostDamages.getPlayerName() + " §l("
+					+ mostDamages.getDamages() / 2 + " §4❤§c§l)");
+			Bukkit.broadcastMessage(
+					"       §cTop kills : " + mostKills.getPlayerName() + " §l(" + mostKills.getKills().size() + ")");
+			Bukkit.broadcastMessage("§5");
+			Bukkit.broadcastMessage("       §6Merci d'avoir participé à cet host de §e§l" + main.gameManager.getHostname());
+			Bukkit.broadcastMessage("       §8Arrêt du serveur dans 5 minutes !");
+			Bukkit.broadcastMessage("§8§m-------------------------------------------------");
+			Bukkit.getOnlinePlayers().forEach(player -> TitleAPI.sendTitle(player, 20, 20, 20, winner.getWinMessage(), ""));
 
-		Map<PlayerManager,Role> playersRoles = new HashMap<>();
+			Map<PlayerManager,Role> playersRoles = new HashMap<>();
 
-		if (main.gameManager.getModes().getMode() instanceof RoleMode<?>) {
-			for (PlayerManager joueurs : main.getAllPlayerManager().values()) {
-				if (joueurs.hasRole()) {
-					playersRoles.put(joueurs, joueurs.getRole());
+			if (main.gameManager.getModes().getMode() instanceof RoleMode<?>) {
+				for (PlayerManager joueurs : main.getAllPlayerManager().values()) {
+					if (joueurs.hasRole()) {
+						playersRoles.put(joueurs, joueurs.getRole());
+					}
 				}
 			}
-		}
-		for (Map.Entry<PlayerManager, Role> e : playersRoles.entrySet()) {
-			Bukkit.broadcastMessage((e.getKey().isAlive() ? "§6§l" : "§6§m") + e.getKey().getPlayerName() + " : " + e.getValue().getRoleName() + e.getKey().getCamps().getCompoColor() +" (Camps: " + e.getKey().getCamps().name() + ")");
+			for (Map.Entry<PlayerManager, Role> e : playersRoles.entrySet()) {
+				Bukkit.broadcastMessage((e.getKey().isAlive() ? "§6§l" : "§6§m") + e.getKey().getPlayerName() + " : " + e.getValue().getRoleName() + e.getKey().getCamps().getCompoColor() +" (Camps: " + e.getKey().getCamps().name() + ")");
+			}
+
+			Bukkit.getScheduler().runTaskLater(this.main, () -> {
+				if (this.main.getConfig().getBoolean("bungeecord")) {
+					if (this.main.getConfig().getString("server-redirection") != null && !this.main
+							.getConfig().getString("server-redirection").equalsIgnoreCase("null"))
+						Bukkit.getOnlinePlayers().forEach(p -> BungeeAPI.ConnectBungeeServer(p,
+								this.main.getConfig().getString("server-redirection")));
+				}
+				Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "restart");
+			}, 5*60*20L);
+
+			GameState.setCurrentState(GameState.ENDED);
 		}
 
-		Bukkit.getScheduler().runTaskLater(this.main, () -> {
-			if (this.main.getConfig().getBoolean("bungeecord")) {
-				if (this.main.getConfig().getString("server-redirection") != null && !this.main
-						.getConfig().getString("server-redirection").equalsIgnoreCase("null"))
-					Bukkit.getOnlinePlayers().forEach(p -> BungeeAPI.ConnectBungeeServer(p,
-							this.main.getConfig().getString("server-redirection")));
-			}
-			Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "restart");
-		}, 30 * 20L);
 	}
 
 	@Override

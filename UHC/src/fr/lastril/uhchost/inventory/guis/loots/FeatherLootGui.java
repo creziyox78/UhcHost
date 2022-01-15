@@ -1,7 +1,6 @@
 package fr.lastril.uhchost.inventory.guis.loots;
 
 import fr.lastril.uhchost.game.rules.world.LootsRules;
-import fr.lastril.uhchost.inventory.guis.timer.LootsGui;
 import fr.lastril.uhchost.tools.API.inventory.crafter.IQuickInventory;
 import fr.lastril.uhchost.tools.API.inventory.crafter.QuickInventory;
 import fr.lastril.uhchost.tools.API.items.BannerCreator;
@@ -56,8 +55,8 @@ public class FeatherLootGui extends IQuickInventory {
 
             inv.setItem(bc.create(), onClick -> {
                 String bannerName = ChatColor.stripColor(onClick.getEvent().getCurrentItem().getItemMeta().getDisplayName());
-                int value = LootsRules.getInstance().getLoot(Material.APPLE) + Integer.parseInt(bannerName);
-                LootsRules.getInstance().setLoot(Material.APPLE, value);
+                int value = LootsRules.getInstance().getLoot(Material.FEATHER) + Integer.parseInt(bannerName);
+                LootsRules.getInstance().setLoot(Material.FEATHER, value);
             }, 6);
             bc = new BannerCreator("§a+5", Arrays.asList(""), 1, true);
             bc.setBaseColor(DyeColor.GREEN);

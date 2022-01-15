@@ -94,7 +94,7 @@ public class ChunkLoader extends BukkitRunnable {
 			ChatColor notCompletedColor) {
 		float percent = (float) current / max;
 		int progressBars = (int) (totalBars * percent);
-		if(current < 100){
+		if(current < max){
 			return Strings.repeat("" + completedColor + symbol, progressBars)
 					+ Strings.repeat("" + notCompletedColor + symbol,
 					totalBars - progressBars);

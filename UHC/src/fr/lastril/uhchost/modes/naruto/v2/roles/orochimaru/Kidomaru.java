@@ -9,7 +9,6 @@ import fr.lastril.uhchost.modes.naruto.v2.items.MarqueMauditeItem;
 import fr.lastril.uhchost.modes.roles.Camps;
 import fr.lastril.uhchost.modes.roles.Role;
 import fr.lastril.uhchost.modes.roles.RoleListener;
-import fr.lastril.uhchost.modes.roles.When;
 import fr.lastril.uhchost.player.PlayerManager;
 import fr.lastril.uhchost.tools.API.items.crafter.QuickItem;
 import org.bukkit.Material;
@@ -29,8 +28,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 public class Kidomaru extends Role implements NarutoV2Role, RoleListener, MarqueMauditeItem.MarqueMauditeUser {
 	
 	public Kidomaru() {
-        super.addRoleToKnow(Kimimaro.class);
-	    super.addEffect(new PotionEffect(PotionEffectType.WEAKNESS, Integer.MAX_VALUE, 0, false, false), When.START);
+        super.addRoleToKnow(Orochimaru.class);
 	}
 
 

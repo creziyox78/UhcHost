@@ -43,10 +43,10 @@ public class FuinjutsuGUI extends IQuickInventory {
                 }
                 playerClick.closeInventory();
                 PlayerManager joueur = main.getPlayerManager(playerClick.getUniqueId());
+                PlayerManager targetManager = main.getPlayerManager(player.getUniqueId());
                 joueur.stun(playerClick.getLocation());
 
                 Sai sai = (Sai) joueur.getRole();
-                sai.setHasUsedFuinjutsu(true);
 
                 inv.close(playerClick);
                 if (joueur.getRole() instanceof NarutoV2Role) {
@@ -61,7 +61,10 @@ public class FuinjutsuGUI extends IQuickInventory {
                     @Override
                     public void run() {
                         ActionBar.sendMessage(playerClick, "§7Dessin : [" + ChunkLoader.getProgressBar(timer, 60*20, 100, '|', ChatColor.GREEN, ChatColor.WHITE) + "§7]");
-
+                        if(!targetManager.isAlive()){
+                            playerClick.sendMessage(Messages.NARUTO_PREFIX.getMessage() + "§cVotre cible est morte ! Utilisation du pouvoir échoué. Vous pouvez à nouveau bouger !");
+                            cancel();
+                        }
                         if(timer == 0){
                             if(joueur.isAlive()){
                                 //IL EST ENCORE EN VIE
@@ -70,10 +73,10 @@ public class FuinjutsuGUI extends IQuickInventory {
                                 PlayerManager targetJoueur = main.getPlayerManager(player.getUniqueId());
                                 targetJoueur.setAlive(false);
                                 playerClick.sendMessage(Messages.NARUTO_PREFIX.getMessage()+"§aVous avez réussi à scellé "+player.getName());
+                                sai.setHasUsedFuinjutsu(true);
                                 player.setGameMode(GameMode.SPECTATOR);
                                 player.sendMessage(Messages.NARUTO_PREFIX.getMessage()+"§cSaï vous a scellé. S'il vient à mourir vous en serez libéré sur sa position.");
                             }
-
                             cancel();
                         }
                         timer--;

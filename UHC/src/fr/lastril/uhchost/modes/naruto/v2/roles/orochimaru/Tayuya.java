@@ -28,7 +28,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 public class Tayuya extends Role implements NarutoV2Role, RoleListener, MarqueMauditeItem.MarqueMauditeUser {
 
 	public Tayuya(){
-		super.addRoleToKnow(Kimimaro.class);
+		super.addRoleToKnow(Orochimaru.class);
 	}
 	
 	@EventHandler(priority = EventPriority.LOWEST)

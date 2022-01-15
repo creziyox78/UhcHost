@@ -160,10 +160,12 @@ public class Minato extends Role implements NarutoV2Role, KuramaItem.KuramaUser,
                         if (bow.getItemMeta().getDisplayName().equalsIgnoreCase("§cShurikenJutsu")) {
                             this.toTp = player;
                             this.lastProjectileID = event.getProjectile().getEntityId();
-                            joueur.setRoleCooldownShurikenJustu(15);
+                            joueur.setRoleCooldownShurikenJustu(45);
                             joueur.sendTimer(player, joueur.getRoleCooldownShurikenJustu(), bow);
                         }
                     }
+                } else {
+                    player.sendMessage(Messages.cooldown(joueur.getRoleCooldownShurikenJustu()));
                 }
             }
         }

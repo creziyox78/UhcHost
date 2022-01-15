@@ -12,14 +12,13 @@ public class Suzumebachi extends QuickItem {
 
     public Suzumebachi(UhcHost main) {
         super(Material.DOUBLE_PLANT, 1, (byte)2);
+        super.setName("§6Suzumebachi");
         super.onClick(onClick -> {
             Player player = onClick.getPlayer();
             PlayerManager playerManager = main.getPlayerManager(player.getUniqueId());
             if(playerManager.hasRole() && playerManager.isAlive()){
                 if(playerManager.getRole() instanceof SoiFon){
-                    if(playerManager.getRoleCooldownSuzumebachi() <= 0){
-                        SoiFon soiFon = (SoiFon) playerManager.getRole();
-                    } else {
+                    if(playerManager.getRoleCooldownSuzumebachi() >= 0){
                         player.sendMessage(Messages.cooldown(playerManager.getRoleCooldownSuzumebachi()));
                     }
                 }

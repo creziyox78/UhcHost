@@ -20,17 +20,23 @@ public class OnPingServer implements Listener {
 		event.setMaxPlayers(pl.gameManager.getMaxPlayers());
 		if (GameState.isState(GameState.REBUILDING)) {
 			event.setMotd("§7HOST »§9 Rebuilding...");
-		
 		} else if (GameState.isState(GameState.LOBBY)) {
 			if (Bukkit.hasWhitelist()) {
-				event.setMotd("§7                          HOST »§f Whitelist \n" +
+				event.setMotd("§7                          HOST »§fSous Whitelist \n" +
 						"§7                          Nom »§6 " + pl.gameManager.getGameName());
 			} else {
 				event.setMotd("§7                         HOST »§7 En attente \n" +
 						"§7                          Nom »§6 " + pl.gameManager.getGameName());
 			}
+		} else if(GameState.isState(GameState.STARTED)){
+			event.setMotd("§7                         HOST »§aPartie en cours \n" +
+					"§7                          Nom »§6 " + pl.gameManager.getGameName());
+		} else if(GameState.isState(GameState.ENDED)){
+			event.setMotd("§7                         HOST »§c Partie terminée \n" +
+					"§7                          Nom »§6 " + pl.gameManager.getGameName());
 		} else {
-			event.setMotd("HOST " + GameState.getCurrentState());
-		} 
+			event.setMotd("§7                         HOST »§7 Unknown \n" +
+					"§7                          Nom »§6 " + pl.gameManager.getGameName());
+		}
 	}
 }

@@ -111,53 +111,7 @@ public class Itachi extends Role implements NarutoV2Role, CmdIzanagi.IzanagiUser
 
     @Override
     public String getDescription() {
-        return "\n§7Son but est de gagner avec l’§cAkatsuki§7. \n" +
-                " \n " +
-                "§7§lItems : \n" +
-                " \n " +
-                "§7• Il dispose d’un item nommé \"§8Genjutsu§7\", lorsqu’il l’utilise, un menu s’affiche avec 3 pouvoirs différents (voir ci-dessous)\n" +
-                " \n " +
-                "§7• Il dispose d’un item nommé \"§8Susano§7\", celui-ci lui permet d'enflammer un ennemi dès qu'il le frappe, il gagne également l’effet §9Résistance 1§7, il reçoit aussi une épée Tranchant 7, il peut frapper avec son épée une fois toutes les 20 secondes, ce pouvoir dure 5 minutes et possède un délai d'utilisation de 20 minutes.\n" +
-                " \n " +
-                "§7§lCommandes :\n" +
-                " \n " +
-                "§8→ /ns sharingan <Joueur>§7, celle-ci lui permet d’avoir toutes les informations possible à propos du joueur : Son rôle, s’il a tué des joueurs, si oui le nombre et qui il a tué et combien de pomme d’or il lui reste, il peut l'utiliser seulement 2 fois dans la partie.\n" +
-                " \n " +
-                "§8→ /ns Izanagi§7, celle-ci lui permet de recevoir 5 pommes d’or et d’être entièrement régénéré, cependant il perd §c1 cœur§7 permanent, et il ne pourra plus utiliser le §8Susano§7, il peut l’utiliser qu’une seule fois.\n" +
-                " \n " +
-                "§7§lParticularités :\n" +
-                " \n " +
-                "§7• §dMadara§7, §dObito§7 et §6Sasuke peuvent utiliser le \"§8Genjutsu§7\" s’ils le ramassent. \n" +
-                " \n " +
-                "§7• S’il se fait ressusciter par §5Orochimaru§7 ou §5Kabuto§7, lorsque §aNaruto§7 sera dans un rayon de 5 blocs autour de lui, un message apparaîtra dans son chat et il passera du côté des §aShinobi§7. \n" +
-                " \n " +
-                "§7• Il dispose des effets §bVitesse 1§7, §6Résistance au feu 1§7 et §c2 cœurs §7supplémentaires. \n" +
-                " \n " +
-                "§7• A la mort de §6Sasuke§7 il obtient l’effet §8Faiblesse 1§7 et perd §c2 cœurs§7 permanents. \n" +
-                " \n " +
-                "§7• Il connaît l’identité de §cKisame§7.\n" +
-                " \n " +
-                "• Il dispose de la nature de Chakra : §cKaton\n" +
-                " \n " +
-                "§7§lGenjutsu :\n" +
-                " \n " +
-                "§7Tsukuyomi : Lorsqu’il l’utilise, tous les joueurs se trouvant dans un rayon de 20 blocs autour de lui seront immobilisés pendant 8 secondes, ce pouvoir est utilisable 2 fois dans la partie, il ne peut pas taper les personnes figées.\n" +
-                " \n " +
-                "Attaque : Lorsqu’il l’utilise, il a une liste de tous les joueurs se trouvant dans un rayon de 20 blocs autour de lui, lorsqu’il choisit un joueur, il sera téléporté derrière sa cible, il possède un délai de 5 minutes.\n" +
-                " \n " +
-                "Izanami : Lorsqu'il l’utilise, il a une liste de tous les joueurs se trouvant dans un rayon de 20 blocs autour de lui, lorsqu'il choisit un joueur, il devra accomplir 2 objectifs sur le joueur ciblé et celui-ci devra accomplir 1 objectif dont il ne sera pas au courant (A, B et C), les objectifs sont choisit de manière aléatoire sur deux listes différentes qui se trouve ci-dessous, et à la suite de ces objectifs il rejoindra le camp du joueur qui lui a infligé §8Izanami§7 qu’on va appeler le joueur §8Izanami§7. Voici les objectifs qui concernent lui et le joueur ciblé :\n" +
-                "- Infliger un total de 15 coups d’épée au joueur ciblé\n" +
-                "- Recevoir un coup d’épée de la part du joueur ciblé\n" +
-                "- Donner une pomme dorée au joueur ciblé\n" +
-                "- Forcer le joueur ciblé à lui donner une pomme dorée\n" +
-                "- Rester à côté du joueur ciblé pendant un total de 5 minutes\n" +
-                "- Poser un seau de lave sous les pieds du joueur ciblé\n" +
-                "Ensuite voici les objectifs qui concernent uniquement le joueur ciblé à son égard :\n" +
-                "- Marcher 1 kilomètre\n" +
-                "- Tuer un joueur\n" +
-                "- Manger 5 pommes d’orées\n" +
-                "Lorsqu’il clique à nouveau §8Izanami§7 après l’avoir utilisé une fois, il peut voir l’évolution des objectifs.\n" +
-                "Une fois §8Izanami§7 terminer, le joueur ciblé rejoindra le camp du joueur §8Izanami§7 et lui recevra l’effet §lCécité 1§7 pendant 5 secondes toutes les minutes pendant tout le reste de la partie.";
+        return main.getRoleDescription(this, this.getClass().getName());
     }
 
     @Override
@@ -196,21 +150,6 @@ public class Itachi extends Role implements NarutoV2Role, CmdIzanagi.IzanagiUser
                 if(deadJoueur.getRole() instanceof Madara || deadJoueur.getRole() instanceof Itachi || deadJoueur.getRole() instanceof Sasuke || deadJoueur.getRole() instanceof Obito){
                     killedUchiwa = true;
                     killer.sendMessage(Messages.NARUTO_PREFIX.getMessage() + "§aVous venez de tuer un Uchiwa, vous n'avez plus§7Blindness I§a.");
-                }
-            }
-        }
-    }
-
-    @Override
-    public void onPlayerDeath(Player player) {
-        PlayerManager joueur = main.getPlayerManager(player.getUniqueId());
-        if (joueur.hasRole()) {
-            if(joueur.getRole() instanceof Sasuke){
-                if (super.getPlayer() != null) {
-                    Player itachi = super.getPlayer();
-                    itachi.setMaxHealth(itachi.getMaxHealth() - HEALTH_WHEN_SASUKE_DEATH);
-                    itachi.addPotionEffect(new PotionEffect(PotionEffectType.WEAKNESS, Integer.MAX_VALUE, 0, false, false));
-                    itachi.sendMessage(Messages.NARUTO_PREFIX.getMessage()+"Sasuke est mort, vous perdez donc "+(HEALTH_WHEN_SASUKE_DEATH/2)+" cœurs et vous obtenez l'effet Faiblesse 1");
                 }
             }
         }

@@ -14,10 +14,7 @@ import fr.lastril.uhchost.modes.naruto.v2.manipulationdusable.SandShape;
 import fr.lastril.uhchost.modes.naruto.v2.roles.BijuUser;
 import fr.lastril.uhchost.modes.naruto.v2.roles.shinobi.Naruto;
 import fr.lastril.uhchost.modes.naruto.v2.roles.shinobi.Temari;
-import fr.lastril.uhchost.modes.roles.Camps;
-import fr.lastril.uhchost.modes.roles.Role;
-import fr.lastril.uhchost.modes.roles.RoleCommand;
-import fr.lastril.uhchost.modes.roles.RoleListener;
+import fr.lastril.uhchost.modes.roles.*;
 import fr.lastril.uhchost.player.PlayerManager;
 import fr.lastril.uhchost.tools.API.ActionBar;
 import fr.lastril.uhchost.tools.API.FormatTime;
@@ -70,6 +67,7 @@ public class Gaara extends Role implements NarutoV2Role, BijuUser, RoleCommand, 
         if(main.getGamemanager().getModes() != Modes.NARUTO_V2) return;
         NarutoV2Manager narutoV2Manager = (NarutoV2Manager) main.getGamemanager().getModes().getMode().getModeManager();
         this.jumpLocaton = new Location(narutoV2Manager.getKamuiWorld(), 24972.5, 12, 25058.5, 180.0f, 0.0f);
+        super.addEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, Integer.MAX_VALUE, 0, false, false), When.START);
     }
 
     @Override
@@ -167,7 +165,7 @@ public class Gaara extends Role implements NarutoV2Role, BijuUser, RoleCommand, 
 
         this.task = new BukkitRunnable() {
 
-            int timer = 60 * 5;
+            int timer = 60 * 2;
 
             @Override
             public void run() {
@@ -251,6 +249,11 @@ public class Gaara extends Role implements NarutoV2Role, BijuUser, RoleCommand, 
                             for(PlayerManager naruto : narutoV2Manager.getPlayerManagersWithRole(Naruto.class)){
                                 if(naruto.getPlayer() != null){
                                     naruto.getPlayer().sendMessage(Messages.NARUTO_PREFIX.getMessage() + "§eGaara§a est mort mais vous l'aviez tappé dans les 30 secondes précédant sa mort, il ressuscite et gagne donc avec les Shinobis.");
+                                }
+                            }
+                            for(PlayerManager temari : narutoV2Manager.getPlayerManagersWithRole(Temari.class)){
+                                if(temari.getPlayer() != null){
+                                    temari.getPlayer().sendMessage(Messages.NARUTO_PREFIX.getMessage() + "§eGaara§a vient de passer dans le camp des Shinobis.");
                                 }
                             }
                             joueur.setCamps(Camps.SHINOBI);

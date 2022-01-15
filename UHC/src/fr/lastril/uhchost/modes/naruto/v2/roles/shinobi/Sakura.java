@@ -8,62 +8,29 @@ import fr.lastril.uhchost.modes.naruto.v2.commands.CmdShosenJutsu;
 import fr.lastril.uhchost.modes.naruto.v2.crafter.Chakra;
 import fr.lastril.uhchost.modes.naruto.v2.crafter.NarutoV2Role;
 import fr.lastril.uhchost.modes.naruto.v2.items.KatsuyuItem;
-import fr.lastril.uhchost.modes.naruto.v2.roles.taka.Sasuke;
 import fr.lastril.uhchost.modes.naruto.v2.tasks.SakuraTask;
 import fr.lastril.uhchost.modes.roles.Camps;
 import fr.lastril.uhchost.modes.roles.Role;
 import fr.lastril.uhchost.modes.roles.RoleCommand;
 import fr.lastril.uhchost.modes.roles.RoleListener;
 import fr.lastril.uhchost.player.PlayerManager;
-import fr.lastril.uhchost.player.events.PlayerKillEvent;
 import fr.lastril.uhchost.tools.API.items.crafter.QuickItem;
+import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.SkullType;
 import org.bukkit.entity.Player;
-import org.bukkit.event.EventHandler;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.UUID;
 
 public class Sakura extends Role implements NarutoV2Role, CmdShosenJutsu.ShosenJutsuUser, RoleCommand, RoleListener {
 
-    private static final double healthWhenSasukeDeath = 4D * 2D;
-
-    private boolean knowSasuke, sasukeKill;
+    private Location userLoc, targetLoc;
+    private UUID targetId;
 
     public Sakura() {
-    }
-
-    @EventHandler
-    public void onKill(PlayerKillEvent event){
-        Player killer = event.getKiller();
-        PlayerManager joueur = main.getPlayerManager(killer.getUniqueId());
-        if(joueur.hasRole()){
-            if(joueur.getRole() instanceof Sasuke){
-                sasukeKill = true;
-            }
-        }
-    }
-
-    @Override
-    public void checkRunnable(Player player) {
-        super.checkRunnable(player);
-        if(main.getGamemanager().getModes() != Modes.NARUTO_V2) return;
-        NarutoV2Manager narutoV2Manager = (NarutoV2Manager) main.getGamemanager().getModes().getMode().getModeManager();
-        for(PlayerManager joueur : narutoV2Manager.getPlayerManagersWithRole(Sasuke.class)){
-            if(joueur.isAlive()){
-                if(joueur.getPlayer() != null){
-                    Player sasuke = joueur.getPlayer();
-                    if(player.getLocation().distance(sasuke.getLocation()) <= 20){
-                        if(knowSasuke == false && sasukeKill){
-                            knowSasuke = true;
-                            super.addRoleToKnow(Sasuke.class);
-                            player.sendMessage(Messages.NARUTO_PREFIX.getMessage() + "§6Sasuke§e a tué quelqu'un et vous venez de le croiser. Voic son identité: " + sasuke.getName());
-                        }
-                    }
-                }
-            }
-        }
     }
 
     @Override
@@ -75,6 +42,31 @@ public class Sakura extends Role implements NarutoV2Role, CmdShosenJutsu.ShosenJ
 
     @Override
     protected void onNight(Player player) {
+
+    }
+
+    @Override
+    public void checkRunnable(Player player) {
+        super.checkRunnable(player);
+
+        if(userLoc != null){
+            if(userLoc.distance(player.getLocation()) >= 0.2){
+                if(main.getGamemanager().getModes() != Modes.NARUTO_V2) return;
+                NarutoV2Manager narutoV2Manager = (NarutoV2Manager) main.getGamemanager().getModes().getMode().getModeManager();
+                if(narutoV2Manager.isInShosenJutsu(player.getUniqueId()))
+                    narutoV2Manager.removeInShosenJutsu(player.getUniqueId());
+            }
+        }
+        if(targetLoc != null){
+            if(targetLoc.distance(player.getLocation()) >= 0.2){
+                if(main.getGamemanager().getModes() != Modes.NARUTO_V2) return;
+                NarutoV2Manager narutoV2Manager = (NarutoV2Manager) main.getGamemanager().getModes().getMode().getModeManager();
+                if(narutoV2Manager.isInShosenJutsu(targetId))
+                    narutoV2Manager.removeInShosenJutsu(targetId);
+            }
+        }
+        userLoc = player.getLocation();
+        targetLoc = Bukkit.getPlayer(targetId).getLocation();
 
     }
 
@@ -130,10 +122,7 @@ public class Sakura extends Role implements NarutoV2Role, CmdShosenJutsu.ShosenJ
         if (super.getPlayer() != null) {
             Player sakura = super.getPlayer();
             if (joueur.hasRole()) {
-                if (joueur.getRole() instanceof Sasuke) {
-                    sakura.setMaxHealth(sakura.getMaxHealth() - healthWhenSasukeDeath);
-                    sakura.sendMessage(Messages.NARUTO_PREFIX.getMessage() + "Sasuke est mort, vous perdez donc " + (healthWhenSasukeDeath / 2) + " cœurs.");
-                } else if (joueur.getRole() instanceof Tsunade) {
+                 if (joueur.getRole() instanceof Tsunade) {
                     main.getInventoryUtils().giveItemSafely(sakura, new KatsuyuItem(main).toItemStack());
                     sakura.sendMessage(Messages.NARUTO_PREFIX.getMessage() + "Tsunade est mort, vous héritez donc de l'item Katsuyu.");
                 }
@@ -151,4 +140,14 @@ public class Sakura extends Role implements NarutoV2Role, CmdShosenJutsu.ShosenJ
 	public Chakra getChakra() {
 		return Chakra.DOTON;
 	}
+
+    @Override
+    public UUID getTargetId() {
+        return targetId;
+    }
+
+    @Override
+    public void setTargetId(UUID uuid) {
+        targetId = uuid;
+    }
 }

@@ -35,7 +35,6 @@ public class Kisame extends Role implements NarutoV2Role, RoleListener {
 	
 	public Kisame() {
 		super.addRoleToKnow(Itachi.class);
-		super.addEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, Integer.MAX_VALUE, 0, false, false), When.START);
 		super.addEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, Integer.MAX_VALUE, 0, false, false), When.START);
 	}
 	

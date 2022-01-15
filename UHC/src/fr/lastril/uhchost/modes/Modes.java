@@ -10,13 +10,13 @@ import org.bukkit.SkullType;
 
 public enum Modes {
 
-    CLASSIC("§fClassique", new ClassicMode(), new QuickItem(Material.IRON_SWORD).setName("§fClassique")
+    CLASSIC("§fClassique", "",new ClassicMode(), new QuickItem(Material.IRON_SWORD).setName("§fClassique")
             .setLore("",
                     "§7Equipez-vous et soyez le dernier joueur",
                     "§7en vie dans ce mode de jeu en difficulté",
                     "§7ultra-hardcore.",
                     ""), true),
-    LG("§cLoup-Garou", new LoupGarouMode(),
+    LG("§cLoup-Garou","eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMzY4ZDQzMTI5MzliYjMxMTFmYWUyOGQ2NWQ5YTMxZTc3N2Y4ZjJjOWZjNDI3NTAxY2RhOGZmZTNiMzY3NjU4In19fQ==" ,new LoupGarouMode(),
             new QuickItem(Material.SKULL_ITEM, 1, SkullType.PLAYER.ordinal())
                     .setTexture("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMzY4ZDQzMTI5MzliYjMxMTFmYWUyOGQ2NWQ5YTMxZTc3N2Y4ZjJjOWZjNDI3NTAxY2RhOGZmZTNiMzY3NjU4In19fQ==")
                     .setLore("",
@@ -73,7 +73,7 @@ public enum Modes {
                             "§6§k!§r §eClique droit§7 pour configurer le mode de jeu.")
                     .setName("§fChainsaw Man"), false),
     */
-    NARUTO_V2("§6Naruto", new NarutoV2(),
+    NARUTO_V2("§6Naruto", "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYmFmOTFlOGViY2ZmNThlNzZmNTk3OWJjNjZmMzc3MzZjZjIxNmQ0ZGQzZjQwYWMxMzVkMGIxMDAwM2FjYWJkYiJ9fX0=",new NarutoV2(),
             new QuickItem(Material.SKULL_ITEM, 1, SkullType.PLAYER.ordinal()).setTexture(
                     "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYmFmOTFlOGViY2ZmNThlNzZmNTk3OWJjNjZmMzc3MzZjZjIxNmQ0ZGQzZjQwYWMxMzVkMGIxMDAwM2FjYWJkYiJ9fX0=")
                     .setLore("",
@@ -90,7 +90,7 @@ public enum Modes {
                     .setName("§6Naruto")
             , true),
 
-    BLEACH("§3Bleach", new BleachMode(),
+    BLEACH("§3Bleach", "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZDUzYjRmZjMyZTRkOTEyYWQ1ODk1YjZjMzdhMzUyZjYxYWY5ZTQxZDI0N2E4NzliNWY0OWE2MzUyZmM4NiJ9fX0=",new BleachMode(),
             new QuickItem(Material.SKULL_ITEM, 1, SkullType.PLAYER.ordinal())
                     .setTexture("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZDUzYjRmZjMyZTRkOTEyYWQ1ODk1YjZjMzdhMzUyZjYxYWY5ZTQxZDI0N2E4NzliNWY0OWE2MzUyZmM4NiJ9fX0=")
                     .setLore("",
@@ -106,7 +106,7 @@ public enum Modes {
                     .setName("§3Bleach"), true),
 
 
-    YUGIOH("§eYu-Gi-Oh", null,
+    YUGIOH("§eYu-Gi-Oh", "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZjc0Y2E5YThkNjMxNGNkZmU2ZDU2MTEyODlhZDZmNTNkNTJmMzZkMGU4MGExODAwOGNkN2EzZjMzNzZkOGJkOSJ9fX0=",null,
             new QuickItem(Material.SKULL_ITEM, 1, SkullType.PLAYER.ordinal())
                     .setTexture("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZjc0Y2E5YThkNjMxNGNkZmU2ZDU2MTEyODlhZDZmNTNkNTJmMzZkMGU4MGExODAwOGNkN2EzZjMzNzZkOGJkOSJ9fX0=")
                     .setLore("",
@@ -120,23 +120,24 @@ public enum Modes {
                     .setName("§3Yu-Gi-Oh"), false),
 
 
-    SOON_1("§cBientôt", null,
+    SOON_1("§cBientôt", "",null,
             new QuickItem(Material.SKULL_ITEM, 1, SkullType.PLAYER.ordinal())
                     .setTexture("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNDZiYTYzMzQ0ZjQ5ZGQxYzRmNTQ4OGU5MjZiZjNkOWUyYjI5OTE2YTZjNTBkNjEwYmI0MGE1MjczZGM4YzgyIn19fQ==")
                     .setLore("")
                     .setName("§cSoon"), false);
 
 
-    private final String name;
+    private final String name, texture;
     private final Mode mode;
     private final QuickItem item;
     private final boolean available;
 
-    Modes(String name, Mode mode, QuickItem item, boolean available) {
+    Modes(String name, String texture,Mode mode, QuickItem item, boolean available) {
         this.name = name;
         this.mode = mode;
         this.item = item;
         this.available = available;
+        this.texture = texture;
     }
 
     public String getName() {
@@ -153,5 +154,9 @@ public enum Modes {
 
     public boolean isAvailable() {
         return available;
+    }
+
+    public String getTexture() {
+        return texture;
     }
 }

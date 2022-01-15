@@ -63,7 +63,7 @@ public class CmdPaume implements ModeSubCommand {
                                                 GaiMaito gaiMaito = (GaiMaito) targetJoueur.getRole();
                                                 if(gaiMaito.isInGaiNuit()){
                                                     gaiMaito.setMustDie(false);
-                                                    target.sendMessage(Messages.NARUTO_PREFIX.getMessage()+"Naruto a utilisé son paume sur vous donc vous ne mourrez pas.");
+                                                    target.sendMessage(Messages.NARUTO_PREFIX.getMessage()+"Naruto a utilisé son paume sur vous donc vous ne mourrez pas de votre porte.");
                                                 }
                                             }
                                             naruto.usePaume();
@@ -80,7 +80,7 @@ public class CmdPaume implements ModeSubCommand {
                                         player.sendMessage(Messages.error("Vous êtes à plus de 10 blocs de " + target.getName() + " !"));
                                     }
                                 } else {
-                                    player.sendMessage(Messages.error("Vous ne pouvez pas faire votre /paume sur vous !"));
+                                    player.sendMessage(Messages.error("Vous ne pouvez pas faire votre /ns paume sur vous !"));
                                 }
                             } else {
                                 player.sendMessage(Messages.UNKNOW_PLAYER.getMessage());

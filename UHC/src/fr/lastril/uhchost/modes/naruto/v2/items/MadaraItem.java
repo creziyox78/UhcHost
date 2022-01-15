@@ -27,22 +27,27 @@ public class MadaraItem extends QuickItem {
 			if(onClick.getAction() == Action.RIGHT_CLICK_AIR || onClick.getAction() == Action.RIGHT_CLICK_BLOCK){
 				if (joueur.hasRole()) {
 					if (joueur.getRole() instanceof Madara) {
+						Madara madara = (Madara) joueur.getRole();
 						if (!narutoV2Manager.isInSamehada(player.getUniqueId())) {
 
-							boolean lost = false;
-
-							if(player.hasPotionEffect(PotionEffectType.SPEED)){
-								lost = true;
-								player.removePotionEffect(PotionEffectType.SPEED);
-							}else{
+							if(madara.isBoost()){
+								if(player.hasPotionEffect(PotionEffectType.SPEED)){
+									player.removePotionEffect(PotionEffectType.SPEED);
+								}
+								if(player.hasPotionEffect(PotionEffectType.INCREASE_DAMAGE)){
+									player.removePotionEffect(PotionEffectType.INCREASE_DAMAGE);
+								}
+								madara.setBoost(false);
+							} else {
+								if(player.hasPotionEffect(PotionEffectType.SPEED)){
+									player.removePotionEffect(PotionEffectType.SPEED);
+								}
+								if(player.hasPotionEffect(PotionEffectType.INCREASE_DAMAGE)){
+									player.removePotionEffect(PotionEffectType.INCREASE_DAMAGE);
+								}
 								player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, Integer.MAX_VALUE, 1, false, false));
-							}
-
-							if(player.hasPotionEffect(PotionEffectType.INCREASE_DAMAGE)){
-								lost = true;
-								player.removePotionEffect(PotionEffectType.INCREASE_DAMAGE);
-							}else{
 								player.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, Integer.MAX_VALUE, 0, false, false));
+								madara.setBoost(true);
 							}
 
 							if(joueur.getRole() instanceof NarutoV2Role){
@@ -50,7 +55,7 @@ public class MadaraItem extends QuickItem {
 								narutoRole.usePower(joueur);
 								narutoRole.usePowerSpecific(joueur, super.getName());
 							}
-							player.sendMessage(Messages.NARUTO_PREFIX.getMessage()+"Vous avez "+(lost ? "perdu" : "reçu")+" vos effets.");
+							player.sendMessage(Messages.NARUTO_PREFIX.getMessage()+"Vous avez "+(madara.isBoost() ? "reçu" : "perdu")+" vos effets.");
 						} else {
 							player.sendMessage(Messages.NARUTO_PREFIX.getMessage() + "§cVous êtes sous l'effet de Samehada.");
 						}

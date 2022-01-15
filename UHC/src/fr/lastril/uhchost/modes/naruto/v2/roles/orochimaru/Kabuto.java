@@ -14,6 +14,8 @@ import fr.lastril.uhchost.modes.naruto.v2.items.SenpoKabutoItem;
 import fr.lastril.uhchost.modes.roles.*;
 import fr.lastril.uhchost.player.PlayerManager;
 import fr.lastril.uhchost.tools.API.items.crafter.QuickItem;
+import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.SkullType;
 import org.bukkit.entity.Player;
@@ -23,11 +25,14 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.UUID;
 
 public class Kabuto extends Role implements NarutoV2Role, EdoTenseiItem.EdoTenseiUser, RoleListener, RoleCommand, CmdShosenJutsu.ShosenJutsuUser {
 
 	private int tick = 20;
 	private int timer = tick * 60;
+	private Location userLoc, targetLoc;
+	private UUID targetId;
 
 	public Kabuto() {
 		super.addRoleToKnow(Orochimaru.class);
@@ -112,7 +117,7 @@ public class Kabuto extends Role implements NarutoV2Role, EdoTenseiItem.EdoTense
 			public void run() {
 				player.addPotionEffect(new PotionEffect(PotionEffectType.FAST_DIGGING, tick * 5, 0, false, false));
 			}
-		}.runTaskLater(main, tick * UhcHost.getRANDOM().nextInt(60*20));
+		}.runTaskLater(main, (long) tick * UhcHost.getRANDOM().nextInt(60*20));
 
 		new BukkitRunnable() {
 
@@ -120,7 +125,7 @@ public class Kabuto extends Role implements NarutoV2Role, EdoTenseiItem.EdoTense
 			public void run() {
 				player.addPotionEffect(new PotionEffect(PotionEffectType.FAST_DIGGING, tick * 5, 0, false, false));
 			}
-		}.runTaskLater(main, tick * UhcHost.getRANDOM().nextInt(60*20));
+		}.runTaskLater(main, (long) tick * UhcHost.getRANDOM().nextInt(60*20));
 	}
 
 	@Override
@@ -156,6 +161,29 @@ public class Kabuto extends Role implements NarutoV2Role, EdoTenseiItem.EdoTense
 	}
 
 	@Override
+	public void checkRunnable(Player player) {
+		super.checkRunnable(player);
+		if(userLoc != null){
+			if(userLoc.distance(player.getLocation()) >= 0.2){
+				if(main.getGamemanager().getModes() != Modes.NARUTO_V2) return;
+				NarutoV2Manager narutoV2Manager = (NarutoV2Manager) main.getGamemanager().getModes().getMode().getModeManager();
+				if(narutoV2Manager.isInShosenJutsu(player.getUniqueId()))
+					narutoV2Manager.removeInShosenJutsu(player.getUniqueId());
+			}
+		}
+		if(targetLoc != null){
+			if(targetLoc.distance(player.getLocation()) >= 0.2){
+				if(main.getGamemanager().getModes() != Modes.NARUTO_V2) return;
+				NarutoV2Manager narutoV2Manager = (NarutoV2Manager) main.getGamemanager().getModes().getMode().getModeManager();
+				if(narutoV2Manager.isInShosenJutsu(targetId))
+					narutoV2Manager.removeInShosenJutsu(targetId);
+			}
+		}
+		userLoc = player.getLocation();
+		targetLoc = Bukkit.getPlayer(targetId).getLocation();
+	}
+
+	@Override
 	public Chakra getChakra() {
 		return Chakra.SUITON;
 	}
@@ -163,5 +191,15 @@ public class Kabuto extends Role implements NarutoV2Role, EdoTenseiItem.EdoTense
 	@Override
 	public List<ModeSubCommand> getSubCommands() {
 		return Arrays.asList(new CmdShosenJutsu(main));
+	}
+
+	@Override
+	public UUID getTargetId() {
+		return targetId;
+	}
+
+	@Override
+	public void setTargetId(UUID uuid) {
+		targetId = uuid;
 	}
 }

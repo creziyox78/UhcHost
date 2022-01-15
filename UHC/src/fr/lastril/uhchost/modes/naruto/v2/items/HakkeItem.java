@@ -36,7 +36,7 @@ public class HakkeItem extends QuickItem {
 						if (joueur.getRoleCooldownHakke() == 0) {
 							playerClick.sendMessage(
 									Messages.NARUTO_PREFIX.getMessage() + Messages.USED_POWER.getMessage());
-							joueur.setRoleCooldownHakke(20 * 60);
+							joueur.setRoleCooldownHakke(15 * 60);
 							joueur.sendTimer(playerClick, joueur.getRoleCooldownHakke(), playerClick.getItemInHand());
 							for (Entity entity : playerClick.getNearbyEntities(distance, distance, distance)) {
 								if (entity instanceof Player) {

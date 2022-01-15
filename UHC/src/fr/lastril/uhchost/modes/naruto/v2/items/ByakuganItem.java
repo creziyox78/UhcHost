@@ -34,7 +34,7 @@ public class ByakuganItem extends QuickItem {
 						if (joueur.getRoleCooldownByakugan() == 0) {
 							playerClick.sendMessage(
 									Messages.NARUTO_PREFIX.getMessage() + "§bJoueurs se trouvant à 60 blocs de vous.");
-							joueur.setRoleCooldownByakugan(20*60);
+							joueur.setRoleCooldownByakugan(5*60);
 							joueur.sendTimer(playerClick, joueur.getRoleCooldownByakugan(), playerClick.getItemInHand());
 							for (Entity entity : playerClick.getNearbyEntities(distance, distance, distance)) {
 								if (entity instanceof Player) {

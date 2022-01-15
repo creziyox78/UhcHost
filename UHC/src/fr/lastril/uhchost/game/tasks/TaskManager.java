@@ -247,7 +247,7 @@ public class TaskManager {
 				if (TaskManager.this.count == TaskManager.this.borderTime) {
 					Bukkit.broadcastMessage(I18n.tl("borderStart"));
 					TaskManager.this.pl.worldBorderUtils.change(
-							(int) TaskManager.this.pl.gameManager.getFinalBorderSize(),
+							TaskManager.this.pl.worldBorderUtils.getFinalSize(),
 							((TaskManager.this.pl.worldBorderUtils.getStartSize()
 									- TaskManager.this.pl.worldBorderUtils.getFinalSize())
 									/ TaskManager.this.pl.worldBorderUtils.getSpeed()));

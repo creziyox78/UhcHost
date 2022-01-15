@@ -31,7 +31,7 @@ public class Kimimaro extends Role implements NarutoV2Role, MarqueMauditeItem.Ma
     public Kimimaro() {
         super.addEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, Integer.MAX_VALUE, 0, false, false), When.START);
         super.addEffect(new PotionEffect(PotionEffectType.SPEED, Integer.MAX_VALUE, 0, false, false), When.START);
-        super.addRoleToKnow(Sakon.class, Ukon.class, Kidomaru.class, Tayuya.class, Jirobo.class);
+        super.addRoleToKnow(Orochimaru.class, Sakon.class, Ukon.class, Kidomaru.class, Tayuya.class, Jirobo.class);
     }
 
     @Override

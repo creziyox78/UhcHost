@@ -14,7 +14,6 @@ import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
-import org.bukkit.scheduler.BukkitRunnable;
 
 public class KatsuyuItem extends QuickItem {
 
@@ -48,18 +47,6 @@ public class KatsuyuItem extends QuickItem {
                                     }
                                 }
                             }
-                            if (playerClick.hasPotionEffect(PotionEffectType.INCREASE_DAMAGE)) {
-                                playerClick.removePotionEffect(PotionEffectType.INCREASE_DAMAGE);
-                            }
-
-                            new BukkitRunnable() {
-
-                                @Override
-                                public void run() {
-                                    playerClick.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE,
-                                            Integer.MAX_VALUE, 0, false, false));
-                                }
-                            }.runTaskLater(main, 20 * 60 * 5);
 
                             playerClick.sendMessage(Messages.NARUTO_PREFIX.getMessage() + Messages.USED_POWER.getMessage());
                             joueur.setRoleCooldownKatsuyu(20 * 60);

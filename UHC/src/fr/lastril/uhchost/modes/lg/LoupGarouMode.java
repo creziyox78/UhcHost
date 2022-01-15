@@ -37,7 +37,7 @@ public class LoupGarouMode extends Mode implements ModeCommand, RoleMode<LGRole>
     private final UhcHost pl;
     private final LoupGarouManager loupGarouManager;
     private final List<LoupGarouSpecialEvent> specialEventList = new ArrayList<>();
-    private int announceRoles = 30;
+    private int announceRoles = 20*60;
 
     public LoupGarouMode() {
         super(Modes.LG);

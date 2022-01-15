@@ -56,8 +56,7 @@ public class GameManager {
 
 	public int episode = 1;
 	
-	//public int episodeEvery = 60*20;
-	public int episodeEvery = 60*5;
+	public int episodeEvery = 60*20;
 
 	private boolean editInv;
 
@@ -75,13 +74,9 @@ public class GameManager {
 
 	private long pvpTime;
 
-	private long borderSize;
-
-	private long finalBorderSize;
-
 	private WorldState worldState;
 
-	private double cycleTime = 2*60;
+	private double cycleTime = 10*60;
 
 	private String hostName;
 
@@ -152,9 +147,7 @@ public class GameManager {
 		this.pvpTime = 60000L;
 		this.pvp = false;
 		//this.fightTeleport = false;
-		this.viewHealth = true;
-		this.borderSize = 100L;
-		this.finalBorderSize = 200L;
+		this.viewHealth = false;
 		this.damage = false;
 		this.potionsEditMode = false;
 		this.gameIsEnding = false;
@@ -308,14 +301,6 @@ public class GameManager {
 		this.pvpTime = pvptime;
 	}
 
-	public long getFinalBorderSize() {
-		return this.finalBorderSize;
-	}
-
-	public void setFinalBorderSize(long finalBorderSize) {
-		this.finalBorderSize = finalBorderSize;
-	}
-
 	public boolean isDamage() {
 		return this.damage;
 	}
@@ -324,9 +309,6 @@ public class GameManager {
 		this.damage = damage;
 	}
 
-	public long getBordersize() {
-		return this.borderSize;
-	}
 
 	public List<Potion> getDeniedPotions() {
 		return this.deniedPotions;
@@ -342,10 +324,6 @@ public class GameManager {
 			if (pot.equals(potion))
 				this.deniedPotions.remove(pot);
 		}
-	}
-
-	public void setBordersize(long bordersize) {
-		this.borderSize = bordersize;
 	}
 
 	public boolean isEditInv() {

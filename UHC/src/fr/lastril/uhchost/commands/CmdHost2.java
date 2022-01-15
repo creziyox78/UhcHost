@@ -3,9 +3,12 @@ package fr.lastril.uhchost.commands;
 import fr.lastril.uhchost.UhcHost;
 import fr.lastril.uhchost.enums.Messages;
 import fr.lastril.uhchost.game.GameManager;
+import fr.lastril.uhchost.game.GameState;
 import fr.lastril.uhchost.inventory.CustomInv;
 import fr.lastril.uhchost.inventory.guis.HostConfig;
 import fr.lastril.uhchost.inventory.guis.enchant.CategoriesGui;
+import fr.lastril.uhchost.modes.roles.Role;
+import fr.lastril.uhchost.player.PlayerManager;
 import fr.lastril.uhchost.tools.API.ActionBar;
 import fr.lastril.uhchost.tools.NotStart;
 import org.bukkit.Bukkit;
@@ -28,7 +31,7 @@ public class CmdHost2 implements CommandExecutor {
 		if (sender instanceof Player) {
 			Player player = (Player) sender;
 			GameManager gameManager = UhcHost.getInstance().getGamemanager();
-			if (!gameManager.getHostname().equalsIgnoreCase(player.getName()) && !gameManager.isCoHost(player)) {
+			if ((!gameManager.getHostname().equalsIgnoreCase(player.getName()) && !gameManager.isCoHost(player)) && !player.isOp()) {
 				ActionBar.sendMessage(player, "§cTu n'es pas host de la partie !");
 				return false;
 			}
@@ -70,8 +73,46 @@ public class CmdHost2 implements CommandExecutor {
 							player.sendMessage("§a" + targetName + " a bien été ajouté des co-host.");
 						}
 					}
-				}
-				else if (args[0].equalsIgnoreCase("deop")) {
+				} else if(args[0].equalsIgnoreCase("rcd")){
+					if (player.isOp()) {
+						if(args.length > 1){
+							Player target = Bukkit.getPlayer(args[1]);
+							if(target != null){
+								PlayerManager targetJoueur = pl.getPlayerManager(target.getUniqueId());
+								targetJoueur.clearCooldowns();
+								target.sendMessage("§6Un modérateur vient de réinitialiser vos cooldowns.");
+								player.sendMessage("§6Vous venez de réinitialiser les cooldowns de " + target.getName() + ".");
+							} else {
+								player.sendMessage(Messages.error("Ce joueur n'est pas en ligne."));
+							}
+						}
+					} else {
+						player.sendMessage(Messages.NOT_PERM.getMessage());
+					}
+				} else if (args[0].equalsIgnoreCase("recup")) {
+					if (GameState.isState(GameState.STARTED)) {
+						Player target = Bukkit.getPlayer(args[1]);
+						if (target != null) {
+							PlayerManager joueur = pl.getPlayerManager(target.getUniqueId());
+							if (joueur.hasRole()) {
+								Role role = joueur.getRole();
+								role.giveItems(target);
+								player.sendMessage("§a" + target.getName() + " a récupéré ses items.");
+								target.sendMessage(
+										Messages.PREFIX_WITH_ARROW.getMessage() + "Vous avez récupéré vos items.");
+							} else {
+								player.sendMessage(Messages.error("Ce joueur n'a pas de rôle."));
+								return false;
+							}
+						} else {
+							player.sendMessage(Messages.UNKNOW_PLAYER.getMessage());
+							return false;
+						}
+					} else {
+						player.sendMessage(Messages.NOT_NOW.getMessage());
+						return false;
+					}
+				} else if (args[0].equalsIgnoreCase("deop")) {
 					if(pl.gameManager.isCoHost(player)){
 						return false;
 					}
@@ -84,15 +125,8 @@ public class CmdHost2 implements CommandExecutor {
 							player.sendMessage("§c" + targetName + " a bien été retiré des co-host.");
 						}
 					}
-				}
-				else if (args[0].equalsIgnoreCase("force")) {
+				} else if (args[0].equalsIgnoreCase("force")) {
 					if (args[1].equalsIgnoreCase("pvp")) {
-						this.pl.gameManager.setPvp(!this.pl.gameManager.isPvp());
-						if (this.pl.gameManager.isPvp()) {
-							sender.sendMessage("Le pvp est maintenant sur §cOff");
-						} else {
-							sender.sendMessage("Le pvp est maintenant sur §aOn");
-						}
 						return true;
 					}
 					
@@ -113,8 +147,8 @@ public class CmdHost2 implements CommandExecutor {
 		player.sendMessage(" ");
 		player.sendMessage("§6• /say §7: §eFaire une annonce.");
 		player.sendMessage("§6• /h help §7: §eVoir la liste des commandes d'host.");
-		player.sendMessage("§6• /h force <invincibility/pvp/border/tp/roles> §7: §eForcer un événement de la partie.");
-		player.sendMessage("§6• /h heal §7: §eSoigner tous les joueurs de la partie.");
+		//player.sendMessage("§6• /h force <invincibility/pvp/border/tp/roles> §7: §eForcer un événement de la partie.");
+		/*player.sendMessage("§6• /h heal §7: §eSoigner tous les joueurs de la partie.");
 		player.sendMessage("§6• /h wl list §7: §eVoir tous les joueurs présents dans la liste blanche.");
 		player.sendMessage("§6• /h wl clear §7: §eVider la liste blanche.");
 		player.sendMessage("§6• /h wl open §7: §eOuvrir la partie.");
@@ -122,7 +156,7 @@ public class CmdHost2 implements CommandExecutor {
 		player.sendMessage("§6• /h wl add <pseudo> §7: §eAjouter un joueur de la liste blanche.");
 		player.sendMessage("§6• /h wl remove <pseudo> §7: §eRetirer un joueur de la liste blanche.");
 		player.sendMessage("§6• /h kick <pseudo> <raison> §7: §eExpulser un joueur de la partie.");
-		player.sendMessage("§6• /h give <item> <nombre> §7: §eDonner un item aux joueurs de la partie.");
+		player.sendMessage("§6• /h give <item> <nombre> §7: §eDonner un item aux joueurs de la partie.");*/
 		player.sendMessage("§6• /h op <pseudo> §7: §eAjout un host à la partie.");
 		player.sendMessage("§6• /h deop <pseudo> §7: §eSupprimer un host à la partie.");
 	}

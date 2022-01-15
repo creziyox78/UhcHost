@@ -124,12 +124,12 @@ public class Kakashi extends Role implements NarutoV2Role, KamuiItem.KamuiUser, 
 
     @Override
     public int getArimasuCooldown() {
-        return 15*60;
+        return 10*60;
     }
 
     @Override
     public int getSonohokaCooldown() {
-        return 30*60;
+        return 20*60;
     }
 
     @Override

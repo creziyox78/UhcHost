@@ -20,18 +20,21 @@ public class DeniedPotionGui extends IQuickInventory {
 
     @Override
     public void contents(QuickInventory inv) {
-        int index = 0;
-        for (Potion potion : (UhcHost.getInstance()).gameManager.getDeniedPotions()) {
-            ItemStack pot = potion.toItemStack(1);
-            ItemMeta m = pot.getItemMeta();
-            m.setLore(Collections.singletonList(I18n.tl("guis.deniedPotions.lore", "")));
-            pot.setItemMeta(m);
-            inv.setItem(pot, onClick -> {
-                (UhcHost.getInstance()).gameManager.removeDeniedPotion(Potion.fromItemStack(pot));
-            },index);
-            index++;
-        }
-        ItemsCreator ic = new ItemsCreator(Material.BARRIER, I18n.tl("guis.back", ""), Collections.singletonList(""));
-        inv.setItem(ic.create(), onClick -> new PotionsGui(onClick.getPlayer()).open(onClick.getPlayer()),53);
+        inv.updateItem("deniedpotions", taskUpdate ->{
+            int index = 0;
+            for (Potion potion : (UhcHost.getInstance()).gameManager.getDeniedPotions()) {
+                ItemStack pot = potion.toItemStack(1);
+                ItemMeta m = pot.getItemMeta();
+                m.setLore(Collections.singletonList(I18n.tl("guis.deniedPotions.lore", "")));
+                pot.setItemMeta(m);
+                inv.setItem(pot, onClick -> {
+                    (UhcHost.getInstance()).gameManager.removeDeniedPotion(Potion.fromItemStack(pot));
+                },index);
+                index++;
+            }
+            ItemsCreator ic = new ItemsCreator(Material.BARRIER, I18n.tl("guis.back", ""), Collections.singletonList(""));
+            inv.setItem(ic.create(), onClick -> new PotionsGui(onClick.getPlayer()).open(onClick.getPlayer()),53);
+        });
+
     }
 }

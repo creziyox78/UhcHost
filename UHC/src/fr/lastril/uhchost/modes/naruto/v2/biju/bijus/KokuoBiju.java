@@ -46,10 +46,9 @@ public class KokuoBiju extends Biju {
     private int timerRespawn = 60*5, distance = 10;
 
     public KokuoBiju() {
-        super(UhcHost.getInstance());
         timerRespawn = 1;
         main.getServer().getPluginManager().registerEvents(this, main);
-        int value = UhcHost.getRANDOM().nextInt(3);
+        int value = UhcHost.getRANDOM().nextInt(4);
         if(value == 0){
             spawn = new Location(Bukkit.getWorld(super.getWorld()), UhcHost.getRANDOM().nextInt(150,300), 50, UhcHost.getRANDOM().nextInt(150,300));
         } else if(value == 1){
@@ -124,7 +123,10 @@ public class KokuoBiju extends Biju {
             horse = KokuoInvoker.invokeKokuo(horse, getSafeSpawnLocation(), nameBiju);
             setupBiju(nameBiju);
         }
-        if(isAlive() || narutoV2Manager.getBijuManager().getHotesBiju().get(this.getClass()) != null
+        if(isAlive() || narutoV2Manager.getBijuManager()
+                .getHotesBiju()
+                .get
+                        (this.getClass()) != null
                 || itemInInventory(getItem().toItemStack(), nameBiju)){
             timerRespawn = 60*5;
         }

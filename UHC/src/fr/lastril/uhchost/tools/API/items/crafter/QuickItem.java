@@ -132,6 +132,13 @@ public class QuickItem {
         return this.setLore(Arrays.asList(lore));
     }
 
+    public QuickItem addLore(String lore){
+        ItemMeta im = is.getItemMeta();
+        im.getLore().add(lore);
+        is.setItemMeta(im);
+        return this;
+    }
+
     public QuickItem setLore(List<String> lore) {
         ItemMeta im = is.getItemMeta();
         im.setLore(lore);

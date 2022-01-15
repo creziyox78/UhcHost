@@ -49,7 +49,6 @@ public class SonGokuBiju extends Biju {
     private int timerRespawn = 60*5, distanceLava = 30, distance = 10;
 
     public SonGokuBiju(){
-        super(UhcHost.getInstance());
         timerRespawn = 1;
         main.getServer().getPluginManager().registerEvents(this, main);
         int value = UhcHost.getRANDOM().nextInt(3);
@@ -195,6 +194,9 @@ public class SonGokuBiju extends Biju {
     public void onDeathHote(PlayerDeathEvent event){
         Player player = event.getEntity();
         PlayerManager joueur = main.getPlayerManager(player.getUniqueId());
+        UhcHost.debug("TEST1");
+        UhcHost.debug("Value: " + narutoV2Manager.getBijuManager().getHotesBiju());
+        UhcHost.debug("TEST2");
         if(narutoV2Manager.getBijuManager().getHotesBiju().get(this.getClass()) != null &&
                 narutoV2Manager.getBijuManager().getHotesBiju().get(this.getClass()) == joueur){
             narutoV2Manager.getBijuManager().getHotesBiju().put(this.getClass(), null);

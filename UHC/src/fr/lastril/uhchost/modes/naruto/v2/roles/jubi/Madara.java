@@ -33,7 +33,7 @@ public class Madara extends Role implements NarutoV2Role, JubiItem.JubiUser, Sus
     private static final int DETECTION_TIME = 5*60;
 
     private int detectUses;
-    private boolean usedTengaiShinsei;
+    private boolean usedTengaiShinsei, boost;
     private Biju bijuTracked;
 
     //private double recupKuramaPoint = 0, recupShukakuPoint = 0, recupGyukiPoint = 0;
@@ -176,5 +176,13 @@ public class Madara extends Role implements NarutoV2Role, JubiItem.JubiUser, Sus
 
     public Biju getBijuTracked() {
         return bijuTracked;
+    }
+
+    public boolean isBoost() {
+        return boost;
+    }
+
+    public void setBoost(boolean boost) {
+        this.boost = boost;
     }
 }

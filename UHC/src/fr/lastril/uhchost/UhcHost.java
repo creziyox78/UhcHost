@@ -146,6 +146,8 @@ public class UhcHost extends JavaPlugin {
 		getCommand("setgroupes").setExecutor(new CmdSetGroupes(this));
 		getCommand("rules").setExecutor(new CmdRules());
 		getCommand("revive").setExecutor(new CmdRevive(this));
+		getCommand("doc").setExecutor(new CmdDoc(this));
+		getCommand("maj").setExecutor(new CmdMaj());
 		for (Modes mode : Modes.values()) {
 			if (mode.getMode() instanceof ModeCommand) {
 				ModeCommand modeCommand = (ModeCommand) mode.getMode();

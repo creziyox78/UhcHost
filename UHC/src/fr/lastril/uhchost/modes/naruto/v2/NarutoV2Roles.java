@@ -7,7 +7,6 @@ import fr.lastril.uhchost.modes.naruto.v2.roles.orochimaru.*;
 import fr.lastril.uhchost.modes.naruto.v2.roles.shinobi.*;
 import fr.lastril.uhchost.modes.naruto.v2.roles.solo.Danzo;
 import fr.lastril.uhchost.modes.naruto.v2.roles.solo.Gaara;
-import fr.lastril.uhchost.modes.naruto.v2.roles.taka.Jugo;
 import fr.lastril.uhchost.modes.naruto.v2.roles.taka.Karin;
 import fr.lastril.uhchost.modes.naruto.v2.roles.taka.Sasuke;
 import fr.lastril.uhchost.modes.naruto.v2.roles.taka.Suigetsu;
@@ -55,7 +54,7 @@ public enum NarutoV2Roles {
 	KONAN(Konan.class), //WORKER : Maygo FINISHED
 	NAGATO(Nagato.class), //WORKER : Maygo FINISHED
 	ZETSU_NOIR(ZetsuNoir.class), //WORKER : Lastril FINISHED
-	ZETSU_BLANC(ZetsuBlanc.class), //WORKER : Maygo FINISHED
+	//ZETSU_BLANC(ZetsuBlanc.class), //WORKER : Maygo FINISHED TODO Skin
 
 	/**
 	 * OROCHIMARU
@@ -63,8 +62,8 @@ public enum NarutoV2Roles {
 	OROCHIMARU(Orochimaru.class), //WORKER : Lastril FINISHED
 	KABUTO(Kabuto.class), //WORKER : Lastril FINISHED
 	KIMIMARO(Kimimaro.class), //WORKER : Maygo FINISHED
-	SAKON(Sakon.class), //WORKER : Maygo FINISHED
-	UKON(Ukon.class), //WORKER : Maygo  FINISHED
+	//SAKON(Sakon.class), //WORKER : Maygo FINISHED //TODO BARRIERE
+	//UKON(Ukon.class), //WORKER : Maygo  FINISHED //TODO BARRIERE
 	KIDOMARU(Kidomaru.class), //WORKER : Lastril FINISHED
 	TAYUYA(Tayuya.class), //WORKER : Lastril FINISHED
 	JIROBO(Jirobo.class), //WORKER : Lastril FINISHED
@@ -72,10 +71,10 @@ public enum NarutoV2Roles {
 	/**
 	 * TAKA
 	 */
-	SASUKE(Sasuke.class), //WORKER : Lastril : TODO Sasuke VS Naruto Event
+	SASUKE(Sasuke.class), //WORKER : Lastril
 	SUIGETSU(Suigetsu.class), //WORKER : Lastril FINISHED
 	KARIN(Karin.class), //WORKER : Lastril FINISHED
-	JUGO(Jugo.class), //WORKER : Maygo FINISHED
+	//JUGO(Jugo.class), //WORKER : Maygo FINISHED TODO Skin
 
 	/**
 	 * JÛBI

@@ -65,6 +65,7 @@ public class CmdShosenJutsu implements ModeSubCommand {
                                         PlayerManager targetJoueur = main.getPlayerManager(target.getUniqueId());
                                         if (targetJoueur.hasRole()) {
                                             target.addPotionEffect(regen);
+                                            shosenJutsuUser.setTargetId(target.getUniqueId());
                                             shosenJutsuUser.addInShosenJutsu(target.getUniqueId());
                                             shosenJutsuUser.addInShosenJutsu(player.getUniqueId());
                                             target.sendMessage(Messages.NARUTO_PREFIX.getMessage() + player.getName() + " est en train de vous soigner, ne bougez pas pour que l'effet persiste !");
@@ -112,6 +113,9 @@ public class CmdShosenJutsu implements ModeSubCommand {
     }
 
     public interface ShosenJutsuUser {
+
+        UUID getTargetId();
+        void setTargetId(UUID uuid);
 
         default void addInShosenJutsu(UUID uuid){
             UhcHost main = UhcHost.getInstance();

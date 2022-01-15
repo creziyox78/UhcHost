@@ -20,11 +20,8 @@ public class ModesGui extends IQuickInventory {
 
     private final UhcHost pl = UhcHost.getInstance();
 
-
-
     public ModesGui() {
         super(ChatColor.AQUA + "Modes", 9*3);
-
     }
 
 
@@ -44,6 +41,8 @@ public class ModesGui extends IQuickInventory {
             inv.setItem(is, onClick ->{
                 if(is.isSimilar(mode.getItem().toItemStack()) && mode.isAvailable()){
                     pl.gameManager.setModes(mode);
+                    onClick.getPlayer().sendMessage(Messages.PREFIX_WITH_ARROW.getMessage() + "§aMode de jeu sélectionné : " + mode.getName());
+                    new HostConfig().open(onClick.getPlayer());
                 } else {
                     onClick.getPlayer().sendMessage(Messages.PREFIX_WITH_SEPARATION.getMessage() + "§cCe mode de jeu n'est pas encore disponible !");
                 }

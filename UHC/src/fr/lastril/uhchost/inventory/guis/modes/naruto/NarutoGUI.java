@@ -2,8 +2,8 @@ package fr.lastril.uhchost.inventory.guis.modes.naruto;
 
 import fr.lastril.uhchost.UhcHost;
 import fr.lastril.uhchost.enums.Messages;
+import fr.lastril.uhchost.inventory.guis.HostConfig;
 import fr.lastril.uhchost.inventory.guis.modes.CompositionGui;
-import fr.lastril.uhchost.inventory.guis.modes.ModesGui;
 import fr.lastril.uhchost.modes.Modes;
 import fr.lastril.uhchost.modes.naruto.NarutoV2;
 import fr.lastril.uhchost.modes.naruto.v2.NarutoV2Manager;
@@ -125,7 +125,7 @@ public class NarutoGUI extends IQuickInventory {
 			}, 16);
 
 		}, 1);
-		inv.addRetourItem(new ModesGui());
+		inv.addRetourItem(new HostConfig());
 	}
 
 }

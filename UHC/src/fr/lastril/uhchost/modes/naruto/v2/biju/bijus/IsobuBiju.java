@@ -45,7 +45,6 @@ public class IsobuBiju extends Biju {
 	private int timerRespawn = 60*5, distance = 15;
 
 	public IsobuBiju() {
-		super(UhcHost.getInstance());
 		nameBiju = "§eIsobu";
 		timerRespawn = 1;
 		main.getServer().getPluginManager().registerEvents(this, main);

@@ -47,7 +47,6 @@ public class SaikenBiju extends Biju {
     private int timerRespawn = 60*5, distance = 15;
 
     public SaikenBiju() {
-        super(UhcHost.getInstance());
         timerRespawn = 1;
         main.getServer().getPluginManager().registerEvents(this, main);
         int value = UhcHost.getRANDOM().nextInt(3);

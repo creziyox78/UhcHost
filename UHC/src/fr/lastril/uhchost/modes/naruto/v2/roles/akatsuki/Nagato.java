@@ -146,7 +146,7 @@ public class Nagato extends Role implements NarutoV2Role, RoleListener, RoleComm
 
     @Override
     public void afterRoles(Player player) {
-        player.setMaxHealth(30);
+        player.setMaxHealth(2D*12);
         player.setHealth(player.getMaxHealth());
         player.sendMessage(sendList());
     }

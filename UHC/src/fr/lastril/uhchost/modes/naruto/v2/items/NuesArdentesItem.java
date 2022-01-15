@@ -45,7 +45,7 @@ public class NuesArdentesItem extends QuickItem {
 
                             new BukkitRunnable() {
 
-                                int timer = 3*20;
+                                int timer = 1*20;
 
                                 @Override
                                 public void run() {
