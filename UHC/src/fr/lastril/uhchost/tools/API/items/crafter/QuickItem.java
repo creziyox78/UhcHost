@@ -124,7 +124,9 @@ public class QuickItem {
     }
 
     public QuickItem setInfinityDurability() {
-        is.setDurability(Short.MIN_VALUE);
+        ItemMeta im = is.getItemMeta();
+        im.spigot().setUnbreakable(true);
+        is.setItemMeta(im);
         return this;
     }
 

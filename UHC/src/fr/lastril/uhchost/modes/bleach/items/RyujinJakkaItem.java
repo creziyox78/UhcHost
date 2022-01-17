@@ -42,7 +42,7 @@ public class RyujinJakkaItem extends QuickItem {
                         this.yamamoto = (Yamamoto) playerManager.getRole();
                         Location initialLocation = player.getLocation().clone();
                         initialLocation.setPitch(0.0f);
-                        //playerManager.setRoleCooldownRyujinJakka(10*60);
+                        playerManager.setRoleCooldownRyujinJakka(10*60);
                         Vector direction = initialLocation.getDirection();
                         List<List<Location>> shape = new ArrayList<>();
 
@@ -55,7 +55,7 @@ public class RyujinJakkaItem extends QuickItem {
                             line.add(initialLocation.clone().add(direction.clone().add(left)));
                         }
                         shape.add(line);
-                        Wave wave = new Wave(UhcHost.getInstance(), initialLocation.toVector(), shape);
+                        new Wave(UhcHost.getInstance(), initialLocation.toVector(), shape);
                     } else {
                         player.sendMessage(Messages.cooldown(playerManager.getRoleCooldownRyujinJakka()));
                     }

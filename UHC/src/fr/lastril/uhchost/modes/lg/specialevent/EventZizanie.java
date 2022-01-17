@@ -78,7 +78,5 @@ public class EventZizanie extends LoupGarouSpecialEvent {
         if(villageois.getWolfPlayerManager().isInCouple())
             villageois.setCamps(Camps.COUPLE);
 
-
-
     }
 }

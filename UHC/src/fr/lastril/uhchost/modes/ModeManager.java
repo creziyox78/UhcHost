@@ -6,7 +6,6 @@ import fr.lastril.uhchost.modes.roles.Camps;
 import fr.lastril.uhchost.modes.roles.Role;
 import fr.lastril.uhchost.player.PlayerManager;
 import org.bukkit.entity.Player;
-import org.bukkit.event.entity.EntityDamageByEntityEvent;
 
 import java.util.List;
 import java.util.Objects;
@@ -62,10 +61,6 @@ public abstract class ModeManager {
                 .filter(PlayerManager::hasRole)
                 .filter(PlayerManager -> !Objects.equals(PlayerManager.getRole().getCamp(), camp))
                 .collect(Collectors.toList());
-    }
-
-    public boolean isCancelDamage(EntityDamageByEntityEvent event) {
-        return false;
     }
 
 }

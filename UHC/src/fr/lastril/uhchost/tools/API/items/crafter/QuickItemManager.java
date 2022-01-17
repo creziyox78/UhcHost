@@ -19,14 +19,12 @@ public class QuickItemManager {
         quickItem = new HashMap<>();
         Bukkit.getServer().getPluginManager().registerEvents(new QuickListeners(this), javaPlugin);
     }
- 
-    @SuppressWarnings("deprecation")
+
 	static void registerItem(QuickItem quickItem, ItemStack itemStack, Consumer<QuickEvent> consumer){
         System.out.println("[ITEMS] registered item "+quickItem.getClass().getSimpleName());
         QuickItemManager.quickItem.put(gson.toJson(new QuickItemData(itemStack.getType(), itemStack.getData().getData(), itemStack.getItemMeta())), consumer);
     }
 
-    @SuppressWarnings("deprecation")
 	Consumer<QuickEvent> getEventQuickItem(ItemStack itemStack){
         return quickItem.get(gson.toJson(new QuickItemData(itemStack.getType(), itemStack.getData().getData(), itemStack.getItemMeta())));
     }

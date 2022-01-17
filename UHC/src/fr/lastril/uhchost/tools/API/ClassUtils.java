@@ -1,6 +1,9 @@
 package fr.lastril.uhchost.tools.API;
 
 import org.bukkit.Location;
+import org.bukkit.entity.Entity;
+import org.bukkit.entity.LivingEntity;
+import org.bukkit.entity.Player;
 import org.bukkit.util.Vector;
 
 import java.util.ArrayList;
@@ -52,6 +55,43 @@ public class ClassUtils {
         return locs;
     }
 
+    public static void pullEntityToLocation(Entity e, Location loc) {
+        Location entityLoc = e.getLocation();
+        entityLoc.setY(entityLoc.getY() + 0.5D);
+        e.teleport(entityLoc);
+        double g = -0.08D;
+        double d = loc.distance(entityLoc);
+        double t = d;
+        double v_x = (1.0D + 0.07D * t) * (loc.getX() - entityLoc.getX()) / t;
+        double v_y = (1.0D + 0.03D * t) * (loc.getY() - entityLoc.getY()) / t - 0.5D * g * t;
+        double v_z = (1.0D + 0.07D * t) * (loc.getZ() - entityLoc.getZ()) / t;
+        Vector v = e.getVelocity();
+        v.setX(v_x);
+        v.setY(v_y);
+        v.setZ(v_z);
+        e.setVelocity(v);
+    }
 
+    public static void setCorrectHealth(Player player, double health, boolean kill){
+        if(health <= 0){
+            if(kill){
+                player.damage(100);
+            } else {
+                player.setHealth(0.5);
+            }
+        } else if(health >= player.getMaxHealth()){
+            player.setHealth(player.getMaxHealth());
+        } else {
+            player.setHealth(health);
+        }
+    }
+
+    public static boolean getLookingAt(Player player, LivingEntity livingEntity){
+        Location eye = player.getEyeLocation();
+        Vector toEntity = livingEntity.getEyeLocation().toVector().subtract(eye.toVector());
+        double dot = toEntity.normalize().dot(eye.getDirection());
+
+        return dot > 0.99D;
+    }
 
 }

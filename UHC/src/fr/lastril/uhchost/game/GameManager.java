@@ -182,7 +182,7 @@ public class GameManager {
 			player.sendMessage("§aVous avez été ajouté en tant que co-host.");
 			cohost.add(player);
 		} else {
-			player.sendMessage("Erreur: §c" + player.getName() + " ne fait pas partie des co-hosts.");
+			player.sendMessage("Erreur: §c" + player.getName() + " est déjà co-host de la partie !");
 		}
 	}
 
@@ -194,6 +194,8 @@ public class GameManager {
 		if(isCoHost(player)){
 			player.sendMessage("§cVous n'êtes plus co-host.");
 			cohost.remove(player);
+		} else {
+			player.sendMessage("Erreur: §c" + player.getName() + " ne fait pas partie des co-hosts.");
 		}
 
 	}

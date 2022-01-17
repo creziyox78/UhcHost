@@ -39,9 +39,6 @@ public class CmdMe implements ModeSubCommand {
                         PlayerManager playerManager = pl.getPlayerManager(player.getUniqueId());
                         if (playerManager.hasRole()) {
                             playerManager.getRole().sendDescription(player);
-                            if (playerManager.getRole() != playerManager.getRole()) {
-                                playerManager.getRole().sendDescription(player);
-                            }
                         } else {
                             player.sendMessage("§cVous n'avez pas rôle !");
                         }

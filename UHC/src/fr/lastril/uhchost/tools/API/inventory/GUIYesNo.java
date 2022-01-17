@@ -42,7 +42,7 @@ public class GUIYesNo extends IQuickInventory {
 		}, 5);
 	}
 
-	public class ClickEvent {
+	public static class ClickEvent {
 
 		public Player player;
 		public ClickType type;

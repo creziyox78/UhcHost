@@ -53,6 +53,19 @@ public class Cuboid implements Iterable<Block>, Cloneable, ConfigurationSerializ
     }
 
     /**
+     * Contruct a Cuboid at the given Location with a definite radius (not include the high)
+     *
+     * @param loc
+     *            - location of the center of Cuboid
+     * @param radius
+     *            - length of Cuboid
+     */
+    public Cuboid(Location loc, int radius){
+        this(loc.getWorld(), loc.getBlockX() + radius, loc.getBlockY(), loc.getBlockZ() + radius,
+                loc.getBlockX() - radius, loc.getBlockY(), loc.getBlockZ() - radius);
+    }
+
+    /**
      * Copy constructor.
      *
      * @param other
