@@ -19,9 +19,6 @@ public class AppleLootGui extends IQuickInventory {
     private ItemsCreator ic;
     public AppleLootGui() {
         super(I18n.tl("guis.appleLoot.name"), 9*1);
-        this.ic = new ItemsCreator(Material.APPLE, "§a"+
-                LootsRules.getInstance().getLoot(Material.APPLE) + "%",
-                Collections.singletonList(I18n.tl("guis.appleLoot.lore")));
     }
 
     @Override
@@ -53,8 +50,10 @@ public class AppleLootGui extends IQuickInventory {
             bc = new BannerCreator("§a+1", Arrays.asList(""), 1, true);
             bc.setBaseColor(DyeColor.GREEN);
 
-
-            inv.setItem(ic.create(), 4);
+            ic = new ItemsCreator(Material.APPLE, "§a"+
+                    LootsRules.getInstance().getLoot(Material.APPLE) + "%",
+                    Collections.singletonList(I18n.tl("guis.appleLoot.lore")));
+            inv.setItem(ic.create(), onClick-> new LootsGui().open(onClick.getPlayer()),4);
 
             inv.setItem(bc.create(), onClick -> {
                 String bannerName = ChatColor.stripColor(onClick.getEvent().getCurrentItem().getItemMeta().getDisplayName());

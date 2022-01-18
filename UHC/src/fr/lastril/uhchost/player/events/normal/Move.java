@@ -1,9 +1,11 @@
 package fr.lastril.uhchost.player.events.normal;
 
 import fr.lastril.uhchost.game.GameState;
+import fr.lastril.uhchost.player.events.GameStartEvent;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.HandlerList;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerMoveEvent;
 
@@ -15,9 +17,12 @@ public class Move implements Listener {
 		if (GameState.isState(GameState.PRESTART))
 			if (hasMovedIngoreY(event.getTo(), event.getFrom())) {
 				player.teleport(event.getFrom());
-				return;
 			}
+	}
 
+	@EventHandler
+	public void onGameStart(GameStartEvent event){
+		HandlerList.unregisterAll(this);
 	}
 
 	private boolean hasMovedIngoreY(Location l, Location l1) {

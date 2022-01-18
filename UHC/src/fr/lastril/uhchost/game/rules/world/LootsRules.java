@@ -23,10 +23,10 @@ public class LootsRules implements Listener{
     private static LootsRules instance;
 
     static {
-        lootsRules.put(Material.APPLE, 0);
-        lootsRules.put(Material.FLINT, 0);
-        lootsRules.put(Material.FEATHER, 0);
-        lootsRules.put(Material.STRING, 0);
+        lootsRules.put(Material.APPLE, 20);
+        lootsRules.put(Material.FLINT, 50);
+        lootsRules.put(Material.FEATHER, 20);
+        lootsRules.put(Material.STRING, 20);
         lootsRules.put(Material.ENDER_PEARL, 0);
     }
 

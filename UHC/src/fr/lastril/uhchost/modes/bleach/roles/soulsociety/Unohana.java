@@ -1,5 +1,6 @@
 package fr.lastril.uhchost.modes.bleach.roles.soulsociety;
 
+import fr.lastril.uhchost.UhcHost;
 import fr.lastril.uhchost.enums.Messages;
 import fr.lastril.uhchost.modes.bleach.items.Cristal;
 import fr.lastril.uhchost.modes.bleach.roles.ShinigamiRole;
@@ -110,9 +111,15 @@ public class Unohana extends Role implements RoleListener, ShinigamiRole {
     public void onBreakCenterCristalZone(BlockBreakEvent event){
         Block block = event.getBlock();
         Location location = block.getLocation();
-        if(location == center){
-            center = null;
-            clearTasks();
+        if(block.getType() == Material.STAINED_GLASS){
+            if(center.distance(location) <=0.2){
+                center = null;
+                clearTasks();
+                Player unohana = super.getPlayer();
+                if(unohana != null){
+                    unohana.sendMessage("§cQuelqu'un vient de détruire votre zone !");
+                }
+            }
         }
     }
 
@@ -126,15 +133,21 @@ public class Unohana extends Role implements RoleListener, ShinigamiRole {
                 if(item.getItemMeta().getDisplayName().equalsIgnoreCase("§bCristal")){
                     if(playerManager.hasRole() && playerManager.getRole() instanceof Unohana){
                         if(playerManager.getRoleCooldownCristal() <= 0){
-                            event.getBlock().setType(Material.STAINED_GLASS);
+                            center = event.getBlockPlaced().getLocation().clone();
+                            event.getBlockPlaced().getLocation().getBlock().setType(Material.STAINED_GLASS);
+                            player.setItemInHand(new Cristal(main).toItemStack());
+                            clearTasks();
                             createZone(event.getBlockPlaced().getLocation());
+                            player.sendMessage("§aZone établie !");
+                            playerManager.setRoleCooldownCristal(10*60);
                         } else {
+                            event.setCancelled(true);
                             player.sendMessage(Messages.cooldown(playerManager.getRoleCooldownCristal()));
                         }
                     } else {
+                        event.setCancelled(true);
                         player.sendMessage(Messages.not("Unohana"));
                     }
-                    event.setCancelled(true);
                 }
             }
         }
@@ -147,12 +160,12 @@ public class Unohana extends Role implements RoleListener, ShinigamiRole {
 
     public void createZone(Location loc){
         Cuboid cuboid = new Cuboid(loc, 7);
-        center = cuboid.getCenter();
         for (Block block : cuboid.getBlocks()){
             BukkitTask task = Bukkit.getScheduler().runTaskTimer(main, () ->
                     WorldUtils.spawnParticle(block.getLocation(), EnumParticle.VILLAGER_HAPPY),1,1);
             particlesTasks.add(task);
         }
+        cuboid.expand(Cuboid.CuboidDirection.Up, 2);
         BukkitTask regenTask = Bukkit.getScheduler().runTaskTimer(main, () ->
                 main.getGamemanager().getModes().getMode().getModeManager().getPlayerManagersWithCamps(Camps.SHINIGAMIS).forEach(playerManager -> {
             Player player = playerManager.getPlayer();

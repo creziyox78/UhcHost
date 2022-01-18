@@ -40,6 +40,9 @@ public class BleachMode extends Mode implements ModeConfig, RoleAnnounceMode, Mo
 
     @Override
     public void tick(int timer) {
+        if(timer == 0){
+            setPhase(1);
+        }
         if (announceRoles == 0) {
             annonceRoles();
         }

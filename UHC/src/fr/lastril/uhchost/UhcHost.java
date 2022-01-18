@@ -79,7 +79,7 @@ public class UhcHost extends JavaPlugin {
 	public TaskManager taskManager;
 
 	public static UhcHost instance;
-	private Map<UUID, WolfPlayerManager> wolfPlayersManagers = new HashMap<>();
+	private final Map<UUID, WolfPlayerManager> wolfPlayersManagers = new HashMap<>();
 
 	public static UhcHost getInstance() {
 		return instance;

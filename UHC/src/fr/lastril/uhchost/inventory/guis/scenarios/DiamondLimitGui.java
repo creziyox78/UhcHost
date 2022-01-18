@@ -24,11 +24,8 @@ public class DiamondLimitGui extends IQuickInventory {
 	@Override
 	public void contents(QuickInventory inv) {
 		inv.updateItem("update", taskUpdate -> {
-
-
 			bc = new BannerCreator("§c-10", Arrays.asList(""), 1, true);
 			bc.setBaseColor(DyeColor.RED);
-
 
 			inv.setItem(bc.create(), onClick -> {
 				String bannerName = ChatColor.stripColor(onClick.getEvent().getCurrentItem().getItemMeta().getDisplayName());
@@ -39,16 +36,16 @@ public class DiamondLimitGui extends IQuickInventory {
 			bc.setBaseColor(DyeColor.RED);
 			inv.setItem(bc.create(), onClick -> {
 				String bannerName = ChatColor.stripColor(onClick.getEvent().getCurrentItem().getItemMeta().getDisplayName());
-				int value = Diamondless.getLootNumber() + Integer.parseInt(bannerName);
-				Diamondless.setLootNumber(value);
+				int value = DiamondLimit.getMaxDiamond() + Integer.parseInt(bannerName);
+				DiamondLimit.setMaxDiamond(value);
 
 			}, 1);
 			bc = new BannerCreator("§c-1", Arrays.asList(""), 1, true);
 			bc.setBaseColor(DyeColor.RED);
 			inv.setItem(bc.create(), onClick -> {
 				String bannerName = ChatColor.stripColor(onClick.getEvent().getCurrentItem().getItemMeta().getDisplayName());
-				int value = Diamondless.getLootNumber() + Integer.parseInt(bannerName);
-				Diamondless.setLootNumber(value);
+				int value = DiamondLimit.getMaxDiamond() + Integer.parseInt(bannerName);
+				DiamondLimit.setMaxDiamond(value);
 			}, 2);
 			bc = new BannerCreator("§a+1", Arrays.asList(""), 1, true);
 			bc.setBaseColor(DyeColor.GREEN);
@@ -64,22 +61,22 @@ public class DiamondLimitGui extends IQuickInventory {
 
 			inv.setItem(bc.create(), onClick -> {
 				String bannerName = ChatColor.stripColor(onClick.getEvent().getCurrentItem().getItemMeta().getDisplayName());
-				int value = Diamondless.getLootNumber() + Integer.parseInt(bannerName);
-				Diamondless.setLootNumber(value);
+				int value = DiamondLimit.getMaxDiamond() + Integer.parseInt(bannerName);
+				DiamondLimit.setMaxDiamond(value);
 			}, 6);
 			bc = new BannerCreator("§a+5", Arrays.asList(""), 1, true);
 			bc.setBaseColor(DyeColor.GREEN);
 			inv.setItem(bc.create(), onClick -> {
 				String bannerName = ChatColor.stripColor(onClick.getEvent().getCurrentItem().getItemMeta().getDisplayName());
-				int value = Diamondless.getLootNumber() + Integer.parseInt(bannerName);
-				Diamondless.setLootNumber(value);
+				int value = DiamondLimit.getMaxDiamond() + Integer.parseInt(bannerName);
+				DiamondLimit.setMaxDiamond(value);
 			}, 7);
 			bc = new BannerCreator("§a+10", Arrays.asList(""), 1, true);
 			bc.setBaseColor(DyeColor.GREEN);
 			inv.setItem(bc.create(), onClick -> {
 				String bannerName = ChatColor.stripColor(onClick.getEvent().getCurrentItem().getItemMeta().getDisplayName());
-				int value = Diamondless.getLootNumber() + Integer.parseInt(bannerName);
-				Diamondless.setLootNumber(value);
+				int value = DiamondLimit.getMaxDiamond() + Integer.parseInt(bannerName);
+				DiamondLimit.setMaxDiamond(value);
 			}, 8);
 
 		});

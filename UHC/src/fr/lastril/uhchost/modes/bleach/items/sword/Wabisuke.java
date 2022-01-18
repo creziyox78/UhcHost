@@ -1,4 +1,4 @@
-package fr.lastril.uhchost.modes.bleach.items;
+package fr.lastril.uhchost.modes.bleach.items.sword;
 
 import fr.lastril.uhchost.UhcHost;
 import fr.lastril.uhchost.enums.Messages;

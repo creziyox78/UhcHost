@@ -73,7 +73,7 @@ public class CmdHost2 implements CommandExecutor {
 							player.sendMessage("§a" + targetName + " a bien été ajouté des co-host.");
 						}
 					}
-				} else if(args[0].equalsIgnoreCase("rcd")){
+				} else if(args[0].equalsIgnoreCase("reset")){
 					if (player.isOp()) {
 						if(args.length > 1){
 							Player target = Bukkit.getPlayer(args[1]);

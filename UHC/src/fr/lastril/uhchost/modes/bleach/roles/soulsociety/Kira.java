@@ -1,6 +1,6 @@
 package fr.lastril.uhchost.modes.bleach.roles.soulsociety;
 
-import fr.lastril.uhchost.modes.bleach.items.Wabisuke;
+import fr.lastril.uhchost.modes.bleach.items.sword.Wabisuke;
 import fr.lastril.uhchost.modes.bleach.roles.ShinigamiRole;
 import fr.lastril.uhchost.modes.roles.Camps;
 import fr.lastril.uhchost.modes.roles.Role;

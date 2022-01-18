@@ -358,10 +358,10 @@ public class ScoreboardUtils {
 				BleachMode bleachMode = (BleachMode) modes.getMode();
 				if(playerManager.hasRole()){
 					newLine = newLine.replace("{roles}", roleTime <= 0 ? playerManager.getRole().getRoleName() : new FormatTime(roleTime).toString());
-					newLine = newLine.replace("{phase}", String.valueOf(bleachMode.getPhase()));
 				} else {
 					newLine = newLine.replace("{roles}", roleTime <= 0 ? "Aucun" : new FormatTime(roleTime).toString());
 				}
+				newLine = newLine.replace("{phase}", String.valueOf(bleachMode.getPhase()));
 			} else {
 				newLine = newLine.replace("{roles}", roleTime <= 0 ? "§a✔" : new FormatTime(roleTime).toString());
 			}
