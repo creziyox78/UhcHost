@@ -22,7 +22,7 @@ public enum Messages {
     UNVALID_NUMBER(error("Veuillez entrer un chiffre valide !")),
     TEAM_FULL(error("§cCette team est pleine !")),
     USED_POWER("§aVous avez utilisé votre pouvoir !"),
-    CLICK_HERE("§a§l[CLIQUE-ICI]"),
+    CLICK_HERE("§e[CLIQUE-ICI]"),
     NOTHAVE_ROLE(error("Vous n'avez pas de rôle !")),
 
     /*

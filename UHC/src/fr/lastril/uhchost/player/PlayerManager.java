@@ -712,6 +712,22 @@ public class PlayerManager {
 		return this.getRoleCooldown("Gegetsuburi Dégâts");
 	}
 
+	public void setRoleCooldownUnohanaHeal(int i) {
+		this.setRoleCooldown("Soins", i);
+	}
+
+	public int getRoleCooldownUnohanaHeal(){
+		return this.getRoleCooldown("Soins");
+	}
+
+	public void setRoleCooldownCristal(int i) {
+		this.setRoleCooldown("Cristal", i);
+	}
+
+	public int getRoleCooldownCristal(){
+		return this.getRoleCooldown("Cristal");
+	}
+
 	public void setRoleCooldownWabisuke(int i) {
 		this.setRoleCooldown("Wabisuke", i);
 	}

@@ -11,6 +11,8 @@ public enum BleachRoles {
     OMAEDA(Omaeda.class),
     KIRA(Kira.class),
     UNOHANA(Unohana.class),
+
+
     ;
 
     private final Class<? extends Role> role;

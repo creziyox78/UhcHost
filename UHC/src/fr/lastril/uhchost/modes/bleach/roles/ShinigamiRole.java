@@ -1,4 +1,4 @@
 package fr.lastril.uhchost.modes.bleach.roles;
 
-public interface SoulSociety {
+public interface ShinigamiRole {
 }

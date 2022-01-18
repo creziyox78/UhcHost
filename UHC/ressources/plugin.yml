@@ -33,6 +33,8 @@ commands:
       - setgroup
     description: Commande to set groups.
   b:
+    aliases:
+      - bleach
     description: Command of Bleach Mode.
   rules:
     description: Command to see rules.

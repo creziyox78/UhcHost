@@ -1,6 +1,7 @@
 package fr.lastril.uhchost.modes.bleach.roles.soulsociety;
 
 import fr.lastril.uhchost.modes.bleach.items.Suzumebachi;
+import fr.lastril.uhchost.modes.bleach.roles.ShinigamiRole;
 import fr.lastril.uhchost.modes.roles.Camps;
 import fr.lastril.uhchost.modes.roles.Role;
 import fr.lastril.uhchost.modes.roles.RoleListener;
@@ -15,7 +16,7 @@ import org.bukkit.potion.PotionEffectType;
 
 import java.util.List;
 
-public class SoiFon extends Role implements RoleListener {
+public class SoiFon extends Role implements RoleListener, ShinigamiRole {
 
     private List<PlayerManager> marquedPlayers;
     private boolean inMarque;

@@ -1,6 +1,7 @@
 package fr.lastril.uhchost.modes.bleach.roles.soulsociety;
 
 import fr.lastril.uhchost.modes.bleach.items.Wabisuke;
+import fr.lastril.uhchost.modes.bleach.roles.ShinigamiRole;
 import fr.lastril.uhchost.modes.roles.Camps;
 import fr.lastril.uhchost.modes.roles.Role;
 import fr.lastril.uhchost.modes.roles.RoleListener;
@@ -14,7 +15,7 @@ import org.bukkit.potion.PotionEffectType;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Kira extends Role implements RoleListener {
+public class Kira extends Role implements RoleListener, ShinigamiRole {
 
     private final Map<PlayerManager, Integer> effectMap = new HashMap<>();
     private final Map<PlayerManager, Integer> cooldownDamages = new HashMap<>();

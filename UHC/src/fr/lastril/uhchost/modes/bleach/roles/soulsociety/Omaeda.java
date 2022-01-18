@@ -2,6 +2,7 @@ package fr.lastril.uhchost.modes.bleach.roles.soulsociety;
 
 import fr.lastril.uhchost.enums.Messages;
 import fr.lastril.uhchost.modes.bleach.items.Gegetsuburi;
+import fr.lastril.uhchost.modes.bleach.roles.ShinigamiRole;
 import fr.lastril.uhchost.modes.roles.Camps;
 import fr.lastril.uhchost.modes.roles.Role;
 import fr.lastril.uhchost.modes.roles.RoleListener;
@@ -15,7 +16,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.player.PlayerFishEvent;
 
-public class Omaeda extends Role implements RoleListener {
+public class Omaeda extends Role implements RoleListener, ShinigamiRole {
 
     private Entity grabed;
 

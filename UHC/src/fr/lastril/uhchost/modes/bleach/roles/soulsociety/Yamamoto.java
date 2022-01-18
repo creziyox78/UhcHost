@@ -3,6 +3,7 @@ package fr.lastril.uhchost.modes.bleach.roles.soulsociety;
 import fr.lastril.uhchost.enums.Messages;
 import fr.lastril.uhchost.modes.bleach.commands.CmdEnnetsu;
 import fr.lastril.uhchost.modes.bleach.items.RyujinJakkaItem;
+import fr.lastril.uhchost.modes.bleach.roles.ShinigamiRole;
 import fr.lastril.uhchost.modes.command.ModeSubCommand;
 import fr.lastril.uhchost.modes.roles.*;
 import fr.lastril.uhchost.player.PlayerManager;
@@ -28,7 +29,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class Yamamoto extends Role implements RoleListener, RoleCommand {
+public class Yamamoto extends Role implements RoleListener, RoleCommand, ShinigamiRole {
 
     private int sideLength = 5;
     private int height = 3;
