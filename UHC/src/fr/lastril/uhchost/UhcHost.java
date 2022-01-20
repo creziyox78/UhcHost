@@ -38,6 +38,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -49,6 +50,7 @@ import java.util.stream.Collectors;
 public class UhcHost extends JavaPlugin {
 
 	private static final ThreadLocalRandom RANDOM = ThreadLocalRandom.current();
+
 	public GameManager gameManager;
 
 	public ScoreboardUtils scoreboardUtil;

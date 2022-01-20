@@ -21,7 +21,6 @@ import org.bukkit.Material;
 import org.bukkit.SkullType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
-import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 
 import java.util.ArrayList;

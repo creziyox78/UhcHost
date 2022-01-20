@@ -11,7 +11,7 @@ import fr.lastril.uhchost.modes.command.CmdCompo;
 import fr.lastril.uhchost.modes.command.CmdMe;
 import fr.lastril.uhchost.modes.command.ModeCommand;
 import fr.lastril.uhchost.modes.command.ModeSubCommand;
-import fr.lastril.uhchost.modes.lg.commands.CmdDesc;
+import fr.lastril.uhchost.modes.command.CmdDesc;
 import fr.lastril.uhchost.modes.lg.commands.CmdList;
 import fr.lastril.uhchost.modes.lg.commands.CmdVote;
 import fr.lastril.uhchost.modes.lg.roles.LGChatRole;

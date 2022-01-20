@@ -25,12 +25,13 @@ public class CmdDoc implements CommandExecutor {
 			Player player = (Player) sender;
 			if (main.getGamemanager().getModes().getMode() instanceof RoleMode<?>) {
 				RoleMode<?> roleMode = (RoleMode<?>) main.getGamemanager().getModes().getMode();
-				TextComponent message = new TextComponent("§9Document : ");
-				message.addExtra(new TextComponentBuilder("§a[Clique ICI]")
+				TextComponent message = new TextComponent("§7");
+				message.addExtra(new TextComponentBuilder("§c§o[Cliquer ici pour ouvrir le lien du mode de jeu]")
 						.setClickEvent(ClickEvent.Action.OPEN_URL, roleMode.getDocLink())
-						.setHoverEvent(HoverEvent.Action.SHOW_TEXT, "§aClique ici pour ouvrir le lien").toText());
-				
+						.setHoverEvent(HoverEvent.Action.SHOW_TEXT, "§cRedirection vers le document du mode de jeu").toText());
+				player.sendMessage("§8§m--------------------------------------------------§r");
 				player.spigot().sendMessage(message);
+				player.sendMessage("§8§m--------------------------------------------------§r");
 			} 
 		}
 		return false;

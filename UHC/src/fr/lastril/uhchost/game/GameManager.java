@@ -413,31 +413,35 @@ public class GameManager {
 				}
 			}, 10L, 10L);
 		} else {
-			this.task = Bukkit.getScheduler().runTaskTimer(this.pl, new Runnable() {
-				final List<Location> locs = GameManager.this.generateLocations(Bukkit.getOnlinePlayers().size());
 
+			this.task = Bukkit.getScheduler().runTaskTimer(this.pl, new Runnable() {
+				final List<PlayerManager> onlinePlayers= pl.getPlayerManagerOnlines();
+				int index = 0;
+				final List<Location> locs = GameManager.this.generateLocations(Bukkit.getOnlinePlayers().size());
 				@Override
 				public void run() {
 					if (GameManager.this.count == this.locs.size()) {
-						Bukkit.getOnlinePlayers().forEach(players -> {
-							PlayerManager playerManager = pl.getPlayerManager(players.getUniqueId());
-							playerManager.setPlayedGame(true);
-							playerManager.setAlive(true);
-							Location loc = this.locs.stream().findAny().get();
-							players.teleport(loc.clone().add(0.5D, 1.0D, 0.5D));
-							/*if (GameManager.this.fightTeleport)
-								GameManager.this.teleportations.put(players.getUniqueId(), loc.clone().add(0.5D, 1.0D, 0.5D));*/
-							this.locs.remove(loc);
-						});
-						GameManager.this.pl.taskManager.preGame();
-						GameManager.this.task.cancel();
+						Player players = onlinePlayers.get(index).getPlayer();
+						UhcHost.debug("Teleporting: " + players.getName());
+						TitleAPI.sendTitle(players, 5, 20, 5, "§3Téléportations", "§b"+(index+1)+"/" + onlinePlayers.size());
+						PlayerManager playerManager = pl.getPlayerManager(players.getUniqueId());
+						playerManager.setPlayedGame(true);
+						playerManager.setAlive(true);
+						Location loc = locs.stream().findAny().get();
+						players.teleport(loc.clone().add(0.5D, 1.0D, 0.5D));
+						locs.remove(loc);
+						index++;
+						if(locs.isEmpty() || index == onlinePlayers.size()){
+							GameManager.this.pl.taskManager.preGame();
+							GameManager.this.task.cancel();
+						}
 						return;
-
 					}
 					this.locs.get(GameManager.this.count).getChunk().load(true);
 					GameManager.this.count++;
 				}
-			}, 10L, 10L);
+			}, 10L, 20L);
+
 		}
 	}
 

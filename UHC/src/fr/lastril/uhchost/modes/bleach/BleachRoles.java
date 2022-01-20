@@ -10,7 +10,8 @@ public enum BleachRoles {
     SOIFON(SoiFon.class), //TODO ITEMS
     OMAEDA(Omaeda.class), //FINISHED
     KIRA(Kira.class), //TODO BE TESTED
-    UNOHANA(Unohana.class), //TODO RIDING PLAYER
+    UNOHANA(Unohana.class), //TODO BE TESTED
+    ISANE(Isane.class),
 
     ;
 

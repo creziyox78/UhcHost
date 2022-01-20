@@ -21,18 +21,17 @@ public enum Messages {
     CANT_USE_MORE_POWER(error("Vous ne pouvez plus utiliser votre pouvoir !")),
     UNVALID_NUMBER(error("Veuillez entrer un chiffre valide !")),
     TEAM_FULL(error("§cCette team est pleine !")),
-    USED_POWER("§aVous avez utilisé votre pouvoir !"),
+    USED_POWER("§aExécution du pouvoir !"),
     CLICK_HERE("§e[CLIQUE-ICI]"),
     NOTHAVE_ROLE(error("Vous n'avez pas de rôle !")),
 
     /*
      * PREFIX
      */
-    TEAMCRAFT_PREFIX("§2§lTeam Crafter §8»§a "),
-    NARUTO_PREFIX("§6§lNaruto §8» §e"),
-    BLEACH_PREFIX("§3Bleach §8» §e"),
-    LOUP_GAROU_PREFIX("§6LG UHC » §e"),
-    PREFIX_WITH_ARROW("§6§lUHC §8» §a"),
+    NARUTO_PREFIX("§e[§6Naruto§e] "),
+    BLEACH_PREFIX("§9[§3Bleach§9] §b"),
+    LOUP_GAROU_PREFIX("§b[§6LG UHC§b] "),
+    PREFIX_WITH_ARROW("§4[§cUHC§4] §e"),
     PREFIX_WITH_SEPARATION("§6§lUHC §8❘ §a"),
     PREFIX_SPEC_STAFF("§8§lUHC SPEC§8 » §7"),
     PREFIX("§6§lUHC");
@@ -63,7 +62,7 @@ public enum Messages {
     }
 
     public static String cooldown(int roleCooldown) {
-        return error("Il vous reste "+ new FormatTime(roleCooldown).toFormatString());
+        return error("Vous devez attendre encore "+ new FormatTime(roleCooldown).toFormatString());
     }
 
     @Override

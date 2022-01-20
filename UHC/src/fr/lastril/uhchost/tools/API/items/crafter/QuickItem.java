@@ -29,7 +29,7 @@ public class QuickItem {
         this(m, 1);
     }
 
-    public QuickItem(ItemStack is) { 
+    public QuickItem(ItemStack is) {
         this.is = is;
     }
 
@@ -201,8 +201,8 @@ public class QuickItem {
 		return setTexture(texture.getHash());
 	}
 
-    public QuickItem onClick(Consumer<QuickEvent> consumer){
-        this.consumer = consumer;
+    public QuickItem onClick(Consumer<QuickEvent> onClick){
+        this.consumer = onClick;
         return this;
     }
 

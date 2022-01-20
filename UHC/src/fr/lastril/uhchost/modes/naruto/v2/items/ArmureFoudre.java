@@ -3,7 +3,6 @@ package fr.lastril.uhchost.modes.naruto.v2.items;
 import fr.lastril.uhchost.UhcHost;
 import fr.lastril.uhchost.enums.Messages;
 import fr.lastril.uhchost.modes.naruto.v2.NarutoV2Manager;
-import fr.lastril.uhchost.modes.naruto.v2.roles.shinobi.Naruto;
 import fr.lastril.uhchost.modes.naruto.v2.roles.shinobi.YondameRaikage;
 import fr.lastril.uhchost.player.PlayerManager;
 import fr.lastril.uhchost.tools.API.ActionBar;

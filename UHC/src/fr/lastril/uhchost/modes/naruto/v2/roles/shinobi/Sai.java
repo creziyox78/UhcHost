@@ -19,8 +19,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.entity.Silverfish;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
-import org.bukkit.event.entity.PlayerDeathEvent;
-import org.bukkit.scheduler.BukkitRunnable;
 import org.spigotmc.event.entity.EntityMountEvent;
 
 import java.util.UUID;

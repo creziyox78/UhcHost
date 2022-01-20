@@ -1,5 +1,7 @@
 package fr.lastril.uhchost.tools.API;
 
+import fr.lastril.uhchost.tools.API.raytracing.BoundingBox;
+import fr.lastril.uhchost.tools.API.raytracing.RayTrace;
 import org.bukkit.Location;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
@@ -7,6 +9,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.util.Vector;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 public class ClassUtils {
@@ -92,6 +95,20 @@ public class ClassUtils {
         double dot = toEntity.normalize().dot(eye.getDirection());
 
         return dot > 0.99D;
+    }
+
+    public static Player getTargetPlayer(Player player, double distanceMax) {
+        RayTrace rayTrace = new RayTrace(player.getEyeLocation().toVector(), player.getEyeLocation().getDirection());
+        List<Vector> positions = rayTrace.traverse(distanceMax, 0.15D);
+        for (int i = 0; i < positions.size(); i++) {
+            Location position = positions.get(i).toLocation(player.getWorld());
+            Collection<Entity> entities = player.getWorld().getNearbyEntities(position, 1.0D, 1.0D, 1.0D);
+            for (Entity entity : entities) {
+                if (entity instanceof Player && entity != player && rayTrace.intersects(new BoundingBox(entity), distanceMax, 0.15D))
+                    return (Player) entity;
+            }
+        }
+        return null;
     }
 
 }

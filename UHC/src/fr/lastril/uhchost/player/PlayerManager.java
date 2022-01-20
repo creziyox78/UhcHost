@@ -720,6 +720,14 @@ public class PlayerManager {
 		return this.getRoleCooldown("Soins");
 	}
 
+	public void setRoleCooldownMinazuki(int i) {
+		this.setRoleCooldown("Minazuki", i);
+	}
+
+	public int getRoleCooldownMinazuki(){
+		return this.getRoleCooldown("Minazuki");
+	}
+
 	public void setRoleCooldownCristal(int i) {
 		this.setRoleCooldown("Cristal", i);
 	}

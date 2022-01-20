@@ -12,7 +12,7 @@ import fr.lastril.uhchost.modes.command.CmdCompo;
 import fr.lastril.uhchost.modes.command.CmdMe;
 import fr.lastril.uhchost.modes.command.ModeCommand;
 import fr.lastril.uhchost.modes.command.ModeSubCommand;
-import fr.lastril.uhchost.modes.lg.commands.CmdDesc;
+import fr.lastril.uhchost.modes.command.CmdDesc;
 import fr.lastril.uhchost.modes.naruto.v2.NarutoV2Manager;
 import fr.lastril.uhchost.modes.naruto.v2.NarutoV2Roles;
 import fr.lastril.uhchost.modes.naruto.v2.biju.BijuManager;

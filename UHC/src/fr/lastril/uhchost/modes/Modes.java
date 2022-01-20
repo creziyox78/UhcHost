@@ -135,7 +135,7 @@ public enum Modes {
     private final QuickItem item;
     private final boolean available;
 
-    Modes(String name, String texture,Mode mode, QuickItem item, boolean available) {
+    Modes(String name, String texture, Mode mode, QuickItem item, boolean available) {
         this.name = name;
         this.mode = mode;
         this.item = item;

@@ -145,8 +145,8 @@ public class CmdHost2 implements CommandExecutor {
 	private void sendUse(Player player) {
 		player.sendMessage(Messages.PREFIX_WITH_ARROW.getMessage()+"Liste des commandes d'host :");
 		player.sendMessage(" ");
-		player.sendMessage("§6• /say §7: §eFaire une annonce.");
-		player.sendMessage("§6• /h help §7: §eVoir la liste des commandes d'host.");
+		player.sendMessage("§f• /say §7: §eFaire une annonce.");
+		player.sendMessage("§f• /h help §7: §eVoir la liste des commandes d'host.");
 		//player.sendMessage("§6• /h force <invincibility/pvp/border/tp/roles> §7: §eForcer un événement de la partie.");
 		/*player.sendMessage("§6• /h heal §7: §eSoigner tous les joueurs de la partie.");
 		player.sendMessage("§6• /h wl list §7: §eVoir tous les joueurs présents dans la liste blanche.");
@@ -157,8 +157,10 @@ public class CmdHost2 implements CommandExecutor {
 		player.sendMessage("§6• /h wl remove <pseudo> §7: §eRetirer un joueur de la liste blanche.");
 		player.sendMessage("§6• /h kick <pseudo> <raison> §7: §eExpulser un joueur de la partie.");
 		player.sendMessage("§6• /h give <item> <nombre> §7: §eDonner un item aux joueurs de la partie.");*/
-		player.sendMessage("§6• /h op <pseudo> §7: §eAjout un host à la partie.");
-		player.sendMessage("§6• /h deop <pseudo> §7: §eSupprimer un host à la partie.");
+		player.sendMessage("§f• /h op <pseudo> §7: §eAjout un host à la partie.");
+		player.sendMessage("§f• /h deop <pseudo> §7: §eSupprimer un host à la partie.");
+		player.sendMessage("§f• /h reset <pseudo> §7: §eRéduire à 0 les cooldowns d'un joueur.");
+		player.sendMessage("§f• /h config §7: §eOuvrir le menu de configuration de la partie.");
 	}
 
 }

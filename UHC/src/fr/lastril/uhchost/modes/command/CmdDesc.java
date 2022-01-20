@@ -1,4 +1,4 @@
-package fr.lastril.uhchost.modes.lg.commands;
+package fr.lastril.uhchost.modes.command;
 
 import fr.lastril.uhchost.UhcHost;
 import fr.lastril.uhchost.modes.command.ModeSubCommand;
@@ -47,7 +47,6 @@ public class CmdDesc implements ModeSubCommand{
             if(pl.gameManager.getModes().getMode() instanceof RoleMode<?>){
                 RoleMode<?> mode = (RoleMode<?>) pl.getGamemanager().getModes().getMode();
                 for (Role roles : mode.getRoles()) {
-                    System.out.println(roles.getRoleName() + " : " + roleName);
                     if(roleName.equalsIgnoreCase(roles.getRoleName() + " ")){
                         player.sendMessage(UhcHost.getInstance().getRoleDescription(roles, roles.getClass().getName()));
                         return true;

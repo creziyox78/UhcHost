@@ -576,7 +576,7 @@ fr:
                   - "&2"
                   - "&6• ShurikenJutsu :&7 Permet, en étant accroupi, de poser des balises (5 maximum). En cliquant normalement, permet de téléporter un joueur à l'une de vos balises. (Cooldown - 10 minutes par TP)"
                   - "&2"
-                  - "&6• Arc \"ShurikenJutsu\" :&7 Permet de se téléporter à l'impact de la flèche. (Cooldown - 45 secondes)"
+                  - "&6• Arc \"ShurikenJutsu\" :&7 Permet de se téléporter à l'impact de la flèche. (Cooldown - 1 minute)"
                   - "&2"
                   - "&6• Kurama&7 : Donne les effets&b Speed 2&7 et&c Force 1&e pendant 5 minutes.&7 Vous pouvez utiliser votre commande&f \"/ns smell\"&7 pendant l'utilisation de votre pouvoir. (Cooldown - 20 minutes)"
                   - "&2"
@@ -646,10 +646,32 @@ fr:
                 Asuma:
                   - '&8&m--------------------------------------------------&r'
                   - "&fVous êtes&a {role}"
+                  - "&2"
+                  - "&fObjectif: Gagner avec les&a Shinobis"
+                  - "&2"
+                  - "&f&lItems"
+                  - "&2"
+                  - "&7• Epée en fer&3 Tranchant 5&7."
+                  - "&2"
+                  - "&6• Nuées Ardentes :&7 Créer une explosion à 3 mètres devant vous 1 seconde après l'utilisation. (Cooldown - 5 minutes)"
+                  - "&2"
+                  - "&f&lParticularités"
+                  - "&2"
+                  - "&7• Possibilité de connaître&a Ino, Shikamaru ou  Chôji&7 via une barre de progression invisible de 2500 points:"
+                  - "&a   • Progression de la bar "
+                  - "&a        - 20 blocs = 2pts/s"
+                  - "&a        - 10 blocs = 5pts/s"
+                  - "&a        - 5 blocs = 10pts/s"
+                  - "&2"
+                  - "&7• Vous possèdez les effets&c Force 1&7 et&b Vitesse 1&7 permanent."
+                  - "&2"
+                  - "&7• Vous possèdez la nature de Chakra &aFûton&7."
+                  - "&2"
                   - '&8&m--------------------------------------------------&r'
                 Gaï Maito:
                   - '&8&m--------------------------------------------------&r'
                   - "&fVous êtes&a {role}"
+                  - ""
                   - '&8&m--------------------------------------------------&r'
                 Rock Lee :
                   - '&8&m--------------------------------------------------&r'

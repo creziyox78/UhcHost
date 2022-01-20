@@ -4,7 +4,6 @@ import org.bukkit.entity.EntityType;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.material.SpawnEgg;
 
-@Deprecated
 public class Oeuf {
 	
 	private final SpawnEgg egg;

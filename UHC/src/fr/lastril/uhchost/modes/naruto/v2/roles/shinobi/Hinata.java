@@ -1,6 +1,5 @@
 package fr.lastril.uhchost.modes.naruto.v2.roles.shinobi;
 
-import fr.lastril.uhchost.UhcHost;
 import fr.lastril.uhchost.enums.Messages;
 import fr.lastril.uhchost.modes.Modes;
 import fr.lastril.uhchost.modes.naruto.v2.NarutoV2Manager;
@@ -10,7 +9,6 @@ import fr.lastril.uhchost.modes.naruto.v2.items.ByakuganItem;
 import fr.lastril.uhchost.modes.naruto.v2.items.HakkeItem;
 import fr.lastril.uhchost.modes.roles.Camps;
 import fr.lastril.uhchost.modes.roles.Role;
-import fr.lastril.uhchost.modes.roles.When;
 import fr.lastril.uhchost.player.PlayerManager;
 import fr.lastril.uhchost.tools.API.items.crafter.QuickItem;
 import org.bukkit.Material;
