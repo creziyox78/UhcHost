@@ -1,4 +1,4 @@
-# UHC-Host---Plugin
+# UHCHost
 This plugin can host some UHC games in minecraft with custom parameters.
 
 To use this plugin, download the file "UhcHost.jar" and put it in the "plugins" file of your Minecraft server.
