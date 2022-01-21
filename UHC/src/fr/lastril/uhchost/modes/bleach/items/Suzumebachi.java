@@ -2,7 +2,7 @@ package fr.lastril.uhchost.modes.bleach.items;
 
 import fr.lastril.uhchost.UhcHost;
 import fr.lastril.uhchost.enums.Messages;
-import fr.lastril.uhchost.modes.bleach.roles.soulsociety.SoiFon;
+import fr.lastril.uhchost.modes.bleach.roles.shinigamis.soulsociety.SoiFon;
 import fr.lastril.uhchost.player.PlayerManager;
 import fr.lastril.uhchost.tools.API.items.crafter.QuickItem;
 import org.bukkit.Material;

@@ -1,4 +1,4 @@
-package fr.lastril.uhchost.modes.bleach.roles.soulsociety;
+package fr.lastril.uhchost.modes.bleach.roles.shinigamis.soulsociety;
 
 import fr.lastril.uhchost.enums.Messages;
 import fr.lastril.uhchost.modes.bleach.items.Cristal;
@@ -17,6 +17,7 @@ import net.minecraft.server.v1_8_R3.EnumParticle;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.SkullType;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -91,7 +92,9 @@ public class Unohana extends Role implements RoleListener, ShinigamiRole {
 
     @Override
     public QuickItem getItem() {
-        return null;
+        return new QuickItem(Material.SKULL_ITEM, 1, SkullType.PLAYER.ordinal())
+                .setName(getCamp().getCompoColor() + getRoleName())
+                .setTexture("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvODg4YzRlMjgxYTVmYjMxNTEzMWUyMzJmNjA0ODA4NWE2YWU0ODkxZWViNDZiNmZlYzMzNWM5YTIyNzMzN2UxMSJ9fX0=");
     }
 
     @Override

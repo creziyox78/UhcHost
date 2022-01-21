@@ -2,7 +2,7 @@ package fr.lastril.uhchost.modes.bleach.commands;
 
 import fr.lastril.uhchost.UhcHost;
 import fr.lastril.uhchost.enums.Messages;
-import fr.lastril.uhchost.modes.bleach.roles.soulsociety.Yamamoto;
+import fr.lastril.uhchost.modes.bleach.roles.shinigamis.soulsociety.Yamamoto;
 import fr.lastril.uhchost.modes.command.ModeSubCommand;
 import fr.lastril.uhchost.player.PlayerManager;
 import org.bukkit.Bukkit;

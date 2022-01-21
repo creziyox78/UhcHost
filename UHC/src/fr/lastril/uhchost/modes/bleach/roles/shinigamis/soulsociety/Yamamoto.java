@@ -1,4 +1,4 @@
-package fr.lastril.uhchost.modes.bleach.roles.soulsociety;
+package fr.lastril.uhchost.modes.bleach.roles.shinigamis.soulsociety;
 
 import fr.lastril.uhchost.enums.Messages;
 import fr.lastril.uhchost.modes.bleach.commands.CmdEnnetsu;
@@ -13,6 +13,7 @@ import fr.lastril.uhchost.tools.API.items.crafter.QuickItem;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.SkullType;
 import org.bukkit.block.Block;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Entity;
@@ -173,7 +174,10 @@ public class Yamamoto extends Role implements RoleListener, RoleCommand, Shiniga
 
     @Override
     public QuickItem getItem() {
-        return null;
+        return new QuickItem(Material.SKULL_ITEM, 1, SkullType.PLAYER.ordinal())
+                .setName(getCamp().getCompoColor() + getRoleName())
+                .setTexture("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNmJhNzZkZWEzZGZjMzU0NzRlMzc0Yzk3NjIxNDQ4ZDVmMTczOWYzMmY0MWYyMWRkZGY2ZmE1NTVkMGMzOWEifX19");
+
     }
 
     @Override

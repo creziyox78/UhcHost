@@ -1,4 +1,4 @@
-package fr.lastril.uhchost.modes.bleach.roles.soulsociety;
+package fr.lastril.uhchost.modes.bleach.roles.shinigamis.soulsociety;
 
 import fr.lastril.uhchost.enums.Messages;
 import fr.lastril.uhchost.modes.bleach.items.Gegetsuburi;
@@ -9,6 +9,8 @@ import fr.lastril.uhchost.modes.roles.RoleListener;
 import fr.lastril.uhchost.player.PlayerManager;
 import fr.lastril.uhchost.tools.API.ClassUtils;
 import fr.lastril.uhchost.tools.API.items.crafter.QuickItem;
+import org.bukkit.Material;
+import org.bukkit.SkullType;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.FishHook;
 import org.bukkit.entity.Player;
@@ -53,7 +55,10 @@ public class Omaeda extends Role implements RoleListener, ShinigamiRole {
 
     @Override
     public QuickItem getItem() {
-        return null;
+        return new QuickItem(Material.SKULL_ITEM, 1, SkullType.PLAYER.ordinal())
+                .setName(getCamp().getCompoColor() + getRoleName())
+                .setTexture("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNTJlZTlmNjg1NTlkNGJlZGNkZjFjNWExMzEwNTQ4YWRiZTRmM2U4YWYxYjNlZTk3YTg2NTEwYWM4ZGU0MjcifX19");
+
     }
 
     @Override

@@ -1,5 +1,6 @@
-package fr.lastril.uhchost.modes.bleach.roles.soulsociety;
+package fr.lastril.uhchost.modes.bleach.roles.shinigamis.soulsociety;
 
+import com.sun.xml.internal.bind.v2.model.annotation.Quick;
 import fr.lastril.uhchost.modes.bleach.items.sword.Wabisuke;
 import fr.lastril.uhchost.modes.bleach.roles.ShinigamiRole;
 import fr.lastril.uhchost.modes.roles.Camps;
@@ -8,6 +9,8 @@ import fr.lastril.uhchost.modes.roles.RoleListener;
 import fr.lastril.uhchost.player.PlayerManager;
 import fr.lastril.uhchost.tools.API.items.crafter.QuickItem;
 import org.bukkit.Bukkit;
+import org.bukkit.Material;
+import org.bukkit.SkullType;
 import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
@@ -63,7 +66,9 @@ public class Kira extends Role implements RoleListener, ShinigamiRole {
 
     @Override
     public QuickItem getItem() {
-        return null;
+        return new QuickItem(Material.SKULL_ITEM, 1, SkullType.PLAYER.ordinal())
+                .setName(getCamp().getCompoColor() + getRoleName())
+                .setTexture("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMjdiZmVjZTUwZjRiZjIzYTA0ZjNiNWYxNDFhNTI4MmUxMWVlZjZiNmY2Yjk1MGY3NjMwNjU1MjkwODA3ZTU1NiJ9fX0=");
     }
 
     @Override

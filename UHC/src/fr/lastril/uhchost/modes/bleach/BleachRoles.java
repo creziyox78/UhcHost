@@ -1,6 +1,6 @@
 package fr.lastril.uhchost.modes.bleach;
 
-import fr.lastril.uhchost.modes.bleach.roles.soulsociety.*;
+import fr.lastril.uhchost.modes.bleach.roles.shinigamis.soulsociety.*;
 import fr.lastril.uhchost.modes.roles.Role;
 
 public enum BleachRoles {
@@ -11,8 +11,8 @@ public enum BleachRoles {
     OMAEDA(Omaeda.class), //FINISHED
     KIRA(Kira.class), //TODO BE TESTED
     UNOHANA(Unohana.class), //TODO BE TESTED
-    ISANE(Isane.class),
-
+    ISANE(Isane.class), //TODO BE TESTED
+    HINAMORI(Hinamori.class),
     ;
 
     private final Class<? extends Role> role;
