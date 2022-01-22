@@ -61,14 +61,17 @@ public class Haku extends Role implements NarutoV2Role, RoleListener {
     public void checkRunnable(Player player) {
         super.checkRunnable(player);
         if(phase == 2){
-            if(player.getLocation().distance(loc) < 18){
-                if(player.hasPotionEffect(PotionEffectType.INCREASE_DAMAGE))
-                    player.removePotionEffect(PotionEffectType.INCREASE_DAMAGE);
-                if(player.hasPotionEffect(PotionEffectType.SPEED))
-                    player.removePotionEffect(PotionEffectType.SPEED);
-                player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 20*3, 1, false, false));
-                player.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 20*3, 0, false, false));
+            if(player.getWorld() == loc.getWorld()){
+                if(player.getLocation().distance(loc) < 18){
+                    if(player.hasPotionEffect(PotionEffectType.INCREASE_DAMAGE))
+                        player.removePotionEffect(PotionEffectType.INCREASE_DAMAGE);
+                    if(player.hasPotionEffect(PotionEffectType.SPEED))
+                        player.removePotionEffect(PotionEffectType.SPEED);
+                    player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 20*3, 1, false, false));
+                    player.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 20*3, 0, false, false));
+                }
             }
+
         } else {
             player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, Integer.MAX_VALUE, 0, false, false));
         }

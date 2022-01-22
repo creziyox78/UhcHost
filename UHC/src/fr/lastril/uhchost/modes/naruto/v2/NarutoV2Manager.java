@@ -92,6 +92,8 @@ public class NarutoV2Manager extends ModeManager implements Listener {
         this.main = main;
         this.narutoV2Config = new NarutoV2Config(50, true);
         this.kamuiWorld = main.getServer().createWorld(WorldCreator.name("kamui"));
+        Bukkit.getWorld("kamui").setGameRuleValue("doMobSpawning", "false");
+        Bukkit.getWorld("kamui").setGameRuleValue("showDeathMessages", "false");
         this.kamuiLocation = new Location(this.kamuiWorld, 25108, 13, 25015);
         this.samehada = new ArrayList<>();
         this.inShosenjutsu = new ArrayList<>();

@@ -104,10 +104,9 @@ public class IzanamiGoal implements Listener {
         izanamiGoalTargetList.add(goal);
     }
 
-
     @EventHandler
     public void placeLavaBucket(PlayerInteractEvent event){
-        if(event.getItem().getType() == Material.LAVA_BUCKET){
+        if(event.getItem() != null && event.getItem().getType() == Material.LAVA_BUCKET){
             Player player = event.getPlayer();
             PlayerManager joueur = main.getPlayerManager(player.getUniqueId());
             if(izanamiGoalAuthorList.contains(IzanamiGoalAuthor.PLACELAVA) && !izanamiGoalAuthorList.get(izanamiGoalAuthorList.indexOf(IzanamiGoalAuthor.PLACELAVA)).isDone()){
