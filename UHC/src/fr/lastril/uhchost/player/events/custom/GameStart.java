@@ -25,6 +25,7 @@ public class GameStart implements Listener {
 		e.getPlayers().forEach(player -> {
 			pl.getPlayerManager(player.getUniqueId()).setPlayedGame(true);
 			pl.getPlayerManager(player.getUniqueId()).setAlive(true);
+			Bukkit.getWhitelistedPlayers().add(player);
 		});
 
 		if(pl.gameManager.isViewHealth()) {

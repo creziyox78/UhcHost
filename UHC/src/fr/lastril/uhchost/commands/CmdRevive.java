@@ -28,6 +28,8 @@ public class CmdRevive implements CommandExecutor {
 					if(target != null) {
 						PlayerManager targetJoueur = main.getPlayerManager(target.getUniqueId());
 						main.getGamemanager().teleportPlayerOnGround(target);
+						target.getInventory().setArmorContents(targetJoueur.getArmors());
+						target.getInventory().setContents(targetJoueur.getItems());
 						targetJoueur.setAlive(true);
 						target.setGameMode(GameMode.SURVIVAL);
 						player.sendMessage("§aVous avez bien réssucité "+target.getName());

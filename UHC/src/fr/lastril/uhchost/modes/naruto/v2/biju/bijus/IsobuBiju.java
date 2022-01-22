@@ -20,6 +20,7 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerPickupItemEvent;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -31,6 +32,8 @@ public class IsobuBiju extends Biju {
 	private final UhcHost main = UhcHost.getInstance();
 
 	private boolean alive;
+
+	private String nameBiju;
 
 	private Location spawn;
 
@@ -133,7 +136,7 @@ public class IsobuBiju extends Biju {
 			guardian.getLocation().getChunk().load(true);
 		}
 		if(isAlive() || narutoV2Manager.getBijuManager().getHotesBiju().get(this.getClass()) != null
-				|| itemInInventory(getItem().toItemStack(), nameBiju)){
+				|| itemInInventory(new ItemStack(Material.NETHER_STAR), nameBiju)){
 			timerRespawn = 60*5;
 		}
 		if(guardian != null){

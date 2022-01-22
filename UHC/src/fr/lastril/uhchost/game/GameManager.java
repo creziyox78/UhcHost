@@ -2,12 +2,14 @@ package fr.lastril.uhchost.game;
 
 import fr.lastril.uhchost.UhcHost;
 import fr.lastril.uhchost.enums.BiomeState;
+import fr.lastril.uhchost.enums.Messages;
 import fr.lastril.uhchost.enums.WorldState;
 import fr.lastril.uhchost.game.rules.EnchantmentRules;
 import fr.lastril.uhchost.game.rules.StuffRules;
 import fr.lastril.uhchost.game.rules.world.BlocsRules;
 import fr.lastril.uhchost.inventory.CustomInv;
 import fr.lastril.uhchost.modes.Modes;
+import fr.lastril.uhchost.modes.command.ModeCommand;
 import fr.lastril.uhchost.modes.roles.Role;
 import fr.lastril.uhchost.player.PlayerManager;
 import fr.lastril.uhchost.player.events.GameStartEvent;
@@ -421,20 +423,16 @@ public class GameManager {
 				@Override
 				public void run() {
 					if (GameManager.this.count == this.locs.size()) {
-						Player players = onlinePlayers.get(index).getPlayer();
-						UhcHost.debug("Teleporting: " + players.getName());
-						TitleAPI.sendTitle(players, 5, 20, 5, "§3Téléportations", "§b"+(index+1)+"/" + onlinePlayers.size());
-						PlayerManager playerManager = pl.getPlayerManager(players.getUniqueId());
-						playerManager.setPlayedGame(true);
-						playerManager.setAlive(true);
-						Location loc = locs.stream().findAny().get();
-						players.teleport(loc.clone().add(0.5D, 1.0D, 0.5D));
-						locs.remove(loc);
-						index++;
-						if(locs.isEmpty() || index == onlinePlayers.size()){
-							GameManager.this.pl.taskManager.preGame();
-							GameManager.this.task.cancel();
-						}
+						Bukkit.getOnlinePlayers().forEach(player -> {
+							PlayerManager playerManager = pl.getPlayerManager(player.getUniqueId());
+							playerManager.setPlayedGame(true);
+							playerManager.setAlive(true);
+							Location loc = locs.stream().findAny().get();
+							player.teleport(loc.clone().add(0.5D, 1.0D, 0.5D));
+							locs.remove(loc);
+						});
+						GameManager.this.pl.taskManager.preGame();
+						GameManager.this.task.cancel();
 						return;
 					}
 					this.locs.get(GameManager.this.count).getChunk().load(true);
@@ -519,9 +517,23 @@ public class GameManager {
 		List<UUID> listPlayer = new ArrayList<>();
 		pl.getPlayerManagerOnlines().forEach(playerManager -> listPlayer.add(playerManager.getUuid()));
 		Bukkit.getPluginManager().callEvent(new GameStartEvent(listPlayer));
-		Bukkit.broadcastMessage(I18n.tl("damageWillBeActivated"));
+		Bukkit.broadcastMessage("§8§m--------------------------------------------------§r");
+		Bukkit.broadcastMessage("§c         Listes des commandes de partie");
+		Bukkit.broadcastMessage("§c");
+		Bukkit.broadcastMessage("§c •§f /rules : Voir les règles de la partie.");
+		Bukkit.broadcastMessage("§c •§f /scenarios : Voir les scénarios de la partie.");
+		Bukkit.broadcastMessage("§c •§f /doc : Voir le document du mode de jeu.");
+		if(modes.getMode() instanceof ModeCommand){
+			ModeCommand modeCommand = (ModeCommand) modes.getMode();
+			Bukkit.broadcastMessage("§c •§f /"+modeCommand.getCommandName()+" compo : Voir la composition de la partie.");
+			Bukkit.broadcastMessage("§c •§f /"+modeCommand.getCommandName()+" me : Voir son propre rôle.");
+		}
+		Bukkit.broadcastMessage("§c");
+		Bukkit.broadcastMessage("§8§m--------------------------------------------------§r");
+		Bukkit.broadcastMessage(Messages.PREFIX_WITH_ARROW.getMessage() + I18n.tl("damageWillBeActivated"));
 		this.pl.taskManager.game();
 		GameState.setCurrentState(GameState.STARTED);
+
 	}
 
 	public void reTeleport() {

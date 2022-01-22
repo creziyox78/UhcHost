@@ -30,7 +30,7 @@ public abstract class LoupGarouSpecialEvent {
                 System.out.println("Run event: " + getName());
                 runEvent();
             }
-        }, 20L * 1 * randomMinute);
+        }, 20L * 60 * randomMinute);
     }
 
     public int getRandomMinute(){

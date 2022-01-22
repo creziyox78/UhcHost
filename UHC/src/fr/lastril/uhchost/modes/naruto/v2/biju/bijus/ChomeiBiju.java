@@ -17,6 +17,7 @@ import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.entity.ProjectileHitEvent;
 import org.bukkit.event.player.PlayerPickupItemEvent;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
 
 public class ChomeiBiju extends Biju {
@@ -24,6 +25,8 @@ public class ChomeiBiju extends Biju {
     private Ghast ghast;
 
     private boolean alive;
+
+    private String nameBiju;
 
     private Location spawn;
 
@@ -115,7 +118,7 @@ public class ChomeiBiju extends Biju {
             ghast.getLocation().getChunk().load(true);
         }
         if(isAlive() || narutoV2Manager.getBijuManager().getHotesBiju().get(this.getClass()) != null
-                || itemInInventory(getItem().toItemStack(), nameBiju) ){
+                || itemInInventory(new ItemStack(Material.NETHER_STAR), nameBiju) ){
             timerRespawn = 60*5;
         }
         timerRespawn--;

@@ -2,6 +2,7 @@ package fr.lastril.uhchost.modes.lg;
 
 import fr.lastril.uhchost.UhcHost;
 import fr.lastril.uhchost.enums.Messages;
+import fr.lastril.uhchost.game.GameState;
 import fr.lastril.uhchost.inventory.guis.modes.lg.LoupGarouGui;
 import fr.lastril.uhchost.modes.Mode;
 import fr.lastril.uhchost.modes.ModeConfig;
@@ -20,6 +21,7 @@ import fr.lastril.uhchost.modes.lg.roles.solo.Trublion;
 import fr.lastril.uhchost.modes.lg.roles.village.Pretresse;
 import fr.lastril.uhchost.modes.roles.*;
 import fr.lastril.uhchost.player.PlayerManager;
+import fr.lastril.uhchost.player.modemanager.WolfPlayerManager;
 import fr.lastril.uhchost.tools.API.BungeeAPI;
 import fr.lastril.uhchost.tools.API.TitleAPI;
 import fr.lastril.uhchost.tools.API.inventory.crafter.IQuickInventory;
@@ -38,6 +40,8 @@ public class LoupGarouMode extends Mode implements ModeCommand, RoleMode<LGRole>
     private final LoupGarouManager loupGarouManager;
     private final List<LoupGarouSpecialEvent> specialEventList = new ArrayList<>();
     private int announceRoles = 20*60;
+    private boolean lgSolitaire;
+    private int annonceSolitaire = 20*55;
 
     public LoupGarouMode() {
         super(Modes.LG);
@@ -58,6 +62,9 @@ public class LoupGarouMode extends Mode implements ModeCommand, RoleMode<LGRole>
         if(timer == 0){
             setupParameter();
         }
+        if(timer == annonceSolitaire && lgSolitaire){
+            chooseSolitaire();
+        }
         if (announceRoles == 0) {
             annonceRoles();
         }
@@ -72,12 +79,29 @@ public class LoupGarouMode extends Mode implements ModeCommand, RoleMode<LGRole>
             loupGarouSpecialEvent.runTask();
         }
         if(loupGarouManager.isRandomCouple()){
-            Bukkit.getScheduler().runTaskLater(pl, loupGarouManager::randomCouple, 20*60*25);
+            Bukkit.getScheduler().runTaskLater(pl, () -> loupGarouManager.randomCouple(), 20*60*25);
         }
         if(pl.gameManager.getComposition().contains(Pretresse.class)){
             loupGarouManager.setRandomSeeRole(true);
         }
         Bukkit.getWorld("game").setGameRuleValue("keepInventory", "true");
+    }
+
+    public void chooseSolitaire(){
+        List<PlayerManager> loupGarouPlayers = loupGarouManager.getLoupGarous().stream().filter(PlayerManager::isAlive).collect(Collectors.toList());
+        int random = UhcHost.getRANDOM().nextInt(loupGarouPlayers.size());
+        PlayerManager lgSolitaire = loupGarouPlayers.get(random);
+        WolfPlayerManager wolfPlayerManager = lgSolitaire.getWolfPlayerManager();
+        lgSolitaire.setCamps(Camps.LOUP_GAROU_SOLITAIRE);
+        wolfPlayerManager.setSolitaire(true);
+        if(wolfPlayerManager.isInCouple())
+            lgSolitaire.setCamps(Camps.COUPLE);
+        Player player = lgSolitaire.getPlayer();
+        if(player != null){
+            player.setMaxHealth(player.getMaxHealth() + 2D*4D);
+            TitleAPI.sendTitle(player, 20, 20, 20, "§cLoup-Garou Solitaire", "§4Vous êtes seul !");
+            player.sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage() + "§cVous avez été choisis comme Loup-Garou Solitaire ! Vous devez désormais gagné seul ! Voici 4 coeurs supplémentaires pour vous aidé !");
+        }
     }
 
 
@@ -313,6 +337,7 @@ public class LoupGarouMode extends Mode implements ModeCommand, RoleMode<LGRole>
             }
             Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "restart");
         }, 30 * 20L);
+        GameState.setCurrentState(GameState.ENDED);
     }
 
     @Override
@@ -378,5 +403,13 @@ public class LoupGarouMode extends Mode implements ModeCommand, RoleMode<LGRole>
 
     public LoupGarouManager getLoupGarouManager() {
         return loupGarouManager;
+    }
+
+    public boolean isLgSolitaire() {
+        return lgSolitaire;
+    }
+
+    public void setLgSolitaire(boolean lgSolitaire) {
+        this.lgSolitaire = lgSolitaire;
     }
 }

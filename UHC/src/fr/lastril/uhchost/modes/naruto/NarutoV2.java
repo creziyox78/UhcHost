@@ -136,11 +136,23 @@ public class NarutoV2 extends Mode implements ModeConfig, RoleMode<NarutoV2Role>
 
 	@Override
 	public void onDeath(Player player, Player killer) {
+		if(killer != null){
+			PlayerManager killerManager = main.getPlayerManager(killer.getUniqueId());
+			killerManager.addKill(player.getUniqueId());
+		}
 		PlayerManager joueur = main.getPlayerManager(player.getUniqueId());
+		joueur.setDeathLocation(player.getLocation());
+		joueur.setItems(player.getInventory().getContents());
+		joueur.setArmors(player.getInventory().getArmorContents());
 		joueur.setAlive(false);
 		for (Player players : Bukkit.getOnlinePlayers()) {
 			players.playSound(players.getLocation(), Sound.WITHER_DEATH, 1f, 1f);
+			PlayerManager playerManager = main.getPlayerManager(players.getUniqueId());
+			if(playerManager.isAlive() && playerManager.hasRole()){
+				playerManager.getRole().onPlayerDeath(player);
+			}
 		}
+
 		if (joueur.hasRole()) {
 			Bukkit.broadcastMessage("§3§m----------------------------------");
 			Bukkit.broadcastMessage("§b§l" + player.getName() + "§7 est mort, son rôle était "+joueur.getRole().getCamp().getCompoColor()+joueur.getRole().getRoleName()+"§7.");
@@ -159,6 +171,7 @@ public class NarutoV2 extends Mode implements ModeConfig, RoleMode<NarutoV2Role>
 				public void run() {
 					player.setGameMode(GameMode.ADVENTURE);
 					player.setGameMode(GameMode.SPECTATOR);
+					player.teleport(joueur.getDeathLocation());
 				}
 			}.runTaskLater(main, 5);
 		} else {
@@ -167,6 +180,9 @@ public class NarutoV2 extends Mode implements ModeConfig, RoleMode<NarutoV2Role>
 			Bukkit.broadcastMessage("§3§m----------------------------------");
 		}
 		checkWin();
+		/* DROPING INVENTORY */
+		System.out.println("Droping inventory !");
+		main.getInventoryUtils().dropInventory(joueur.getDeathLocation(), joueur.getItems(), joueur.getArmors());
 	}
 
 	@Override
@@ -184,8 +200,7 @@ public class NarutoV2 extends Mode implements ModeConfig, RoleMode<NarutoV2Role>
 
 	@Override
 	public void onNewEpisode() {
-		
-		
+
 	}
 
 	@Override

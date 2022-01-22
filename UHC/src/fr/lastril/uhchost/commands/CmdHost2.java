@@ -69,11 +69,24 @@ public class CmdHost2 implements CommandExecutor {
 						Player target = Bukkit.getPlayer(targetName);
 						if(target != null && pl.getGamemanager().getHost() != target){
 							pl.gameManager.addCoHost(target);
-							NotStart.PreHosting(target);
-							player.sendMessage("§a" + targetName + " a bien été ajouté des co-host.");
+							if(GameState.isState(GameState.LOBBY)){
+								NotStart.PreHosting(target);
+							}
 						}
+						player.sendMessage("§a" + targetName + " a bien été ajouté des co-host.");
 					}
-				} else if(args[0].equalsIgnoreCase("reset")){
+				} else if (args[0].equalsIgnoreCase("heal")) {
+					if (GameState.isState(GameState.STARTED)) {
+						for (Player players : Bukkit.getOnlinePlayers()) {
+							players.setHealth(players.getMaxHealth());
+						}
+						Bukkit.broadcastMessage(Messages.PREFIX_WITH_ARROW.getMessage() + "Tout le monde a été soigné !");
+					} else {
+						player.sendMessage(Messages.NOT_NOW.getMessage());
+						return false;
+					}
+				}
+				else if(args[0].equalsIgnoreCase("reset")){
 					if (player.isOp()) {
 						if(args.length > 1){
 							Player target = Bukkit.getPlayer(args[1]);
@@ -146,7 +159,8 @@ public class CmdHost2 implements CommandExecutor {
 		player.sendMessage(Messages.PREFIX_WITH_ARROW.getMessage()+"Liste des commandes d'host :");
 		player.sendMessage(" ");
 		player.sendMessage("§f• /say §7: §eFaire une annonce.");
-		player.sendMessage("§f• /h help §7: §eVoir la liste des commandes d'host.");
+		player.sendMessage("§f• /revive <pseudo> §7: §eResscucité un joueur.");
+		player.sendMessage("§f• /h help §7: §eVoir cette page.");
 		//player.sendMessage("§6• /h force <invincibility/pvp/border/tp/roles> §7: §eForcer un événement de la partie.");
 		/*player.sendMessage("§6• /h heal §7: §eSoigner tous les joueurs de la partie.");
 		player.sendMessage("§6• /h wl list §7: §eVoir tous les joueurs présents dans la liste blanche.");
@@ -157,6 +171,8 @@ public class CmdHost2 implements CommandExecutor {
 		player.sendMessage("§6• /h wl remove <pseudo> §7: §eRetirer un joueur de la liste blanche.");
 		player.sendMessage("§6• /h kick <pseudo> <raison> §7: §eExpulser un joueur de la partie.");
 		player.sendMessage("§6• /h give <item> <nombre> §7: §eDonner un item aux joueurs de la partie.");*/
+		player.sendMessage("§f• /h recup <pseudo> §7: §eRedonne les items spéciaux à un joueur.");
+		player.sendMessage("§f• /h heal §7: §eSoigner tout les joueurs de la partie.");
 		player.sendMessage("§f• /h op <pseudo> §7: §eAjout un host à la partie.");
 		player.sendMessage("§f• /h deop <pseudo> §7: §eSupprimer un host à la partie.");
 		player.sendMessage("§f• /h reset <pseudo> §7: §eRéduire à 0 les cooldowns d'un joueur.");

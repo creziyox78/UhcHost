@@ -125,8 +125,10 @@ public class Sai extends Role implements NarutoV2Role, RoleListener {
         if (this.scelled != null) {
             Player scelled = Bukkit.getPlayer(this.scelled);
             if (scelled != null) {
-                if (player.getLocation().distance(scelled.getLocation()) > 30) {
-                    scelled.teleport(player.getLocation());
+                if(scelled.getWorld() == player.getWorld()){
+                    if (player.getLocation().distance(scelled.getLocation()) > 30) {
+                        scelled.teleport(player.getLocation());
+                    }
                 }
             }
         }

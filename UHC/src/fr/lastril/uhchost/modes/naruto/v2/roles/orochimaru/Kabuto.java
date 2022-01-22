@@ -164,23 +164,31 @@ public class Kabuto extends Role implements NarutoV2Role, EdoTenseiItem.EdoTense
 	public void checkRunnable(Player player) {
 		super.checkRunnable(player);
 		if(userLoc != null){
-			if(userLoc.distance(player.getLocation()) >= 0.2){
-				if(main.getGamemanager().getModes() != Modes.NARUTO_V2) return;
-				NarutoV2Manager narutoV2Manager = (NarutoV2Manager) main.getGamemanager().getModes().getMode().getModeManager();
-				if(narutoV2Manager.isInShosenJutsu(player.getUniqueId()))
-					narutoV2Manager.removeInShosenJutsu(player.getUniqueId());
+			if(userLoc.getWorld() == player.getWorld()){
+				if(userLoc.distance(player.getLocation()) >= 0.2){
+					if(main.getGamemanager().getModes() != Modes.NARUTO_V2) return;
+					NarutoV2Manager narutoV2Manager = (NarutoV2Manager) main.getGamemanager().getModes().getMode().getModeManager();
+					if(narutoV2Manager.isInShosenJutsu(player.getUniqueId()))
+						narutoV2Manager.removeInShosenJutsu(player.getUniqueId());
+				}
 			}
+
 		}
 		if(targetLoc != null){
-			if(targetLoc.distance(player.getLocation()) >= 0.2){
-				if(main.getGamemanager().getModes() != Modes.NARUTO_V2) return;
-				NarutoV2Manager narutoV2Manager = (NarutoV2Manager) main.getGamemanager().getModes().getMode().getModeManager();
-				if(narutoV2Manager.isInShosenJutsu(targetId))
-					narutoV2Manager.removeInShosenJutsu(targetId);
+			if(targetLoc.getWorld() == player.getWorld()){
+				if(targetLoc.distance(player.getLocation()) >= 0.2){
+					if(main.getGamemanager().getModes() != Modes.NARUTO_V2) return;
+					NarutoV2Manager narutoV2Manager = (NarutoV2Manager) main.getGamemanager().getModes().getMode().getModeManager();
+					if(narutoV2Manager.isInShosenJutsu(targetId))
+						narutoV2Manager.removeInShosenJutsu(targetId);
+				}
 			}
 		}
-		userLoc = player.getLocation();
-		targetLoc = Bukkit.getPlayer(targetId).getLocation();
+		if(Bukkit.getPlayer(targetId) == null){
+			userLoc = player.getLocation();
+			targetLoc = Bukkit.getPlayer(targetId).getLocation();
+		}
+
 	}
 
 	@Override

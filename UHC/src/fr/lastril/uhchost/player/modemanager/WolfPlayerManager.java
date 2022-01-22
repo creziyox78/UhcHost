@@ -14,7 +14,7 @@ public class WolfPlayerManager implements Comparable<WolfPlayerManager> {
 	private Camps camp, zizanied;
 	private UUID otherCouple;
 	
-	private boolean infected, salvation, transformed, voted, protect;
+	private boolean infected, salvation, transformed, voted, protect, solitaire, steal;
 	
 	private int votes;
 	
@@ -75,6 +75,22 @@ public class WolfPlayerManager implements Comparable<WolfPlayerManager> {
 
 	public boolean isTransformed() {
 		return this.transformed;
+	}
+
+	public boolean isSolitaire() {
+		return solitaire;
+	}
+
+	public void setSolitaire(boolean solitaire) {
+		this.solitaire = solitaire;
+	}
+
+	public boolean isSteal() {
+		return steal;
+	}
+
+	public void setSteal(boolean steal) {
+		this.steal = steal;
 	}
 
 	public void setTransformed(boolean transformed) {

@@ -174,6 +174,12 @@ public class LoupGarouManager extends ModeManager implements Listener {
                     if (playerManager.getWolfPlayerManager().isTransformed()) {
                         message += "§2 (transformé)";
                     }
+                    if(playerManager.getWolfPlayerManager().isSolitaire()){
+                        message += "§2 (solitaire)";
+                    }
+                    if(playerManager.getWolfPlayerManager().isSteal()){
+                        message += "§c (volé)";
+                    }
                 } else {
                     int value = UhcHost.getRANDOM().nextInt(100);
                     System.out.println("Pretresse role value : " + value + " for " + playerManagers.getPlayerName() + " in camp : " + playerManagers.getCamps().name());
@@ -187,6 +193,12 @@ public class LoupGarouManager extends ModeManager implements Listener {
                             }
                             if (playerManager.getWolfPlayerManager().isTransformed()) {
                                 message += "§2 (transformé)";
+                            }
+                            if(playerManager.getWolfPlayerManager().isSolitaire()){
+                                message += "§2 (solitaire)";
+                            }
+                            if(playerManager.getWolfPlayerManager().isSteal()){
+                                message += "§c (volé)";
                             }
                         } else {
                             System.out.println(playerManagers.getPlayer() + " not see role !");
@@ -205,6 +217,12 @@ public class LoupGarouManager extends ModeManager implements Listener {
                             if (playerManager.getWolfPlayerManager().isTransformed()) {
                                 message += "§2 (transformé)";
                             }
+                            if(playerManager.getWolfPlayerManager().isSolitaire()){
+                                message += "§2 (solitaire)";
+                            }
+                            if(playerManager.getWolfPlayerManager().isSteal()){
+                                message += "§c (volé)";
+                            }
                         } else {
                             System.out.println(playerManagers.getPlayer() + " not see role !");
                             message = "§2§l" + playerManager.getPlayerName() +
@@ -220,6 +238,12 @@ public class LoupGarouManager extends ModeManager implements Listener {
                             }
                             if (playerManager.getWolfPlayerManager().isTransformed()) {
                                 message += "§2 (transformé)";
+                            }
+                            if(playerManager.getWolfPlayerManager().isSolitaire()){
+                                message += "§2 (solitaire)";
+                            }
+                            if(playerManager.getWolfPlayerManager().isSteal()){
+                                message += "§c (volé)";
                             }
                         } else {
                             System.out.println(playerManagers.getPlayer() + " not see role !");
@@ -343,6 +367,12 @@ public class LoupGarouManager extends ModeManager implements Listener {
                 }
                 if (playerManager.getWolfPlayerManager().isTransformed()) {
                     message += "§2 (transformé)";
+                }
+                if(playerManager.getWolfPlayerManager().isSolitaire()){
+                    message += "§2 (solitaire)";
+                }
+                if(playerManager.getWolfPlayerManager().isSteal()){
+                    message += "§c (volé)";
                 }
             } else {
                 message = "§2§l" + playerManager.getPlayerName() +
@@ -671,4 +701,6 @@ public class LoupGarouManager extends ModeManager implements Listener {
     public void setVaccination(boolean vaccination) {
         this.vaccination = vaccination;
     }
+
+
 }

@@ -13,24 +13,22 @@ import org.bukkit.event.entity.PlayerDeathEvent;
 
 public class DeathPlayer implements Listener {
 
-	private final UhcHost hu;
+	private final UhcHost main;
 
-	public DeathPlayer(UhcHost hu) {
-	    this.hu = hu;
+	public DeathPlayer(UhcHost main) {
+	    this.main = main;
 	  }
 
 	@EventHandler(priority = EventPriority.HIGHEST)
 	public void onDeathInGame(PlayerDeathEvent e) {
 		Player player = e.getEntity();
 		Player killer = player.getKiller();
-		GameManager gamemanager = UhcHost.getInstance().getGamemanager();
 		if (GameState.isState(GameState.STARTED)) {
 			if (killer != null) {
 				Bukkit.getPluginManager().callEvent(new PlayerKillEvent(player, killer));
+
 			}
+			main.getGamemanager().getModes().getMode().onDeath(player, killer);
 		}
-		gamemanager.getModes().getMode().onDeath(player, killer);
-
-
 	}
 }

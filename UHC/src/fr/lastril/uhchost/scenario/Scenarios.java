@@ -34,6 +34,7 @@ public enum Scenarios {
 	REGEN(new Regen()),
 	RKE(new RKE()),
 	RODLESS(new Rodless()),
+	SAFEMINER(new SafeMiner()),
 	SKYHIGH(new SkyHigh()),
 	SUPERHEROES(new SuperHeroes()),
 	SWORDLESS(new Swordless()),

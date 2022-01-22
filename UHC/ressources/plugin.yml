@@ -24,6 +24,8 @@ commands:
     description: Test command.
   say:
     description: Command say.
+  mumble:
+    description: Command to show Mumble.
   setgroupes:
     aliases:
       - groupes

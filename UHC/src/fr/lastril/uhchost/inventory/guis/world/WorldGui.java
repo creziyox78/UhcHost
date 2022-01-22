@@ -57,6 +57,7 @@ public class WorldGui extends IQuickInventory {
                     WorldCreator.name("game").createWorld();
                     Bukkit.getWorld("game").setGameRuleValue("doDaylightCycle", "false");
                     Bukkit.getWorld("game").setGameRuleValue("showDeathMessages", "false");
+                    Bukkit.getWorld("game").setGameRuleValue("keepInventory", "true");
                     onClick.getPlayer().sendMessage("§aMonde créé ! Téléportation au centre...");
                     onClick.getPlayer().teleport(new Location(Bukkit.getWorld("game"), 0, 100, 0));
 

@@ -150,6 +150,7 @@ public class UhcHost extends JavaPlugin {
 		getCommand("revive").setExecutor(new CmdRevive(this));
 		getCommand("doc").setExecutor(new CmdDoc(this));
 		getCommand("maj").setExecutor(new CmdMaj());
+		getCommand("mumble").setExecutor(new CmdMumble());
 		for (Modes mode : Modes.values()) {
 			if (mode.getMode() instanceof ModeCommand) {
 				ModeCommand modeCommand = (ModeCommand) mode.getMode();
@@ -202,7 +203,6 @@ public class UhcHost extends JavaPlugin {
 		getServer().getPluginManager().registerEvents(new Drop(), this);
 		getServer().getPluginManager().registerEvents(new PreparePotion(this), this);
 		getServer().getPluginManager().registerEvents(new BreakBlock(), this);
-		getServer().getPluginManager().registerEvents(new Consume(), this);
 		getServer().getPluginManager().registerEvents(new Chat(), this);
 		getServer().getPluginManager().registerEvents(new PlaceBlock(), this);
 		getServer().getPluginManager().registerEvents(new InteractTeam(), this);
@@ -397,7 +397,6 @@ public class UhcHost extends JavaPlugin {
 	}
 
 	public String getRoleDescription(Role role, String rolePath) {
-
 		String description = null;
 		checkingDescriptionUpdate();
         File file = new File(getDataFolder() + "/description/roles.yml");

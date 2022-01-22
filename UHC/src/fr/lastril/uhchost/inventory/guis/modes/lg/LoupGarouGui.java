@@ -76,6 +76,14 @@ public class LoupGarouGui extends IQuickInventory {
                 new RolesTimeGui(lgMode).open(onClick.getPlayer());
             }, 19);
 
+            inv.setItem(new QuickItem(Material.SKULL_ITEM, 1, SkullType.PLAYER.ordinal())
+                    .setName(I18n.tl("guis.lg.main.solitaire"))
+                            .setLore(lgMode.isLgSolitaire() ? "§aActivé" : "§cDésactivé")
+                    .setTexture("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYzBmZGYyZTg4ODM5OTNiYWE4Njc1M2Y3ZTdiMTMxM2NkMmE3NjljN2VjN2JhYTY4Mjc5NDIyNzdjYjdiYWJjMCJ9fX0=")
+                    .toItemStack(), onClick -> {
+                lgMode.setLgSolitaire(!lgMode.isLgSolitaire());
+            },21);
+
             inv.setItem((new ItemsCreator(Material.BARRIER, I18n.tl("guis.back"), null)).create(), onClick -> {
                 new HostConfig().open(onClick.getPlayer());
             },inv.getInventory().getSize() - 1);

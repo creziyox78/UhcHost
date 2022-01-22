@@ -20,7 +20,7 @@ public class CatEyes extends Scenario {
 	@EventHandler
 	public void onStart(GameStartEvent e) {
 		for(Player player: e.getPlayers()){
-			player.addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION, Integer.MAX_VALUE, 1, true));
+			player.addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION, Integer.MAX_VALUE, 1, false, false));
 		}
 	}
 

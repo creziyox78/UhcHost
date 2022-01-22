@@ -50,6 +50,8 @@ public class Sakura extends Role implements NarutoV2Role, CmdShosenJutsu.ShosenJ
         super.checkRunnable(player);
 
         if(userLoc != null){
+            userLoc = player.getLocation();
+            if(userLoc.getWorld() == player.getLocation())
             if(userLoc.distance(player.getLocation()) >= 0.2){
                 if(main.getGamemanager().getModes() != Modes.NARUTO_V2) return;
                 NarutoV2Manager narutoV2Manager = (NarutoV2Manager) main.getGamemanager().getModes().getMode().getModeManager();
@@ -58,15 +60,21 @@ public class Sakura extends Role implements NarutoV2Role, CmdShosenJutsu.ShosenJ
             }
         }
         if(targetLoc != null){
-            if(targetLoc.distance(player.getLocation()) >= 0.2){
-                if(main.getGamemanager().getModes() != Modes.NARUTO_V2) return;
-                NarutoV2Manager narutoV2Manager = (NarutoV2Manager) main.getGamemanager().getModes().getMode().getModeManager();
-                if(narutoV2Manager.isInShosenJutsu(targetId))
-                    narutoV2Manager.removeInShosenJutsu(targetId);
+            if(targetLoc.getWorld() == player.getLocation().getWorld()){
+                if(targetLoc.distance(player.getLocation()) >= 0.2){
+                    if(main.getGamemanager().getModes() != Modes.NARUTO_V2) return;
+                    NarutoV2Manager narutoV2Manager = (NarutoV2Manager) main.getGamemanager().getModes().getMode().getModeManager();
+                    if(narutoV2Manager.isInShosenJutsu(targetId))
+                        narutoV2Manager.removeInShosenJutsu(targetId);
+                }
             }
+
         }
-        userLoc = player.getLocation();
-        targetLoc = Bukkit.getPlayer(targetId).getLocation();
+        if(Bukkit.getPlayer(targetId) != null){
+            targetLoc = Bukkit.getPlayer(targetId).getLocation();
+        }
+
+
 
     }
 

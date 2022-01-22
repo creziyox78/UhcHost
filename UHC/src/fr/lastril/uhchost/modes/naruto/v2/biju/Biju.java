@@ -22,7 +22,6 @@ public abstract class Biju extends BukkitRunnable implements Listener {
 	private final String world = "game";
 
 	private final UhcHost main;
-	protected String nameBiju;
 
 	private Biju biju;
 
@@ -121,10 +120,6 @@ public abstract class Biju extends BukkitRunnable implements Listener {
 
 		}
 		return false;
-	}
-
-	public String getNameBiju() {
-		return nameBiju;
 	}
 
 	public abstract Entity getBijuEntity();

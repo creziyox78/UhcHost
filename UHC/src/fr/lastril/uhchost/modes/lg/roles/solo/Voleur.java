@@ -42,24 +42,27 @@ public class Voleur extends Role implements LGRole {
 
     @Override
     public void onPlayerDeathRealy(PlayerManager player, ItemStack[] items, ItemStack[] armors, Player killer, Location deathLocation) {
-        PlayerManager killerManager = main.getPlayerManager(killer.getUniqueId());
-        if (killerManager.hasRole()) {
-            if (killerManager.getRole() instanceof Voleur) {
-                Voleur voleur = (Voleur) killerManager.getRole();
-                if (!voleur.hasKilled()) {
-                    killer.sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage()
-                            + "§bVous venez de tuer quelqu'un pour la 1ère fois. Vous n'avez plus Résistance et héritez du rôle ainsi que des pouvoirs de la personne que vous avez tué.");
-                    killerManager.setRole(player.getRole());
-                    killerManager.setCamps(player.getCamps());
-                    if(player.getWolfPlayerManager().isInCouple()){
-                        killerManager.setCamps(Camps.COUPLE);
-                        killerManager.getWolfPlayerManager().setOtherCouple(player.getWolfPlayerManager().getOtherCouple());
-                        main.getPlayerManager(player.getWolfPlayerManager().getOtherCouple()).getWolfPlayerManager().setOtherCouple(killerManager.getUuid());
-                        killer.sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage() + "§Vous venez de voler le couple ! Vous devez maintenant gagner avec ce dernier !");
+        if(killer != null){
+            PlayerManager killerManager = main.getPlayerManager(killer.getUniqueId());
+            if (killerManager.hasRole()) {
+                if (killerManager.getRole() instanceof Voleur) {
+                    Voleur voleur = (Voleur) killerManager.getRole();
+                    if (!voleur.hasKilled()) {
+                        killer.sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage()
+                                + "§bVous venez de tuer quelqu'un pour la 1ère fois. Vous n'avez plus Résistance et héritez du rôle ainsi que des pouvoirs de la personne que vous avez tué.");
+                        killerManager.setRole(player.getRole());
+                        killerManager.setCamps(player.getCamps());
+                        if(player.getWolfPlayerManager().isInCouple()){
+                            killerManager.setCamps(Camps.COUPLE);
+                            killerManager.getWolfPlayerManager().setOtherCouple(player.getWolfPlayerManager().getOtherCouple());
+                            main.getPlayerManager(player.getWolfPlayerManager().getOtherCouple()).getWolfPlayerManager().setOtherCouple(killerManager.getUuid());
+                            killer.sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage() + "§Vous venez de voler le couple ! Vous devez maintenant gagner avec ce dernier !");
+                        }
                     }
                 }
             }
         }
+
     }
 
     @Override

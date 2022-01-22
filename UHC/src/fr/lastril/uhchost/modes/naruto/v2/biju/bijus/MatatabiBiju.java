@@ -18,6 +18,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerPickupItemEvent;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -117,7 +118,7 @@ public class MatatabiBiju extends Biju {
 			blaze.getLocation().getChunk().load(true);
 		}
 		if(isAlive() || narutoV2Manager.getBijuManager().getHotesBiju().get(this.getClass()) != null
-				|| itemInInventory(getItem().toItemStack(), nameBiju)){
+				|| itemInInventory(new ItemStack(Material.NETHER_STAR), nameBiju)){
 			timerRespawn = 60*5;
 		}
 		if(blaze != null){

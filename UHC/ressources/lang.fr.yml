@@ -164,6 +164,9 @@ guis:
     stateOffLore: "&7Clique pour mettre sur &aOn"
     time: "&cTemps"
     timeLore: "&cChoisir au bout de combien de temps le nether devient mortel."
+  safeminer:
+    name: "&fSafeMiner"
+    lore: "&7Au dessus de cette couche, la lave fera à nouveau des dégâts."
   main:
     teams: "&bTeams"
     teamsLore: "&7Nombre de joueurs par teams."
@@ -194,6 +197,9 @@ guis:
     name: "&bCycle Jour/Nuit"
     lore: "&7Choisis le cycle du jour/nuit"
     lore1: "&7qui influencera les pouvoirs des roles."
+  bleach:
+    main:
+      composition: "&aCompostion de la partie"
   lg:
     main:
       name: "&eLoup-Garou"
@@ -202,6 +208,7 @@ guis:
       votetime: "&9D[,]but des premiers votes:&b [,]pisode {0}"
       randomcouple: "&aCouple aléatoire"
       lglisttime: "&9Liste des Loup-Garou:&b {0}"
+      solitaire: "&cLoup-Garou Solitaire"
       specialsevents: "&eEvénements Aléatoire"
       compositionhide: "&eComposition Cachée"
       masquedrole: "&6Rôles masqués"

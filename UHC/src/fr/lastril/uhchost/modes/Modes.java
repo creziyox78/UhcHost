@@ -29,8 +29,8 @@ public enum Modes {
                             "",
                             "§6§k!§r §eClique droit§7 pour configurer le mode de jeu.")
                     .setName("§cLoup-Garou"), true),
-    /*
-    DS("§6Demon Slayer", "", null,
+
+    DS("§6Demon Slayer", "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZTA5MzIzMmFlYTQ5NjAwYjUwOTJmYzE4MmUwZDVjZTg5OTlmNzgwNDVkZDdiZGEyM2M2NWNjYTZmY2Y1Y2Y2MCJ9fX0=", null,
             new QuickItem(Material.SKULL_ITEM, 1, SkullType.PLAYER.ordinal())
                     .setTexture("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZTA5MzIzMmFlYTQ5NjAwYjUwOTJmYzE4MmUwZDVjZTg5OTlmNzgwNDVkZDdiZGEyM2M2NWNjYTZmY2Y1Y2Y2MCJ9fX0=")
                     .setLore("",
@@ -42,51 +42,51 @@ public enum Modes {
                             "§7et§c Démons§7.",
                             "",
                             "§6§k!§r §eClique droit§7 pour configurer le mode de jeu.")
-                    .setName("§6Demon Slayer"), false),
+                    .setName("§6Demon Slayer"), true),
 
-    AOT("§eAOT", "", null,
-            new QuickItem(Material.SKULL_ITEM, 1, SkullType.PLAYER.ordinal())
-                    .setTexture("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNGUzNWIxN2M5YmUyMDQ3NGJmZGE0Yjg0NGYwZTg2NzAyYTBkOGFkNTgzZDE5MDQ2OTNlYmQ4ZjA0MGFiOWJiYiJ9fX0=")
-                    .setLore("",
-                            "§7Auteur:§b Dragiox§7,§b Kyrutoo§7,§b Rremis§7 et§b _Mqrco",
-                            "§8Version : V3",
-                            "",
-                            "§7Mode de jeu basé sur le manga/animé du",
-                            "§7même nom opposant §aSoldats§7,",
-                            "§cTitans§7 et§9 Shifter.",
-                            "",
-                            "§6§k!§r §eClique droit§7 pour configurer le mode de jeu.")
-                    .setName("§eAOT"), false),
-
-
-    CMS("§fChainsaw Man", "", null,
-            new QuickItem(Material.SKULL_ITEM, 1, SkullType.PLAYER.ordinal())
-                    .setTexture("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvOTllMDFiM2EzNWFlM2JlNDQ4M2I2ZGY2OWI3MDcwYmQ2ZGM3NWIzOTlkN2UyZWJiYzdiODg0MDMzMmY3YjNhMCJ9fX0=")
-                    .setLore("",
-                            "§7Auteur:§b Dragiox§7 et §b Kyrutoo§7",
-                            "§8Version : V1",
-                            "",
-                            "§7Affrontez les autres joueurs en scellant",
-                            "§7des pactes avec des démons qui vous ",
-                            "§7apporteront des pouvoirs extraordinaires.",
-                            "",
-                            "§6§k!§r §eClique droit§7 pour configurer le mode de jeu.")
-                    .setName("§fChainsaw Man"), false),
+        AOT("§eAOT", "", null,
+                new QuickItem(Material.SKULL_ITEM, 1, SkullType.PLAYER.ordinal())
+                        .setTexture("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNGUzNWIxN2M5YmUyMDQ3NGJmZGE0Yjg0NGYwZTg2NzAyYTBkOGFkNTgzZDE5MDQ2OTNlYmQ4ZjA0MGFiOWJiYiJ9fX0=")
+                        .setLore("",
+                                "§7Auteur:§b Dragiox§7,§b Kyrutoo§7,§b Rremis§7 et§b _Mqrco",
+                                "§8Version : V3",
+                                "",
+                                "§7Mode de jeu basé sur le manga/animé du",
+                                "§7même nom opposant §aSoldats§7,",
+                                "§cTitans§7 et§9 Shifter.",
+                                "",
+                                "§6§k!§r §eClique droit§7 pour configurer le mode de jeu.")
+                        .setName("§eAOT"), true),
 
 
-        YUGIOH("§eYu-Gi-Oh", "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZjc0Y2E5YThkNjMxNGNkZmU2ZDU2MTEyODlhZDZmNTNkNTJmMzZkMGU4MGExODAwOGNkN2EzZjMzNzZkOGJkOSJ9fX0=",null,
-            new QuickItem(Material.SKULL_ITEM, 1, SkullType.PLAYER.ordinal())
-                    .setTexture("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZjc0Y2E5YThkNjMxNGNkZmU2ZDU2MTEyODlhZDZmNTNkNTJmMzZkMGU4MGExODAwOGNkN2EzZjMzNzZkOGJkOSJ9fX0=")
-                    .setLore("",
-                            "§7Auteur:§b NewMew",
-                            "§8Version : V1",
-                            "",
-                            "§7Ouvrez des packs de cartes",
-                            "§7et rassemblez les parties d'Exodia.",
-                            "",
-                            "§6§k!§r §eClique droit§7 pour configurer le mode de jeu.")
-                    .setName("§3Yu-Gi-Oh"), false),
-    */
+        CMS("§fChainsaw Man", "", null,
+                new QuickItem(Material.SKULL_ITEM, 1, SkullType.PLAYER.ordinal())
+                        .setTexture("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvOTllMDFiM2EzNWFlM2JlNDQ4M2I2ZGY2OWI3MDcwYmQ2ZGM3NWIzOTlkN2UyZWJiYzdiODg0MDMzMmY3YjNhMCJ9fX0=")
+                        .setLore("",
+                                "§7Auteur:§b Dragiox§7 et §b Kyrutoo§7",
+                                "§8Version : V1",
+                                "",
+                                "§7Affrontez les autres joueurs en scellant",
+                                "§7des pactes avec des démons qui vous ",
+                                "§7apporteront des pouvoirs extraordinaires.",
+                                "",
+                                "§6§k!§r §eClique droit§7 pour configurer le mode de jeu.")
+                        .setName("§fChainsaw Man"), true),
+
+
+            YUGIOH("§eYu-Gi-Oh", "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZjc0Y2E5YThkNjMxNGNkZmU2ZDU2MTEyODlhZDZmNTNkNTJmMzZkMGU4MGExODAwOGNkN2EzZjMzNzZkOGJkOSJ9fX0=",null,
+                new QuickItem(Material.SKULL_ITEM, 1, SkullType.PLAYER.ordinal())
+                        .setTexture("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZjc0Y2E5YThkNjMxNGNkZmU2ZDU2MTEyODlhZDZmNTNkNTJmMzZkMGU4MGExODAwOGNkN2EzZjMzNzZkOGJkOSJ9fX0=")
+                        .setLore("",
+                                "§7Auteur:§b NewMew",
+                                "§8Version : V1",
+                                "",
+                                "§7Ouvrez des packs de cartes",
+                                "§7et rassemblez les parties d'Exodia.",
+                                "",
+                                "§6§k!§r §eClique droit§7 pour configurer le mode de jeu.")
+                        .setName("§3Yu-Gi-Oh"), true),
+    /* */
     NARUTO_V2("§6Naruto", "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYmFmOTFlOGViY2ZmNThlNzZmNTk3OWJjNjZmMzc3MzZjZjIxNmQ0ZGQzZjQwYWMxMzVkMGIxMDAwM2FjYWJkYiJ9fX0=",new NarutoV2(),
             new QuickItem(Material.SKULL_ITEM, 1, SkullType.PLAYER.ordinal()).setTexture(
                     "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYmFmOTFlOGViY2ZmNThlNzZmNTk3OWJjNjZmMzc3MzZjZjIxNmQ0ZGQzZjQwYWMxMzVkMGIxMDAwM2FjYWJkYiJ9fX0=")

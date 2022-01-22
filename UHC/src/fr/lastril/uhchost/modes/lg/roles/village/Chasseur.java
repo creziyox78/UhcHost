@@ -32,7 +32,7 @@ public class Chasseur extends Role implements LGRole, RoleCommand {
     @Override
     public void giveItems(Player player) {
         player.getInventory().addItem(
-                new QuickItem(Material.BOW).addEnchant(Enchantment.ARROW_DAMAGE, 3, true).toItemStack(),
+                new QuickItem(Material.BOW).addEnchant(Enchantment.ARROW_DAMAGE, 4, true).toItemStack(),
                 new ItemStack(Material.ARROW, 128),
                 new ItemStack(Material.BONE, 15),
                 new Oeuf(EntityType.WOLF).toItemStack(3));
