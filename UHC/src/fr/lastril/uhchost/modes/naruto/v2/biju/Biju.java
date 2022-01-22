@@ -103,21 +103,14 @@ public abstract class Biju extends BukkitRunnable implements Listener {
 		return new Location(getSpawnLocation().getWorld(), getSpawnLocation().getX(), getSpawnLocation().getWorld().getHighestBlockYAt(getSpawnLocation()) + 5, getSpawnLocation().getZ());
 	}
 
-	public boolean itemInInventory(ItemStack item, String nameBiju){
+	public boolean itemInInventory(){
 		if(bijuManager.isCraftedJubi())
 			return true;
 		for(Player player : Bukkit.getOnlinePlayers()){
-			if(item != null){
-				if(item.getItemMeta().hasDisplayName()){
-					if(item.getType() == Material.NETHER_STAR && item.getItemMeta().getDisplayName().equalsIgnoreCase(nameBiju)){
-						if(player.getInventory().contains(item)){
-							return true;
-						}
-					}
-				}
+			PlayerManager playerManager = main.getPlayerManager(player.getUniqueId());
+			if(playerManager == joueurPicked){
+				return true;
 			}
-
-
 		}
 		return false;
 	}

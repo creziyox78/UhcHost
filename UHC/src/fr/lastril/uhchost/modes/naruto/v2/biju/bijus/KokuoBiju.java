@@ -128,7 +128,7 @@ public class KokuoBiju extends Biju {
                 .getHotesBiju()
                 .get
                         (this.getClass()) != null
-                || itemInInventory(new ItemStack(Material.NETHER_STAR), nameBiju)){
+                || itemInInventory()){
             timerRespawn = 60*5;
         }
         if(horse != null){

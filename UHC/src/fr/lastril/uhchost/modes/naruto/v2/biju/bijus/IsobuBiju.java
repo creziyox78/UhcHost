@@ -136,7 +136,7 @@ public class IsobuBiju extends Biju {
 			guardian.getLocation().getChunk().load(true);
 		}
 		if(isAlive() || narutoV2Manager.getBijuManager().getHotesBiju().get(this.getClass()) != null
-				|| itemInInventory(new ItemStack(Material.NETHER_STAR), nameBiju)){
+				|| itemInInventory()){
 			timerRespawn = 60*5;
 		}
 		if(guardian != null){

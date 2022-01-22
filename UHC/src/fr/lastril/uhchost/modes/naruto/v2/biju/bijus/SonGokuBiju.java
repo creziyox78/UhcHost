@@ -129,7 +129,7 @@ public class SonGokuBiju extends Biju {
             magmaCube.getLocation().getChunk().load(true);
         }
         if(isAlive() || narutoV2Manager.getBijuManager().getHotesBiju().get(this.getClass()) != null
-                || itemInInventory(new ItemStack(Material.NETHER_STAR), nameBiju)){
+                || itemInInventory()){
             timerRespawn = 60*5;
         }
         if(magmaCube != null){
@@ -195,9 +195,6 @@ public class SonGokuBiju extends Biju {
     public void onDeathHote(PlayerDeathEvent event){
         Player player = event.getEntity();
         PlayerManager joueur = main.getPlayerManager(player.getUniqueId());
-        UhcHost.debug("TEST1");
-        UhcHost.debug("Value: " + narutoV2Manager.getBijuManager().getHotesBiju());
-        UhcHost.debug("TEST2");
         if(narutoV2Manager.getBijuManager().getHotesBiju().get(this.getClass()) != null &&
                 narutoV2Manager.getBijuManager().getHotesBiju().get(this.getClass()) == joueur){
             narutoV2Manager.getBijuManager().getHotesBiju().put(this.getClass(), null);

@@ -26,6 +26,13 @@ commands:
     description: Command say.
   mumble:
     description: Command to show Mumble.
+  discord:
+    description: Command to show Discord Server.
+  help:
+    aliases:
+      - aide
+      - aides
+    description: Command to help players for commands.
   setgroupes:
     aliases:
       - groupes
@@ -42,8 +49,8 @@ commands:
     description: Command to see rules.
   revive:
     description: Command to revive players ingame.
-  narutos:
+  ns:
     aliases:
-      - ns
+      - narutos
     description: Command of Naruto Mode.
   
