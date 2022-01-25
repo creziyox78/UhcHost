@@ -18,7 +18,6 @@ public class BiomeChooseGui extends IQuickInventory {
 
     public BiomeChooseGui() {
         super("§bChoix du biome", 3*9);
-
     }
 
     @Override

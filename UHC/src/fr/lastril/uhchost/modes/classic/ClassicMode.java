@@ -4,6 +4,7 @@ import fr.lastril.uhchost.UhcHost;
 import fr.lastril.uhchost.modes.Mode;
 import fr.lastril.uhchost.modes.ModeManager;
 import fr.lastril.uhchost.modes.Modes;
+import fr.lastril.uhchost.modes.roles.Camps;
 import fr.lastril.uhchost.player.PlayerManager;
 import fr.lastril.uhchost.scenario.Scenarios;
 import fr.lastril.uhchost.tools.API.BungeeAPI;
@@ -13,6 +14,8 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scoreboard.Team;
+
+import java.util.List;
 
 public class ClassicMode extends Mode {
 
@@ -108,8 +111,6 @@ public class ClassicMode extends Mode {
         } else if (this.pl.getPlayerManagerAlives().size() == 1) {
             Player winner = this.pl.getPlayerManagerAlives().get(0).getPlayer();
             win(winner);
-        } else {
-
         }
     }
 
@@ -126,6 +127,11 @@ public class ClassicMode extends Mode {
     @Override
     public void onDay() {
 
+    }
+
+    @Override
+    public List<Camps> getCamps() {
+        return null;
     }
 
     public void win(Player winner) {

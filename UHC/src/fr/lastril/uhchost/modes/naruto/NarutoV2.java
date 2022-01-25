@@ -341,6 +341,11 @@ public class NarutoV2 extends Mode implements ModeConfig, RoleMode<NarutoV2Role>
 	}
 
 	@Override
+	public List<Camps> getCamps() {
+		return Arrays.asList(Camps.SHINOBI, Camps.AKATSUKI, Camps.OROCHIMARU, Camps.TAKA, Camps.JUBI, Camps.ZABUZA_HAKU, Camps.DANZO, Camps.GAARA);
+	}
+
+	@Override
 	public int getRoleAnnouncement() {
 		return announceRoles;
 	}

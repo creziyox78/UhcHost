@@ -25,12 +25,12 @@ public class CurrentCompoGui extends IQuickInventory {
             for (int i = 0; i < inv.getInventory().getSize() - 3; i++) {
                 inv.setItem(new ItemStack(Material.AIR), i);
             }
-            List<Role> containsRole = new ArrayList<>();
+            List<String> containsRole = new ArrayList<>();
             for (Class<? extends Role> role : main.getGamemanager().getComposition()) {
                 try {
                     Role roles = role.newInstance();
-                    if(!containsRole.contains(roles)){
-                        containsRole.add(roles);
+                    if(!containsRole.contains(roles.getRoleName())){
+                        containsRole.add(roles.getRoleName());
                         if(roles.getCamp() != null && roles.getItem() != null) {
                             inv.addItem(roles.getItem().setLore("§7Camps : "+roles.getCamp().getCompoColor() + roles.getCamp().name(), "").setAmount(main.gameManager.countRolesInComposition(roles)).toItemStack());
                         } else {

@@ -1,7 +1,10 @@
 package fr.lastril.uhchost.modes;
 
+import fr.lastril.uhchost.modes.roles.Camps;
 import org.bukkit.entity.Player;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
+
+import java.util.List;
 
 public abstract class Mode {
 
@@ -40,5 +43,7 @@ public abstract class Mode {
     public abstract void onNight();
 
     public abstract void onDay();
+
+    public abstract List<Camps> getCamps();
 
 }

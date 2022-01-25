@@ -27,13 +27,14 @@ public class CmdRevive implements CommandExecutor {
 					Player target = main.getServer().getPlayer(args[0]);
 					if(target != null) {
 						PlayerManager targetJoueur = main.getPlayerManager(target.getUniqueId());
+						targetJoueur.setAlive(true);
+						target.setGameMode(GameMode.SURVIVAL);
 						main.getGamemanager().teleportPlayerOnGround(target);
 						target.getInventory().setArmorContents(targetJoueur.getArmors());
 						target.getInventory().setContents(targetJoueur.getItems());
-						targetJoueur.setAlive(true);
-						target.setGameMode(GameMode.SURVIVAL);
 						player.sendMessage("§aVous avez bien réssucité "+target.getName());
 						Bukkit.broadcastMessage(Messages.PREFIX_WITH_SEPARATION.getMessage()+target.getName()+" a été réssucité.");
+
 					}else{
 						player.sendMessage(Messages.UNKNOW_PLAYER.getMessage());
 					}

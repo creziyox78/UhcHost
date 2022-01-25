@@ -671,11 +671,40 @@ fr:
                 Gaï Maito:
                   - '&8&m--------------------------------------------------&r'
                   - "&fVous êtes&a {role}"
-                  - ""
+                  - "&2"
+                  - "&fObjectif: Gagner avec les&a Shinobis"
+                  - "&2"
+                  - "&f&lItems"
+                  - "&2"
+                  - "&6• Trois Portes : &7 Vous donne l'effet&b Speed 1&7 pendant 2 minutes en échange d'1 coeur non-permanent."
+                  - "&2"
+                  - "&6• Six Portes : &7 Vous donne l'effet&b Speed 1&7 et&c Force 1&7 pendant 2 minutes en échange d'1 coeur permanent. Des particules vertes émaneront de vous pendant 2 minutes."
+                  - "&2"
+                  - "&6• Huit Portes : &7 Vous donne l'effet&b Vitesse 2&7,&c Force 1&7, &9Résistance 1&7,&6 Résistance au Feu&7 et&c 5 coeurs supplémentaires pendant 2 minutes. A la fin, vous n'aurez plus que 6 coeurs permanent et vous ne pourrez plus utilisé les autres portes. Permet de récupérer l'item \"&cGaï de la nuit\"&7. Des partiules de feu émaneront de vous."
+                  - "&2"
+                  - "&cGaï de la nuit (Uniquement si vous avez utiliser \"Huit Portes\" avant):&7 Vous donne l'effet&b Speed 3&7 et&c Force 3&7 pendant 10 secondes puis vous mourrer juste après. Utlisable uniquement si vous êtes sous&6 \"Huit Portes\"&7."
+                  - "&2"
+                  - "&f&lParticularités"
+                  - "&2"
+                  - "&7Vous connaissez&a Rock Lee&7."
                   - '&8&m--------------------------------------------------&r'
                 Rock Lee :
                   - '&8&m--------------------------------------------------&r'
                   - "&fVous êtes&a {role}"
+                  - "&2"
+                  - "&fObjectif: Gagner avec les&a Shinobis"
+                  - "&2"
+                  - "&f&lItems"
+                  - "&2"
+                  - "&6• Trois Portes : &7 Vous donne l'effet&b Speed 1&7 pendant 2 minutes en échange d'1 coeur non-permanent."
+                  - "&2"
+                  - "&6• Six Portes : &7 Vous donne l'effet&b Speed 1&7 et&c Force 1&7 pendant 2 minutes en échange d'1 coeur permanent. Des particules vertes émaneront de vous pendant 2 minutes."
+                  - "&2"
+                  - "&6• Huit Portes (Uniquement à la mort de&a Gaï Maito&6):&7 Vous donne l'effet&b Vitesse 2&7,&c Force 1&7, &9Résistance 1&7,&6 Résistance au Feu&7 et&c 5 coeurs supplémentaires pendant 2 minutes. A la fin, vous n'aurez plus que 6 coeurs permanent et vous ne pourrez plus utilisé les autres portes. Des partiules de feu émaneront de vous."
+                  - "&2"
+                  - "&f&lParticularités"
+                  - "&2"
+                  - "&7Vous connaissez&a Gaï Maito&7."
                   - '&8&m--------------------------------------------------&r'
                 Kiba :
                   - '&8&m--------------------------------------------------&r'
@@ -804,6 +833,23 @@ fr:
                 Shikamaru:
                   - '&8&m--------------------------------------------------&r'
                   - "&fVous êtes&a {role}"
+                  - "&2"
+                  - "&fObjectif: Gagner avec les&a Shinobis"
+                  - "&2"
+                  - "&f&lItems"
+                  - "&2"
+                  - "&6• Inton: &7Ouvre un menu permettant de séléctionné 4 pouvoirs (en étant proche de 15 blocs d'un joueur)"
+                  - "&a          - Manipulation :&7 Permet d'immobiliser vous et 1 joueur pendant 10 secondes en vous donnant à tous les 2,&9 Résistance 2&7. (Utilisation - 4 max)"
+                  - "&a          - Etreinte Mortelle :&7 Permet d'immobiliser vous et 1 joueur pendant 10 secondes en vous donnant à tous les 2,&9 Résistance 2&7 et donne&a Poison 1&7 au joueur ciblé. (Utilisation - 1 max)"
+                  - "&a          - Oeil :&7 Permet de voir la vie d'un joueur au dessus de lui. (Utilisation - 5 max)"
+                  - "&a          - Recherche :&7 Permet de savoir si un joueur à tué d'autres joueurs (en connaissant l'identité des joueurs tués)."
+                  - "&cSi vous utiliser un pouvoir (autre que l'Oeil) plusieurs fois en moins de 5 minutes, vous aurez les effets&7 Faiblesse 1 et Lenteur 1&c pendant 1 minutes."
+                  - "&2"
+                  - "&f&lParticularités"
+                  - "&2"
+                  - "&7• Lorqu'il fait nuit, le rayon de votre pouvoir est étendu à 30 blocs."
+                  - "&2"
+                  - "&7• Vous connaissez&a Chôji&7."
                   - '&8&m--------------------------------------------------&r'
                 Choji:
                   - '&8&m--------------------------------------------------&r'

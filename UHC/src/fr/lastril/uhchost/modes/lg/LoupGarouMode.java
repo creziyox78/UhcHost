@@ -286,6 +286,11 @@ public class LoupGarouMode extends Mode implements ModeCommand, RoleMode<LGRole>
         Bukkit.broadcastMessage("");
     }
 
+    @Override
+    public List<Camps> getCamps() {
+        return Arrays.asList(Camps.LOUP_GAROU, Camps.VILLAGEOIS, Camps.NEUTRES, Camps.ANGE, Camps.IMITATEUR, Camps.ASSASSIN, Camps.LOUP_GAROU_BLANC);
+    }
+
     public void win(Camps winner) {
         this.pl.gameManager.setDamage(false);
 

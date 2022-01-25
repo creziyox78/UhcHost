@@ -90,8 +90,8 @@ public class LoupGarouManager extends ModeManager implements Listener {
                     System.out.println("Player not null !");
                     Player onlinePlayer = player.getPlayer();
                     onlinePlayer.setGameMode(GameMode.SURVIVAL);
-                    onlinePlayer.getInventory().setContents(player.getInventory().getContents());
-                    onlinePlayer.getInventory().setArmorContents(player.getInventory().getArmorContents());
+                    playerManager.setItems(player.getInventory().getContents());
+                    playerManager.setArmors(player.getInventory().getArmorContents());
                     onlinePlayer.updateInventory();
                     if(killer != null){
                         System.out.println("Checking killer not null !");

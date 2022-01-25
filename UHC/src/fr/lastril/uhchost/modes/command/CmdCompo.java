@@ -23,8 +23,6 @@ public class CmdCompo implements ModeSubCommand {
 
     private final UhcHost pl;
 
-    private final List<Camps> listSoloCamp = Arrays.asList(Camps.LOUP_GAROU_BLANC, Camps.COUPLE, Camps.ASSASSIN, Camps.TRUBLION, Camps.ANGE);
-
     public CmdCompo(UhcHost pl) {
         this.pl = pl;
     }
@@ -52,12 +50,9 @@ public class CmdCompo implements ModeSubCommand {
             if(!mode.getModeManager().compositionHide || (!playerManager.isAlive() && player.isOp())){
                 if(GameState.isState(GameState.STARTED) && roleAnnounceMode != null && roleAnnounceMode.isRoleAnnonced(TaskManager.timeGame)){
                     sender.sendMessage("§8§m----------------------------------");
-                    for (PlayerManager playerManagers : pl.getPlayerManagerOnlines()) {
-                        if (playerManagers.isAlive() && !listSoloCamp.contains(playerManagers.getCamps())) {
+                    for (Camps camp : Camps.values()) {
+                        for (PlayerManager playerManagers : pl.getGamemanager().getModes().getMode().getModeManager().getPlayerManagersWithCamps(camp).stream().filter(PlayerManager::isAlive).collect(Collectors.toList())) {
                             sender.sendMessage(playerManagers.getRole().getCamp().getCompoColor() + playerManagers.getRole().getRoleName() + (player.isOp() && !pl.getPlayerManager(player.getUniqueId()).isAlive() ? " §l(" + playerManagers.getPlayerName() + " | Camps: " + playerManagers.getCamps().name() + ")" : ""));
-                        } else {
-                            if(playerManagers.isAlive())
-                                sender.sendMessage("§6"+playerManagers.getRole().getRoleName() + (player.isOp() && !pl.getPlayerManager(player.getUniqueId()).isAlive()? " §l(" + playerManagers.getPlayerName() + " | Camps: " + playerManagers.getCamps().name() + ")" : ""));
                         }
                     }
                     sender.sendMessage("§8§m----------------------------------");

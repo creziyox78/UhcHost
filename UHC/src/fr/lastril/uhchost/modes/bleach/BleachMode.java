@@ -184,6 +184,11 @@ public class BleachMode extends Mode implements ModeConfig, RoleAnnounceMode, Mo
     }
 
     @Override
+    public List<Camps> getCamps() {
+        return Arrays.asList(Camps.SHINIGAMIS, Camps.ARRANCARS);
+    }
+
+    @Override
     public IQuickInventory getGui() {
         return new BleachGui();
     }

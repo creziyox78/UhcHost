@@ -28,7 +28,6 @@ public class IntonItem extends QuickItem {
                         new IntonGUI(main, shikamaru).open(player);
                     } else {
                         player.sendMessage(Messages.NARUTO_PREFIX.getMessage() + "§cVous êtes sous l'effet de Samehada.");
-                        return;
                     }
                 } else {
                     player.sendMessage(Messages.not("Shikamaru"));

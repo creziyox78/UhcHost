@@ -21,12 +21,12 @@ public class WorldInit implements Listener {
     private final UhcHost main;
     private final int x;
     private final int z;
-
     public WorldInit(UhcHost main, int x, int z) {
         this.main = main;
         this.x = x;
         this.z = z;
     }
+
 
     @EventHandler
     public void onWorldInit(WorldInitEvent event) {
@@ -36,7 +36,6 @@ public class WorldInit implements Listener {
         Bukkit.getConsoleSender().sendMessage(ChatColor.YELLOW + "Changing biome center...");
         net.minecraft.server.v1_8_R3.World craftWorld = ((CraftWorld) world).getHandle();
         WorldProvider worldProvider = craftWorld.worldProvider;
-
         try {
             Field field = WorldProvider.class.getDeclaredField("c");
             field.setAccessible(true);
@@ -45,11 +44,10 @@ public class WorldInit implements Listener {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
     }
 
 
-    private class WorldChunkManagerPatched extends WorldChunkManager {
+    private static class WorldChunkManagerPatched extends WorldChunkManager {
 
         private final int cx;
         private final int cz;
