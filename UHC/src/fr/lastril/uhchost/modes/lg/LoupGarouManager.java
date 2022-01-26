@@ -316,14 +316,9 @@ public class LoupGarouManager extends ModeManager implements Listener {
             }
         }
 
-
-
-
         for (Player players : Bukkit.getOnlinePlayers()) {
             players.playSound(players.getLocation(), Sound.WOLF_HOWL, 1f, 1f);
         }
-
-
 
         if(killer != null){
             PlayerManager playerManagerKiller = main.getPlayerManager(killer.getUniqueId());

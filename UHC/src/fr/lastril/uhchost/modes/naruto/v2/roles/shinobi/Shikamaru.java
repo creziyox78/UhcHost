@@ -138,7 +138,7 @@ public class Shikamaru extends Role implements NarutoV2Role, RoleListener {
     }
 
     public double getPlayersDistance() {
-        return main.getGamemanager().getWorldState() == WorldState.DAY ? 15 : 30;
+        return WorldState.isWorldState(WorldState.JOUR) ? 15 : 30;
     }
 
     public int getManipulationUses() {

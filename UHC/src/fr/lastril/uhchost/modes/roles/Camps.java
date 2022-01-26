@@ -16,7 +16,7 @@ public enum Camps {
     ANGE(ChatColor.GOLD, "§6Victoire de l'Ange !"),
     LOUP_GAROU_BLANC(ChatColor.WHITE, "§fVictoire du Loup-Garou Blanc !"),
     LOUP_GAROU_SOLITAIRE(ChatColor.WHITE, "§fVictoire du Loup-Garou Solitaire !"),
-    ASSASSIN(ChatColor.BLUE, "§9Victoire de l'Assassin'"),
+    ASSASSIN(ChatColor.BLUE, "§9Victoire de l'Assassin"),
     TRUBLION(ChatColor.DARK_PURPLE, "§5Victoire du Trublion !"),
     IMITATEUR(ChatColor.DARK_AQUA, "§3Victoire de l'Imitateur !"),
     ZIZANIE(ChatColor.DARK_GREEN, "§3Victoire du rôle solo zizané !"),

@@ -76,8 +76,6 @@ public class GameManager {
 
 	private long pvpTime;
 
-	private WorldState worldState;
-
 	private double cycleTime = 10*60;
 
 	private String hostName;
@@ -159,7 +157,6 @@ public class GameManager {
 		this.scenarios = new ArrayList<>();
 		this.composition = new ArrayList<>();
 		this.cohost = new ArrayList<>();
-		this.worldState = WorldState.DAY;
 		this.gameName = ChatColor.GOLD + "UHC Host";
 		this.playerCheckingWorld = false;
 		this.setNether(true);
@@ -417,8 +414,6 @@ public class GameManager {
 		} else {
 
 			this.task = Bukkit.getScheduler().runTaskTimer(this.pl, new Runnable() {
-				final List<PlayerManager> onlinePlayers= pl.getPlayerManagerOnlines();
-				int index = 0;
 				final List<Location> locs = GameManager.this.generateLocations(Bukkit.getOnlinePlayers().size());
 				@Override
 				public void run() {
@@ -561,14 +556,6 @@ public class GameManager {
 		if (GameState.isState(GameState.STARTED)){
 			this.pl.gameManager.getModes().getMode().checkWin();
 		}
-	}
-
-	public void setWorldState(WorldState worldState) {
-		this.worldState = worldState;
-	}
-
-	public WorldState getWorldState() {
-		return worldState;
 	}
 
 	public void setMaxPlayers(int maxPlayers) {

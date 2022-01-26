@@ -88,7 +88,7 @@ public class UhcHost extends JavaPlugin {
 	}
 
     public static void debug(String log) {
-		Bukkit.getConsoleSender().sendMessage(log);
+		Bukkit.getConsoleSender().sendMessage(ChatColor.YELLOW + "[UHC - LOG] " + log);
     }
 
     public void onEnable() {

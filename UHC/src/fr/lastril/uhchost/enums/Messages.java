@@ -33,7 +33,7 @@ public enum Messages {
     LOUP_GAROU_PREFIX("§b[§6LG UHC§b] "),
     PREFIX_WITH_ARROW("§4[§cUHC§4] §e"),
     PREFIX_WITH_SEPARATION("§6§lUHC §8❘ §a"),
-    PREFIX_SPEC_STAFF("§8§lUHC SPEC§8 » §7"),
+    PREFIX_SPEC_STAFF("§8§lUHC STAFF§8 » §f"),
     PREFIX("§6§lUHC");
 
 

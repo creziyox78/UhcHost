@@ -52,9 +52,13 @@ public class ClassicMode extends Mode {
     }
 
     @Override
-    public void onDeath(Player player, Player killer) {
-        Location deathLocation = player.getLocation().clone();
-        kill(player, player.getInventory().getContents(), player.getInventory().getArmorContents(), killer, deathLocation);
+    public void onDeath(OfflinePlayer player, Player killer) {
+        if(player.isOnline()){
+            Player onlinePlayer = player.getPlayer();
+            Location deathLocation = onlinePlayer.getLocation().clone();
+            kill(player, onlinePlayer.getInventory().getContents(), onlinePlayer.getInventory().getArmorContents(), killer, deathLocation);
+        }
+
     }
 
     public void kill(OfflinePlayer player, ItemStack[] items, ItemStack[] armors, Player killer,

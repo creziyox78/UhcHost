@@ -169,8 +169,8 @@ public class TaskManager {
 				long time = Bukkit.getWorld("game").getTime();
 
 				if (time >= 13000) {
-					if (pl.getGamemanager().getWorldState() == WorldState.DAY) {
-						pl.getGamemanager().setWorldState(WorldState.NIGHT);
+					if (WorldState.isWorldState(WorldState.JOUR)) {
+						WorldState.setWorldState(WorldState.NUIT);
 						mode.onNight();
 						for (PlayerManager playerManager : pl.getAllPlayerManager().values()) {
 							if (playerManager.getPlayer() != null) {
@@ -183,8 +183,8 @@ public class TaskManager {
 
 					}
 				} else {
-					if (pl.getGamemanager().getWorldState() == WorldState.NIGHT) {
-						pl.getGamemanager().setWorldState(WorldState.DAY);
+					if (WorldState.isWorldState(WorldState.NUIT)) {
+						WorldState.setWorldState(WorldState.JOUR);
 						mode.onDay();
 						for (PlayerManager playerManager : pl.getAllPlayerManager().values()) {
 							if (playerManager.getPlayer() != null) {

@@ -77,7 +77,7 @@ public class LoupGarouPerfide extends Role implements LGRole, RealLG, LGChatRole
     public void checkRunnable(Player player) {
         if (main.gameManager.getModes().getMode().getModeManager() instanceof LoupGarouManager) {
             LoupGarouManager loupGarouManager = (LoupGarouManager) main.gameManager.getModes().getMode().getModeManager();
-            if (main.gameManager.getWorldState() == WorldState.NIGHT) {
+            if (WorldState.isWorldState(WorldState.NUIT)) {
                 if (isWithoutArmor(player)) {
                     for (PlayerManager playerManager : loupGarouManager.getPlayerManagersWithRole(PetiteFille.class)) {
                         if (playerManager.getPlayer() != null) {

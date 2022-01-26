@@ -1,6 +1,7 @@
 package fr.lastril.uhchost.scoreboard;
 
 import fr.lastril.uhchost.UhcHost;
+import fr.lastril.uhchost.player.PlayerManager;
 import fr.lastril.uhchost.tools.API.items.BannerCreator;
 import fr.lastril.uhchost.tools.API.items.ItemsCreator;
 import org.bukkit.Bukkit;
@@ -18,6 +19,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 public class TeamUtils {
 
@@ -49,9 +51,9 @@ public class TeamUtils {
 	}
 
 	public void resetTeams() {
-		this.scoreboard.getTeams().forEach(t -> t.unregister());
+		this.scoreboard.getTeams().forEach(Team::unregister);
 		this.setup = false;
-		for (UUID uuid : this.pl.getAllPlayerManager().keySet()) {
+		for (UUID uuid : this.pl.getPlayerManagerOnlines().stream().map(PlayerManager::getUuid).collect(Collectors.toList())) {
 			Player player = Bukkit.getPlayer(uuid);
 			for (ListIterator<ItemStack> listIterator = Bukkit.getPlayer(uuid).getInventory().iterator(); listIterator
 					.hasNext();) {

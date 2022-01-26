@@ -1,6 +1,7 @@
 package fr.lastril.uhchost.modes;
 
 import fr.lastril.uhchost.modes.roles.Camps;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 
@@ -24,7 +25,7 @@ public abstract class Mode {
 
     public abstract void onNewEpisode();
 
-    public abstract void onDeath(Player player, Player killer);
+    public abstract void onDeath(OfflinePlayer player, Player killer);
 
     public abstract boolean isScheduledDeath();
 

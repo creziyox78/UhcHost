@@ -119,8 +119,9 @@ public class BleachMode extends Mode implements ModeConfig, RoleAnnounceMode, Mo
 
 
     @Override
-    public void onDeath(Player player, Player killer) {
+    public void onDeath(OfflinePlayer player, Player killer) {
         PlayerManager joueur = main.getPlayerManager(player.getUniqueId());
+        Player onlinePlayer = player.getPlayer();
         joueur.setAlive(false);
         for (Player players : Bukkit.getOnlinePlayers()) {
             players.playSound(players.getLocation(), Sound.WITHER_DEATH, 1f, 1f);
@@ -129,22 +130,25 @@ public class BleachMode extends Mode implements ModeConfig, RoleAnnounceMode, Mo
             Bukkit.broadcastMessage("§3§m----------------------------------");
             Bukkit.broadcastMessage("§b§l" + player.getName() + "§7 est mort, son rôle était "+joueur.getRole().getCamp().getCompoColor()+joueur.getRole().getRoleName()+"§7.");
             Bukkit.broadcastMessage("§3§m----------------------------------");
-            new BukkitRunnable() {
+            if(onlinePlayer != null){
+                new BukkitRunnable() {
 
-                @Override
-                public void run() {
-                    player.spigot().respawn();
-                }
-            }.runTaskLater(main, 2);
+                    @Override
+                    public void run() {
+                        onlinePlayer.spigot().respawn();
+                    }
+                }.runTaskLater(main, 5);
 
-            new BukkitRunnable() {
+                new BukkitRunnable() {
 
-                @Override
-                public void run() {
-                    player.setGameMode(GameMode.ADVENTURE);
-                    player.setGameMode(GameMode.SPECTATOR);
-                }
-            }.runTaskLater(main, 5);
+                    @Override
+                    public void run() {
+                        onlinePlayer.setGameMode(GameMode.ADVENTURE);
+                        onlinePlayer.setGameMode(GameMode.SPECTATOR);
+                    }
+                }.runTaskLater(main, 10);
+            }
+
         } else {
             Bukkit.broadcastMessage("§3§m----------------------------------");
             Bukkit.broadcastMessage("§b§l" + player.getName() + "§7 est mort.");

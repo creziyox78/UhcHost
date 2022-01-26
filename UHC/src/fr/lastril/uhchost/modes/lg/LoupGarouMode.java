@@ -41,7 +41,7 @@ public class LoupGarouMode extends Mode implements ModeCommand, RoleMode<LGRole>
     private final List<LoupGarouSpecialEvent> specialEventList = new ArrayList<>();
     private int announceRoles = 20*60;
     private boolean lgSolitaire;
-    private int annonceSolitaire = 20*55;
+    private int annonceSolitaire = 60*55;
 
     public LoupGarouMode() {
         super(Modes.LG);
@@ -207,12 +207,19 @@ public class LoupGarouMode extends Mode implements ModeCommand, RoleMode<LGRole>
     }
 
     @Override
-    public void onDeath(Player player, Player killer) {
-        Bukkit.getScheduler().runTaskLater(pl, () -> {
-            player.spigot().respawn();
-            player.teleport(new Location(pl.gameManager.spawn.getWorld(), pl.gameManager.spawn.getX(), pl.gameManager.spawn.getY() + 5, pl.gameManager.spawn.getZ()));
-        }, 20* 2);
-        loupGarouManager.startDeathTask(player, killer);
+    public void onDeath(OfflinePlayer player, Player killer) {
+        if(player.isOnline()){
+            Player onlinePlayer = player.getPlayer();
+            Bukkit.getScheduler().runTaskLater(pl, () -> {
+                onlinePlayer.spigot().respawn();
+                onlinePlayer.teleport(new Location(pl.gameManager.spawn.getWorld(), pl.gameManager.spawn.getX(), pl.gameManager.spawn.getY() + 5, pl.gameManager.spawn.getZ()));
+            }, 20* 2);
+            loupGarouManager.startDeathTask(onlinePlayer, killer);
+        } else {
+            loupGarouManager.kill(player, null, null, null, null);
+        }
+
+
     }
 
     @Override
@@ -235,7 +242,7 @@ public class LoupGarouMode extends Mode implements ModeCommand, RoleMode<LGRole>
         Set<Camps> lastCamps = new HashSet<>();
         for (Player players : Bukkit.getOnlinePlayers()) {
             PlayerManager playerManager = pl.getPlayerManager(players.getUniqueId());
-            if (playerManager.isAlive()) {
+            if (playerManager.isAlive() && playerManager.getCamps() != null) {
                 lastCamps.add(playerManager.getCamps());
             }
         }
@@ -246,6 +253,7 @@ public class LoupGarouMode extends Mode implements ModeCommand, RoleMode<LGRole>
         } else if (lastCamps.size() == 0) {
             win(Camps.EGALITE);
         }
+
     }
 
     @Override

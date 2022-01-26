@@ -1,6 +1,7 @@
 package fr.lastril.uhchost.scoreboard;
 
 import fr.lastril.uhchost.UhcHost;
+import fr.lastril.uhchost.enums.WorldState;
 import fr.lastril.uhchost.game.GameState;
 import fr.lastril.uhchost.modes.Modes;
 import fr.lastril.uhchost.modes.bleach.BleachMode;
@@ -388,6 +389,7 @@ public class ScoreboardUtils {
 				.replace("{player_kills}", playerManager != null && playerManager.getKills() != null? String.valueOf(playerManager.getKills().size()) : "")
 				.replace("{episode}", String.valueOf(pl.gameManager.episode))
 				.replace("{groupes}", String.valueOf(pl.gameManager.getGroupes()))
+				.replace("{cycle}", WorldState.getWorldState() != null ? String.valueOf(WorldState.getWorldState()) : "?")
 				.replace("&", "§");
 	}
 

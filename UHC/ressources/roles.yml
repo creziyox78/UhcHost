@@ -1083,7 +1083,7 @@ fr:
               - '&8&m--------------------------------------------------&r'
               - '&2Votre rôle est, &c&lInfect Père des Loups&r&2.'
               - '&2La nuit vous avez &7Strength I &2et &7Night Vision &2en permanence.'
-              - '&2Vous avez le pouvoir d''infecter un joueur durant la partie.'
+              - '&2Vous avez le pouvoir d''infecter (/lg infecter <pseudo>) un joueur durant la partie.'
               - '&2Lorsque vous faites un kill, vous gagnez &7&oSpeed&r &2et &e2 ♥&2d''absorption pendant 1 minute.'
               - '&8&m--------------------------------------------------&r'
               LoupGarou:
@@ -1171,7 +1171,7 @@ fr:
               - '&2La nuit vous avez &7Strength I &2et &7Night Vision &2en permanence.'
               - '&2Une fois dans la partie lors des 30 dernières secondes d''une nuit
                 vous pouvez activer une fausse nuit'
-              - '&2au début du prochain jour durant la moitié du cycle.'
+              - '&2au début du prochain jour durant la moitié du cycle. (/lg fs)'
               - '&2Cette fausse nuit a pour effet de rendre aux &cLoups &2leur effets
                 et pouvoir.'
               - '&2Ainsi que de vous octroyer &7Speed I &2et &7Strenght I&2.'
@@ -1331,7 +1331,7 @@ fr:
               - '&2Vous pouvez échanger les rôles de 2 joueurs à un moment aléatoire
                 entre 25 et 50 minutes.'
               - '&2Vous pouvez téléporter les joueur aléatoirement sur la map avec
-                une commande une fois dans la partie &7&o(/lg tp)&r&2;'
+                une commande une fois dans la partie &7&o(/lg tp)&r&2.'
               - '&2Si vous ne le faite pas, la dispersion aura lieu à votre mort.'
               - '&2Si vous êtes solo, vous connaitrez les 2 rôles échangés et vous
                 pourrez également re-téléporter un joueur 2 fois.'
@@ -1449,7 +1449,7 @@ fr:
               - '&8&m--------------------------------------------------&r'
               - '&2Votre rôle est, &a&l{role}&2.'
               - '&2Une fois par épisode &o(à partir de l''épisode 3),&r&2 vous pouvez
-                enquêter sur 2 joueurs.'
+                enquêter sur 2 joueurs &7&o(/lg detect <pseudo 1> <pseudo 2>)&r&2.'
               - '&2Vous recevez alors un message vous indiquant s''il font partie
                 du même &ocamp &r&2ou non.'
               - '&2Vous ne pouvez pas désigner ni enqupeter deux fois sur la même
@@ -1509,7 +1509,7 @@ fr:
               - '&8&m--------------------------------------------------&r'
               - '&2Votre rôle est, &a&l{role}&2.'
               - '&23 fois dans la partie et uniquement la nuit, vous pouvez flairer
-                un jour situé à - de 10 blocs.'
+                un jour situé à - de 10 blocs &7&o(/lg renifler <pseudo>)&r&2.'
               - '&2Vous saurez alors si le joueur est &c&oLoup&r&2 ou non.'
               - '&2Si c''est le cas le &c&oLoup-Garou&r&2 flairer en seras mis au
                 courant l''épisode suivant.'
@@ -1522,7 +1522,7 @@ fr:
                 donner'
               - '&7&oNo Fall &r&2et &7&oResistance I &r&2pendant 20 minutes au joueur
                 de votre choix y compris vous même,'
-              - '&2mais pas deux fois d''affilée au même joueur.'
+              - '&2mais pas deux fois d''affilée au même joueur. &7&o(/lg salvation <pseudo>)&r&2'
               - '&8&m--------------------------------------------------&r'
               Soeur:
               - '&8&m--------------------------------------------------&r'

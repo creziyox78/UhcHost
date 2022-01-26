@@ -57,7 +57,7 @@ public class SafeMinerGui extends IQuickInventory {
 
 
 
-			ItemsCreator ic = new ItemsCreator(Material.LAVA_BUCKET, "§e" + Goldless.getLootNumber(),
+			ItemsCreator ic = new ItemsCreator(Material.LAVA_BUCKET, "§e" + SafeMiner.getCouche(),
 					Arrays.asList(I18n.tl("guis.safeminer.lore")));
 			inv.setItem(ic.create(), onClick -> {
 				new ScenariosGui().open(onClick.getPlayer());

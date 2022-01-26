@@ -27,8 +27,10 @@ public class PathFinderAttackPlayer extends PathfinderGoalNearestAttackableTarge
             if(this.d instanceof EntityHuman) {
                 final EntityHuman eh = (EntityHuman)list.get(0);
                 PlayerManager joueur = UhcHost.getInstance().getPlayerManager(eh.getBukkitEntity().getUniqueId());
-                if(eh.getBukkitEntity().getLocation().distance(this.e.getBukkitEntity().getLocation()) < 8.0D && eh.getBukkitEntity().getGameMode() != GameMode.SPECTATOR && joueur.isAlive()){
-                    return true;
+                if(eh.getBukkitEntity().getWorld() == this.e.getBukkitEntity().getWorld()){
+                    if(eh.getBukkitEntity().getLocation().distance(this.e.getBukkitEntity().getLocation()) < 8.0D && eh.getBukkitEntity().getGameMode() != GameMode.SPECTATOR && joueur.isAlive()){
+                        return true;
+                    }
                 }
             }
         }

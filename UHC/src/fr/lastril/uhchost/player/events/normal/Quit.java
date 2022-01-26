@@ -31,7 +31,7 @@ public class Quit implements Listener {
 				this.pl.teamUtils.unsetTeam(player, this.pl.teamUtils.getTeam(player));
 			}
 		    this.pl.scoreboardUtil.reset(player);
-		    this.pl.gameManager.removePlayer(player, false);
+		    this.pl.gameManager.removePlayer(player, true);
 		    if(pl.gameManager.getHost() == player) {
 		    	if(!pl.gameManager.getCohost().isEmpty()){
 		    		pl.gameManager.setHost(pl.gameManager.getCohost().get(0));

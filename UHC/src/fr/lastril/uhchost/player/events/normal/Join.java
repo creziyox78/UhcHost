@@ -27,7 +27,7 @@ public class Join implements Listener {
 
 	@EventHandler
 	public void onLogin(PlayerLoginEvent e) {
-		if (Bukkit.getOnlinePlayers().size() >= this.pl.gameManager.getMaxPlayers()) {
+		if (Bukkit.getOnlinePlayers().size() >= this.pl.gameManager.getMaxPlayers() && !e.getPlayer().isOp()) {
 		      e.setResult(PlayerLoginEvent.Result.KICK_FULL);
 		      e.setKickMessage(I18n.tl("serverFull"));
 		}
@@ -44,8 +44,9 @@ public class Join implements Listener {
 			pl.getAllPlayerManager().put(playersUuid, new PlayerManager(playersUuid));
 			Bukkit.getConsoleSender().sendMessage("Created player data !");
 		}
+		UhcHost.debug("Checking state: " + GameState.getCurrentState().name());
 		if (GameState.isState(GameState.STARTING) || GameState.isState(GameState.LOBBY) ) {
-
+			UhcHost.debug("Checking host...");
 			e.setJoinMessage("[" + ChatColor.GREEN + "+"+ ChatColor.WHITE+ "] " + player.getDisplayName());
 			player.setGameMode(GameMode.ADVENTURE);
 			player.setTotalExperience(0);
@@ -56,6 +57,7 @@ public class Join implements Listener {
 
 			if(player.isOp()){
 				if(pl.gameManager.getHost() == null){
+					UhcHost.debug("Set player " + player.getName() + " host !");
 					pl.gameManager.setHost(player);
 					pl.gameManager.setHostname(player.getName());
 				}
@@ -64,10 +66,10 @@ public class Join implements Listener {
 			player.teleport(gameManager.spawn);
 
 
-		}
-		else if(GameState.isState(GameState.STARTED)) {
+		}  else if(GameState.isState(GameState.STARTED)) {
 			PlayerManager playerManager = pl.getPlayerManager(playersUuid);
-			if(!playerManager.isAlive() && !playerManager.isPlayedGame()) {
+			UhcHost.debug("Game started, checking player... alive: " + playerManager.isAlive() + ", played: " + playerManager.isPlayedGame());
+			if(!playerManager.isAlive() || !playerManager.isPlayedGame()) {
 				e.setJoinMessage("");
 				player.setGameMode(GameMode.SPECTATOR);
 			}

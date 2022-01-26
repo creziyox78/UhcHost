@@ -22,10 +22,15 @@ public class Tablist extends BukkitRunnable {
 		int ping = (((CraftPlayer) player).getHandle()).ping;
 		PlayerConnection con = (((CraftPlayer) player).getHandle()).playerConnection;
 		IChatBaseComponent tabHeader = IChatBaseComponent.ChatSerializer.a("{\"text\":\" " + ChatColor.AQUA
-				+ "Bienvenue" + ChatColor.WHITE + " " + player.getName() + ChatColor.AQUA + " !\"}");
+				+ "Group UHC" + ChatColor.WHITE + " !\n" +
+				"\n" +
+				"§8§m--------------------- \"}");
 		PacketPlayOutPlayerListHeaderFooter packet = new PacketPlayOutPlayerListHeaderFooter(tabHeader);
 		IChatBaseComponent tabFooter = IChatBaseComponent.ChatSerializer
-				.a("{\"text\":\"" + ChatColor.AQUA + "Ton ping: " + ChatColor.WHITE + ping + "ms" + ChatColor.AQUA
+				.a("{\"text\":\" \n" +
+						"\n" +
+						"§8§m---------------------\n"
+						+ ChatColor.AQUA + "Ton ping: " + ChatColor.WHITE + ping + "ms" + ChatColor.AQUA
 						+ "  |  TPS du serveur: " + ChatColor.WHITE + tps + "\n" +
 						"§cPlugin by Lastril"
 						+" \"}");

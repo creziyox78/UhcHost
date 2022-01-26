@@ -14,10 +14,12 @@ import fr.lastril.uhchost.tools.NotStart;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 
 public class CmdHost2 implements CommandExecutor {
 
@@ -93,14 +95,38 @@ public class CmdHost2 implements CommandExecutor {
 							if(target != null){
 								PlayerManager targetJoueur = pl.getPlayerManager(target.getUniqueId());
 								targetJoueur.clearCooldowns();
-								target.sendMessage("§6Un modérateur vient de réinitialiser vos cooldowns.");
-								player.sendMessage("§6Vous venez de réinitialiser les cooldowns de " + target.getName() + ".");
+								target.sendMessage(Messages.PREFIX_WITH_ARROW.getMessage() + "Un modérateur vient de réduire vos temps de rechargement à 0.");
+								player.sendMessage(Messages.PREFIX_SPEC_STAFF.getMessage() + "§6Vous venez de réinitialiser les cooldowns de " + target.getName() + ".");
+
 							} else {
 								player.sendMessage(Messages.error("Ce joueur n'est pas en ligne."));
 							}
 						}
 					} else {
 						player.sendMessage(Messages.NOT_PERM.getMessage());
+					}
+				} else if (args[0].equalsIgnoreCase("kill")) {
+					if (pl.getGamemanager().isCoHost(player) || pl.getGamemanager().getHost() == player) {
+						if (GameState.isState(GameState.STARTED)) {
+							OfflinePlayer target = pl.getServer().getOfflinePlayer(args[1]);
+							if (target != null) {
+								if (target.getPlayer() != null) {
+									Player targetPlayer = target.getPlayer();
+									targetPlayer.damage(100D);
+								} else {
+									pl.getGamemanager().getModes().getMode().onDeath(target, null);
+								}
+							} else {
+								player.sendMessage(Messages.UNKNOW_PLAYER.getMessage());
+								return false;
+							}
+						} else {
+							player.sendMessage(Messages.NOT_NOW.getMessage());
+							return false;
+						}
+					} else {
+						player.sendMessage(Messages.NOT_PERM.getMessage());
+						return false;
 					}
 				} else if (args[0].equalsIgnoreCase("recup")) {
 					if (GameState.isState(GameState.STARTED)) {
@@ -142,7 +168,6 @@ public class CmdHost2 implements CommandExecutor {
 					if (args[1].equalsIgnoreCase("pvp")) {
 						return true;
 					}
-					
 				} else{
 					sendUse(player);
 				}
@@ -171,6 +196,7 @@ public class CmdHost2 implements CommandExecutor {
 		player.sendMessage("§6• /h wl remove <pseudo> §7: §eRetirer un joueur de la liste blanche.");
 		player.sendMessage("§6• /h kick <pseudo> <raison> §7: §eExpulser un joueur de la partie.");
 		player.sendMessage("§6• /h give <item> <nombre> §7: §eDonner un item aux joueurs de la partie.");*/
+		player.sendMessage("§f• /h kill <pseudo> §7: §eTue un joueur qui est en pleine partie (Fonctionne avec les joueurs déconnectés).");
 		player.sendMessage("§f• /h recup <pseudo> §7: §eRedonne les items spéciaux à un joueur.");
 		player.sendMessage("§f• /h heal §7: §eSoigner tout les joueurs de la partie.");
 		player.sendMessage("§f• /h op <pseudo> §7: §eAjout un host à la partie.");

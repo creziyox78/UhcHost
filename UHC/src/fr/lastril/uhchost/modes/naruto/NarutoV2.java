@@ -135,21 +135,26 @@ public class NarutoV2 extends Mode implements ModeConfig, RoleMode<NarutoV2Role>
 	}
 
 	@Override
-	public void onDeath(Player player, Player killer) {
+	public void onDeath(OfflinePlayer player, Player killer) {
 		if(killer != null){
 			PlayerManager killerManager = main.getPlayerManager(killer.getUniqueId());
 			killerManager.addKill(player.getUniqueId());
 		}
 		PlayerManager joueur = main.getPlayerManager(player.getUniqueId());
-		joueur.setDeathLocation(player.getLocation());
-		joueur.setItems(player.getInventory().getContents());
-		joueur.setArmors(player.getInventory().getArmorContents());
+		Player onlinePlayer = player.getPlayer();
+		if(player.isOnline()){
+
+			joueur.setDeathLocation(onlinePlayer .getLocation());
+			joueur.setItems(onlinePlayer .getInventory().getContents());
+			joueur.setArmors(onlinePlayer.getInventory().getArmorContents());
+		}
 		joueur.setAlive(false);
+
 		for (Player players : Bukkit.getOnlinePlayers()) {
 			players.playSound(players.getLocation(), Sound.WITHER_DEATH, 1f, 1f);
 			PlayerManager playerManager = main.getPlayerManager(players.getUniqueId());
 			if(playerManager.isAlive() && playerManager.hasRole()){
-				playerManager.getRole().onPlayerDeath(player);
+				playerManager.getRole().onPlayerDeath(player.getPlayer());
 			}
 		}
 
@@ -161,19 +166,19 @@ public class NarutoV2 extends Mode implements ModeConfig, RoleMode<NarutoV2Role>
 
 				@Override
 				public void run() {
-					player.spigot().respawn();
+					onlinePlayer.spigot().respawn();
 				}
-			}.runTaskLater(main, 2);
+			}.runTaskLater(main, 5);
 			
 			new BukkitRunnable() {
 				
 				@Override
 				public void run() {
-					player.setGameMode(GameMode.ADVENTURE);
-					player.setGameMode(GameMode.SPECTATOR);
-					player.teleport(joueur.getDeathLocation());
+					onlinePlayer.setGameMode(GameMode.ADVENTURE);
+					onlinePlayer.setGameMode(GameMode.SPECTATOR);
+					onlinePlayer.teleport(joueur.getDeathLocation());
 				}
-			}.runTaskLater(main, 5);
+			}.runTaskLater(main, 10);
 		} else {
 			Bukkit.broadcastMessage("§3§m----------------------------------");
 			Bukkit.broadcastMessage("§b§l" + player.getName() + "§7 est mort.");

@@ -25,13 +25,15 @@ public class PathFinderExploseToPlayer extends PathfinderGoal {
             return path != null;
         }
         Location targetLocation = Bukkit.getPlayer(p).getLocation();
-        if(targetLocation.distance(entity.getBukkitEntity().getLocation()) < 1){
-            entity.die();
-            targetLocation.getWorld().createExplosion(targetLocation, 3.0f);
-        }
-        this.path = this.entity.getNavigation().a(targetLocation.getX(), targetLocation.getY(), targetLocation.getZ());
-        if (this.path != null) {
-            this.c();
+        if(targetLocation.getWorld() == entity.getBukkitEntity().getWorld()){
+            if(targetLocation.distance(entity.getBukkitEntity().getLocation()) < 1){
+                entity.die();
+                targetLocation.getWorld().createExplosion(targetLocation, 3.0f);
+            }
+            this.path = this.entity.getNavigation().a(targetLocation.getX(), targetLocation.getY(), targetLocation.getZ());
+            if (this.path != null) {
+                this.c();
+            }
         }
         return this.path != null;
     }
