@@ -14,7 +14,7 @@ public class Chat implements Listener {
     @EventHandler
     public void onChat(AsyncPlayerChatEvent event){
         Player player = event.getPlayer();
-        if(main.getGamemanager().getHost() == player){
+        if(main.getGamemanager().getHost() == player.getUniqueId()){
             event.setFormat("§6Hôte " + player.getName() + " »§f " + event.getMessage().replace("&", "§"));
         } else if(main.getGamemanager().isCoHost(player)){
             event.setFormat("§eCo-hôte " + player.getName() + " »§f " + event.getMessage().replace("&", "§"));

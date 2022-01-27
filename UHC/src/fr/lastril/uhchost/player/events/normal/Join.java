@@ -27,7 +27,9 @@ public class Join implements Listener {
 
 	@EventHandler
 	public void onLogin(PlayerLoginEvent e) {
-		if (Bukkit.getOnlinePlayers().size() >= this.pl.gameManager.getMaxPlayers() && !e.getPlayer().isOp()) {
+		if ((Bukkit.getOnlinePlayers().size() >= this.pl.gameManager.getMaxPlayers() && !e.getPlayer().isOp())
+				|| GameState.isState(GameState.PRESTART)
+				|| GameState.isState(GameState.TELEPORTING)) {
 		      e.setResult(PlayerLoginEvent.Result.KICK_FULL);
 		      e.setKickMessage(I18n.tl("serverFull"));
 		}
@@ -58,7 +60,7 @@ public class Join implements Listener {
 			if(player.isOp()){
 				if(pl.gameManager.getHost() == null){
 					UhcHost.debug("Set player " + player.getName() + " host !");
-					pl.gameManager.setHost(player);
+					pl.gameManager.setHost(player.getUniqueId());
 					pl.gameManager.setHostname(player.getName());
 				}
 			}

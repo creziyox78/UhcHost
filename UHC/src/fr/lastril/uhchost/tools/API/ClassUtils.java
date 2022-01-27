@@ -1,5 +1,6 @@
 package fr.lastril.uhchost.tools.API;
 
+import fr.lastril.uhchost.modes.naruto.v2.roles.akatsuki.Nagato;
 import fr.lastril.uhchost.tools.API.raytracing.BoundingBox;
 import fr.lastril.uhchost.tools.API.raytracing.RayTrace;
 import org.bukkit.Location;
@@ -56,6 +57,18 @@ public class ClassUtils {
             locs.add(point);
         }
         return locs;
+    }
+
+    public static void ripulseEntityFromLocation(Entity e, int distance,int powerMultiply, int powerHigh){
+        for(Entity entity : e.getNearbyEntities(distance, distance, distance)){
+            Location initialLocation = e.getLocation().clone();
+            initialLocation.setPitch(0.0f);
+            Vector origin = initialLocation.toVector();
+            Vector fromPlayerToTarget = entity.getLocation().toVector().clone().subtract(origin);
+            fromPlayerToTarget.multiply(powerMultiply); //6
+            fromPlayerToTarget.setY(powerHigh); // 2
+            entity.setVelocity(fromPlayerToTarget);
+        }
     }
 
     public static void pullEntityToLocation(Entity e, Location loc) {

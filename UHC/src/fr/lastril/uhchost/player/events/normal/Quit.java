@@ -32,22 +32,17 @@ public class Quit implements Listener {
 			}
 		    this.pl.scoreboardUtil.reset(player);
 		    this.pl.gameManager.removePlayer(player, true);
-		    if(pl.gameManager.getHost() == player) {
-		    	if(!pl.gameManager.getCohost().isEmpty()){
-		    		pl.gameManager.setHost(pl.gameManager.getCohost().get(0));
-					pl.gameManager.setHostname(pl.gameManager.getCohost().get(0).getName());
-					pl.gameManager.getCohost().remove(0);
-				} else {
-					pl.gameManager.setHost(null);
-					pl.gameManager.setHostname(null);
-				}
+			if(pl.gameManager.getHost() == player.getUniqueId()) {
+				pl.gameManager.setHostname(null);
+				pl.gameManager.setHost(null);
 			}
-		}
-		else if(GameState.isState(GameState.STARTED)) {
-			if(pl.getAllPlayerManager().containsKey(playersUuid)) {
+
+		} else if(GameState.isState(GameState.STARTED)) {
+
+			if(pl.getPlayerManagerAlives().contains(pl.getPlayerManager(playersUuid))) {
 				e.setQuitMessage("[" + ChatColor.RED + "-"+ ChatColor.WHITE+ "] " + player.getDisplayName());
 				if(gameManager.isBorder()) {
-					pl.getAllPlayerManager().get(playersUuid).setAlive(false);
+					pl.getPlayerManager(playersUuid).setAlive(false);
 					Bukkit.broadcastMessage("§c" + 	player.getName() + " a été éliminé !");
 				}
 			}

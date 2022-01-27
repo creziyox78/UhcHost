@@ -17,13 +17,7 @@ public class SuperHeroes extends Scenario {
 
 	public SuperHeroes() {
 		super("Super Heroes",
-				Arrays.asList(I18n.tl("scenarios.superheroes.lore"),
-						I18n.tl("scenarios.superheroes.lore1"),
-						I18n.tl("scenarios.superheroes.lore2"),
-						I18n.tl("scenarios.superheroes.lore3"),
-						I18n.tl("scenarios.superheroes.lore4"),
-						I18n.tl("scenarios.superheroes.lore5"),
-						I18n.tl("scenarios.superheroes.lore6")),
+				Arrays.asList(I18n.tl("scenarios.superheroes.lore")),
 				Material.INK_SACK, (byte) 4);
 	}
 

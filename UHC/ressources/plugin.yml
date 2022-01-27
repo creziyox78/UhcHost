@@ -6,6 +6,12 @@ commands:
   h:
     description: Command of Host.
     aliases: host
+  inv:
+    description: Command to show start inventory.
+  invsee:
+    description: Command to show player inventory.
+    aliases:
+      - oi
   scenarios:
     description: Command show actives scenarios.
   doc:

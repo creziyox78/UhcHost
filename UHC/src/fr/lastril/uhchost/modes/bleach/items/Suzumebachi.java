@@ -6,13 +6,18 @@ import fr.lastril.uhchost.modes.bleach.roles.shinigamis.soulsociety.SoiFon;
 import fr.lastril.uhchost.player.PlayerManager;
 import fr.lastril.uhchost.tools.API.items.crafter.QuickItem;
 import org.bukkit.Material;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemFlag;
 
 public class Suzumebachi extends QuickItem {
 
     public Suzumebachi(UhcHost main) {
         super(Material.DOUBLE_PLANT, 1, (byte)2);
         super.setName("§6Suzumebachi");
+        super.addEnchant(Enchantment.DURABILITY, 1, true);
+        super.addItemFlag(ItemFlag.HIDE_ENCHANTS);
+
         super.onClick(onClick -> {
             Player player = onClick.getPlayer();
             PlayerManager playerManager = main.getPlayerManager(player.getUniqueId());

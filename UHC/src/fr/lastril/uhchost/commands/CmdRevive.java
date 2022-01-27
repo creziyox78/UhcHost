@@ -22,7 +22,7 @@ public class CmdRevive implements CommandExecutor {
 	public boolean onCommand(CommandSender sender, Command arg1, String arg2, String[] args) {
 		if (sender instanceof Player) {
 			Player player = (Player) sender;
-			if (main.getGamemanager().getHost() == player || main.getGamemanager().isCoHost(player)) {
+			if (main.getGamemanager().getHost() == player.getUniqueId() || main.getGamemanager().isCoHost(player)) {
 				if (args.length > 0) {
 					Player target = main.getServer().getPlayer(args[0]);
 					if(target != null) {

@@ -382,7 +382,7 @@ public class ScoreboardUtils {
 				.replace("{time}", new FormatTime(count).toString())
 				.replace("{border_time}", borderTime <= 0 ? "§a✔" : new FormatTime(borderTime).toString())
 				.replace("{gamemode}", modes.getName())
-				.replace("{player_host_name}", pl.gameManager.getHost() != null ? pl.gameManager.getHost().getName() : "Aucun")
+				.replace("{player_host_name}", pl.gameManager.getHost() != null ? pl.gameManager.getHostname() : "Aucun")
 				.replace("{waitting_players}", String.valueOf(Bukkit.getOnlinePlayers().size()))
 				.replace("{max_waitting_players}", String.valueOf(pl.gameManager.getMaxPlayers()))
 				.replace("{players_ingame}", String.valueOf(this.pl.getPlayerManagerAlives().size()))

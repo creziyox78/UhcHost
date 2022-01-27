@@ -1098,10 +1098,9 @@ fr:
               - '&2La nuit vous avez &7Strength I &2et &7Night Vision &2en permanence.'
               - '&2uLorsque vous parlez dans le chat des Loups, votre pseudo sera visible pour
                 les autres Loups.'
-              - '&2Vous obtenez &e2 ♥ &2d''absorption pendant 5 minutes au début de
-                chaque nuit.'
-              - '&2Lorsque vous faites un kill, vous gagnez &7&oSpeed&r &2et &e2 ♥
-                &2d''absorption pendant 1 minute.'
+              - '&2Vous obtenez &e2 ♥ &2d''absorption pendant 5 minutes au début de chaque nuit.'
+              - '&2Lorsque vous faites un kill, vous gagnez &7&oSpeed&r &2et &e2 ♥'
+              - '&2d''absorption pendant 1 minute.'
               - '&8&m--------------------------------------------------&r'
               LoupGarouAmnesique:
               - '&8&m--------------------------------------------------&r'
@@ -1415,12 +1414,12 @@ fr:
               Citoyen:
               - '&8&m--------------------------------------------------&r'
               - '&2Votre rôle est, &a&l{role}&2.'
-              - '&2Vous connaisez le nombre de vote visant le joueur le plus voté.'
-              - '&2Une fois dans la partiel, vous pouvez connaître le résultat du
+              - '&2Vous connaissez le nombre de vote visant le joueur le plus voté.'
+              - '&2Une fois dans la partie, vous pouvez connaître le résultat du
                 vote des &cLoups&2.'
               - '&2Si vous ne votez pas, un vote contre vous sera comptabilisé.'
-              - '&2Lorsque que la &ocompo est chaché, &r&2 vous recevez au milieu
-                de chaqué épisode une liste de 3 rôles existant +'
+              - '&2Lorsque que la &ocompo est caché, &r&2 vous recevez au milieu
+                de chaque épisode une liste de 3 rôles existant +'
               - '&2le nombre de ces rôles présent dans la partie.'
               - '&8&m--------------------------------------------------&r'
               Corbeau:

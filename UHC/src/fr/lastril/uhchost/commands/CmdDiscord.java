@@ -27,7 +27,7 @@ public class CmdDiscord implements CommandExecutor {
 				RoleMode<?> roleMode = (RoleMode<?>) main.getGamemanager().getModes().getMode();
 				TextComponent message = new TextComponent("§7");
 				message.addExtra(new TextComponentBuilder("§9§o[Cliquer ici pour rejoindre notre discord]")
-						.setClickEvent(ClickEvent.Action.OPEN_URL, roleMode.getDocLink())
+						.setClickEvent(ClickEvent.Action.OPEN_URL, "https://discord.gg/9G2VQGV9Hz")
 						.setHoverEvent(HoverEvent.Action.SHOW_TEXT, "§9Redirection vers le lien").toText());
 				player.sendMessage("§8§m--------------------------------------------------§r");
 				player.spigot().sendMessage(message);

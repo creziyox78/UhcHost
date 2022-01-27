@@ -38,9 +38,22 @@ public class CmdHost2 implements CommandExecutor {
 				return false;
 			}
 			if ((cmd.getName().equalsIgnoreCase("h") || cmd.getName().equalsIgnoreCase("host")) && args.length >= 1) {
-				if (args[0].equalsIgnoreCase("test"))
+				if (args[0].equalsIgnoreCase("test")){
 					player.sendMessage("");
-				else if (args[0].equalsIgnoreCase("enchant")) {
+				} else if (args[0].equalsIgnoreCase("sethost")){
+					if(args.length == 2){
+						String targetName = args[1];
+						Player target = Bukkit.getPlayer(targetName);
+						if(target != null){
+							pl.gameManager.setHost(target.getUniqueId());
+							pl.getGamemanager().setHostname(targetName);
+							if(GameState.isState(GameState.LOBBY)){
+								NotStart.PreHosting(target);
+							}
+						}
+						player.sendMessage("§a" + targetName + " a bien été ajouté des co-host.");
+					}
+				} else if (args[0].equalsIgnoreCase("enchant")) {
 					if (!gameManager.isEditInv())
 						return false;
 					if (player.getItemInHand() != null && player.getItemInHand().getType() != Material.AIR) {
@@ -69,7 +82,7 @@ public class CmdHost2 implements CommandExecutor {
 					if(args.length == 2){
 						String targetName = args[1];
 						Player target = Bukkit.getPlayer(targetName);
-						if(target != null && pl.getGamemanager().getHost() != target){
+						if(target != null && pl.getGamemanager().getHost() != target.getUniqueId()){
 							pl.gameManager.addCoHost(target);
 							if(GameState.isState(GameState.LOBBY)){
 								NotStart.PreHosting(target);
@@ -106,7 +119,7 @@ public class CmdHost2 implements CommandExecutor {
 						player.sendMessage(Messages.NOT_PERM.getMessage());
 					}
 				} else if (args[0].equalsIgnoreCase("kill")) {
-					if (pl.getGamemanager().isCoHost(player) || pl.getGamemanager().getHost() == player) {
+					if (pl.getGamemanager().isCoHost(player) || pl.getGamemanager().getHost() == player.getUniqueId()) {
 						if (GameState.isState(GameState.STARTED)) {
 							OfflinePlayer target = pl.getServer().getOfflinePlayer(args[1]);
 							if (target != null) {

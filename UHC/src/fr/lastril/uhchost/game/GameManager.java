@@ -29,6 +29,7 @@ import org.bukkit.scheduler.BukkitTask;
 import org.bukkit.scoreboard.Team;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class GameManager {
 
@@ -82,7 +83,7 @@ public class GameManager {
 
 	private String gameName;
 
-	private Player host;
+	private UUID host;
 
 	private List<Player> cohost;
 
@@ -286,11 +287,11 @@ public class GameManager {
 		this.elapsedTime = elapsedTime;
 	}
 
-	public Player getHost() {
+	public UUID getHost() {
 		return this.host;
 	}
 
-	public void setHost(Player host) {
+	public void setHost(UUID host) {
 		this.host = host;
 	}
 
@@ -432,8 +433,27 @@ public class GameManager {
 					}
 					this.locs.get(GameManager.this.count).getChunk().load(true);
 					GameManager.this.count++;
+
+					/*players.forEach(player -> TitleAPI.sendTitle(player.getPlayer(), 5, 20, 5, "§3Téléportation", "§b"+teleported+"/"+players.size()));
+					if (GameManager.this.count == this.locs.size()) {
+						GameManager.this.pl.taskManager.preGame();
+						GameManager.this.task.cancel();
+					} else {
+						Player player = players.get(count);
+						PlayerManager playerManager = pl.getPlayerManager(player.getUniqueId());
+						playerManager.setPlayedGame(true);
+						playerManager.setAlive(true);
+						Location loc = locs.stream().findAny().get();
+						player.teleport(loc.clone().add(0.5D, 1.0D, 0.5D));
+						locs.remove(loc);
+						this.locs.get(GameManager.this.count).getChunk().load(true);
+						GameManager.this.count++;
+						teleported++;
+
+					}*/
+
 				}
-			}, 10L, 20L);
+			}, 10L, 60L);
 
 		}
 	}

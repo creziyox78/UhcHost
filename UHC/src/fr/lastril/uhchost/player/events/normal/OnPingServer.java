@@ -22,7 +22,7 @@ public class OnPingServer implements Listener {
 			event.setMotd("§7HOST »§9 Rebuilding...");
 		} else if (GameState.isState(GameState.LOBBY)) {
 			if (Bukkit.hasWhitelist()) {
-				event.setMotd("§7                          HOST »§fSous Whitelist \n" +
+				event.setMotd("§7                          HOST »§f Sous Whitelist \n" +
 						"§7                          Nom »§6 " + pl.gameManager.getGameName());
 			} else {
 				event.setMotd("§7                         HOST »§7 En attente \n" +
@@ -33,6 +33,9 @@ public class OnPingServer implements Listener {
 					"§7                          Nom »§6 " + pl.gameManager.getGameName());
 		} else if(GameState.isState(GameState.ENDED)){
 			event.setMotd("§7                         HOST »§c Partie terminée \n" +
+					"§7                          Nom »§6 " + pl.gameManager.getGameName());
+		} else if(GameState.isState(GameState.STARTING) || GameState.isState(GameState.TELEPORTING)){
+			event.setMotd("§7                         HOST »§6 Démarrage \n" +
 					"§7                          Nom »§6 " + pl.gameManager.getGameName());
 		} else {
 			event.setMotd("§7                         HOST »§7 Unknown \n" +

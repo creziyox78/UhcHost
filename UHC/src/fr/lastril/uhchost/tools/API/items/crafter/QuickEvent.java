@@ -19,5 +19,7 @@ public class QuickEvent {
         return event.getAction();
     }
 
-
+    public void cancelOriginalUse(boolean cancelEvent){
+        event.setCancelled(cancelEvent);
+    }
 }

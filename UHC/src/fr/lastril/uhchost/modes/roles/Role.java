@@ -2,13 +2,11 @@ package fr.lastril.uhchost.modes.roles;
 
 
 import fr.lastril.uhchost.UhcHost;
+import fr.lastril.uhchost.enums.WorldState;
 import fr.lastril.uhchost.game.tasks.TaskManager;
 import fr.lastril.uhchost.player.PlayerManager;
 import fr.lastril.uhchost.tools.API.items.crafter.QuickItem;
-import org.bukkit.Bukkit;
-import org.bukkit.Location;
-import org.bukkit.OfflinePlayer;
-import org.bukkit.Sound;
+import org.bukkit.*;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
@@ -62,6 +60,11 @@ public abstract class Role implements RoleDescription {
     public void stuff(Player player) {
         this.player = player.getUniqueId();
         this.giveItems(player);
+        if(WorldState.isWorldState(WorldState.JOUR)){
+            day(player);
+        } else {
+            night(player);
+        }
         this.givePermanentEffects(player);
     }
 

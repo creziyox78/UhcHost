@@ -33,7 +33,7 @@ public class NotStart {
 			ItemStack ic = new ItemsCreator(Material.BANNER, "Equipes", null).create();
 			player.getInventory().setItem(0, ic);
 		}
-		if (player == UhcHost.getInstance().getGamemanager().getHost() || UhcHost.getInstance().gameManager.isCoHost(player)) {
+		if (player.getUniqueId() == UhcHost.getInstance().getGamemanager().getHost() || UhcHost.getInstance().gameManager.isCoHost(player)) {
 			player.getInventory().setItem(4, new QuickItem(Material.CHEST).setName(ChatColor.GOLD + "Configuration").toItemStack());
 		}
 		//player.getInventory().setItem(8, new QuickItem(Material.BED).setName(ChatColor.RED + "Lobby").toItemStack());
@@ -59,7 +59,7 @@ public class NotStart {
 			ItemStack ic = new ItemsCreator(Material.BANNER, "Equipes", null).create();
 			player.getInventory().setItem(0, ic);
 		}
-		if (player == UhcHost.getInstance().getGamemanager().getHost() || UhcHost.getInstance().gameManager.isCoHost(player)) {
+		if (player.getUniqueId() == UhcHost.getInstance().getGamemanager().getHost() || UhcHost.getInstance().gameManager.isCoHost(player)) {
 			player.getInventory().setItem(4, new QuickItem(Material.CHEST).setName(ChatColor.GOLD + "Configuration").toItemStack());
 		}
 		//player.getInventory().setItem(8, new QuickItem(Material.BED).setName(ChatColor.RED + "Lobby").toItemStack());

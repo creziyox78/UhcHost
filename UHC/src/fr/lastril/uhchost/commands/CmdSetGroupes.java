@@ -20,7 +20,7 @@ public class CmdSetGroupes implements CommandExecutor {
 	public boolean onCommand(CommandSender sender, Command arg1, String arg2, String[] args) {
 		if (sender instanceof Player) {
 			Player player = (Player) sender;
-			if (main.gameManager.getHost() == player || player.isOp() || main.gameManager.isCoHost(player)) {
+			if (main.gameManager.getHost() == player.getUniqueId() || player.isOp() || main.gameManager.isCoHost(player)) {
 				if (args.length > 0) {
 					try {
 						int newGroupes = Integer.parseInt(args[0]);

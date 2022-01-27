@@ -1,5 +1,6 @@
 package fr.lastril.uhchost.modes.bleach.roles.shinigamis.soulsociety;
 
+import fr.lastril.uhchost.modes.bleach.items.JakuhoRaikoben;
 import fr.lastril.uhchost.modes.bleach.items.Suzumebachi;
 import fr.lastril.uhchost.modes.bleach.roles.ShinigamiRole;
 import fr.lastril.uhchost.modes.roles.Camps;
@@ -7,12 +8,16 @@ import fr.lastril.uhchost.modes.roles.Role;
 import fr.lastril.uhchost.modes.roles.RoleListener;
 import fr.lastril.uhchost.modes.roles.When;
 import fr.lastril.uhchost.player.PlayerManager;
+import fr.lastril.uhchost.tools.API.ClassUtils;
 import fr.lastril.uhchost.tools.API.items.crafter.QuickItem;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.SkullType;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
+import org.bukkit.entity.WitherSkull;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.entity.EntityExplodeEvent;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
@@ -52,20 +57,17 @@ public class SoiFon extends Role implements RoleListener, ShinigamiRole {
                             }
                             player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 20*5, 2, false, false));
                         }
-                    } else {
-                        if(player.hasPotionEffect(PotionEffectType.SPEED)){
-                            player.removePotionEffect(PotionEffectType.SPEED);
-                        }
-                        player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 20*5, 0, false, false));
                     }
                 }
             }
         }
+        player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, Integer.MAX_VALUE, 0, false, false));
     }
 
     @Override
     public void giveItems(Player player) {
         main.getInventoryUtils().giveItemSafely(player, new Suzumebachi(main).toItemStack());
+        main.getInventoryUtils().giveItemSafely(player, new JakuhoRaikoben(main).toItemStack());
     }
 
 
@@ -122,6 +124,22 @@ public class SoiFon extends Role implements RoleListener, ShinigamiRole {
     @Override
     public String getDescription() {
         return main.getRoleDescription(this, this.getClass().getName());
+    }
+
+    @EventHandler
+    public void onShotWitherHead(EntityExplodeEvent event){
+        if(event.getEntity() instanceof WitherSkull){
+            WitherSkull witherSkull = (WitherSkull) event.getEntity();
+            if(witherSkull.getCustomName().equalsIgnoreCase("§6Jakuho Raikoben")){
+                ClassUtils.ripulseEntityFromLocation(witherSkull, 10,5, 3);
+                for(Entity entity : witherSkull.getNearbyEntities(10, 10, 10)){
+                    if(entity instanceof Player){
+                        Player player = (Player) entity;
+                        ClassUtils.setCorrectHealth(player, player.getHealth() - 10, false);
+                    }
+                }
+            }
+        }
     }
 
     public boolean isInMarque() {
