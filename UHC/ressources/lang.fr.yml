@@ -213,6 +213,10 @@ guis:
       compositionhide: "&eComposition Cachée"
       masquedrole: "&6Rôles masqués"
       rolestime: "&aAnnonces des rôles"
+    solitaire:
+      name: "&cLoup-Garou Solitaire"
+      lore: "&bUn loup-garou sera choisi aléatoirement"
+      lore1: "&bet devra gagner seul contre tous."
     vote:
       name: "&bPremiers votes"
       lore: "&9Active les votes uniquement"

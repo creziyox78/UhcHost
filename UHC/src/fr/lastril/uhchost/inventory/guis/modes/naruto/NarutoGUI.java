@@ -3,10 +3,10 @@ package fr.lastril.uhchost.inventory.guis.modes.naruto;
 import fr.lastril.uhchost.UhcHost;
 import fr.lastril.uhchost.enums.Messages;
 import fr.lastril.uhchost.inventory.guis.HostConfig;
-import fr.lastril.uhchost.inventory.guis.modes.CompositionGui;
 import fr.lastril.uhchost.modes.Modes;
 import fr.lastril.uhchost.modes.naruto.NarutoV2;
 import fr.lastril.uhchost.modes.naruto.v2.NarutoV2Manager;
+import fr.lastril.uhchost.modes.roles.Camps;
 import fr.lastril.uhchost.modes.roles.Role;
 import fr.lastril.uhchost.modes.roles.RoleAnnounceMode;
 import fr.lastril.uhchost.modes.roles.RoleMode;
@@ -21,6 +21,7 @@ import org.bukkit.event.inventory.ClickType;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -112,16 +113,15 @@ public class NarutoGUI extends IQuickInventory {
 				} catch (InstantiationException | IllegalAccessException e) {
 					e.printStackTrace();
 				}
-
 				try {
 					roles.add(roleInstance.getCamp().getCompoColor() + roleInstance.getRoleName() + " §cx" + role.getValue());
-				} catch (Exception e) {
+				} catch (Exception ignored) {
 				}
 			}
 
 			inv.setItem(new QuickItem(Material.BOOK).setName("§aComposition").setLore(roles).toItemStack(), onClick -> {
 				if (main.getGamemanager().getModes().getMode() instanceof RoleMode)
-					new CompositionGui().open(onClick.getPlayer());
+					new NarutoCompositionGui().open(onClick.getPlayer());
 			}, 16);
 
 		}, 1);

@@ -1,6 +1,7 @@
 package fr.lastril.uhchost.modes.lg.roles.lg;
 
 import fr.lastril.uhchost.UhcHost;
+import fr.lastril.uhchost.enums.Messages;
 import fr.lastril.uhchost.modes.lg.LoupGarouManager;
 import fr.lastril.uhchost.modes.lg.roles.LGChatRole;
 import fr.lastril.uhchost.modes.lg.roles.LGFacadeRole;
@@ -55,14 +56,7 @@ public class LoupGarouFeutre extends Role implements LGRole, LGFacadeRole, RealL
 
     @Override
     public void onDay(Player player) {
-        List<PlayerManager> alivesPlayerManagers = UhcHost.getInstance().getPlayerManagerAlives();
-        PlayerManager randomPlayerManager = alivesPlayerManagers.get(UhcHost.getRANDOM().nextInt(alivesPlayerManagers.size()));
-        try {
-            roleFaçade = randomPlayerManager.getRole();
-            player.sendMessage("Votre nouveau rôle est : " + roleFaçade.getRoleName());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        sendRoleFacade(player);
     }
 
     @Override
@@ -73,14 +67,7 @@ public class LoupGarouFeutre extends Role implements LGRole, LGFacadeRole, RealL
     @Override
     public void afterRoles(Player player) {
         player.sendMessage(sendList());
-        List<PlayerManager> alivesPlayerManagers = UhcHost.getInstance().getPlayerManagerAlives();
-        PlayerManager randomPlayerManager = alivesPlayerManagers.get(UhcHost.getRANDOM().nextInt(alivesPlayerManagers.size()));
-        try {
-            roleFaçade = randomPlayerManager.getRole();
-            player.sendMessage("Votre nouveau rôle est : " + roleFaçade.getRoleName());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        sendRoleFacade(player);
     }
 
     @Override
@@ -131,4 +118,16 @@ public class LoupGarouFeutre extends Role implements LGRole, LGFacadeRole, RealL
     public boolean sendPlayerName() {
         return false;
     }
+
+    public void sendRoleFacade(Player player){
+        List<PlayerManager> alivesPlayerManagers = UhcHost.getInstance().getPlayerManagerAlives();
+        PlayerManager randomPlayerManager = alivesPlayerManagers.get(UhcHost.getRANDOM().nextInt(alivesPlayerManagers.size()));
+        try {
+            roleFaçade = randomPlayerManager.getRole();
+            player.sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage() + "§eVotre nouveau rôle de façade est : " + roleFaçade.getRoleName());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 }

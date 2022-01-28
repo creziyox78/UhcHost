@@ -106,6 +106,8 @@ public class Ange extends Role implements LGRole, RoleCommand {
 
     @Override
     public void afterRoles(Player player) {
+        PlayerManager playerManager = main.getPlayerManager(player.getUniqueId());
+        playerManager.setCamps(Camps.ANGE);
         TextComponent angechoose = new TextComponent("§7§oChoisir mon rôle: ");
         angechoose.addExtra(new TextComponent(new TextComponentBuilder("§c§l[Ange Déchu]").setClickEvent(ClickEvent.Action.RUN_COMMAND, "/lg ange_dechu").toText()));
         angechoose.addExtra(new TextComponent(" ou "));
@@ -146,7 +148,7 @@ public class Ange extends Role implements LGRole, RoleCommand {
 
     @Override
     public Camps getCamp() {
-        return Camps.ANGE;
+        return Camps.NEUTRES;
     }
 
     @Override

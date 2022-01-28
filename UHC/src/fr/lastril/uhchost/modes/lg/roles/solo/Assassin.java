@@ -4,6 +4,7 @@ import fr.lastril.uhchost.modes.lg.roles.LGRole;
 import fr.lastril.uhchost.modes.roles.Camps;
 import fr.lastril.uhchost.modes.roles.Role;
 import fr.lastril.uhchost.modes.roles.When;
+import fr.lastril.uhchost.player.PlayerManager;
 import fr.lastril.uhchost.tools.API.items.Livre;
 import fr.lastril.uhchost.tools.API.items.crafter.QuickItem;
 import org.bukkit.Material;
@@ -31,7 +32,7 @@ public class Assassin extends Role implements LGRole {
 
     @Override
     public Camps getCamp() {
-        return Camps.ASSASSIN;
+        return Camps.NEUTRES;
     }
 
     @Override
@@ -39,6 +40,12 @@ public class Assassin extends Role implements LGRole {
         player.getInventory().addItem(new Livre(Enchantment.DAMAGE_ALL, 3).toItemStack());
         player.getInventory().addItem(new Livre(Enchantment.PROTECTION_ENVIRONMENTAL, 3).toItemStack());
         player.getInventory().addItem(new Livre(Enchantment.DIG_SPEED, 3).addEnchantement(Enchantment.DURABILITY, 3).toItemStack());
+    }
+
+    @Override
+    public void afterRoles(Player player) {
+        PlayerManager playerManager = main.getPlayerManager(player.getUniqueId());
+        playerManager.setCamps(Camps.ASSASSIN);
     }
 
     @Override

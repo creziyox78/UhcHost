@@ -1,8 +1,10 @@
 name: UHCHost
-version: 0.9.7
+version: 0.9.8
 authors: [Lastril]
 main: fr.lastril.uhchost.UhcHost
 commands:
+  test:
+    description: Test command.
   h:
     description: Command of Host.
     aliases: host
@@ -12,22 +14,22 @@ commands:
     description: Command to show player inventory.
     aliases:
       - oi
-  scenarios:
-    description: Command show actives scenarios.
+  revive:
+    description: Command to revive players ingame.
+  setgroupes:
+    aliases:
+      - groupes
+      - groupe
+      - group
+      - setgroupe
+      - setgroup
+    description: Commande to set groups.
+
   doc:
     description: Command to show document of UHC gamemode.
   maj:
     description : Command to show MAJ on plugin.
-  lg:
-    description: Command of LG Mode.
-  role:
-    description: Command to see Role.
-  potions:
-    description: Command active potions.
-  loots:
-    description: Command loots settings.
-  test:
-    description: Test command.
+
   say:
     description: Command say.
   mumble:
@@ -39,22 +41,20 @@ commands:
       - aide
       - aides
     description: Command to help players for commands.
-  setgroupes:
-    aliases:
-      - groupes
-      - groupe
-      - group
-      - setgroupe
-      - setgroup
-    description: Commande to set groups.
+  rules:
+    description: Command to see rules.
+  scenarios:
+    description: Command show actives scenarios.
+
+  role:
+    description: t
+
+  lg:
+    description: Command of LG Mode.
   b:
     aliases:
       - bleach
     description: Command of Bleach Mode.
-  rules:
-    description: Command to see rules.
-  revive:
-    description: Command to revive players ingame.
   ns:
     aliases:
       - narutos

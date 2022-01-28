@@ -4,7 +4,6 @@ import fr.lastril.uhchost.UhcHost;
 import fr.lastril.uhchost.enums.Messages;
 import fr.lastril.uhchost.game.GameState;
 import fr.lastril.uhchost.game.tasks.TaskManager;
-import fr.lastril.uhchost.inventory.guis.modes.CurrentCompoGui;
 import fr.lastril.uhchost.modes.Mode;
 import fr.lastril.uhchost.modes.roles.Camps;
 import fr.lastril.uhchost.modes.roles.RoleAnnounceMode;
@@ -15,8 +14,8 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
 import java.util.stream.Collectors;
 
 public class CmdCompo implements ModeSubCommand {
@@ -58,7 +57,11 @@ public class CmdCompo implements ModeSubCommand {
                     sender.sendMessage("§8§m----------------------------------");
                 }  else {
                     player.closeInventory();
-                    new CurrentCompoGui(UhcHost.getInstance()).open(player);
+                    if(mode.getCurrentCompoGui() != null){
+                        mode.getCurrentCompoGui().open(player);
+                    } else {
+                        player.sendMessage(Messages.error("Ce mode de jeu ne se joue pas avec une composition."));
+                    }
                 }
             } else {
                 player.sendMessage(Messages.error("La composition est cachée !"));

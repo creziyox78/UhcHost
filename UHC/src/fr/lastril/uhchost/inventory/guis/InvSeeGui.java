@@ -19,7 +19,7 @@ public class InvSeeGui extends IQuickInventory {
 	public Player player;
 
 	public InvSeeGui(Player player) {
-		super("§eInventaire", 6 * 9);
+		super("§eInventaire de " + player.getName(), 6 * 9);
 		this.player = player;
 	}
 

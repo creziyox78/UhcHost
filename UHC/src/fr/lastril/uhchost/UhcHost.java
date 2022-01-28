@@ -141,8 +141,6 @@ public class UhcHost extends JavaPlugin {
 		getCommand("h").setExecutor(new CmdHost2(this));
 		getCommand("scenarios").setExecutor(new CmdScenarios());
 		getCommand("role").setExecutor(new CmdRole(this));
-		getCommand("loots").setExecutor(new CmdLoots());
-		getCommand("potions").setExecutor(new CmdPotions());
 		getCommand("test").setExecutor(new TestCommand());
 		getCommand("say").setExecutor(new CmdSay(this));
 		getCommand("setgroupes").setExecutor(new CmdSetGroupes(this));
@@ -350,16 +348,21 @@ public class UhcHost extends JavaPlugin {
             try {
                 YamlConfiguration yamlConfiguration1 = YamlConfiguration.loadConfiguration(f);
                 File configFile = new File("temp.yml");
-                FileUtils.copyInputStreamToFile(getResource("roles.yml"),configFile);
-                YamlConfiguration yamlConfiguration2 = YamlConfiguration.loadConfiguration(configFile);
-                for (String s : yamlConfiguration2.getKeys(true)) {
-                    if (yamlConfiguration1.get(s) == null) {
-                        Bukkit.getConsoleSender().sendMessage(
-                                ChatColor.RED + "Description file : " + f.getName() + " has receive new path : " + s);
-                        yamlConfiguration1.set(s, yamlConfiguration2.get(s));
-                        yamlConfiguration1.save(f);
-                    }
-                }
+				if(getResource("roles.yml") == null){
+					debug("File roles.yml not exists in ressources !");
+				} else {
+					FileUtils.copyInputStreamToFile(getResource("roles.yml"),configFile);
+					YamlConfiguration yamlConfiguration2 = YamlConfiguration.loadConfiguration(configFile);
+					for (String s : yamlConfiguration2.getKeys(true)) {
+						if (yamlConfiguration1.get(s) == null) {
+							Bukkit.getConsoleSender().sendMessage(
+									ChatColor.RED + "Description file : " + f.getName() + " has receive new path : " + s);
+							yamlConfiguration1.set(s, yamlConfiguration2.get(s));
+							yamlConfiguration1.save(f);
+						}
+					}
+				}
+
             } catch (IOException e) {
                 e.printStackTrace();
             }

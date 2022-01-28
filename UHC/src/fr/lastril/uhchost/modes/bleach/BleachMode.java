@@ -1,6 +1,7 @@
 package fr.lastril.uhchost.modes.bleach;
 
 import fr.lastril.uhchost.UhcHost;
+import fr.lastril.uhchost.inventory.guis.modes.bleach.BleachCompositionGui;
 import fr.lastril.uhchost.inventory.guis.modes.bleach.BleachGui;
 import fr.lastril.uhchost.modes.Mode;
 import fr.lastril.uhchost.modes.ModeConfig;
@@ -190,6 +191,11 @@ public class BleachMode extends Mode implements ModeConfig, RoleAnnounceMode, Mo
     @Override
     public List<Camps> getCamps() {
         return Arrays.asList(Camps.SHINIGAMIS, Camps.ARRANCARS);
+    }
+
+    @Override
+    public IQuickInventory getCurrentCompoGui() {
+        return new BleachCompositionGui(Camps.SHINIGAMIS);
     }
 
     @Override

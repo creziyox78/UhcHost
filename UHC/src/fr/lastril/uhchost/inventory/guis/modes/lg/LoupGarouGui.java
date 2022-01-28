@@ -3,9 +3,9 @@ package fr.lastril.uhchost.inventory.guis.modes.lg;
 import fr.lastril.uhchost.UhcHost;
 import fr.lastril.uhchost.enums.Messages;
 import fr.lastril.uhchost.inventory.guis.HostConfig;
-import fr.lastril.uhchost.inventory.guis.modes.CompositionGui;
 import fr.lastril.uhchost.modes.lg.LoupGarouMode;
 import fr.lastril.uhchost.modes.lg.roles.village.Pretresse;
+import fr.lastril.uhchost.modes.roles.Camps;
 import fr.lastril.uhchost.tools.API.FormatTime;
 import fr.lastril.uhchost.tools.API.inventory.crafter.IQuickInventory;
 import fr.lastril.uhchost.tools.API.inventory.crafter.QuickInventory;
@@ -31,7 +31,7 @@ public class LoupGarouGui extends IQuickInventory {
     public void contents(QuickInventory inv) {
         inv.updateItem("lgMode", taskUpdate -> {
             inv.setItem(new ItemsCreator(Material.BOOK, I18n.tl("guis.lg.main.composition"), null, 1).create(), onClick -> {
-                new CompositionGui().open(onClick.getPlayer());
+                new LGCompositionGui(Camps.VILLAGEOIS).open(onClick.getPlayer());
             },1);
             inv.setItem(new ItemsCreator(Material.COMPASS, I18n.tl("guis.lg.main.episodetime", String.valueOf(UhcHost.getInstance().gameManager.episodeEvery / 60)), null, 1).create(), onClick ->{
                 new TimerPerEpisodeGui().open(onClick.getPlayer());
@@ -83,6 +83,12 @@ public class LoupGarouGui extends IQuickInventory {
                     .toItemStack(), onClick -> {
                 lgMode.setLgSolitaire(!lgMode.isLgSolitaire());
             },21);
+
+            inv.setItem(new QuickItem(Material.SKULL_ITEM, 1, SkullType.PLAYER.ordinal())
+                    .setName(I18n.tl("guis.lg.main.solitaire"))
+                    .setLore("§e"+new FormatTime(lgMode.getAnnonceSolitaire()).toFormatString())
+                    .setTexture("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYzBmZGYyZTg4ODM5OTNiYWE4Njc1M2Y3ZTdiMTMxM2NkMmE3NjljN2VjN2JhYTY4Mjc5NDIyNzdjYjdiYWJjMCJ9fX0=")
+                    .toItemStack(), onClick -> new SolitaireTimeGui(lgMode).open(onClick.getPlayer()), 23);
 
             inv.setItem((new ItemsCreator(Material.BARRIER, I18n.tl("guis.back"), null)).create(), onClick -> {
                 new HostConfig().open(onClick.getPlayer());

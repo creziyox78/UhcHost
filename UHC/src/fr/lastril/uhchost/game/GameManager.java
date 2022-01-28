@@ -3,13 +3,13 @@ package fr.lastril.uhchost.game;
 import fr.lastril.uhchost.UhcHost;
 import fr.lastril.uhchost.enums.BiomeState;
 import fr.lastril.uhchost.enums.Messages;
-import fr.lastril.uhchost.enums.WorldState;
 import fr.lastril.uhchost.game.rules.EnchantmentRules;
 import fr.lastril.uhchost.game.rules.StuffRules;
 import fr.lastril.uhchost.game.rules.world.BlocsRules;
 import fr.lastril.uhchost.inventory.CustomInv;
 import fr.lastril.uhchost.modes.Modes;
 import fr.lastril.uhchost.modes.command.ModeCommand;
+import fr.lastril.uhchost.modes.roles.Camps;
 import fr.lastril.uhchost.modes.roles.Role;
 import fr.lastril.uhchost.player.PlayerManager;
 import fr.lastril.uhchost.player.events.GameStartEvent;
@@ -17,6 +17,7 @@ import fr.lastril.uhchost.player.events.TeamUnregisteredEvent;
 import fr.lastril.uhchost.scenario.Scenario;
 import fr.lastril.uhchost.scenario.Scenarios;
 import fr.lastril.uhchost.scoreboard.TeamUtils;
+import fr.lastril.uhchost.tools.API.ActionBar;
 import fr.lastril.uhchost.tools.API.TitleAPI;
 import fr.lastril.uhchost.tools.I18n;
 import org.bukkit.*;
@@ -110,6 +111,7 @@ public class GameManager {
 	private final StuffRules stuffRules;
 
 	private boolean viewHealth;
+
 	private final List<String> composition;
 
 	public boolean isViewHealth() {
@@ -415,10 +417,12 @@ public class GameManager {
 		} else {
 
 			this.task = Bukkit.getScheduler().runTaskTimer(this.pl, new Runnable() {
+				int teleported = 0;
+				final List<Player> players = pl.getPlayerManagerOnlines().stream().map(PlayerManager::getPlayer).collect(Collectors.toList());
 				final List<Location> locs = GameManager.this.generateLocations(Bukkit.getOnlinePlayers().size());
 				@Override
 				public void run() {
-					if (GameManager.this.count == this.locs.size()) {
+					/*if (GameManager.this.count == this.locs.size()) {
 						Bukkit.getOnlinePlayers().forEach(player -> {
 							PlayerManager playerManager = pl.getPlayerManager(player.getUniqueId());
 							playerManager.setPlayedGame(true);
@@ -432,9 +436,9 @@ public class GameManager {
 						return;
 					}
 					this.locs.get(GameManager.this.count).getChunk().load(true);
-					GameManager.this.count++;
+					GameManager.this.count++;*/
 
-					/*players.forEach(player -> TitleAPI.sendTitle(player.getPlayer(), 5, 20, 5, "§3Téléportation", "§b"+teleported+"/"+players.size()));
+					players.forEach(player -> ActionBar.sendMessage(player.getPlayer(), "§3Téléportation: " + "§b"+teleported+"/"+players.size()));
 					if (GameManager.this.count == this.locs.size()) {
 						GameManager.this.pl.taskManager.preGame();
 						GameManager.this.task.cancel();
@@ -443,17 +447,15 @@ public class GameManager {
 						PlayerManager playerManager = pl.getPlayerManager(player.getUniqueId());
 						playerManager.setPlayedGame(true);
 						playerManager.setAlive(true);
-						Location loc = locs.stream().findAny().get();
+						Location loc = locs.get(count);
 						player.teleport(loc.clone().add(0.5D, 1.0D, 0.5D));
-						locs.remove(loc);
 						this.locs.get(GameManager.this.count).getChunk().load(true);
 						GameManager.this.count++;
 						teleported++;
-
-					}*/
+					}
 
 				}
-			}, 10L, 60L);
+			}, 10L, 10L);
 
 		}
 	}
@@ -603,6 +605,29 @@ public class GameManager {
 			roles.add(role);
 		}
 		return roles;
+	}
+
+	public List<Role> getRolesComposition(){
+		List<Role> roles = new ArrayList<>();
+		getComposition().forEach(aClass -> {
+			try {
+				roles.add(aClass.newInstance());
+			} catch (InstantiationException | IllegalAccessException e) {
+				e.printStackTrace();
+			}
+		});
+		return roles;
+	}
+
+	public List<Class<? extends Role>> getRolesActivatedInCamps(Camps camps){
+		return getComposition().stream().filter(aClass -> {
+			try {
+				return aClass.newInstance().getCamp() == camps;
+			} catch (InstantiationException | IllegalAccessException e) {
+				e.printStackTrace();
+			}
+			return false;
+		}).collect(Collectors.toList());
 	}
 
 	public Map<Class<? extends Role>, Integer> getCompositionSorted() {

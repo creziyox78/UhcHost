@@ -6,15 +6,15 @@ import fr.lastril.uhchost.tools.API.inventory.crafter.IQuickInventory;
 import fr.lastril.uhchost.tools.API.inventory.crafter.QuickInventory;
 import fr.lastril.uhchost.tools.API.items.crafter.QuickItem;
 import org.bukkit.Material;
+import org.bukkit.inventory.ItemStack;
 
 public class StartInventoryGui extends IQuickInventory {
 
 	private final UhcHost main;
 	int itemSlot = 9;
-	int item = 0;
 	
 	public StartInventoryGui(UhcHost main) {
-		super("§aInventaire", 9*6);
+		super("§aInventaire de départ", 9*6);
 		this.main = main;
 	}
 
@@ -25,13 +25,12 @@ public class StartInventoryGui extends IQuickInventory {
 		inv.setItem(CustomInv.leggings, 1);
 		inv.setItem(CustomInv.chestplate, 2);
 		inv.setItem(CustomInv.helmet, 3);
-		
 
-		CustomInv.inventoryContents.values().forEach(itemStacks -> {
-			inv.setItem(itemStacks[item], itemSlot);
-			item++;
+		ItemStack[] itemStacks = CustomInv.inventoryContents.get("start");
+		for(ItemStack items : itemStacks){
+			inv.setItem(items, itemSlot);
 			itemSlot++;
-		});
+		}
 	}
 
 }

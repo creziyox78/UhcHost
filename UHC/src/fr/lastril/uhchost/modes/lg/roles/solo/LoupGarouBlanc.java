@@ -6,6 +6,7 @@ import fr.lastril.uhchost.modes.lg.roles.LGRole;
 import fr.lastril.uhchost.modes.roles.Camps;
 import fr.lastril.uhchost.modes.roles.Role;
 import fr.lastril.uhchost.modes.roles.When;
+import fr.lastril.uhchost.player.PlayerManager;
 import fr.lastril.uhchost.tools.API.items.crafter.QuickItem;
 import org.bukkit.Material;
 import org.bukkit.SkullType;
@@ -36,6 +37,8 @@ public class LoupGarouBlanc extends Role implements LGRole, LGChatRole {
     public void afterRoles(Player player) {
         player.setMaxHealth(30D);
         player.sendMessage(sendList());
+        PlayerManager playerManager = main.getPlayerManager(player.getUniqueId());
+        playerManager.setCamps(Camps.LOUP_GAROU_BLANC);
     }
 
     @Override
@@ -80,7 +83,7 @@ public class LoupGarouBlanc extends Role implements LGRole, LGChatRole {
 
     @Override
     public Camps getCamp() {
-        return Camps.LOUP_GAROU_BLANC;
+        return Camps.NEUTRES;
     }
 
     @Override

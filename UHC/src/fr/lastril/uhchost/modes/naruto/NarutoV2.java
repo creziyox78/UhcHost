@@ -3,6 +3,7 @@ package fr.lastril.uhchost.modes.naruto;
 
 import fr.lastril.uhchost.UhcHost;
 import fr.lastril.uhchost.game.GameState;
+import fr.lastril.uhchost.inventory.guis.modes.naruto.NarutoCurrentCompositionGui;
 import fr.lastril.uhchost.inventory.guis.modes.naruto.NarutoGUI;
 import fr.lastril.uhchost.modes.Mode;
 import fr.lastril.uhchost.modes.ModeConfig;
@@ -348,6 +349,11 @@ public class NarutoV2 extends Mode implements ModeConfig, RoleMode<NarutoV2Role>
 	@Override
 	public List<Camps> getCamps() {
 		return Arrays.asList(Camps.SHINOBI, Camps.AKATSUKI, Camps.OROCHIMARU, Camps.TAKA, Camps.JUBI, Camps.ZABUZA_HAKU, Camps.DANZO, Camps.GAARA);
+	}
+
+	@Override
+	public IQuickInventory getCurrentCompoGui() {
+		return new NarutoCurrentCompositionGui();
 	}
 
 	@Override

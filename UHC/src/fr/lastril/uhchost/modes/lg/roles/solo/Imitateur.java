@@ -23,6 +23,12 @@ public class Imitateur extends Role implements LGRole {
     }
 
     @Override
+    public void afterRoles(Player player) {
+        PlayerManager playerManager = main.getPlayerManager(player.getUniqueId());
+        playerManager.setCamps(Camps.ANGE);
+    }
+
+    @Override
     public void giveItems(Player player) {
     }
 
@@ -79,9 +85,10 @@ public class Imitateur extends Role implements LGRole {
 
     }
 
+
     @Override
     public Camps getCamp() {
-        return Camps.IMITATEUR;
+        return Camps.NEUTRES;
     }
 
     public boolean hasKilled() {

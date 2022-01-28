@@ -8,6 +8,7 @@ import fr.lastril.uhchost.modes.roles.Camps;
 import fr.lastril.uhchost.player.PlayerManager;
 import fr.lastril.uhchost.scenario.Scenarios;
 import fr.lastril.uhchost.tools.API.BungeeAPI;
+import fr.lastril.uhchost.tools.API.inventory.crafter.IQuickInventory;
 import fr.lastril.uhchost.tools.I18n;
 import org.bukkit.*;
 import org.bukkit.entity.Player;
@@ -135,6 +136,11 @@ public class ClassicMode extends Mode {
 
     @Override
     public List<Camps> getCamps() {
+        return null;
+    }
+
+    @Override
+    public IQuickInventory getCurrentCompoGui() {
         return null;
     }
 

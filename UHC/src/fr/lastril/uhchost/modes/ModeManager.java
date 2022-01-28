@@ -26,9 +26,9 @@ public abstract class ModeManager {
                         if (!playerManager.getRole().getRoleToKnow().isEmpty()) {
                             for (Class<? extends Role> roleToKnow : playerManager.getRole().getRoleToKnow()) {
                                 if(!getPlayerManagersWithRole(roleToKnow).isEmpty()){
-                                    player.sendMessage(Messages.PREFIX_WITH_ARROW.getMessage() + "§eLe(s) joueur(s) possédant le rôle §6" + roleToKnow.newInstance().getRoleName() + "§e sont :");
+                                    player.sendMessage(Messages.PREFIX_WITH_ARROW.getMessage() + "§9Joueur(s) ayant le rôle §b" + roleToKnow.newInstance().getRoleName() + "§9 :");
                                     for (PlayerManager PlayerManagerHasRole : getPlayerManagersWithRole(roleToKnow)) {
-                                        player.sendMessage("§6- " + PlayerManagerHasRole.getPlayerName());
+                                        player.sendMessage("§9- " + PlayerManagerHasRole.getPlayerName());
                                     }
                                 }
                             }

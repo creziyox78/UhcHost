@@ -1,6 +1,7 @@
 package fr.lastril.uhchost.modes;
 
 import fr.lastril.uhchost.modes.roles.Camps;
+import fr.lastril.uhchost.tools.API.inventory.crafter.IQuickInventory;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
@@ -46,5 +47,7 @@ public abstract class Mode {
     public abstract void onDay();
 
     public abstract List<Camps> getCamps();
+
+    public abstract IQuickInventory getCurrentCompoGui();
 
 }

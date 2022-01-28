@@ -51,7 +51,7 @@ public class CmdHost2 implements CommandExecutor {
 								NotStart.PreHosting(target);
 							}
 						}
-						player.sendMessage("§a" + targetName + " a bien été ajouté des co-host.");
+						player.sendMessage("§a" + targetName + " est bien le nouveau host.");
 					}
 				} else if (args[0].equalsIgnoreCase("enchant")) {
 					if (!gameManager.isEditInv())

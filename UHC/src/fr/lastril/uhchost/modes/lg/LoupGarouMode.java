@@ -3,6 +3,7 @@ package fr.lastril.uhchost.modes.lg;
 import fr.lastril.uhchost.UhcHost;
 import fr.lastril.uhchost.enums.Messages;
 import fr.lastril.uhchost.game.GameState;
+import fr.lastril.uhchost.inventory.guis.modes.lg.LGCurrentCompositionGui;
 import fr.lastril.uhchost.inventory.guis.modes.lg.LoupGarouGui;
 import fr.lastril.uhchost.modes.Mode;
 import fr.lastril.uhchost.modes.ModeConfig;
@@ -299,6 +300,11 @@ public class LoupGarouMode extends Mode implements ModeCommand, RoleMode<LGRole>
         return Arrays.asList(Camps.LOUP_GAROU, Camps.VILLAGEOIS, Camps.NEUTRES, Camps.ANGE, Camps.IMITATEUR, Camps.ASSASSIN, Camps.LOUP_GAROU_BLANC);
     }
 
+    @Override
+    public IQuickInventory getCurrentCompoGui() {
+        return new LGCurrentCompositionGui(Camps.VILLAGEOIS);
+    }
+
     public void win(Camps winner) {
         this.pl.gameManager.setDamage(false);
 
@@ -338,7 +344,7 @@ public class LoupGarouMode extends Mode implements ModeCommand, RoleMode<LGRole>
             }
         }
         for (Map.Entry<PlayerManager, Role> e : playersRoles.entrySet()) {
-            Bukkit.broadcastMessage((e.getKey().isAlive() ? "§6§l" : "§6§m") + e.getKey().getPlayerName() + " : " + e.getValue().getRoleName() + e.getKey().getCamps().getCompoColor() +" (Camps: " + e.getKey().getCamps().name() + ")");
+            Bukkit.broadcastMessage((e.getKey().isAlive() ? "§6§l" : "§6§m") + e.getKey().getPlayerName() + " : " + e.getValue().getRoleName() + "" + e.getKey().getCamps().getCompoColor() +" (Camps: " + e.getKey().getCamps().name() + ")");
         }
 
         Bukkit.getScheduler().runTaskLater(this.pl, () -> {
@@ -424,5 +430,13 @@ public class LoupGarouMode extends Mode implements ModeCommand, RoleMode<LGRole>
 
     public void setLgSolitaire(boolean lgSolitaire) {
         this.lgSolitaire = lgSolitaire;
+    }
+
+    public int getAnnonceSolitaire() {
+        return annonceSolitaire;
+    }
+
+    public void setAnnonceSolitaire(int annonceSolitaire) {
+        this.annonceSolitaire = annonceSolitaire;
     }
 }
