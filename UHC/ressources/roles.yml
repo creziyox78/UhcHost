@@ -14,7 +14,7 @@ fr:
                   - "&2"
                   - "&f&lItems"
                   - "&2"
-                  - "&6• Deidara&7 : Cet arc permet de faire des explosions correspondante à la puissance déterminée avec son deuxième item \"Bakuton\" à l'endroit où ses flèches retombent"
+                  - "&6• Deidara&7 : Cet arc permet de faire des explosions correspondante à la puissance déterminée avec son deuxième item \"Bakuton\" à l'endroit où ses flèches retombent" 
                   - "&2"
                   - "&6• Bakuton&7 : Permet de choisir la puissance de ses explosions, voici les différentes puissances : "
                   - "&2"
@@ -40,7 +40,7 @@ fr:
                   - "&2"
                   - "&f&lItems"
                   - "&2"
-                  - "&7• 5 blocs de redstone enchantés"
+                  - "&7• 5 blocs de redstone enchantés" 
                   - "&2"
                   - "&7• Houe en diamant &3Tranchant 5&7"
                   - "&2"
@@ -62,7 +62,7 @@ fr:
                   - "&2"
                   - "&f&lItems"
                   - "&2"
-                  - "&6• Susano&7 : Enflamme les joueurs tapés. Obtient &8Résistance 1&7 ainsi qu'une épée &3Tranchant 7&7 utilisable toutes les 20 secondes, &etout ceci pendant 5 minutes&7. (Cooldown - 20 minutes)"
+                  - "&6• Susano&7 : Enflamme les joueurs tapés. Obtient &8Résistance 1&7 ainsi qu'une épée &3Tranchant 7&7 utilisable toutes les 20 secondes, &etout ceci pendant 5 minutes&7. (Cooldown - 20 minutes)" 
                   - "&2"
                   - "&6• Genjutsu&7 : Ouvre un menu donnant sur 3 pouvoirs:"
                   - "&e - Tsukuyomi :&7 Permet d'immobiliser les joueurs dans un rayon de 20 blocs pendant 8 secondes. Ils seront invincibles pendant ce laps de temps. (Utilisation - 2 maximum)"
@@ -95,7 +95,7 @@ fr:
                   - "&2"
                   - "&f&lItems"
                   - "&2"
-                  - "&6• Marrionnettisme&7 : La liste de tous les joueurs qu'il a tué s'affiche, en cliquant sur l'un d'entre eux, le joueur ciblé sera ressuscité et obtiendra un équipement en fer, il sera aussi bloqué à 6 coeurs maximum et devra gagner avec Sasori. En ressuscitant quelqu'un, Sasori obtient un effet positif mais perd 1 coeur permanent. Le pouvoir ne possède aucun délai, cependant il ne peut ressusciter 2 fois une même personne."
+                  - "&6• Marrionnettisme&7 : La liste de tous les joueurs qu'il a tué s'affiche, en cliquant sur l'un d'entre eux, le joueur ciblé sera ressuscité et obtiendra un équipement en fer, il sera aussi bloqué à 6 coeurs maximum et devra gagner avec Sasori. En ressuscitant quelqu'un, Sasori obtient un effet positif mais perd 1 coeur permanent. Le pouvoir ne possède aucun délai, cependant il ne peut ressusciter 2 fois une même personne." 
                   - "&2"
                   - "&f&lParticularités"
                   - "&2"
@@ -111,7 +111,7 @@ fr:
                   - "&2"
                   - "&f&lItems"
                   - "&2"
-                  - "&6• Corps Rapiécé&7 : Permet d'immobiliser tous les joueurs ne faisant pas parti de son camp dans un rayon de 20 blocs pendant 5 secondes. &e(Cooldown - 10 minutes)&7."
+                  - "&6• Corps Rapiécé&7 : Permet d'immobiliser tous les joueurs ne faisant pas parti de son camp dans un rayon de 20 blocs pendant 5 secondes. &e(Cooldown - 10 minutes)&7." 
                   - "&2"
                   - "&f&lParticularités"
                   - "&2"
@@ -130,9 +130,9 @@ fr:
                   - "&2"
                   - "&f&lItems"
                   - "&2"
-                  - "&7• Livre &bAgilité Aquatique 3&7"
+                  - "&7• Livre &bAgilité Aquatique 3&7" 
                   - "&2"
-                  - "&6• Samehada&7 : épée en diamant &3Tranchant 4&7 qui permet de bloquer les pouvoirs pendant 1 minute de tous les joueurs qui se font tapé avec. Elle est utilisable toute la partie."
+                  - "&6• Samehada&7 : épée en diamant &3Tranchant 4&7 qui permet de bloquer les pouvoirs pendant 1 minute de tous les joueurs qui se font tapé avec. Elle est utilisable toute la partie." 
                   - "&2"
                   - "&f&lParticularités"
                   - "&2"
@@ -154,7 +154,7 @@ fr:
                   - "&2"
                   - "&f&lCommande"
                   - "&2"
-                  - "&6• /ns zetsu&7 : Elle permet d'envoyer un message à tous les joueurs possédant le rôle Zetsu Blanc."
+                  - "&6• /ns zetsu&7 : Elle permet d'envoyer un message à tous les joueurs possédant le rôle Zetsu Blanc." 
                   - "&2"
                   - "&f&lParticularités"
                   - "&2"
@@ -170,9 +170,9 @@ fr:
                   - "&2"
                   - "&f&lCommande"
                   - "&2"
-                  - "&6• /ns métamorphose <joueur>&7 : Elle permet de prendre le skin et le pseudo du joueur choisit pendant 5 minutes. &e(Cooldown - 20 minutes)&7."
+                  - "&6• /ns métamorphose <joueur>&7 : Elle permet de prendre le skin et le pseudo du joueur choisit pendant 5 minutes. &e(Cooldown - 20 minutes)&7." 
                   - "&2"
-                  - "&6• /ns reset <joueur>&7 : Elle permet de remettre à 0 tous les cooldown d'un joueur, en échange il perd &d2 coeurs permanents&7. Il ne peut l'utiliser qu'une seule fois."
+                  - "&6• /ns reset <joueur>&7 : Elle permet de remettre à 0 tous les cooldown d'un joueur, en échange il perd &d2 coeurs permanents&7. Il ne peut l'utiliser qu'une seule fois." 
                   - "&2"
                   - "&f&lParticularités"
                   - "&2"
@@ -186,7 +186,7 @@ fr:
                   - "&2"
                   - "&f&lItems"
                   - "&2"
-                  - "&6• Shikigami no Mai&7 : En activant l'item, un menu s'ouvre lui offrant plusieurs possibilités : "
+                  - "&6• Shikigami no Mai&7 : En activant l'item, un menu s'ouvre lui offrant plusieurs possibilités : " 
                   - "&2"
                   - "&6 &e- Yari&7 : Permet d'obtenir une épée en diamant &3Tranchant 7&7 nommée \"Yari\" ne possédant qu'une seule utilisation. &e(Cooldown - 5 minutes)&7"
                   - "&2"
@@ -216,7 +216,7 @@ fr:
                   - "&2"
                   - "&f&lItems"
                   - "&2"
-                  - "&6• Chibaku Tensei&7 : En activant l'item, un menu s'ouvre lui offrant deux possibilités : "
+                  - "&6• Chibaku Tensei&7 : En activant l'item, un menu s'ouvre lui offrant deux possibilités : " 
                   - "&2"
                   - "&6 &e- Banshô Ten'in&7 : Affiche tous les joueurs dans un rayon de 30 blocs, en cliquant sur l'un d'entre eux, ce dernier sera téléporté instantanément sur&c Nagato&7. &e(Cooldown - 5 minutes)&7"
                   - "&2"
@@ -1080,479 +1080,362 @@ fr:
           roles:
             lg:
               InfectPereDesLoups:
-                - '&8&m--------------------------------------------------&r'
-                - '&2Votre rôle est, &c&lInfect Père des Loups&r&2.'
-                - '&2La nuit vous avez &7Strength I &2et &7Night Vision &2en permanence.'
-                - '&2Vous avez le pouvoir d''infecter (/lg infecter <pseudo>) un joueur durant la partie.'
-                - '&2Lorsque vous faites un kill, vous gagnez &7&oSpeed&r &2et &e2 ♥&2d''absorption pendant 1 minute.'
-                - '&8&m--------------------------------------------------&r'
+              - '&8&m--------------------------------------------------&r'
+              - '&2Votre rôle est &c&lInfect Père des Loups&r&2.'
+              - '&2La nuit vous avez &7Strength I &2et &7Night Vision &2en permanence.'
+              - '&2Quand un joueur meurt des griffes d''un &c&oLoup-Garou&r&2 vous avez la possibilité de le ressuciter, il rejoindra alors votre camp.'
+              - '&2Une fois par nuit vous pouver envoyer un message dans le &cchat &2des &c&oLoups-Garous&r&2.'
+              - '&2Lorsque vous faites un kill, vous gagnez &7&oSpeed&r &2et &e2 ♥&2 d''absorption pendant 1 minute.'
+              - '&8&m--------------------------------------------------&r'
               LoupGarou:
-                - '&8&m--------------------------------------------------&r'
-                - '&2Votre rôle est, &c&lLoup-Garou&r&2.'
-                - '&2La nuit vous avez &7Strength I &2et &7Night Vision &2en permanence.'
-                - '&2Lorsque vous faites un kill, vous gagnez &7&oSpeed&r &2et &e2 ♥&2d''absorption pendant 1 minute.'
-                - '&8&m--------------------------------------------------&r'
+              - '&8&m--------------------------------------------------&r'
+              - '&2Votre rôle est &c&lLoup-Garou&r&2.'
+              - '&2La nuit vous avez &7Strength I &2et &7Night Vision &2en permanence.'
+              - '&2Une fois par nuit vous pouver envoyer un message dans le &cchat &2des &c&oLoups-Garous&r&2.'
+              - '&2Lorsque vous faites un kill, vous gagnez &7&oSpeed&r &2et &e2 ♥&2 d''absorption pendant 1 minute.'
+              - '&8&m--------------------------------------------------&r'
               LoupGarouAlpha:
-                - '&8&m--------------------------------------------------&r'
-                - '&2Votre rôle est, &c&l{role}&r&2.'
-                - '&2La nuit vous avez &7Strength I &2et &7Night Vision &2en permanence.'
-                - '&2uLorsque vous parlez dans le chat des Loups, votre pseudo sera visible pour
-                les autres Loups.'
-                - '&2Vous obtenez &e2 ♥ &2d''absorption pendant 5 minutes au début de chaque nuit.'
-                - '&2Lorsque vous faites un kill, vous gagnez &7&oSpeed&r &2et &e2 ♥'
-                - '&2d''absorption pendant 1 minute.'
-                - '&8&m--------------------------------------------------&r'
+              - '&8&m--------------------------------------------------&r'
+              - '&2Votre rôle est &c&l{role}&r&2.'
+              - '&2La nuit vous avez &7Strength I &2et &7Night Vision &2en permanence.'
+              - '&2Une fois par nuit vous pouvez envoyez un message dans le &cchat &2des &c&oLoups-Garous&r&2.'
+              - '&2Lorsque vous parlez dans le chat des Loups, votre pseudo sera visible pour les autres Loups.'
+              - '&2Une fois par nuit vous pouver envoyer un message dans le &cchat &2des &c&oLoups-Garous&r&2.'
+              - '&2Lorsque vous faites un kill, vous gagnez &7&oSpeed&r &2et &e2 ♥&2 d''absorption pendant 1 minute.'
+              - '&2d''absorption pendant 1 minute.'
+              - '&8&m--------------------------------------------------&r'
               LoupGarouAmnesique:
-                - '&8&m--------------------------------------------------&r'
-                - '&2Votre rôle est, &c&l{role}&r&2.'
-                - '&2La nuit vous avez &7Strength I &2et &7Night Vision &2en permanence.'
-                - '&2Vous ne figurez pas sur la liste des &cLoups&2, jusqu''à un moment
-                aléatoire entre 70 et 90 min.'
-                - '&2Lorsque vous faites un kill, vous gagnez &7&oSpeed&r &2et &e2 ♥
-                &2d''absorption pendant 1 minute.'
-                - '&8&m--------------------------------------------------&r'
+              - '&8&m--------------------------------------------------&r'
+              - '&2Votre rôle est &c&l{role}&r&2.'
+              - '&2La nuit vous avez &7Strength I &2et &7Night Vision &2en permanence.'
+              - '&2Vous ne figurez pas sur la liste des &cLoups&2 jusqu''à un moment aléatoire entre 70 et 90 min.'
+              - '&2Lorsque vous faites un kill, vous gagnez &7&oSpeed&r &2et &e2 ♥ &2d''absorption pendant 1 minute.'
+              - '&8&m--------------------------------------------------&r'
               LoupGarouCraintif:
-                - '&8&m--------------------------------------------------&r'
-                - '&2Votre rôle est, &c&l{role}&r&2.'
-                - '&2Vos pouvoirs évoluent selon le nombre de &cLoups &2présents à moins
-                de 20'
-                - '&2blocs de vous.'
-                - '&2A 4 &cLoups &2ou plus, vous avez &7Weakness&2. A 2 &cLoups &2ou
-                moins, vous avez &7Resistance &2s''il fait jour, &7Strength&2'
-                - '&2s''il fait nuit. Si vous êtes seul, vous avez également 10% de
-                &7Speed&2. Vous avez toujours &7Night Vision&2.'
-                - '&2Le &cLoup-Garou Craintif &2ne peut pas voter et ne produit aucun
-                message lors de sa mort.'
-                - '&8&m--------------------------------------------------&r'
+              - '&8&m--------------------------------------------------&r'
+              - '&2Votre rôle est &c&l{role}&r&2.'
+              - '&2Vos pouvoirs évoluent selon le nombre de &cLoups &2présents à moins de 20 &2blocs de vous.'
+              - '&2A 4 &cLoups &2ou plus, vous avez &7Weakness&2. A 2 &cLoups &2ou moins, vous avez &7Resistance &2s''il fait jour, &7Strength&2'
+              - '&2s''il fait nuit. Si vous êtes seul, vous avez également 10% de &7Speed&2. Vous avez toujours &7Night Vision&2.'
+              - '&2Une fois par nuit vous pouver envoyer un message dans le &cchat &2des &c&oLoups-Garous&r&2.'
+              - '&2Le &cLoup-Garou Craintif &2ne peut pas voter et ne produit aucun message lors de sa mort.'
+              - '&8&m--------------------------------------------------&r'
               LoupGarouFeutre:
-                - '&8&m--------------------------------------------------&r'
-                - '&2Votre rôle est, &c&l{role}&r&2.'
-                - '&2La nuit vous avez &7Strength I &2et &7Night Vision &2en permanence.'
-                - '&2Vous recevez un rôle d''affichage aléatoire (parmi les rôles des
-                joueurs encore en vie)'
-                - '&2au milieu de chaque épisode. Les rôles à infos &7(Voyante, Prêtresse,
-                Renard, Montreur d''Ours, Détective)'
-                - '&2ne verront que ce rôle d''affichage.'
-                - '&2Lorsque vous faites un kill, vous gagnez &7&oSpeed&r &2et &e2 ♥
-                &2d''absorption pendant 1 minute.'
-                - '&8&m--------------------------------------------------&r'
+              - '&8&m--------------------------------------------------&r'
+              - '&2Votre rôle est &c&l{role}&r&2.'
+              - '&2La nuit vous avez &7Strength I &2et &7Night Vision &2en permanence.'
+              - '&2Vous recevez un rôle d''affichage aléatoire (parmi les rôles des joueurs encore en vie dans la composition) au milieu de chaque épisode.'
+              - '&2Les rôles à infos &7(Voyante, Prêtresse, Renard, Montreur d''Ours, Détective) &2ne verront que ce rôle d''affichage.'
+              - '&2Une fois par nuit vous pouver envoyer un message dans le &cchat &2des &c&oLoups-Garous&r&2.'
+              - '&2Lorsque vous faites un kill, vous gagnez &7&oSpeed&r &2et &e2 ♥ &2d''absorption pendant 1 minute.'
+              - '&8&m--------------------------------------------------&r'
               LoupGarouGrimeur:
-                - '&8&m--------------------------------------------------&r'
-                - '&2Votre rôle est, &c&l{role}&r&2.'
-                - '&2La nuit vous avez &7Strength I &2et &7Night Vision &2en permanence.'
-                - '&2Le premier joueur que vous tué sera annoncé &f"&cLoup-Garou&f" &2dans
-                le message de mort.'
-                - '&2Vous serez alors le seul à avoir connaissance du véritable rôle
-                du joueur.'
-                - '&2Lorsque vous faites un kill, vous gagnez &7&oSpeed&r &2et &e2 ♥
-                &2d''absorption pendant 1 minute.'
-                - '&8&m--------------------------------------------------&r'
+              - '&8&m--------------------------------------------------&r'
+              - '&2Votre rôle est &c&l{role}&r&2.'
+              - '&2La nuit vous avez &7Strength I &2et &7Night Vision &2en permanence.'
+              - '&2Le premier joueur que vous tué sera annoncé &f"&cLoup-Garou&f" &2dans le message de mort.'
+              - '&2Vous serez alors le seul à avoir connaissance du véritable rôle du joueur.'
+              - '&2Une fois par nuit vous pouver envoyer un message dans le &cchat &2des &c&oLoups-Garous&r&2.'
+              - '&2Lorsque vous faites un kill, vous gagnez &7&oSpeed&r &2et &e2 ♥ &2d''absorption pendant 1 minute.'
+              - '&8&m--------------------------------------------------&r'
               LoupGarouJumeau:
-                - '&8&m--------------------------------------------------&r'
-                - '&2Votre rôle est, &c&l{role}&r&2.'
-                - '&2La nuit vous avez &7Strength I &2et &7Night Vision &2en permanence.'
-                - '&2Lorsque l''un des deux frères perd de la vie, son jumeau perdra
-                la même vie mais moins &e0.5♥ &2.'
-                - '&2Si votre jumeau meurt, vous entrez dans une colère folle écopant
-                de l''effet &7Strength I&2'
-                - '&2permanent et récupérez &e5♥ &2instantanément.'
-                - '&2Cependant, vous avez pour objectif de tué son assassin dont vous
-                connaitrez l''identité.'
-                - '&2Si vous n''y parvenez pas, vous perdrez &e1♥ &2permanents toutes
-                les 3 minutes.'
-                - '&2Si vous atteignez &e1♥ &2permanents, vous n''en perdrez plus'
-                - '&2Lorsque vous faites un kill, vous gagnez &7&oSpeed&r &2et &e2 ♥
-                &2d''absorption pendant 1 minute.'
-                - '&8&m--------------------------------------------------&r'
+              - '&8&m--------------------------------------------------&r'
+              - '&2Votre rôle est &c&l{role}&r&2.'
+              - '&2La nuit vous avez &7Strength I &2et &7Night Vision &2en permanence.'
+              - '&2Lorsque l''un des deux frères perd de la vie, son jumeau perdra la même vie mais moins &e0.5♥ &2.'
+              - '&2Si votre jumeau meurt, vous entrez dans une colère folle écopant de l''effet &7Strength I&2 permanent et récupérez &e5♥ &2instantanément.'
+              - '&2Cependant, vous avez pour objectif de tué son assassin dont vous connaitrez l''identité.'
+              - '&2Si vous n''y parvenez pas, vous perdrez &e1♥ &2permanents toutes les 3 minutes.'
+              - '&2Si vous atteignez &e1♥ &2permanents, vous n''en perdrez plus.'
+              - '&2Une fois par nuit vous pouvez envoyer un message dans le &cchat &2des &c&oLoups-Garous&r&2.'
+              - '&2Lorsque vous faites un kill, vous gagnez &7&oSpeed&r &2et &e2 ♥ &2d''absorption pendant 1 minute.'
+              - '&8&m--------------------------------------------------&r'
               LoupGarouLunaire:
-                - '&8&m&l--------------------------------------------------&r'
-                - '&2Votre rôle est, &c&l{role}&r&2.'
-                - '&2La nuit vous avez &7Strength I &2et &7Night Vision &2en permanence.'
-                - '&2Une fois dans la partie lors des 30 dernières secondes d''une nuit
-                vous pouvez activer une fausse nuit'
-                - '&2au début du prochain jour durant la moitié du cycle. (/lg fs)'
-                - '&2Cette fausse nuit a pour effet de rendre aux &cLoups &2leur effets
-                et pouvoir.'
-                - '&2Ainsi que de vous octroyer &7Speed I &2et &7Strenght I&2.'
-                - '&2Lorsque vous faites un kill, vous gagnez &7&oSpeed&r &2et &e2 ♥
-                &2d''absorption pendant 1 minute.'
-                - '&8&m&l--------------------------------------------------&r'
+              - '&8&m&l--------------------------------------------------&r'
+              - '&2Votre rôle est &c&l{role}&r&2.'
+              - '&2La nuit vous avez &7Strength I &2et &7Night Vision &2en permanence.'
+              - '&2Une fois dans la partie lors des 30 dernières secondes d''une nuit vous pouvez activer une fausse nuit au début du prochain jour durant la moitié du cycle. (/lg fs)'
+              - '&2Cette fausse nuit a pour effet de rendre aux &cLoups &2leur effets'
+              - '&2Ainsi que de vous octroyer &7Speed I &2et &7Strenght I&2.'
+              - '&2Une fois par nuit vous pouver envoyer un message dans le &cchat &2des &c&oLoups-Garous&r&2.'
+              - '&2Lorsque vous faites un kill, vous gagnez &7&oSpeed&r &2et &e2 ♥ &2d''absorption pendant 1 minute.'
+              - '&8&m&l--------------------------------------------------&r'
               LoupGarouPerfide:
-                - '&8&m--------------------------------------------------&r'
-                - '&2Votre rôle est, &c&l{role}&r&2.'
-                - '&2Vous avez &7Night Vision &2en permanence.'
-                - '&2Vous pouvez obtenir &7Invisibility &2en retirant votre armure 1
-                fois par nuit.'
-                - '&2Vous pouvez alors voir des particules générées par la &a&oPetite
-                Fille&r &2et le &6&oFeu Follet&r&2.'
-                - '&2L''effet dure 5 minutes et est arrêté si le joueur remet une partie
-                de son armure.'
-                - '&2Lorsque vous faites un kill, vous gagnez &7&oSpeed&r &2et &e2 ♥
-                &2d''absorption pendant 1 minute.'
-                - '&8&m--------------------------------------------------&r'
+              - '&8&m--------------------------------------------------&r'
+              - '&2Votre rôle est &c&l{role}&r&2.'
+              - '&2Vous avez &7Night Vision &2en permanence.'
+              - '&2Vous pouvez obtenir &7Invisibility &2en retirant votre armure 1 fois par nuit.'
+              - '&2Vous pouvez alors voir les particules générées par la &a&oPetite Fille&r &2et le &6&oFeu Follet&r&2.'
+              - '&2L''effet dure 5 minutes et est arrêté si le joueur remet une partie de son armure.'
+              - '&2Une fois par nuit vous pouver envoyer un message dans le &cchat &2des &c&oLoups-Garous&r&2.'
+              - '&2Lorsque vous faites un kill, vous gagnez &7&oSpeed&r &2et &e2 ♥ &2d''absorption pendant 1 minute.'
+              - '&8&m--------------------------------------------------&r'
               LouveMaudite:
-                - '&8&m--------------------------------------------------&r'
-                - '&2Votre rôle est, &c&l{role}&r&2.'
-                - '&2La nuit vous avez &7Strength I &2et &7Night Vision &2en permanence.'
-                - '&2Vous pouvez maudire 2 joueur durant la partie &7(/lg maudire)&2.'
-                - '&2La malédiction dure 3 minutes durant laquelle le joueur ciblé perd
-                ces effets.'
-                - '&2Lorsque vous faites un kill, vous gagnez &7&oSpeed&r &2et &e2 ♥
-                &2d''absorption pendant 1 minute.'
-                - '&8&m--------------------------------------------------&r'
+              - '&8&m--------------------------------------------------&r'
+              - '&2Votre rôle est &c&l{role}&r&2.'
+              - '&2La nuit vous avez &7Strength I &2et &7Night Vision &2en permanence.'
+              - '&2Vous pouvez maudire 2 joueur durant la partie &7&o(/lg maudire [pseudos])&r&2.'
+              - '&2La malédiction dure 10 minutes durant laquelle le joueur ciblé perd ces effets.'
+              - '&2Une fois par nuit vous pouver envoyer un message dans le &cchat &2des &c&oLoups-Garous&r&2.'
+              - '&2Lorsque vous faites un kill, vous gagnez &7&oSpeed&r &2et &e2 ♥ &2d''absorption pendant 1 minute.'
+              - '&8&m--------------------------------------------------&r'
               VilainPetitLoup:
-                - '&8&m--------------------------------------------------&r'
-                - '&2Votre rôle est, &c&l{role}&r&2.'
-                - '&2La nuit vous avez &7Strength 0.5 &2et &7Speed 0.5, ainsi que &7Night
-                Vision &2en permanence.'
-                - '&2Lorsque vous faites un kill, vous gagnez &7&oSpeed&r &2et &e2 ♥
-                &2d''absorption pendant 1 minute.'
-                - '&8&m--------------------------------------------------&r'
+              - '&8&m--------------------------------------------------&r'
+              - '&2Votre rôle est &c&l{role}&r&2.'
+              - '&2La nuit vous avez &7Strength 0.5 &2et &7Speed 0.5, ainsi que &7Night Vision &2en permanence.'
+              - '&2Une fois par nuit vous pouver envoyer un message dans le &cchat &2des &c&oLoups-Garous&r&2.'
+              - '&2Lorsque vous faites un kill, vous gagnez &7&oSpeed&r &2et &e2 ♥ &2d''absorption pendant 1 minute.'
+              - '&8&m--------------------------------------------------&r'
               GrandMechantLoup:
-                - '&8&m--------------------------------------------------&r'
-                - '&2Votre rôle est, &c&l{role}&r&2.'
-                - '&2Vous avez &7&oStrength I &r&2et &7&oNight Vision &r&2en permanence.'
-                - '&2Dès qu’un &c&oLoup-Garou&r &2meurt de la main d''un autre joueur,
-                vous perdez &7&oStrength&r &2le jour et ne gardez cet avantage que
-                la nuit.'
-                - '&2Lorsque vous faites un kill, vous gagnez &7&oSpeed&r &2et &e2 ♥
-                &2d''absorption pendant 1 minute.'
-                - '&8&m--------------------------------------------------&r'
+              - '&8&m--------------------------------------------------&r'
+              - '&2Votre rôle est &c&l{role}&r&2.'
+              - '&2Vous avez &7&oStrength I &r&2et &7&oNight Vision &r&2en permanence.'
+              - '&2Dès qu’un &c&oLoup-Garou&r &2meurt de la main d''un autre joueur, vous perdez &7&oStrength&r &2le jour et ne gardez cet avantage que la nuit.'
+              - '&2Une fois par nuit vous pouver envoyer un message dans le &cchat &2des &c&oLoups-Garous&r&2.'
+              - '&2Lorsque vous faites un kill, vous gagnez &7&oSpeed&r &2et &e2 ♥ &2d''absorption pendant 1 minute.'
+              - '&8&m--------------------------------------------------&r'
               LoupGarouMystique:
-                - '&8&m--------------------------------------------------&r'
-                - '&2Votre rôle est, &c&l{role}&r&2.'
-                - '&2La nuit vous avez &7&oStrength I &r&2et &7&oNight Vision &r&2en
-                permanence.'
-                - '&2Lorsqu''un joueur du camp des &c&oLoups-Garous&r&2 meurt, vous
-                recevez un'
-                - '&2message contenant le pseudo + le rôle d''un joueur d''un autre
-                camp.'
-                - '&2Lorsque vous faites un kill, vous gagnez &7&oSpeed&r &2et &e2 ♥
-                &2d''absorption pendant 1 minute.'
-                - '&8&m--------------------------------------------------&r'
+              - '&8&m--------------------------------------------------&r'
+              - '&2Votre rôle est, &c&l{role}&r&2.'
+              - '&2La nuit vous avez &7&oStrength I &r&2et &7&oNight Vision &r&2en permanence.'
+              - '&2Lorsqu''un joueur du camp des &c&oLoups-Garous&r&2 meurt, vous recevez un message contenant le pseudo + le rôle d''un joueur d''un autre camp.'
+              - '&2Lorsque vous faites un kill, vous gagnez &7&oSpeed&r &2et &e2 ♥ &2d''absorption pendant 1 minute.'
+              - '&8&m--------------------------------------------------&r'
               LoupGarouVengeur:
-                - '&8&m--------------------------------------------------&r'
-                - '&2Votre rôle est, &c&l{role}&r&2.'
-                - '&2La nuit vous avez &7&oStrength I &r&2et &7&oNight Vision &r&2en
-                permanence.'
-                - '&2Vous commencer avec &e7 ♥&r&2, mais lorsqu''un &c&oLoups-Garous&r&2
-                que vous avez croisé meurt, vous gagner'
-                - '&e1 ♥ potentiel supplémentaires&2.'
-                - '&8&m--------------------------------------------------&r'
+              - '&8&m--------------------------------------------------&r'
+              - '&2Votre rôle est &c&l{role}&r&2.'
+              - '&2La nuit vous avez &7&oStrength I &r&2et &7&oNight Vision &r&2en permanence.'
+              - '&2Une fois par nuit vous pouver envoyer un message dans le &cchat &2des &c&oLoups-Garous&r&2.'
+              - '&2Vous commencer avec &e7 ♥&r&2, mais lorsqu''un &c&oLoups-Garous&r&2 que vous avez croisé meurt, vous gagner &e1 ♥ permanent supplémentaire&2.'
+              - '&8&m--------------------------------------------------&r'
               LoupGarouHybride:
-                - '&8&m--------------------------------------------------&r'
-                - '&2Votre rôle est, &c&lLoup-Garou Hybride&r&2.'
-                - '&2Vous ne pouvez être grogné, flairé ou détecté. Toutefois, la &a&oVoyante&r&2 et la &a&oPrêtresse&r&2 peuvent vous espionnez, cependant vous n''avez '
-                - 'pas &7&oStrength&r&2 la nuit tant &2que vous n''avez pas fait de kill.'
-                - '&2Lorsque vous faites un kill, vous gagnez &7&oSpeed&r &2et &e2 ♥ &2d''absorption pendant 1 minute.'
-                - '&8&m--------------------------------------------------&r'
+              - '&8&m--------------------------------------------------&r'
+              - '&2Votre rôle est &c&lLoup-Garou Hybride&r&2.'
+              - '&2Vous ne pouvez être grogné, flairé ou détecté. Toutefois, la &a&oVoyante&r&2 et la &a&oPrêtresse&r&2 peuvent vous espionnez.'
+              - '&2Vous n''avez pas &7&oStrength&r&2 la nuit tant que vous n''avez pas fait de kill.'
+              - '&2Une fois par nuit vous pouver envoyer un message dans le &cchat &2des &c&oLoups-Garous&r&2.'
+              - '&2Lorsque vous faites un kill, vous gagnez &7&oSpeed&r &2et &e2 ♥ &2d''absorption pendant 1 minute.'
+              - '&8&m--------------------------------------------------&r'
             solo:
               Ange:
-                - '&8&m--------------------------------------------------&r'
-                - '&2Votre rôle est, &6&l{role}&2.'
-                - '&2Vous obtenez une cible aléatoire.'
-                - '&2- Si vous choisisez &c&oAnge Déchu&r&2, vous commencerez avec &e12♥
-                &2et passerez à &e15♥ &2en tuant votre cible.'
-                - '&2- Si vous choisisez &e&oAnge Gardien&r&2, vous commencerez avec 15 coeurs, devrez protéger votre
-                cible et gagner avec elle.'
-                - '    &2Si cette cible meurt vous repassez à &e10♥ &2et avez &7Weakness
-                I &2permanent.'
-                - '    &2Une fois dans la partie, vous pouvez donner &7Regeneration
-                I &2durant 1 minute à votre cible &7&o(/lg regen)§2.'
-                - '&8&m--------------------------------------------------&r'
+              - '&8&m--------------------------------------------------&r'
+              - '&2Votre rôle est &6&l{role}&r&2.'
+              - '&2Vous obtenez une cible aléatoire.'
+              - '&2- Si vous choisisez &c&oAnge Déchu&r&2, vous commencerez avec &e12♥ &2et passerez à &e15♥ &2en tuant votre cible &2-' 
+              - '&2- Si vous choisisez &e&oAnge Gardien&r&2, vous commencerez avec 15 coeurs, devrez protéger votre cible et gagner avec elle.'
+              - '    &2Si cette cible meurt vous repassez à &e10♥ &2et aurez &7Weakness I &2permanent.'
+              - '    &2Une fois dans la partie, vous pouvez donner &7Regeneration I &2durant 1 minute à votre cible &7&o(/lg regen)§2.'
+              - '&8&m--------------------------------------------------&r'
               Assassin:
-                - '&8&m--------------------------------------------------&r'
-                - '&2Votre rôle est, &6&lAssassin&r&2, vous devez gagner tout seul.'
-                - '&2Le jour vous avez &7Strenght I &2.'
-                - '&2Vous recevez 3 livre enchanté: &7Sharpness III&2, &7Protection
-                III &2et &7Efficiency III/Unbreaking III&2.'
-                - '&2Lorsque vous faiteslokuj un kill, vous gagnez &7Speed &2et &e2 ♥ &2d''absorption
-                pendant 1 minute.'
-                - '&8&m--------------------------------------------------&r'
+              - '&8&m--------------------------------------------------&r'
+              - '&2Votre rôle est &6&lAssassin&r&2, vous gagnez seul!'
+              - '&2Le jour vous avez &7Strenght I &2.'
+              - '&2Vous recevez 3 livres enchantés: &7Sharpness III&2, &7Protection III &2et &7Efficiency III/Unbreaking III&2.'
+              - '&2Lorsque vous faites un kill, vous gagnez &7Speed &2et &e2 ♥ &2d''absorption pendant 1 minute.'
+              - '&8&m--------------------------------------------------&r'
               Imitateur:
-                - '&8&m--------------------------------------------------&r'
-                - '&2Votre rôle est, &6&l{role}&r&2, vous devez gagner tout seul.'
-                - '&2Vous voler le rôle du premier joueur que vous tuer,'
-                - '&2volant également ces pouvoirs, effets et commandes.'
-                - '&2Apès votre premier kill vous avez &7Strenght I &2, mais seulement
-                jusqu''au milieu de l''&eépisode 6&2.'
-                - '&8&m--------------------------------------------------&r'
+              - '&8&m--------------------------------------------------&r'
+              - '&2Votre rôle est &6&l{role}&r&2, vous gagnez seul!'
+              - '&2Vous voler le rôle du premier joueur que vous tuer, volant également ces pouvoirs, effets et commandes.'
+              - '&2Apès votre premier kill vous avez &7Strenght I &2, mais seulement jusqu''au milieu de l''&eépisode 6&2.'
+              - '&8&m--------------------------------------------------&r'
               LoupGarouBlanc:
-                - '&8&m--------------------------------------------------&r'
-                - '&2Votre rôle est, &6&lLoup-Garou Blanc&r&2, vous devez gagner tout
-                seul.'
-                - '&2La nuit vous avez &7Strength I &2et &7Night Vision &2en permanence.'
-                - '&2Pour vous aider durant la partie, vous avez &e5♥ &2permanents supplémentaires.'
-                - '&8&m--------------------------------------------------&r'
+              - '&8&m--------------------------------------------------&r'
+              - '&2Votre rôle est &6&lLoup-Garou Blanc&r&2, vous gagnez seul!'
+              - '&2La nuit vous avez &7Strength I &2et &7Night Vision &2en permanence.'
+              - '&2Pour vous aider durant la partie, vous avez &e5♥ &2permanents supplémentaires.'
+              - '&8&m--------------------------------------------------&r'
               Voleur:
-                - '&8&m--------------------------------------------------&r'
-                - '&2Votre rôle est, &6&l{role}&r&2.'
-                - '&2Vous voler le rôle du premier joueur que vous tuer.'
-                - '&2Vous rejoigner alors le camp de votre victime, volant également
-                ces pouvoirs, effets et commandes.'
-                - '&2Si vous tuer un joueur en &dcouple &2vous remplacerez ce joueur
-                et devrez gagner en &dcouple&2.'
-                - '&2Vous possédez l''effet &7Résistance I &2jusqu''a votre premier
-                kill.'
-                - '&8&m--------------------------------------------------&r'
+              - '&8&m--------------------------------------------------&r'
+              - '&2Votre rôle est, &6&l{role}&r&2.'
+              - '&2Vous volez le rôle du premier joueur que vous tuez.'
+              - '&2Vous rejoignez alors le camp de votre victime, volant également ses pouvoirs, effets et commandes.'
+              - '&2Si vous tuez un joueur en &dcouple &2vous remplacerez ce joueur et devrez gagnez en &dcouple&2.'
+              - '&2Vous possédez l''effet &7Résistance I &2jusqu''a votre premier kill.'
+              - '&2Si vous ne tuez aucun joueur, vous devrez gagner seul.'
+              - '&8&m--------------------------------------------------&r'
               Rival:
-                - '&8&m--------------------------------------------------&r'
-                - '&2Votre rôle est, &6&l{role}&r&2.'
-                - '&2Vous connaisez les 2 rôles du &d&oCouple&r&2 à 25 minutes.'
-                - '&2Vous obtenez une liste de 5 joueurs contenanr les 2 amoureux à
-                l''épisode 6.'
-                - '&2Si vous tuer l''un des amoureux, vous le remplacerez et devrez
-                gagner en &d&oCouple&r&2 avec l''autre.'
-                - '&2Vous avez &7&oun livre enchanté Punch I&r&2 et votre boussole le
-                guidera vers &d&oCupidon &r&2(s''il est présent).'
-                - '&2En revanche, si le &d&ocouple &r&2meurt, vous perdrez &e5♥ permanents
-                &r&7&o(qui reviennent au rythme d’&r&e1 ♥ / 5 minutes&r&7&o)&r&2 et
-                vous devrez gagner seul.'
-                - '&8&m--------------------------------------------------&r'
+              - '&8&m--------------------------------------------------&r'
+              - '&2Votre rôle est &6&l{role}&r&2.'
+              - '&2Vous connaisez les 2 rôles du &d&oCouple&r&2 à 25 minutes.'
+              - '&2Vous obtenez une liste de 5 joueurs contenant les 2 amoureux à l''épisode 6.'
+              - '&2Si vous tuer l''un des amoureux, vous le remplacerez et devrez gagner en &d&oCouple&r&2 avec l''autre.'
+              - '&2Vous avez &7&oun livre enchanté Punch I&r&2 et votre boussole le guidera vers &d&oCupidon &r&2(s''il est présent).'
+              - '&2En revanche, si le &d&ocouple &r&2meurt, vous perdrez &e5♥ permanents &r&7&o(qui reviennent au rythme d’&r&e1 ♥ / 5 minutes&r&7&o)&r&2 et vous devrez gagner seul.'
+              - '&8&m--------------------------------------------------&r'
               FeuFollet:
-                - '&8&m--------------------------------------------------&r'
-                - '&2Votre rôle est, &6&l{role}&r&2.'
-                - '&2Vous avez &7&oSpeed I&r&2 le jour et &7&oInvisibility&r&2 + &e3♥
-                d''absorption&r&2 en retirant votre armure à tout moment.'
-                - '&2Vous pouvez alors voir des particules générées par la &a&oPetite
-                Fille&r &2et le &c&oLoup-Garou Perfide&r&2.'
-                - '&2L''efet dure 5 minutes est est arrêté lorsque vous re-équiper une
-                partie de votre armure.'
-                - '&22 fois pendant la partie, vous pouvez vous téléporter à 50 blocs
-                devant vous lorsque vous êtes invisible &7&o(/lg dash)&r&2.'
-                - '&2Au début de la nuit, vous recevez le rôle d''un joueur se situant
-                à moins de 50 blocs de vous.'
-                - '&8&m--------------------------------------------------&r'
+              - '&8&m--------------------------------------------------&r'
+              - '&2Votre rôle est &6&l{role}&r&2.'
+              - '&2Vous avez &7&oSpeed I&r&2 le jour et &7&oInvisibility&r&2 + &e3♥ d''absorption&r&2 en retirant votre armure à tout moment.'
+              - '&2Vous pouvez alors voir des particules générées par la &a&oPetite Fille&r &2et le &c&oLoup-Garou Perfide&r&2.'
+              - '&2L''efet dure 5 minutes est est arrêté lorsque vous re-équiper une partie de votre armure.'
+              - '&22 fois pendant la partie, vous pouvez vous téléporter à 50 blocs devant vous lorsque vous êtes invisible &7&o(/lg dash)&r&2.'
+              - '&2Au début de la nuit, vous recevez le rôle d''un joueur se situant à moins de 50 blocs de vous.'
+              - '&8&m--------------------------------------------------&r'
               Trublion:
-                - '&8&m--------------------------------------------------&r'
-                - '&2Votre rôle est, &6&l{role}&2, vous pouvez gagner avec le &a&oVillage&r&2
-                ou tout seul &7&o(déterminer aléatoirement)&r&2.'
-                - '&2Vous pouvez échanger les rôles de 2 joueurs à un moment aléatoire
-                entre 25 et 50 minutes.'
-                - '&2Vous pouvez téléporter les joueur aléatoirement sur la map avec
-                une commande une fois dans la partie &7&o(/lg tp)&r&2.'
-                - '&2Si vous ne le faite pas, la dispersion aura lieu à votre mort.'
-                - '&2Si vous êtes solo, vous connaitrez les 2 rôles échangés et vous
-                pourrez également re-téléporter un joueur 2 fois.'
-                - '&8&m--------------------------------------------------&r'
+              - '&8&m--------------------------------------------------&r'
+              - '&2Votre rôle est, &6&l{role}&2, vous pouvez gagner avec le &a&oVillage&r&2 ou tout seul &7&o(déterminer aléatoirement)&r&2.'
+              - '&2Vous pouvez échanger les rôles de 2 joueurs à un moment &7&à(/lg switch [pseudos] [pseudos])&r&2 aléatoire pendant la partie entre 25 et 50 minutes.'
+              - '&2Vous pouvez téléporter les joueurs aléatoirement sur la map avec une commande une seul fois dans la partie &7&o(/lg tp)&r&2.'
+              - '&2Si vous ne le faite pas, la dispersion aura lieu à votre mort.'
+              - '&2Si vous êtes solo, vous connaitrîez les 2 rôles échangés et vous pourrez également re-téléporter un joueur 2 fois &7&o(/lg tp [pseudos])&r&2.'
+              - '&8&m--------------------------------------------------&r'
               Rebelle:
-                - '&8&m--------------------------------------------------&r'
-                - '&2Votre rôle est, &6&l{role}&r&2.'
-                - '&2Vous possédez &7&oSpeed I&r&2tant que vous n''avez pas fait de kill.'
-                - '&2Lors de votre premier kill, si vous tuer:'
-                - ' &2- Un &a&oVillageois&r&2 vous rejoindrez le camp des &c&oLoups&2.'
-                - ' &2- Un &c&oLoups-Garous&r&2 vous  fairez partis du camp du &a&oVillage&2.'
-                - '&2&oTant que vous n''aurez pas fait de kill, vous devrez gagner seul.'
-                - '&8&m--------------------------------------------------&r'
+              - '&8&m--------------------------------------------------&r'
+              - '&2Votre rôle est, &6&l{role}&r&2.'
+              - '&2Vous possédez &7&oSpeed I&r&2tant que vous n''avez pas fait de kill.'
+              - '&2Lors de votre premier kill, si vous tuer:'
+              - ' &2- Un &a&oVillageois&r&2 vous rejoindrez le camp des &c&oLoups&2.'
+              - ' &2- Un &c&oLoups-Garous&r&2 vous  fairez partis du camp du &a&oVillage&2.'
+              - '&2&oTant que vous n''aurez pas fait de kill, vous devrez gagner seul.'
+              - '&8&m--------------------------------------------------&r'
             village:
               voyante:
                 Voyante:
-                  - '&8&m--------------------------------------------------&r'
-                  - '&2Votre rôle est, &a&l{role}&r&2.'
-                  - '&2Vous avez &7Night Vision &2en permanence, recevez &74 obsidienne
-                  &2et &74 bibliothèques&2.'
-                  - '&2Une fois par épisode &7(à partir de l''épisode 3)&2 vous pouvez
-                  connaître le rôle d''un joueur.'
-                  - '&2Si vous espionnez un membre du Village vous perdez &e3♥ &2et
-                  ne pourrez pas utilliser votre pouvoir à l''épisode suivant.'
-                  - '&8&m--------------------------------------------------&r'
+                - '&8&m--------------------------------------------------&r'
+                - '&2Votre rôle est, &a&l{role}&r&2.'
+                - '&2Vous avez &7Night Vision &2en permanence, recevez &74 obsidienne &2et &74 bibliothèques&2.'
+                - '&2Une fois par épisode &7(à partir de l''épisode 3)&2 vous pouvez espionner le rôle d''un joueur &7&o(/lg voir [pseudos])&r&2.'
+                - '&2Si vous espionnez un membre du Village vous perdez &e3♥ &2et ne pourrez pas utilliser votre pouvoir à l''épisode suivant.'
+                - '&8&m--------------------------------------------------&r'
                 VoyanteBavarde:
-                  - '&8&m--------------------------------------------------&r'
-                  - '&2Votre rôle est, &a&l{role}&r&2.'
-                  - '&2Vous avez &7Night Vision &2en permanence, recevez &74 obsidienne
-                  &2et &74 bibliothèques&2.'
-                  - '&2Une fois par épisode &7(à partir de l''épisode 3)&2 vous pouvez
-                  connaître le rôle d''un joueur.'
-                  - '&2Si vous espionnez un membre du Village vous perdez &e3♥ &2et
-                  ne pourrez pas utilliser votre pouvoir à l''épisode suivant.'
-                  - '&2&oLorsque vous espionnez un joueur son rôle est révélé à tous
-                  dans le chat.'
-                  - '&8&m--------------------------------------------------&r'
+                - '&8&m--------------------------------------------------&r'
+                - '&2Votre rôle est, &a&l{role}&r&2.'
+                - '&2Vous avez &7Night Vision &2en permanence, recevez &74 obsidienne &2et &74 bibliothèques&2.'
+                - '&2Une fois par épisode &7(à partir de l''épisode 3)&2 vous pouvez espionner le rôle d''un joueur &7&o(/lg voir [pseudos])&r&2.'
+                - '&2Si vous espionnez un membre du Village vous perdez &e3♥ &2et ne pourrez pas utilliser votre pouvoir à l''épisode suivant.'
+                - '&2&oLorsque vous espionnez un joueur son rôle est révélé à tous dans le chat.'
+                - '&8&m--------------------------------------------------&r'
               Ancien:
-                - '&8&m--------------------------------------------------&r'
-                - '&2Votre rôle est, &a&l{role}&2.'
-                - '&2Vous avez &7Resistance I &2en permanence. Si vous êtes tuer par'
-                - '&2un &cLoups-Garous &2vous ressusciterez, toutefois si vous êtes
-                tuer'
-                - '&2par un &aVillageois &2vous perdrez votre pouvoir mais aussi la
-                moitié de votre vie.'
-                - '&8&m--------------------------------------------------&r'
+              - '&8&m--------------------------------------------------&r'
+              - '&2Votre rôle est, &a&l{role}&2.'
+              - '&2Vous avez &7Resistance I &2en permanence. Si vous êtes tuer par un &cLoups-Garous &2vous ressusciterez, toutefois si vous êtes tuer'
+              - '&2par un &aVillageois &2vous perdrez votre pouvoir mais aussi la moitié de votre vie.'
+              - '&8&m--------------------------------------------------&r'
               Chaman:
-                - '&8&m--------------------------------------------------&r'
-                - '&2Votre rôle est, &a&l{role}&2.'
-                - '&2Vous pouvez voir tout les rôles des mort, même lorsque la &oPrêtresse&r&2
-                est dans la partie.'
-                - '&2De plus, vous recevez un &omessage cliquable&r&2 dès lors qu''un
-                joueur se fait tuer.'
-                - '&2Si vous cliqué sur ce message dans les 30 secondes qui suive,
-                vous obtiendrez (aléatoirement)'
-                - '&2le rôle ou le pseudo du &o"mort"&r&2, contre &e1♥ &2permanent.'
-                - '&8&m--------------------------------------------------&r'
+              - '&8&m--------------------------------------------------&r'
+              - '&2Votre rôle est, &a&l{role}&2.'
+              - '&2Vous pouvez voir tout les rôles des mort, même lorsque la &oPrêtresse&r&2 est présnte dans la partie.'
+              - '&2De plus, vous recevez un &omessage cliquable&r&2 dès lors qu''un joueur se fait tuer.'
+              - '&2Si vous cliqué sur ce message dans les 30 secondes qui suive, vous obtiendrez (aléatoirement)le rôle ou le pseudo du &o"mort"&r&2, contre &e1♥ &2permanent.'
+              - '&8&m--------------------------------------------------&r'
               Chasseur:
-                - '&8&m--------------------------------------------------&r'
-                - '&2Votre rôle est, &a&l{role}&2.'
-                - '&2Vous avez un livre enchanté &7Power III &2et &764 flèches&2.'
-                - '&2Vous pouvez enquêter sur un cadavre en étant à proximité et obtenir
-                toutes les 2 minutes des infos'
-                - '&2sur les joueurs à &7- de 70 blocs &2au moment de la mort.'
-                - '&2Ces infos sont, dans l’ordre : le nombre de joueurs + le pseudo
-                du mort ; ⅓ des pseudos + le rôle du mort ; ⅔ des pseudos;'
-                - '&2; l’intégralité des pseudos. À sa mort, il peut tirer sur un joueur
-                (autre que son tueur) pour lui faire perdre &e6♥&2.'
-                - '&8&m--------------------------------------------------&r'
+              - '&8&m--------------------------------------------------&r'
+              - '&2Votre rôle est, &a&l{role}&2.'
+              - '&2Vous avez un livre enchanté &7Power III &2et &764 flèches&2.'
+              - '&2Vous pouvez enquêter sur un cadavre en étant à proximité et obtenir toutes les 2 minutes des infos sur les joueurs à &7- de 70 blocs &2au moment de la mort.'
+              - '&2Ces infos sont, dans l’ordre : le nombre de joueurs + le pseudo du mort ; ⅓ des pseudos + le rôle du mort ; ⅔ des pseudos;'
+              - '&2; l’intégralité des pseudos. À sa mort, il peut tirer sur un joueur (autre que son tueur) pour lui faire perdre &e6♥&2.'
+              - '&8&m--------------------------------------------------&r'
               ChienLoup:
-                - '&8&m--------------------------------------------------&r'
-                - '&2Votre rôle est &6{role}&2.'
-                - '&2Si vous choisisez le &6Chien&2, vous devez gagner avec le Village.'
-                - '&2Pour cela vous avez &7Strength I &2la nuit, vous êtes considéré
-                comme un &cLoup-Garou&2 par les rôles à infos et apparaît dans la
-                liste des LG.'
-                - '&2Si vous choisisez le &6Loup&2, vous devez gagner avec les &cLoups-Garous&2.'
-                - '&2Il n’a pas Strength la nuit, ne figure pas dans la liste mais est
-                vu comme un Simple Villageois par les rôles à infos.'
-                - '&8&m--------------------------------------------------&r'
+              - '&8&m--------------------------------------------------&r'
+              - '&2Votre rôle est &6{role}&2.'
+              - '&2Si vous choisisez le &6Chien&2, vous devez gagner avec le Village.'
+              - '&2Pour cela vous avez &7Strength I &2la nuit, vous êtes considéré comme un &cLoup-Garou&2 par les rôles à infos et apparaît dans la liste des LG.'
+              - '&2Si vous choisisez le &6Loup&2, vous devez gagner avec les &cLoups-Garous&2.'
+              - '&2Il n’a pas Strength la nuit, ne figure pas dans la liste mais est vu comme un Simple Villageois par les rôles à infos.'
+              - '&8&m--------------------------------------------------&r'
               Citoyen:
-                - '&8&m--------------------------------------------------&r'
-                - '&2Votre rôle est, &a&l{role}&2.'
-                - '&2Vous connaissez le nombre de vote visant le joueur le plus voté.'
-                - '&2Une fois dans la partie, vous pouvez connaître le résultat du
-                vote des &cLoups&2.'
-                - '&2Si vous ne votez pas, un vote contre vous sera comptabilisé.'
-                - '&2Lorsque que la &ocompo est caché, &r&2 vous recevez au milieu
-                de chaque épisode une liste de 3 rôles existant +'
-                - '&2le nombre de ces rôles présent dans la partie.'
-                - '&8&m--------------------------------------------------&r'
+              - '&8&m--------------------------------------------------&r'
+              - '&2Votre rôle est &a&l{role}&2.'
+              - '&2Vous connaissez le nombre de vote visant le joueur le plus voté.'
+              - '&2Une fois dans la partie, vous pouvez connaître le résultat du vote des &cLoups&2.'
+              - '&2Si vous ne votez pas, un vote contre vous sera comptabilisé.'
+              - '&2Lorsque que la &ocompo est caché, &r&2 vous recevez au milieu de chaque épisode une liste de 3 rôles existant +'
+              - '&2le nombre de ces rôles présent dans la partie.'
+              - '&8&m--------------------------------------------------&r'
               Corbeau:
-                - '&8&m--------------------------------------------------&r'
-                - '&2Votre rôle est, &a&l{role}&2.'
-                - '&2A chaque épisode, avant l’ouverture du vote, vous pouvez corrompre
-                2 joueurs qui suivront'
-                - '&2votre vote malgré eux. 2 fois dans la partie, vous pouvez connaître
-                les joueurs qui ont voté le plus.'
-                - '&22 fois dans la partie, vous pouvez effrayer un joueur en sacrifiant
-                &e2♥&2 pendant &o5 minutes&r&2;'
-                - '&2Le joueur ciblé aura &7Weakness I &2s''il se trouve à plus de 100
-                blocs.'
-                - '&8&m--------------------------------------------------&r'
+              - '&8&m--------------------------------------------------&r'
+              - '&2Votre rôle est &a&l{role}&2.'
+              - '&2A chaque épisode, avant l’ouverture du vote, vous pouvez corrompre 2 joueurs qui suivront'
+              - '&2votre vote malgré eux. 2 fois dans la partie, vous pouvez connaître les joueurs qui ont voté le plus.'
+              - '&22 fois dans la partie, vous pouvez effrayer &7&o(/lg maudire [pseudos])&r&2 un joueur en sacrifiant &e2♥&2 pendant &o5 minutes&r&2;'
+              - '&2Le joueur ciblé aura &7Weakness I &2s''il se trouve à plus de 100 blocs.'
+              - '&8&m--------------------------------------------------&r'
               Cupidon:
-                - '&8&m--------------------------------------------------&r'
-                - '&2Votre rôle est, &d&l{role}&2.'
-                - '&2Quand le couple n''est pas aléatoire, vous pouvez choisir les deux
-                joueurs en &d&oCouple&r&2.'
-                - '&2Sinon vous connaisez leur pseudos. Vous devez gagner avec le &d&oCouple&r&2,'
-                - '&2mais si celui-ci meurt vous devrez gagner avec le &a&oVillage&r&2.'
-                - '&2Vous avez &7&o3 fils&r&2, &7&o64 flèches &r&2et un &7&olivre enchanté
-                Punch I&r&2.'
-                - '&8&m--------------------------------------------------&r'
+              - '&8&m--------------------------------------------------&r'
+              - '&2Votre rôle est &d&l{role}&2.'
+              - '&2Quand le couple n''est pas aléatoire, vous pouvez choisir les deux joueurs en &d&oCouple&r&2 &7&o(/lg couple [pseudos] [pseudos])&r&2.'
+              - '&2Sinon vous connaisez leur pseudos. Vous devez gagner avec le &d&oCouple&r&2,'
+              - '&2mais si celui-ci meurt vous devrez gagner avec le &a&oVillage&r&2.'
+              - '&2Vous avez &7&o3 fils&r&2, &7&o64 flèches &r&2et un &7&olivre enchanté Punch I&r&2.'
+              - '&8&m--------------------------------------------------&r'
               Detective:
-                - '&8&m--------------------------------------------------&r'
-                - '&2Votre rôle est, &a&l{role}&2.'
-                - '&2Une fois par épisode &o(à partir de l''épisode 3),&r&2 vous pouvez
-                enquêter sur 2 joueurs &7&o(/lg detect <pseudo 1> <pseudo 2>)&r&2.'
-                - '&2Vous recevez alors un message vous indiquant s''il font partie
-                du même &ocamp &r&2ou non.'
-                - '&2Vous ne pouvez pas désigner ni enqupeter deux fois sur la même
-                personne.'
-                - '&8&m--------------------------------------------------&r'
+              - '&8&m--------------------------------------------------&r'
+              - '&2Votre rôle est &a&l{role}&2.'
+              - '&2Une fois par épisode &o(à partir de l''épisode 3),&r&2 vous pouvez enquêter sur 2 joueurs &7&o(/lg detect [pseudos] [pseudos])&r&2.'
+              - '&2Vous recevez alors un message vous indiquant s''ils font partie du même &ocamp &r&2ou non.'
+              - '&2Vous ne pouvez pas ni enquêter deux fois sur la même personne.'
+              - '&8&m--------------------------------------------------&r'
               EnfantSauvage:
-                - '&8&m--------------------------------------------------&r'
-                - '&2Votre rôle est, &a&l{role}&2.'
-                - '&2Vous choisisez un modèle au début de la partie, tant que ce modèle
-                est envie'
-                - '&2vous devrez gagner avec le &a&oVillage&r&2.'
-                - '&2Si votre modèle viens à mourir vous rejoindrez alors les &c&oLoups-Garous&r&2.'
-                - '&8&m--------------------------------------------------&r'
+              - '&8&m--------------------------------------------------&r'
+              - '&2Votre rôle est &a&l{role}&2.'
+              - '&2Vous choisisez un modèle en début de partie, tant que ce modèle est en vie vous devrez gagner avec le &a&oVillage&r&2.'
+              - '&2Si votre modèle viens à mourir vous rejoindrez les &c&oLoups-Garous&r&2.'
+              - '&8&m--------------------------------------------------&r'
               Garde:
-                - '&8&m--------------------------------------------------&r'
-                - '&2Votre rôle est, &a&l{role}&2.'
-                - '&2Vous avez une potion de &7Resistance I &2d''une minute. Durant
-                la partie'
-                - '&2vous pouvez protéger des joueurs &7&o(/lg proteger <pseudo>)&2 pendant 10 minutes à chaque épisode.'
-                - '&2Si le joueur protéger est tuer par un &c&oLoups&r&2, il ressuscitera
-                mais'
-                - '&2vous perdrez vos pouvoir. Vous ne pouvez pas vous protéger vous-même
-                ou un joueur ayant déjà été protégé.'
-                - '&8&m--------------------------------------------------&r'
+              - '&8&m--------------------------------------------------&r'
+              - '&2Votre rôle est &a&l{role}&2.'
+              - '&2Vous avez une potion de &7Resistance I &2d''une minute. Durant la partie vous pouvez protéger un joueur &7&o(/lg garde [pseudo])&r&2 pendant 10 minutes à chaque épisode.'
+              - '&2Si le joueur protégé est tuer par un &c&oLoup&r&2, il ressuscitera mais vous perdriez votre pouvoir. Vous ne pouvez pas vous protéger vous-même ou un joueur ayant déjà été protégé.'
+              - '&8&m--------------------------------------------------&r'
               MontreurDours:
-                - '&8&m--------------------------------------------------&r'
-                - '&2Votre rôle est, &a&l{role}&2.'
-                - '&2Au début de chaque épisode il pousse un grognement dans le chat'
-                - '&2pour chaque &c&oLoups-Garous &r&2qui se trouve dans un rayon de
-                50 blocs autour de lui.'
-                - '&8&m--------------------------------------------------&r'
+              - '&8&m--------------------------------------------------&r'
+              - '&2Votre rôle est, &a&l{role}&2.'
+              - '&2Au début de chaque épisode il pousse un grognement dans le chat pour chaque &c&oLoups-Garou &r&2qui se trouve dans un rayon de 50 blocs autour de lui.'
+              - '&8&m--------------------------------------------------&r'
               PetiteFille:
-                - '&8&m--------------------------------------------------&r'
-                - '&2Votre rôle est, &a&l{role}&2.'
-                - '&2Vous pouvez obtenir &7Invisibility &2et &7Weakness I &2en retirant
-                votre armure 1 fois par nuit.'
-                - '&2Vous pouvez alors voir des particules générées par le &c&oLoup-Garou
-                Perfide &r&2et le &6&oFeu Follet&r&2.'
-                - '&2L''effet dure 5 minutes et est arrêté si vous mettez une partie
-                de votre armure.'
-                - '&8&m--------------------------------------------------&r'
+              - '&8&m--------------------------------------------------&r'
+              - '&2Votre rôle est, &a&l{role}&2.'
+              - '&2Vous pouvez obtenir &7Invisibility &2et &7Weakness I &2en retirant votre armure 1 fois par nuit.'
+              - '&2Vous pouvez alors voir des particules générées par le &c&oLoup-Garou Perfide &r&2et le &6&oFeu Follet&r&2.'
+              - '&2L''effet dure 5 minutes et est arrêté si vous mettez une partie de votre armure.'
+              - '&8&m--------------------------------------------------&r'
               Pretresse:
-                - '&8&m--------------------------------------------------&r'
-                - '&2Votre rôle est, &a&l{role}&2.'
-                - '&2Vous avez &7&o4 blocs d''obsidienne. &2Vous pouvez espionnez &7&o(/lg voir <pseudo>)&2 les
-                joueurs à'
-                - '&2proximité de vous &7&o(- de 10 blocs)&r&2, mais vous perdez &e2♥
-                permanents &2.'
-                - '&2Si le joueur epionner est &c&oLoups&r&2, vous obtenez son rôle,
-                sinon vous obtenez aucun détail.'
-                - '&2Lorsqu''un &c&oLoups&r&2 que vous aviez espionner meurt, vous regagner
-                &e1♥ permanents&2.'
-                - '&2De plus quand vous êtes présent dans la partie les messages de morts
-                peuvent être brouillés pour certains joueurs hormis pour vous.'
-                - '&8&m--------------------------------------------------&r'
+              - '&8&m--------------------------------------------------&r'
+              - '&2Votre rôle est, &a&l{role}&2.'
+              - '&2Vous avez &7&o4 blocs d''obsidienne. &2Vous pouvez espionnez &7&o(/lg voir [pseudo])&2 les joueurs à'
+              - '&2proximité de vous &7&o(- de 10 blocs)&r&2, mais vous perdez &e2♥ permanents &2.'
+              - '&2Si le joueur epionner est &c&oLoups&r&2, vous obtenez son rôle, sinon vous obtenez aucun détail.'
+              - '&2Lorsqu''un &c&oLoups&r&2 que vous aviez espionner meurt, vous regagner &e1♥ permanents&2.'
+              - '&2De plus quand vous êtes présent dans la partie les messages de morts peuvent être brouillés pour certains joueurs hormis pour vous.'
+              - '&8&m--------------------------------------------------&r'
               Renard:
-                - '&8&m--------------------------------------------------&r'
-                - '&2Votre rôle est, &a&l{role}&2.'
-                - '&23 fois dans la partie et uniquement la nuit, vous pouvez flairer
-                un jour situé à - de 10 blocs &7&o(/lg renifler <pseudo>)&r&2.'
-                - '&2Vous saurez alors si le joueur est &c&oLoup&r&2 ou non.'
-                - '&2Si c''est le cas le &c&oLoup-Garou&r&2 flairer en seras mis au
-                courant l''épisode suivant.'
-                - '&2Lorsque vous faite un kill, vous gagnez &7Speed &2pendant 1 minute.'
-                - '&8&m--------------------------------------------------&r'
+              - '&8&m--------------------------------------------------&r'
+              - '&2Votre rôle est, &a&l{role}&2.'
+              - '&23 fois dans la partie et uniquement la nuit, vous pouvez flairer un joueur situé à - de 10 blocs &7&o(/lg flairer [pseudo])&r&2.'
+              - '&2Vous saurez alors si le joueur est &c&oLoup&r&2 ou non.'
+              - '&2Si c''est le cas le &c&oLoup-Garou&r&2 flairer sera mis au courant l''épisode suivant.'
+              - '&2Lorsque vous faite un kill, vous gagnez &7&oSpeed&r &2pendant 1 minute.'
+              - '&8&m--------------------------------------------------&r'
               Salvateur:
-                - '&8&m--------------------------------------------------&r'
-                - '&2Votre rôle est, &a&l{role}&2.'
-                - '&2Vous avez &7&o2 Splash Heal&r&2. Une fois par épisode vous pouvez
-                donner'
-                - '&7&oNo Fall &r&2et &7&oResistance I &r&2pendant 20 minutes au joueur
-                de votre choix y compris vous même,'
-                - '&2mais pas deux fois d''affilée au même joueur. &7&o(/lg salvation <pseudo>)&r&2'
-                - '&8&m--------------------------------------------------&r'
+              - '&8&m--------------------------------------------------&r'
+              - '&2Votre rôle est, &a&l{role}&2.'
+              - '&2Vous avez &7&o2 Splash Heal&r&2. Une fois par épisode vous pouvez donner'
+              - '&7&oNo Fall &r&2et &7&oResistance I &r&2pendant 20 minutes au joueur de votre choix y compris vous même,'
+              - '&2mais pas deux fois d''affilée au même joueur. &7&o(/lg salvation [pseudo])&r&2'
+              - '&8&m--------------------------------------------------&r'
               Soeur:
-                - '&8&m--------------------------------------------------&r'
-                - '&2Votre rôle est, &a&l{role}&2.'
-                - '&2Vous connaisez l''identité de l''autre &a&oSoeur&r&2  dès le milieu
-                de l''épisode 3.'
-                - '&2Si votre &a&oSoeur&r&2, vous pourrez choisir de voire le rôle ou
-                le pseudo de son tueur.'
-                - '&2Vous avez également &7&oResistance I &r&2lorsque vous êtes à moins
-                de 20 blocs l''une de l''autre.'
-                - '&8&m--------------------------------------------------&r'
+              - '&8&m--------------------------------------------------&r'
+              - '&2Votre rôle est, &a&l{role}&2.'
+              - '&2Vous connaissez l''identité de l''autre &a&oSoeur&r&2 dès le milieu de l''épisode 3.'
+              - '&2Si votre meurt &a&oSoeur&r&2, vous pourrez choisir de voire le rôle ou le pseudo de son tueur.'
+              - '&2Vous avez également &7&oResistance I &r&2lorsque vous êtes à moins de 20 blocs l''une de l''autre.'
+              - '&8&m--------------------------------------------------&r'
               Sorciere:
-                - '&8&m--------------------------------------------------&r'
-                - '&2Votre rôle est, &a&l{role}&2.'
-                - '&2Vous avez &7&o5 potions (1 Instant Health&2,&71 Regeneration&2,&72
-                Instant Damage&2,&71 Strength)&r&2.'
-                - '&2Une fois dans la partie vous pouvez ressusciter un joueur mort.
-                Vous ne pouvez pas utilliser ce pouvoir sur vous-même.'
-                - '&8&m--------------------------------------------------&r'
+              - '&8&m--------------------------------------------------&r'
+              - '&2Votre rôle est, &a&l{role}&2.'
+              - '&2Vous avez &7&o5 potions (1 Instant Health&2,&71 Regeneration&2,&72 Instant Damage&2)&r&2.'
+              - '&2Une fois dans la partie vous pouvez ressusciter un joueur mort. Vous ne pouvez pas utilliser ce pouvoir sur vous-même.'
+              - '&8&m--------------------------------------------------&r'
               Villageois:
-                - '&8&m--------------------------------------------------&r'
-                - '&2Votre rôle est, &a&l{role}&2.'
-                - '&2Vous disposez d''un kit choisi aléatoirement parmis cette liste:'
-                - '&2- Mineur &7&ovous avez une Pioche en Diamant Efficiency + Haste
-                II en dessous de la couche 30.'
-                - '&2- Forgeron &7&ovous avez une enclume et de l''XP.'
-                - '&2- Archer &7&ovous avez 6 fils, 64 flèches et vos dégats à l''Arc
-                sont augmantés de 20%.'
-                - '&2- Meurtrier &7&ovous avez un livre enchanté Sharpness III et la
-                possibilité d''avoir Strength I une fois par épisode durant 5 minutes
-                (/lg rage).'
-                - '&2- Libraire &7&ovous avez 8 livres et de l''XP.'
-                - '&2- Armurier &7&ovous avez des Bottes en Diamant Projectile Protection.'
-                - '&8&m--------------------------------------------------&r'
+              - '&8&m--------------------------------------------------&r'
+              - '&2Votre rôle est, &a&l{role}&2.'
+              - '&2Vous disposez d''un kit choisi aléatoirement parmi cette liste:'
+              - '&2- Mineur &7&ovous avez une Pioche en Diamant Efficiency I + Haste II en dessous de la couche 30.'
+              - '&2- Forgeron &7&ovous avez une enclume et de l''XP.'
+              - '&2- Archer &7&ovous avez 6 fils, 64 flèches et vos dégats à l''Arc sont augmantée de 10%.'
+              - '&2- Meurtrier &7&ovous avez un livre enchanté Sharpness III.'
+              - '&2- Libraire &7&ovous avez 8 livres et de l''XP.'
+              - '&2- Armurier &7&ovous avez des Bottes en Diamant Protection I.'
+              - '&8&m--------------------------------------------------&r'
