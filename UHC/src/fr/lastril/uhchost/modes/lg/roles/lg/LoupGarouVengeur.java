@@ -102,7 +102,7 @@ public class LoupGarouVengeur extends Role implements LGRole, RealLG, LGChatRole
                         LoupGarouManager loupGarouManager = (LoupGarouManager) main.gameManager.getModes().getMode().getModeManager();
                         if(loupGarouManager.getLoupGarous().contains(playerManager) && !werewolfMeeted.contains(playerManager)){
                             werewolfMeeted.add(playerManager);
-                            player.sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage() + "§cbVous venez de croisé l'un de vos congénaire !");
+                            player.sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage() + "§cVous venez de croiser l'un de vos congénaire !");
                         }
                     }
                 }
