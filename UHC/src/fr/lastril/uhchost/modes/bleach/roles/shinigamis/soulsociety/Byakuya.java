@@ -92,7 +92,7 @@ public class Byakuya extends Role implements RoleCommand {
 
         for (Block block : cuboid.getBlocks()){
             BukkitTask task = Bukkit.getScheduler().runTaskTimer(main, () ->
-                    WorldUtils.spawnColoredParticle(block.getLocation(), EnumParticle.REDSTONE, 255, 192, 203),1,1);
+                    WorldUtils.spawnColoredParticle(block.getLocation(), EnumParticle.REDSTONE, 255, 192, 203),0,20);
             particlesTasks.add(task);
         }
         usedZone = true;
