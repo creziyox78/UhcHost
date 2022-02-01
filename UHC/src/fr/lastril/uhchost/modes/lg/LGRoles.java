@@ -26,9 +26,9 @@ public enum LGRoles {
     LG_JUMEAU(LoupGarouJumeau.class),
     LV_MAUDITE(LouveMaudite.class),
     VPL(VilainPetitLoup.class), //FINISHED
-    GML(GrandMechantLoup.class),
-    LG_MYSTIQUE(LoupGarouMystique.class),
-    LG_VENGEUR(LoupGarouVengeur.class),
+    GML(GrandMechantLoup.class), //FINISHED
+    LG_MYSTIQUE(LoupGarouMystique.class), //FINISHED
+    LG_VENGEUR(LoupGarouVengeur.class), //FINISHED
     LG_HYBRIDE(LoupGarouHybride.class),
 
     /*

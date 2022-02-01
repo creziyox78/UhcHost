@@ -33,14 +33,10 @@ public class CmdHost2 implements CommandExecutor {
 		if (sender instanceof Player) {
 			Player player = (Player) sender;
 			GameManager gameManager = pl.getGamemanager();
-			if (!gameManager.isCoHost(player) && !player.isOp()) {
-				ActionBar.sendMessage(player, "§cTu n'es pas host de la partie !");
-				return false;
-			}
 			if(gameManager.getHostname() == null){
 				return false;
 			}
-			if(!gameManager.getHostname().equalsIgnoreCase(player.getName())){
+			if(!gameManager.getHostname().equalsIgnoreCase(player.getName()) && !(gameManager.isCoHost(player)) && !player.isOp()){
 				ActionBar.sendMessage(player, "§cTu n'es pas host de la partie !");
 				return false;
 			}
@@ -185,8 +181,11 @@ public class CmdHost2 implements CommandExecutor {
 						}
 					}
 				} else if (args[0].equalsIgnoreCase("force")) {
-					if (args[1].equalsIgnoreCase("pvp")) {
-						return true;
+					if(args.length == 2){
+						if (args[1].equalsIgnoreCase("pvp")) {
+							pl.getGamemanager().setPvPTime(20*20);
+							return true;
+						}
 					}
 				} else{
 					sendUse(player);

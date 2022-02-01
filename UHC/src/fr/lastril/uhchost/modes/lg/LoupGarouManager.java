@@ -263,24 +263,19 @@ public class LoupGarouManager extends ModeManager implements Listener {
         PlayerManager playerManager = main.getPlayerManager(player.getUniqueId());
         playerManager.setAlive(false);
 
-        System.out.println("On Realy Death Role !");
-        for (PlayerManager PlayerManagers : main.getPlayerManagerAlives().stream().filter(PlayerManager::hasRole).collect(Collectors.toList())) {
-            PlayerManagers.getRole().onPlayerDeathRealy(playerManager, items, armors, killer, deathLocation);
-        }
+
 
         /* DROPING INVENTORY */
-        System.out.println("Droping inventory !");
-        main.getInventoryUtils().dropInventory(deathLocation, items, armors);
-
         System.out.println("Set spectator !");
         if (playerManager.getPlayer() != null) {
             Player onlinePlayer = playerManager.getPlayer();
             onlinePlayer.setGameMode(GameMode.SPECTATOR);
+            playerManager.setItems(onlinePlayer.getInventory().getContents());
+            playerManager.setArmors(onlinePlayer.getInventory().getArmorContents());
             onlinePlayer.getInventory().clear();
-            playerManager.setItems(playerManager.getPlayer().getInventory().getContents());
-            playerManager.setArmors(playerManager.getPlayer().getInventory().getArmorContents());
         }
-
+        System.out.println("Droping inventory !");
+        main.getInventoryUtils().dropInventory(deathLocation, items, armors);
 
         System.out.println("On Kill Role !");
         if(killer != null){
@@ -380,7 +375,10 @@ public class LoupGarouManager extends ModeManager implements Listener {
             randomRole(playerManager);
         }
 
-
+        System.out.println("On Realy Death Role !");
+        for (PlayerManager PlayerManagers : main.getPlayerManagerAlives().stream().filter(PlayerManager::hasRole).collect(Collectors.toList())) {
+            PlayerManagers.getRole().onPlayerDeathRealy(playerManager, items, armors, killer, deathLocation);
+        }
 
         main.gameManager.getModes().getMode().checkWin();
     }

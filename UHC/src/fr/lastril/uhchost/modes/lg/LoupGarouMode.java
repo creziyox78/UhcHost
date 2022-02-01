@@ -306,7 +306,7 @@ public class LoupGarouMode extends Mode implements ModeCommand, RoleMode<LGRole>
     }
 
     public void win(Camps winner) {
-        this.pl.gameManager.setDamage(false);
+
 
         Map<PlayerManager, Integer> damages = new HashMap<>();
         for (PlayerManager playerManager : pl.getAllPlayerManager().values()) {

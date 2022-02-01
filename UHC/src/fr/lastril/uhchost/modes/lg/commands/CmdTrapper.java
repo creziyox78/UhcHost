@@ -3,6 +3,7 @@ package fr.lastril.uhchost.modes.lg.commands;
 import fr.lastril.uhchost.UhcHost;
 import fr.lastril.uhchost.enums.Messages;
 import fr.lastril.uhchost.modes.command.ModeSubCommand;
+import fr.lastril.uhchost.modes.lg.roles.lg.LoupGarouPisteur;
 import fr.lastril.uhchost.modes.lg.roles.village.Trappeur;
 import fr.lastril.uhchost.player.PlayerManager;
 import org.bukkit.Bukkit;
@@ -49,6 +50,23 @@ public class CmdTrapper implements ModeSubCommand {
                         if(!trappeur.canChange()){
                             trappeur.setTracked(targetManager);
                             trappeur.setChange(true);
+                            player.sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage() + "§aVous tracker maintenant " + targetName + " !");
+                        }
+                    }
+                }
+            }
+        }
+        if(playerManager.getRole() instanceof LoupGarouPisteur){
+            LoupGarouPisteur loupGarouPisteur = (LoupGarouPisteur) playerManager.getRole();
+            if(args.length == 2){
+                String targetName = args[1];
+                Player target = Bukkit.getPlayer(targetName);
+                if(target != null){
+                    PlayerManager targetManager = main.getPlayerManager(player.getUniqueId());
+                    if(targetManager.isAlive()){
+                        if(!loupGarouPisteur.canChange()){
+                            loupGarouPisteur.setTracked(targetManager);
+                            loupGarouPisteur.setChange(true);
                             player.sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage() + "§aVous tracker maintenant " + targetName + " !");
                         }
                     }

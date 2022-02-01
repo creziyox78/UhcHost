@@ -1,4 +1,4 @@
-name: UHCHost
+name: Group-UHC
 version: 0.9.8
 authors: [Lastril]
 main: fr.lastril.uhchost.UhcHost

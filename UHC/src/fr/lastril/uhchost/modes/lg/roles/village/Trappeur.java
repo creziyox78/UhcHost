@@ -64,6 +64,7 @@ public class Trappeur extends Role implements LGRole, RoleCommand {
 
     @Override
     public void checkRunnable(Player player) {
+        super.checkRunnable(player);
         PlayerManager playerManager = main.getPlayerManager(player.getUniqueId());
         if(playerManager.hasRole() && playerManager.isAlive()){
             if(playerManager.getRole() instanceof Trappeur) {

@@ -396,6 +396,7 @@ public class UhcHost extends JavaPlugin {
 						yamlConfiguration1.save(f);
 					}
 				}
+
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
