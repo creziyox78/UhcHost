@@ -32,8 +32,15 @@ public class CmdHost2 implements CommandExecutor {
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		if (sender instanceof Player) {
 			Player player = (Player) sender;
-			GameManager gameManager = UhcHost.getInstance().getGamemanager();
-			if ((!gameManager.getHostname().equalsIgnoreCase(player.getName()) && !gameManager.isCoHost(player)) && !player.isOp()) {
+			GameManager gameManager = pl.getGamemanager();
+			if (!gameManager.isCoHost(player) && !player.isOp()) {
+				ActionBar.sendMessage(player, "§cTu n'es pas host de la partie !");
+				return false;
+			}
+			if(gameManager.getHostname() == null){
+				return false;
+			}
+			if(!gameManager.getHostname().equalsIgnoreCase(player.getName())){
 				ActionBar.sendMessage(player, "§cTu n'es pas host de la partie !");
 				return false;
 			}
