@@ -16,7 +16,7 @@ public enum LGRoles {
     LG(LoupGarou.class), //FINISHED
     INFECT(InfectPereDesLoups.class), //FINISHED
     LG_AMNESIQUE(LoupGarouAmnesique.class), //TODO BE TESTED
-    LG_ALPHA(LoupGarouAlpha.class),
+    LG_ALPHA(LoupGarouAlpha.class), //FINISHED
     LG_FEUTRE(LoupGarouFeutre.class), //FINISHED
     LG_PERFIDE(LoupGarouPerfide.class), //FINISHED
     LG_LUNAIRE(LoupGarouLunaire.class), //FINISHED
@@ -25,7 +25,7 @@ public enum LGRoles {
     LG_PISTEUR(LoupGarouPisteur.class),
     LG_JUMEAU(LoupGarouJumeau.class),
     LV_MAUDITE(LouveMaudite.class),
-    VPL(VilainPetitLoup.class), //TODO BE TESTED
+    VPL(VilainPetitLoup.class), //FINISHED
     GML(GrandMechantLoup.class),
     LG_MYSTIQUE(LoupGarouMystique.class),
     LG_VENGEUR(LoupGarouVengeur.class),
@@ -35,14 +35,14 @@ public enum LGRoles {
      * CAMP DU VILLAGE
      */
     ANCIEN(Ancien.class), //FINISHED
-    CHAMAN(Chaman.class), //TODO BE TESTED
-    CHASSEUR(Chasseur.class), //TODO MODIFIED
+    CHAMAN(Chaman.class), //FINISHED
+    CHASSEUR(Chasseur.class), //FINISHED
     CITOYEN(Citoyen.class),
     CORBEAU(Corbeau.class),
-    CUPIDON(Cupidon.class), //TODO BE TESTED
+    CUPIDON(Cupidon.class), //FINISHED
     DETECTIVE(Detective.class), //FINISHED
     ENFANT_SAUVAGE(EnfantSauvage.class), //FINISHED
-    GARDE(Garde.class), //TODO BE TESTED
+    GARDE(Garde.class), //FINISHED
     MONTREUR_DOURS(MontreurDours.class), //FINISHED
     MESSAGER(Messager.class),
     PETITE_FILLE(PetiteFille.class), //FINISHED
@@ -53,22 +53,22 @@ public enum LGRoles {
     SORCIERE(Sorciere.class), //FINISHED
     VOYANTE(Voyante.class), //FINISHED
     VOYANTE_BAVARDE(VoyanteBavarde.class), //FINISHED
-    TRAPPEUR(Trappeur.class), //TODO BE TESTED
+    TRAPPEUR(Trappeur.class), //FINISHED
     VILLAGEOIS(Villageois.class), //FINISHED
 
     /*
      * CAMP DES NEUTRES
      */
 
-    CHIEN_LOUP(ChienLoup.class), //TODO BE TESTED
-    TRUBLION(Trublion.class), //TODO BE TESTED
-    VOLEUR(Voleur.class), //TODO BE TESTED
+    CHIEN_LOUP(ChienLoup.class), //FINISHED
+    TRUBLION(Trublion.class), //FINISHED
+    VOLEUR(Voleur.class), //FINISHED
     REBELLE(Rebelle.class),
-    RIVAL(Rival.class), //TODO BE TESTED
+    RIVAL(Rival.class), //FINISHED
     /*
      * CAMP DES SOLOS
      */
-    IMITATEUR(Imitateur.class), //TODO BE TESTED
+    IMITATEUR(Imitateur.class), //FINISHED
     ANGE(Ange.class), //FINISHED
     LGB(LoupGarouBlanc.class), //FINISHED
     ASSASSIN(Assassin.class), //FINISHED

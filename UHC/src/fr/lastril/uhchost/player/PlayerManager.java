@@ -752,6 +752,38 @@ public class PlayerManager {
 		return this.getRoleCooldown("Itegumo");
 	}
 
+	public void setRoleCooldownWave(int i) {
+		this.setRoleCooldown("Wave", i);
+	}
+
+	public int getRoleCooldownWave(){
+		return this.getRoleCooldown("Wave");
+	}
+
+	public void setRoleCooldownSnap(int i) {
+		this.setRoleCooldown("Snap", i);
+	}
+
+	public int getRoleCooldownSnap(){
+		return this.getRoleCooldown("Snap");
+	}
+
+	public void setRoleCooldownSakura(int i) {
+		this.setRoleCooldown("Sakura", i);
+	}
+
+	public int getRoleCooldownSakura(){
+		return this.getRoleCooldown("Sakura");
+	}
+
+	public void setRoleCooldownSenbonzakura(int i) {
+		this.setRoleCooldown("Senbonzakura", i);
+	}
+
+	public int getRoleCooldownSenbonzakura(){
+		return this.getRoleCooldown("Senbonzakura");
+	}
+
 	public UUID getUuid() {
 		return this.uuid;
 	}
@@ -895,6 +927,7 @@ public class PlayerManager {
 	public void setItems(ItemStack[] items) {
 		this.items = items;
 	}
+
 
 
 }

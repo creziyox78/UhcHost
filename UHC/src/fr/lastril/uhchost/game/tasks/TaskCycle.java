@@ -9,7 +9,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 public class TaskCycle extends BukkitRunnable {
 
 	private final UhcHost main;
-	private World world;
+	private final World world;
 
 	public TaskCycle(UhcHost main) {
 		this.main = main;
@@ -18,8 +18,8 @@ public class TaskCycle extends BukkitRunnable {
 
 	@Override
 	public void run() {
-		//world.setTime((long)((float)world.getTime() + 20.0F * (600.0F / main.gameManager.getCycleTime() - 1.0F)));
-		long time = (long) (Bukkit.getWorld("game").getTime() + (10 / (main.gameManager.getCycleTime() / 60)));
+		long time = (long)((float)world.getTime() + 20.0F * (600.0F / main.gameManager.getCycleTime() - 1.0F));
+		//long time = (long) (Bukkit.getWorld("game").getTime() + (10 / (main.gameManager.getCycleTime() / 60)));
 		for(PlayerManager playerManager : main.getPlayerManagerOnlines()){
 			if(playerManager.hasRole())
 				playerManager.getRole().checkRunnable(playerManager.getPlayer());

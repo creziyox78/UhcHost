@@ -11,6 +11,7 @@ import fr.lastril.uhchost.modes.roles.Role;
 import fr.lastril.uhchost.modes.roles.RoleListener;
 import fr.lastril.uhchost.modes.roles.When;
 import fr.lastril.uhchost.player.PlayerManager;
+import fr.lastril.uhchost.tools.API.ClassUtils;
 import fr.lastril.uhchost.tools.API.items.crafter.QuickItem;
 import net.minecraft.server.v1_8_R3.PacketPlayOutEntityEquipment;
 import org.bukkit.Bukkit;
@@ -222,23 +223,6 @@ public class Zabuza extends Role implements NarutoV2Role, RoleListener {
     }
 
     public void showPlayer(Player player){
-        PacketPlayOutEntityEquipment handPacket = new PacketPlayOutEntityEquipment(player.getEntityId(), 0, CraftItemStack.asNMSCopy(player.getItemInHand()));
-        PacketPlayOutEntityEquipment helmetPacket = new PacketPlayOutEntityEquipment(player.getEntityId(), 1, CraftItemStack.asNMSCopy(player.getInventory().getHelmet()));
-        PacketPlayOutEntityEquipment chestPacket = new PacketPlayOutEntityEquipment(player.getEntityId(), 2, CraftItemStack.asNMSCopy(player.getInventory().getChestplate()));
-        PacketPlayOutEntityEquipment legPacket = new PacketPlayOutEntityEquipment(player.getEntityId(), 3, CraftItemStack.asNMSCopy(player.getInventory().getLeggings()));
-        PacketPlayOutEntityEquipment bootsPacket = new PacketPlayOutEntityEquipment(player.getEntityId(), 4, CraftItemStack.asNMSCopy(player.getInventory().getBoots()));
-
-        if(player.hasPotionEffect(PotionEffectType.INVISIBILITY))
-            player.removePotionEffect(PotionEffectType.INVISIBILITY);
-        for(PlayerManager target: main.getPlayerManagerOnlines()){
-            Player reciever = target.getPlayer();
-            if(reciever != null && reciever != player){
-                ((CraftPlayer)reciever).getHandle().playerConnection.sendPacket(handPacket);
-                ((CraftPlayer)reciever).getHandle().playerConnection.sendPacket(helmetPacket);
-                ((CraftPlayer)reciever).getHandle().playerConnection.sendPacket(chestPacket);
-                ((CraftPlayer)reciever).getHandle().playerConnection.sendPacket(legPacket);
-                ((CraftPlayer)reciever).getHandle().playerConnection.sendPacket(bootsPacket);
-            }
-        }
+        ClassUtils.showPlayer(player);
     }
 }

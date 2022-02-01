@@ -131,7 +131,7 @@ public class SoiFon extends Role implements RoleListener, ShinigamiRole {
         if(event.getEntity() instanceof WitherSkull){
             WitherSkull witherSkull = (WitherSkull) event.getEntity();
             if(witherSkull.getCustomName().equalsIgnoreCase("§6Jakuho Raikoben")){
-                ClassUtils.ripulseEntityFromLocation(witherSkull, 10,5, 3);
+                ClassUtils.ripulseEntityFromLocation(witherSkull.getLocation(), 10,5, 3);
                 for(Entity entity : witherSkull.getNearbyEntities(10, 10, 10)){
                     if(entity instanceof Player){
                         Player player = (Player) entity;

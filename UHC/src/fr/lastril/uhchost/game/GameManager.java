@@ -166,7 +166,7 @@ public class GameManager {
 		this.validateWorld = false;
 		this.biomeState = BiomeState.ROOFED_FOREST;
 		this.lastDamager = new HashMap<>();
-		this.spawn = new Location(Bukkit.getWorld(pl.getConfig().getString("world_lobby")), 200, 100, 200);
+		this.spawn = new Location(Bukkit.getWorld(pl.getConfig().getString("world_lobby")), 669.5, 36, 405.5);
 		this.modes = Modes.CLASSIC;
 		this.blocsRules = new BlocsRules(pl);
 		this.enchantmentRules = new EnchantmentRules();

@@ -30,7 +30,6 @@ public class Camouflage extends QuickItem {
                                 player.sendMessage(Messages.NARUTO_PREFIX.getMessage() + "§eVous êtes§c invisible§e (même avec votre armure) aux yeux de tous maintenant.");
                                 zabuza.usePower(joueur);
                                 zabuza.usePowerSpecific(joueur, super.getName());
-                                return;
                             } else {
                                 player.sendMessage(Messages.cooldown(joueur.getRoleCooldownCamouflage()));
                             }
@@ -41,7 +40,6 @@ public class Camouflage extends QuickItem {
                             player.sendMessage(Messages.NARUTO_PREFIX.getMessage() + "§eVous êtes§a visible§e aux yeux de tous maintenant.");
                             zabuza.usePower(joueur);
                             zabuza.usePowerSpecific(joueur, super.getName());
-                            return;
                         }
                     } else {
                         player.sendMessage(Messages.NARUTO_PREFIX.getMessage() + "§cVous êtes sous l'effet de Samehada.");

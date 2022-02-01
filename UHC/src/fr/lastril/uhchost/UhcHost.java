@@ -333,7 +333,7 @@ public class UhcHost extends JavaPlugin {
 
         File f = new File(getDataFolder() + File.separator + "description",
                 "roles.yml");
-        System.out.println("Checking roles description...");
+
         if (!f.exists()) {
             getLogger().warning("The file roles.yml doesn't exist ! Creating...");
             try {
@@ -349,7 +349,7 @@ public class UhcHost extends JavaPlugin {
                 YamlConfiguration yamlConfiguration1 = YamlConfiguration.loadConfiguration(f);
                 File configFile = new File("temp.yml");
 				if(getResource("roles.yml") == null){
-					debug("File roles.yml not exists in ressources !");
+					getLogger().warning("File roles.yml not exists in ressources !");
 				} else {
 					FileUtils.copyInputStreamToFile(getResource("roles.yml"),configFile);
 					YamlConfiguration yamlConfiguration2 = YamlConfiguration.loadConfiguration(configFile);

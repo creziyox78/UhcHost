@@ -134,7 +134,7 @@ public class Yamamoto extends Role implements RoleListener, RoleCommand, Shiniga
                     noAbsoplayerList.add(player);
                 }
             }
-        }, 0, 20*10);
+        }, 0, 20);
         Bukkit.getScheduler().runTaskLater(main, () -> {
             task.cancel();
             if(entity instanceof Player){

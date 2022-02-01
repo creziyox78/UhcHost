@@ -12,7 +12,8 @@ public enum BleachRoles {
     KIRA(Kira.class), //TODO BE TESTED
     UNOHANA(Unohana.class), //TODO BE TESTED
     ISANE(Isane.class), //TODO BE TESTED
-    HINAMORI(Hinamori.class),
+    HINAMORI(Hinamori.class), //TODO BE TESTED
+    BYAKUYA(Byakuya.class), //TODO 1 item ("Senbonzakura")
     ;
 
     private final Class<? extends Role> role;

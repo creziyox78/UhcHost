@@ -164,18 +164,17 @@ public class Kabuto extends Role implements NarutoV2Role, EdoTenseiItem.EdoTense
 	public void checkRunnable(Player player) {
 		super.checkRunnable(player);
 		if(userLoc != null){
-			if(userLoc.getWorld() == player.getWorld()){
+			userLoc = player.getLocation();
+			if(userLoc.getWorld() == player.getLocation())
 				if(userLoc.distance(player.getLocation()) >= 0.2){
 					if(main.getGamemanager().getModes() != Modes.NARUTO_V2) return;
 					NarutoV2Manager narutoV2Manager = (NarutoV2Manager) main.getGamemanager().getModes().getMode().getModeManager();
 					if(narutoV2Manager.isInShosenJutsu(player.getUniqueId()))
 						narutoV2Manager.removeInShosenJutsu(player.getUniqueId());
 				}
-			}
-
 		}
 		if(targetLoc != null){
-			if(targetLoc.getWorld() == player.getWorld()){
+			if(targetLoc.getWorld() == player.getLocation().getWorld()){
 				if(targetLoc.distance(player.getLocation()) >= 0.2){
 					if(main.getGamemanager().getModes() != Modes.NARUTO_V2) return;
 					NarutoV2Manager narutoV2Manager = (NarutoV2Manager) main.getGamemanager().getModes().getMode().getModeManager();
@@ -184,8 +183,7 @@ public class Kabuto extends Role implements NarutoV2Role, EdoTenseiItem.EdoTense
 				}
 			}
 		}
-		if(Bukkit.getPlayer(targetId) == null){
-			userLoc = player.getLocation();
+		if(Bukkit.getPlayer(targetId) != null){
 			targetLoc = Bukkit.getPlayer(targetId).getLocation();
 		}
 

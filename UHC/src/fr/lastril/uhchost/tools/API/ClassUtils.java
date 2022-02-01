@@ -1,14 +1,24 @@
 package fr.lastril.uhchost.tools.API;
 
+import fr.lastril.uhchost.UhcHost;
 import fr.lastril.uhchost.modes.naruto.v2.roles.akatsuki.Nagato;
+import fr.lastril.uhchost.player.PlayerManager;
 import fr.lastril.uhchost.tools.API.raytracing.BoundingBox;
 import fr.lastril.uhchost.tools.API.raytracing.RayTrace;
+import net.minecraft.server.v1_8_R3.PacketPlayOutEntityEquipment;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
+import org.bukkit.craftbukkit.v1_8_R3.inventory.CraftItemStack;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
+import org.bukkit.scheduler.BukkitTask;
 import org.bukkit.util.Vector;
 
+import javax.swing.*;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -48,6 +58,54 @@ public class ClassUtils {
         return arrows[((int) a / 45)];
     }
 
+    public static void hidePlayerWithArmor(Player player, boolean hideItem, int time, boolean showWhenEnd){
+        BukkitTask task = Bukkit.getScheduler().runTaskTimer(UhcHost.getInstance(), () -> {
+            player.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, Integer.MAX_VALUE, 1, false, false));
+            PacketPlayOutEntityEquipment handPacket = new PacketPlayOutEntityEquipment(player.getEntityId(), 0, null);
+            PacketPlayOutEntityEquipment helmetPacket = new PacketPlayOutEntityEquipment(player.getEntityId(), 1, null);
+            PacketPlayOutEntityEquipment chestPacket = new PacketPlayOutEntityEquipment(player.getEntityId(), 2, null);
+            PacketPlayOutEntityEquipment legPacket = new PacketPlayOutEntityEquipment(player.getEntityId(), 3, null);
+            PacketPlayOutEntityEquipment bootsPacket = new PacketPlayOutEntityEquipment(player.getEntityId(), 4, null);
+            for(PlayerManager target: UhcHost.getInstance().getPlayerManagerOnlines()){
+                Player reciever = target.getPlayer();
+                if(reciever != null && reciever != player){
+                    if(hideItem){
+                        ((CraftPlayer)reciever).getHandle().playerConnection.sendPacket(handPacket);
+                    }
+                    ((CraftPlayer)reciever).getHandle().playerConnection.sendPacket(helmetPacket);
+                    ((CraftPlayer)reciever).getHandle().playerConnection.sendPacket(chestPacket);
+                    ((CraftPlayer)reciever).getHandle().playerConnection.sendPacket(legPacket);
+                    ((CraftPlayer)reciever).getHandle().playerConnection.sendPacket(bootsPacket);
+                }
+            }
+        },0,1);
+        Bukkit.getScheduler().runTaskLater(UhcHost.getInstance(), task::cancel, 20L *time);
+        if(showWhenEnd){
+            showPlayer(player);
+        }
+    }
+
+    public static void showPlayer(Player player){
+        PacketPlayOutEntityEquipment handPacket = new PacketPlayOutEntityEquipment(player.getEntityId(), 0, CraftItemStack.asNMSCopy(player.getItemInHand()));
+        PacketPlayOutEntityEquipment helmetPacket = new PacketPlayOutEntityEquipment(player.getEntityId(), 1, CraftItemStack.asNMSCopy(player.getInventory().getHelmet()));
+        PacketPlayOutEntityEquipment chestPacket = new PacketPlayOutEntityEquipment(player.getEntityId(), 2, CraftItemStack.asNMSCopy(player.getInventory().getChestplate()));
+        PacketPlayOutEntityEquipment legPacket = new PacketPlayOutEntityEquipment(player.getEntityId(), 3, CraftItemStack.asNMSCopy(player.getInventory().getLeggings()));
+        PacketPlayOutEntityEquipment bootsPacket = new PacketPlayOutEntityEquipment(player.getEntityId(), 4, CraftItemStack.asNMSCopy(player.getInventory().getBoots()));
+
+        if(player.hasPotionEffect(PotionEffectType.INVISIBILITY))
+            player.removePotionEffect(PotionEffectType.INVISIBILITY);
+        for(PlayerManager target: UhcHost.getInstance().getPlayerManagerOnlines()){
+            Player reciever = target.getPlayer();
+            if(reciever != null && reciever != player){
+                ((CraftPlayer)reciever).getHandle().playerConnection.sendPacket(handPacket);
+                ((CraftPlayer)reciever).getHandle().playerConnection.sendPacket(helmetPacket);
+                ((CraftPlayer)reciever).getHandle().playerConnection.sendPacket(chestPacket);
+                ((CraftPlayer)reciever).getHandle().playerConnection.sendPacket(legPacket);
+                ((CraftPlayer)reciever).getHandle().playerConnection.sendPacket(bootsPacket);
+            }
+        }
+    }
+
     public static List<Location> getCircle(Location center, double radius, int points){
         List<Location> locs = new ArrayList<>();
 
@@ -59,9 +117,9 @@ public class ClassUtils {
         return locs;
     }
 
-    public static void ripulseEntityFromLocation(Entity e, int distance,int powerMultiply, int powerHigh){
-        for(Entity entity : e.getNearbyEntities(distance, distance, distance)){
-            Location initialLocation = e.getLocation().clone();
+    public static void ripulseEntityFromLocation(Location location, int distance,int powerMultiply, int powerHigh){
+        for(Entity entity : location.getWorld().getNearbyEntities(location,distance, distance, distance)){
+            Location initialLocation = location.clone();
             initialLocation.setPitch(0.0f);
             Vector origin = initialLocation.toVector();
             Vector fromPlayerToTarget = entity.getLocation().toVector().clone().subtract(origin);

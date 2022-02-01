@@ -142,53 +142,57 @@ public class NarutoV2 extends Mode implements ModeConfig, RoleMode<NarutoV2Role>
 			killerManager.addKill(player.getUniqueId());
 		}
 		PlayerManager joueur = main.getPlayerManager(player.getUniqueId());
-		Player onlinePlayer = player.getPlayer();
-		if(player.isOnline()){
+		if(joueur != null){
+			Player onlinePlayer = player.getPlayer();
+			if(player.isOnline()){
 
-			joueur.setDeathLocation(onlinePlayer .getLocation());
-			joueur.setItems(onlinePlayer .getInventory().getContents());
-			joueur.setArmors(onlinePlayer.getInventory().getArmorContents());
-		}
-		joueur.setAlive(false);
-
-		for (Player players : Bukkit.getOnlinePlayers()) {
-			players.playSound(players.getLocation(), Sound.WITHER_DEATH, 1f, 1f);
-			PlayerManager playerManager = main.getPlayerManager(players.getUniqueId());
-			if(playerManager.isAlive() && playerManager.hasRole()){
-				playerManager.getRole().onPlayerDeath(player.getPlayer());
+				joueur.setDeathLocation(onlinePlayer .getLocation());
+				joueur.setItems(onlinePlayer .getInventory().getContents());
+				joueur.setArmors(onlinePlayer.getInventory().getArmorContents());
 			}
+
+
+			for (Player players : Bukkit.getOnlinePlayers()) {
+				players.playSound(players.getLocation(), Sound.WITHER_DEATH, 1f, 1f);
+				PlayerManager playerManager = main.getPlayerManager(players.getUniqueId());
+				if(playerManager.isAlive() && playerManager.hasRole()){
+					playerManager.getRole().onPlayerDeath(player.getPlayer());
+				}
+			}
+
+			if (joueur.hasRole()) {
+				Bukkit.broadcastMessage("§3§m----------------------------------");
+				Bukkit.broadcastMessage("§b§l" + player.getName() + "§7 est mort, son rôle était "+joueur.getRole().getCamp().getCompoColor()+joueur.getRole().getRoleName()+"§7.");
+				Bukkit.broadcastMessage("§3§m----------------------------------");
+				new BukkitRunnable() {
+
+					@Override
+					public void run() {
+						onlinePlayer.spigot().respawn();
+					}
+				}.runTaskLater(main, 5);
+
+				new BukkitRunnable() {
+
+					@Override
+					public void run() {
+						onlinePlayer.setGameMode(GameMode.ADVENTURE);
+						onlinePlayer.setGameMode(GameMode.SPECTATOR);
+						onlinePlayer.teleport(joueur.getDeathLocation());
+					}
+				}.runTaskLater(main, 10);
+			} else {
+				Bukkit.broadcastMessage("§3§m----------------------------------");
+				Bukkit.broadcastMessage("§b§l" + player.getName() + "§7 est mort.");
+				Bukkit.broadcastMessage("§3§m----------------------------------");
+			}
+			joueur.setAlive(false);
+			checkWin();
+			/* DROPING INVENTORY */
+			System.out.println("Droping inventory !");
+			main.getInventoryUtils().dropInventory(joueur.getDeathLocation(), joueur.getItems(), joueur.getArmors());
 		}
 
-		if (joueur.hasRole()) {
-			Bukkit.broadcastMessage("§3§m----------------------------------");
-			Bukkit.broadcastMessage("§b§l" + player.getName() + "§7 est mort, son rôle était "+joueur.getRole().getCamp().getCompoColor()+joueur.getRole().getRoleName()+"§7.");
-			Bukkit.broadcastMessage("§3§m----------------------------------");
-			new BukkitRunnable() {
-
-				@Override
-				public void run() {
-					onlinePlayer.spigot().respawn();
-				}
-			}.runTaskLater(main, 5);
-			
-			new BukkitRunnable() {
-				
-				@Override
-				public void run() {
-					onlinePlayer.setGameMode(GameMode.ADVENTURE);
-					onlinePlayer.setGameMode(GameMode.SPECTATOR);
-					onlinePlayer.teleport(joueur.getDeathLocation());
-				}
-			}.runTaskLater(main, 10);
-		} else {
-			Bukkit.broadcastMessage("§3§m----------------------------------");
-			Bukkit.broadcastMessage("§b§l" + player.getName() + "§7 est mort.");
-			Bukkit.broadcastMessage("§3§m----------------------------------");
-		}
-		checkWin();
-		/* DROPING INVENTORY */
-		System.out.println("Droping inventory !");
-		main.getInventoryUtils().dropInventory(joueur.getDeathLocation(), joueur.getItems(), joueur.getArmors());
 	}
 
 	@Override

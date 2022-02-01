@@ -15,14 +15,18 @@ public class InventoryUtils {
     }
 
     public void dropInventory(Location loc, ItemStack[] items, ItemStack[] armors) {
-        for (ItemStack item : items) {
-            if (item != null && item.getType() != Material.AIR) {
-                loc.getWorld().dropItem(loc, item);
+        if(items != null){
+            for (ItemStack item : items) {
+                if (item != null && item.getType() != Material.AIR) {
+                    loc.getWorld().dropItem(loc, item);
+                }
             }
         }
-        for (ItemStack armor : armors) {
-            if (armor != null && armor.getType() != Material.AIR) {
-                loc.getWorld().dropItem(loc, armor);
+        if(armors != null){
+            for (ItemStack armor : armors) {
+                if (armor != null && armor.getType() != Material.AIR) {
+                    loc.getWorld().dropItem(loc, armor);
+                }
             }
         }
     }

@@ -26,9 +26,7 @@ import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffectType;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class LoupGarouManager extends ModeManager implements Listener {
@@ -406,23 +404,16 @@ public class LoupGarouManager extends ModeManager implements Listener {
         });
     }
 
-    public WolfPlayerManager getMostVoted() {
-        List<WolfPlayerManager> players = new ArrayList<>(main.getAllWolfPlayerManager().values());
-        for(WolfPlayerManager wolfPlayerManager: players){
-            System.out.println("Player: " + wolfPlayerManager.getPlayerManager().getPlayerName() + " | vote: " + wolfPlayerManager.getVotes());
+    public WolfPlayerManager mostVoted(){
+        Map<WolfPlayerManager, Integer> votes = new HashMap<>();
+        for (PlayerManager playerManager : main.getAllPlayerManager().values()) {
+            votes.put(playerManager.getWolfPlayerManager(), playerManager.getWolfPlayerManager().getVotes());
         }
-        if(calculateTopVoted(players).size() >= 2){
-            if(calculateTopVoted(players).get(0) == calculateTopVoted(players).get(1) || calculateTopVoted(players).get(0).getVotes() == 0){
-                return null;
-            }
-            return calculateTopVoted(players).get(0);
+        WolfPlayerManager mostVoted = votes.entrySet().stream().min(Map.Entry.comparingByValue(Comparator.reverseOrder())).get().getKey();
+        if(mostVoted.getVotes() == 0){
+            return null;
         }
-        return null;
-    }
-
-    private List<WolfPlayerManager> calculateTopVoted(List<WolfPlayerManager> players) {
-        players.sort(WolfPlayerManager::compareTo);
-        return players;
+        return mostVoted;
     }
 
     public void teleportAllPlayerExept(Player exempted){

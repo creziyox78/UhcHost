@@ -6,7 +6,9 @@ import fr.lastril.uhchost.modes.bleach.roles.shinigamis.soulsociety.Yamamoto;
 import fr.lastril.uhchost.player.PlayerManager;
 import fr.lastril.uhchost.tools.API.items.crafter.QuickItem;
 import fr.lastril.uhchost.tools.API.particles.ParticleEffect;
+import fr.lastril.uhchost.tools.API.particles.Wave;
 import net.minecraft.server.v1_8_R3.EnumParticle;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
@@ -15,6 +17,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.scheduler.BukkitRunnable;
+import org.bukkit.scheduler.BukkitTask;
 import org.bukkit.util.Vector;
 
 import java.util.ArrayList;
@@ -55,7 +58,12 @@ public class RyujinJakkaItem extends QuickItem {
                             line.add(initialLocation.clone().add(direction.clone().add(left)));
                         }
                         shape.add(line);
-                        new Wave(UhcHost.getInstance(), initialLocation.toVector(), shape);
+                        Wave wave = new Wave(UhcHost.getInstance(), initialLocation.toVector(), shape, 20, EnumParticle.FLAME);
+                        wave.getLocationInMovements().forEach(location -> {
+                            for(Entity entity : location.getWorld().getNearbyEntities(location, 2, 2, 2)){
+                                yamamoto.addBurningPlayer(entity);
+                            }
+                        });
                     } else {
                         player.sendMessage(Messages.cooldown(playerManager.getRoleCooldownRyujinJakka()));
                     }
@@ -75,65 +83,5 @@ public class RyujinJakkaItem extends QuickItem {
     private Vector getLeftHeadDirection(Player player) {
         Vector direction = player.getLocation().getDirection().normalize();
         return new Vector(direction.getZ(), 0.0, -direction.getX()).normalize();
-    }
-
-    public class Wave extends BukkitRunnable {
-
-        private final Plugin plugin;
-        private final Vector origin;
-        private final List<List<Location>> shape;
-        private int index;
-
-        public Wave(Plugin plugin, Vector origin, List<List<Location>> shape) {
-            this.plugin = plugin;
-            this.origin = origin;
-            this.shape = shape;
-            this.start(2);
-        }
-
-        /**
-         * Starts The Timer
-         *
-         * @param delay
-         */
-        private void start(int delay) {
-            super.runTaskTimer(this.plugin, 0, delay);
-        }
-
-        /**
-         * Stops The Timer
-         */
-        protected void stop() {
-            cancel();
-        }
-
-        @Override
-        public void run() {
-            for (Location loc : shape.get(index)) {
-                new BukkitRunnable(){
-                    double t = 0;
-
-                    public void run(){
-                        t = t + 0.5;
-                        Vector direction = loc.getDirection().normalize();
-                        double x = direction.getX() * t;
-                        double y = direction.getY() * t + 1.5;
-                        double z = direction.getZ() * t;
-                        loc.add(x,y,z);
-                        ParticleEffect.playEffect(EnumParticle.FLAME, loc);
-                        for(Entity entity : loc.getWorld().getNearbyEntities(loc, 2, 2, 2)){
-                            yamamoto.addBurningPlayer(entity);
-                        }
-                        loc.getBlock().setType(Material.FIRE);
-                        loc.subtract(x,y,z);
-
-                        if (t > 20){
-                            cancel();
-                        }
-                    }
-                }.runTaskTimer(plugin, 0, 1);
-            }
-            cancel();
-        }
     }
 }
