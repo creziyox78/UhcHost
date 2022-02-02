@@ -6,7 +6,6 @@ import fr.lastril.uhchost.inventory.guis.HostConfig;
 import fr.lastril.uhchost.modes.Modes;
 import fr.lastril.uhchost.modes.naruto.NarutoV2;
 import fr.lastril.uhchost.modes.naruto.v2.NarutoV2Manager;
-import fr.lastril.uhchost.modes.roles.Camps;
 import fr.lastril.uhchost.modes.roles.Role;
 import fr.lastril.uhchost.modes.roles.RoleAnnounceMode;
 import fr.lastril.uhchost.modes.roles.RoleMode;
@@ -21,7 +20,6 @@ import org.bukkit.event.inventory.ClickType;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -33,7 +31,7 @@ public class NarutoGUI extends IQuickInventory {
 	public NarutoGUI(UhcHost main) {
 		super("§6Naruto V2", 9*3);
 		this.main = main;
-		if(main.getGamemanager().getModes() != Modes.NARUTO_V2) return;
+		if(main.getGamemanager().getModes() != Modes.NARUTO) return;
 		narutoV2Manager = (NarutoV2Manager) main.getGamemanager().getModes().getMode().getModeManager();
 	}
 

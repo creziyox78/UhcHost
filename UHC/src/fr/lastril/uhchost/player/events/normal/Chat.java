@@ -15,13 +15,13 @@ public class Chat implements Listener {
     public void onChat(AsyncPlayerChatEvent event){
         Player player = event.getPlayer();
         if(main.getGamemanager().getHost() == player.getUniqueId()){
-            event.setFormat("§6Hôte " + player.getName() + " »§f " + event.getMessage().replace("&", "§"));
+            event.setFormat("§e§lHost§e " + player.getName() + " §f» " + event.getMessage().replace("&", "§"));
         } else if(main.getGamemanager().isCoHost(player)){
-            event.setFormat("§eCo-hôte " + player.getName() + " »§f " + event.getMessage().replace("&", "§"));
+            event.setFormat("§eCo§f-§eHost " + player.getName() + " §f» " + event.getMessage().replace("&", "§"));
         } else if(player.isOp()){
-            event.setFormat("§cOP " + player.getName() + " »§f " + event.getMessage().replace("&", "§"));
+            event.setFormat("§c§lOP " + player.getName() + " §f» " + event.getMessage().replace("&", "§"));
         } else {
-            event.setFormat("§7" + player.getName() + " »§7 " + event.getMessage());
+            event.setFormat("§7" + player.getName() + " » " + event.getMessage());
         }
     }
 

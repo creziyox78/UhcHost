@@ -5,13 +5,17 @@ import fr.lastril.uhchost.modes.bleach.roles.shinigamis.soulsociety.Hinamori;
 import fr.lastril.uhchost.player.PlayerManager;
 import fr.lastril.uhchost.tools.API.items.crafter.QuickItem;
 import org.bukkit.Material;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Fireball;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemFlag;
 
 public class Snap extends QuickItem {
     public Snap(UhcHost main) {
         super(Material.FIREBALL);
         super.setName("§6Snap");
+        super.addEnchant(Enchantment.DURABILITY, 1, true);
+        super.addItemFlag(ItemFlag.HIDE_ENCHANTS);
         super.setLore("",
                 "§7Provoque une explosion de 3 blocs.",
                 "§7Les joueurs touchés§c ne peuvent pas",

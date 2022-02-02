@@ -29,7 +29,7 @@ public class CmdMorsure implements ModeSubCommand {
 		PlayerManager joueur = main.getPlayerManager(player.getUniqueId());
 		if (!joueur.isAlive())
 			return false;
-		if(main.getGamemanager().getModes() != Modes.NARUTO_V2) return false;
+		if(main.getGamemanager().getModes() != Modes.NARUTO) return false;
 		NarutoV2Manager narutoV2Manager = (NarutoV2Manager) main.getGamemanager().getModes().getMode().getModeManager();
 		if (joueur.hasRole()) {
 			if (joueur.getRole() instanceof Karin) {

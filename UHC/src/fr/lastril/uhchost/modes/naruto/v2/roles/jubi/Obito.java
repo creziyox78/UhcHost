@@ -71,7 +71,7 @@ public class Obito extends Role implements NarutoV2Role, RoleCommand, KamuiItem.
 
     @Override
     public void giveItems(Player player) {
-        if(main.getGamemanager().getModes() != Modes.NARUTO_V2) return;
+        if(main.getGamemanager().getModes() != Modes.NARUTO) return;
         NarutoV2Manager narutoV2Manager = (NarutoV2Manager) main.getGamemanager().getModes().getMode().getModeManager();
         main.getInventoryUtils().giveItemSafely(player, new KamuiItem(main).toItemStack());
         main.getInventoryUtils().giveItemSafely(player, new NinjutsuItem(main).toItemStack());
@@ -260,7 +260,7 @@ public class Obito extends Role implements NarutoV2Role, RoleCommand, KamuiItem.
 
     @Override
     public String getDescription() {
-        return main.getRoleDescription(this, this.getClass().getName());
+        return main.getRoleDescription(this, this.getClass().getName(), "naruto.yml");
     }
 
     @Override
@@ -271,7 +271,7 @@ public class Obito extends Role implements NarutoV2Role, RoleCommand, KamuiItem.
     @Override
     public String sendList() {
         String list = Messages.NARUTO_PREFIX.getMessage() + "Voici la liste entière de l'Akatsuki : \n";
-        if(main.getGamemanager().getModes() != Modes.NARUTO_V2) return null;
+        if(main.getGamemanager().getModes() != Modes.NARUTO) return null;
         NarutoV2Manager narutoV2Manager = (NarutoV2Manager) main.getGamemanager().getModes().getMode().getModeManager();
         for (PlayerManager joueur : narutoV2Manager.getPlayerManagersWithCamps(Camps.AKATSUKI)) {
             if (joueur.isAlive()) list += "§c- " + joueur.getPlayerName() +"\n";
@@ -287,7 +287,7 @@ public class Obito extends Role implements NarutoV2Role, RoleCommand, KamuiItem.
                 player.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 20*5, 0, false, false));
             }
         }, 0, 20*60);
-        if(main.getGamemanager().getModes() != Modes.NARUTO_V2) return;
+        if(main.getGamemanager().getModes() != Modes.NARUTO) return;
         NarutoV2Manager narutoV2Manager = (NarutoV2Manager) main.getGamemanager().getModes().getMode().getModeManager();
         if(narutoV2Manager.getNarutoV2Config().isBiju()){
             setBijuTracked(narutoV2Manager.getBijuManager().getBijuListClass().get(0));

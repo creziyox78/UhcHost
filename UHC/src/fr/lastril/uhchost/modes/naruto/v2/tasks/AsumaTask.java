@@ -23,7 +23,7 @@ public class AsumaTask extends BukkitRunnable {
     public AsumaTask(UhcHost main, Asuma asuma) {
         this.main = main;
         this.asuma = asuma;
-        if(main.getGamemanager().getModes() != Modes.NARUTO_V2) return;
+        if(main.getGamemanager().getModes() != Modes.NARUTO) return;
         narutoV2Manager = (NarutoV2Manager) main.getGamemanager().getModes().getMode().getModeManager();
     }
 

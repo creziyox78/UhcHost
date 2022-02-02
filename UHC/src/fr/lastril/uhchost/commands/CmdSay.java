@@ -27,7 +27,7 @@ public class CmdSay implements CommandExecutor {
 						message += args[i] + " ";
 					}
 					Bukkit.broadcastMessage(" ");
-					Bukkit.broadcastMessage("§6§lHOTE "+player.getName()+" §e: §b" + message);
+					Bukkit.broadcastMessage("§e§lHOST "+player.getName()+" §f┃§e " + message);
 					Bukkit.broadcastMessage(" ");
 				} else {
 					player.sendMessage(Messages.use("/say <message>"));

@@ -1,6 +1,5 @@
 package fr.lastril.uhchost.modes.naruto.v2.commands;
 
-import com.mojang.authlib.properties.Property;
 import fr.lastril.uhchost.UhcHost;
 import fr.lastril.uhchost.enums.Messages;
 import fr.lastril.uhchost.modes.Modes;
@@ -43,7 +42,7 @@ public class CmdMetamorphose implements ModeSubCommand {
             player.sendMessage(Messages.error("Vous n'êtes plus vivant."));
             return false;
         }
-        if(main.getGamemanager().getModes() != Modes.NARUTO_V2) return false;
+        if(main.getGamemanager().getModes() != Modes.NARUTO) return false;
         NarutoV2Manager narutoV2Manager = (NarutoV2Manager) main.getGamemanager().getModes().getMode().getModeManager();
         if (joueur.hasRole()) {
             if (joueur.getRole() instanceof ZetsuBlanc) {

@@ -1,11 +1,11 @@
-package fr.lastril.uhchost.modes.bleach.roles.shinigamis.soulsociety;
+package fr.lastril.uhchost.modes.lg.roles.village;
 
 import fr.lastril.uhchost.modes.roles.Camps;
 import fr.lastril.uhchost.modes.roles.Role;
 import fr.lastril.uhchost.tools.API.items.crafter.QuickItem;
 import org.bukkit.entity.Player;
 
-public class JushiroUkitake extends Role {
+public class Bucheron extends Role {
     @Override
     public void giveItems(Player player) {
 
@@ -38,16 +38,16 @@ public class JushiroUkitake extends Role {
 
     @Override
     public Camps getCamp() {
-        return Camps.SHINIGAMIS;
+        return Camps.VILLAGEOIS;
     }
 
     @Override
     public String getRoleName() {
-        return null;
+        return "Bûcheron";
     }
 
     @Override
     public String getDescription() {
-        return main.getRoleDescription(this, this.getClass().getName(), "bleach.yml");
+        return main.getRoleDescription(this, this.getClass().getName(), "lg.yml");
     }
 }

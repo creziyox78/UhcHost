@@ -74,7 +74,7 @@ public class Asuma extends Role implements NarutoV2Role {
 
     @Override
     public String getDescription() {
-        return main.getRoleDescription(this, this.getClass().getName());
+        return main.getRoleDescription(this, this.getClass().getName(), "naruto.yml");
     }
 
     @Override

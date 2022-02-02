@@ -42,7 +42,7 @@ public class NarutoV2 extends Mode implements ModeConfig, RoleMode<NarutoV2Role>
 	private int announceRoles = 30;
 	
 	public NarutoV2() {
-		super(Modes.NARUTO_V2);
+		super(Modes.NARUTO);
 		main = UhcHost.getInstance();
 		this.narutoV2Manager = new NarutoV2Manager(main);
 	}

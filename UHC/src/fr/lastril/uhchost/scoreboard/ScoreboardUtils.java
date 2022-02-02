@@ -372,8 +372,11 @@ public class ScoreboardUtils {
 					this.pl.worldUtils.getCenter().getBlockX(), this.pl.worldUtils.getCenter().getBlockZ()).getLocation();
 			loc.setY(player.getLocation().getY());
 			if (loc.getWorld() == player.getWorld())
-				newLine = newLine.replace("{spawn_direction}", ClassUtils.getDirectionOf(player.getLocation(), loc) + "(" + (int) player.getLocation().distance(loc.add(0, player.getLocation().getY(), 0)) + ")").replace("{border}", (int) (this.pl.worldUtils.getWorld().getWorldBorder().getSize() / 2.0D) + "/-"
-						+ (int) (this.pl.worldUtils.getWorld().getWorldBorder().getSize() / 2.0D));
+				newLine = newLine.replace("{spawn_direction}",
+						ClassUtils.getDirectionOf(player.getLocation(), loc) +
+								"(" + (int) player.getLocation().distance(loc.add(0, player.getLocation().getY(), 0))
+								+ ")").replace("{border}",
+						String.valueOf(this.pl.worldUtils.getWorld().getWorldBorder().getSize() / 2.0D));
 
 		}
 		pvpTime = this.pl.taskManager.getPvpTime() - count;

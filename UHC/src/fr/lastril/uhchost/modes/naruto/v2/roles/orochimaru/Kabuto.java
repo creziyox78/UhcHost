@@ -43,7 +43,7 @@ public class Kabuto extends Role implements NarutoV2Role, EdoTenseiItem.EdoTense
 
 	@Override
 	public void afterRoles(Player player) {
-		if(main.getGamemanager().getModes() != Modes.NARUTO_V2) return;
+		if(main.getGamemanager().getModes() != Modes.NARUTO) return;
 		NarutoV2Manager narutoV2Manager = (NarutoV2Manager) main.getGamemanager().getModes().getMode().getModeManager();
 		new BukkitRunnable() {
 			@Override
@@ -152,7 +152,7 @@ public class Kabuto extends Role implements NarutoV2Role, EdoTenseiItem.EdoTense
 
 	@Override
 	public String getDescription() {
-		return main.getRoleDescription(this, this.getClass().getName());
+		return main.getRoleDescription(this, this.getClass().getName(), "naruto.yml");
 	}
 
 	@Override
@@ -167,7 +167,7 @@ public class Kabuto extends Role implements NarutoV2Role, EdoTenseiItem.EdoTense
 			userLoc = player.getLocation();
 			if(userLoc.getWorld() == player.getLocation())
 				if(userLoc.distance(player.getLocation()) >= 0.2){
-					if(main.getGamemanager().getModes() != Modes.NARUTO_V2) return;
+					if(main.getGamemanager().getModes() != Modes.NARUTO) return;
 					NarutoV2Manager narutoV2Manager = (NarutoV2Manager) main.getGamemanager().getModes().getMode().getModeManager();
 					if(narutoV2Manager.isInShosenJutsu(player.getUniqueId()))
 						narutoV2Manager.removeInShosenJutsu(player.getUniqueId());
@@ -176,7 +176,7 @@ public class Kabuto extends Role implements NarutoV2Role, EdoTenseiItem.EdoTense
 		if(targetLoc != null){
 			if(targetLoc.getWorld() == player.getLocation().getWorld()){
 				if(targetLoc.distance(player.getLocation()) >= 0.2){
-					if(main.getGamemanager().getModes() != Modes.NARUTO_V2) return;
+					if(main.getGamemanager().getModes() != Modes.NARUTO) return;
 					NarutoV2Manager narutoV2Manager = (NarutoV2Manager) main.getGamemanager().getModes().getMode().getModeManager();
 					if(narutoV2Manager.isInShosenJutsu(targetId))
 						narutoV2Manager.removeInShosenJutsu(targetId);

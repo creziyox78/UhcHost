@@ -51,7 +51,7 @@ public class Hinata extends Role implements NarutoV2Role {
     @Override
 	public void onPlayerDeath(Player player) {
 		PlayerManager joueur = main.getPlayerManager(player.getUniqueId());
-		if(main.getGamemanager().getModes() != Modes.NARUTO_V2) return;
+		if(main.getGamemanager().getModes() != Modes.NARUTO) return;
 		NarutoV2Manager narutoV2Manager = (NarutoV2Manager) main.getGamemanager().getModes().getMode().getModeManager();
 		if (joueur.hasRole()) {
 			if(joueur.getRole() instanceof Neji){
@@ -79,7 +79,7 @@ public class Hinata extends Role implements NarutoV2Role {
 			}
 			player.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 20*4, 0, false, false));
 		}
-		if(main.getGamemanager().getModes() != Modes.NARUTO_V2) return;
+		if(main.getGamemanager().getModes() != Modes.NARUTO) return;
 		NarutoV2Manager narutoV2Manager = (NarutoV2Manager) main.getGamemanager().getModes().getMode().getModeManager();
     	for (PlayerManager targetJoueur : narutoV2Manager.getPlayerManagersWithRole(Naruto.class)) {
 			if(targetJoueur.getPlayer() != null && targetJoueur.isAlive()){
@@ -159,7 +159,7 @@ public class Hinata extends Role implements NarutoV2Role {
 
     @Override
     public String getDescription() {
-        return main.getRoleDescription(this, this.getClass().getName());
+		return main.getRoleDescription(this, this.getClass().getName(), "naruto.yml");
     }
 
     @Override

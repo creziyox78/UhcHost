@@ -40,7 +40,7 @@ public class CmdPaume implements ModeSubCommand {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        if(main.getGamemanager().getModes() != Modes.NARUTO_V2) return false;
+        if(main.getGamemanager().getModes() != Modes.NARUTO) return false;
         NarutoV2Manager narutoV2Manager = (NarutoV2Manager) main.getGamemanager().getModes().getMode().getModeManager();
         Player player = (Player) sender;
         PlayerManager joueur = main.getPlayerManager(player.getUniqueId());

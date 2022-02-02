@@ -41,7 +41,7 @@ public class LoupGarouVengeur extends Role implements LGRole, RealLG, LGChatRole
 
     @Override
     public String getDescription() {
-        return main.getRoleDescription(this,this.getClass().getName());
+        return main.getRoleDescription(this, this.getClass().getName(), "lg.yml");
     }
 
     @Override

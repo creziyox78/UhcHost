@@ -43,7 +43,7 @@ public class CmdShosenJutsu implements ModeSubCommand {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String s, String[] args) {
-        if(main.getGamemanager().getModes() != Modes.NARUTO_V2) return false;
+        if(main.getGamemanager().getModes() != Modes.NARUTO) return false;
         NarutoV2Manager narutoV2Manager = (NarutoV2Manager) main.getGamemanager().getModes().getMode().getModeManager();
         Player player = (Player) sender;
         PlayerManager joueur = main.getPlayerManager(player.getUniqueId());
@@ -119,7 +119,7 @@ public class CmdShosenJutsu implements ModeSubCommand {
 
         default void addInShosenJutsu(UUID uuid){
             UhcHost main = UhcHost.getInstance();
-            if(main.getGamemanager().getModes() != Modes.NARUTO_V2) return;
+            if(main.getGamemanager().getModes() != Modes.NARUTO) return;
             NarutoV2Manager narutoV2Manager = (NarutoV2Manager) main.getGamemanager().getModes().getMode().getModeManager();
             narutoV2Manager.addInShosenJutsu(uuid);
         }

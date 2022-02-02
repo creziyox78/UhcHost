@@ -49,6 +49,6 @@ public class Mayuri extends Role {
 
     @Override
     public String getDescription() {
-        return main.getRoleDescription(this, this.getClass().getName());
+        return main.getRoleDescription(this, this.getClass().getName(), "bleach.yml");
     }
 }

@@ -55,7 +55,7 @@ public class Madara extends Role implements NarutoV2Role, JubiItem.JubiUser, Sus
     public void afterRoles(Player player) {
         player.setMaxHealth(24);
         player.setHealth(player.getMaxHealth());
-        if(main.getGamemanager().getModes() != Modes.NARUTO_V2) return;
+        if(main.getGamemanager().getModes() != Modes.NARUTO) return;
         NarutoV2Manager narutoV2Manager = (NarutoV2Manager) main.getGamemanager().getModes().getMode().getModeManager();
         if(narutoV2Manager.getNarutoV2Config().isBiju()){
             setBijuTracked(narutoV2Manager.getBijuManager().getBijuListClass().get(0));
@@ -118,7 +118,7 @@ public class Madara extends Role implements NarutoV2Role, JubiItem.JubiUser, Sus
 
     @Override
     public String getDescription() {
-        return main.getRoleDescription(this, this.getClass().getName());
+        return main.getRoleDescription(this, this.getClass().getName(), "naruto.yml");
     }
 
     @Override

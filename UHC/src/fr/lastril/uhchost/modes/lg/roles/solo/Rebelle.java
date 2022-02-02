@@ -49,6 +49,6 @@ public class Rebelle extends Role implements LGRole {
 
     @Override
     public String getDescription() {
-        return main.getRoleDescription(this, this.getClass().getName());
+        return main.getRoleDescription(this, this.getClass().getName(), "lg.yml");
     }
 }

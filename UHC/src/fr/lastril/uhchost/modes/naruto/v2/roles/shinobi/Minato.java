@@ -127,7 +127,7 @@ public class Minato extends Role implements NarutoV2Role, KuramaItem.KuramaUser,
 
     @Override
     public String getDescription() {
-        return main.getRoleDescription(this, this.getClass().getName());
+        return main.getRoleDescription(this, this.getClass().getName(), "naruto.yml");
     }
 
     @Override

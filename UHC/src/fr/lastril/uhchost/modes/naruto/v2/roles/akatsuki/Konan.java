@@ -84,7 +84,7 @@ public class Konan extends Role implements NarutoV2Role, RoleListener, RoleComma
 
     @Override
     public String getDescription() {
-        return main.getRoleDescription(this, this.getClass().getName());
+        return main.getRoleDescription(this, this.getClass().getName(), "naruto.yml");
     }
 
     @Override
@@ -99,7 +99,7 @@ public class Konan extends Role implements NarutoV2Role, RoleListener, RoleComma
 
     @Override
     public String sendList() {
-        if(main.getGamemanager().getModes() != Modes.NARUTO_V2) return null;
+        if(main.getGamemanager().getModes() != Modes.NARUTO) return null;
         NarutoV2Manager narutoV2Manager = (NarutoV2Manager) main.getGamemanager().getModes().getMode().getModeManager();
         String list = Messages.NARUTO_PREFIX.getMessage() + "Voici la liste entière de l'Akatsuki : \n";
         for (PlayerManager joueur : narutoV2Manager.getPlayerManagersWithCamps(Camps.AKATSUKI)) {

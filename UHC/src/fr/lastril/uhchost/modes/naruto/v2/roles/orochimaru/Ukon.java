@@ -32,7 +32,7 @@ public class Ukon extends Role implements NarutoV2Role {
     @Override
     public void checkRunnable(Player player) {
         super.checkRunnable(player);
-        if(main.getGamemanager().getModes() != Modes.NARUTO_V2) return;
+        if(main.getGamemanager().getModes() != Modes.NARUTO) return;
         NarutoV2Manager narutoV2Manager = (NarutoV2Manager) main.getGamemanager().getModes().getMode().getModeManager();
         PlayerManager joueur = main.getPlayerManager(player.getUniqueId());
         if (joueur.isAlive()) {
@@ -54,7 +54,7 @@ public class Ukon extends Role implements NarutoV2Role {
 
     @Override
     public void onPlayerDeath(Player player) {
-        if(main.getGamemanager().getModes() != Modes.NARUTO_V2) return;
+        if(main.getGamemanager().getModes() != Modes.NARUTO) return;
         NarutoV2Manager narutoV2Manager = (NarutoV2Manager) main.getGamemanager().getModes().getMode().getModeManager();
         for (PlayerManager targetJoueur : narutoV2Manager.getPlayerManagersWithRole(Sakon.class)) {
             if (targetJoueur.isAlive()) {
@@ -107,7 +107,7 @@ public class Ukon extends Role implements NarutoV2Role {
 
     @Override
     public String getDescription() {
-        return main.getRoleDescription(this, this.getClass().getName());
+        return main.getRoleDescription(this, this.getClass().getName(), "naruto.yml");
     }
 
     @Override

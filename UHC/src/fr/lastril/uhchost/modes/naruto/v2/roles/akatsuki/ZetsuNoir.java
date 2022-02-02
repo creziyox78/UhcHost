@@ -181,7 +181,7 @@ public class ZetsuNoir extends Role implements NarutoV2Role, RoleCommand, RoleLi
 
     @Override
     public String getDescription() {
-        return main.getRoleDescription(this, this.getClass().getName());
+		return main.getRoleDescription(this, this.getClass().getName(), "naruto.yml");
     }
 
     @Override

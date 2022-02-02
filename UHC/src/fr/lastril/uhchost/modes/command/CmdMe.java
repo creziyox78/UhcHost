@@ -40,7 +40,7 @@ public class CmdMe implements ModeSubCommand {
                         if (playerManager.hasRole()) {
                             playerManager.getRole().sendDescription(player);
                         } else {
-                            player.sendMessage("§cVous n'avez pas rôle !");
+                            player.sendMessage("§cVous n'avez pas de rôle !");
                         }
 
                 } else {

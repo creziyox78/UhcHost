@@ -9,6 +9,8 @@ import fr.lastril.uhchost.player.PlayerManager;
 import fr.lastril.uhchost.tools.API.ClassUtils;
 import fr.lastril.uhchost.tools.API.items.crafter.QuickItem;
 import org.bukkit.Bukkit;
+import org.bukkit.Material;
+import org.bukkit.SkullType;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Fireball;
 import org.bukkit.entity.Player;
@@ -62,7 +64,10 @@ public class Hinamori extends Role implements RoleListener {
 
     @Override
     public QuickItem getItem() {
-        return null;
+        return new QuickItem(Material.SKULL_ITEM, 1, SkullType.PLAYER.ordinal())
+                .setName(getCamp().getCompoColor() + getRoleName())
+                .setTexture("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYjFhOWRjYThlYjZhMDM4NzdjZmY5OWY2MTVlMjg1ZTA4YTMxMzg2Nzc2OGIwNjk2ZGUzMzUyMzFkZDViZjMyYiJ9fX0=");
+
     }
 
     @Override
@@ -77,7 +82,7 @@ public class Hinamori extends Role implements RoleListener {
 
     @Override
     public String getDescription() {
-        return main.getRoleDescription(this, this.getClass().getName());
+        return main.getRoleDescription(this, this.getClass().getName(), "bleach.yml");
     }
 
     public void addBurningPlayer(Entity entity, int fireSeconds){

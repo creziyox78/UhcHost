@@ -105,7 +105,7 @@ public class Orochimaru extends Role implements NarutoV2Role, RoleListener, EdoT
     public void afterRoles(Player player) {
     	player.sendMessage(Messages.NARUTO_PREFIX.getMessage() + "Voici votre nature de chakra : " + StringUtils.capitalize(getChakra().toString().toLowerCase()));
     	player.sendMessage(sendList());
-		if(main.getGamemanager().getModes() != Modes.NARUTO_V2) return;
+		if(main.getGamemanager().getModes() != Modes.NARUTO) return;
 		NarutoV2Manager narutoV2Manager = (NarutoV2Manager) main.getGamemanager().getModes().getMode().getModeManager();
     	new BukkitRunnable() {
 			@Override
@@ -153,7 +153,7 @@ public class Orochimaru extends Role implements NarutoV2Role, RoleListener, EdoT
 
 	@Override
 	public String sendList() {
-		if(main.getGamemanager().getModes() != Modes.NARUTO_V2) return null;
+		if(main.getGamemanager().getModes() != Modes.NARUTO) return null;
 		NarutoV2Manager narutoV2Manager = (NarutoV2Manager) main.getGamemanager().getModes().getMode().getModeManager();
 		String list = Messages.NARUTO_PREFIX.getMessage() + "Voici la liste entière du camp Taka : \n";
 		for (PlayerManager joueur : narutoV2Manager.getPlayerManagersWithCamps(Camps.TAKA)) {
@@ -205,7 +205,7 @@ public class Orochimaru extends Role implements NarutoV2Role, RoleListener, EdoT
 
     @Override
     public String getDescription() {
-        return main.getRoleDescription(this, this.getClass().getName());
+		return main.getRoleDescription(this, this.getClass().getName(), "naruto.yml");
     }
 
     @Override

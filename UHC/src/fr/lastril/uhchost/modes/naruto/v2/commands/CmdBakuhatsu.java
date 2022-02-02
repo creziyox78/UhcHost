@@ -42,7 +42,7 @@ public class CmdBakuhatsu implements ModeSubCommand {
     public boolean onCommand(CommandSender sender, Command command, String s, String[] args) {
         Player player = (Player) sender;
         PlayerManager joueur = main.getPlayerManager(player.getUniqueId());
-        if(main.getGamemanager().getModes() != Modes.NARUTO_V2) return false;
+        if(main.getGamemanager().getModes() != Modes.NARUTO) return false;
         NarutoV2Manager narutoV2Manager = (NarutoV2Manager) main.getGamemanager().getModes().getMode().getModeManager();
         if (joueur.hasRole() && joueur.isAlive()) {
             if (joueur.getRole() instanceof Konan) {

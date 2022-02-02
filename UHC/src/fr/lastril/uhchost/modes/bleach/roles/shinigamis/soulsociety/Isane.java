@@ -10,6 +10,8 @@ import fr.lastril.uhchost.modes.roles.RoleListener;
 import fr.lastril.uhchost.player.PlayerManager;
 import fr.lastril.uhchost.tools.API.ClassUtils;
 import fr.lastril.uhchost.tools.API.items.crafter.QuickItem;
+import org.bukkit.Material;
+import org.bukkit.SkullType;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -92,7 +94,10 @@ public class Isane extends Role implements RoleListener, RoleCommand {
 
     @Override
     public QuickItem getItem() {
-        return null;
+        return new QuickItem(Material.SKULL_ITEM, 1, SkullType.PLAYER.ordinal())
+                .setName(getCamp().getCompoColor() + getRoleName())
+                .setTexture("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZDliZjY2NTg0MmZkNTdkNjNhMzlhOGI0OWI4YzE3MjgxODZkZTRkMzIzZGJjNTljNGE3ODk3OGI3Njg3YWJmIn19fQ==");
+
     }
 
     @Override
@@ -107,7 +112,7 @@ public class Isane extends Role implements RoleListener, RoleCommand {
 
     @Override
     public String getDescription() {
-        return main.getRoleDescription(this, this.getClass().getName());
+        return main.getRoleDescription(this, this.getClass().getName(), "bleach.yml");
     }
 
     @Override

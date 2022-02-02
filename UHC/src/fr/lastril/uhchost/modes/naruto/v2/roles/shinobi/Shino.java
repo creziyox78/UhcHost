@@ -85,7 +85,7 @@ public class Shino extends Role implements NarutoV2Role, RoleListener, RoleComma
 
     @Override
     public String getDescription() {
-    	return main.getRoleDescription(this, this.getClass().getName());
+        return main.getRoleDescription(this, this.getClass().getName(), "naruto.yml");
     }
 
     @Override
@@ -99,7 +99,7 @@ public class Shino extends Role implements NarutoV2Role, RoleListener, RoleComma
         if (event.getRightClicked() instanceof Player) {
             Player target = (Player) event.getRightClicked();
             ItemStack item = player.getItemInHand();
-            if(main.getGamemanager().getModes() != Modes.NARUTO_V2) return;
+            if(main.getGamemanager().getModes() != Modes.NARUTO) return;
             NarutoV2Manager narutoV2Manager = (NarutoV2Manager) main.getGamemanager().getModes().getMode().getModeManager();
             if (item != null) {
                 if (item.hasItemMeta() && item.getItemMeta().hasDisplayName()) {

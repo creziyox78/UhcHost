@@ -34,7 +34,7 @@ public class Naruto extends Role implements NarutoV2Role, RoleCommand, KuramaIte
 
 	public Naruto() {
 		super.addRoleToKnow(Jiraya.class);
-		if(main.getGamemanager().getModes() != Modes.NARUTO_V2) return;
+		if(main.getGamemanager().getModes() != Modes.NARUTO) return;
 		NarutoV2Manager narutoV2Manager = (NarutoV2Manager) main.getGamemanager().getModes().getMode().getModeManager();
 		Consumer<Player> coordsEvent = event -> {
 			for (PlayerManager akatsuki : narutoV2Manager.getPlayerManagersWithCamps(Camps.AKATSUKI)) {
@@ -59,7 +59,7 @@ public class Naruto extends Role implements NarutoV2Role, RoleCommand, KuramaIte
 
 	@Override
 	public String getDescription() {
-		return main.getRoleDescription(this, this.getClass().getName());
+		return main.getRoleDescription(this, this.getClass().getName(), "naruto.yml");
 	}
 
 	@Override

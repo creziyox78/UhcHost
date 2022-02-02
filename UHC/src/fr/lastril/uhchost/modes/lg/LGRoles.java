@@ -22,7 +22,7 @@ public enum LGRoles {
     LG_LUNAIRE(LoupGarouLunaire.class), //FINISHED
     LG_GRIMEUR(LoupGarouGrimeur.class), //FINISHED
     LG_CRAINTIF(LoupGarouCraintif.class), //FINISHED
-    LG_PISTEUR(LoupGarouPisteur.class),
+    LG_PISTEUR(LoupGarouPisteur.class), //FINISHED
     LG_JUMEAU(LoupGarouJumeau.class),
     LV_MAUDITE(LouveMaudite.class),
     VPL(VilainPetitLoup.class), //FINISHED
@@ -35,6 +35,7 @@ public enum LGRoles {
      * CAMP DU VILLAGE
      */
     ANCIEN(Ancien.class), //FINISHED
+    BUCHERON(Bucheron.class),
     CHAMAN(Chaman.class), //FINISHED
     CHASSEUR(Chasseur.class), //FINISHED
     CITOYEN(Citoyen.class),

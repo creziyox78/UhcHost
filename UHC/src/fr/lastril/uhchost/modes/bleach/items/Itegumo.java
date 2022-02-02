@@ -6,7 +6,9 @@ import fr.lastril.uhchost.modes.bleach.roles.shinigamis.soulsociety.Isane;
 import fr.lastril.uhchost.player.PlayerManager;
 import fr.lastril.uhchost.tools.API.items.crafter.QuickItem;
 import org.bukkit.Material;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemFlag;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
@@ -14,6 +16,8 @@ public class Itegumo extends QuickItem {
     public Itegumo(UhcHost main) {
         super(Material.GLOWSTONE_DUST);
         super.setName("§9Itegumo");
+        super.addEnchant(Enchantment.DURABILITY, 1, true);
+        super.addItemFlag(ItemFlag.HIDE_ENCHANTS);
         super.setLore("",
                 "§7Octroie§c Force 1§7 pendant 20 secondes.",
                 "§750% des dégâts infligé à un joueur sont",

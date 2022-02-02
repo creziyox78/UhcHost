@@ -160,7 +160,7 @@ public class GameManager {
 		this.scenarios = new ArrayList<>();
 		this.composition = new ArrayList<>();
 		this.cohost = new ArrayList<>();
-		this.gameName = ChatColor.GOLD + "UHC Host";
+		this.gameName = ChatColor.YELLOW + "UHC Host";
 		this.playerCheckingWorld = false;
 		this.setNether(true);
 		this.validateWorld = false;

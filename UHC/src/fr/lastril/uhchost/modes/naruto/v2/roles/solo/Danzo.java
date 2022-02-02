@@ -52,7 +52,7 @@ public class Danzo extends Role implements NarutoV2Role, RoleCommand, RoleListen
     	if(event.getEntity() instanceof Player) {
     		Player player = (Player) event.getEntity();
 			PlayerManager joueur = main.getPlayerManager(player.getUniqueId());
-			if(main.getGamemanager().getModes() != Modes.NARUTO_V2) return;
+			if(main.getGamemanager().getModes() != Modes.NARUTO) return;
 			NarutoV2Manager narutoV2Manager = (NarutoV2Manager) main.getGamemanager().getModes().getMode().getModeManager();
 			if(joueur.hasRole()) {
 				if(joueur.getRole() instanceof Danzo) {
@@ -91,7 +91,7 @@ public class Danzo extends Role implements NarutoV2Role, RoleCommand, RoleListen
     	if(event.getEntity() instanceof Player) {
     		Player player = (Player) event.getEntity();
 			PlayerManager joueur = main.getPlayerManager(player.getUniqueId());
-			if(main.getGamemanager().getModes() != Modes.NARUTO_V2) return;
+			if(main.getGamemanager().getModes() != Modes.NARUTO) return;
 			NarutoV2Manager narutoV2Manager = (NarutoV2Manager) main.getGamemanager().getModes().getMode().getModeManager();
 			if(joueur.hasRole()) {
 				if(joueur.getRole() instanceof Danzo) {
@@ -147,7 +147,7 @@ public class Danzo extends Role implements NarutoV2Role, RoleCommand, RoleListen
     	Player player = event.getDeadPlayer();
     	PlayerManager killerJoueur = main.getPlayerManager(killer.getUniqueId());
     	PlayerManager joueur = main.getPlayerManager(player.getUniqueId());
-		if(main.getGamemanager().getModes() != Modes.NARUTO_V2) return;
+		if(main.getGamemanager().getModes() != Modes.NARUTO) return;
 		NarutoV2Manager narutoV2Manager = (NarutoV2Manager) main.getGamemanager().getModes().getMode().getModeManager();
     	if(killerJoueur.hasRole()) {
     		if(killerJoueur.getRole() instanceof Danzo) {
@@ -205,7 +205,7 @@ public class Danzo extends Role implements NarutoV2Role, RoleCommand, RoleListen
 
     @Override
     public String getDescription() {
-        return main.getRoleDescription(this, this.getClass().getName());
+		return main.getRoleDescription(this, this.getClass().getName(), "naruto.yml");
     }
 
     @Override
@@ -256,7 +256,7 @@ public class Danzo extends Role implements NarutoV2Role, RoleCommand, RoleListen
 	}
 
 	public void useVie(PlayerManager joueur, int damage){
-		if(main.getGamemanager().getModes() != Modes.NARUTO_V2) return;
+		if(main.getGamemanager().getModes() != Modes.NARUTO) return;
 		NarutoV2Manager narutoV2Manager = (NarutoV2Manager) main.getGamemanager().getModes().getMode().getModeManager();
 		if(joueur.hasRole()) {
 			if(joueur.getRole() instanceof Danzo) {

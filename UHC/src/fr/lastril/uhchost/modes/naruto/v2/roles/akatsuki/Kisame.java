@@ -50,7 +50,7 @@ public class Kisame extends Role implements NarutoV2Role, RoleListener {
 		if(player.getItemInHand().hasItemMeta()) {
 			if(player.getItemInHand().getItemMeta().hasDisplayName()){
 				if(player.getItemInHand().getItemMeta().getDisplayName().equalsIgnoreCase("§cSamehada")){
-					if(main.getGamemanager().getModes() != Modes.NARUTO_V2) return;
+					if(main.getGamemanager().getModes() != Modes.NARUTO) return;
 					NarutoV2Manager narutoV2Manager = (NarutoV2Manager) main.getGamemanager().getModes().getMode().getModeManager();
 					if(!narutoV2Manager.isInSamehada(target.getUniqueId())) {
 						narutoV2Manager.addInSamehada(target.getUniqueId());
@@ -162,7 +162,7 @@ public class Kisame extends Role implements NarutoV2Role, RoleListener {
 
     @Override
     public String getDescription() {
-        return main.getRoleDescription(this, this.getClass().getName());
+		return main.getRoleDescription(this, this.getClass().getName(), "naruto.yml");
     }
 
     @Override

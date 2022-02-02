@@ -10,6 +10,7 @@ import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class CmdDesc implements ModeSubCommand{
 
@@ -48,7 +49,7 @@ public class CmdDesc implements ModeSubCommand{
                 RoleMode<?> mode = (RoleMode<?>) pl.getGamemanager().getModes().getMode();
                 for (Role roles : mode.getRoles()) {
                     if(roleName.equalsIgnoreCase(roles.getRoleName() + " ")){
-                        player.sendMessage(UhcHost.getInstance().getRoleDescription(roles, roles.getClass().getName()));
+                        player.sendMessage(UhcHost.getInstance().getRoleDescription(roles, roles.getClass().getName(),  pl.getGamemanager().getModes().name().toLowerCase(Locale.ROOT) + ".yml"));
                         return true;
                     }
                 }

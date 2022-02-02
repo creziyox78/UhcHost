@@ -85,7 +85,7 @@ public class Kira extends Role implements RoleListener, ShinigamiRole {
 
     @Override
     public String getDescription() {
-        return main.getRoleDescription(this, this.getClass().getName());
+        return main.getRoleDescription(this, this.getClass().getName(), "bleach.yml");
     }
 
     @Override

@@ -92,7 +92,7 @@ public class Kiba extends Role implements NarutoV2Role, RoleListener, RoleComman
 
     @Override
     public String getDescription() {
-        return main.getRoleDescription(this, this.getClass().getName());
+		return main.getRoleDescription(this, this.getClass().getName(), "naruto.yml");
     }
 
     @Override

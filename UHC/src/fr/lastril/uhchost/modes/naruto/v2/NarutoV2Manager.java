@@ -179,7 +179,7 @@ public class NarutoV2Manager extends ModeManager implements Listener {
         Player player = event.getPlayer();
         PlayerManager playerManager = main.getPlayerManager(player.getUniqueId());
         if(GameState.isState(GameState.STARTED)){
-            if(main.getGamemanager().getModes() == Modes.NARUTO_V2){
+            if(main.getGamemanager().getModes() == Modes.NARUTO){
                 event.setCancelled(true);
                 if(playerManager.hasRole() && playerManager.isAlive()){
                     if(event.getMessage().startsWith("!")) {

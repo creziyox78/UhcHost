@@ -2,7 +2,6 @@ package fr.lastril.uhchost.modes.naruto.v2.commands.hokage;
 
 import fr.lastril.uhchost.UhcHost;
 import fr.lastril.uhchost.enums.Messages;
-import fr.lastril.uhchost.modes.ModeManager;
 import fr.lastril.uhchost.modes.Modes;
 import fr.lastril.uhchost.modes.command.ModeSubCommand;
 import fr.lastril.uhchost.modes.naruto.v2.NarutoV2Manager;
@@ -26,7 +25,7 @@ public class CmdBoost implements ModeSubCommand {
 	
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-		if(main.getGamemanager().getModes() != Modes.NARUTO_V2) return false;
+		if(main.getGamemanager().getModes() != Modes.NARUTO) return false;
 		NarutoV2Manager narutoV2Manager = (NarutoV2Manager) main.getGamemanager().getModes().getMode().getModeManager();
 		Player player = (Player) sender;
         PlayerManager joueur = main.getPlayerManager(player.getUniqueId());

@@ -21,18 +21,19 @@ public class Tablist extends BukkitRunnable {
 		double tps = Math.round(TpsServer.getTPS() * 100.0D) / 100.0D;
 		int ping = (((CraftPlayer) player).getHandle()).ping;
 		PlayerConnection con = (((CraftPlayer) player).getHandle()).playerConnection;
-		IChatBaseComponent tabHeader = IChatBaseComponent.ChatSerializer.a("{\"text\":\" " + ChatColor.AQUA
-				+ "Group UHC" + ChatColor.WHITE + " !\n" +
+		IChatBaseComponent tabHeader = IChatBaseComponent.ChatSerializer.a("{\"text\":\" "
+				+ "§e§lGroup§f§l UHC" + "\n" +
 				"\n" +
-				"§8§m--------------------- \"}");
+				"§8   §m--------------------- \"}");
 		PacketPlayOutPlayerListHeaderFooter packet = new PacketPlayOutPlayerListHeaderFooter(tabHeader);
 		IChatBaseComponent tabFooter = IChatBaseComponent.ChatSerializer
 				.a("{\"text\":\" \n" +
 						"\n" +
 						"§8§m---------------------\n"
-						+ ChatColor.AQUA + "Ton ping: " + ChatColor.WHITE + ping + "ms" + ChatColor.AQUA
-						+ "  |  TPS du serveur: " + ChatColor.WHITE + tps + "\n" +
-						"§cPlugin by Lastril"
+						+ "§f§lPING ┃§a§l " + ping + "ms" +
+						"     §f§lTPS ┃§a§l "+ tps + "\n" +
+						"§c§l/MUMBLE        /DISCORD\n" +
+						"§ePlugin by Lastril"
 						+" \"}");
 		try {
 			Field a = packet.getClass().getDeclaredField("b");

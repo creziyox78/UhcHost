@@ -9,6 +9,7 @@ import fr.lastril.uhchost.modes.ModeManager;
 import fr.lastril.uhchost.modes.Modes;
 import fr.lastril.uhchost.modes.bleach.roles.BLRole;
 import fr.lastril.uhchost.modes.command.CmdCompo;
+import fr.lastril.uhchost.modes.command.CmdDesc;
 import fr.lastril.uhchost.modes.command.ModeCommand;
 import fr.lastril.uhchost.modes.command.ModeSubCommand;
 import fr.lastril.uhchost.modes.roles.*;
@@ -316,6 +317,7 @@ public class BleachMode extends Mode implements ModeConfig, RoleAnnounceMode, Mo
     public List<ModeSubCommand> getSubCommands() {
         List<ModeSubCommand> subCommands = new ArrayList<>();
         subCommands.add(new CmdCompo(main));
+        subCommands.add(new CmdDesc(main));
         this.getRoles().stream().filter(role -> role instanceof RoleCommand).map(role -> ((RoleCommand) role).getSubCommands()).forEach(subCommands::addAll);
         return subCommands;
     }

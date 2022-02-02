@@ -1,0 +1,64 @@
+fr:
+  lastril:
+    uhchost:
+      modes:
+        bleach:
+          roles:
+            shinigamis:
+              InoueOrihime:
+                - ""
+              Ishida:
+                - ""
+              soulsociety:
+                Yamamoto:
+                  - "&8&m--------------------------------------------------&r"
+                  - "&fVous êtes &3&l{role}&r&f, vous connaisez tous les capitaines présents dans la partie."
+                  - ""
+                  - "&fVous possédez l’effet &cForce I &fet &6Résistance au feu&f." 
+                  - "Vous possédez les Livres &cFire Aspect 2 &fet &cFlame 1 &fet vous ne prenez pas de dégâts de chute en tombant dans de la lave. "
+                  - "&3"
+                  - "&fActivable &6\"Ryujin Jakka\"&f: Vous envoyez une vague de flammes sur une distance de &920 blocs&f. La vague fait &910 blocs &fde large et &93 blocs &fde hauteur." 
+                  - "Tous les ennemis atteints par la vague ne reçoivent plus d'&eabsorption &florsqu'ils mangent une pomme en or pendant &310 secondes&f." 
+                  - "Ils sont également en feu pendant &310 secondes&f sans possibilité de s'éteindre. Il peut utiliser ce pouvoir 2 fois dans la partie. &7(Cooldown - 10 minutes)"
+                  - "&3"
+                  - "&fA l'aide de la commande &7/b ennetsu&f, des sources de lave apparaîtront tout autour de vous en cercle à un rayon de &37 blocs&f." 
+                  - "La lave reste pendant &31 minute&f. Vous pouvez utiliser cette capacité 2 fois pendant la partie. &7(Cooldown - 10 minutes)."
+                  - "&8&m--------------------------------------------------&r"
+                SoiFon:
+                 - "&f&lRÔLE | "
+                 - "&a&lAragorn &r&7est le Prince Héritier du Roi Balan, il est réputé pour être l'Elfes Blancs le plus puissants de Alfheim. Son but est de vaincre les Elfes Noirs et Nandor l'usurpateur."
+                 - ""
+                 - "&f&lITEMS |"
+                 - "Il dispose d'un item nommé \"Flamme de Narmacil\" avec lequel il peut enflammé son épée ainsi que ces flèches durant 30 secondes toutes les 10 minutes."
+                 - "Il dispose d'un second item nommé \"Fureur du Roi\" qui lui permet d'avoir une aura blanche atour de lui qui le protège des coups ennemie durant 5 secondes,"
+                 - "et déploie du gaz dans un rayon de 10 blocks pendant 10 secondes toutes les 20 minutes, ce gaz enlève 0,5 ♥ par secondes pour ceux qui se trouve dedans."
+                 - ""
+                 - "&f&lPARTICULARITÉS |"
+                 - "Aragorn dispose de l'effet Force I et Speed I. S'il il parvient à tué Surt il obtiendra Résistance I."
+                Omaeda:
+                  - "&8&m--------------------------------------------------&r"
+                  - "&8&m--------------------------------------------------&r"
+                Kira:
+                  - "&8&m--------------------------------------------------&r"
+                  - "&8&m--------------------------------------------------&r"
+                Unoahna:
+                  - "&8&m--------------------------------------------------&r"
+                  - "&8&m--------------------------------------------------&r"
+                Isane:
+                  - "&8&m--------------------------------------------------&r"
+                  - "&8&m--------------------------------------------------&r"
+                Hinamori:
+                  - "&8&m--------------------------------------------------&r"
+                  - "&8&m--------------------------------------------------&r"
+                Byakuya:
+                  - "&8&m--------------------------------------------------&r"                  
+                  - "&8&m--------------------------------------------------&r"                  
+                Renji:
+                  - "&8&m--------------------------------------------------&r"   
+                  - "&8&m--------------------------------------------------&r"   
+                Komamura:
+                  - "&8&m--------------------------------------------------&r"                  
+                  - "&8&m--------------------------------------------------&r"                  
+                Iba:
+                  - "&8&m--------------------------------------------------&r"                 
+                  - "&8&m--------------------------------------------------&r"                 

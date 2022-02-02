@@ -54,7 +54,7 @@ public class Sorciere extends Role implements LGRole, RoleListener {
 
     @Override
     public String getDescription() {
-        return main.getRoleDescription(this,this.getClass().getName());
+        return main.getRoleDescription(this, this.getClass().getName(), "lg.yml");
     }
 
     @Override

@@ -181,7 +181,9 @@ public class UhcHost extends JavaPlugin {
 		CustomInv.createInventory();
 		this.scoreboardUtil = new ScoreboardUtils(this);
 		this.teamUtils = new TeamUtils(this, this.scoreboardUtil.getBoard());
-		checkingDescriptionUpdate();
+		checkingDescriptionUpdate("lg.yml");
+		checkingDescriptionUpdate("naruto.yml");
+		checkingDescriptionUpdate("bleach.yml");
 	}
 
 	private void taskRegister() {
@@ -326,19 +328,19 @@ public class UhcHost extends JavaPlugin {
 		return inventoryUtils;
 	}
 
-	public void checkingDescriptionUpdate(){
+	public void checkingDescriptionUpdate(String file){
         if (!new File(getDataFolder(), "description").exists())
             new File(getDataFolder(), "description").mkdir();
 
 
         File f = new File(getDataFolder() + File.separator + "description",
-                "roles.yml");
+                file);
 
         if (!f.exists()) {
-            getLogger().warning("The file roles.yml doesn't exist ! Creating...");
+            getLogger().warning("The file description \""+file+"\" doesn't exist ! Creating...");
             try {
                 f.createNewFile();
-                FileUtils.copyInputStreamToFile(getResource("roles.yml"), f);
+                FileUtils.copyInputStreamToFile(getResource(file), f);
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -348,10 +350,10 @@ public class UhcHost extends JavaPlugin {
             try {
                 YamlConfiguration yamlConfiguration1 = YamlConfiguration.loadConfiguration(f);
                 File configFile = new File("temp.yml");
-				if(getResource("roles.yml") == null){
-					getLogger().warning("File roles.yml not exists in ressources !");
+				if(getResource(file) == null){
+					getLogger().warning("File "+file+" not exists in ressources !");
 				} else {
-					FileUtils.copyInputStreamToFile(getResource("roles.yml"),configFile);
+					FileUtils.copyInputStreamToFile(getResource(file),configFile);
 					YamlConfiguration yamlConfiguration2 = YamlConfiguration.loadConfiguration(configFile);
 					for (String s : yamlConfiguration2.getKeys(true)) {
 						if (yamlConfiguration1.get(s) == null) {
@@ -404,18 +406,18 @@ public class UhcHost extends JavaPlugin {
 
 	}
 
-	public String getRoleDescription(Role role, String rolePath) {
+	public String getRoleDescription(Role role, String rolePath, String fileDescription) {
 		String description = null;
-		checkingDescriptionUpdate();
-        File file = new File(getDataFolder() + "/description/roles.yml");
-        YamlConfiguration lgYaml = YamlConfiguration.loadConfiguration(file);
+		checkingDescriptionUpdate(fileDescription);
+		File file = new File(getDataFolder() + "/description/"+fileDescription+"");
+		YamlConfiguration lgYaml = YamlConfiguration.loadConfiguration(file);
 
-        for(String line : lgYaml.getStringList(rolePath)){
-        	if(description == null){
-        		description = "";
+		for(String line : lgYaml.getStringList(rolePath)){
+			if(description == null){
+				description = "";
 			}
-            description += line.replace("&", "§").replace("{role}", role.getRoleName()) + " \n";
-        }
+			description += line.replace("&", "§").replace("{role}", role.getRoleName()) + " \n";
+		}
 
 		return description;
 	}

@@ -1,5 +1,6 @@
 package fr.lastril.uhchost.modes.lg.roles.lg;
 
+import fr.lastril.uhchost.UhcHost;
 import fr.lastril.uhchost.enums.Messages;
 import fr.lastril.uhchost.modes.command.ModeSubCommand;
 import fr.lastril.uhchost.modes.lg.LoupGarouManager;
@@ -68,7 +69,7 @@ public class LoupGarouPisteur extends Role implements LGRole, RoleCommand, RealL
 
     @Override
     public String getDescription() {
-        return main.getRoleDescription(this,this.getClass().getName());
+        return main.getRoleDescription(this, this.getClass().getName(), "lg.yml");
     }
 
     @Override
@@ -85,7 +86,13 @@ public class LoupGarouPisteur extends Role implements LGRole, RoleCommand, RealL
                 LoupGarouPisteur trappeur = (LoupGarouPisteur) playerManager.getRole();
                 PlayerManager tracked = trappeur.getTracked();
                 if(tracked != null && tracked.isAlive()){
-                    ActionBar.sendMessage(player, ClassUtils.getDirectionOf(player.getLocation(), tracked.getPlayer().getLocation()));
+                    if(tracked.getPlayer() != null){
+                        ActionBar.sendMessage(player, "§e§l"+ tracked.getPlayerName() + " §a┃ "
+                                + ClassUtils.getDirectionOf(player.getLocation(), tracked.getPlayer().getLocation()));
+                    } else {
+                        ActionBar.sendMessage(player, "§e§l"+ tracked.getPlayerName() + " §a┃ (Déconnecté)");
+                    }
+
                 }
             }
         }

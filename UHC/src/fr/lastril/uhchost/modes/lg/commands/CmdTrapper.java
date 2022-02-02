@@ -45,7 +45,7 @@ public class CmdTrapper implements ModeSubCommand {
                 String targetName = args[1];
                 Player target = Bukkit.getPlayer(targetName);
                 if(target != null){
-                    PlayerManager targetManager = main.getPlayerManager(player.getUniqueId());
+                    PlayerManager targetManager = main.getPlayerManager(target.getUniqueId());
                     if(targetManager.isAlive()){
                         if(!trappeur.canChange()){
                             trappeur.setTracked(targetManager);
@@ -62,7 +62,7 @@ public class CmdTrapper implements ModeSubCommand {
                 String targetName = args[1];
                 Player target = Bukkit.getPlayer(targetName);
                 if(target != null){
-                    PlayerManager targetManager = main.getPlayerManager(player.getUniqueId());
+                    PlayerManager targetManager = main.getPlayerManager(target.getUniqueId());
                     if(targetManager.isAlive()){
                         if(!loupGarouPisteur.canChange()){
                             loupGarouPisteur.setTracked(targetManager);

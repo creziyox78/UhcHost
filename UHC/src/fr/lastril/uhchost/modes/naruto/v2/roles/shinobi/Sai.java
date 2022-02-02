@@ -72,7 +72,7 @@ public class Sai extends Role implements NarutoV2Role, RoleListener {
 
     @Override
     public String getDescription() {
-        return main.getRoleDescription(this, this.getClass().getName());
+        return main.getRoleDescription(this, this.getClass().getName(), "naruto.yml");
     }
 
     @Override
@@ -82,7 +82,7 @@ public class Sai extends Role implements NarutoV2Role, RoleListener {
     @Override
     public void onKill(OfflinePlayer player, Player killer) {
         PlayerManager joueur = main.getPlayerManager(player.getUniqueId());
-        if(main.getGamemanager().getModes() != Modes.NARUTO_V2) return;
+        if(main.getGamemanager().getModes() != Modes.NARUTO) return;
         NarutoV2Manager narutoV2Manager = (NarutoV2Manager) main.getGamemanager().getModes().getMode().getModeManager();
         if(joueur.getRole() instanceof Sasuke){
             killer.setMaxHealth(killer.getMaxHealth()+(2D*2D));

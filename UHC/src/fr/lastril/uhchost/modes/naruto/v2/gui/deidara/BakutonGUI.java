@@ -30,7 +30,7 @@ public class BakutonGUI extends IQuickInventory {
         super("§cBakuton", 9*1);
         this.main = main;
         this.deidara = deidara;
-        if(main.getGamemanager().getModes() != Modes.NARUTO_V2) return;
+        if(main.getGamemanager().getModes() != Modes.NARUTO) return;
         narutoV2Manager = (NarutoV2Manager) main.getGamemanager().getModes().getMode().getModeManager();
     }
 

@@ -53,7 +53,7 @@ public class Sakura extends Role implements NarutoV2Role, CmdShosenJutsu.ShosenJ
             userLoc = player.getLocation();
             if(userLoc.getWorld() == player.getLocation())
             if(userLoc.distance(player.getLocation()) >= 0.2){
-                if(main.getGamemanager().getModes() != Modes.NARUTO_V2) return;
+                if(main.getGamemanager().getModes() != Modes.NARUTO) return;
                 NarutoV2Manager narutoV2Manager = (NarutoV2Manager) main.getGamemanager().getModes().getMode().getModeManager();
                 if(narutoV2Manager.isInShosenJutsu(player.getUniqueId()))
                     narutoV2Manager.removeInShosenJutsu(player.getUniqueId());
@@ -62,7 +62,7 @@ public class Sakura extends Role implements NarutoV2Role, CmdShosenJutsu.ShosenJ
         if(targetLoc != null){
             if(targetLoc.getWorld() == player.getLocation().getWorld()){
                 if(targetLoc.distance(player.getLocation()) >= 0.2){
-                    if(main.getGamemanager().getModes() != Modes.NARUTO_V2) return;
+                    if(main.getGamemanager().getModes() != Modes.NARUTO) return;
                     NarutoV2Manager narutoV2Manager = (NarutoV2Manager) main.getGamemanager().getModes().getMode().getModeManager();
                     if(narutoV2Manager.isInShosenJutsu(targetId))
                         narutoV2Manager.removeInShosenJutsu(targetId);
@@ -117,7 +117,7 @@ public class Sakura extends Role implements NarutoV2Role, CmdShosenJutsu.ShosenJ
 
     @Override
     public String getDescription() {
-        return main.getRoleDescription(this, this.getClass().getName());
+        return main.getRoleDescription(this, this.getClass().getName(), "naruto.yml");
     }
 
     @Override

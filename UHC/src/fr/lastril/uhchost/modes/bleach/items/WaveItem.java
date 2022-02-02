@@ -9,8 +9,10 @@ import fr.lastril.uhchost.tools.API.particles.Wave;
 import net.minecraft.server.v1_8_R3.EnumParticle;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemFlag;
 import org.bukkit.util.Vector;
 
 import java.util.ArrayList;
@@ -20,6 +22,8 @@ public class WaveItem extends QuickItem {
     public WaveItem(UhcHost main) {
         super(Material.BLAZE_POWDER);
         super.setName("§6Wave");
+        super.addEnchant(Enchantment.DURABILITY, 1, true);
+        super.addItemFlag(ItemFlag.HIDE_ENCHANTS);
         super.setLore("",
                 "§7Envoie une vague de§6 flame§7 (10x2).",
                 "§7Les joueurs touchés sont",

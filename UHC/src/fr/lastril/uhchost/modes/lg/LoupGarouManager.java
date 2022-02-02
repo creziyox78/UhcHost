@@ -433,7 +433,7 @@ public class LoupGarouManager extends ModeManager implements Listener {
         Bukkit.broadcastMessage("§8§m----------------------------");
         Bukkit.broadcastMessage("§eRésultat du vote");
         if (mostVoted == null) {
-            Bukkit.broadcastMessage("§cPersonne n'a réussi à se mettre d'accord.");
+            Bukkit.broadcastMessage("§cLe village n'a réussi à se mettre d'accord.");
         } else {
             Bukkit.broadcastMessage("§bLa personne ayant reçu le plus de vote est " + mostVoted.getPlayerManager().getPlayerName()
                     + ", il perd donc la moitié de sa vie jusqu'au prochain épisode.");

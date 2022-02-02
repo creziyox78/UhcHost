@@ -170,7 +170,7 @@ public class Suigetsu extends Role implements NarutoV2Role, RoleListener {
 	@Override
 	public void onPlayerDeath(Player player) {
 		PlayerManager joueur = main.getPlayerManager(player.getUniqueId());
-		if(main.getGamemanager().getModes() != Modes.NARUTO_V2) return;
+		if(main.getGamemanager().getModes() != Modes.NARUTO) return;
 		NarutoV2Manager narutoV2Manager = (NarutoV2Manager) main.getGamemanager().getModes().getMode().getModeManager();
 		if (joueur.hasRole()) {
 			if(joueur.getRole() instanceof Zabuza){

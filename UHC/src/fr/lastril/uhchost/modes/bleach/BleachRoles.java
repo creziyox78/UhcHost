@@ -13,7 +13,8 @@ public enum BleachRoles {
     UNOHANA(Unohana.class), //TODO BE TESTED
     ISANE(Isane.class), //TODO BE TESTED
     HINAMORI(Hinamori.class), //TODO BE TESTED
-    BYAKUYA(Byakuya.class), //TODO 1 item ("Senbonzakura")
+    BYAKUYA(Byakuya.class), //TODO
+    
     ;
 
     private final Class<? extends Role> role;

@@ -82,7 +82,7 @@ public class Kakashi extends Role implements NarutoV2Role, KamuiItem.KamuiUser, 
 
     @Override
     public String getDescription() {
-        return main.getRoleDescription(this, this.getClass().getName());
+        return main.getRoleDescription(this, this.getClass().getName(), "naruto.yml");
     }
 
     @Override

@@ -192,7 +192,7 @@ public class Yamamoto extends Role implements RoleListener, RoleCommand, Shiniga
 
     @Override
     public String getDescription() {
-        return main.getRoleDescription(this, this.getClass().getName());
+        return main.getRoleDescription(this, this.getClass().getName(), "bleach.yml");
     }
 
     @Override

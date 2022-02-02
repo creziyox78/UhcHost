@@ -54,7 +54,7 @@ public class Trappeur extends Role implements LGRole, RoleCommand {
 
     @Override
     public String getDescription() {
-        return main.getRoleDescription(this,this.getClass().getName());
+        return main.getRoleDescription(this, this.getClass().getName(), "lg.yml");
     }
 
     @Override
@@ -71,7 +71,13 @@ public class Trappeur extends Role implements LGRole, RoleCommand {
                 Trappeur trappeur = (Trappeur) playerManager.getRole();
                 PlayerManager tracked = trappeur.getTracked();
                 if(tracked != null && tracked.isAlive()){
-                    ActionBar.sendMessage(player, ClassUtils.getDirectionOf(player.getLocation(), tracked.getPlayer().getLocation()));
+                    if(tracked.getPlayer() != null){
+                        ActionBar.sendMessage(player, "§e§l"+ tracked.getPlayerName() + " §a┃ "
+                                + ClassUtils.getDirectionOf(player.getLocation(), tracked.getPlayer().getLocation()));
+                    } else {
+                        ActionBar.sendMessage(player, "§e§l"+ tracked.getPlayerName() + " §a┃ (Déconnecté)");
+                    }
+
                 }
             }
         }
