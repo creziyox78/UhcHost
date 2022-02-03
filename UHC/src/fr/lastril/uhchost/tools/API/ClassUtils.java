@@ -79,10 +79,13 @@ public class ClassUtils {
                 }
             }
         },0,1);
-        Bukkit.getScheduler().runTaskLater(UhcHost.getInstance(), task::cancel, 20L *time);
-        if(showWhenEnd){
-            showPlayer(player);
-        }
+        Bukkit.getScheduler().runTaskLater(UhcHost.getInstance(), () -> {
+            task.cancel();
+            if(showWhenEnd){
+                showPlayer(player);
+            }
+        }, 20L *time);
+
     }
 
     public static void showPlayer(Player player){

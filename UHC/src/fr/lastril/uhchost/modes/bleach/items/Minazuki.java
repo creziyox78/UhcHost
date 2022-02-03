@@ -27,6 +27,7 @@ public class Minazuki extends QuickItem {
         super.onClick(onClick -> {
             Player player = onClick.getPlayer();
             PlayerManager playerManager = main.getPlayerManager(player.getUniqueId());
+            onClick.cancelOriginalUse(true);
             if(playerManager.hasRole() && playerManager.getRole() instanceof Unohana){
                 Unohana unohana = (Unohana) playerManager.getRole();
                 if(playerManager.getRoleCooldownMinazuki() <= 0){

@@ -1,5 +1,6 @@
 package fr.lastril.uhchost.modes.bleach.roles.shinigamis.soulsociety;
 
+import fr.lastril.uhchost.enums.Messages;
 import fr.lastril.uhchost.modes.bleach.items.Snap;
 import fr.lastril.uhchost.modes.bleach.items.WaveItem;
 import fr.lastril.uhchost.modes.roles.Camps;
@@ -51,13 +52,17 @@ public class Hinamori extends Role implements RoleListener {
     public void onShotFireBall(EntityExplodeEvent event){
         if(event.getEntity() instanceof Fireball){
             Fireball fireball = (Fireball) event.getEntity();
-            if(fireball.getCustomName().equalsIgnoreCase("§6Jakuho Raikoben")){
+            if(fireball.getCustomName().equalsIgnoreCase("§6Snap")){
+                event.setCancelled(true);
                 for(Entity entity : fireball.getNearbyEntities(3, 3, 3)){
                     if(entity instanceof Player){
                         Player player = (Player) entity;
                         addBurningPlayer(player, 15);
+                        player.sendMessage("§6Vous avez été touché par \"Snap\" d'Hinamori. Vous ne pouvez pas vous éteindre pendant 15 secondes.");
                     }
                 }
+                event.getLocation().getWorld().createExplosion(fireball.getLocation().getX(), fireball.getLocation().getY(), fireball.getLocation().getZ(),
+                        2f, false, false);
             }
         }
     }

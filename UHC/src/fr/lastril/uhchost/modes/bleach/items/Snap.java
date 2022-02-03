@@ -1,6 +1,7 @@
 package fr.lastril.uhchost.modes.bleach.items;
 
 import fr.lastril.uhchost.UhcHost;
+import fr.lastril.uhchost.enums.Messages;
 import fr.lastril.uhchost.modes.bleach.roles.shinigamis.soulsociety.Hinamori;
 import fr.lastril.uhchost.player.PlayerManager;
 import fr.lastril.uhchost.tools.API.items.crafter.QuickItem;
@@ -34,6 +35,8 @@ public class Snap extends QuickItem {
                     fireball.setCustomName("§6Snap");
                     fireball.setCustomNameVisible(true);
                     playerManager.setRoleCooldownSnap(3*60);
+                }else {
+                    player.sendMessage(Messages.cooldown(playerManager.getRoleCooldownSnap()));
                 }
             }
         });

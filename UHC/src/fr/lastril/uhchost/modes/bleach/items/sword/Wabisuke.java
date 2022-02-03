@@ -25,9 +25,9 @@ public class Wabisuke extends QuickItem {
         super.setName("§eWabisuke");
         super.setLore("",
                 "§7Tout les 5 coups infligés à",
-                "§7un joueur lui donne&8 Slowness 1&7",
-                "§7puis&8 Slowness 2&7 au delà de",
-                "&710 coups.");
+                "§7un joueur lui donne§8 Slowness 1§7",
+                "§7puis§8 Slowness 2§7 au delà de",
+                "§710 coups.");
         super.setInfinityDurability();
         super.addItemFlag(ItemFlag.HIDE_UNBREAKABLE);
         super.onClick(onClick -> {

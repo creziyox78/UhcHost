@@ -17,7 +17,6 @@ public class Suzumebachi extends QuickItem {
         super.setName("§6Suzumebachi");
         super.addEnchant(Enchantment.DURABILITY, 1, true);
         super.addItemFlag(ItemFlag.HIDE_ENCHANTS);
-
         super.onClick(onClick -> {
             Player player = onClick.getPlayer();
             PlayerManager playerManager = main.getPlayerManager(player.getUniqueId());
@@ -25,6 +24,8 @@ public class Suzumebachi extends QuickItem {
                 if(playerManager.getRole() instanceof SoiFon){
                     if(playerManager.getRoleCooldownSuzumebachi() >= 0){
                         player.sendMessage(Messages.cooldown(playerManager.getRoleCooldownSuzumebachi()));
+                    } else {
+
                     }
                 }
             }

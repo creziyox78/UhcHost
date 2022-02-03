@@ -1,5 +1,6 @@
 package fr.lastril.uhchost.modes.bleach.roles.shinigamis.soulsociety;
 
+import fr.lastril.uhchost.UhcHost;
 import fr.lastril.uhchost.enums.Messages;
 import fr.lastril.uhchost.modes.bleach.commands.CmdEnnetsu;
 import fr.lastril.uhchost.modes.bleach.items.RyujinJakkaItem;
@@ -35,7 +36,7 @@ public class Yamamoto extends Role implements RoleListener, RoleCommand, Shiniga
     private int sideLength = 5;
     private int height = 3;
 
-    private List<Player> noAbsoplayerList = new ArrayList<>();
+    private final List<Player> noAbsoplayerList = new ArrayList<>();
 
     private int use = 0;
 
@@ -47,7 +48,7 @@ public class Yamamoto extends Role implements RoleListener, RoleCommand, Shiniga
     @Override
     public void giveItems(Player player) {
         main.getInventoryUtils().giveItemSafely(player, new Livre(Enchantment.FIRE_ASPECT, 2).toItemStack());
-        main.getInventoryUtils().giveItemSafely(player, new Livre(Enchantment.ARROW_FIRE, 2).toItemStack());
+        main.getInventoryUtils().giveItemSafely(player, new Livre(Enchantment.ARROW_FIRE, 1).toItemStack());
         main.getInventoryUtils().giveItemSafely(player, new RyujinJakkaItem(main).toItemStack());
     }
 
@@ -134,11 +135,13 @@ public class Yamamoto extends Role implements RoleListener, RoleCommand, Shiniga
                     noAbsoplayerList.add(player);
                 }
             }
+
         }, 0, 20);
         Bukkit.getScheduler().runTaskLater(main, () -> {
             task.cancel();
             if(entity instanceof Player){
                 Player player = (Player) entity;
+                UhcHost.debug("Remove Yamamoto no abso list: "  + player.getName());
                 noAbsoplayerList.remove(player);
             }
         }, 20*10);

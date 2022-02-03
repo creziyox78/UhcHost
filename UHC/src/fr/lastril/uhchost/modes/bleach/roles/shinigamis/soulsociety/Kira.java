@@ -1,6 +1,5 @@
 package fr.lastril.uhchost.modes.bleach.roles.shinigamis.soulsociety;
 
-import com.sun.xml.internal.bind.v2.model.annotation.Quick;
 import fr.lastril.uhchost.UhcHost;
 import fr.lastril.uhchost.modes.bleach.items.sword.Wabisuke;
 import fr.lastril.uhchost.modes.bleach.roles.ShinigamiRole;
@@ -13,6 +12,8 @@ import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.SkullType;
 import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
@@ -88,39 +89,46 @@ public class Kira extends Role implements RoleListener, ShinigamiRole {
         return main.getRoleDescription(this, this.getClass().getName(), "bleach.yml");
     }
 
-    @Override
-    public void onDamage(Player damager, Player target) {
-        PlayerManager damagerManager = main.getPlayerManager(damager.getUniqueId());
-        PlayerManager targetManager = main.getPlayerManager(target.getUniqueId());
-        if(damagerManager.getRole() instanceof Kira){
-            Kira kira = (Kira) damagerManager.getRole();
-            if(!kira.effectMap.containsKey(targetManager)){
-                kira.effectMap.put(targetManager, 1);
-            }
-            UhcHost.debug("Hit on player " + targetManager.getPlayerName() + ": " + effectMap.get(targetManager));
-            kira.effectMap.put(targetManager, effectMap.get(targetManager) + 1);
-            kira.cooldownDamages.put(targetManager, 5);
-            if(effectMap.get(targetManager) == 5){
-                target.sendMessage("§6Vous avez été touché par l’épée de Kira \"§eWabisuke\"");
-                damager.sendMessage("§6Vous donnez au joueur "+target.getName()+" l’effet Slowness 1.");
-                if(target.hasPotionEffect(PotionEffectType.SLOW))
-                    target.removePotionEffect(PotionEffectType.SLOW);
-                target.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 20*5, 0, false, false));
-            } else if(effectMap.get(targetManager) < 10 && effectMap.get(targetManager) > 5){
-                if(target.hasPotionEffect(PotionEffectType.SLOW))
-                    target.removePotionEffect(PotionEffectType.SLOW);
-                target.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 20*5, 0, false, false));
-            } else if(effectMap.get(targetManager) == 10){
-                target.sendMessage("§6Vous avez été touché par l’épée de Kira");
-                damager.sendMessage("§6Vous donnez au joueur "+target.getName()+" l’effet Slowness 2.");
-                if(target.hasPotionEffect(PotionEffectType.SLOW))
-                    target.removePotionEffect(PotionEffectType.SLOW);
-                target.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 20*5, 1, false, false));
-            } else if(effectMap.get(targetManager) >= 11){
-                if(target.hasPotionEffect(PotionEffectType.SLOW))
-                    target.removePotionEffect(PotionEffectType.SLOW);
-                target.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 20*5, 1, false, false));
+
+    @EventHandler
+    public void onIsaneDamage(EntityDamageByEntityEvent event){
+        if(event.getDamager() instanceof Player && event.getEntity() instanceof Player){
+            Player damager = (Player) event.getDamager();
+            Player target = (Player) event.getEntity();
+            PlayerManager damagerManager = main.getPlayerManager(damager.getUniqueId());
+            PlayerManager targetManager = main.getPlayerManager(target.getUniqueId());
+            UhcHost.debug("Kira Listener Damage");
+            if(damagerManager.getRole() instanceof Kira){
+                Kira kira = (Kira) damagerManager.getRole();
+                if(!kira.effectMap.containsKey(targetManager)){
+                    kira.effectMap.put(targetManager, 1);
+                }
+                UhcHost.debug("Hit on player " + targetManager.getPlayerName() + ": " + effectMap.get(targetManager));
+                kira.effectMap.put(targetManager, effectMap.get(targetManager) + 1);
+                kira.cooldownDamages.put(targetManager, 5);
+                if(effectMap.get(targetManager) == 5){
+                    target.sendMessage("§6Vous avez été touché par l’épée de Kira \"§eWabisuke§6\". Vous recevez§7 Slowness 1§6.");
+                    damager.sendMessage("§6Vous donnez au joueur "+target.getName()+" l’effet Slowness 1.");
+                    if(target.hasPotionEffect(PotionEffectType.SLOW))
+                        target.removePotionEffect(PotionEffectType.SLOW);
+                    target.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 20*5, 0, false, false));
+                } else if(effectMap.get(targetManager) < 10 && effectMap.get(targetManager) > 5){
+                    if(target.hasPotionEffect(PotionEffectType.SLOW))
+                        target.removePotionEffect(PotionEffectType.SLOW);
+                    target.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 20*5, 0, false, false));
+                } else if(effectMap.get(targetManager) == 10){
+                    target.sendMessage("§6Vous avez été touché par l’épée de Kira \"§eWabisuke§6\". Vous recevez§7 Slowness 2§6.");
+                    damager.sendMessage("§6Vous donnez au joueur "+target.getName()+" l’effet Slowness 2.");
+                    if(target.hasPotionEffect(PotionEffectType.SLOW))
+                        target.removePotionEffect(PotionEffectType.SLOW);
+                    target.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 20*5, 1, false, false));
+                } else if(effectMap.get(targetManager) >= 11){
+                    if(target.hasPotionEffect(PotionEffectType.SLOW))
+                        target.removePotionEffect(PotionEffectType.SLOW);
+                    target.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 20*5, 1, false, false));
+                }
             }
         }
+
     }
 }

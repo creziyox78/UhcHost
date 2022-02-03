@@ -1,9 +1,7 @@
 package fr.lastril.uhchost.commands;
 
 import fr.lastril.uhchost.UhcHost;
-import org.bukkit.Location;
-import org.bukkit.Material;
-import org.bukkit.World;
+import org.bukkit.*;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -24,14 +22,23 @@ public class TestCommand implements CommandExecutor {
         if(sender instanceof Player){
             Player player = (Player) sender;
             player.sendMessage("§cCette commande est inutile.");
-            Wave wave = new Wave(main, player.getLocation());
+            if(Bukkit.getWorlds().contains(Bukkit.getWorld("soulsociety"))){
+                player.teleport(new Location(Bukkit.getWorld("soulsociety"), 0,80, 0));
+                player.sendMessage("§7Téléportation...");
+            } else {
+                player.sendMessage("§eLe monde n'existe pas, chargement...");
+                WorldCreator.name("soulsociety").createWorld();
+                player.sendMessage("§aChargement terminé !");
+            }
+
+            /*Wave wave = new Wave(main, player.getLocation());
             new BukkitRunnable(){
 
                 @Override
                 public void run() {
                     wave.stop();
                 }
-            }.runTaskLater(main, 20*10);
+            }.runTaskLater(main, 20*10);*/
         }
         return false;
     }

@@ -1,8 +1,8 @@
-package fr.lastril.uhchost.inventory.guis.modes.lg;
+package fr.lastril.uhchost.inventory.guis.modes.bleach;
 
 import fr.lastril.uhchost.UhcHost;
 import fr.lastril.uhchost.modes.ModeConfig;
-import fr.lastril.uhchost.modes.lg.LoupGarouMode;
+import fr.lastril.uhchost.modes.bleach.BleachMode;
 import fr.lastril.uhchost.tools.API.FormatTime;
 import fr.lastril.uhchost.tools.API.inventory.crafter.IQuickInventory;
 import fr.lastril.uhchost.tools.API.inventory.crafter.QuickInventory;
@@ -15,14 +15,14 @@ import org.bukkit.Material;
 
 import java.util.Arrays;
 
-public class RolesTimeGui extends IQuickInventory {
+public class RolesBleachTimeGui extends IQuickInventory {
 
     private BannerCreator bc;
     private ItemsCreator ic;
-    private final LoupGarouMode loupGarouMode;
-    public RolesTimeGui(LoupGarouMode loupGarouMode) {
-        super(I18n.tl("guis.lg.rolestime.name"), 1*9);
-        this.loupGarouMode = loupGarouMode;
+    private final BleachMode bleachMode;
+    public RolesBleachTimeGui(BleachMode bleachMode) {
+        super(I18n.tl("guis.bleach.rolestime.name"), 1*9);
+        this.bleachMode = bleachMode;
     }
 
 
@@ -36,22 +36,22 @@ public class RolesTimeGui extends IQuickInventory {
 
             inv.setItem(bc.create(), onClick -> {
                 String bannerName = ChatColor.stripColor(onClick.getEvent().getCurrentItem().getItemMeta().getDisplayName());
-                int value = loupGarouMode.getRoleAnnouncement() + Integer.parseInt(bannerName) * 60;
-                loupGarouMode.setRoleAnnouncement(value);
+                int value = bleachMode.getRoleAnnouncement() + Integer.parseInt(bannerName) * 60;
+                bleachMode.setRoleAnnouncement(value);
             }, 0);
             bc = new BannerCreator("§c-5", Arrays.asList(""), 1, true);
             bc.setBaseColor(DyeColor.RED);
             inv.setItem(bc.create(), onClick -> {
                 String bannerName = ChatColor.stripColor(onClick.getEvent().getCurrentItem().getItemMeta().getDisplayName());
-                int value = loupGarouMode.getRoleAnnouncement() + Integer.parseInt(bannerName) * 60;
-                loupGarouMode.setRoleAnnouncement(value);
+                int value = bleachMode.getRoleAnnouncement() + Integer.parseInt(bannerName) * 60;
+                bleachMode.setRoleAnnouncement(value);
             }, 1);
             bc = new BannerCreator("§c-1", Arrays.asList(""), 1, true);
             bc.setBaseColor(DyeColor.RED);
             inv.setItem(bc.create(), onClick -> {
                 String bannerName = ChatColor.stripColor(onClick.getEvent().getCurrentItem().getItemMeta().getDisplayName());
-                int value = loupGarouMode.getRoleAnnouncement() + Integer.parseInt(bannerName) * 60;
-                loupGarouMode.setRoleAnnouncement(value);
+                int value = bleachMode.getRoleAnnouncement() + Integer.parseInt(bannerName) * 60;
+                bleachMode.setRoleAnnouncement(value);
             }, 2);
             bc = new BannerCreator("§a+1", Arrays.asList(""), 1, true);
             bc.setBaseColor(DyeColor.GREEN);
@@ -59,7 +59,7 @@ public class RolesTimeGui extends IQuickInventory {
 
 
             ic = new ItemsCreator(Material.PAPER,
-                    "§e" + new FormatTime(loupGarouMode.getRoleAnnouncement()).toFormatString(),
+                    "§e" + new FormatTime(bleachMode.getRoleAnnouncement()).toFormatString(),
                     Arrays.asList(I18n.tl("guis.lg.rolestime.lore"), I18n.tl("guis.lg.rolestime.lore1")));
             inv.setItem(ic.create(), onClick-> {
                 if(UhcHost.getInstance().gameManager.getModes().getMode() instanceof ModeConfig){
@@ -69,22 +69,22 @@ public class RolesTimeGui extends IQuickInventory {
             },4);
             inv.setItem(bc.create(), onClick -> {
                 String bannerName = ChatColor.stripColor(onClick.getEvent().getCurrentItem().getItemMeta().getDisplayName());
-                int value = loupGarouMode.getRoleAnnouncement() + Integer.parseInt(bannerName) * 60;
-                loupGarouMode.setRoleAnnouncement(value);
+                int value = bleachMode.getRoleAnnouncement() + Integer.parseInt(bannerName) * 60;
+                bleachMode.setRoleAnnouncement(value);
             }, 6);
             bc = new BannerCreator("§a+5", Arrays.asList(""), 1, true);
             bc.setBaseColor(DyeColor.GREEN);
             inv.setItem(bc.create(), onClick -> {
                 String bannerName = ChatColor.stripColor(onClick.getEvent().getCurrentItem().getItemMeta().getDisplayName());
-                int value = loupGarouMode.getRoleAnnouncement() + Integer.parseInt(bannerName) * 60;
-                loupGarouMode.setRoleAnnouncement(value);
+                int value = bleachMode.getRoleAnnouncement() + Integer.parseInt(bannerName) * 60;
+                bleachMode.setRoleAnnouncement(value);
             }, 7);
             bc = new BannerCreator("§a+10", Arrays.asList(""), 1, true);
             bc.setBaseColor(DyeColor.GREEN);
             inv.setItem(bc.create(), onClick -> {
                 String bannerName = ChatColor.stripColor(onClick.getEvent().getCurrentItem().getItemMeta().getDisplayName());
-                int value = loupGarouMode.getRoleAnnouncement() + Integer.parseInt(bannerName) * 60;
-                loupGarouMode.setRoleAnnouncement(value);
+                int value = bleachMode.getRoleAnnouncement() + Integer.parseInt(bannerName) * 60;
+                bleachMode.setRoleAnnouncement(value);
             }, 8);
         });
     }

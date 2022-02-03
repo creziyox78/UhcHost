@@ -1,5 +1,6 @@
 package fr.lastril.uhchost.modes.bleach.roles.shinigamis.soulsociety;
 
+import fr.lastril.uhchost.UhcHost;
 import fr.lastril.uhchost.modes.bleach.items.JakuhoRaikoben;
 import fr.lastril.uhchost.modes.bleach.items.Suzumebachi;
 import fr.lastril.uhchost.modes.bleach.roles.ShinigamiRole;
@@ -15,21 +16,26 @@ import org.bukkit.Material;
 import org.bukkit.SkullType;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
+import org.bukkit.entity.Wither;
 import org.bukkit.entity.WitherSkull;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityExplodeEvent;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class SoiFon extends Role implements RoleListener, ShinigamiRole {
 
-    private List<PlayerManager> marquedPlayers;
+    private List<PlayerManager> marquedPlayers, repulsedPlayers;
     private boolean inMarque;
     private int marquePhase = 1;
 
     public SoiFon(){
+        this.marquedPlayers = new ArrayList<>();
+        this.repulsedPlayers = new ArrayList<>();
         super.addEffect(new PotionEffect(PotionEffectType.SPEED, Integer.MAX_VALUE, 0, false, false), When.START);
     }
 
@@ -101,17 +107,6 @@ public class SoiFon extends Role implements RoleListener, ShinigamiRole {
     }
 
     @Override
-    public void onDamage(Player damager, Player target) {
-        PlayerManager damagerManager = main.getPlayerManager(damager.getUniqueId());
-        PlayerManager targetManager = main.getPlayerManager(target.getUniqueId());
-        if(damagerManager.hasRole()){
-            if(damagerManager.getRole() instanceof SoiFon){
-
-            }
-        }
-    }
-
-    @Override
     public Camps getCamp() {
         return Camps.SHINIGAMIS;
     }
@@ -127,17 +122,44 @@ public class SoiFon extends Role implements RoleListener, ShinigamiRole {
     }
 
     @EventHandler
+    public void onFallWitherSkullDamage(EntityDamageEvent event){
+        if(event.getEntity() instanceof Player){
+            Player player = (Player) event.getEntity();
+            PlayerManager playerManager = main.getPlayerManager(player.getUniqueId());
+            if(event.getCause() == EntityDamageEvent.DamageCause.FALL){
+                if(repulsedPlayers.contains(playerManager)){
+                    event.setCancelled(true);
+                    repulsedPlayers.remove(playerManager);
+                }
+            }
+        }
+    }
+
+    @EventHandler
     public void onShotWitherHead(EntityExplodeEvent event){
         if(event.getEntity() instanceof WitherSkull){
             WitherSkull witherSkull = (WitherSkull) event.getEntity();
             if(witherSkull.getCustomName().equalsIgnoreCase("§6Jakuho Raikoben")){
-                ClassUtils.ripulseEntityFromLocation(witherSkull.getLocation(), 10,5, 3);
+                
                 for(Entity entity : witherSkull.getNearbyEntities(10, 10, 10)){
                     if(entity instanceof Player){
                         Player player = (Player) entity;
-                        ClassUtils.setCorrectHealth(player, player.getHealth() - 10, false);
+                        PlayerManager playerManager = main.getPlayerManager(player.getUniqueId());
+                        if(player.getHealth() - 10D <= 0.2){
+                            player.setHealth(0.5);
+                        } else {
+                            player.setHealth(player.getHealth() - 10D);
+                        }
+                        repulsedPlayers.add(playerManager);
+                        //ClassUtils.setCorrectHealth(player, player.getHealth() - 10, false);
                     }
                 }
+                ClassUtils.ripulseEntityFromLocation(witherSkull.getLocation(), 10,5, 3);
+                witherSkull.getLocation().getWorld()
+                        .createExplosion(witherSkull.getLocation().getX(), witherSkull.getLocation().getY(), witherSkull.getLocation().getZ(),
+                                2f, false, false);
+
+
             }
         }
     }

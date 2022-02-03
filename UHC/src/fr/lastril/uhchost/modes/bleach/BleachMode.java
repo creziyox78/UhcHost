@@ -31,7 +31,7 @@ public class BleachMode extends Mode implements ModeConfig, RoleAnnounceMode, Mo
 
     private final UhcHost main;
     private final BleachManager bleachManager;
-    private int announceRoles = 30;
+    private int announceRoles = 60;
     private int phase = 1;
 
     public BleachMode() {
@@ -201,7 +201,7 @@ public class BleachMode extends Mode implements ModeConfig, RoleAnnounceMode, Mo
 
     @Override
     public IQuickInventory getGui() {
-        return new BleachGui();
+        return new BleachGui(this);
     }
 
     @Override

@@ -65,6 +65,8 @@ public class Unohana extends Role implements RoleListener, ShinigamiRole {
                         }
                     });
                     player.sendMessage("§9\"Minazuki\" vous confère§b Speed 3§9 et§a Jump Boost 4§9 pendant 1 minute 30. Les joueurs portés ont reçu§d Régénération 3§9.");
+                    player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 20*90, 2, false, false));
+                    player.addPotionEffect(new PotionEffect(PotionEffectType.JUMP, 20*90, 3, false, false));
                     playersRiding.clear();
                 }
             }
@@ -197,12 +199,13 @@ public class Unohana extends Role implements RoleListener, ShinigamiRole {
                     WorldUtils.spawnParticle(block.getLocation(), EnumParticle.VILLAGER_HAPPY),1,1);
             particlesTasks.add(task);
         }
-        cuboid.expand(Cuboid.CuboidDirection.Up, 2);
+        cuboid = cuboid.expand(Cuboid.CuboidDirection.Up, 2);
+        Cuboid finalCuboid = new Cuboid(cuboid).expand(Cuboid.CuboidDirection.Down, 1);
         BukkitTask regenTask = Bukkit.getScheduler().runTaskTimer(main, () ->
                 main.getGamemanager().getModes().getMode().getModeManager().getPlayerManagersWithCamps(Camps.SHINIGAMIS).forEach(playerManager -> {
             Player player = playerManager.getPlayer();
             if(player != null) {
-                if(cuboid.contains(player)) {
+                if(finalCuboid.contains(player)) {
                     if(player.hasPotionEffect(PotionEffectType.REGENERATION))
                         player.removePotionEffect(PotionEffectType.REGENERATION);
                     player.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 20*4, 1, false, false));
