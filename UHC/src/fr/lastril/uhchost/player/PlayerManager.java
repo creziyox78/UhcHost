@@ -784,6 +784,14 @@ public class PlayerManager {
 		return this.getRoleCooldown("Senbonzakura");
 	}
 
+	public void setRoleCooldownRyodan(int i) {
+		this.setRoleCooldown("Ryodan", i);
+	}
+
+	public int getRoleCooldownRyodan(){
+		return this.getRoleCooldown("Ryodan");
+	}
+
 	public UUID getUuid() {
 		return this.uuid;
 	}

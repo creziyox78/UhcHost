@@ -1,11 +1,31 @@
 package fr.lastril.uhchost.modes.bleach.roles.shinigamis.soulsociety;
 
-import fr.lastril.uhchost.modes.roles.Camps;
-import fr.lastril.uhchost.modes.roles.Role;
+import fr.lastril.uhchost.modes.bleach.commands.CmdDuel;
+import fr.lastril.uhchost.modes.bleach.kyoraku.KyorakuDuelManager;
+import fr.lastril.uhchost.modes.bleach.kyoraku.KyorakuEndDuelEvent;
+import fr.lastril.uhchost.modes.bleach.roles.ShinigamiRole;
+import fr.lastril.uhchost.modes.command.ModeSubCommand;
+import fr.lastril.uhchost.modes.roles.*;
+import fr.lastril.uhchost.player.PlayerManager;
 import fr.lastril.uhchost.tools.API.items.crafter.QuickItem;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 
-public class Kyoraku extends Role {
+import java.util.Arrays;
+import java.util.List;
+
+public class Kyoraku extends Role implements RoleCommand, ShinigamiRole {
+
+    private final KyorakuDuelManager kyorakuDuelManager;
+
+    public Kyoraku(){
+        super.addEffect(new PotionEffect(PotionEffectType.SPEED, Integer.MAX_VALUE, 0, false, false), When.START);
+        super.addEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, Integer.MAX_VALUE, 0, false, false), When.START);
+        this.kyorakuDuelManager = new KyorakuDuelManager(this);
+    }
+
     @Override
     public void giveItems(Player player) {
 
@@ -32,6 +52,17 @@ public class Kyoraku extends Role {
     }
 
     @Override
+    public void onPlayerDeath(Player player) {
+        PlayerManager playerManager = main.getPlayerManager(player.getUniqueId());
+        if(getKyorakuDuelManager().getPlayerManager1() == playerManager){
+            Bukkit.getPluginManager().callEvent(new KyorakuEndDuelEvent(kyorakuDuelManager, getKyorakuDuelManager().getPlayerManager2().getPlayer(), player));
+        }
+        if(getKyorakuDuelManager().getPlayerManager2() == playerManager){
+            Bukkit.getPluginManager().callEvent(new KyorakuEndDuelEvent(kyorakuDuelManager, getKyorakuDuelManager().getPlayerManager1().getPlayer(), player));
+        }
+    }
+
+    @Override
     public QuickItem getItem() {
         return null;
     }
@@ -43,11 +74,20 @@ public class Kyoraku extends Role {
 
     @Override
     public String getRoleName() {
-        return null;
+        return "Kyoraku";
     }
 
     @Override
     public String getDescription() {
         return main.getRoleDescription(this, this.getClass().getName(), "bleach.yml");
+    }
+
+    @Override
+    public List<ModeSubCommand> getSubCommands() {
+        return Arrays.asList(new CmdDuel(main));
+    }
+
+    public KyorakuDuelManager getKyorakuDuelManager() {
+        return kyorakuDuelManager;
     }
 }

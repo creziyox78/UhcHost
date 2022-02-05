@@ -3,6 +3,7 @@ package fr.lastril.uhchost.game;
 import fr.lastril.uhchost.UhcHost;
 import fr.lastril.uhchost.enums.BiomeState;
 import fr.lastril.uhchost.enums.Messages;
+import fr.lastril.uhchost.game.rules.BlocksRule;
 import fr.lastril.uhchost.game.rules.EnchantmentRules;
 import fr.lastril.uhchost.game.rules.StuffRules;
 import fr.lastril.uhchost.game.rules.world.BlocsRules;
@@ -92,6 +93,8 @@ public class GameManager {
 
 	private List<Scenario> scenarios;
 
+	private List<BlocksRule> blocksRules;
+
 	private boolean nether;
 
 	public Location spawn;
@@ -150,6 +153,12 @@ public class GameManager {
 		this.pvpTime = 60000L;
 		this.pvp = false;
 		//this.fightTeleport = false;
+		this.blocksRules = new ArrayList<>();
+		this.blocksRules.add(new BlocksRule(Material.DIAMOND_ORE, 0, 0, 0, 16, 0));
+		this.blocksRules.add(new BlocksRule(Material.COAL_ORE, 0, 0, 0, 132, 0));
+		this.blocksRules.add(new BlocksRule(Material.GOLD_ORE, 0, 0, 0, 34, 0));
+		this.blocksRules.add(new BlocksRule(Material.IRON_ORE, 0, 0, 0, 68, 0));
+		this.blocksRules.add(new BlocksRule(Material.LAPIS_ORE, 0, 0, 0, 34, 0));
 		this.viewHealth = false;
 		this.damage = false;
 		this.potionsEditMode = false;
@@ -227,6 +236,25 @@ public class GameManager {
 			}
 		}
 		checkWin();
+	}
+
+	public boolean setBlocksRules(List<BlocksRule> blocksRules) {
+		boolean result = true;
+		for (BlocksRule rule : blocksRules) {
+			if (!rule.equals(getRule(rule.id)))
+				result = false;
+		}
+		blocksRules.forEach(rule -> setRule(rule.id, rule));
+		return result;
+	}
+
+	public BlocksRule getRule(Material type) {
+		return this.blocksRules.stream().filter(rule -> rule.id.equals(type)).findAny().get();
+	}
+
+	public void setRule(Material type, BlocksRule rule) {
+		this.blocksRules.remove(getRule(type));
+		this.blocksRules.add(rule);
 	}
 
 	public List<Scenario> getScenarios() {
@@ -313,6 +341,9 @@ public class GameManager {
 		this.damage = damage;
 	}
 
+	public List<BlocksRule> getBlocksRules() {
+		return blocksRules;
+	}
 
 	public List<Potion> getDeniedPotions() {
 		return this.deniedPotions;

@@ -1,6 +1,8 @@
 package fr.lastril.uhchost.commands;
 
 import fr.lastril.uhchost.UhcHost;
+import fr.lastril.uhchost.enums.Messages;
+import fr.lastril.uhchost.tools.API.Cuboid;
 import org.bukkit.*;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -21,8 +23,7 @@ public class TestCommand implements CommandExecutor {
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
         if(sender instanceof Player){
             Player player = (Player) sender;
-            player.sendMessage("§cCette commande est inutile.");
-            if(Bukkit.getWorlds().contains(Bukkit.getWorld("soulsociety"))){
+            /*if(Bukkit.getWorlds().contains(Bukkit.getWorld("soulsociety"))){
                 player.teleport(new Location(Bukkit.getWorld("soulsociety"), 0,80, 0));
                 player.sendMessage("§7Téléportation...");
             } else {
@@ -31,7 +32,7 @@ public class TestCommand implements CommandExecutor {
                 player.sendMessage("§aChargement terminé !");
             }
 
-            /*Wave wave = new Wave(main, player.getLocation());
+            Wave wave = new Wave(main, player.getLocation());
             new BukkitRunnable(){
 
                 @Override
@@ -39,6 +40,7 @@ public class TestCommand implements CommandExecutor {
                     wave.stop();
                 }
             }.runTaskLater(main, 20*10);*/
+            player.sendMessage(Messages.PREFIX_WITH_ARROW.getMessage() + "§a§lFin du test.");
         }
         return false;
     }
@@ -65,7 +67,7 @@ public class TestCommand implements CommandExecutor {
          * @param center
          * @param radius
          * @param amount
-         * @return
+         * @return Location
          */
         private List<Location> getCircle(Location center, double radius, int amount) {
             World world = center.getWorld();

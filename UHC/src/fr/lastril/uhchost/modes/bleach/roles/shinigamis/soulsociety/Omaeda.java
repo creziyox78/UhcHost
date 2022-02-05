@@ -85,14 +85,12 @@ public class Omaeda extends Role implements RoleListener, ShinigamiRole {
                 PlayerManager playerManager = main.getPlayerManager(player.getUniqueId());
                 if(playerManager.hasRole() && playerManager.getRole() instanceof Omaeda){
                     if(playerManager.getRoleCooldownGegetsuburiGrab() <= 0){
-                        ClassUtils.pullEntityToLocation(entity, player.getLocation());
+                        ClassUtils.pullEntityToLocation(entity, player.getLocation(), 0.07, 0.03, 0.07);
                         playerManager.setRoleCooldownGegetsuburiGrab(20);
                     }
                     else {
                         player.sendMessage(Messages.cooldown(playerManager.getRoleCooldownGegetsuburiGrab()));
                     }
-                } else {
-                    player.sendMessage(Messages.not("Omaeda"));
                 }
             }
         }

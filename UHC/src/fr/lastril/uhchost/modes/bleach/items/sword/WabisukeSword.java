@@ -15,11 +15,11 @@ import org.bukkit.inventory.ItemFlag;
 
 import static fr.lastril.uhchost.tools.API.ClassUtils.getLookingAt;
 
-public class Wabisuke extends QuickItem {
+public class WabisukeSword extends QuickItem {
 
     private final int distance = 8;
 
-    public Wabisuke(UhcHost main) {
+    public WabisukeSword(UhcHost main) {
         super(Material.DIAMOND_SWORD);
         super.addEnchant(Enchantment.DAMAGE_ALL, 4, true);
         super.setName("§eWabisuke");

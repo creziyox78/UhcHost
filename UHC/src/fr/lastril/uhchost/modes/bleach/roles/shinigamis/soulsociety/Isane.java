@@ -2,6 +2,7 @@ package fr.lastril.uhchost.modes.bleach.roles.shinigamis.soulsociety;
 
 import fr.lastril.uhchost.modes.bleach.commands.CmdHeal;
 import fr.lastril.uhchost.modes.bleach.items.Itegumo;
+import fr.lastril.uhchost.modes.bleach.roles.ShinigamiRole;
 import fr.lastril.uhchost.modes.command.ModeSubCommand;
 import fr.lastril.uhchost.modes.roles.Camps;
 import fr.lastril.uhchost.modes.roles.Role;
@@ -21,7 +22,7 @@ import org.bukkit.potion.PotionEffectType;
 import java.util.Arrays;
 import java.util.List;
 
-public class Isane extends Role implements RoleListener, RoleCommand {
+public class Isane extends Role implements RoleListener, RoleCommand, ShinigamiRole {
 
     private PlayerManager healedManager;
     private boolean inItegumo;

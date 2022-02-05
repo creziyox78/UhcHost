@@ -128,7 +128,7 @@ public class WaveItem extends QuickItem {
                         for(Entity entity : loc.getWorld().getNearbyEntities(loc, 2, 2, 2)){
                             hinamori.addBurningPlayer(entity, 20);
                             if(hinamori.getPlayer() != null && entity != hinamori.getPlayer()){
-                                ClassUtils.pullEntityToLocation(entity, hinamori.getPlayer().getLocation());
+                                ClassUtils.pullEntityToLocation(entity, hinamori.getPlayer().getLocation(), 0.07, 0.03, 0.07);
                                 entity.sendMessage("§6Vous avez été touché par la \"Wave\" d'Hinamori. Vous ne pouvez pas vous éteindre pendant 20 secondes.");
                             }
                         }

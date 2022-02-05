@@ -185,8 +185,36 @@ guis:
     cycle: "§eCycle Jour/Nuit"
     cycleLore: "§eConfigure le cycle Jour/Nuit pendant la partie."
     loots: "&eLoots"
+    ores: "&bMinerais"
+    oresLore: "&7Taux de minerais g[,]n[,]r[,]s en plus"
     lootsLore: "&7Choisis les taux de loots pour certains items"
     healthtab: "&dVie dans le tab"
+  ores:
+    name: "&5Minerais"
+    lore: "&7Minerais par chunk : {0}"
+    lore1: "&7Hauteur minimum : {0}"
+    lore2: "&7Hauteur maximum : {0}"
+    lore3: "&7Minerais max par fillons: {0}"
+    important: "&4IMPORTANT"
+    importantLore: "&cCes sont des minerais g[,]n[,]r[,]s en plus !"
+    importantLore1: "&cDonc si vous laissez les valeurs de base"
+    importantLore2: "&cil y aura quand m],[me des minerais"
+    importantLore3: "&cg[,]n[,]r[,]s par le jeu de base !"
+  oreactions:
+    name: "&5Actions"
+    lore: "&7Clique pour changer"
+    perChunk: "&ePar chunk : &a{0}"
+    minY: "&eCouche minimum : &a{0}"
+    maxY: "&eCouche maximum : &a{0}"
+    size: "&ePar fillons : &a{0}"
+  oresperchunk:
+    name: "&5Minerais par chunk"
+  oresminy:
+    name: "&5Couche minimum"
+  oresmaxy:
+    name: "&5Couche maximum"
+  oressize:
+    name: "&5Minerais par fillons"
   maxPlayers:
     name: "&5Nombre de joueurs maximum"
     lore: "&7Choisis le nombre de joueurs maximum."

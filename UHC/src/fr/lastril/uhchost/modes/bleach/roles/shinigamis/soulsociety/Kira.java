@@ -1,7 +1,7 @@
 package fr.lastril.uhchost.modes.bleach.roles.shinigamis.soulsociety;
 
 import fr.lastril.uhchost.UhcHost;
-import fr.lastril.uhchost.modes.bleach.items.sword.Wabisuke;
+import fr.lastril.uhchost.modes.bleach.items.sword.WabisukeSword;
 import fr.lastril.uhchost.modes.bleach.roles.ShinigamiRole;
 import fr.lastril.uhchost.modes.roles.Camps;
 import fr.lastril.uhchost.modes.roles.Role;
@@ -44,7 +44,7 @@ public class Kira extends Role implements RoleListener, ShinigamiRole {
 
     @Override
     public void giveItems(Player player) {
-        main.getInventoryUtils().giveItemSafely(player, new Wabisuke(main).toItemStack());
+        main.getInventoryUtils().giveItemSafely(player, new WabisukeSword(main).toItemStack());
     }
 
     @Override

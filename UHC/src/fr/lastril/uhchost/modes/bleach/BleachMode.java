@@ -122,17 +122,37 @@ public class BleachMode extends Mode implements ModeConfig, RoleAnnounceMode, Mo
 
     @Override
     public void onDeath(OfflinePlayer player, Player killer) {
-        PlayerManager joueur = main.getPlayerManager(player.getUniqueId());
-        Player onlinePlayer = player.getPlayer();
-        joueur.setAlive(false);
-        for (Player players : Bukkit.getOnlinePlayers()) {
-            players.playSound(players.getLocation(), Sound.WITHER_DEATH, 1f, 1f);
+        if(killer != null){
+            PlayerManager killerManager = main.getPlayerManager(killer.getUniqueId());
+            killerManager.addKill(player.getUniqueId());
         }
-        if (joueur.hasRole()) {
-            Bukkit.broadcastMessage("§3§m----------------------------------");
-            Bukkit.broadcastMessage("§b§l" + player.getName() + "§7 est mort, son rôle était "+joueur.getRole().getCamp().getCompoColor()+joueur.getRole().getRoleName()+"§7.");
-            Bukkit.broadcastMessage("§3§m----------------------------------");
-            if(onlinePlayer != null){
+        PlayerManager joueur = main.getPlayerManager(player.getUniqueId());
+        if(joueur != null){
+            Player onlinePlayer = player.getPlayer();
+            if(player.isOnline()){
+
+                joueur.setDeathLocation(onlinePlayer .getLocation());
+                joueur.setItems(onlinePlayer .getInventory().getContents());
+                joueur.setArmors(onlinePlayer.getInventory().getArmorContents());
+            }
+
+
+            for (Player players : Bukkit.getOnlinePlayers()) {
+                players.playSound(players.getLocation(), Sound.WITHER_DEATH, 1f, 1f);
+                PlayerManager playerManager = main.getPlayerManager(players.getUniqueId());
+                if(playerManager.isAlive() && playerManager.hasRole()){
+                    playerManager.getRole().onPlayerDeath(player.getPlayer());
+                    if(killer != null){
+                        playerManager.getRole().onKill(player, killer);
+                    }
+                }
+
+            }
+
+            if (joueur.hasRole()) {
+                Bukkit.broadcastMessage("§3§m----------------------------------");
+                Bukkit.broadcastMessage("§b§l" + player.getName() + "§7 est mort, son rôle était "+joueur.getRole().getCamp().getCompoColor()+joueur.getRole().getRoleName()+"§7.");
+                Bukkit.broadcastMessage("§3§m----------------------------------");
                 new BukkitRunnable() {
 
                     @Override
@@ -147,16 +167,20 @@ public class BleachMode extends Mode implements ModeConfig, RoleAnnounceMode, Mo
                     public void run() {
                         onlinePlayer.setGameMode(GameMode.ADVENTURE);
                         onlinePlayer.setGameMode(GameMode.SPECTATOR);
+                        onlinePlayer.teleport(joueur.getDeathLocation());
                     }
                 }.runTaskLater(main, 10);
+            } else {
+                Bukkit.broadcastMessage("§3§m----------------------------------");
+                Bukkit.broadcastMessage("§b§l" + player.getName() + "§7 est mort.");
+                Bukkit.broadcastMessage("§3§m----------------------------------");
             }
-
-        } else {
-            Bukkit.broadcastMessage("§3§m----------------------------------");
-            Bukkit.broadcastMessage("§b§l" + player.getName() + "§7 est mort.");
-            Bukkit.broadcastMessage("§3§m----------------------------------");
+            joueur.setAlive(false);
+            checkWin();
+            /* DROPING INVENTORY */
+            System.out.println("Droping inventory !");
+            main.getInventoryUtils().dropInventory(joueur.getDeathLocation(), joueur.getItems(), joueur.getArmors());
         }
-        checkWin();
     }
 
     @Override

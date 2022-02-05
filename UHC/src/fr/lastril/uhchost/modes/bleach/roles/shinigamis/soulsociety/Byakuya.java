@@ -3,6 +3,7 @@ package fr.lastril.uhchost.modes.bleach.roles.shinigamis.soulsociety;
 import fr.lastril.uhchost.modes.bleach.commands.CmdTempete;
 import fr.lastril.uhchost.modes.bleach.items.SakuraItem;
 import fr.lastril.uhchost.modes.bleach.items.Senbonzakura;
+import fr.lastril.uhchost.modes.bleach.roles.ShinigamiRole;
 import fr.lastril.uhchost.modes.command.ModeSubCommand;
 import fr.lastril.uhchost.modes.roles.Camps;
 import fr.lastril.uhchost.modes.roles.Role;
@@ -27,7 +28,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class Byakuya extends Role implements RoleCommand {
+public class Byakuya extends Role implements RoleCommand, ShinigamiRole {
 
     private final List<BukkitTask> particlesTasks = new ArrayList<>();
     private final List<PlayerManager> inZone = new ArrayList<>();

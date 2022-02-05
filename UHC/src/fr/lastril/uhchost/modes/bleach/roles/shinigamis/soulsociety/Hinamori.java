@@ -3,6 +3,7 @@ package fr.lastril.uhchost.modes.bleach.roles.shinigamis.soulsociety;
 import fr.lastril.uhchost.enums.Messages;
 import fr.lastril.uhchost.modes.bleach.items.Snap;
 import fr.lastril.uhchost.modes.bleach.items.WaveItem;
+import fr.lastril.uhchost.modes.bleach.roles.ShinigamiRole;
 import fr.lastril.uhchost.modes.roles.Camps;
 import fr.lastril.uhchost.modes.roles.Role;
 import fr.lastril.uhchost.modes.roles.RoleListener;
@@ -20,7 +21,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.entity.EntityExplodeEvent;
 import org.bukkit.scheduler.BukkitTask;
 
-public class Hinamori extends Role implements RoleListener {
+public class Hinamori extends Role implements RoleListener, ShinigamiRole {
 
     @Override
     public void giveItems(Player player) {

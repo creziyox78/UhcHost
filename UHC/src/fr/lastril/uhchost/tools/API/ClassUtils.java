@@ -122,26 +122,30 @@ public class ClassUtils {
 
     public static void ripulseEntityFromLocation(Location location, int distance,int powerMultiply, int powerHigh){
         for(Entity entity : location.getWorld().getNearbyEntities(location,distance, distance, distance)){
-            Location initialLocation = location.clone();
-            initialLocation.setPitch(0.0f);
-            Vector origin = initialLocation.toVector();
-            Vector fromPlayerToTarget = entity.getLocation().toVector().clone().subtract(origin);
-            fromPlayerToTarget.multiply(powerMultiply); //6
-            fromPlayerToTarget.setY(powerHigh); // 2
-            entity.setVelocity(fromPlayerToTarget);
+            ripulseSpecificEntityFromLocation(entity, location,powerMultiply, powerHigh);
         }
     }
 
-    public static void pullEntityToLocation(Entity e, Location loc) {
+    public static void ripulseSpecificEntityFromLocation(Entity entity, Location location, int powerMultiply, int powerHigh){
+        Location initialLocation = location.clone();
+        initialLocation.setPitch(0.0f);
+        Vector origin = initialLocation.toVector();
+        Vector fromPlayerToTarget = entity.getLocation().toVector().clone().subtract(origin);
+        fromPlayerToTarget.multiply(powerMultiply); //6
+        fromPlayerToTarget.setY(powerHigh); // 2
+        entity.setVelocity(fromPlayerToTarget);
+    }
+
+    public static void pullEntityToLocation(Entity e, Location loc, double powerX, double powerY, double powerZ) {
         Location entityLoc = e.getLocation();
         entityLoc.setY(entityLoc.getY() + 0.5D);
         e.teleport(entityLoc);
         double g = -0.08D;
         double d = loc.distance(entityLoc);
         double t = d;
-        double v_x = (1.0D + 0.07D * t) * (loc.getX() - entityLoc.getX()) / t;
-        double v_y = (1.0D + 0.03D * t) * (loc.getY() - entityLoc.getY()) / t - 0.5D * g * t;
-        double v_z = (1.0D + 0.07D * t) * (loc.getZ() - entityLoc.getZ()) / t;
+        double v_x = (1.0D + powerX * t) * (loc.getX() - entityLoc.getX()) / t;
+        double v_y = (1.0D + powerY * t) * (loc.getY() - entityLoc.getY()) / t - 0.5D * g * t;
+        double v_z = (1.0D + powerZ * t) * (loc.getZ() - entityLoc.getZ()) / t;
         Vector v = e.getVelocity();
         v.setX(v_x);
         v.setY(v_y);
@@ -183,6 +187,15 @@ public class ClassUtils {
             }
         }
         return null;
+    }
+
+    public static boolean isInt(String s) {
+        try {
+            Integer.parseInt(s);
+        } catch (NumberFormatException nfe) {
+            return false;
+        }
+        return true;
     }
 
 }

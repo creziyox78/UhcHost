@@ -1,4 +1,4 @@
-package fr.lastril.uhchost.modes.bleach.roles.shinigamis.soulsociety;
+package fr.lastril.uhchost.modes.bleach.roles.arrancars;
 
 import fr.lastril.uhchost.modes.bleach.roles.ShinigamiRole;
 import fr.lastril.uhchost.modes.roles.Camps;
@@ -6,7 +6,8 @@ import fr.lastril.uhchost.modes.roles.Role;
 import fr.lastril.uhchost.tools.API.items.crafter.QuickItem;
 import org.bukkit.entity.Player;
 
-public class Komamura extends Role implements ShinigamiRole {
+public class Aizen extends Role implements ShinigamiRole {
+
     @Override
     public void giveItems(Player player) {
 
@@ -39,12 +40,12 @@ public class Komamura extends Role implements ShinigamiRole {
 
     @Override
     public Camps getCamp() {
-        return Camps.SHINIGAMIS;
+        return Camps.ARRANCARS;
     }
 
     @Override
     public String getRoleName() {
-        return "Komamura";
+        return "Aizen";
     }
 
     @Override

@@ -2,6 +2,8 @@ package fr.lastril.uhchost.world;
 
 import fr.lastril.uhchost.UhcHost;
 import fr.lastril.uhchost.enums.BiomeState;
+import fr.lastril.uhchost.game.rules.BlocksRule;
+import fr.lastril.uhchost.world.ores.OresGenerator;
 import net.minecraft.server.v1_8_R3.BiomeBase;
 import net.minecraft.server.v1_8_R3.BlockPosition;
 import net.minecraft.server.v1_8_R3.WorldChunkManager;
@@ -11,6 +13,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.World;
 import org.bukkit.craftbukkit.v1_8_R3.CraftWorld;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.world.WorldInitEvent;
 
@@ -28,11 +31,16 @@ public class WorldInit implements Listener {
     }
 
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.HIGH)
     public void onWorldInit(WorldInitEvent event) {
         World world = event.getWorld();
         if(!world.getName().equalsIgnoreCase("game"))
             return;
+        OresGenerator oresGenerator = new OresGenerator();
+        for (BlocksRule rule : main.gameManager.getBlocksRules()){
+            oresGenerator.registerRule(rule);
+        }
+        world.getPopulators().add(oresGenerator);
         Bukkit.getConsoleSender().sendMessage(ChatColor.YELLOW + "Changing biome center...");
         net.minecraft.server.v1_8_R3.World craftWorld = ((CraftWorld) world).getHandle();
         WorldProvider worldProvider = craftWorld.worldProvider;

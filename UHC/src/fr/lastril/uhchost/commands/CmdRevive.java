@@ -4,11 +4,13 @@ import fr.lastril.uhchost.UhcHost;
 import fr.lastril.uhchost.enums.Messages;
 import fr.lastril.uhchost.player.PlayerManager;
 import org.bukkit.Bukkit;
+import org.bukkit.Effect;
 import org.bukkit.GameMode;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.potion.PotionEffect;
 
 public class CmdRevive implements CommandExecutor {
 
@@ -35,6 +37,11 @@ public class CmdRevive implements CommandExecutor {
 						}
 						if(targetJoueur.getItems() != null){
 							target.getInventory().setContents(targetJoueur.getItems());
+						}
+						if(targetJoueur.hasRole()){
+							for(PotionEffect effect : targetJoueur.getRole().getEffects().keySet()){
+								target.addPotionEffect(effect);
+							}
 						}
 						player.sendMessage("§aVous avez bien réssucité "+target.getName());
 						Bukkit.broadcastMessage(Messages.PREFIX_WITH_SEPARATION.getMessage()+target.getName()+" a été réssucité.");

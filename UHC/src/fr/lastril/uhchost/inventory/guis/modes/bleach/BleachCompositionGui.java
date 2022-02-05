@@ -81,6 +81,12 @@ public class BleachCompositionGui extends IQuickInventory {
                     .setLore("§fActifs: " + pl.getGamemanager().getRolesActivatedInCamps(Camps.SHINIGAMIS).size())
                     .toItemStack(), onClick -> camps = Camps.SHINIGAMIS, 3);
 
+            inv.setItem(new QuickItem(Material.SKULL_ITEM, 1, SkullType.PLAYER.ordinal())
+                    .setName(Camps.ARRANCARS.getCompoColor() + "Arrancars")
+                    .setSkullOwner("Aizen")
+                    .setLore("§fActifs: " + pl.getGamemanager().getRolesActivatedInCamps(Camps.ARRANCARS).size())
+                    .toItemStack(), onClick -> camps = Camps.ARRANCARS, 4);
+
             inv.setItem(new QuickItem(Material.COMPASS)
                     .setName("§fRôles totals actifs: " + pl.getGamemanager().getComposition().size())
                     .toItemStack(), 13);

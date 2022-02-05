@@ -157,7 +157,11 @@ public class NarutoV2 extends Mode implements ModeConfig, RoleMode<NarutoV2Role>
 				PlayerManager playerManager = main.getPlayerManager(players.getUniqueId());
 				if(playerManager.isAlive() && playerManager.hasRole()){
 					playerManager.getRole().onPlayerDeath(player.getPlayer());
+					if(killer != null){
+						playerManager.getRole().onKill(player, killer);
+					}
 				}
+
 			}
 
 			if (joueur.hasRole()) {
