@@ -260,7 +260,7 @@ public class BleachMode extends Mode implements ModeConfig, RoleAnnounceMode, Mo
             Bukkit.getConsoleSender().sendMessage("Founded 1 last camp (" + winners + ")");
             win(winners);
         } else if (lastCamps.size() == 0) {
-            win(Camps.EGALITE);
+
         }
     }
 

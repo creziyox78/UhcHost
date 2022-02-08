@@ -4,6 +4,7 @@ import fr.lastril.uhchost.UhcHost;
 import fr.lastril.uhchost.enums.Messages;
 import fr.lastril.uhchost.modes.bleach.roles.shinigamis.soulsociety.Isane;
 import fr.lastril.uhchost.player.PlayerManager;
+import fr.lastril.uhchost.player.modemanager.BleachPlayerManager;
 import fr.lastril.uhchost.tools.API.items.crafter.QuickItem;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
@@ -27,16 +28,21 @@ public class Itegumo extends QuickItem {
         super.onClick(onClick -> {
             Player player = onClick.getPlayer();
             PlayerManager playerManager = main.getPlayerManager(player.getUniqueId());
+            BleachPlayerManager bleachPlayerManager = playerManager.getBleachPlayerManager();
             if(playerManager.hasRole() && playerManager.getRole() instanceof Isane){
                 Isane isane = (Isane) playerManager.getRole();
-                if(playerManager.getRoleCooldownItegumo() <= 0){
-                    isane.setInItegumo(true);
-                    if(player.hasPotionEffect(PotionEffectType.INCREASE_DAMAGE))
-                        player.removePotionEffect(PotionEffectType.INCREASE_DAMAGE);
-                    player.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 20*20, 0, false, false));
-                    player.sendMessage("§9Vous utilisez \"Itegumo\".");
+                if(bleachPlayerManager.canUsePower()){
+                    if(playerManager.getRoleCooldownItegumo() <= 0){
+                        isane.setInItegumo(true);
+                        if(player.hasPotionEffect(PotionEffectType.INCREASE_DAMAGE))
+                            player.removePotionEffect(PotionEffectType.INCREASE_DAMAGE);
+                        player.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 20*20, 0, false, false));
+                        player.sendMessage("§9Vous utilisez \"Itegumo\".");
+                    } else {
+                        player.sendMessage(Messages.cooldown(playerManager.getRoleCooldownItegumo()));
+                    }
                 } else {
-                    player.sendMessage(Messages.cooldown(playerManager.getRoleCooldownItegumo()));
+                    player.sendMessage(Messages.BLEACH_PREFIX.getMessage() + Messages.CANT_USE_POWER_NOW.getMessage());
                 }
             } else {
                 player.sendMessage(Messages.not("Isane"));

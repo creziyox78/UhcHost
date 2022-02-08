@@ -4,6 +4,7 @@ import fr.lastril.uhchost.UhcHost;
 import fr.lastril.uhchost.enums.Messages;
 import fr.lastril.uhchost.modes.bleach.roles.shinigamis.soulsociety.Byakuya;
 import fr.lastril.uhchost.player.PlayerManager;
+import fr.lastril.uhchost.player.modemanager.BleachPlayerManager;
 import fr.lastril.uhchost.tools.API.ClassUtils;
 import fr.lastril.uhchost.tools.API.items.crafter.QuickItem;
 import org.bukkit.Material;
@@ -24,13 +25,19 @@ public class SakuraItem extends QuickItem {
         super.onClick(onClick -> {
             Player player = onClick.getPlayer();
             PlayerManager playerManager = main.getPlayerManager(player.getUniqueId());
+            BleachPlayerManager bleachPlayerManager = playerManager.getBleachPlayerManager();
             onClick.cancelOriginalUse(true);
             if(playerManager.hasRole() && playerManager.getRole() instanceof Byakuya){
-                if(playerManager.getRoleCooldownSakura() <= 0){
-                    ClassUtils.hidePlayerWithArmor(player, false, 3, true);
+                if(bleachPlayerManager.canUsePower()){
+                    if(playerManager.getRoleCooldownSakura() <= 0){
+                        ClassUtils.hidePlayerWithArmor(player, false, 3, true);
+                    } else {
+                        player.sendMessage(Messages.cooldown(playerManager.getRoleCooldownSakura()));
+                    }
                 } else {
-                    player.sendMessage(Messages.cooldown(playerManager.getRoleCooldownSakura()));
+                    player.sendMessage(Messages.BLEACH_PREFIX.getMessage() + Messages.CANT_USE_POWER_NOW.getMessage());
                 }
+
             }
         });
     }

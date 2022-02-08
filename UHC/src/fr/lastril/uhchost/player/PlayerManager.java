@@ -4,6 +4,8 @@ import fr.lastril.uhchost.UhcHost;
 import fr.lastril.uhchost.enums.Messages;
 import fr.lastril.uhchost.modes.roles.Camps;
 import fr.lastril.uhchost.modes.roles.Role;
+import fr.lastril.uhchost.player.modemanager.BleachPlayerManager;
+import fr.lastril.uhchost.player.modemanager.DSPlayerManager;
 import fr.lastril.uhchost.player.modemanager.WolfPlayerManager;
 import fr.lastril.uhchost.tools.API.ActionBar;
 import fr.lastril.uhchost.tools.API.FormatTime;
@@ -26,6 +28,10 @@ public class PlayerManager {
 	private boolean alive, playedGame, useHuitimePorte;
 
 	private WolfPlayerManager wolfPlayerManager;
+
+	private final DSPlayerManager dsPlayerManager;
+
+	private final BleachPlayerManager bleachPlayerManager;
 
 	private final UhcHost pl;
 
@@ -56,8 +62,14 @@ public class PlayerManager {
 		this.cooldowns = new HashMap<>();
 		this.kills = new ArrayList<>();
 		this.playerName = player.getName();
+		this.bleachPlayerManager = new BleachPlayerManager(this);
+		this.dsPlayerManager = new DSPlayerManager(this);
 		this.setWolfPlayerManager(new WolfPlayerManager(this));
 		UhcHost.getInstance().getAllWolfPlayerManager().put(uuid, getWolfPlayerManager());
+	}
+
+	public BleachPlayerManager getBleachPlayerManager() {
+		return bleachPlayerManager;
 	}
 
 	public void removeCooldowns() {
@@ -113,6 +125,10 @@ public class PlayerManager {
 			}
 
 		}.runTaskTimer(UhcHost.getInstance(), 0, 1);
+	}
+
+	public DSPlayerManager getDSPlayerManager() {
+		return dsPlayerManager;
 	}
 
 	public void clearCooldowns() {

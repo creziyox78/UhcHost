@@ -18,6 +18,7 @@ public enum Messages {
     COMMAND_DISABLED("§cCette commande est désactivée !"),
     COOLDOWNPREFIX("§9Cooldown§8 »§B "),
 
+    CANT_USE_POWER_NOW("§cVous ne pouvez pas utiliser votre pouvoir pour le moment."),
     CANT_USE_MORE_POWER(error("Vous ne pouvez plus utiliser votre pouvoir !")),
     UNVALID_NUMBER(error("Veuillez entrer un chiffre valide !")),
     TEAM_FULL(error("§cCette team est pleine !")),

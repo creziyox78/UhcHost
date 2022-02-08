@@ -5,6 +5,7 @@ import fr.lastril.uhchost.enums.Messages;
 import fr.lastril.uhchost.modes.bleach.roles.shinigamis.soulsociety.Isane;
 import fr.lastril.uhchost.modes.command.ModeSubCommand;
 import fr.lastril.uhchost.player.PlayerManager;
+import fr.lastril.uhchost.player.modemanager.BleachPlayerManager;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -37,42 +38,45 @@ public class CmdHeal implements ModeSubCommand {
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         Player player = (Player) sender;
         PlayerManager playerManager = main.getPlayerManager(player.getUniqueId());
+        BleachPlayerManager bleachPlayerManager = playerManager.getBleachPlayerManager();
         if (!playerManager.hasRole() || !playerManager.isAlive()) {
             return false;
         }
         if(playerManager.getRole() instanceof Isane){
             Isane isane = (Isane) playerManager.getPlayer();
-            if(playerManager.getRoleCooldownHeal() <= 0){
-                if(args.length == 3){
-                    String targetName = args[1];
-                    Player target = Bukkit.getPlayer(targetName);
-                    if(target != null){
-                        PlayerManager targetManager = main.getPlayerManager(target.getUniqueId());
-                        if(targetManager.isAlive()){
-                            isane.setHealedManager(targetManager);
-                            if(target.hasPotionEffect(PotionEffectType.REGENERATION))
-                                target.removePotionEffect(PotionEffectType.REGENERATION);
-                            if(target.hasPotionEffect(PotionEffectType.DAMAGE_RESISTANCE))
-                                target.removePotionEffect(PotionEffectType.DAMAGE_RESISTANCE);
-                            target.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 20*20, 1, false, false));
-                            target.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, Integer.MAX_VALUE, 2, false, false));
-                            player.sendMessage("§aVous offrez votre bénédiction à " + targetName +".");
-                            target.sendMessage("§aIsane vous a offert sa bénédiction.");
-                            playerManager.setRoleCooldownHeal(5*60);
+            if(bleachPlayerManager.canUsePower()){
+                if(playerManager.getRoleCooldownHeal() <= 0){
+                    if(args.length == 3){
+                        String targetName = args[1];
+                        Player target = Bukkit.getPlayer(targetName);
+                        if(target != null){
+                            PlayerManager targetManager = main.getPlayerManager(target.getUniqueId());
+                            if(targetManager.isAlive()){
+                                isane.setHealedManager(targetManager);
+                                if(target.hasPotionEffect(PotionEffectType.REGENERATION))
+                                    target.removePotionEffect(PotionEffectType.REGENERATION);
+                                if(target.hasPotionEffect(PotionEffectType.DAMAGE_RESISTANCE))
+                                    target.removePotionEffect(PotionEffectType.DAMAGE_RESISTANCE);
+                                target.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 20*20, 1, false, false));
+                                target.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, Integer.MAX_VALUE, 2, false, false));
+                                player.sendMessage("§aVous offrez votre bénédiction à " + targetName +".");
+                                target.sendMessage("§aIsane vous a offert sa bénédiction.");
+                                playerManager.setRoleCooldownHeal(5*60);
+                            } else {
+                                player.sendMessage(Messages.error("Ce joueur n'est pas en vie !"));
+                            }
                         } else {
-                            player.sendMessage(Messages.error("Ce joueur n'est pas en vie !"));
+                            player.sendMessage(Messages.error("Ce joueur n'est pas en ligne."));
                         }
                     } else {
-                        player.sendMessage(Messages.error("Ce joueur n'est pas en ligne."));
+                        player.sendMessage(Messages.use("/b heal <pseudo>"));
                     }
                 } else {
-                    player.sendMessage(Messages.use("/b heal <pseudo>"));
+                    player.sendMessage(Messages.cooldown(playerManager.getRoleCooldownHeal()));
                 }
             } else {
-                player.sendMessage(Messages.cooldown(playerManager.getRoleCooldownHeal()));
+                player.sendMessage(Messages.BLEACH_PREFIX.getMessage() + Messages.CANT_USE_POWER_NOW.getMessage());
             }
-
-
         }
         return false;
     }

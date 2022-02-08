@@ -252,7 +252,7 @@ public class LoupGarouMode extends Mode implements ModeCommand, RoleMode<LGRole>
             Bukkit.getConsoleSender().sendMessage("Founded 1 last camp (" + winners + ")");
             win(winners);
         } else if (lastCamps.size() == 0) {
-            win(Camps.EGALITE);
+
         }
 
     }

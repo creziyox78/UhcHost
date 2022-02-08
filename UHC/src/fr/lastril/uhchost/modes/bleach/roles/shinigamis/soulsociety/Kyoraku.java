@@ -1,5 +1,6 @@
 package fr.lastril.uhchost.modes.bleach.roles.shinigamis.soulsociety;
 
+import fr.lastril.uhchost.UhcHost;
 import fr.lastril.uhchost.modes.bleach.commands.CmdDuel;
 import fr.lastril.uhchost.modes.bleach.kyoraku.KyorakuDuelManager;
 import fr.lastril.uhchost.modes.bleach.kyoraku.KyorakuEndDuelEvent;
@@ -55,6 +56,7 @@ public class Kyoraku extends Role implements RoleCommand, ShinigamiRole {
     public void onPlayerDeath(Player player) {
         PlayerManager playerManager = main.getPlayerManager(player.getUniqueId());
         if(getKyorakuDuelManager().getPlayerManager1() == playerManager){
+            UhcHost.debug("Player 1" + getKyorakuDuelManager().getPlayerManager1().getPlayer());
             Bukkit.getPluginManager().callEvent(new KyorakuEndDuelEvent(kyorakuDuelManager, getKyorakuDuelManager().getPlayerManager2().getPlayer(), player));
         }
         if(getKyorakuDuelManager().getPlayerManager2() == playerManager){

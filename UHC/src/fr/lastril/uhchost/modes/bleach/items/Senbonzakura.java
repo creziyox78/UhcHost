@@ -1,8 +1,10 @@
 package fr.lastril.uhchost.modes.bleach.items;
 
 import fr.lastril.uhchost.UhcHost;
+import fr.lastril.uhchost.enums.Messages;
 import fr.lastril.uhchost.modes.bleach.roles.shinigamis.soulsociety.Byakuya;
 import fr.lastril.uhchost.player.PlayerManager;
+import fr.lastril.uhchost.player.modemanager.BleachPlayerManager;
 import fr.lastril.uhchost.tools.API.items.crafter.QuickItem;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
@@ -25,12 +27,20 @@ public class Senbonzakura extends QuickItem {
         super.onClick(onClick -> {
             Player player = onClick.getPlayer();
             PlayerManager playerManager = main.getPlayerManager(player.getUniqueId());
+            BleachPlayerManager bleachPlayerManager = playerManager.getBleachPlayerManager();
             if(playerManager.hasRole() && playerManager.getRole() instanceof Byakuya){
                 Byakuya byakuya = (Byakuya) playerManager.getRole();
-                if(playerManager.getRoleCooldownSenbonzakura() <= 0){
-                    byakuya.createZone(player.getLocation());
-                    playerManager.setRoleCooldownSenbonzakura(20*60);
+                if(bleachPlayerManager.canUsePower()){
+                    if(playerManager.getRoleCooldownSenbonzakura() <= 0){
+                        byakuya.createZone(player.getLocation());
+                        playerManager.setRoleCooldownSenbonzakura(20*60);
+                    } else {
+                        player.sendMessage(Messages.cooldown(playerManager.getRoleCooldownSenbonzakura()));
+                    }
+                } else {
+                    player.sendMessage(Messages.BLEACH_PREFIX.getMessage() + Messages.CANT_USE_POWER_NOW.getMessage());
                 }
+
             }
         });
     }

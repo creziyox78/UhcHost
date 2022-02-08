@@ -21,10 +21,19 @@ public enum Camps {
     IMITATEUR(ChatColor.DARK_AQUA, "§3Victoire de l'Imitateur !"),
     ZIZANIE(ChatColor.DARK_GREEN, "§3Victoire du rôle solo zizané !"),
 
+    /*
+     * DEMON SLAYER
+     */
+
+    SLAYER(ChatColor.GREEN, "§aVictoire des Slayers"),
+    DEMONS(ChatColor.RED, "§cVictoire des Démons"),
 
     /*
      * BLEACH
      */
+
+    SHINIGAMIS(ChatColor.BLUE, "§6Victoire des Shinigamis"),
+    ARRANCARS(ChatColor.RED, "§cVictoire des Accancars"),
 
     /*
      * NARUTO
@@ -49,8 +58,6 @@ public enum Camps {
     ZABUZA_HAKU(ChatColor.AQUA, "§aVictoire de Haku et Zabuza !"),
 
 
-    SHINIGAMIS(ChatColor.BLUE, "§6Victoire des Shinigamis"),
-    ARRANCARS(ChatColor.RED, "§cVictoire des Accancars"),
 
     /*
      * NONE

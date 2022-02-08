@@ -46,18 +46,12 @@ public class KyorakuDuelManager {
         saveLocation(player1, player2);
         setPlayerManager1(main.getPlayerManager(player1.getUniqueId()));
         setPlayerManager2(main.getPlayerManager(player2.getUniqueId()));
-        player1.teleport(new Location(centerArena.getWorld(), centerArena.getX() + 11, centerArena.getY() + 3, centerArena.getZ() + 11, 135, 0));
-        player2.teleport(new Location(centerArena.getWorld(), centerArena.getX() - 11, centerArena.getY() + 3, centerArena.getZ() - 11, -45, 0));
-        player1.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 20*5, 250, false, false));
-        player1.addPotionEffect(new PotionEffect(PotionEffectType.JUMP, 20*5, 250, false, false));
-        player2.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 20*5, 250, false, false));
-        player2.addPotionEffect(new PotionEffect(PotionEffectType.JUMP, 20*5, 250, false, false));
+        player1.teleport(new Location(centerArena.getWorld(), centerArena.getX() + 11, centerArena.getY() + 2, centerArena.getZ() + 11, 135, 0));
+        player2.teleport(new Location(centerArena.getWorld(), centerArena.getX() - 11, centerArena.getY() + 2, centerArena.getZ() - 11, -45, 0));
+        Bukkit.getPluginManager().registerEvents(new KyorakuDuelListener(this), main);
+        Bukkit.getPluginManager().callEvent(new KyorakuStartDuelEvent(this, player1, player2));
         player2.sendMessage(Messages.BLEACH_PREFIX.getMessage() + "§9Kyoraku vient de lancer un duel contre vous ! Voici la règle du combat : §6" + getRulesFight().getMessage());
         player1.sendMessage(Messages.BLEACH_PREFIX.getMessage() + "§9Voici la règle du combat : §6" + getRulesFight().getMessage());
-        Bukkit.getScheduler().runTaskLater(main, () -> {
-            Bukkit.getPluginManager().registerEvents(new KyorakuDuelListener(this), main);
-            Bukkit.getPluginManager().callEvent(new KyorakuStartDuelEvent(this, player1, player2));
-        }, 20*5);
     }
 
     public void teleportWinnerInPreviousLocation(Player winner){

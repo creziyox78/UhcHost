@@ -57,6 +57,8 @@ public class GameManager {
 
 	private boolean playerCheckingWorld;
 
+	private boolean boostOres;
+
 	private Modes modes;
 
 	public int episode = 1;
@@ -154,12 +156,13 @@ public class GameManager {
 		this.pvp = false;
 		//this.fightTeleport = false;
 		this.blocksRules = new ArrayList<>();
-		this.blocksRules.add(new BlocksRule(Material.DIAMOND_ORE, 0, 0, 0, 16, 0));
+		this.blocksRules.add(new BlocksRule(Material.DIAMOND_ORE, 0, 1.25, 0, 16, 0.25));
 		this.blocksRules.add(new BlocksRule(Material.COAL_ORE, 0, 0, 0, 132, 0));
-		this.blocksRules.add(new BlocksRule(Material.GOLD_ORE, 0, 0, 0, 34, 0));
+		this.blocksRules.add(new BlocksRule(Material.GOLD_ORE, 0, 1.5, 0, 34, 0.2));
 		this.blocksRules.add(new BlocksRule(Material.IRON_ORE, 0, 0, 0, 68, 0));
 		this.blocksRules.add(new BlocksRule(Material.LAPIS_ORE, 0, 0, 0, 34, 0));
 		this.viewHealth = false;
+		this.boostOres = true;
 		this.damage = false;
 		this.potionsEditMode = false;
 		this.gameIsEnding = false;
@@ -209,6 +212,14 @@ public class GameManager {
 			player.sendMessage("Erreur: §c" + player.getName() + " ne fait pas partie des co-hosts.");
 		}
 
+	}
+
+	public boolean isBoostOres() {
+		return boostOres;
+	}
+
+	public void setBoostOres(boolean boostOres) {
+		this.boostOres = boostOres;
 	}
 
 	public List<Player> getCohost() {

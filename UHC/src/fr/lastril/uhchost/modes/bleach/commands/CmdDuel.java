@@ -5,6 +5,7 @@ import fr.lastril.uhchost.enums.Messages;
 import fr.lastril.uhchost.modes.bleach.roles.shinigamis.soulsociety.Kyoraku;
 import fr.lastril.uhchost.modes.command.ModeSubCommand;
 import fr.lastril.uhchost.player.PlayerManager;
+import fr.lastril.uhchost.player.modemanager.BleachPlayerManager;
 import fr.lastril.uhchost.tools.API.ClassUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
@@ -44,40 +45,47 @@ public class CmdDuel implements ModeSubCommand {
             return false;
         }
         if(playerManager.getRole() instanceof Kyoraku){
+            BleachPlayerManager bleachPlayerManager = playerManager.getBleachPlayerManager();
             Kyoraku kyoraku = (Kyoraku) playerManager.getRole();
-            if(args.length == 3){
-                String targetName = args[1];
-                Player target = Bukkit.getPlayer(targetName);
-                if(target != null && target != player){
-                    if(target.getWorld() == player.getWorld()){
-                        if(target.getLocation().distance(player.getLocation()) <= 30){
-                            PlayerManager targetManager = main.getPlayerManager(target.getUniqueId());
-                            if(targetManager.isAlive()){
-                                if(ClassUtils.isInt(args[2])){
-                                    int number = Integer.parseInt(args[2]);
-                                    if(integers.contains(number)){
-                                        kyoraku.getKyorakuDuelManager().setRulesFight(number);
-                                        kyoraku.getKyorakuDuelManager().generateArena(player.getLocation().add(0, 80, 0));
-                                        kyoraku.getKyorakuDuelManager().teleportPlayersInArena(player, target);
-                                    } else {
-                                        player.sendMessage(Messages.error("Veuillez choisir un nombre entre <1|2|3>."));
+            if(bleachPlayerManager.canUsePower()){
+                if(args.length == 3){
+                    String targetName = args[1];
+                    Player target = Bukkit.getPlayer(targetName);
+                    if(target != null && target != player){
+                        if(target.getWorld() == player.getWorld()){
+                            if(target.getLocation().distance(player.getLocation()) <= 30){
+                                PlayerManager targetManager = main.getPlayerManager(target.getUniqueId());
+                                if(targetManager.isAlive()){
+                                    if(ClassUtils.isInt(args[2])){
+                                        int number = Integer.parseInt(args[2]);
+                                        if(integers.contains(number)){
+                                            kyoraku.getKyorakuDuelManager().setRulesFight(number);
+                                            kyoraku.getKyorakuDuelManager().generateArena(player.getLocation().add(0, 80, 0));
+                                            kyoraku.getKyorakuDuelManager().teleportPlayersInArena(player, target);
+                                        } else {
+                                            player.sendMessage(Messages.error("Veuillez choisir un nombre entre <1|2|3>."));
+                                        }
                                     }
+                                } else {
+                                    player.sendMessage(Messages.error("Le joueur ciblé n'est pas en vie !"));
                                 }
                             } else {
-                                player.sendMessage(Messages.error("Le joueur ciblé n'est pas en vie !"));
+                                player.sendMessage(Messages.error("Ce joueur se trouve à plus de 30 blocs !"));
                             }
                         } else {
                             player.sendMessage(Messages.error("Ce joueur se trouve à plus de 30 blocs !"));
                         }
                     } else {
-                        player.sendMessage(Messages.error("Ce joueur se trouve à plus de 30 blocs !"));
+                        player.sendMessage(Messages.error("La cible est incorrecte !"));
                     }
                 } else {
-                    player.sendMessage(Messages.error("La cible est incorrecte !"));
+                    player.sendMessage(Messages.use("/b duel <pseudo> <1|2|3>"));
                 }
             } else {
-                player.sendMessage(Messages.use("/b duel <pseudo> <1|2|3>"));
+                player.sendMessage(Messages.BLEACH_PREFIX.getMessage() + Messages.CANT_USE_POWER_NOW.getMessage());
             }
+
+
         }
         return false;
     }

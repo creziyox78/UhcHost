@@ -54,7 +54,7 @@ public class OresGenerator extends BlockPopulator {
         }
     }
 
-    private void generate(World world, Random rand, int x, int y, int z, int size, BlocksRule material) {
+    private void generate(World world, Random rand, int x, int y, int z, double size, BlocksRule material) {
         double rpi = rand.nextDouble() * Math.PI;
         double x1 = (x + 8) + Math.sin(rpi) * size / 8.0D;
         double x2 = (x + 8) - Math.sin(rpi) * size / 8.0D;

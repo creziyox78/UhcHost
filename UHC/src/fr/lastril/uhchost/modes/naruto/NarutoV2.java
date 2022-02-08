@@ -163,7 +163,7 @@ public class NarutoV2 extends Mode implements ModeConfig, RoleMode<NarutoV2Role>
 				}
 
 			}
-
+			joueur.setAlive(false);
 			if (joueur.hasRole()) {
 				Bukkit.broadcastMessage("§3§m----------------------------------");
 				Bukkit.broadcastMessage("§b§l" + player.getName() + "§7 est mort, son rôle était "+joueur.getRole().getCamp().getCompoColor()+joueur.getRole().getRoleName()+"§7.");
@@ -185,13 +185,14 @@ public class NarutoV2 extends Mode implements ModeConfig, RoleMode<NarutoV2Role>
 						onlinePlayer.teleport(joueur.getDeathLocation());
 					}
 				}.runTaskLater(main, 10);
+				checkWin();
 			} else {
 				Bukkit.broadcastMessage("§3§m----------------------------------");
 				Bukkit.broadcastMessage("§b§l" + player.getName() + "§7 est mort.");
 				Bukkit.broadcastMessage("§3§m----------------------------------");
 			}
-			joueur.setAlive(false);
-			checkWin();
+
+
 			/* DROPING INVENTORY */
 			System.out.println("Droping inventory !");
 			main.getInventoryUtils().dropInventory(joueur.getDeathLocation(), joueur.getItems(), joueur.getArmors());
@@ -277,7 +278,7 @@ public class NarutoV2 extends Mode implements ModeConfig, RoleMode<NarutoV2Role>
 			Bukkit.getConsoleSender().sendMessage("Founded 1 last camp (" + winners + ")");
 			win(winners);
 		} else if (lastCamps.size() == 0) {
-			win(Camps.EGALITE);
+
 		}
 	}
 

@@ -2,6 +2,7 @@ package fr.lastril.uhchost.modes;
 
 import fr.lastril.uhchost.modes.bleach.BleachMode;
 import fr.lastril.uhchost.modes.classic.ClassicMode;
+import fr.lastril.uhchost.modes.ds.DemonSlayerMode;
 import fr.lastril.uhchost.modes.lg.LoupGarouMode;
 import fr.lastril.uhchost.modes.naruto.NarutoV2;
 import fr.lastril.uhchost.tools.API.items.crafter.QuickItem;
@@ -26,11 +27,10 @@ public enum Modes {
                             "§7Infiltration, enquête et trahison sont maîtres",
                             "§7dans ce mode de jeu stratégique opposant",
                             "§aVillageois§7 et §cLoups-Garous§7.",
-                            "",
-                            "§6§k!§r §eClique droit§7 pour configurer le mode de jeu.")
+                            "")
                     .setName("§c§lLoup-Garou"), true),
 
-    DS("§6§lDemon Slayer", "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZTA5MzIzMmFlYTQ5NjAwYjUwOTJmYzE4MmUwZDVjZTg5OTlmNzgwNDVkZDdiZGEyM2M2NWNjYTZmY2Y1Y2Y2MCJ9fX0=", null,
+    DS("§6§lDemon Slayer", "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZTA5MzIzMmFlYTQ5NjAwYjUwOTJmYzE4MmUwZDVjZTg5OTlmNzgwNDVkZDdiZGEyM2M2NWNjYTZmY2Y1Y2Y2MCJ9fX0=", new DemonSlayerMode(),
             new QuickItem(Material.SKULL_ITEM, 1, SkullType.PLAYER.ordinal())
                     .setTexture("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZTA5MzIzMmFlYTQ5NjAwYjUwOTJmYzE4MmUwZDVjZTg5OTlmNzgwNDVkZDdiZGEyM2M2NWNjYTZmY2Y1Y2Y2MCJ9fX0=")
                     .setLore("",
@@ -41,7 +41,7 @@ public enum Modes {
                             "§7même nom opposant §3Slayers§7",
                             "§7et§c Démons§7.",
                             "")
-                    .setName("§6§lDemon Slayer"), true),
+                    .setName("§6§lDemon Slayer"), false),
 
     /*AOT("§eAOT", "", null,
             new QuickItem(Material.SKULL_ITEM, 1, SkullType.PLAYER.ordinal())
@@ -98,8 +98,7 @@ public enum Modes {
                             "§7ainsi que§5 d'Orochimaru et de ses aliés§7.",
                             "§7Empêchez la renaissance de§d Jûbi§7 ou",
                             "§7devenez le précurseur de l'Apocalypse.",
-                            "",
-                            "§6§k!§r §eClique droit§7 pour configurer le mode de jeu.")
+                            "")
                     .setName("§6§lNaruto")
             , true),
 
@@ -114,8 +113,7 @@ public enum Modes {
                             "§7bouleverserons la partie où §6Shinigamis",
                             "§7et§3 Arrancars§7 s'affronteront dans",
                             "§7une bataille sans merci.",
-                            "",
-                            "§6§k!§r §eClique droit§7 pour configurer le mode de jeu.")
+                            "")
                     .setName("§3§lBleach"), true),
 
 

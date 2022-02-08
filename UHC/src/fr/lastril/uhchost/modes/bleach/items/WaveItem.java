@@ -5,6 +5,7 @@ import fr.lastril.uhchost.UhcHost;
 import fr.lastril.uhchost.enums.Messages;
 import fr.lastril.uhchost.modes.bleach.roles.shinigamis.soulsociety.Hinamori;
 import fr.lastril.uhchost.player.PlayerManager;
+import fr.lastril.uhchost.player.modemanager.BleachPlayerManager;
 import fr.lastril.uhchost.tools.API.ClassUtils;
 import fr.lastril.uhchost.tools.API.items.crafter.QuickItem;
 import fr.lastril.uhchost.tools.API.particles.ParticleEffect;
@@ -41,32 +42,38 @@ public class WaveItem extends QuickItem {
         super.onClick(onClick -> {
             Player player = onClick.getPlayer();
             PlayerManager playerManager = main.getPlayerManager(player.getUniqueId());
+            BleachPlayerManager bleachPlayerManager = playerManager.getBleachPlayerManager();
             if(playerManager.hasRole() && playerManager.getRole() instanceof Hinamori){
                 hinamori = (Hinamori) playerManager.getRole();
-                if(playerManager.getRoleCooldownWave() <= 0){
-                    Location initialLocation = player.getLocation().clone();
-                    initialLocation.setPitch(0.0f);
-                    playerManager.setRoleCooldownWave(10*60);
-                    Vector direction = initialLocation.getDirection();
-                    List<List<Location>> shape = new ArrayList<>();
+                if(bleachPlayerManager.canUsePower()){
+                    if(playerManager.getRoleCooldownWave() <= 0){
+                        Location initialLocation = player.getLocation().clone();
+                        initialLocation.setPitch(0.0f);
+                        playerManager.setRoleCooldownWave(10*60);
+                        Vector direction = initialLocation.getDirection();
+                        List<List<Location>> shape = new ArrayList<>();
 
-                    List<Location> line = new ArrayList<>();
+                        List<Location> line = new ArrayList<>();
 
-                    line.add(initialLocation.clone().add(direction));
-                    for (int j = 0; j <= 4; j++) {
-                        Vector right = this.getRightHeadDirection(player).multiply(j), left = this.getLeftHeadDirection(player).multiply(j);
-                        line.add(initialLocation.clone().add(direction.clone().add(right)));
-                        line.add(initialLocation.clone().add(direction.clone().add(left)));
-                        line.add(initialLocation.clone().add(direction.clone().add(left)).add(0, 1, 0));
-                        line.add(initialLocation.clone().add(direction.clone().add(right)).add(0, 1, 0));
-                        line.add(initialLocation.clone().add(direction.clone().add(left)).add(0, 2, 0));
-                        line.add(initialLocation.clone().add(direction.clone().add(right)).add(0, 2, 0));
+                        line.add(initialLocation.clone().add(direction));
+                        for (int j = 0; j <= 4; j++) {
+                            Vector right = this.getRightHeadDirection(player).multiply(j), left = this.getLeftHeadDirection(player).multiply(j);
+                            line.add(initialLocation.clone().add(direction.clone().add(right)));
+                            line.add(initialLocation.clone().add(direction.clone().add(left)));
+                            line.add(initialLocation.clone().add(direction.clone().add(left)).add(0, 1, 0));
+                            line.add(initialLocation.clone().add(direction.clone().add(right)).add(0, 1, 0));
+                            line.add(initialLocation.clone().add(direction.clone().add(left)).add(0, 2, 0));
+                            line.add(initialLocation.clone().add(direction.clone().add(right)).add(0, 2, 0));
+                        }
+                        shape.add(line);
+                        Wave wave = new Wave(UhcHost.getInstance(), initialLocation.toVector(), shape);
+                    } else {
+                        player.sendMessage(Messages.cooldown(playerManager.getRoleCooldownWave()));
                     }
-                    shape.add(line);
-                    Wave wave = new Wave(UhcHost.getInstance(), initialLocation.toVector(), shape);
                 } else {
-                    player.sendMessage(Messages.cooldown(playerManager.getRoleCooldownWave()));
+                    player.sendMessage(Messages.BLEACH_PREFIX.getMessage() + Messages.CANT_USE_POWER_NOW.getMessage());
                 }
+
             }
         });
     }

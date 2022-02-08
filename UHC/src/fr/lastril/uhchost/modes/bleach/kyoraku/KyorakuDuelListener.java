@@ -2,11 +2,14 @@ package fr.lastril.uhchost.modes.bleach.kyoraku;
 
 import fr.lastril.uhchost.UhcHost;
 import fr.lastril.uhchost.enums.Messages;
+import fr.lastril.uhchost.player.PlayerManager;
+import fr.lastril.uhchost.player.modemanager.BleachPlayerManager;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.HandlerList;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
@@ -29,23 +32,38 @@ public class KyorakuDuelListener implements Listener {
         this.main = UhcHost.getInstance();
     }
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.LOW)
     public void onStartDuelKyoraku(KyorakuStartDuelEvent event){
+        player1 = event.getPlayer1();
+        player2 = event.getPlayer2();
         if(kyorakuDuelManager.getRulesFight() == KyorakuDuelManager.RulesFight.RULES_FIGHT_2){
             playerEffectMap.put(player1, player1.getActivePotionEffects());
             playerEffectMap.put(player2, player2.getActivePotionEffects());
             player1.getActivePotionEffects().forEach(potionEffect -> player1.removePotionEffect(potionEffect.getType()));
             player2.getActivePotionEffects().forEach(potionEffect -> player2.removePotionEffect(potionEffect.getType()));
         } else if(kyorakuDuelManager.getRulesFight() == KyorakuDuelManager.RulesFight.RULES_FIGHT_3){
-
+            PlayerManager playerManager1 = main.getPlayerManager(player1.getUniqueId());
+            PlayerManager playerManager2 = main.getPlayerManager(player2.getUniqueId());
+            BleachPlayerManager bleachPlayerManager1 = playerManager1.getBleachPlayerManager();
+            bleachPlayerManager1.setInKyorakuDuel(true);
+            BleachPlayerManager bleachPlayerManager2 = playerManager2.getBleachPlayerManager();
+            bleachPlayerManager2.setInKyorakuDuel(true);
         }
     }
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.LOW)
     public void onEndDuelKyoraku(KyorakuEndDuelEvent event){
         if(kyorakuDuelManager.getRulesFight() == KyorakuDuelManager.RulesFight.RULES_FIGHT_2){
             playerEffectMap.get(event.getWinner()).forEach(potionEffect -> event.getWinner().addPotionEffect(potionEffect));
             event.getWinner().sendMessage(Messages.BLEACH_PREFIX.getMessage() + "§aVous avez remporté le duel ! Vous récupéré vos effets !");
+        } else if(kyorakuDuelManager.getRulesFight() == KyorakuDuelManager.RulesFight.RULES_FIGHT_3){
+            PlayerManager playerManager1 = main.getPlayerManager(player1.getUniqueId());
+            PlayerManager playerManager2 = main.getPlayerManager(player2.getUniqueId());
+            BleachPlayerManager bleachPlayerManager1 = playerManager1.getBleachPlayerManager();
+            bleachPlayerManager1.setInKyorakuDuel(false);
+            BleachPlayerManager bleachPlayerManager2 = playerManager2.getBleachPlayerManager();
+            bleachPlayerManager2.setInKyorakuDuel(false);
+            event.getWinner().sendMessage(Messages.BLEACH_PREFIX.getMessage() + "§aVous avez remporté le duel ! Vous pouvez réutiliser vos pouvoirs !");
         }
         Bukkit.getScheduler().runTaskLater(main, () -> {
             kyorakuDuelManager.teleportWinnerInPreviousLocation(event.getWinner());

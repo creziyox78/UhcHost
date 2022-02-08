@@ -36,11 +36,16 @@ public class WorldInit implements Listener {
         World world = event.getWorld();
         if(!world.getName().equalsIgnoreCase("game"))
             return;
-        OresGenerator oresGenerator = new OresGenerator();
-        for (BlocksRule rule : main.gameManager.getBlocksRules()){
-            oresGenerator.registerRule(rule);
+        UhcHost.debug("§eChecking boost ores...");
+        if(main.getGamemanager().isBoostOres()){
+            OresGenerator oresGenerator = new OresGenerator();
+            for (BlocksRule rule : main.gameManager.getBlocksRules()){
+                oresGenerator.registerRule(rule);
+            }
+            world.getPopulators().add(oresGenerator);
+            UhcHost.debug("§aBoosted ores !");
         }
-        world.getPopulators().add(oresGenerator);
+
         Bukkit.getConsoleSender().sendMessage(ChatColor.YELLOW + "Changing biome center...");
         net.minecraft.server.v1_8_R3.World craftWorld = ((CraftWorld) world).getHandle();
         WorldProvider worldProvider = craftWorld.worldProvider;

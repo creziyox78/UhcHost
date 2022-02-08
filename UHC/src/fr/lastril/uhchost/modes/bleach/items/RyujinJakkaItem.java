@@ -4,6 +4,7 @@ import fr.lastril.uhchost.UhcHost;
 import fr.lastril.uhchost.enums.Messages;
 import fr.lastril.uhchost.modes.bleach.roles.shinigamis.soulsociety.Yamamoto;
 import fr.lastril.uhchost.player.PlayerManager;
+import fr.lastril.uhchost.player.modemanager.BleachPlayerManager;
 import fr.lastril.uhchost.tools.API.items.crafter.QuickItem;
 import fr.lastril.uhchost.tools.API.particles.ParticleEffect;
 import net.minecraft.server.v1_8_R3.EnumParticle;
@@ -36,29 +37,35 @@ public class RyujinJakkaItem extends QuickItem {
         super.onClick(onClick -> {
             Player player = onClick.getPlayer();
             PlayerManager playerManager = main.getPlayerManager(player.getUniqueId());
+            BleachPlayerManager bleachPlayerManager = playerManager.getBleachPlayerManager();
             if(playerManager.hasRole()){
                 if(playerManager.getRole() instanceof Yamamoto){
-                    if(playerManager.getRoleCooldownRyujinJakka() <= 0){
-                        this.yamamoto = (Yamamoto) playerManager.getRole();
-                        Location initialLocation = player.getLocation().clone();
-                        initialLocation.setPitch(0.0f);
-                        playerManager.setRoleCooldownRyujinJakka(10*60);
-                        Vector direction = initialLocation.getDirection();
-                        List<List<Location>> shape = new ArrayList<>();
+                    if(bleachPlayerManager.canUsePower()){
+                        if(playerManager.getRoleCooldownRyujinJakka() <= 0){
+                            this.yamamoto = (Yamamoto) playerManager.getRole();
+                            Location initialLocation = player.getLocation().clone();
+                            initialLocation.setPitch(0.0f);
+                            playerManager.setRoleCooldownRyujinJakka(10*60);
+                            Vector direction = initialLocation.getDirection();
+                            List<List<Location>> shape = new ArrayList<>();
 
-                        List<Location> line = new ArrayList<>();
+                            List<Location> line = new ArrayList<>();
 
-                        line.add(initialLocation.clone().add(direction));
-                        for (int j = 0; j <= 4; j++) {
-                            Vector right = this.getRightHeadDirection(player).multiply(j), left = this.getLeftHeadDirection(player).multiply(j);
-                            line.add(initialLocation.clone().add(direction.clone().add(right)));
-                            line.add(initialLocation.clone().add(direction.clone().add(left)));
+                            line.add(initialLocation.clone().add(direction));
+                            for (int j = 0; j <= 4; j++) {
+                                Vector right = this.getRightHeadDirection(player).multiply(j), left = this.getLeftHeadDirection(player).multiply(j);
+                                line.add(initialLocation.clone().add(direction.clone().add(right)));
+                                line.add(initialLocation.clone().add(direction.clone().add(left)));
+                            }
+                            shape.add(line);
+                            new Wave(UhcHost.getInstance(), initialLocation.toVector(), shape);
+                        } else {
+                            player.sendMessage(Messages.cooldown(playerManager.getRoleCooldownRyujinJakka()));
                         }
-                        shape.add(line);
-                        new Wave(UhcHost.getInstance(), initialLocation.toVector(), shape);
                     } else {
-                        player.sendMessage(Messages.cooldown(playerManager.getRoleCooldownRyujinJakka()));
+                        player.sendMessage(Messages.BLEACH_PREFIX.getMessage() + Messages.CANT_USE_POWER_NOW.getMessage());
                     }
+
 
                 } else {
                     player.sendMessage(Messages.not("Yamamoto"));

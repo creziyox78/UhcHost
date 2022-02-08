@@ -4,6 +4,7 @@ import fr.lastril.uhchost.UhcHost;
 import fr.lastril.uhchost.enums.Messages;
 import fr.lastril.uhchost.modes.bleach.roles.shinigamis.soulsociety.Omaeda;
 import fr.lastril.uhchost.player.PlayerManager;
+import fr.lastril.uhchost.player.modemanager.BleachPlayerManager;
 import fr.lastril.uhchost.tools.API.ClassUtils;
 import fr.lastril.uhchost.tools.API.items.crafter.QuickItem;
 import org.bukkit.Material;
@@ -32,23 +33,29 @@ public class Gegetsuburi extends QuickItem {
         super.onClick(onClick -> {
             Player player = onClick.getPlayer();
             PlayerManager playerManager = main.getPlayerManager(player.getUniqueId());
+            BleachPlayerManager bleachPlayerManager = playerManager.getBleachPlayerManager();
             if(playerManager.hasRole() && playerManager.isAlive()){
                 if(playerManager.getRole() instanceof Omaeda){
-                    if(onClick.getAction() == Action.LEFT_CLICK_AIR || onClick.getAction() == Action.LEFT_CLICK_BLOCK){
-                        Omaeda omaeda = (Omaeda) playerManager.getRole();
-                        Entity entity = omaeda.getGrabed();
-                        if(entity instanceof Player){
-                            if(playerManager.getRoleCooldownGegetsuburiDamage() <= 0){
-                                Player target = (Player) entity;
-                                ClassUtils.setCorrectHealth(target, target.getHealth() - 3D*2D, false);
-                                playerManager.setRoleCooldownGegetsuburiDamage(45);
-                                target.sendMessage("§6Vous venez d'être touché par \"§bGegetsuburi\"§6 qui vous fait perdre 3 coeurs.");
-                                player.sendMessage("§6Vous avez frappé " + target.getName() + " avec \"§bGegetsuburi\".");
-                            } else {
-                                player.sendMessage(Messages.cooldown(playerManager.getRoleCooldownGegetsuburiDamage()));
+                    if(bleachPlayerManager.canUsePower()){
+                        if(onClick.getAction() == Action.LEFT_CLICK_AIR || onClick.getAction() == Action.LEFT_CLICK_BLOCK){
+                            Omaeda omaeda = (Omaeda) playerManager.getRole();
+                            Entity entity = omaeda.getGrabed();
+                            if(entity instanceof Player){
+                                if(playerManager.getRoleCooldownGegetsuburiDamage() <= 0){
+                                    Player target = (Player) entity;
+                                    ClassUtils.setCorrectHealth(target, target.getHealth() - 3D*2D, false);
+                                    playerManager.setRoleCooldownGegetsuburiDamage(45);
+                                    target.sendMessage("§6Vous venez d'être touché par \"§bGegetsuburi\"§6 qui vous fait perdre 3 coeurs.");
+                                    player.sendMessage("§6Vous avez frappé " + target.getName() + " avec \"§bGegetsuburi\".");
+                                } else {
+                                    player.sendMessage(Messages.cooldown(playerManager.getRoleCooldownGegetsuburiDamage()));
+                                }
                             }
                         }
+                    } else {
+                        player.sendMessage(Messages.BLEACH_PREFIX.getMessage() + Messages.CANT_USE_POWER_NOW.getMessage());
                     }
+
                 } else {
                     player.sendMessage(Messages.not("Omaeda"));
                 }

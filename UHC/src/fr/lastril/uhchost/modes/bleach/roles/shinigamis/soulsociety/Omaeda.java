@@ -7,6 +7,7 @@ import fr.lastril.uhchost.modes.roles.Camps;
 import fr.lastril.uhchost.modes.roles.Role;
 import fr.lastril.uhchost.modes.roles.RoleListener;
 import fr.lastril.uhchost.player.PlayerManager;
+import fr.lastril.uhchost.player.modemanager.BleachPlayerManager;
 import fr.lastril.uhchost.tools.API.ClassUtils;
 import fr.lastril.uhchost.tools.API.items.crafter.QuickItem;
 import org.bukkit.Material;
@@ -83,14 +84,19 @@ public class Omaeda extends Role implements RoleListener, ShinigamiRole {
             if(event.getState() == PlayerFishEvent.State.CAUGHT_ENTITY){
                 Player player = event.getPlayer();
                 PlayerManager playerManager = main.getPlayerManager(player.getUniqueId());
+                BleachPlayerManager bleachPlayerManager = playerManager.getBleachPlayerManager();
                 if(playerManager.hasRole() && playerManager.getRole() instanceof Omaeda){
-                    if(playerManager.getRoleCooldownGegetsuburiGrab() <= 0){
-                        ClassUtils.pullEntityToLocation(entity, player.getLocation(), 0.07, 0.03, 0.07);
-                        playerManager.setRoleCooldownGegetsuburiGrab(20);
+                    if(bleachPlayerManager.canUsePower()){
+                        if(playerManager.getRoleCooldownGegetsuburiGrab() <= 0){
+                            ClassUtils.pullEntityToLocation(entity, player.getLocation(), 0.07, 0.03, 0.07);
+                            playerManager.setRoleCooldownGegetsuburiGrab(20);
+                        } else {
+                            player.sendMessage(Messages.cooldown(playerManager.getRoleCooldownGegetsuburiGrab()));
+                        }
+                    } else {
+                        player.sendMessage(Messages.BLEACH_PREFIX.getMessage() + Messages.CANT_USE_POWER_NOW.getMessage());
                     }
-                    else {
-                        player.sendMessage(Messages.cooldown(playerManager.getRoleCooldownGegetsuburiGrab()));
-                    }
+
                 }
             }
         }
@@ -104,16 +110,21 @@ public class Omaeda extends Role implements RoleListener, ShinigamiRole {
                 return;
             Player player = (Player)hook.getShooter();
             PlayerManager playerManager = main.getPlayerManager(player.getUniqueId());
+            BleachPlayerManager bleachPlayerManager = playerManager.getBleachPlayerManager();
             if(playerManager.hasRole() && playerManager.getRole() instanceof Omaeda){
-                Omaeda omaeda = (Omaeda) playerManager.getRole();
-                omaeda.setGrabed(event.getEntity());
-                if (event.getEntity() instanceof Player) {
-                    Player hooked = (Player)event.getEntity();
-                    hooked.sendMessage("§6Vous avez attrapé par \"§bGegetsuburi\" !");
-                    player.sendMessage("§6Vous avez attrapé "+hooked.getName()+" !");
+                if(bleachPlayerManager.canUsePower()){
+                    Omaeda omaeda = (Omaeda) playerManager.getRole();
+                    omaeda.setGrabed(event.getEntity());
+                    if (event.getEntity() instanceof Player) {
+                        Player hooked = (Player)event.getEntity();
+                        hooked.sendMessage("§6Vous avez attrapé par \"§bGegetsuburi\" !");
+                        player.sendMessage("§6Vous avez attrapé "+hooked.getName()+" !");
+                    } else {
+                        String entityName = event.getEntityType().toString().replace("_", " ").toLowerCase();
+                        player.sendMessage("§6Vous avez attrapé un "+entityName+" !");
+                    }
                 } else {
-                    String entityName = event.getEntityType().toString().replace("_", " ").toLowerCase();
-                    player.sendMessage("§6Vous avez attrapé un "+entityName+" !");
+                    player.sendMessage(Messages.BLEACH_PREFIX.getMessage() + Messages.CANT_USE_POWER_NOW.getMessage());
                 }
             }
         }

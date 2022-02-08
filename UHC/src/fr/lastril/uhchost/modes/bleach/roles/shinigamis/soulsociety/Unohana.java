@@ -8,6 +8,7 @@ import fr.lastril.uhchost.modes.roles.Camps;
 import fr.lastril.uhchost.modes.roles.Role;
 import fr.lastril.uhchost.modes.roles.RoleListener;
 import fr.lastril.uhchost.player.PlayerManager;
+import fr.lastril.uhchost.player.modemanager.BleachPlayerManager;
 import fr.lastril.uhchost.tools.API.ClassUtils;
 import fr.lastril.uhchost.tools.API.Cuboid;
 import fr.lastril.uhchost.tools.API.clickable_messages.ClickableMessage;
@@ -162,22 +163,28 @@ public class Unohana extends Role implements RoleListener, ShinigamiRole {
     public void onPlaceCristal(BlockPlaceEvent event){
         Player player = event.getPlayer();
         PlayerManager playerManager = main.getPlayerManager(player.getUniqueId());
+        BleachPlayerManager bleachPlayerManager = playerManager.getBleachPlayerManager();
         ItemStack item = event.getItemInHand();
         if(item.getType() == Material.PACKED_ICE){
             if(item.hasItemMeta() && item.getItemMeta().hasDisplayName()){
                 if(item.getItemMeta().getDisplayName().equalsIgnoreCase("§bCristal")){
                     if(playerManager.hasRole() && playerManager.getRole() instanceof Unohana){
-                        if(playerManager.getRoleCooldownCristal() <= 0){
-                            center = event.getBlockPlaced().getLocation().clone();
-                            event.getBlockPlaced().getLocation().getBlock().setType(Material.STAINED_GLASS);
-                            player.setItemInHand(new Cristal(main).toItemStack());
-                            clearTasks();
-                            createZone(event.getBlockPlaced().getLocation());
-                            player.sendMessage("§aZone établie !");
-                            playerManager.setRoleCooldownCristal(10*60);
+                        if(bleachPlayerManager.canUsePower()){
+                            if(playerManager.getRoleCooldownCristal() <= 0){
+                                center = event.getBlockPlaced().getLocation().clone();
+                                event.getBlockPlaced().getLocation().getBlock().setType(Material.STAINED_GLASS);
+                                player.setItemInHand(new Cristal(main).toItemStack());
+                                clearTasks();
+                                createZone(event.getBlockPlaced().getLocation());
+                                player.sendMessage("§aZone établie !");
+                                playerManager.setRoleCooldownCristal(10*60);
+                            } else {
+                                event.setCancelled(true);
+                                player.sendMessage(Messages.cooldown(playerManager.getRoleCooldownCristal()));
+                            }
                         } else {
                             event.setCancelled(true);
-                            player.sendMessage(Messages.cooldown(playerManager.getRoleCooldownCristal()));
+                            player.sendMessage(Messages.BLEACH_PREFIX.getMessage() + Messages.CANT_USE_POWER_NOW.getMessage());
                         }
                     } else {
                         event.setCancelled(true);

@@ -8,15 +8,15 @@ public class BlocksRule {
 
     public int data;
 
-    public int round;
-
     public int minY;
 
     public int maxY;
 
-    public int size;
+    public double round;
 
-    public BlocksRule(Material type, int data, int round, int minY, int maxY, int size) {
+    public double size;
+
+    public BlocksRule(Material type, int data, double round, int minY, int maxY, double size) {
         this.id = type;
         this.data = data;
         this.round = round;

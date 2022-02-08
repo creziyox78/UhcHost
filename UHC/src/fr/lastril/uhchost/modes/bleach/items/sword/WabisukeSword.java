@@ -4,6 +4,7 @@ import fr.lastril.uhchost.UhcHost;
 import fr.lastril.uhchost.enums.Messages;
 import fr.lastril.uhchost.modes.bleach.roles.shinigamis.soulsociety.Kira;
 import fr.lastril.uhchost.player.PlayerManager;
+import fr.lastril.uhchost.player.modemanager.BleachPlayerManager;
 import fr.lastril.uhchost.tools.API.items.crafter.QuickItem;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -33,21 +34,26 @@ public class WabisukeSword extends QuickItem {
         super.onClick(onClick -> {
             Player player = onClick.getPlayer();
             PlayerManager playerManager = main.getPlayerManager(player.getUniqueId());
+            BleachPlayerManager bleachPlayerManager = playerManager.getBleachPlayerManager();
             if(playerManager.hasRole() && playerManager.getRole() instanceof Kira){
                 if(onClick.getAction() == Action.RIGHT_CLICK_AIR || onClick.getAction() == Action.RIGHT_CLICK_BLOCK){
                     for(Entity entity : player.getNearbyEntities(distance, distance, distance)) {
-                        if(playerManager.getRoleCooldownWabisuke() <= 0){
-                            if(entity instanceof Player) {
-                                Player players = (Player) entity;
-                                PlayerManager targetManager = main.getPlayerManager(player.getUniqueId());
-                                if(getLookingAt(player, players) && targetManager.isAlive()){
-                                    Location loc1 = player.getLocation();
-                                    players.teleport(loc1);
-                                    playerManager.setRoleCooldownWabisuke(60+30);
+                        if(bleachPlayerManager.canUsePower()){
+                            if(playerManager.getRoleCooldownWabisuke() <= 0){
+                                if(entity instanceof Player) {
+                                    Player players = (Player) entity;
+                                    PlayerManager targetManager = main.getPlayerManager(player.getUniqueId());
+                                    if(getLookingAt(player, players) && targetManager.isAlive()){
+                                        Location loc1 = player.getLocation();
+                                        players.teleport(loc1);
+                                        playerManager.setRoleCooldownWabisuke(60+30);
+                                    }
                                 }
+                            } else{
+                                player.sendMessage(Messages.cooldown(playerManager.getRoleCooldownWabisuke()));
                             }
-                        } else{
-                            player.sendMessage(Messages.cooldown(playerManager.getRoleCooldownWabisuke()));
+                        } else {
+                            player.sendMessage(Messages.BLEACH_PREFIX.getMessage() + Messages.CANT_USE_POWER_NOW.getMessage());
                         }
                     }
                 }
