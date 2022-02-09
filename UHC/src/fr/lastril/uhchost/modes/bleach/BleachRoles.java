@@ -6,6 +6,10 @@ import fr.lastril.uhchost.modes.roles.Role;
 
 public enum BleachRoles {
 
+    /*
+     * SHINIGAMIS
+     */
+
     //Soul Society
     YAMAMOTO(Yamamoto.class), //TODO FIX NO ABSO
     SOIFON(SoiFon.class), //TODO ITEM Suzumebachi
@@ -15,13 +19,19 @@ public enum BleachRoles {
     ISANE(Isane.class), //FINISHED
     HINAMORI(Hinamori.class), //FINISHED
     BYAKUYA(Byakuya.class), //TODO BE TESTED
-    RENJI(Renji.class), //TODO BE TESTED
+    RENJI(Renji.class), //FINISHED
     KOMAMURA(Komamura.class),
-    IBA(Iba.class), //TODO BE TESTED
+    IBA(Iba.class), //TODO FIX
     KYORAKU(Kyoraku.class),
+    NANAO(Nanao.class), //FINISHED
+    HISAGI(Hisagi.class), //TODO FIX
+    TOSHIROHITSUGAYA(ToshiroHitsugaya.class), //FINISHED
 
+    //Ichigo Groups
 
-    //ARRANCARS
+    /*
+     * ARRANCARS
+     */
     AIZEN(Aizen.class),
     ;
 

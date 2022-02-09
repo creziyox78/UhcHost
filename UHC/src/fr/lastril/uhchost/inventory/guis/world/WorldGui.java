@@ -41,7 +41,7 @@ public class WorldGui extends IQuickInventory {
             } else {
                 inv.setItem(new QuickItem(Material.BARRIER).setName("§aCentre choisi: " + pl.getGamemanager().getBiomeState().getItemBiome().getItemMeta().getDisplayName())
                         .setLore("",
-                                "§cPour changer ce paramètre, vous devez redémarrez le serveur.")
+                                "§cPour changer ce paramètre, ","§cvous devez redémarrez le serveur.")
                         .toItemStack(), onClick -> {
                 },10);
             }
@@ -66,7 +66,7 @@ public class WorldGui extends IQuickInventory {
                 inv.setItem(new QuickItem(Material.BARRIER).setName("§aBoost de minerais: "
                         + (pl.getGamemanager().isBoostOres() ? "§aActivé" : "§cDésactivé"))
                                 .setLore("",
-                                        "§cPour changer ce paramètre, vous devez redémarrez le serveur.")
+                                        "§cPour changer ce paramètre, ","§cvous devez redémarrez le serveur.")
                         .toItemStack(), onClick -> {
                 },14);
             }

@@ -1,9 +1,6 @@
 package fr.lastril.uhchost.tools.API;
 
-import org.bukkit.Bukkit;
-import org.bukkit.Chunk;
-import org.bukkit.Location;
-import org.bukkit.World;
+import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.bukkit.configuration.serialization.ConfigurationSerializable;
 import org.bukkit.entity.Player;
@@ -203,6 +200,23 @@ public class Cuboid implements Iterable<Block>, Cloneable, ConfigurationSerializ
         List<Block> copy = new ArrayList<>();
         while (blockI.hasNext())
             copy.add(blockI.next());
+        return copy;
+    }
+
+    /**
+     * Get the blocks in the Cuboid without air.
+     *
+     * @return The blocks in the Cuboid
+     */
+    public List<Block> getFullBlocks() {
+        Iterator<Block> blockI = this.iterator();
+        List<Block> copy = new ArrayList<>();
+        while (blockI.hasNext() ){
+            Block block = blockI.next();
+            if(block.getType() != Material.AIR){
+                copy.add(block);
+            }
+        }
         return copy;
     }
 

@@ -854,14 +854,74 @@ fr:
                 Choji:
                   - '&8&m--------------------------------------------------&r'
                   - "&fVous êtes&a {role}"
+                  - "&2"
+                  - "&fObjectif: Gagner avec les&a Shinobis"
+                  - "&2"
+                  - "&f&lItems"
+                  - "&2"
+                  - "&6• Décuplement Partiel :&7 Permet de recevoir&c Force 2&7 pendant 20 secondes. (Cooldown - 10 minutes)"
+                  - "&2"
+                  - "&6• Boulet Humain : &7Permet de recevoir&b Vitesse 2&7 pendant 1 minute. (Cooldown - 15 minutes)"
+                  - "&2"
+                  - "&6• Akimichi :&7 En mangeant ces steaks, vous recevez&c Force 2&7 et&9 Résistance 1&7 pendant 30 secondes. A la fin des 30 secondes, vous recevez Lenteur 1 pendant 1 minute."
+                  - "&2"
+                  - "&f&lParticularités"
+                  - "&2"
+                  - "&7• Vous possèdez l'effet&c Force 1&7 permanent."
+                  - "&2"
+                  - "&7• Lorsque vous avez perdu 1,5 gigos de nourriture, vous perdez l'effet de&c force&7."
+                  - "&2"
+                  - "&7• Lorsque votre barre de nourriture est à moitié vide, vous recevez les effets&8 Hunger 1&7 et Lenteur 1&7."
+                  - "&2"
+                  - "&7• Vous connaissez&a Ino&7."
+                  - "&2"
+                  - "&7• Vous disposez de la nature de Chakra&6 Doton&7."
                   - '&8&m--------------------------------------------------&r'
                 Neji:
                   - '&8&m--------------------------------------------------&r'
                   - "&fVous êtes&a {role}"
+                  - "&2"
+                  - "&fObjectif: Gagner avec les&a Shinobis"
+                  - "&2"
+                  - "&f&lItems"
+                  - "&2"
+                  - "&6• Byakugan : &7Vous recevrez la position approximative des joueurs se trouvant autour de vous dans un rayon de 60 blocs (Cooldown - 5 minutes). Exemple : "
+                  - "&2                                 &3 Lastril : Direction : Nord | Distance : 54 blocs"
+                  - "&2"
+                  - "&6• Hakke : &7Inflige&c 2 coeurs non-permanent&7, Blindness 1 ainsi que Lenteur 4 pendant 3 secondes à tous les joueurs autours de vous dans un rayon de 10 blocs. (Cooldown - 10 minutes)"
+                  - "&2"
+                  - "&f&lParticularités"
+                  - "&2"
+                  - "&7• Si un joueur utilise une technique proche de vous dans un rayon de 20 blocs, vous recevrez un message que le rôle de ce joueur vient de l'utiliser."
+                  - "&2"
+                  - "&7• Si&a Hinata&7 meurt, vous recevrez l'effet&c Force 1&7 permanent."
+                  - "&2"
+                  - "&7• Vous connaissez&a Hinata&7."
+                  - "&2"
+                  - "&7• Vous possèdez la nature de Chakra&6 Doton&7."
                   - '&8&m--------------------------------------------------&r'
                 Hinata:
                   - '&8&m--------------------------------------------------&r'
                   - "&fVous êtes&a {role}"
+                  - "&2"
+                  - "&fObjectif: Gagner avec les&a Shinobis"
+                  - "&2"
+                  - "&f&lItems"
+                  - "&2"
+                  - "&6• Byakugan : &7Vous recevrez la position approximative des joueurs se trouvant autour de vous dans un rayon de 60 blocs (Cooldown - 5 minutes). Exemple : "
+                  - "&2                                 &3 Lastril : Direction : Nord | Distance : 54 blocs"
+                  - "&2"
+                  - "&6• Hakke : &7Inflige&c 2 coeurs non-permanent&7, Blindness 1 ainsi que Lenteur 4 pendant 3 secondes à tous les joueurs autours de vous dans un rayon de 10 blocs. (Cooldown - 10 minutes)"
+                  - "&2"
+                  - "&f&lParticularités"
+                  - "&2"
+                  - "&7• Si un joueur utilise une technique proche de vous dans un rayon de 20 blocs, vous recevrez un message que le rôle de ce joueur vient de l'utiliser."
+                  - "&2"
+                  - "&7• Si&a Neji&7 meurt, vous recevrez l'effet&c Force 1&7 permanent."
+                  - "&2"
+                  - "&7• Vous connaissez&a Naruto&7. Si vous êtes proches de lui dans un rayon de 15 blocs, vous obtiendrez l'effet&c Force 1&7, cependant vous recevrez 10% de dégâts en plus par coup reçu."
+                  - "&2"
+                  - "&7• Vous possèdez la nature de Chakra&c Katon&7."
                   - '&8&m--------------------------------------------------&r'
               solo:
                 Gaara:
@@ -1059,7 +1119,3 @@ fr:
                   - "&2"
                   - "&7• Vous pouvez parler avec&b Zabuza&7 dans le chat avec le préfixe &f\"!\"&7 au début de votre message."
                   - '&8&m--------------------------------------------------&r'
-
-
-
-

@@ -9,6 +9,7 @@ import fr.lastril.uhchost.inventory.guis.HostConfig;
 import fr.lastril.uhchost.inventory.guis.enchant.CategoriesGui;
 import fr.lastril.uhchost.modes.roles.Role;
 import fr.lastril.uhchost.player.PlayerManager;
+import fr.lastril.uhchost.player.modemanager.BleachPlayerManager;
 import fr.lastril.uhchost.tools.API.ActionBar;
 import fr.lastril.uhchost.tools.NotStart;
 import org.bukkit.Bukkit;
@@ -42,20 +43,8 @@ public class CmdHost2 implements CommandExecutor {
 			}
 			if ((cmd.getName().equalsIgnoreCase("h") || cmd.getName().equalsIgnoreCase("host")) && args.length >= 1) {
 				if (args[0].equalsIgnoreCase("test")){
-					player.sendMessage("");
-				} else if (args[0].equalsIgnoreCase("sethost")){
-					if(args.length == 2){
-						String targetName = args[1];
-						Player target = Bukkit.getPlayer(targetName);
-						if(target != null){
-							pl.gameManager.setHost(target.getUniqueId());
-							pl.getGamemanager().setHostname(targetName);
-							if(GameState.isState(GameState.LOBBY)){
-								NotStart.PreHosting(target);
-							}
-						}
-						player.sendMessage("§a" + targetName + " est bien le nouveau host.");
-					}
+					player.sendMessage(Messages.PREFIX_WITH_ARROW.getMessage() + "§aFin du test !");
+
 				} else if (args[0].equalsIgnoreCase("enchant")) {
 					if (!gameManager.isEditInv())
 						return false;
@@ -103,8 +92,7 @@ public class CmdHost2 implements CommandExecutor {
 						player.sendMessage(Messages.NOT_NOW.getMessage());
 						return false;
 					}
-				}
-				else if(args[0].equalsIgnoreCase("reset")){
+				} else if(args[0].equalsIgnoreCase("reset")){
 					if (player.isOp()) {
 						if(args.length > 1){
 							Player target = Bukkit.getPlayer(args[1]);
@@ -117,6 +105,28 @@ public class CmdHost2 implements CommandExecutor {
 							} else {
 								player.sendMessage(Messages.error("Ce joueur n'est pas en ligne."));
 							}
+						} else {
+							player.sendMessage(Messages.use("/h reset <pseudo>"));
+						}
+					} else {
+						player.sendMessage(Messages.NOT_PERM.getMessage());
+					}
+				} else if(args[0].equalsIgnoreCase("clear")){
+					if (player.isOp()) {
+						if(args.length > 1){
+							Player target = Bukkit.getPlayer(args[1]);
+							if(target != null){
+								PlayerManager targetJoueur = pl.getPlayerManager(target.getUniqueId());
+								BleachPlayerManager bleachPlayerManager = targetJoueur.getBleachPlayerManager();
+								bleachPlayerManager.clearCancellablePower();
+								target.sendMessage(Messages.PREFIX_WITH_ARROW.getMessage() + "Un modérateur vient d'enlever tous vos malus.");
+								player.sendMessage(Messages.PREFIX_SPEC_STAFF.getMessage() + "§6Vous venez d'enlever les malus de " + target.getName() + ".");
+
+							} else {
+								player.sendMessage(Messages.error("Ce joueur n'est pas en ligne."));
+							}
+						} else {
+							player.sendMessage(Messages.use("/h reset <pseudo>"));
 						}
 					} else {
 						player.sendMessage(Messages.NOT_PERM.getMessage());
@@ -126,12 +136,7 @@ public class CmdHost2 implements CommandExecutor {
 						if (GameState.isState(GameState.STARTED)) {
 							OfflinePlayer target = pl.getServer().getOfflinePlayer(args[1]);
 							if (target != null) {
-								if (target.getPlayer() != null) {
-									Player targetPlayer = target.getPlayer();
-									targetPlayer.damage(100D);
-								} else {
-									pl.getGamemanager().getModes().getMode().onDeath(target, null);
-								}
+								pl.getGamemanager().getModes().getMode().onDeath(target, null);
 							} else {
 								player.sendMessage(Messages.UNKNOW_PLAYER.getMessage());
 								return false;
@@ -176,7 +181,8 @@ public class CmdHost2 implements CommandExecutor {
 						Player target = Bukkit.getPlayer(targetName);
 						if(target != null){
 							pl.gameManager.removeCoHost(target);
-							NotStart.PreHosting(target);
+							if(!GameState.isState(GameState.STARTED))
+								NotStart.PreHosting(target);
 							player.sendMessage("§c" + targetName + " a bien été retiré des co-host.");
 						}
 					}
@@ -221,6 +227,7 @@ public class CmdHost2 implements CommandExecutor {
 		player.sendMessage("§f• /h op <pseudo> §7: §eAjout un host à la partie.");
 		player.sendMessage("§f• /h deop <pseudo> §7: §eSupprimer un host à la partie.");
 		player.sendMessage("§f• /h reset <pseudo> §7: §eRéduire à 0 les cooldowns d'un joueur.");
+		player.sendMessage("§f• /h clear <pseudo> §7: §eEnlève les malus spéciaux d'un joueur.");
 		player.sendMessage("§f• /h config §7: §eOuvrir le menu de configuration de la partie.");
 	}
 

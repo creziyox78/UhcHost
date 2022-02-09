@@ -12,6 +12,7 @@ import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.player.AsyncPlayerPreLoginEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerLoginEvent;
 
@@ -26,12 +27,23 @@ public class Join implements Listener {
 	}
 
 	@EventHandler
+	public void PreLogin(AsyncPlayerPreLoginEvent event){
+		String playerName = event.getName();
+		Player player = Bukkit.getPlayer(playerName);
+		if(player != null && player.isOnline()){
+			event.disallow(AsyncPlayerPreLoginEvent.Result.KICK_OTHER, "§cUn joueur connecté possède déjà ce pseudo.");
+		}
+	}
+
+	@EventHandler
 	public void onLogin(PlayerLoginEvent e) {
-		if ((Bukkit.getOnlinePlayers().size() >= this.pl.gameManager.getMaxPlayers() && !e.getPlayer().isOp())
-				|| GameState.isState(GameState.PRESTART)
-				|| GameState.isState(GameState.TELEPORTING)) {
+		if (Bukkit.getOnlinePlayers().size() >= this.pl.gameManager.getMaxPlayers() && !e.getPlayer().isOp()) {
 		      e.setResult(PlayerLoginEvent.Result.KICK_FULL);
 		      e.setKickMessage(I18n.tl("serverFull"));
+		}
+		if(GameState.isState(GameState.TELEPORTING) || GameState.isState(GameState.PRESTART)){
+			e.setResult(PlayerLoginEvent.Result.KICK_OTHER);
+			e.setKickMessage("§cLa partie est train de se lancer. Attendez qu'elle soit démarré pour rejoindre en tant que spectateur.");
 		}
 	}
 
@@ -47,7 +59,7 @@ public class Join implements Listener {
 			Bukkit.getConsoleSender().sendMessage("Created player data !");
 		}
 		UhcHost.debug("Checking state: " + GameState.getCurrentState().name());
-		if (GameState.isState(GameState.STARTING) || GameState.isState(GameState.LOBBY) ) {
+		if (GameState.isState(GameState.STARTING) || GameState.isState(GameState.LOBBY)) {
 			UhcHost.debug("Checking host...");
 			e.setJoinMessage("[" + ChatColor.GREEN + "+"+ ChatColor.WHITE+ "] " + player.getDisplayName());
 			player.setGameMode(GameMode.ADVENTURE);
@@ -57,7 +69,7 @@ public class Join implements Listener {
 			player.setFoodLevel(20);
 			player.setSaturation(20);
 
-			if(player.isOp()){
+			if(pl.isListHost(playersUuid)){
 				if(pl.gameManager.getHost() == null){
 					UhcHost.debug("Set player " + player.getName() + " host !");
 					pl.gameManager.setHost(player.getUniqueId());

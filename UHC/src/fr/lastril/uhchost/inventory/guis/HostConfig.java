@@ -119,6 +119,18 @@ public class HostConfig extends IQuickInventory {
 			inv.setItem(new QuickItem(Material.DIODE).setName(ChatColor.YELLOW + "Nom du serveur").toItemStack(), onClick -> {
 				new SetNameUHCGui(UhcHost.getInstance()).open(onClick.getPlayer());
 			},52);
+
+			if(Bukkit.hasWhitelist()){
+				inv.setItem(new QuickItem(Material.REDSTONE_BLOCK).setName(ChatColor.RED + "Whitelist: Fermée").toItemStack(), onClick -> {
+					Bukkit.setWhitelist(!Bukkit.hasWhitelist());
+				},46);
+			} else{
+				inv.setItem(new QuickItem(Material.EMERALD_BLOCK).setName(ChatColor.GREEN + "Whitelist: Ouverte").toItemStack(), onClick -> {
+					Bukkit.setWhitelist(!Bukkit.hasWhitelist());
+				},46);
+			}
+
+
 			inv.setItem(new QuickItem(Material.SKULL_ITEM, 1, SkullType.PLAYER.ordinal()).setTexture("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYzY5MTk2YjMzMGM2Yjg5NjJmMjNhZDU2MjdmYjZlY2NlNDcyZWFmNWM5ZDQ0Zjc5MWY2NzA5YzdkMGY0ZGVjZSJ9fX0=")
 					.setName("§6Paramètre du monde").toItemStack(), onClick -> {
 				new WorldGui().open(onClick.getPlayer());

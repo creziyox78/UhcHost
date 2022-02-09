@@ -6,7 +6,7 @@ public class BleachPlayerManager {
 
     private final PlayerManager playerManager;
 
-    private boolean inKyorakuDuel;
+    private boolean inKyorakuDuel, nanaoEffect;
 
     public BleachPlayerManager(PlayerManager playerManager) {
         this.playerManager = playerManager;
@@ -14,6 +14,19 @@ public class BleachPlayerManager {
 
     public PlayerManager getPlayerManager() {
         return playerManager;
+    }
+
+    public boolean isNanaoEffect() {
+        return nanaoEffect;
+    }
+
+    public void setNanaoEffect(boolean nanaoEffect) {
+        this.nanaoEffect = nanaoEffect;
+    }
+
+    public void clearCancellablePower(){
+        setNanaoEffect(false);
+        setInKyorakuDuel(false);
     }
 
     public boolean isInKyorakuDuel() {
@@ -25,6 +38,6 @@ public class BleachPlayerManager {
     }
 
     public boolean canUsePower(){
-        return !isInKyorakuDuel();
+        return !isInKyorakuDuel() && !isNanaoEffect();
     }
 }

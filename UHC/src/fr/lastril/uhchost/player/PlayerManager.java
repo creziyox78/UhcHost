@@ -808,6 +808,38 @@ public class PlayerManager {
 		return this.getRoleCooldown("Ryodan");
 	}
 
+	public void setRoleCooldownNanao(int i) {
+		this.setRoleCooldown("Suppression", i);
+	}
+
+	public int getRoleCooldownNanao(){
+		return this.getRoleCooldown("Suppression");
+	}
+
+	public void setRoleCooldownKazeshini(int i) {
+		this.setRoleCooldown("Kazeshini", i);
+	}
+
+	public int getRoleCooldownKazeshini(){
+		return this.getRoleCooldown("Kazeshini");
+	}
+
+	public void setRoleCooldownChaines(int i) {
+		this.setRoleCooldown("Chaînes", i);
+	}
+
+	public int getRoleCooldownChaines(){
+		return this.getRoleCooldown("Chaînes");
+	}
+
+	public void setRoleCooldownHiver(int i) {
+		this.setRoleCooldown("Hiver", i);
+	}
+
+	public int getRoleCooldownHiver(){
+		return this.getRoleCooldown("Hiver");
+	}
+
 	public UUID getUuid() {
 		return this.uuid;
 	}

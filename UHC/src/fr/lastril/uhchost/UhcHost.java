@@ -36,9 +36,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.OutputStreamWriter;
+import java.io.*;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -328,7 +326,7 @@ public class UhcHost extends JavaPlugin {
 		return inventoryUtils;
 	}
 
-	public void checkingDescriptionUpdate(String file){
+	private void checkingDescriptionUpdate(String file){
         if (!new File(getDataFolder(), "description").exists())
             new File(getDataFolder(), "description").mkdir();
 
@@ -404,6 +402,49 @@ public class UhcHost extends JavaPlugin {
 			}
 		}
 
+	}
+
+	private void saveHostConfig(){
+		File f = new File(getDataFolder() + File.separator + "hosts.yml");
+		if (!f.exists()) {
+			//getLogger().warning("The file scoreboard.yml doesn't exist ! Creating...");
+			try {
+				f.createNewFile();
+				FileUtils.copyInputStreamToFile(getResource("hosts.yml"), f);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		else if (f.exists()) {
+			try {
+				YamlConfiguration yamlConfiguration1 = YamlConfiguration.loadConfiguration(f);
+				File configFile = new File("temp.yml");
+				FileUtils.copyInputStreamToFile(getResource("hosts.yml"),configFile);
+				YamlConfiguration yamlConfiguration2 = YamlConfiguration.loadConfiguration(configFile);
+				for (String s : yamlConfiguration2.getKeys(true)) {
+					if (yamlConfiguration1.get(s) == null) {
+						//Bukkit.getConsoleSender().sendMessage(ChatColor.RED + "Scoreboard file has receive new path : " + s);
+						yamlConfiguration1.set(s, yamlConfiguration2.get(s));
+						yamlConfiguration1.save(f);
+					}
+				}
+
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+
+	public boolean isListHost(UUID uuid){
+		saveHostConfig();
+		File f = new File(getDataFolder() + File.separator + "hosts.yml");
+		YamlConfiguration hostFile = YamlConfiguration.loadConfiguration(f);
+		for(String line : hostFile.getStringList("hosts")){
+			if(String.valueOf(uuid).equalsIgnoreCase(line)){
+				return true;
+			}
+		}
+		return false;
 	}
 
 	public String getRoleDescription(Role role, String rolePath, String fileDescription) {

@@ -376,7 +376,7 @@ public class ScoreboardUtils {
 						ClassUtils.getDirectionOf(player.getLocation(), loc) +
 								"(" + (int) player.getLocation().distance(loc.add(0, player.getLocation().getY(), 0))
 								+ ")").replace("{border}",
-						String.valueOf(this.pl.worldUtils.getWorld().getWorldBorder().getSize() / 2.0D));
+						String.valueOf((int) this.pl.worldUtils.getWorld().getWorldBorder().getSize() / 2.0D));
 
 		}
 		pvpTime = this.pl.taskManager.getPvpTime() - count;

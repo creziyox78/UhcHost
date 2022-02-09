@@ -308,7 +308,7 @@ public class NarutoV2 extends Mode implements ModeConfig, RoleMode<NarutoV2Role>
 					"       §cTop kills : " + mostKills.getPlayerName() + " §l(" + mostKills.getKills().size() + ")");
 			Bukkit.broadcastMessage("§5");
 			Bukkit.broadcastMessage("       §6Merci d'avoir participé à cet host de §e§l" + main.gameManager.getHostname());
-			Bukkit.broadcastMessage("       §8Arrêt du serveur dans 5 minutes !");
+			Bukkit.broadcastMessage("       §8Arrêt du serveur dans 30 secondes !");
 			Bukkit.broadcastMessage("§8§m-------------------------------------------------");
 			Bukkit.getOnlinePlayers().forEach(player -> TitleAPI.sendTitle(player, 20, 20, 20, winner.getWinMessage(), ""));
 
@@ -333,7 +333,7 @@ public class NarutoV2 extends Mode implements ModeConfig, RoleMode<NarutoV2Role>
 								this.main.getConfig().getString("server-redirection")));
 				}
 				Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "restart");
-			}, 5*60*20L);
+			}, 30*20L);
 
 			GameState.setCurrentState(GameState.ENDED);
 		}
