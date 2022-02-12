@@ -41,7 +41,7 @@ public class Pretresse extends Role implements LGRole, RoleCommand {
 
     @Override
     public void onNewEpisode(Player player) {
-
+        setSeeRole(true);
     }
 
     @Override

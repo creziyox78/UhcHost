@@ -114,7 +114,7 @@ public enum Modes {
                             "§7et§3 Arrancars§7 s'affronteront dans",
                             "§7une bataille sans merci.",
                             "")
-                    .setName("§3§lBleach"), true),
+                    .setName("§3§lBleach"), false),
 
 
 

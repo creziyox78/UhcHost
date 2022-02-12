@@ -4,6 +4,7 @@ import fr.lastril.uhchost.UhcHost;
 import fr.lastril.uhchost.enums.Messages;
 import fr.lastril.uhchost.enums.ResurectType;
 import fr.lastril.uhchost.modes.lg.roles.LGRole;
+import fr.lastril.uhchost.modes.lg.roles.RealLG;
 import fr.lastril.uhchost.modes.roles.Camps;
 import fr.lastril.uhchost.modes.roles.Role;
 import fr.lastril.uhchost.modes.roles.RoleListener;
@@ -25,9 +26,10 @@ public class Sorciere extends Role implements LGRole, RoleListener {
 
     @Override
     public void giveItems(Player player) {
-        player.getInventory().addItem(new PotionItem(PotionType.INSTANT_HEAL, 1, true).toItemStack(3),
-                new PotionItem(PotionType.REGEN, 1, true).toItemStack(1),
-                new PotionItem(PotionType.INSTANT_DAMAGE, 1, true).toItemStack(3));
+        main.getInventoryUtils().giveItemSafely(player, new PotionItem(PotionType.STRENGTH, 1, true).toItemStack(1));
+        main.getInventoryUtils().giveItemSafely(player, new PotionItem(PotionType.INSTANT_DAMAGE, 1, true).toItemStack(1));
+        main.getInventoryUtils().giveItemSafely(player, new PotionItem(PotionType.REGEN, 1, true).toItemStack(1));
+        main.getInventoryUtils().giveItemSafely(player, new PotionItem(PotionType.INSTANT_HEAL, 1, true).toItemStack(2));
     }
 
     @Override
@@ -75,16 +77,15 @@ public class Sorciere extends Role implements LGRole, RoleListener {
             PlayerManager playerManager = main.getPlayerManager(player.getUniqueId());
             if (killer != null) {
                 UhcHost main = UhcHost.getInstance();
-                PlayerManager playerManagerKiller = main.getPlayerManager(killer.getUniqueId());
+                PlayerManager killerManager = main.getPlayerManager(killer.getUniqueId());
 
-                if (playerManagerKiller.hasRole() && playerManager.hasRole()) {
+                if (playerManager.getRole() instanceof Ancien && killerManager.hasRole() && killerManager.getRole() instanceof RealLG) {
                     if (playerManager.getRole() instanceof Ancien) {
                         Ancien ancien = (Ancien) playerManager.getRole();
                         if (!ancien.isRevived()) {
                             return;
                         }
                     }
-
                 }
             }
             if(playerManager.getWolfPlayerManager().isProtect()){

@@ -36,13 +36,13 @@ public class Salvateur extends Role implements LGRole, RoleCommand {
 
     @Override
     public void onDay(Player player) {
-        salvate = false;
-        player.sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage() + "§BVous avez 2 minutes pour choisir la personne que vous souhaiter protéger.");
+
     }
 
     @Override
     public void onNewEpisode(Player player) {
-
+        salvate = false;
+        player.sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage() + "§BVous avez 2 minutes pour choisir la personne que vous souhaiter protéger.");
     }
 
     @Override

@@ -68,15 +68,7 @@ public class Join implements Listener {
 			player.setLevel(0);
 			player.setFoodLevel(20);
 			player.setSaturation(20);
-
-			if(pl.isListHost(playersUuid)){
-				if(pl.gameManager.getHost() == null){
-					UhcHost.debug("Set player " + player.getName() + " host !");
-					pl.gameManager.setHost(player.getUniqueId());
-					pl.gameManager.setHostname(player.getName());
-				}
-			}
-			NotStart.PreHosting(player);
+			player.getInventory().clear();
 			player.teleport(gameManager.spawn);
 
 
@@ -97,5 +89,15 @@ public class Join implements Listener {
 			player.showPlayer(player1);
 			player1.showPlayer(player);
 		});
+		if(pl.isListHost(playersUuid)){
+			if(pl.gameManager.getHost() == null){
+				UhcHost.debug("Set player " + player.getName() + " host !");
+				pl.gameManager.setHost(player.getUniqueId());
+				pl.gameManager.setHostname(player.getName());
+
+			}
+		}
+		if(!GameState.isState(GameState.STARTED))
+			NotStart.PreHosting(player);
 	}
 }

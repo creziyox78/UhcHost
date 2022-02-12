@@ -3,8 +3,10 @@ package fr.lastril.uhchost.modes.lg.roles.village;
 import fr.lastril.uhchost.enums.WorldState;
 import fr.lastril.uhchost.modes.lg.LoupGarouManager;
 import fr.lastril.uhchost.modes.lg.roles.LGChatRole;
+import fr.lastril.uhchost.modes.lg.roles.LGInvisibleRole;
 import fr.lastril.uhchost.modes.lg.roles.LGRole;
 import fr.lastril.uhchost.modes.lg.roles.lg.LoupGarouPerfide;
+import fr.lastril.uhchost.modes.naruto.v2.roles.orochimaru.Orochimaru;
 import fr.lastril.uhchost.modes.roles.Camps;
 import fr.lastril.uhchost.modes.roles.Role;
 import fr.lastril.uhchost.modes.roles.When;
@@ -17,12 +19,15 @@ import org.bukkit.Material;
 import org.bukkit.SkullType;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.player.PlayerItemConsumeEvent;
 import org.bukkit.inventory.EntityEquipment;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
+import org.bukkit.scheduler.BukkitRunnable;
 
-public class PetiteFille extends Role implements LGRole, LGChatRole {
+public class PetiteFille extends Role implements LGRole, LGChatRole, LGInvisibleRole {
 
     private static final int DISTANCE = 100;
 
@@ -80,18 +85,43 @@ public class PetiteFille extends Role implements LGRole, LGChatRole {
         return new QuickItem(Material.SKULL_ITEM, 1, SkullType.PLAYER.ordinal()).setName(getCamp().getCompoColor()+getRoleName()).setTexture("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvN2I3MzRmODdkZDdkZjViZTJhNzZmMjUwNjc4NmIzOWE2NDY2ZTQyOTJkMTllZmI0ZTk5ODk4MWNlYjg5MSJ9fX0=");
     }
 
+    @EventHandler
+    public void onEatApple(PlayerItemConsumeEvent event){
+        if(event.getItem().getType() == Material.GOLDEN_APPLE) {
+            Player player = event.getPlayer();
+            PlayerManager joueur = main.getPlayerManager(player.getUniqueId());
+            if(joueur.hasRole()){
+                if(joueur.getRole() instanceof PetiteFille){
+                    new BukkitRunnable() {
+                        @Override
+                        public void run() {
+                            if(player.hasPotionEffect(PotionEffectType.ABSORPTION)){
+                                player.removePotionEffect(PotionEffectType.ABSORPTION);
+                            }
+                            player.addPotionEffect(new PotionEffect(PotionEffectType.ABSORPTION, 20*120, 0, false, false));
+                        }
+                    }.runTaskLater(main, 3);
+                }
+            }
+        }
+    }
+
     @Override
     public void checkRunnable(Player player) {
         if (main.gameManager.getModes().getMode().getModeManager() instanceof LoupGarouManager) {
             LoupGarouManager loupGarouManager = (LoupGarouManager) main.gameManager.getModes().getMode().getModeManager();
             if (WorldState.isWorldState(WorldState.NUIT)) {
                 if (isWithoutArmor(player)) {
-                    for (PlayerManager playerManager : loupGarouManager.getPlayerManagersWithRole(LoupGarouPerfide.class)) {
+                    for (PlayerManager playerManager : main.getPlayerManagerOnlines()) {
                         if (playerManager.getPlayer() != null) {
-                            Player perfide = playerManager.getPlayer();
-                            for (int i = 0; i < 10; i++) {
-                                ParticleEffect.playEffect(perfide, EnumParticle.REDSTONE, player.getLocation());
+                            if(playerManager.hasRole() && playerManager.getRole() instanceof LGInvisibleRole && playerManager.isAlive()){
+                                LGInvisibleRole lgInvisibleRole = (LGInvisibleRole) playerManager.getRole();
+                                if(lgInvisibleRole.canSeeParticles()){
+                                    Player invisiblePlayer = playerManager.getPlayer();
+                                    ParticleEffect.playEffect(invisiblePlayer, EnumParticle.REDSTONE, player.getLocation());
+                                }
                             }
+
                         }
                     }
                     player.addPotionEffect(new PotionEffect(PotionEffectType.WEAKNESS, 20, 0, false, false));
@@ -131,5 +161,10 @@ public class PetiteFille extends Role implements LGRole, LGChatRole {
     @Override
     public boolean sendPlayerName() {
         return false;
+    }
+
+    @Override
+    public boolean canSeeParticles() {
+        return true;
     }
 }

@@ -31,6 +31,11 @@ public class MontreurDours extends Role implements LGRole {
 
     @Override
     public void onDay(Player player) {
+
+    }
+
+    @Override
+    public void onNewEpisode(Player player) {
         boolean founded = false;
         for (Entity entity : player.getNearbyEntities(DISTANCE, DISTANCE, DISTANCE)) {
             if (entity instanceof Player) {
@@ -61,11 +66,6 @@ public class MontreurDours extends Role implements LGRole {
                 players.playSound(players.getLocation(), Sound.WOLF_GROWL, 1, 1);
             }
         }
-    }
-
-    @Override
-    public void onNewEpisode(Player player) {
-
     }
 
     @Override

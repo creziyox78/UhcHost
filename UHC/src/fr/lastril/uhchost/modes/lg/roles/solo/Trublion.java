@@ -51,7 +51,7 @@ public class Trublion extends Role implements LGRole, RoleCommand, LGChatRole {
 
     @Override
     public void afterRoles(Player player) {
-        PlayerManager playerManager = main.getPlayerManager(player.getUniqueId());
+        /*PlayerManager playerManager = main.getPlayerManager(player.getUniqueId());
         int value = UhcHost.getRANDOM().nextInt(2);
         if(value == 1){
             player.sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage() + "§eVotre objectif dans cette partie est de gagner seul.");
@@ -59,7 +59,7 @@ public class Trublion extends Role implements LGRole, RoleCommand, LGChatRole {
         } else {
             player.sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage() + "§eVotre objectif dans cette partie est de gagner avec le village.");
             playerManager.setCamps(Camps.VILLAGEOIS);
-        }
+        }*/
     }
 
     @Override
@@ -106,9 +106,17 @@ public class Trublion extends Role implements LGRole, RoleCommand, LGChatRole {
 
     public void applySwitch(PlayerManager playerManager, PlayerManager targetManager1, PlayerManager targetManager2){
         boolean sameCamp = targetManager1.getCamps() == targetManager2.getCamps();
+
         Role tempRole = targetManager2.getRole();
+        tempRole.setPlayerID(targetManager1.getUuid());
         targetManager2.setRole(targetManager1.getRole());
         targetManager1.setRole(tempRole);
+        targetManager2.getRole().setPlayerID(targetManager2.getUuid());
+        targetManager1.getPlayer().setMaxHealth(20);
+        targetManager2.getPlayer().setMaxHealth(20);
+        targetManager1.getRole().afterRoles(targetManager1.getPlayer());
+        targetManager2.getRole().afterRoles(targetManager2.getPlayer());
+
         targetManager1.getPlayer().sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage() + "§eLe trublion vient d'échanger votre rôle. Faites /lg me pour voir votre nouveau rôle.");
         targetManager2.getPlayer().sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage() + "§eLe trublion vient d'échanger votre rôle. Faites /lg me pour voir votre nouveau rôle.");
         if(sameCamp){
@@ -118,6 +126,7 @@ public class Trublion extends Role implements LGRole, RoleCommand, LGChatRole {
             playerManager.setCamps(Camps.TRUBLION);
             playerManager.getPlayer().sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage() + "§cLes 2 joueurs que vous avez ciblé ne sont pas dans le même camp. Vous gagner seul.");
         }
+
         setSwitched(true);
     }
 

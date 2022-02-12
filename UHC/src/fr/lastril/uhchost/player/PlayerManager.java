@@ -840,6 +840,14 @@ public class PlayerManager {
 		return this.getRoleCooldown("Hiver");
 	}
 
+	public void setRoleCooldownHyorinmaru(int i) {
+		this.setRoleCooldown("Hyorinmaru", i);
+	}
+
+	public int getRoleCooldownHyorinmaru(){
+		return this.getRoleCooldown("Hyorinmaru");
+	}
+
 	public UUID getUuid() {
 		return this.uuid;
 	}

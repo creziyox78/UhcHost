@@ -12,6 +12,7 @@ import fr.lastril.uhchost.modes.roles.RoleListener;
 import fr.lastril.uhchost.modes.roles.When;
 import fr.lastril.uhchost.player.PlayerManager;
 import fr.lastril.uhchost.tools.API.clickable_messages.ClickableMessage;
+import fr.lastril.uhchost.tools.API.items.PotionItem;
 import fr.lastril.uhchost.tools.API.items.crafter.QuickItem;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -21,6 +22,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
+import org.bukkit.potion.PotionType;
 
 public class InfectPereDesLoups extends Role implements LGRole, RoleListener, RealLG, LGChatRole {
 
@@ -47,6 +49,7 @@ public class InfectPereDesLoups extends Role implements LGRole, RoleListener, Re
 
     @Override
     public void giveItems(Player player) {
+        main.getInventoryUtils().giveItemSafely(player, new PotionItem(PotionType.INSTANT_HEAL, 1, true).toItemStack(2));
     }
 
     @Override
@@ -103,10 +106,10 @@ public class InfectPereDesLoups extends Role implements LGRole, RoleListener, Re
                 Player player = event.getEntity();
                 if (killer != null) {
                     infecte = true;
-                    PlayerManager playerManagerKiller = main.getPlayerManager(killer.getUniqueId());
+                    PlayerManager killerManager = main.getPlayerManager(killer.getUniqueId());
                     PlayerManager playerManager = main.getPlayerManager(player.getUniqueId());
                     Bukkit.getScheduler().runTaskLater(main, () -> infecte = false, 20*6);
-                    if (playerManagerKiller.hasRole() && playerManager.hasRole()) {
+                    if (playerManager.getRole() instanceof Ancien && killerManager.hasRole() && killerManager.getRole() instanceof RealLG) {
                         if (playerManager.getRole() instanceof Ancien) {
                             Ancien ancien = (Ancien) playerManager.getRole();
                             if (!ancien.isRevived()) {

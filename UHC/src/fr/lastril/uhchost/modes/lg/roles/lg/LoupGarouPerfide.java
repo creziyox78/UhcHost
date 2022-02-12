@@ -3,11 +3,13 @@ package fr.lastril.uhchost.modes.lg.roles.lg;
 import fr.lastril.uhchost.enums.WorldState;
 import fr.lastril.uhchost.modes.lg.LoupGarouManager;
 import fr.lastril.uhchost.modes.lg.roles.LGChatRole;
+import fr.lastril.uhchost.modes.lg.roles.LGInvisibleRole;
 import fr.lastril.uhchost.modes.lg.roles.LGRole;
 import fr.lastril.uhchost.modes.lg.roles.RealLG;
 import fr.lastril.uhchost.modes.lg.roles.village.PetiteFille;
 import fr.lastril.uhchost.modes.roles.Camps;
 import fr.lastril.uhchost.modes.roles.Role;
+import fr.lastril.uhchost.modes.roles.RoleListener;
 import fr.lastril.uhchost.modes.roles.When;
 import fr.lastril.uhchost.player.PlayerManager;
 import fr.lastril.uhchost.tools.API.items.crafter.QuickItem;
@@ -16,11 +18,14 @@ import net.minecraft.server.v1_8_R3.EnumParticle;
 import org.bukkit.Material;
 import org.bukkit.SkullType;
 import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.player.PlayerItemConsumeEvent;
 import org.bukkit.inventory.EntityEquipment;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
+import org.bukkit.scheduler.BukkitRunnable;
 
-public class LoupGarouPerfide extends Role implements LGRole, RealLG, LGChatRole {
+public class LoupGarouPerfide extends Role implements LGRole, RealLG, LGChatRole, LGInvisibleRole, RoleListener {
 
     public LoupGarouPerfide() {
         super.addEffect(new PotionEffect(PotionEffectType.NIGHT_VISION, Integer.MAX_VALUE, 0, false, false), When.START);
@@ -73,17 +78,41 @@ public class LoupGarouPerfide extends Role implements LGRole, RealLG, LGChatRole
     public void onNewDay(Player player) {
     }
 
+    @EventHandler
+    public void onEatApple(PlayerItemConsumeEvent event){
+        if(event.getItem().getType() == Material.GOLDEN_APPLE) {
+            Player player = event.getPlayer();
+            PlayerManager joueur = main.getPlayerManager(player.getUniqueId());
+            if(joueur.hasRole()){
+                if(joueur.getRole() instanceof LoupGarouPerfide){
+                    new BukkitRunnable() {
+                        @Override
+                        public void run() {
+                            if(player.hasPotionEffect(PotionEffectType.ABSORPTION)){
+                                player.removePotionEffect(PotionEffectType.ABSORPTION);
+                            }
+                            player.addPotionEffect(new PotionEffect(PotionEffectType.ABSORPTION, 20*120, 0, false, false));
+                        }
+                    }.runTaskLater(main, 3);
+                }
+            }
+        }
+    }
+
     @Override
     public void checkRunnable(Player player) {
         if (main.gameManager.getModes().getMode().getModeManager() instanceof LoupGarouManager) {
             LoupGarouManager loupGarouManager = (LoupGarouManager) main.gameManager.getModes().getMode().getModeManager();
             if (WorldState.isWorldState(WorldState.NUIT)) {
                 if (isWithoutArmor(player)) {
-                    for (PlayerManager playerManager : loupGarouManager.getPlayerManagersWithRole(PetiteFille.class)) {
+                    for (PlayerManager playerManager : main.getPlayerManagerOnlines()) {
                         if (playerManager.getPlayer() != null) {
-                            Player pf = playerManager.getPlayer();
-                            for (int i = 0; i < 10; i++) {
-                                ParticleEffect.playEffect(pf, EnumParticle.REDSTONE, player.getLocation());
+                            if(playerManager.hasRole() && playerManager.getRole() instanceof LGInvisibleRole && playerManager.isAlive()){
+                                LGInvisibleRole lgInvisibleRole = (LGInvisibleRole) playerManager.getRole();
+                                if(lgInvisibleRole.canSeeParticles()){
+                                    Player invisiblePlayer = playerManager.getPlayer();
+                                    ParticleEffect.playEffect(invisiblePlayer, EnumParticle.REDSTONE, player.getLocation());
+                                }
                             }
                         }
                     }
@@ -129,5 +158,10 @@ public class LoupGarouPerfide extends Role implements LGRole, RealLG, LGChatRole
     @Override
     public boolean sendPlayerName() {
         return false;
+    }
+
+    @Override
+    public boolean canSeeParticles() {
+        return true;
     }
 }

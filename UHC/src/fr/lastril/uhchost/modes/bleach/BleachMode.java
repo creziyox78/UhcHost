@@ -176,10 +176,11 @@ public class BleachMode extends Mode implements ModeConfig, RoleAnnounceMode, Mo
                 Bukkit.broadcastMessage("§3§m----------------------------------");
             }
             joueur.setAlive(false);
-            checkWin();
+
             /* DROPING INVENTORY */
             System.out.println("Droping inventory !");
             main.getInventoryUtils().dropInventory(joueur.getDeathLocation(), joueur.getItems(), joueur.getArmors());
+            checkWin();
         }
     }
 
@@ -251,7 +252,7 @@ public class BleachMode extends Mode implements ModeConfig, RoleAnnounceMode, Mo
         Set<Camps> lastCamps = new HashSet<>();
         for (Player players : Bukkit.getOnlinePlayers()) {
             PlayerManager playerManager = main.getPlayerManager(players.getUniqueId());
-            if (playerManager.isAlive()) {
+            if (playerManager.isAlive() && playerManager.getCamps() != null) {
                 lastCamps.add(playerManager.getCamps());
             }
         }

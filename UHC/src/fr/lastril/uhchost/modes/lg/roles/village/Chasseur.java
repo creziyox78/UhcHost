@@ -8,6 +8,7 @@ import fr.lastril.uhchost.modes.roles.Camps;
 import fr.lastril.uhchost.modes.roles.Role;
 import fr.lastril.uhchost.modes.roles.RoleCommand;
 import fr.lastril.uhchost.player.PlayerManager;
+import fr.lastril.uhchost.tools.API.items.Livre;
 import fr.lastril.uhchost.tools.API.items.Oeuf;
 import fr.lastril.uhchost.tools.API.items.crafter.QuickItem;
 import net.md_5.bungee.api.chat.ClickEvent;
@@ -32,10 +33,9 @@ public class Chasseur extends Role implements LGRole, RoleCommand {
     @Override
     public void giveItems(Player player) {
         player.getInventory().addItem(
-                new QuickItem(Material.BOW).addEnchant(Enchantment.ARROW_DAMAGE, 4, true).toItemStack(),
-                new ItemStack(Material.ARROW, 128),
-                new ItemStack(Material.BONE, 15),
-                new Oeuf(EntityType.WOLF).toItemStack(3));
+                new Livre(Enchantment.ARROW_DAMAGE, 3).toItemStack(),
+                new QuickItem(Material.STRING, 3).toItemStack(),
+                new ItemStack(Material.ARROW, 64));
     }
 
     @Override

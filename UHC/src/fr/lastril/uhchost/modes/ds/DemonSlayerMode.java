@@ -12,8 +12,6 @@ import java.util.List;
 
 public class DemonSlayerMode extends Mode {
 
-
-
     public DemonSlayerMode() {
         super(Modes.DS);
     }

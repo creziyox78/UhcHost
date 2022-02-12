@@ -25,7 +25,7 @@ public enum BleachRoles {
     KYORAKU(Kyoraku.class),
     NANAO(Nanao.class), //FINISHED
     HISAGI(Hisagi.class), //TODO FIX
-    TOSHIROHITSUGAYA(ToshiroHitsugaya.class), //FINISHED
+    TOSHIROHITSUGAYA(ToshiroHitsugaya.class),
 
     //Ichigo Groups
 

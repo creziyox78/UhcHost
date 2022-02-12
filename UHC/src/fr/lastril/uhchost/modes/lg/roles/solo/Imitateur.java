@@ -4,6 +4,7 @@ import fr.lastril.uhchost.enums.Messages;
 import fr.lastril.uhchost.modes.lg.roles.LGRole;
 import fr.lastril.uhchost.modes.roles.Camps;
 import fr.lastril.uhchost.modes.roles.Role;
+import fr.lastril.uhchost.modes.roles.When;
 import fr.lastril.uhchost.player.PlayerManager;
 import fr.lastril.uhchost.tools.API.items.crafter.QuickItem;
 import org.bukkit.Location;
@@ -25,7 +26,7 @@ public class Imitateur extends Role implements LGRole {
     @Override
     public void afterRoles(Player player) {
         PlayerManager playerManager = main.getPlayerManager(player.getUniqueId());
-        playerManager.setCamps(Camps.ANGE);
+        playerManager.setCamps(Camps.IMITATEUR);
     }
 
     @Override
@@ -54,7 +55,7 @@ public class Imitateur extends Role implements LGRole {
                 Imitateur imitateur = (Imitateur) killerManager.getRole();
                 if (!imitateur.hasKilled()) {
                     killer.sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage()
-                            + "§bVous venez de tuer quelqu'un pour la 1ère fois. Vous n'avez plus Résistance et héritez du rôle de la personne que vous avez tué. §c§lCependant, vous devez toujours gagner seul !");
+                            + "§bVous venez de tuer quelqu'un pour la 1ère fois. Vous héritez du rôle de la personne que vous avez tué. §c§lCependant, vous devez toujours gagner seul !");
                     killerManager.setRole(player.getRole());
                 }
             }

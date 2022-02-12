@@ -22,7 +22,6 @@ import java.util.List;
 
 public class LoupGarouAmnesique extends Role implements LGRole, RealLG, LGChatRole {
 
-    private final List<PlayerManager> loupGarouList = new ArrayList<>();
     private boolean damaged = false;
 
     public LoupGarouAmnesique() {

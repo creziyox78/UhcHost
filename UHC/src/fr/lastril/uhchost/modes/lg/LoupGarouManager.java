@@ -98,6 +98,14 @@ public class LoupGarouManager extends ModeManager implements Listener {
                             System.out.println("Garde protection !");
                             playerManager.getWolfPlayerManager().setResurectType(ResurectType.GARDE);
                         }
+                        if (playerManager.getRole() instanceof Ancien && killerManager.hasRole() && killerManager.getRole() instanceof RealLG) {
+                            Ancien ancien = (Ancien) playerManager.getRole();
+                            if (!ancien.isRevived()) {
+                                System.out.println("Ancien Revive Power !");
+                                ancien.setRevived(true);
+                                playerManager.getWolfPlayerManager().setResurectType(ResurectType.ANCIEN);
+                            }
+                        }
                     }
                     switch (playerManager.getWolfPlayerManager().getResurectType()) {
                         case INFECT: {
@@ -111,7 +119,7 @@ public class LoupGarouManager extends ModeManager implements Listener {
                             System.out.println("Player set ressurect type Ancien !");
                             Ancien ancien = (Ancien) playerManager.getRole();
                             ancien.setRevived(true);
-                            onlinePlayer.sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage() + "Vous avez utilisé votre deuxième vie, par conséquant, vous ne pourrez plus réssuciter.");
+                            onlinePlayer.sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage() + "Vous avez utilisé votre deuxième vie, par conséquant, vous ne pourrez plus ressusciter.");
                             onlinePlayer.removePotionEffect(PotionEffectType.DAMAGE_RESISTANCE);
                             playerManager.getWolfPlayerManager().setResurectType(null);
                             main.gameManager.teleportPlayerOnGround(player);
@@ -119,14 +127,14 @@ public class LoupGarouManager extends ModeManager implements Listener {
                         }
                         case SORCIERE: {
                             System.out.println("Player set ressurect type Soso !");
-                            onlinePlayer.sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage() + "Vous avez été réssuscité par la Sorcière.");
+                            onlinePlayer.sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage() + "Vous avez été ressuscité par la Sorcière.");
                             playerManager.getWolfPlayerManager().setResurectType(null);
                             main.gameManager.teleportPlayerOnGround(player);
                             break;
                         }
                         case GARDE:
                             System.out.println("Player set ressurect type Garde !");
-                            onlinePlayer.sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage() + "Vous avez été réssuscité par le Garde.");
+                            onlinePlayer.sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage() + "Vous avez été ressuscité par le Garde.");
                             playerManager.getWolfPlayerManager().setResurectType(null);
                             playerManager.getWolfPlayerManager().setProtect(false);
                             main.gameManager.teleportPlayerOnGround(player);

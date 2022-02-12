@@ -39,7 +39,7 @@ public class ModesGui extends IQuickInventory {
             }
             ItemStack is = quickItem.toItemStack();
             inv.setItem(is, onClick ->{
-                if(is.isSimilar(mode.getItem().toItemStack()) && mode.isAvailable()){
+                if(is.isSimilar(mode.getItem().toItemStack()) && (mode.isAvailable() || onClick.getPlayer().isOp())){
                     pl.gameManager.setModes(mode);
                     onClick.getPlayer().sendMessage(Messages.PREFIX_WITH_ARROW.getMessage() + "§aMode de jeu sélectionné : " + mode.getName());
                     new HostConfig().open(onClick.getPlayer());
