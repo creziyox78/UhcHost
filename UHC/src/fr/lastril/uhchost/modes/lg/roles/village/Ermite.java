@@ -4,11 +4,9 @@ import fr.lastril.uhchost.modes.lg.roles.LGRole;
 import fr.lastril.uhchost.modes.roles.Camps;
 import fr.lastril.uhchost.modes.roles.Role;
 import fr.lastril.uhchost.tools.API.items.crafter.QuickItem;
-import org.bukkit.Material;
-import org.bukkit.SkullType;
 import org.bukkit.entity.Player;
 
-public class Messager extends Role implements LGRole {
+public class Ermite extends Role implements LGRole {
 
     @Override
     public void giveItems(Player player) {
@@ -33,7 +31,7 @@ public class Messager extends Role implements LGRole {
 
     @Override
     public String getRoleName() {
-        return "Messager";
+        return "Ermite";
     }
 
     @Override

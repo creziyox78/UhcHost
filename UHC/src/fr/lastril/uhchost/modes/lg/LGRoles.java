@@ -45,7 +45,7 @@ public enum LGRoles {
     ENFANT_SAUVAGE(EnfantSauvage.class), //FINISHED
     GARDE(Garde.class), //FINISHED
     MONTREUR_DOURS(MontreurDours.class), //FINISHED
-    MESSAGER(Messager.class),
+    MESSAGER(Ermite.class),
     PETITE_FILLE(PetiteFille.class), //FINISHED
     PRETRESSE(Pretresse.class), //FINISHED
     RENARD(Renard.class), //FINISHED

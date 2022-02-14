@@ -45,7 +45,7 @@ public class ChienLoup extends Role implements LGRole, RoleCommand, LGChatRole {
                 choosen = true;
                 setChoosenCamp(Camps.VILLAGEOIS);
                 player.sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage() + "§aVous avez décidé de gagner avec les villageois. " +
-                        "Vous n'avez donc aucun effet et vous apparaîtrez dans la liste des Loups-Garou.");
+                        "Vous avez donc l'effet Force 1 la nuit, serez vu comme un LG par les rôles à informations et apparaîtrés dans la liste des LG.");
             }
         },20*60);
     }

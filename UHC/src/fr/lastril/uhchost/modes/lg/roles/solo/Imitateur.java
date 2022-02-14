@@ -43,7 +43,7 @@ public class Imitateur extends Role implements LGRole {
 
     @Override
     public void onNewEpisode(Player player) {
-        if(killed)
+        if(!killed)
             player.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, (main.gameManager.episodeEvery*20)/2, 0, false, false));
     }
 
@@ -57,6 +57,14 @@ public class Imitateur extends Role implements LGRole {
                     killer.sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage()
                             + "§bVous venez de tuer quelqu'un pour la 1ère fois. Vous héritez du rôle de la personne que vous avez tué. §c§lCependant, vous devez toujours gagner seul !");
                     killerManager.setRole(player.getRole());
+                    killer.setMaxHealth(player.getPlayer().getMaxHealth());
+                    killerManager.setCamps(Camps.IMITATEUR);
+                    killer.sendMessage(killerManager.getRole().sendList());
+                    killerManager.getWolfPlayerManager().setSolitaire(player.getWolfPlayerManager().isSolitaire());
+                    killerManager.getWolfPlayerManager().setOtherCouple(player.getWolfPlayerManager().getOtherCouple());
+                    killerManager.getWolfPlayerManager().setInfected(player.getWolfPlayerManager().isInfected());
+                    killerManager.getWolfPlayerManager().setTransformed(player.getWolfPlayerManager().isTransformed());
+                    killerManager.getWolfPlayerManager().setSteal(true);
                 }
             }
         }

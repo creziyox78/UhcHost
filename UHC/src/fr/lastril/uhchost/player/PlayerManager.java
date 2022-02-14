@@ -848,6 +848,14 @@ public class PlayerManager {
 		return this.getRoleCooldown("Hyorinmaru");
 	}
 
+	public void setRoleCooldownOeil(int i) {
+		this.setRoleCooldown("Oeil", i);
+	}
+
+	public int getRoleCooldownOeil(){
+		return this.getRoleCooldown("Oeil");
+	}
+
 	public UUID getUuid() {
 		return this.uuid;
 	}

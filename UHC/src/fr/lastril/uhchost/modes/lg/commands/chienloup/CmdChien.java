@@ -5,11 +5,14 @@ import fr.lastril.uhchost.enums.Messages;
 import fr.lastril.uhchost.modes.command.ModeSubCommand;
 import fr.lastril.uhchost.modes.lg.roles.village.ChienLoup;
 import fr.lastril.uhchost.modes.roles.Camps;
+import fr.lastril.uhchost.modes.roles.When;
 import fr.lastril.uhchost.player.PlayerManager;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -44,9 +47,12 @@ public class CmdChien implements ModeSubCommand {
             if(!chienLoup.isChoosen()){
                 chienLoup.setChoosenCamp(Camps.VILLAGEOIS);
                 playerManager.setCamps(Camps.VILLAGEOIS);
+                chienLoup.addEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, Integer.MAX_VALUE, 0, false, false), When.NIGHT);
+                chienLoup.addEffect(new PotionEffect(PotionEffectType.SPEED, 20 * 60 * 1, 0, false, false), When.AT_KILL);
+                chienLoup.addEffect(new PotionEffect(PotionEffectType.ABSORPTION, 20 * 60 * 1, 0, false, false), When.AT_KILL);
                 chienLoup.setChoosen(true);
                 player.sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage() + "§aVous avez décidé de gagner avec les villageois. " +
-                        "Vous n'avez donc aucun effet et vous apparaîtrez dans la liste des Loups-Garou.");
+                        "Vous avez donc l'effet Force 1 la nuit, serez vu comme un LG par les rôles à informations et apparaîtrés dans la liste des LG.");
             }
         }
         return false;

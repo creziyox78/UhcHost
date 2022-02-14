@@ -151,6 +151,7 @@ public class UhcHost extends JavaPlugin {
 		getCommand("help").setExecutor(new CmdHelp(this));
 		getCommand("inv").setExecutor(new CmdInv(this));
 		getCommand("invsee").setExecutor(new CmdInvSee());
+		getCommand("don").setExecutor(new CmdDon(this));
 		for (Modes mode : Modes.values()) {
 			if (mode.getMode() instanceof ModeCommand) {
 				ModeCommand modeCommand = (ModeCommand) mode.getMode();
@@ -182,6 +183,7 @@ public class UhcHost extends JavaPlugin {
 		checkingDescriptionUpdate("lg.yml");
 		checkingDescriptionUpdate("naruto.yml");
 		checkingDescriptionUpdate("bleach.yml");
+		checkingDescriptionUpdate("ds.yml");
 	}
 
 	private void taskRegister() {

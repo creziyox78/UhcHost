@@ -193,17 +193,10 @@ public class LoupGarouMode extends Mode implements ModeCommand, RoleMode<LGRole>
 
     @Override
     public void onNewEpisode() {
-        if (pl.gameManager.episode >= getLoupGarouManager().getStartVoteEpisode()) {
+        if (pl.gameManager.episode >= getLoupGarouManager().getStartVoteEpisode() && pl.getPlayerManagerAlives().size() > 10) {
             loupGarouManager.setVoteTime(true);
             Bukkit.getScheduler().runTaskLater(pl, () -> loupGarouManager.setVoteTime(false), 20 * 30);
             Bukkit.getScheduler().runTaskLater(pl, () -> loupGarouManager.applyVote(getLoupGarouManager().mostVoted()), 20 * 60);
-        }
-        if (loupGarouManager.getCurrentVotedPlayer() != null) {
-            Player voted = loupGarouManager.getCurrentVotedPlayer().getPlayerManager().getPlayer();
-            if (voted != null) {
-                voted.setMaxHealth(loupGarouManager.getOriginalVotedHealth());
-            }
-            loupGarouManager.setCurrentVotedPlayer(null);
         }
     }
 
@@ -286,6 +279,13 @@ public class LoupGarouMode extends Mode implements ModeCommand, RoleMode<LGRole>
                 }
             });
         } , 20*30);
+        if (loupGarouManager.getCurrentVotedPlayer() != null) {
+            Player voted = loupGarouManager.getCurrentVotedPlayer().getPlayerManager().getPlayer();
+            if (voted != null) {
+                voted.setMaxHealth(loupGarouManager.getOriginalVotedHealth());
+            }
+            loupGarouManager.setCurrentVotedPlayer(null);
+        }
     }
 
     @Override
@@ -316,24 +316,20 @@ public class LoupGarouMode extends Mode implements ModeCommand, RoleMode<LGRole>
         for (PlayerManager playerManager : pl.getAllPlayerManager().values()) {
             kills.put(playerManager, playerManager.getKills().size());
         }
-        PlayerManager mostDamages = damages.entrySet().stream().sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
-                .findFirst().get().getKey();
         PlayerManager mostKills = kills.entrySet().stream().sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
                 .findFirst().get().getKey();
 
-        Bukkit.broadcastMessage("§8§m-------------------------------------------------");
-        Bukkit.broadcastMessage("§5");
-        Bukkit.broadcastMessage("       " + winner.getWinMessage());
-        Bukkit.broadcastMessage("       §cTop dégâts : " + mostDamages.getPlayerName() + " §l("
-                + mostDamages.getDamages() / 2 + " §4❤§c§l)");
-        Bukkit.broadcastMessage(
-                "       §cTop kills : " + mostKills.getPlayerName() + " §l(" + mostKills.getKills().size() + ")");
-        Bukkit.broadcastMessage("§5");
-        Bukkit.broadcastMessage("       §6Merci d'avoir participé à cet host de §e§l" + pl.gameManager.getHostname());
-        Bukkit.broadcastMessage("       §8Arrêt du serveur dans 30 secondes" +
-                " !");
-        Bukkit.broadcastMessage("§8§m-------------------------------------------------");
-        Bukkit.getOnlinePlayers().forEach(player -> TitleAPI.sendTitle(player, 20, 20, 20, winner.getWinMessage(), ""));
+
+        Bukkit.broadcastMessage("§7§m-------------------------------------------------\n" +
+                "\n " +
+                "§e§L \n" + winner.getWinMessage() +
+                "§e§L TOP KILLS ┃\n" +
+                "§e "+ mostKills.getPlayerName() + " §l(" + mostKills.getKills().size() + ")"+"\n" +
+                "\n " +
+                "§eMerci de votre participation !\n" +
+                "§7Arrêt du serveur dans 30 secondes !\n" +
+                "\n " +
+                "§7§m-------------------------------------------------");
 
         Map<PlayerManager,Role> playersRoles = new HashMap<>();
 
@@ -399,7 +395,7 @@ public class LoupGarouMode extends Mode implements ModeCommand, RoleMode<LGRole>
 
     @Override
     public String getDocLink() {
-        return "https://app.gitbook.com/o/gIfv3yiEFOHSE0Hmzjwj/s/Usl2FNq1oqkquO0kBOdt/";
+        return "https://groupuhc.gitbook.io/loup-garou-uhc/loup-garou-uhc/presentation";
     }
 
     @Override

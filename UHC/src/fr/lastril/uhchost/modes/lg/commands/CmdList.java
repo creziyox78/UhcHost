@@ -43,6 +43,7 @@ public class CmdList implements ModeSubCommand {
         }
         if(playerManager.getRole() instanceof RealLG
                 || playerManager.getWolfPlayerManager().isInfected()
+                || playerManager.getWolfPlayerManager().isTransformed()
                 || (playerManager.getWolfPlayerManager().isZizanied()
                 && playerManager.getWolfPlayerManager().isZizanied(Camps.LOUP_GAROU))){
             if (main.gameManager.getModes().getMode().getModeManager() instanceof LoupGarouManager) {

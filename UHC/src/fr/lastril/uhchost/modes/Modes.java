@@ -117,7 +117,21 @@ public enum Modes {
                     .setName("§3§lBleach"), false),
 
 
-
+    DEATHNOTE("§9§lDeath Note", "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYTNjYzIzYWM3ZTRiZTUxZDg4NGM2MjAwNzZkYTlhOTRiMGJiZTAxN2MzYTc1MzA0MDMzYzA2YmQ4ZjQwZjc0In19fQ==", null,
+            new QuickItem(Material.SKULL_ITEM, 1, SkullType.PLAYER.ordinal())
+                    .setTexture("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYTNjYzIzYWM3ZTRiZTUxZDg4NGM2MjAwNzZkYTlhOTRiMGJiZTAxN2MzYTc1MzA0MDMzYzA2YmQ4ZjQwZjc0In19fQ==")
+                    .setLore("",
+                            "§7Auteur:§b Paulo§7 et§b Korso",
+                            "§8Version : V4",
+                            "",
+                            "§cKira :§7 \"Je créerai un monde sans",
+                            "§7criminels où j'en serai le dieu !\"",
+                            "",
+                            "§9L :§7 \"§cKira§7, j'ignore comment tu tues",
+                            "§7tes victimes mais sache que je t'enverrai",
+                            "§7moi-même à l'échafaud !\"",
+                            "")
+                    .setName("§9§lDeath Note"), false),
 
 
     SOON_1("§c§lBientôt", "",null,

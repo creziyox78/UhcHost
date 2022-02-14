@@ -58,8 +58,13 @@ public class Voleur extends Role implements LGRole {
                             main.getPlayerManager(player.getWolfPlayerManager().getOtherCouple()).getWolfPlayerManager().setOtherCouple(killerManager.getUuid());
                             killer.sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage() + "§Vous venez de voler le couple ! Vous devez maintenant gagner avec ce dernier !");
                         }
-                        if(killer.hasPotionEffect(PotionEffectType.DAMAGE_RESISTANCE))
-                            killer.removePotionEffect(PotionEffectType.DAMAGE_RESISTANCE);
+                        killer.setMaxHealth(player.getPlayer().getMaxHealth());
+                        killer.sendMessage(killerManager.getRole().sendList());
+                        killerManager.getWolfPlayerManager().setSolitaire(player.getWolfPlayerManager().isSolitaire());
+                        killerManager.getWolfPlayerManager().setOtherCouple(player.getWolfPlayerManager().getOtherCouple());
+                        killerManager.getWolfPlayerManager().setInfected(player.getWolfPlayerManager().isInfected());
+                        killerManager.getWolfPlayerManager().setTransformed(player.getWolfPlayerManager().isTransformed());
+                        killerManager.getWolfPlayerManager().setSteal(true);
                     }
                 }
             }

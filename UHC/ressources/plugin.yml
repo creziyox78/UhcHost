@@ -48,6 +48,8 @@ commands:
 
   role:
     description: t
+  don:
+    description: Command LG Couple.
 
   lg:
     description: Command of LG Mode.
@@ -59,4 +61,8 @@ commands:
     aliases:
       - narutos
     description: Command of Naruto Mode.
+  ds:
+    aliases:
+      - demonslayer
+    description: Command of DemonSlayer Mode.
   

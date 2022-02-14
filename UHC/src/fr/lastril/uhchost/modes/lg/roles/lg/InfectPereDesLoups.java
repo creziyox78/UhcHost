@@ -117,7 +117,7 @@ public class InfectPereDesLoups extends Role implements LGRole, RoleListener, Re
                             }
                         } else if(playerManager.getWolfPlayerManager().isProtect()){
                             return;
-                        } else if (loupGarouManager.isLoupGarou(killer.getUniqueId())) {
+                        } else if (loupGarouManager.isLoupGarou(killer.getUniqueId()) || killerManager.hasRole() && killerManager.getRole() instanceof RealLG) {
                             if (super.getPlayer() != null) {
                                 Player infect = super.getPlayer();
                                 new ClickableMessage(infect, onClick -> {

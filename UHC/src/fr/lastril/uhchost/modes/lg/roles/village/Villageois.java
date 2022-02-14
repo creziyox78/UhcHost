@@ -40,7 +40,7 @@ public class Villageois extends Role implements LGRole {
 
     @Override
     public String getRoleName() {
-        return "Villageois";
+        return "Simple Villageois";
     }
 
     @Override

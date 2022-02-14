@@ -48,12 +48,8 @@ public class CmdLoup implements ModeSubCommand {
                 chienLoup.setChoosenCamp(Camps.LOUP_GAROU);
                 playerManager.setCamps(Camps.LOUP_GAROU);
                 chienLoup.setChoosen(true);
-                chienLoup.addEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, Integer.MAX_VALUE, 0, false, false), When.NIGHT);
-                chienLoup.addEffect(new PotionEffect(PotionEffectType.SPEED, 20 * 60 * 1, 0, false, false), When.AT_KILL);
-                chienLoup.addEffect(new PotionEffect(PotionEffectType.ABSORPTION, 20 * 60 * 1, 0, false, false), When.AT_KILL);
-
                 player.sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage() + "§cVous avez décidé de gagner avec les Loups-Garous. " +
-                        "Vous avez les effets §cForce I§7 et§f Night Vision§7 la nuit. Vous n'apparaîtrez pas dans la liste des Loups-Garou.");
+                        "Vous n'avez aucun effet mais apparaîtrez gentil aux yeux des rôles à informations. Vous n'apparaîtrez pas dans la liste des Loups-Garou.");
             }
         }
         return false;

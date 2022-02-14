@@ -52,6 +52,7 @@ public class CmdChaman implements ModeSubCommand {
                         else
                             player.sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage() + "§eCe joueur possède le rôle: " + targetManager.getRole().getRoleName());
                         chaman.addPlayerSpec(targetManager);
+                        player.setMaxHealth(player.getMaxHealth() - 2D);
                     } else {
                         player.sendMessage(Messages.error("Vous ne pouvez plus utiliser votre pouvoir sur ce joueur."));
                     }

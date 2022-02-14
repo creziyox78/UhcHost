@@ -82,17 +82,20 @@ public class Soeur extends Role implements LGRole, RoleCommand {
         if (main.gameManager.getModes().getMode().getModeManager() instanceof LoupGarouManager) {
             LoupGarouManager loupGarouManager = (LoupGarouManager) main.gameManager.getModes().getMode().getModeManager();
             for (PlayerManager playerManager : loupGarouManager.getPlayerManagersWithRole(Soeur.class)) {
-                if (playerManager.getPlayer() != player) {
-                    if (playerManager.getPlayer() != null) {
-                        Player soeur = playerManager.getPlayer();
-                        if(soeur.getWorld() == player.getWorld()){
-                            if (player.getLocation().distance(soeur.getLocation()) <= 20) {
-                                player.addPotionEffect(resistance);
-                                soeur.addPotionEffect(resistance);
+                if(playerManager.isAlive()){
+                    if (playerManager.getPlayer() != player) {
+                        if (playerManager.getPlayer() != null) {
+                            Player soeur = playerManager.getPlayer();
+                            if(soeur.getWorld() == player.getWorld()){
+                                if (player.getLocation().distance(soeur.getLocation()) <= 20) {
+                                    player.addPotionEffect(resistance);
+                                    soeur.addPotionEffect(resistance);
+                                }
                             }
                         }
                     }
                 }
+
             }
         }
 

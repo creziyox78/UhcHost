@@ -32,8 +32,9 @@ public class SuperHeroes extends Scenario {
 
 	public enum PositiveEffect {
 		STRENGHT(PotionEffectType.INCREASE_DAMAGE, 1), RESITANCE(PotionEffectType.DAMAGE_RESISTANCE, 2),
-		JUMPBOOST(PotionEffectType.JUMP, 4), REGENERATION(PotionEffectType.REGENERATION, 1),
-		SWIFTNESS(PotionEffectType.SPEED, 2), FIRERESISTANCE(PotionEffectType.FIRE_RESISTANCE, 2);
+		JUMPBOOST(PotionEffectType.JUMP, 4),
+		SWIFTNESS(PotionEffectType.SPEED, 2),
+		;
 
 		private PotionEffectType potionEffectType;
 

@@ -25,7 +25,15 @@ public class EnfantSauvage extends Role implements LGRole {
 
     @Override
     public String sendList() {
-        return "§eVotre modèle : " + modele.getPlayerName();
+        String message ="§eVotre modèle : " + modele.getPlayerName() + "\n";
+        PlayerManager enfant = UhcHost.getInstance().getPlayerManager(getPlayerId());
+        if(enfant.getWolfPlayerManager().isTransformed()){
+            if (main.gameManager.getModes().getMode().getModeManager() instanceof LoupGarouManager) {
+                LoupGarouManager loupGarouManager = (LoupGarouManager) main.gameManager.getModes().getMode().getModeManager();
+                message += loupGarouManager.sendLGList();
+            }
+        }
+        return message;
     }
 
     @Override
@@ -35,6 +43,8 @@ public class EnfantSauvage extends Role implements LGRole {
         }
         player.sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage() + "§bVoici votre modèle qui a été choisi aléatoirement: " + modele.getPlayerName());
     }
+
+
 
     @Override
     public void onNight(Player player) {

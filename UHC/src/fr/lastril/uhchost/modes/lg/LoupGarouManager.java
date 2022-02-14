@@ -77,39 +77,44 @@ public class LoupGarouManager extends ModeManager implements Listener {
     public void startDeathTask(Player player, Player killer) {
         Location deathLocation = player.getLocation().clone();
         player.sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage() + "§bVous avez toujours une chance de vous faire réssusciter. Merci de patienter.");
+        player.setGameMode(GameMode.ADVENTURE);
         this.waitingRessurect.add(player.getUniqueId());
         System.out.println("Starting death task !");
         Bukkit.getScheduler().runTaskLater(main, () -> {
             PlayerManager playerManager = main.getPlayerManager(player.getUniqueId());
             System.out.println("WolfPlayerManager not null !");
-            if (playerManager.getWolfPlayerManager().getResurectType() != null) {
-                System.out.println("Ressurect type not null !");
-                if (player.getPlayer() != null) {
-                    System.out.println("Player not null !");
-                    Player onlinePlayer = player.getPlayer();
-                    onlinePlayer.setGameMode(GameMode.SURVIVAL);
-                    playerManager.setItems(player.getInventory().getContents());
-                    playerManager.setArmors(player.getInventory().getArmorContents());
-                    onlinePlayer.updateInventory();
-                    if(killer != null){
-                        System.out.println("Checking killer not null !");
-                        PlayerManager killerManager = main.getPlayerManager(killer.getUniqueId());
-                        if(playerManager.getWolfPlayerManager().isProtect() && killerManager.hasRole() && killerManager.getRole() instanceof RealLG){
-                            System.out.println("Garde protection !");
-                            playerManager.getWolfPlayerManager().setResurectType(ResurectType.GARDE);
-                        }
-                        if (playerManager.getRole() instanceof Ancien && killerManager.hasRole() && killerManager.getRole() instanceof RealLG) {
-                            Ancien ancien = (Ancien) playerManager.getRole();
-                            if (!ancien.isRevived()) {
-                                System.out.println("Ancien Revive Power !");
-                                ancien.setRevived(true);
-                                playerManager.getWolfPlayerManager().setResurectType(ResurectType.ANCIEN);
-                            }
+            Player onlinePlayer = player.getPlayer();
+            if (player != null) {
+                System.out.println("Player not null !");
+                onlinePlayer = player.getPlayer();
+                onlinePlayer.setGameMode(GameMode.SURVIVAL);
+                playerManager.setItems(player.getInventory().getContents());
+                playerManager.setArmors(player.getInventory().getArmorContents());
+                onlinePlayer.updateInventory();
+                if(killer != null){
+                    System.out.println("Checking killer not null !");
+                    PlayerManager killerManager = main.getPlayerManager(killer.getUniqueId());
+                    if(playerManager.getWolfPlayerManager().isProtect() && killerManager.hasRole() && killerManager.getRole() instanceof RealLG){
+                        System.out.println("Garde protection !");
+                        playerManager.getWolfPlayerManager().setResurectType(ResurectType.GARDE);
+                    }
+                    if (playerManager.getRole() instanceof Ancien && killerManager.hasRole() && (killerManager.getRole() instanceof RealLG || playerManager.getWolfPlayerManager().isInfected() || playerManager.getWolfPlayerManager().isTransformed()) ) {
+                        Ancien ancien = (Ancien) playerManager.getRole();
+                        if (!ancien.isRevived()) {
+                            System.out.println("Ancien Revive Power !");
+                            ancien.setRevived(true);
+                            playerManager.getWolfPlayerManager().setResurectType(ResurectType.ANCIEN);
                         }
                     }
+                }
+            }
+
+            if (playerManager.getWolfPlayerManager().getResurectType() != null) {
+                System.out.println("Ressurect type not null !");
                     switch (playerManager.getWolfPlayerManager().getResurectType()) {
                         case INFECT: {
                             System.out.println("Player set ressurect type Infect !");
+                            player.setGameMode(GameMode.SURVIVAL);
                             onlinePlayer.sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage() + "Vous avez été infecté par l'Infect Pères des loups.");
                             playerManager.getWolfPlayerManager().setResurectType(null);
                             main.gameManager.teleportPlayerOnGround(player);
@@ -119,6 +124,7 @@ public class LoupGarouManager extends ModeManager implements Listener {
                             System.out.println("Player set ressurect type Ancien !");
                             Ancien ancien = (Ancien) playerManager.getRole();
                             ancien.setRevived(true);
+                            player.setGameMode(GameMode.SURVIVAL);
                             onlinePlayer.sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage() + "Vous avez utilisé votre deuxième vie, par conséquant, vous ne pourrez plus ressusciter.");
                             onlinePlayer.removePotionEffect(PotionEffectType.DAMAGE_RESISTANCE);
                             playerManager.getWolfPlayerManager().setResurectType(null);
@@ -127,6 +133,7 @@ public class LoupGarouManager extends ModeManager implements Listener {
                         }
                         case SORCIERE: {
                             System.out.println("Player set ressurect type Soso !");
+                            player.setGameMode(GameMode.SURVIVAL);
                             onlinePlayer.sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage() + "Vous avez été ressuscité par la Sorcière.");
                             playerManager.getWolfPlayerManager().setResurectType(null);
                             main.gameManager.teleportPlayerOnGround(player);
@@ -134,6 +141,7 @@ public class LoupGarouManager extends ModeManager implements Listener {
                         }
                         case GARDE:
                             System.out.println("Player set ressurect type Garde !");
+                            player.setGameMode(GameMode.SURVIVAL);
                             onlinePlayer.sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage() + "Vous avez été ressuscité par le Garde.");
                             playerManager.getWolfPlayerManager().setResurectType(null);
                             playerManager.getWolfPlayerManager().setProtect(false);
@@ -142,7 +150,7 @@ public class LoupGarouManager extends ModeManager implements Listener {
                         default:
                             break;
                     }
-                }
+
 
             } else {
                 System.out.println("Ressurect type is null ! Killed player");
@@ -284,7 +292,10 @@ public class LoupGarouManager extends ModeManager implements Listener {
         }
         System.out.println("Droping inventory !");
         main.getInventoryUtils().dropInventory(deathLocation, items, armors);
-
+        System.out.println("On Realy Death Role !");
+        for (PlayerManager PlayerManagers : main.getPlayerManagerAlives().stream().filter(PlayerManager::hasRole).collect(Collectors.toList())) {
+            PlayerManagers.getRole().onPlayerDeathRealy(playerManager, items, armors, killer, deathLocation);
+        }
         System.out.println("On Kill Role !");
         if(killer != null){
             PlayerManager playerManagerKiller = main.getPlayerManager(killer.getUniqueId());
@@ -383,10 +394,7 @@ public class LoupGarouManager extends ModeManager implements Listener {
             randomRole(playerManager);
         }
 
-        System.out.println("On Realy Death Role !");
-        for (PlayerManager PlayerManagers : main.getPlayerManagerAlives().stream().filter(PlayerManager::hasRole).collect(Collectors.toList())) {
-            PlayerManagers.getRole().onPlayerDeathRealy(playerManager, items, armors, killer, deathLocation);
-        }
+
 
         main.gameManager.getModes().getMode().checkWin();
     }
@@ -472,6 +480,8 @@ public class LoupGarouManager extends ModeManager implements Listener {
                 if(playerManager.getWolfPlayerManager().isInfected() && !loupGarouList.contains(playerManager))
                     loupGarouList.add(playerManager);
                 if(playerManager.getWolfPlayerManager().isZizanied() && !loupGarouList.contains(playerManager))
+                    loupGarouList.add(playerManager);
+                if(playerManager.getWolfPlayerManager().isTransformed() && !loupGarouList.contains(playerManager))
                     loupGarouList.add(playerManager);
             });
             for(PlayerManager playerManager : super.getPlayerManagersWithRole(ChienLoup.class)){
@@ -586,7 +596,7 @@ public class LoupGarouManager extends ModeManager implements Listener {
         Bukkit.broadcastMessage("§8§m----------------------------");
         if (voteTime) {
             Bukkit.broadcastMessage(Messages.LOUP_GAROU_PREFIX.getMessage() + "§eVous avez 30 secondes pour voter pour le joueur de votre choix avec la commande§6 \"/lg vote <pseudo>\"§e. " +
-                    "Le joueur ciblé obtenant le plus de vote contre lui perdra la moitié de sa vie jusqu'au prochain épisode.");
+                    "Le joueur ciblé obtenant le plus de vote contre lui perdra la moitié de sa vie jusqu'à la prochaine nuit.");
         } else {
             Bukkit.broadcastMessage(Messages.LOUP_GAROU_PREFIX.getMessage() + "§cLes votes sont désormais fermés !");
         }
