@@ -4,8 +4,10 @@ import fr.lastril.uhchost.UhcHost;
 import fr.lastril.uhchost.enums.Messages;
 import fr.lastril.uhchost.modes.roles.Camps;
 import fr.lastril.uhchost.modes.roles.Role;
+import fr.lastril.uhchost.modes.tpg.TaupeGunMode;
 import fr.lastril.uhchost.player.modemanager.BleachPlayerManager;
 import fr.lastril.uhchost.player.modemanager.DSPlayerManager;
+import fr.lastril.uhchost.player.modemanager.TaupePlayerManager;
 import fr.lastril.uhchost.player.modemanager.WolfPlayerManager;
 import fr.lastril.uhchost.tools.API.ActionBar;
 import fr.lastril.uhchost.tools.API.FormatTime;
@@ -32,6 +34,8 @@ public class PlayerManager {
 	private final DSPlayerManager dsPlayerManager;
 
 	private final BleachPlayerManager bleachPlayerManager;
+
+	private final TaupePlayerManager taupePlayerManager;
 
 	private final UhcHost pl;
 
@@ -64,7 +68,8 @@ public class PlayerManager {
 		this.playerName = player.getName();
 		this.bleachPlayerManager = new BleachPlayerManager(this);
 		this.dsPlayerManager = new DSPlayerManager(this);
-		this.setWolfPlayerManager(new WolfPlayerManager(this));
+		this.taupePlayerManager = new TaupePlayerManager(this);
+		this.wolfPlayerManager = new WolfPlayerManager(this);
 		UhcHost.getInstance().getAllWolfPlayerManager().put(uuid, getWolfPlayerManager());
 	}
 
@@ -100,6 +105,10 @@ public class PlayerManager {
 		}
 		this.cooldowns.clear();
 		this.cooldowns.putAll(newCooldowns);
+	}
+
+	public TaupePlayerManager getTaupePlayerManager() {
+		return taupePlayerManager;
 	}
 
 	public void sendTimer(Player player, int timer, ItemStack item) {

@@ -1,6 +1,7 @@
 package fr.lastril.uhchost.modes.bleach;
 
 import fr.lastril.uhchost.modes.bleach.roles.arrancars.Aizen;
+import fr.lastril.uhchost.modes.bleach.roles.shinigamis.*;
 import fr.lastril.uhchost.modes.bleach.roles.shinigamis.soulsociety.*;
 import fr.lastril.uhchost.modes.roles.Role;
 
@@ -26,6 +27,23 @@ public enum BleachRoles {
     NANAO(Nanao.class), //FINISHED
     HISAGI(Hisagi.class), //TODO FIX
     TOSHIROHITSUGAYA(ToshiroHitsugaya.class),
+    RANGIKUMATSUMOTO(RangikuMatsumoto.class),
+    KENPACHIZARAKI(KenpachiZaraki.class),
+    YACHIRU(Yachiru.class),
+    MAYURI(Mayuri.class),
+    NEMU(Nemu.class),
+    JUSHIROUKITAKE(JushiroUkitake.class),
+    IKKAKU(Ikkaku.class),
+
+    ICHIGOKUROSAKI(IchigoKurosaki.class),
+    INOUEORIHIME(InoueOrihime.class),
+    SADO(Sado.class),
+    ISHIDA(Ishida.class),
+    RUKIA(Rukia.class),
+    KISUKEURAHARA(KisukeUrahara.class),
+    YORUICHI(Yoruichi.class),
+    NELLIEL(Nelliel.class),
+
 
     //Ichigo Groups
 

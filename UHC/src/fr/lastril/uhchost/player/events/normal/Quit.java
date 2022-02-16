@@ -36,15 +36,9 @@ public class Quit implements Listener {
 				pl.gameManager.setHostname(null);
 				pl.gameManager.setHost(null);
 			}
-
 		} else if(GameState.isState(GameState.STARTED)) {
-
 			if(pl.getPlayerManagerAlives().contains(pl.getPlayerManager(playersUuid))) {
 				e.setQuitMessage("[" + ChatColor.RED + "-"+ ChatColor.WHITE+ "] " + player.getDisplayName());
-				if(gameManager.isBorder()) {
-					pl.getPlayerManager(playersUuid).setAlive(false);
-					Bukkit.broadcastMessage("§c" + 	player.getName() + " a été éliminé !");
-				}
 			}
 			else {
 				e.setQuitMessage("");

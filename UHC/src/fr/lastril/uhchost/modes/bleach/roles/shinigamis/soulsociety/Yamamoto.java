@@ -190,7 +190,7 @@ public class Yamamoto extends Role implements RoleListener, RoleCommand, Shiniga
 
     @Override
     public String getRoleName() {
-        return "Yamamoto";
+        return "Y'a ma moto";
     }
 
     @Override

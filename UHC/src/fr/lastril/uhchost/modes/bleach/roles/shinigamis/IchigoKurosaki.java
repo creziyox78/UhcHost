@@ -5,7 +5,7 @@ import fr.lastril.uhchost.modes.roles.Role;
 import fr.lastril.uhchost.tools.API.items.crafter.QuickItem;
 import org.bukkit.entity.Player;
 
-public class White extends Role {
+public class IchigoKurosaki extends Role {
     @Override
     public void giveItems(Player player) {
 
@@ -43,7 +43,7 @@ public class White extends Role {
 
     @Override
     public String getRoleName() {
-        return null;
+        return "Ichigo Kurosaki";
     }
 
     @Override

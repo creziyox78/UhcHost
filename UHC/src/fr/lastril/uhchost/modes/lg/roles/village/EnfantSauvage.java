@@ -41,6 +41,7 @@ public class EnfantSauvage extends Role implements LGRole {
         while (modele == null || modele == main.getPlayerManager(player.getUniqueId())){
             modele = main.getRandomPlayerManagerAlive();
         }
+        UhcHost.debug("Enfant sauvage modele : " + modele.getPlayerName());
         player.sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage() + "§bVoici votre modèle qui a été choisi aléatoirement: " + modele.getPlayerName());
     }
 

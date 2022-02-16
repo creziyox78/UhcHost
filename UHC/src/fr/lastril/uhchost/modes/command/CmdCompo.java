@@ -5,6 +5,8 @@ import fr.lastril.uhchost.enums.Messages;
 import fr.lastril.uhchost.game.GameState;
 import fr.lastril.uhchost.game.tasks.TaskManager;
 import fr.lastril.uhchost.modes.Mode;
+import fr.lastril.uhchost.modes.Modes;
+import fr.lastril.uhchost.modes.lg.LoupGarouMode;
 import fr.lastril.uhchost.modes.roles.Camps;
 import fr.lastril.uhchost.modes.roles.RoleAnnounceMode;
 import fr.lastril.uhchost.modes.roles.RoleMode;
@@ -49,16 +51,26 @@ public class CmdCompo implements ModeSubCommand {
             if(!mode.getModeManager().compositionHide || (!playerManager.isAlive() && player.isOp())){
                 if(GameState.isState(GameState.STARTED) && roleAnnounceMode != null && roleAnnounceMode.isRoleAnnonced(TaskManager.timeGame)){
                     sender.sendMessage("§8§m----------------------------------");
-                    for (Camps camp : Camps.values()) {
-                        for (PlayerManager playerManagers : pl.getGamemanager().getModes().getMode().getModeManager().getPlayerManagersWithCamps(camp).stream().filter(PlayerManager::isAlive).collect(Collectors.toList())) {
-                            sender.sendMessage(playerManagers.getRole().getCamp().getCompoColor() + playerManagers.getRole().getRoleName() + (player.isOp() && !pl.getPlayerManager(player.getUniqueId()).isAlive() ? " §l(" + playerManagers.getPlayerName() + " | Camps: " + playerManagers.getCamps().name() + ")" : ""));
+                    if(mode == Modes.LG.getMode()){
+                        LoupGarouMode loupGarouMode = (LoupGarouMode) pl.getGamemanager().getModes().getMode();
+                        if(loupGarouMode.getLoupGarouManager().isRandomSeeRole()){
+                            for(Camps camps : Camps.values()){
+                                for(PlayerManager playerManagers : pl.getGamemanager().getModes().getMode().getModeManager().getPlayerManagersWithCamps(camps)){
+                                    sender.sendMessage(playerManagers.getRole().getCamp().getCompoColor() + playerManagers.getRole().getRoleName() + (player.isOp() && !pl.getPlayerManager(player.getUniqueId()).isAlive() ? " §l(" + playerManagers.getPlayerName() + " | Camps: " + playerManagers.getCamps().name() + ")" : ""));
+                                }
+                            }
+                        } else {
+                            sendNormalComposition(player);
                         }
+                    } else {
+                        sendNormalComposition(player);
                     }
+
                     sender.sendMessage("§8§m----------------------------------");
                 }  else {
                     player.closeInventory();
-                    if(mode.getCurrentCompoGui() != null){
-                        mode.getCurrentCompoGui().open(player);
+                    if(roleAnnounceMode.getCurrentCompoGui() != null){
+                        roleAnnounceMode.getCurrentCompoGui().open(player);
                     } else {
                         player.sendMessage(Messages.error("Ce mode de jeu ne se joue pas avec une composition."));
                     }
@@ -69,5 +81,13 @@ public class CmdCompo implements ModeSubCommand {
 
         }
         return false;
+    }
+
+    private void sendNormalComposition(Player player){
+        for (Camps camp : Camps.values()) {
+            for (PlayerManager playerManagers : pl.getGamemanager().getModes().getMode().getModeManager().getPlayerManagersWithCamps(camp).stream().filter(PlayerManager::isAlive).collect(Collectors.toList())) {
+                player.sendMessage(playerManagers.getRole().getCamp().getCompoColor() + playerManagers.getRole().getRoleName() + (player.isOp() && !pl.getPlayerManager(player.getUniqueId()).isAlive() ? " §l(" + playerManagers.getPlayerName() + " | Camps: " + playerManagers.getCamps().name() + ")" : ""));
+            }
+        }
     }
 }

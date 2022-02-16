@@ -134,16 +134,6 @@ public class ClassicMode extends Mode {
 
     }
 
-    @Override
-    public List<Camps> getCamps() {
-        return null;
-    }
-
-    @Override
-    public IQuickInventory getCurrentCompoGui() {
-        return null;
-    }
-
     public void win(Player winner) {
         this.pl.gameManager.setDamage(false);
         Bukkit.broadcastMessage(I18n.tl("endGame"));

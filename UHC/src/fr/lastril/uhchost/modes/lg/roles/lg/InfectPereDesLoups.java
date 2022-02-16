@@ -1,5 +1,6 @@
 package fr.lastril.uhchost.modes.lg.roles.lg;
 
+import fr.lastril.uhchost.UhcHost;
 import fr.lastril.uhchost.enums.Messages;
 import fr.lastril.uhchost.modes.lg.LoupGarouManager;
 import fr.lastril.uhchost.modes.lg.roles.LGChatRole;
@@ -26,7 +27,7 @@ import org.bukkit.potion.PotionType;
 
 public class InfectPereDesLoups extends Role implements LGRole, RoleListener, RealLG, LGChatRole {
 
-    private boolean hasInfected, infecte;
+    private boolean hasInfected = false, infecte;
 
     public InfectPereDesLoups() {
         super.addEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, Integer.MAX_VALUE, 0, false, false),
@@ -101,32 +102,43 @@ public class InfectPereDesLoups extends Role implements LGRole, RoleListener, Re
     public void onPlayerDeath(PlayerDeathEvent event) {
         if (main.gameManager.getModes().getMode().getModeManager() instanceof LoupGarouManager) {
             LoupGarouManager loupGarouManager = (LoupGarouManager) main.gameManager.getModes().getMode().getModeManager();
+            UhcHost.debug("Checking Infect rez...");
             if (!hasInfected) {
+                UhcHost.debug("Infect can rez.");
                 Player killer = event.getEntity().getKiller();
                 Player player = event.getEntity();
                 if (killer != null) {
+                    UhcHost.debug("Killer is not null.");
                     infecte = true;
                     PlayerManager killerManager = main.getPlayerManager(killer.getUniqueId());
                     PlayerManager playerManager = main.getPlayerManager(player.getUniqueId());
                     Bukkit.getScheduler().runTaskLater(main, () -> infecte = false, 20*6);
-                    if (playerManager.getRole() instanceof Ancien && killerManager.hasRole() && killerManager.getRole() instanceof RealLG) {
-                        if (playerManager.getRole() instanceof Ancien) {
+                    if (killerManager.hasRole() && killerManager.getRole() instanceof RealLG) {
+                        UhcHost.debug("Killer is LG.");
+                        if (playerManager.hasRole() && playerManager.getRole() instanceof Ancien) {
                             Ancien ancien = (Ancien) playerManager.getRole();
                             if (!ancien.isRevived()) {
+                                UhcHost.debug("Dead is Ancien and can revive");
                                 return;
                             }
-                        } else if(playerManager.getWolfPlayerManager().isProtect()){
+                        } if(playerManager.getWolfPlayerManager().isProtect()){
+                            UhcHost.debug("Dead is protected by garde.");
                             return;
-                        } else if (loupGarouManager.isLoupGarou(killer.getUniqueId()) || killerManager.hasRole() && killerManager.getRole() instanceof RealLG) {
-                            if (super.getPlayer() != null) {
-                                Player infect = super.getPlayer();
+                        }
+                        UhcHost.debug("Print infection message");
+                        if (super.getPlayer() != null) {
+                            Player infect = super.getPlayer();
+                            PlayerManager infectManager = main.getPlayerManager(infect.getUniqueId());
+                            if(infectManager.isAlive()){
                                 new ClickableMessage(infect, onClick -> {
 
                                     if(infecte){
+
                                         loupGarouManager.addInfect(playerManager, loupGarouManager.isVaccination());
                                         onClick.sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage() + "§aVous avez bien infecté "
                                                 + player.getName() + " !");
                                         hasInfected = true;
+                                        UhcHost.debug("Player is infected !");
                                     } else {
                                         onClick.sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage() + "§cVous ne pouvez plus infecter"
                                                 + player.getName() + " !");
@@ -137,6 +149,7 @@ public class InfectPereDesLoups extends Role implements LGRole, RoleListener, Re
                                         "§a Pour infecter §c" + player.getName());
                             }
                         }
+
                     }
                 }
             }

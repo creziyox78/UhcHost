@@ -46,8 +46,5 @@ public abstract class Mode {
 
     public abstract void onDay();
 
-    public abstract List<Camps> getCamps();
-
-    public abstract IQuickInventory getCurrentCompoGui();
 
 }

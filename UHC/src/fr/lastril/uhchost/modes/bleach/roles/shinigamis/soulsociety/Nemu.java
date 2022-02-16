@@ -44,7 +44,7 @@ public class Nemu extends Role {
 
     @Override
     public String getRoleName() {
-        return null;
+        return "Nemu";
     }
 
     @Override

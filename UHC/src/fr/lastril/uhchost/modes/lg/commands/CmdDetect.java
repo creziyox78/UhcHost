@@ -50,6 +50,7 @@ public class CmdDetect implements ModeSubCommand {
                             boolean sameCamp = targetManager1.getCamps() == targetManager2.getCamps();
                             detective.setDetected(true);
                             player.sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage() + (sameCamp ? "§a" + targetName1 + " et " +targetName2 + " sont du même camp." : "§c" + targetName1 + " et " +targetName2 + " ne sont pas du même camp."));
+                            UhcHost.debug("Detective compared " + targetManager1.getPlayerName() + " and " + targetManager2.getPlayerName() + " , result : " + sameCamp);
                         } else {
                             player.sendMessage(Messages.error("L'un de ces 2 joueurs ne sont pas connectés !"));
                         }

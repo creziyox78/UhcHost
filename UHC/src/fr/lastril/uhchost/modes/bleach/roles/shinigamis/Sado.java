@@ -43,7 +43,7 @@ public class Sado extends Role {
 
     @Override
     public String getRoleName() {
-        return null;
+        return "Sado";
     }
 
     @Override

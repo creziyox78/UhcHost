@@ -42,6 +42,7 @@ public class CmdSoeurName implements ModeSubCommand {
             Soeur soeur = (Soeur) playerManager.getRole();
             if(soeur.isOtherDead()){
                 soeur.setOtherDead(false);
+                UhcHost.debug("Other soeur choose name of killer : " + soeur.getPlayerKiller().getPlayerName());
                 player.sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage() + "§eVoici le pseudo du tueur de votre soeur: " + soeur.getPlayerKiller().getPlayerName());
             } else {
                 player.sendMessage(Messages.CANT_USE_MORE_POWER.getMessage());

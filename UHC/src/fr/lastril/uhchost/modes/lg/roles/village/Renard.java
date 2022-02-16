@@ -41,7 +41,7 @@ public class Renard extends Role implements LGRole, RoleCommand {
 
     @Override
     public void onNight(Player player) {
-
+        canRenifle = true;
     }
 
     @Override
@@ -50,7 +50,6 @@ public class Renard extends Role implements LGRole, RoleCommand {
             if(playerManager.getPlayer() != null){
                 playerManager.getPlayer().sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage() + "§eVous avez été reniflé par le renard.");
             }
-
         });
         renifledPlayer.stream().map(renifledPlayer::remove);
         canRenifle = false;
@@ -58,7 +57,7 @@ public class Renard extends Role implements LGRole, RoleCommand {
 
     @Override
     public void onNewEpisode(Player player) {
-        canRenifle = true;
+
     }
 
     @Override

@@ -4,7 +4,9 @@ import fr.lastril.uhchost.player.events.GameStartEvent;
 import fr.lastril.uhchost.scenario.Scenario;
 import fr.lastril.uhchost.tools.I18n;
 import org.bukkit.Material;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
@@ -25,23 +27,34 @@ public class SuperHeroes extends Scenario {
 	public void onGameStart(GameStartEvent event) {
 		event.getPlayers().forEach(p -> {
 			PositiveEffect e = PositiveEffect.getRandomEffect();
-			p.addPotionEffect(new PotionEffect(e.getPotionEffectType(), 999999, 1));
+			for(PotionEffect potionEffect : e.getPotionEffect()){
+				p.addPotionEffect(potionEffect);
+			}
 			p.sendMessage(I18n.tl("scenarios.superheroes.message", e.toString()));
 		});
 	}
 
+	@EventHandler
+	public void onDamageFall(EntityDamageEvent event){
+		if(event.getEntity() instanceof Player){
+			Player player = (Player) event.getEntity();
+			if(player.hasPotionEffect(PotionEffectType.JUMP) && event.getCause() == EntityDamageEvent.DamageCause.FALL)
+				event.setCancelled(true);
+		}
+	}
+
 	public enum PositiveEffect {
-		STRENGHT(PotionEffectType.INCREASE_DAMAGE, 1), RESITANCE(PotionEffectType.DAMAGE_RESISTANCE, 2),
-		JUMPBOOST(PotionEffectType.JUMP, 4),
-		SWIFTNESS(PotionEffectType.SPEED, 2),
+		STRENGHT(Arrays.asList(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, Integer.MAX_VALUE, 0, false, false)), 1), RESISTANCE(Arrays.asList(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, Integer.MAX_VALUE, 0, false, false)), 1),
+		JUMPBOOST(Arrays.asList(new PotionEffect(PotionEffectType.JUMP, Integer.MAX_VALUE, 3, false, false), new PotionEffect(PotionEffectType.SPEED, Integer.MAX_VALUE, 0, false, false), new PotionEffect(PotionEffectType.FIRE_RESISTANCE, Integer.MAX_VALUE, 0, false, false)), 1),
+		SPEED(Arrays.asList(new PotionEffect(PotionEffectType.SPEED, Integer.MAX_VALUE, 1, false, false), new PotionEffect(PotionEffectType.FAST_DIGGING, Integer.MAX_VALUE, 1, false, false)), 1),
 		;
 
-		private PotionEffectType potionEffectType;
+		private List<PotionEffect> potionEffect;
 
 		private int rarity;
 
-		PositiveEffect(PotionEffectType potionEffectType, int rarity) {
-			this.potionEffectType = potionEffectType;
+		PositiveEffect(List<PotionEffect> potionEffect, int rarity) {
+			this.potionEffect = potionEffect;
 			this.rarity = rarity;
 		}
 
@@ -54,12 +67,12 @@ public class SuperHeroes extends Scenario {
 			return effects.get((new Random()).nextInt(effects.size()));
 		}
 
-		public PotionEffectType getPotionEffectType() {
-			return this.potionEffectType;
+		public List<PotionEffect> getPotionEffect() {
+			return potionEffect;
 		}
 
-		public void setPotionEffectType(PotionEffectType potionEffectType) {
-			this.potionEffectType = potionEffectType;
+		public void setPotionEffect(List<PotionEffect> potionEffect) {
+			this.potionEffect = potionEffect;
 		}
 
 		public int getRarity() {

@@ -96,20 +96,24 @@ public class Sorciere extends Role implements LGRole, RoleListener {
                 rez = true;
                 if (super.getPlayer() != null) {
                     Player soso = super.getPlayer();
-                    new ClickableMessage(soso, onClick -> {
-                        if(rez){
-                            main.getPlayerManager(player.getUniqueId()).getWolfPlayerManager()
-                                    .setResurectType(ResurectType.SORCIERE);
-                            onClick.sendMessage("Vous avez bien ressuscité "
-                                    + player.getName() + " !");
-                            hasRez = true;
-                        } else {
-                            onClick.sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage() + "§cVous ne pouvez plus ressusciter "
-                                    + player.getName() + " !");
-                        }
-                    }, "§c" + player.getName()
-                            + " est mort vous pouvez le ressusciter en cliquant sur le message ! ",
-                            "§a Pour ressusciter §c" + player.getName());
+                    PlayerManager sosoManager = main.getPlayerManager(soso.getUniqueId());
+                    if(sosoManager.isAlive()){
+                        new ClickableMessage(soso, onClick -> {
+                            if(rez){
+                                main.getPlayerManager(player.getUniqueId()).getWolfPlayerManager()
+                                        .setResurectType(ResurectType.SORCIERE);
+                                onClick.sendMessage("Vous avez bien ressuscité "
+                                        + player.getName() + " !");
+                                hasRez = true;
+                            } else {
+                                onClick.sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage() + "§cVous ne pouvez plus ressusciter "
+                                        + player.getName() + " !");
+                            }
+                        }, "§c" + player.getName()
+                                + " est mort vous pouvez le ressusciter en cliquant sur le message ! ",
+                                "§a Pour ressusciter §c" + player.getName());
+                    }
+
                 }
             }, 20*6);
 

@@ -41,7 +41,7 @@ public class LoupGarouMode extends Mode implements ModeCommand, RoleMode<LGRole>
     private final LoupGarouManager loupGarouManager;
     private final List<LoupGarouSpecialEvent> specialEventList = new ArrayList<>();
     private int announceRoles = 20*60;
-    private boolean lgSolitaire;
+    private boolean lgSolitaire, randomCoupleAnnonce;
     private int annonceSolitaire = 60*55;
 
     public LoupGarouMode() {
@@ -80,7 +80,10 @@ public class LoupGarouMode extends Mode implements ModeCommand, RoleMode<LGRole>
             loupGarouSpecialEvent.runTask();
         }
         if(loupGarouManager.isRandomCouple()){
-            Bukkit.getScheduler().runTaskLater(pl, () -> loupGarouManager.randomCouple(), 20*60*25);
+            Bukkit.getScheduler().runTaskLater(pl, () -> {
+                randomCoupleAnnonce = true;
+                loupGarouManager.randomCouple();
+            }, 20*60*25);
         }
         if(pl.gameManager.getComposition().contains(Pretresse.class)){
             loupGarouManager.setRandomSeeRole(true);
@@ -105,6 +108,9 @@ public class LoupGarouMode extends Mode implements ModeCommand, RoleMode<LGRole>
         }
     }
 
+    public boolean isRandomCoupleAnnonce() {
+        return randomCoupleAnnonce;
+    }
 
     public void annonceRoles() {
         List<Class<? extends Role>> compo = pl.getGamemanager().getComposition();
@@ -210,7 +216,7 @@ public class LoupGarouMode extends Mode implements ModeCommand, RoleMode<LGRole>
             }, 20* 2);
             loupGarouManager.startDeathTask(onlinePlayer, killer);
         } else {
-            loupGarouManager.kill(player, null, null, null, null);
+            loupGarouManager.kill(player, null, null, null, null, false);
         }
 
 
@@ -324,7 +330,8 @@ public class LoupGarouMode extends Mode implements ModeCommand, RoleMode<LGRole>
                 "\n " +
                 "§e§L \n" + winner.getWinMessage() +
                 "§e§L TOP KILLS ┃\n" +
-                "§e "+ mostKills.getPlayerName() + " §l(" + mostKills.getKills().size() + ")"+"\n" +
+                "\n " +
+                "§e "+ mostKills.getPlayerName() + " §l(" + mostKills.getKills().size() + ")\n " +
                 "\n " +
                 "§eMerci de votre participation !\n" +
                 "§7Arrêt du serveur dans 30 secondes !\n" +

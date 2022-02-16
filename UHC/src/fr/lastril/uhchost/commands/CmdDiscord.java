@@ -23,16 +23,13 @@ public class CmdDiscord implements CommandExecutor {
 	public boolean onCommand(CommandSender sender, Command arg1, String arg2, String[] args) {
 		if (sender instanceof Player) {
 			Player player = (Player) sender;
-			if (main.getGamemanager().getModes().getMode() instanceof RoleMode<?>) {
-				RoleMode<?> roleMode = (RoleMode<?>) main.getGamemanager().getModes().getMode();
-				TextComponent message = new TextComponent("§7");
-				message.addExtra(new TextComponentBuilder("§9§o[Cliquer ici pour rejoindre notre discord]")
-						.setClickEvent(ClickEvent.Action.OPEN_URL, "https://discord.gg/9G2VQGV9Hz")
-						.setHoverEvent(HoverEvent.Action.SHOW_TEXT, "§9Redirection vers le lien").toText());
-				player.sendMessage("§8§m--------------------------------------------------§r");
-				player.spigot().sendMessage(message);
-				player.sendMessage("§8§m--------------------------------------------------§r");
-			} 
+			TextComponent message = new TextComponent("§7");
+			message.addExtra(new TextComponentBuilder("§9§o[Cliquer ici pour rejoindre notre discord]")
+					.setClickEvent(ClickEvent.Action.OPEN_URL, "https://discord.gg/SFBxJd7Bcg")
+					.setHoverEvent(HoverEvent.Action.SHOW_TEXT, "§9Redirection vers le discord").toText());
+			player.sendMessage("§8§m--------------------------------------------------§r");
+			player.spigot().sendMessage(message);
+			player.sendMessage("§8§m--------------------------------------------------§r");
 		}
 		return false;
 	}

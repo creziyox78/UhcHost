@@ -5,6 +5,7 @@ import fr.lastril.uhchost.game.GameManager;
 import fr.lastril.uhchost.game.GameState;
 import fr.lastril.uhchost.player.events.PlayerKillEvent;
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -29,6 +30,11 @@ public class DeathPlayer implements Listener {
 
 			}
 			main.getGamemanager().getModes().getMode().onDeath(player, killer);
+		} else {
+			Bukkit.getScheduler().runTaskLater(main, () -> {
+				player.spigot().respawn();
+				player.teleport(new Location(main.gameManager.spawn.getWorld(), main.gameManager.spawn.getX(), main.gameManager.spawn.getY() + 5, main.gameManager.spawn.getZ()));
+			}, 20* 2);
 		}
 	}
 }

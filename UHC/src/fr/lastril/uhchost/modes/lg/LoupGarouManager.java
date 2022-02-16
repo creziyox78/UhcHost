@@ -6,6 +6,7 @@ import fr.lastril.uhchost.enums.ResurectType;
 import fr.lastril.uhchost.game.GameState;
 import fr.lastril.uhchost.modes.ModeManager;
 import fr.lastril.uhchost.modes.Modes;
+import fr.lastril.uhchost.modes.lg.items.CoupleBoussoleItem;
 import fr.lastril.uhchost.modes.lg.roles.LGChatRole;
 import fr.lastril.uhchost.modes.lg.roles.LGHideDeath;
 import fr.lastril.uhchost.modes.lg.roles.RealLG;
@@ -17,6 +18,7 @@ import fr.lastril.uhchost.modes.lg.roles.village.*;
 import fr.lastril.uhchost.modes.roles.Camps;
 import fr.lastril.uhchost.player.PlayerManager;
 import fr.lastril.uhchost.player.modemanager.WolfPlayerManager;
+import fr.lastril.uhchost.tools.API.items.crafter.QuickItem;
 import org.bukkit.*;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -64,6 +66,7 @@ public class LoupGarouManager extends ModeManager implements Listener {
                                     LGChatRole lgChatRoles = (LGChatRole) playerManagers.getRole();
                                     if(lgChatRoles.canSee()){
                                         playerManagers.getPlayer().sendMessage(Camps.LOUP_GAROU.getCompoColor() + (lgChatRole.sendPlayerName() ? playerManager.getPlayerName() + " » " : "Loup-garou » ") + event.getMessage());
+                                        UhcHost.debug("LG CHAT » " + event.getMessage());
                                     }
                                 }
                             }
@@ -154,7 +157,7 @@ public class LoupGarouManager extends ModeManager implements Listener {
 
             } else {
                 System.out.println("Ressurect type is null ! Killed player");
-                kill(player, player.getInventory().getContents(), player.getInventory().getArmorContents(), killer, deathLocation);
+                kill(player, player.getInventory().getContents(), player.getInventory().getArmorContents(), killer, deathLocation, false);
                 if (playerManager.getWolfPlayerManager().isInCouple()) {
                     System.out.println("Checking couple...");
                     if(killer != null){
@@ -275,7 +278,7 @@ public class LoupGarouManager extends ModeManager implements Listener {
     }
 
     public void kill(OfflinePlayer player, ItemStack[] items, ItemStack[] armors, Player killer,
-                     Location deathLocation) {
+                     Location deathLocation, boolean coupleDead) {
         PlayerManager playerManager = main.getPlayerManager(player.getUniqueId());
         playerManager.setAlive(false);
 
@@ -292,18 +295,12 @@ public class LoupGarouManager extends ModeManager implements Listener {
         }
         System.out.println("Droping inventory !");
         main.getInventoryUtils().dropInventory(deathLocation, items, armors);
+        deathLocation.getWorld().dropItemNaturally(deathLocation.clone().add(0, 1, 0), new QuickItem(Material.GOLDEN_APPLE).toItemStack());
         System.out.println("On Realy Death Role !");
         for (PlayerManager PlayerManagers : main.getPlayerManagerAlives().stream().filter(PlayerManager::hasRole).collect(Collectors.toList())) {
             PlayerManagers.getRole().onPlayerDeathRealy(playerManager, items, armors, killer, deathLocation);
         }
-        System.out.println("On Kill Role !");
-        if(killer != null){
-            PlayerManager playerManagerKiller = main.getPlayerManager(killer.getUniqueId());
-            if(playerManagerKiller.hasRole()){
-                playerManagerKiller.getRole().onKill(player, killer);
-            }
-            playerManagerKiller.addKill(player.getUniqueId());
-        }
+
 
 
         if (playerManager.getWolfPlayerManager().isInCouple()) {
@@ -320,9 +317,10 @@ public class LoupGarouManager extends ModeManager implements Listener {
             }
         }
 
-        System.out.println("Hide Death Role !");
+
         if(playerManager.hasRole()){
             if(playerManager.getRole() instanceof LGHideDeath){
+                System.out.println("Hide Death Role !");
                 main.gameManager.getModes().getMode().checkWin();
                 return;
             }
@@ -331,13 +329,20 @@ public class LoupGarouManager extends ModeManager implements Listener {
         for (Player players : Bukkit.getOnlinePlayers()) {
             players.playSound(players.getLocation(), Sound.WOLF_HOWL, 1f, 1f);
         }
-
+        UhcHost.debug("Checking killer...");
         if(killer != null){
             PlayerManager playerManagerKiller = main.getPlayerManager(killer.getUniqueId());
+            if(playerManagerKiller.hasRole()){
+                System.out.println("On Kill Role !");
+                playerManagerKiller.getRole().onKill(player, killer);
+            }
+            playerManagerKiller.addKill(player.getUniqueId());
             if (playerManagerKiller.hasRole()){
                 if(playerManagerKiller.getRole() instanceof LoupGarouGrimeur){
+                    UhcHost.debug("Killer is Grimeur");
                     LoupGarouGrimeur loupGarouGrimeur = (LoupGarouGrimeur) playerManagerKiller.getRole();
                     if(!loupGarouGrimeur.isFirstKill()){
+                        UhcHost.debug("Grim...");
                         Bukkit.broadcastMessage("§8§m----------------------------------");
                         Bukkit.broadcastMessage(" ");
                         String message = "§2§l" + playerManager.getPlayerName() +
@@ -355,6 +360,7 @@ public class LoupGarouManager extends ModeManager implements Listener {
                         System.out.println(" ");
                         System.out.println("!!! Fake LG dead, cause of LG Grimeur !!! ");
                         System.out.println(" ");
+                        loupGarouGrimeur.setFirstKill(true);
                         return;
                     }
                 }
@@ -366,9 +372,14 @@ public class LoupGarouManager extends ModeManager implements Listener {
             Bukkit.broadcastMessage("§8§m----------------------------------");
             Bukkit.broadcastMessage(" ");
             String message = "";
+
             if(playerManager.hasRole()){
-                message = "§2§l" + playerManager.getPlayerName() +
-                        " est mort, il était §o" + playerManager.getRole().getRoleName();
+                if(coupleDead){
+                    message = "§2§lDans un élan de chagrin, " + playerManager.getPlayerName() + " l'a rejoint dans sa tombe. Il était " + playerManager.getRole().getRoleName() ;
+                } else{
+                    message = "§2§l" + playerManager.getPlayerName() +
+                            " est mort, il était §o" + playerManager.getRole().getRoleName();
+                }
                 if (playerManager.getWolfPlayerManager().isInfected()) {
                     message += "§2 (infecté)";
                 }
@@ -404,8 +415,7 @@ public class LoupGarouManager extends ModeManager implements Listener {
             if (playerManager.getWolfPlayerManager().isInCouple()) {
                 Player player = playerManager.getPlayer();
                 if (player != null) {
-                    Bukkit.broadcastMessage("§dCe joueur était en couple, il meurt également.");
-                    kill(player, player.getInventory().getContents(), player.getInventory().getArmorContents(), player.getKiller(), player.getLocation());
+                    kill(player, player.getInventory().getContents(), player.getInventory().getArmorContents(), player.getKiller(), player.getLocation(), true);
                 }
             }
         }
@@ -575,6 +585,8 @@ public class LoupGarouManager extends ModeManager implements Listener {
         playerManager2.getPlayer().sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage() +
                 "§dLe cupidon vient de vous lié d'amour avec " + playerManager1.getPlayer().getName()
                 + ". Si l'un d'entre vous vient à mourir, l'autre mourra alors par amour pour l'autre.");
+        main.getInventoryUtils().giveItemSafely(playerManager1.getPlayer(), new CoupleBoussoleItem(main).toItemStack());
+        main.getInventoryUtils().giveItemSafely(playerManager2.getPlayer(), new CoupleBoussoleItem(main).toItemStack());
         for(PlayerManager playerManager : getPlayerManagersWithRole(Cupidon.class)){
             if(playerManager.getPlayer() != null){
                 playerManager.getPlayer().sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage() + "§aVos flèches ont atteints le coeur de " + playerManager1.getPlayerName() + " et " + playerManager2.getPlayerName() + ". Désormais, si l'un d'eux viennent à mourir, l'autre mourra également.");

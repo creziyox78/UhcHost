@@ -4,6 +4,7 @@ import fr.lastril.uhchost.UhcHost;
 import fr.lastril.uhchost.enums.Messages;
 import fr.lastril.uhchost.modes.command.ModeSubCommand;
 import fr.lastril.uhchost.modes.lg.roles.LGFacadeRole;
+import fr.lastril.uhchost.modes.lg.roles.RealLG;
 import fr.lastril.uhchost.modes.lg.roles.village.Renard;
 import fr.lastril.uhchost.modes.roles.Camps;
 import fr.lastril.uhchost.player.PlayerManager;
@@ -78,25 +79,29 @@ public class CmdFlairer implements ModeSubCommand {
     private void sendCamps(Player player, PlayerManager targetManager) {
         if (targetManager.getRole() instanceof LGFacadeRole) {
             LGFacadeRole lgFacadeRole = (LGFacadeRole) targetManager.getRole();
-            if (lgFacadeRole.getRoleFacade().getCamp() == Camps.LOUP_GAROU ||
-                    lgFacadeRole.getRoleFacade().getCamp() == Camps.LOUP_GAROU_BLANC)
+            if (lgFacadeRole.getRoleFacade() instanceof RealLG){
                 player.sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage()
                         + "§bVous venez de renifler " + targetManager.getPlayerName()
                         + ". Ce joueur est un loup-garou.");
-            else
-                player.sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage()
-                        + "§bVous venez de renifler " + targetManager.getPlayerName()
-                        + ". Ce joueur n'est pas un loup-garou.");
-        } else {
-            if (targetManager.getRole().getCamp() == Camps.LOUP_GAROU_BLANC ||
-                    targetManager.getRole().getCamp() == Camps.LOUP_GAROU) {
-                player.sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage()
-                        + "§bVous venez de renifler " + targetManager.getPlayerName()
-                        + ". Ce joueur n'est pas un loup-garou.");
+                UhcHost.debug("Renard renifled façade LG");
             } else {
                 player.sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage()
                         + "§bVous venez de renifler " + targetManager.getPlayerName()
                         + ". Ce joueur n'est pas un loup-garou.");
+                UhcHost.debug("Renard renifled façade not LG");
+            }
+
+        } else {
+            if (targetManager.getRole() instanceof RealLG) {
+                player.sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage()
+                        + "§bVous venez de renifler " + targetManager.getPlayerName()
+                        + ". Ce joueur est un loup-garou.");
+                UhcHost.debug("Renard renifled LG");
+            } else {
+                player.sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage()
+                        + "§bVous venez de renifler " + targetManager.getPlayerName()
+                        + ". Ce joueur n'est pas un loup-garou.");
+                UhcHost.debug("Renard renifled not LG");
             }
         }
     }

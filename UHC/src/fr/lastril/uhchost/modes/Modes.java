@@ -5,6 +5,7 @@ import fr.lastril.uhchost.modes.classic.ClassicMode;
 import fr.lastril.uhchost.modes.ds.DemonSlayerMode;
 import fr.lastril.uhchost.modes.lg.LoupGarouMode;
 import fr.lastril.uhchost.modes.naruto.NarutoV2;
+import fr.lastril.uhchost.modes.tpg.TaupeGunMode;
 import fr.lastril.uhchost.tools.API.items.crafter.QuickItem;
 import org.bukkit.Material;
 import org.bukkit.SkullType;
@@ -17,7 +18,7 @@ public enum Modes {
                     "§7en vie dans ce mode de jeu en difficulté",
                     "§7ultra-hardcore.",
                     ""), true),
-    LG("§c§lLoup-Garou","eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMzY4ZDQzMTI5MzliYjMxMTFmYWUyOGQ2NWQ5YTMxZTc3N2Y4ZjJjOWZjNDI3NTAxY2RhOGZmZTNiMzY3NjU4In19fQ==" ,new LoupGarouMode(),
+    LG("§4§lLoup-Garou","eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMzY4ZDQzMTI5MzliYjMxMTFmYWUyOGQ2NWQ5YTMxZTc3N2Y4ZjJjOWZjNDI3NTAxY2RhOGZmZTNiMzY3NjU4In19fQ==" ,new LoupGarouMode(),
             new QuickItem(Material.SKULL_ITEM, 1, SkullType.PLAYER.ordinal())
                     .setTexture("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMzY4ZDQzMTI5MzliYjMxMTFmYWUyOGQ2NWQ5YTMxZTc3N2Y4ZjJjOWZjNDI3NTAxY2RhOGZmZTNiMzY3NjU4In19fQ==")
                     .setLore("",
@@ -28,9 +29,23 @@ public enum Modes {
                             "§7dans ce mode de jeu stratégique opposant",
                             "§aVillageois§7 et §cLoups-Garous§7.",
                             "")
-                    .setName("§c§lLoup-Garou"), true),
+                    .setName("§4§lLoup-Garou"), true),
 
-    DS("§6§lDemon Slayer", "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZTA5MzIzMmFlYTQ5NjAwYjUwOTJmYzE4MmUwZDVjZTg5OTlmNzgwNDVkZDdiZGEyM2M2NWNjYTZmY2Y1Y2Y2MCJ9fX0=", new DemonSlayerMode(),
+        TAUPEGUN("§e§lTaupe Gun", "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYTNjYzIzYWM3ZTRiZTUxZDg4NGM2MjAwNzZkYTlhOTRiMGJiZTAxN2MzYTc1MzA0MDMzYzA2YmQ4ZjQwZjc0In19fQ==", new TaupeGunMode(),
+            new QuickItem(Material.SKULL_ITEM, 1, SkullType.PLAYER.ordinal())
+                    .setTexture("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYTNjYzIzYWM3ZTRiZTUxZDg4NGM2MjAwNzZkYTlhOTRiMGJiZTAxN2MzYTc1MzA0MDMzYzA2YmQ4ZjQwZjc0In19fQ==")
+                    .setLore("",
+                            "§7Auteur:§b Bergarsm (adapté par Fukano)",
+                            "§8Version : V1",
+                            "",
+                            "§7Dans chacunes des équipes, il y a",
+                            "§7un traître. Ces derniers doivent",
+                            "§7gagner ensemble, à moins qu'un ultime",
+                            "§7traître se cache parmis eux.",
+                            "")
+                    .setName("§e§lTaupe Gun"), false),
+
+    DS("§c§lDemon Slayer", "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZTA5MzIzMmFlYTQ5NjAwYjUwOTJmYzE4MmUwZDVjZTg5OTlmNzgwNDVkZDdiZGEyM2M2NWNjYTZmY2Y1Y2Y2MCJ9fX0=", new DemonSlayerMode(),
             new QuickItem(Material.SKULL_ITEM, 1, SkullType.PLAYER.ordinal())
                     .setTexture("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZTA5MzIzMmFlYTQ5NjAwYjUwOTJmYzE4MmUwZDVjZTg5OTlmNzgwNDVkZDdiZGEyM2M2NWNjYTZmY2Y1Y2Y2MCJ9fX0=")
                     .setLore("",
@@ -38,10 +53,10 @@ public enum Modes {
                             "§8Version : V3.5",
                             "",
                             "§7Mode de jeu basé sur le manga/animé du",
-                            "§7même nom opposant §3Slayers§7",
+                            "§7même nom opposant §aSlayers§7",
                             "§7et§c Démons§7.",
                             "")
-                    .setName("§6§lDemon Slayer"), false),
+                    .setName("§c§lDemon Slayer"), false),
 
     /*AOT("§eAOT", "", null,
             new QuickItem(Material.SKULL_ITEM, 1, SkullType.PLAYER.ordinal())
@@ -86,23 +101,19 @@ public enum Modes {
                             "§6§k!§r §eClique droit§7 pour configurer le mode de jeu.")
                     .setName("§3Yu-Gi-Oh"), true),
  */
-    NARUTO("§6§lNaruto", "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYmFmOTFlOGViY2ZmNThlNzZmNTk3OWJjNjZmMzc3MzZjZjIxNmQ0ZGQzZjQwYWMxMzVkMGIxMDAwM2FjYWJkYiJ9fX0=",new NarutoV2(),
+    NARUTO("§6§lNaruto: Next Gen", "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYmFmOTFlOGViY2ZmNThlNzZmNTk3OWJjNjZmMzc3MzZjZjIxNmQ0ZGQzZjQwYWMxMzVkMGIxMDAwM2FjYWJkYiJ9fX0=",new NarutoV2(),
             new QuickItem(Material.SKULL_ITEM, 1, SkullType.PLAYER.ordinal()).setTexture(
                     "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYmFmOTFlOGViY2ZmNThlNzZmNTk3OWJjNjZmMzc3MzZjZjIxNmQ0ZGQzZjQwYWMxMzVkMGIxMDAwM2FjYWJkYiJ9fX0=")
                     .setLore("",
-                            "§7Auteur:§b SteLeague",
-                            "§8Version : V2",
+                            "§7Auteur:§b NETSPEED",
+                            "§8Version : V3",
                             "",
-                            "§7Participez à la 4ème grande guerre",
-                            "§7ninja en défendant le monde de§c l'Akatsuki",
-                            "§7ainsi que§5 d'Orochimaru et de ses aliés§7.",
-                            "§7Empêchez la renaissance de§d Jûbi§7 ou",
-                            "§7devenez le précurseur de l'Apocalypse.",
+                            "§7§oArrive bientôt",
                             "")
-                    .setName("§6§lNaruto")
-            , true),
+                    .setName("§6§lNaruto: Next Gen")
+            , false),
 
-    BLEACH("§3§lBleach", "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZDUzYjRmZjMyZTRkOTEyYWQ1ODk1YjZjMzdhMzUyZjYxYWY5ZTQxZDI0N2E4NzliNWY0OWE2MzUyZmM4NiJ9fX0=",new BleachMode(),
+    BLEACH("§9§lBleach", "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZDUzYjRmZjMyZTRkOTEyYWQ1ODk1YjZjMzdhMzUyZjYxYWY5ZTQxZDI0N2E4NzliNWY0OWE2MzUyZmM4NiJ9fX0=",new BleachMode(),
             new QuickItem(Material.SKULL_ITEM, 1, SkullType.PLAYER.ordinal())
                     .setTexture("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZDUzYjRmZjMyZTRkOTEyYWQ1ODk1YjZjMzdhMzUyZjYxYWY5ZTQxZDI0N2E4NzliNWY0OWE2MzUyZmM4NiJ9fX0=")
                     .setLore("",
@@ -114,10 +125,10 @@ public enum Modes {
                             "§7et§3 Arrancars§7 s'affronteront dans",
                             "§7une bataille sans merci.",
                             "")
-                    .setName("§3§lBleach"), false),
+                    .setName("§9§lBleach"), false),
 
 
-    DEATHNOTE("§9§lDeath Note", "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYTNjYzIzYWM3ZTRiZTUxZDg4NGM2MjAwNzZkYTlhOTRiMGJiZTAxN2MzYTc1MzA0MDMzYzA2YmQ4ZjQwZjc0In19fQ==", null,
+    /*DEATHNOTE("§9§lDeath Note", "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYTNjYzIzYWM3ZTRiZTUxZDg4NGM2MjAwNzZkYTlhOTRiMGJiZTAxN2MzYTc1MzA0MDMzYzA2YmQ4ZjQwZjc0In19fQ==", null,
             new QuickItem(Material.SKULL_ITEM, 1, SkullType.PLAYER.ordinal())
                     .setTexture("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYTNjYzIzYWM3ZTRiZTUxZDg4NGM2MjAwNzZkYTlhOTRiMGJiZTAxN2MzYTc1MzA0MDMzYzA2YmQ4ZjQwZjc0In19fQ==")
                     .setLore("",
@@ -131,7 +142,7 @@ public enum Modes {
                             "§7tes victimes mais sache que je t'enverrai",
                             "§7moi-même à l'échafaud !\"",
                             "")
-                    .setName("§9§lDeath Note"), false),
+                    .setName("§9§lDeath Note"), false),*/
 
 
     SOON_1("§c§lBientôt", "",null,

@@ -1,5 +1,6 @@
 package fr.lastril.uhchost.modes.lg.roles.lg;
 
+import fr.lastril.uhchost.UhcHost;
 import fr.lastril.uhchost.modes.lg.LoupGarouManager;
 import fr.lastril.uhchost.modes.lg.roles.LGChatRole;
 import fr.lastril.uhchost.modes.lg.roles.LGRole;
@@ -70,24 +71,6 @@ public class LoupGarouGrimeur extends Role implements LGRole, RealLG, LGChatRole
 
     @Override
     public void onNewDay(Player player) {
-    }
-
-    @Override
-    public void checkRunnable(Player player) {
-    }
-
-    @Override
-    public void onKill(OfflinePlayer player, Player killer) {
-        super.onKill(player, killer);
-        PlayerManager playerManagerKiller = main.getPlayerManager(killer.getUniqueId());
-        if(playerManagerKiller.hasRole()){
-            if(playerManagerKiller.getRole() instanceof LoupGarouGrimeur){
-                LoupGarouGrimeur loupGarouGrimeur = (LoupGarouGrimeur) playerManagerKiller.getRole();
-                if(!loupGarouGrimeur.isFirstKill()){
-                    loupGarouGrimeur.setFirstKill(true);
-                }
-            }
-        }
     }
 
     @Override

@@ -44,19 +44,10 @@ public class CmdChaman implements ModeSubCommand {
                 String targetName = args[1];
                 Player target = Bukkit.getPlayer(targetName);
                 if(target != null && target != player){
-                    PlayerManager targetManager = main.getPlayerManager(target.getUniqueId());
-                    if(!chaman.containsPlayerSpec(targetManager)){
-                        int value = UhcHost.getRANDOM().nextInt(2);
-                        if(value == 1)
-                            player.sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage() + "§Voici le pseudo du joueur: " + targetManager.getPlayerName());
-                        else
-                            player.sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage() + "§eCe joueur possède le rôle: " + targetManager.getRole().getRoleName());
-                        chaman.addPlayerSpec(targetManager);
-                        player.setMaxHealth(player.getMaxHealth() - 2D);
-                    } else {
-                        player.sendMessage(Messages.error("Vous ne pouvez plus utiliser votre pouvoir sur ce joueur."));
-                    }
-
+                    PlayerManager targetManager = main.getPlayerManagerAlives().get(UhcHost.getRANDOM().nextInt(main.getPlayerManagerAlives().size()));
+                    player.sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage() + "§eVoici le rôle du joueur " + targetManager.getPlayerName() + " : " + targetManager.getRole().getRoleName() + ".");
+                    chaman.addPlayerSpec(targetManager);
+                    player.setMaxHealth(player.getMaxHealth() - 2D);
                 } else {
                     player.sendMessage(Messages.error("Vous ne pouvez pas utiliser votre pouvoir sur ce joueur."));
                 }

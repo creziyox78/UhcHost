@@ -43,7 +43,7 @@ public class Ishida extends Role {
 
     @Override
     public String getRoleName() {
-        return null;
+        return "Ishida";
     }
 
     @Override

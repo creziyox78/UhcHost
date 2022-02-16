@@ -21,6 +21,8 @@ import fr.lastril.uhchost.tools.API.clickable_messages.ClickableMessageManager;
 import fr.lastril.uhchost.tools.API.inventory.InventoryUtils;
 import fr.lastril.uhchost.tools.API.inventory.crafter.QuickInventoryManager;
 import fr.lastril.uhchost.tools.API.items.crafter.QuickItemManager;
+import fr.lastril.uhchost.tools.API.npc.NPCManager;
+import fr.lastril.uhchost.tools.API.npc.PacketManager;
 import fr.lastril.uhchost.tools.I18n;
 import fr.lastril.uhchost.tools.Lang;
 import fr.lastril.uhchost.tools.NotStart;
@@ -74,6 +76,10 @@ public class UhcHost extends JavaPlugin {
 
 	private ScheduledExecutorService scheduledExecutorService;
 
+	private PacketManager packetManager;
+
+	private NPCManager npcManager;
+
 	public TeamUtils teamUtils;
 
 	public TaskManager taskManager;
@@ -90,6 +96,7 @@ public class UhcHost extends JavaPlugin {
     }
 
     public void onEnable() {
+		Bukkit.setWhitelist(true);
 		instance = this;
 		saveDefaultConfig();
 		if (getConfig().getBoolean("bungeecord")) {
@@ -111,6 +118,7 @@ public class UhcHost extends JavaPlugin {
 				.forEach(p -> Bukkit.getPluginManager().callEvent(new PlayerJoinEvent(p, null))), 60L);
 		Bukkit.getConsoleSender().sendMessage(ChatColor.GREEN + "[" + getName() + "] ON !");
 		GameState.setCurrentState(GameState.LOBBY);
+		Bukkit.setWhitelist(false);
 	}
 
 	@Override
@@ -174,6 +182,8 @@ public class UhcHost extends JavaPlugin {
 		this.itemManager = new QuickItemManager(this);
 		this.scoreboardUtil = new ScoreboardUtils(this);
 		this.clickableMessageManager = new ClickableMessageManager(this);
+		this.packetManager = new PacketManager();
+		this.npcManager = new NPCManager(this.packetManager);
 		GameState.setCurrentState(GameState.REBUILDING);
 		this.gameManager.setHostname(ChatColor.RED + "" + ChatColor.BOLD + "Personne");
 		this.gameManager.setSlot(50);
@@ -243,7 +253,7 @@ public class UhcHost extends JavaPlugin {
 			WorldSettings.setSettings(Bukkit.getWorld("world"));
 			Bukkit.getScheduler().runTaskLater(this, () -> {
 				new Location(Bukkit.getWorld("world"), 0.0D, 200.0D, 0.0D).getChunk().load(true);
-				Bukkit.setWhitelist(true);
+
 			}, 40L);
 			this.worldUtils = new WorldUtils(this, Bukkit.getWorld("world_nether"), Bukkit.getWorld("world_the_end"));
 			Bukkit.getConsoleSender().sendMessage(ChatColor.YELLOW + "Set settings on worlds...");
@@ -326,6 +336,14 @@ public class UhcHost extends JavaPlugin {
 
 	public InventoryUtils getInventoryUtils() {
 		return inventoryUtils;
+	}
+
+	public NPCManager getNpcManager() {
+		return npcManager;
+	}
+
+	public PacketManager getPacketManager() {
+		return packetManager;
 	}
 
 	private void checkingDescriptionUpdate(String file){

@@ -4,6 +4,8 @@ import fr.lastril.uhchost.UhcHost;
 import fr.lastril.uhchost.enums.Messages;
 import fr.lastril.uhchost.modes.command.ModeSubCommand;
 import fr.lastril.uhchost.modes.lg.LoupGarouManager;
+import fr.lastril.uhchost.modes.lg.LoupGarouMode;
+import fr.lastril.uhchost.modes.lg.items.CoupleBoussoleItem;
 import fr.lastril.uhchost.modes.lg.roles.village.Cupidon;
 import fr.lastril.uhchost.modes.roles.Camps;
 import fr.lastril.uhchost.player.PlayerManager;
@@ -43,9 +45,10 @@ public class CmdCouple implements ModeSubCommand {
         }
         if (pl.gameManager.getModes().getMode().getModeManager() instanceof LoupGarouManager) {
             LoupGarouManager loupGarouManager = (LoupGarouManager) pl.gameManager.getModes().getMode().getModeManager();
+            LoupGarouMode loupGarouMode = (LoupGarouMode) pl.getGamemanager().getModes().getMode();
             if (playerManager.getRole() instanceof Cupidon) {
                 Cupidon cupidon = (Cupidon) playerManager.getRole();
-                if (!cupidon.isUsedPower() && !loupGarouManager.isRandomCouple()) {
+                if (!cupidon.isUsedPower() && !loupGarouManager.isRandomCouple() && !loupGarouMode.isRandomCoupleAnnonce()) {
                     if (args.length == 3) {
                         String targetName1 = args[1];
                         Player target1 = Bukkit.getPlayer(targetName1);
@@ -60,9 +63,11 @@ public class CmdCouple implements ModeSubCommand {
                             PlayerManager targetManager2 = pl.getPlayerManager(target1.getUniqueId());
                             if (targetManager1.isAlive() && targetManager1.hasRole() && targetManager2.isAlive() && targetManager2.hasRole()) {
                                 targetManager1.setCamps(Camps.COUPLE);
-                                targetManager2.getWolfPlayerManager().setOtherCouple(target1.getUniqueId());
-                                targetManager1.getWolfPlayerManager().setOtherCouple(target2.getUniqueId());
+                                targetManager2.getWolfPlayerManager().setOtherCouple(targetManager1.getUuid());
+                                targetManager1.getWolfPlayerManager().setOtherCouple(targetManager2.getUuid());
                                 targetManager2.setCamps(Camps.COUPLE);
+                                pl.getInventoryUtils().giveItemSafely(targetManager1.getPlayer(), new CoupleBoussoleItem(pl).toItemStack());
+                                pl.getInventoryUtils().giveItemSafely(targetManager2.getPlayer(), new CoupleBoussoleItem(pl).toItemStack());
                                 target1.sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage() +
                                         "§dLe cupidon vient de vous lié d'amour avec " + target2.getName()
                                         + ". Si l'un d'entre vous vient à mourir, l'autre mourra alors par amour pour l'autre.");

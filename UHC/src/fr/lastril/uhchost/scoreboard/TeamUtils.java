@@ -15,10 +15,7 @@ import org.bukkit.scoreboard.NameTagVisibility;
 import org.bukkit.scoreboard.Scoreboard;
 import org.bukkit.scoreboard.Team;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.ListIterator;
-import java.util.UUID;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class TeamUtils {
@@ -162,6 +159,33 @@ public class TeamUtils {
 				break;
 			}
 		}
+	}
+
+	public List<Player> getPlayersInTeam(Team team){
+		List<Player> players = new ArrayList<>();
+		for (String playerName : team.getEntries()) {
+			Player player = Bukkit.getPlayer(playerName);
+			if(player != null){
+				players.add(player);
+			}
+		}
+		return players;
+	}
+
+	public List<Team> getAllTeamsAlives(){
+		List<Team> teams = new ArrayList<>();
+		for(PlayerManager playerManager : pl.getPlayerManagerAlives()){
+			if(playerManager.isAlive()){
+				Player player = playerManager.getPlayer();
+				if(player != null){
+					Team playerTeam = getTeam(player);
+					if(playerTeam != null && !teams.contains(playerTeam)){
+						teams.add(playerTeam);
+					}
+				}
+			}
+		}
+		return teams;
 	}
 
 	public enum Teams {
@@ -362,7 +386,9 @@ public class TeamUtils {
 						new Pattern(DyeColor.YELLOW, PatternType.STRIPE_DOWNRIGHT),
 						new Pattern(DyeColor.LIME, PatternType.HALF_HORIZONTAL),
 						new Pattern(DyeColor.YELLOW, PatternType.STRIPE_CENTER)),
-				null);
+				null)
+
+		;
 
 		private String name;
 

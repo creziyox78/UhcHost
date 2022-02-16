@@ -156,7 +156,7 @@ public class GameManager {
 		this.pvp = false;
 		//this.fightTeleport = false;
 		this.blocksRules = new ArrayList<>();
-		this.blocksRules.add(new BlocksRule(Material.DIAMOND_ORE, 0, 1.25, 0, 16, 0.25));
+		this.blocksRules.add(new BlocksRule(Material.DIAMOND_ORE, 0, 1, 0, 16, 0.25));
 		this.blocksRules.add(new BlocksRule(Material.COAL_ORE, 0, 0, 0, 132, 0));
 		this.blocksRules.add(new BlocksRule(Material.GOLD_ORE, 0, 1.5, 0, 34, 0.2));
 		this.blocksRules.add(new BlocksRule(Material.IRON_ORE, 0, 0, 0, 68, 0));

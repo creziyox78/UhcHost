@@ -43,7 +43,7 @@ public class InoueOrihime extends Role {
 
     @Override
     public String getRoleName() {
-        return null;
+        return "Inoue Orihime";
     }
 
     @Override
