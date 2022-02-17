@@ -27,9 +27,16 @@ public class Chat implements Listener {
         }
         if (this.main.teamUtils.getPlayersPerTeams() != 1) {
             Team t = this.main.teamUtils.getTeam(player);
-            if (event.getMessage().startsWith("!")) {
-                event.setFormat(t.getPrefix() + "(" + t.getDisplayName() + ") " + player.getName() + " » " + event.getMessage().substring(1));
+            if(t != null){
+                if (event.getMessage().startsWith("!")) {
+                    event.setCancelled(true);
+                    event.setFormat( "§8["+t.getPrefix() + "Equipe "+t.getDisplayName() + "§8] "+t.getPrefix() + player.getName() + "§8 »§f " + event.getMessage().substring(1));
+                    for(Player players: main.teamUtils.getPlayersInTeam(t)){
+                        players.sendMessage(event.getFormat());
+                    }
+                }
             }
+
         }
     }
 

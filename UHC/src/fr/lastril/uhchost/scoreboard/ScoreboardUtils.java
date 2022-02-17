@@ -6,6 +6,7 @@ import fr.lastril.uhchost.game.GameState;
 import fr.lastril.uhchost.modes.Modes;
 import fr.lastril.uhchost.modes.bleach.BleachMode;
 import fr.lastril.uhchost.modes.roles.RoleAnnounceMode;
+import fr.lastril.uhchost.modes.tpg.TaupeGunMode;
 import fr.lastril.uhchost.player.PlayerManager;
 import fr.lastril.uhchost.tools.API.ClassUtils;
 import fr.lastril.uhchost.tools.API.FormatTime;
@@ -367,6 +368,11 @@ public class ScoreboardUtils {
 				newLine = newLine.replace("{roles}", roleTime <= 0 ? "§a✔" : new FormatTime(roleTime).toString());
 			}
 		}
+		if(modes == Modes.TAUPEGUN){
+			TaupeGunMode taupeGunMode = (TaupeGunMode) pl.getGamemanager().getModes().getMode();
+			int taupesTime = taupeGunMode.getTaupeGunConfig().getMolesTime() - count;
+			newLine = newLine.replace("{taupes}", taupesTime <= 0 ?"§a✔" : new FormatTime(taupesTime).toString());
+		}
 		if (GameState.isState(GameState.STARTED)) {
 			Location loc = this.pl.worldUtils.getCenter().getWorld().getHighestBlockAt(
 					this.pl.worldUtils.getCenter().getBlockX(), this.pl.worldUtils.getCenter().getBlockZ()).getLocation();
@@ -383,6 +389,7 @@ public class ScoreboardUtils {
 		int borderTime = this.pl.taskManager.getBorderTime() - count;
 		return newLine.replace("{pvp}", pvpTime <= 0 ? "§a✔" : new FormatTime(pvpTime).toString())
 				.replace("{time}", new FormatTime(count).toString())
+				.replace("{nb_t}", String.valueOf(pl.teamUtils.getAllTeamsAlives().size()))
 				.replace("{border_time}", borderTime <= 0 ? "§a✔" : new FormatTime(borderTime).toString())
 				.replace("{gamemode}", modes.getName())
 				.replace("{player_host_name}", pl.gameManager.getHost() != null ? pl.gameManager.getHostname() : "Aucun")

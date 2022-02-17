@@ -30,26 +30,29 @@ public class InteractTeam implements Listener {
 					event.getWhoClicked().closeInventory();
 				} else {
 					for (TeamUtils.Teams teams : TeamUtils.Teams.values()) {
-						if ((teams.getBannerCreator().getName() + teams.getName())
-								.equalsIgnoreCase(is.getItemMeta().getDisplayName())) {
-							if (teams.getTeam().getEntries().size() >= (UhcHost.getInstance()).teamUtils
-									.getPlayersPerTeams()) {
-								event.getWhoClicked().closeInventory();
-								event.getWhoClicked().sendMessage(teams.getPrefix() + I18n.tl("teamFull"));
+						if(teams.getBannerCreator() != null){
+							if ((teams.getBannerCreator().getName() + teams.getName())
+									.equalsIgnoreCase(is.getItemMeta().getDisplayName())) {
+								if (teams.getTeam().getEntries().size() >= (UhcHost.getInstance()).teamUtils
+										.getPlayersPerTeams()) {
+									event.getWhoClicked().closeInventory();
+									event.getWhoClicked().sendMessage(teams.getPrefix() + I18n.tl("teamFull"));
+									break;
+								}
+								(UhcHost.getInstance()).teamUtils.setTeam((Player) event.getWhoClicked(), teams.getTeam());
+								for (UUID uuid : (UhcHost.getInstance()).getAllPlayerManager().keySet()) {
+									if (Bukkit.getPlayer(uuid).getOpenInventory() != null
+											&& Bukkit.getPlayer(uuid).getOpenInventory().getTitle()
+											.equalsIgnoreCase(event.getClickedInventory().getName())) {
+										Bukkit.getPlayer(uuid).closeInventory();
+										new TeamsGui(Bukkit.getPlayer(uuid));
+									}
+								}
+								event.getWhoClicked().sendMessage("§7" + I18n.tl("joinTeam", is.getItemMeta().getDisplayName().replace("Equipe ", "")));
 								break;
 							}
-							(UhcHost.getInstance()).teamUtils.setTeam((Player) event.getWhoClicked(), teams.getTeam());
-							for (UUID uuid : (UhcHost.getInstance()).getAllPlayerManager().keySet()) {
-								if (Bukkit.getPlayer(uuid).getOpenInventory() != null
-										&& Bukkit.getPlayer(uuid).getOpenInventory().getTitle()
-										.equalsIgnoreCase(event.getClickedInventory().getName())) {
-									Bukkit.getPlayer(uuid).closeInventory();
-									new TeamsGui(Bukkit.getPlayer(uuid));
-								}
-							}
-							event.getWhoClicked().sendMessage("§7" + I18n.tl("joinTeam", is.getItemMeta().getDisplayName().replace("Equipe ", "")));
-							break;
 						}
+
 					}
 				}
 			}

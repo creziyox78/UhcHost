@@ -50,6 +50,10 @@ commands:
     description: t
   don:
     description: Command LG Couple.
+  t:
+    description: Command TaupeGun mode.
+  reveal:
+    description: Command TaupeGun mode.
 
   lg:
     description: Command of LG Mode.

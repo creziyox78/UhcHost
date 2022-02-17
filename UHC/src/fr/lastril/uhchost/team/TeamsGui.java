@@ -23,18 +23,21 @@ public class TeamsGui {
 		for (TeamUtils.Teams team : TeamUtils.Teams.values()) {
 			if (add < (UhcHost.getInstance()).teamUtils.getNeededTeam()) {
 				BannerCreator bc = team.getBannerCreator();
-				List<String> lores = new ArrayList<>();
-				for (String s : team.getTeam().getEntries())
-					lores.add("§8- "+ team.getPrefix() + s);
-				bc.setLores(lores);
-				bc.setBaseColor(team.getBaseColor());
-				bc.setPatterns(team.getPatterns());
-				ItemStack is = bc.create();
-				ItemMeta im = is.getItemMeta();
-				im.setDisplayName(bc.getName() + team.getName());
-				is.setItemMeta(im);
-				inventory.addItem(is);
-				add++;
+				if(bc != null){
+					List<String> lores = new ArrayList<>();
+					for (String s : team.getTeam().getEntries())
+						lores.add("§8- "+ team.getPrefix() + s);
+					bc.setLores(lores);
+					bc.setBaseColor(team.getBaseColor());
+					bc.setPatterns(team.getPatterns());
+					ItemStack is = bc.create();
+					ItemMeta im = is.getItemMeta();
+					im.setDisplayName(bc.getName() + team.getName());
+					is.setItemMeta(im);
+					inventory.addItem(is);
+					add++;
+				}
+
 			} else {
 				add = 0;
 				break;

@@ -1,4 +1,4 @@
-package fr.lastril.uhchost.commands;
+package fr.lastril.uhchost.commands.lg;
 
 import fr.lastril.uhchost.UhcHost;
 import fr.lastril.uhchost.enums.Messages;

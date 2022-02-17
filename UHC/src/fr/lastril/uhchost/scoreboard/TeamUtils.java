@@ -73,15 +73,11 @@ public class TeamUtils {
 			return;
 		this.setup = true;
 		for (Teams teams : Teams.values()) {
-			teams.setTeam(this.scoreboard.registerNewTeam(teams.getName()));
-			teams.getTeam().setPrefix(teams.getPrefix());
-			teams.getTeam().setSuffix("§r");
-			teams.getTeam().setNameTagVisibility(NameTagVisibility.ALWAYS);
-			teams.getTeam().setAllowFriendlyFire(false);
+			registerTeam(teams);
 		}
 		if (this.playersPerTeams != 1)
-			for (UUID uuid : this.pl.getAllPlayerManager().keySet()) {
-				Bukkit.getPlayer(uuid).getInventory()
+			for (Player player :Bukkit.getOnlinePlayers() ) {
+				player.getInventory()
 						.addItem((new ItemsCreator(Material.BANNER, "Equipes", null)).create());
 			}
 	}
@@ -91,7 +87,15 @@ public class TeamUtils {
 		teams.getTeam().setPrefix(teams.getPrefix());
 		teams.getTeam().setSuffix("§r");
 		teams.getTeam().setNameTagVisibility(NameTagVisibility.ALWAYS);
-		teams.getTeam().setAllowFriendlyFire(false);
+		teams.getTeam().setAllowFriendlyFire(true);
+	}
+
+	public void registerTaupeTeam(TeamsTaupes teams){
+		teams.setTeam(this.scoreboard.registerNewTeam(teams.getName()));
+		teams.getTeam().setPrefix(teams.getPrefix() + " ");
+		teams.getTeam().setSuffix("§r");
+		teams.getTeam().setNameTagVisibility(NameTagVisibility.ALWAYS);
+		teams.getTeam().setAllowFriendlyFire(true);
 	}
 
 	public Team getTeam(Player player) {
@@ -118,9 +122,27 @@ public class TeamUtils {
 		return result;
 	}
 
+
+	public TeamsTaupes getTaupes(Player player) {
+		TeamsTaupes result = null;
+		for (TeamsTaupes teams : TeamsTaupes.values()) {
+			if (teams.getTeam() != null && this.pl.scoreboardUtil.getBoard().getTeams().contains(teams.getTeam())
+					&& teams.getTeam().hasEntry(player.getName())) {
+				result = teams;
+				break;
+			}
+		}
+		return result;
+	}
+
 	public void setTeam(Player player, Team team) {
 		team.addEntry(player.getName());
 		setPlayerName(player, getTeams(player));
+	}
+
+	public void setTeamTaupe(Player player, Team team) {
+		team.addEntry(player.getName());
+		setTaupeName(player, getTaupes(player));
 	}
 	
 	public void unsetTeam(Player player, Team team) {
@@ -133,6 +155,13 @@ public class TeamUtils {
 		player.setCustomNameVisible(true);
 		player.setCustomName(player.getName());
 		player.setDisplayName(player.getName());
+	}
+
+	public void setTaupeName(Player player, TeamsTaupes teams) {
+			player.setPlayerListName(teams.getPrefix() + " " + player.getName());
+			player.setCustomNameVisible(true);
+			player.setCustomName(teams.getPrefix() + " - " + player.getName());
+			player.setDisplayName(teams.getPrefix() + " - " + player.getName());
 	}
 
 	public void setPlayerName(Player player, Teams teams) {
@@ -188,7 +217,91 @@ public class TeamUtils {
 		return teams;
 	}
 
+	public enum TeamsTaupes{
+		TAUPE1("T1", "§6T1", null, DyeColor.RED, null, null),
+		TAUPE2("T2", "§6T2", null, DyeColor.RED, null, null),
+		TAUPE3("T3", "§6T3", null, DyeColor.RED, null, null),
+		TAUPE4("T4", "§6T3", null, DyeColor.RED, null, null),
+		SUPERTAUPE1("ST1", "§cST1",null, DyeColor.RED, null, null),
+		SUPERTAUPE2("ST2", "§cST2", null, DyeColor.RED, null, null),
+		SUPERTAUPE3("ST3", "§cST3", null, DyeColor.RED, null, null),
+		SUPERTAUPE4("ST4", "§cST4", null, DyeColor.RED, null, null),
+		;
+
+		private String name;
+
+		private String prefix;
+
+		private BannerCreator bannerCreator;
+
+		private DyeColor baseColor;
+
+		private List<Pattern> patterns;
+
+		private Team team;
+
+		TeamsTaupes(String name, String prefix, BannerCreator bannerCreator, DyeColor baseColor, List<Pattern> patterns,
+			  Team team) {
+			this.name = name;
+			this.prefix = prefix;
+			this.bannerCreator = bannerCreator;
+			this.baseColor = baseColor;
+			this.patterns = patterns;
+			this.team = team;
+		}
+
+		public String getName() {
+			return this.name;
+		}
+
+		public void setName(String name) {
+			this.name = name;
+		}
+
+		public String getPrefix() {
+			return this.prefix;
+		}
+
+		public void setPrefix(String prefix) {
+			this.prefix = prefix;
+		}
+
+		public BannerCreator getBannerCreator() {
+			return this.bannerCreator;
+		}
+
+		public void setBannerCreator(BannerCreator bannerCreator) {
+			this.bannerCreator = bannerCreator;
+		}
+
+		public DyeColor getBaseColor() {
+			return this.baseColor;
+		}
+
+		public void setBaseColor(DyeColor baseColor) {
+			this.baseColor = baseColor;
+		}
+
+		public List<Pattern> getPatterns() {
+			return this.patterns;
+		}
+
+		public void setPatterns(List<Pattern> patterns) {
+			this.patterns = patterns;
+		}
+
+		public Team getTeam() {
+			return this.team;
+		}
+
+		public void setTeam(Team team) {
+			this.team = team;
+		}
+
+	}
+
 	public enum Teams {
+
 		RED("Rouge", "§c", new BannerCreator("§c", null, 1, false), DyeColor.RED, null, null),
 		BLUE("Bleu", "§9", new BannerCreator("§9", null, 1, false), DyeColor.BLUE, null, null),
 		GREEN("Vert", "§2", new BannerCreator("§2", null, 1, false), DyeColor.GREEN, null, null),

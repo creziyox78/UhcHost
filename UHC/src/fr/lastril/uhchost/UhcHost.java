@@ -2,6 +2,9 @@ package fr.lastril.uhchost;
 
 import fr.lastril.uhchost.bungeecord.PluginMessage;
 import fr.lastril.uhchost.commands.*;
+import fr.lastril.uhchost.commands.lg.CmdDon;
+import fr.lastril.uhchost.commands.tpg.CmdReveal;
+import fr.lastril.uhchost.commands.tpg.CmdTaupe;
 import fr.lastril.uhchost.game.GameManager;
 import fr.lastril.uhchost.game.GameState;
 import fr.lastril.uhchost.game.tasks.TaskManager;
@@ -137,8 +140,10 @@ public class UhcHost extends JavaPlugin {
 		Bukkit.getConsoleSender().sendMessage(ChatColor.RED + "Deleting worlds...");
 		if(Bukkit.getWorld("game") != null && Bukkit.getWorld("game").getWorldFolder().exists())
 			WorldSettings.deleteWorld(Bukkit.getWorld("game").getWorldFolder());
-		/*if(Bukkit.getWorld("world_nether") != null && Bukkit.getWorld("world_nether").getWorldFolder().exists())
-			WorldSettings.deleteWorld(Bukkit.getWorld("world_nether").getWorldFolder());*/
+		if(Bukkit.getWorld("game_nether") != null && Bukkit.getWorld("game_nether").getWorldFolder().exists())
+			WorldSettings.deleteWorld(Bukkit.getWorld("game_nether").getWorldFolder());
+		if(Bukkit.getWorld("game_the_end") != null && Bukkit.getWorld("game_the_end").getWorldFolder().exists())
+			WorldSettings.deleteWorld(Bukkit.getWorld("game_the_end").getWorldFolder());
 		Bukkit.getConsoleSender().sendMessage(ChatColor.RED + "[" + getName() + "] OFF !");
 	}
 
@@ -160,6 +165,8 @@ public class UhcHost extends JavaPlugin {
 		getCommand("inv").setExecutor(new CmdInv(this));
 		getCommand("invsee").setExecutor(new CmdInvSee());
 		getCommand("don").setExecutor(new CmdDon(this));
+		getCommand("t").setExecutor(new CmdTaupe());
+		getCommand("reveal").setExecutor(new CmdReveal());
 		for (Modes mode : Modes.values()) {
 			if (mode.getMode() instanceof ModeCommand) {
 				ModeCommand modeCommand = (ModeCommand) mode.getMode();

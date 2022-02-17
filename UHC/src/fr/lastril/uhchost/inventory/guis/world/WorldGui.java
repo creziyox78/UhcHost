@@ -10,10 +10,7 @@ import fr.lastril.uhchost.tools.API.items.crafter.QuickItem;
 import fr.lastril.uhchost.tools.I18n;
 import fr.lastril.uhchost.tools.NotStart;
 import fr.lastril.uhchost.world.tasks.ChunkLoader;
-import org.bukkit.Bukkit;
-import org.bukkit.Location;
-import org.bukkit.Material;
-import org.bukkit.WorldCreator;
+import org.bukkit.*;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.Arrays;
@@ -75,16 +72,24 @@ public class WorldGui extends IQuickInventory {
             if(!pl.getGamemanager().isPregen() && !pl.gameManager.isValidateWorld()){
                 inv.setItem(new ItemsCreator(Material.GRASS, "§ePré-visualisation", Arrays.asList("§7Vérifiez que le centre", "§7est celui dont vous voulez !"), 1).create(), onClick -> {
                     onClick.getPlayer().closeInventory();
-                    Bukkit.broadcastMessage("§eCréation du monde... Merci de patienter.");
+                    Bukkit.broadcastMessage("§aCréation du monde normal... Merci de patienter.");
                     pl.gameManager.setPlayerCheckingWorld(true);
                     WorldCreator.name("game").createWorld();
+                    Bukkit.broadcastMessage("§cCréation du nether... Merci de patienter.");
+                    WorldCreator nether = WorldCreator.name("game_nether");
+                    nether.environment(World.Environment.NETHER);
+                    nether.createWorld();
+                    Bukkit.broadcastMessage("§eCréation de l'end... Merci de patienter.");
+                    WorldCreator end = WorldCreator.name("game_the_end");
+                    end.environment(World.Environment.THE_END);
+                    end.createWorld();
                     Bukkit.getWorld("game").setGameRuleValue("doDaylightCycle", "false");
                     Bukkit.getWorld("game").setGameRuleValue("showDeathMessages", "false");
                     Bukkit.getWorld("game").setGameRuleValue("keepInventory", "true");
 
                     onClick.getPlayer().sendMessage("§aMonde créé ! Téléportation au centre...");
                     onClick.getPlayer().teleport(new Location(Bukkit.getWorld("game"), 0, 100, 0));
-
+                    Bukkit.broadcastMessage("§bGénération des mondes terminés !");
                     NotStart.checkingWorld(onClick.getPlayer());
                 },16);
             }

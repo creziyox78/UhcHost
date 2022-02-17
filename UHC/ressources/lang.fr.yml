@@ -1,5 +1,5 @@
 # [,] = é
-# #,# = '
+# #,# = "
 # ],[ = ê
 # (,) = è
 # |,| = ï
@@ -11,22 +11,22 @@
 # & = §
 
 
-no-permission: "&cTu n#,#as pas la permission !"
-team-must-enabled: "&6Les [,]quipes doivent ],[tre activ[,]s !"
-invincibility-disabled: "&cInvincibilit[,] d[,]sactiv[,]e !"
-pvp-enabled: "&6PvP activ[,] !"
-border-enabled: "&6Bordure activ[,]e !"
+no-permission: "&e&lGroup &fUHC ┃ &cPour qui te prend tu ?"
+team-must-enabled: "&e&lGroup &fUHC ┃ &cLes équipes doivent être activés !"
+invincibility-disabled: "&f⚔ &c&lInvincibilité désactivée, faites attention !"
+pvp-enabled: "&f⚔ &c&lPvP activé, préparez vous au combat !"
+border-enabled: "&aBordure activée !"
 game-ended: "&bPartie termin[,] !"
-victory-message: "&bVictoire de %winner% !"
-became-host: "&aTu es devenu(e) l#,#host de la partie !"
-not-became-host: "&cTu n#,#es plus l#,#host de la partie !"
-not-host: "&cTu n#,#es pas l#,#host de la partie !"
-already-host: "&cIl y a d[,]j+,+ un host !"
-spawnLoad: "&3Chargement des spawns"
-spawnLoadCount: "&3(&b{0}&9/&b{1}&3)"
-allPotionsDisable: "&5(&6Potions&5)&6 Toutes les potions sont d[,]sactiv[,]es"
-pvpActived: "&cPvP activ[,] !"
-borderStart: "&cBordure activ[,] !"
+victory-message: "&eVictoire de &e&l%winner%&r&e !"
+became-host: "&e&lGroup &fUHC ┃ &aVous êtes devenu(e) l'&eHost&a de la partie !"
+not-became-host: "&e&lGroup &fUHC ┃ &cVous n\"êtes plus l'&eHost&c de la partie !"
+not-host: "&e&lGroup &fUHC ┃ &cVous n'êtes pas l'&eHost &cde la partie !"
+already-host: "&&e&lGroup &fUHC ┃ &cIl y a déja un &eHost &c!"
+spawnLoad: "&a&lChargement des lieux de spawns"
+spawnLoadCount: "&f&l[&a{0}&7/&a{1}&f&l]"
+allPotionsDisable: "&e&lGroup &fUHC ┃ &cToutes les potions sont désactivées"
+pvpActived: "&f⚔ &c&lPvP activé, préparez vous au combat !"
+borderStart: "&aBordure activée !"
 damageWillBeActivated: "&6D[,]gats activ[,]s dans 1 minute !"
 bowTouchMessage: "{0} est +,+ {1} HP."
 damageActived: "&cD[,]gats activ[,]s !"
@@ -34,20 +34,17 @@ netherEndIn: "&cLe nether va devenir mortel dans {0} minute(s) !"
 netherEnd: "&cLe nether est d[,]sormais mortel !"
 serverFull: "Le serveur est plein"
 rebootSoon: "&cLe serveur va bientôt redémarrer !"
-
 teams: "Equipes"
 teamFull: "Cette [,]quipe est pleine."
 joinTeam: "Tu as rejoint l#,#[,]quipe {0}"
-teamDead: "&7La team {0} &6est morte !"
-
-endGame: "&cFin du jeu !"
-winOfPlayer: "&cVictoire de {0}, f[,]licitations !"
-winOfTeam: "&cVictoire de l#,#[,]quipe {0}, f[,]licitations !"
-
+teamDead: "&e⚔ &fLa team {0} &fvient d\"être éléminé !"
+endGame: "&e✯ &e&lFin de la partie !"
+winOfPlayer: "&eVictoire de &l{0}&e, félicitations !"
+winOfTeam: "&e✯ &e&lVictoire de l\"équipe {0}&e&l, félicitations !"
 guis:
   back: "&cRetour"
   scenarios:
-    name: "&bSc[,]narios"
+    name: "&6&lScénarios"
   activescenarios:
     name: "&bSc[,]narios activ[,]s"
     noscenario: "&cIl n#,#y a pas de sc[,]narios."
@@ -142,7 +139,7 @@ guis:
     lore: "&7Choisis le nombre de diamants minables par joueur."
   goldless:
     name: "&bGoldless"
-    lore: "&7Choisis le nombre d#,#or que donne un joueur +,+ sa mort"  
+    lore: "&7Choisis le nombre d#,#or que donne un joueur +,+ sa mort"
   timebomb:
     name: "&bTimeBomb"
     lore: "&7Temps en seconde avant l#,#explosion du coffre"
@@ -185,36 +182,10 @@ guis:
     cycle: "§eCycle Jour/Nuit"
     cycleLore: "§eConfigure le cycle Jour/Nuit pendant la partie."
     loots: "&eLoots"
-    ores: "&bMinerais"
-    oresLore: "&7Taux de minerais g[,]n[,]r[,]s en plus"
     lootsLore: "&7Choisis les taux de loots pour certains items"
     healthtab: "&dVie dans le tab"
-  ores:
-    name: "&5Minerais"
-    lore: "&7Minerais par chunk : {0}"
-    lore1: "&7Hauteur minimum : {0}"
-    lore2: "&7Hauteur maximum : {0}"
-    lore3: "&7Minerais max par fillons: {0}"
-    important: "&4IMPORTANT"
-    importantLore: "&cCes sont des minerais g[,]n[,]r[,]s en plus !"
-    importantLore1: "&cDonc si vous laissez les valeurs de base"
-    importantLore2: "&cil y aura quand m],[me des minerais"
-    importantLore3: "&cg[,]n[,]r[,]s par le jeu de base !"
-  oreactions:
-    name: "&5Actions"
-    lore: "&7Clique pour changer"
-    perChunk: "&ePar chunk : &a{0}"
-    minY: "&eCouche minimum : &a{0}"
-    maxY: "&eCouche maximum : &a{0}"
-    size: "&ePar fillons : &a{0}"
-  oresperchunk:
-    name: "&5Minerais par chunk"
-  oresminy:
-    name: "&5Couche minimum"
-  oresmaxy:
-    name: "&5Couche maximum"
-  oressize:
-    name: "&5Minerais par fillons"
+    ores: "&bMinerais"
+    oresLore: "&7Taux de minerais g[,]n[,]r[,]s en plus"
   maxPlayers:
     name: "&5Nombre de joueurs maximum"
     lore: "&7Choisis le nombre de joueurs maximum."
@@ -261,11 +232,35 @@ guis:
     specialsevents:
       name: "&bEvenements aléatoires"
     rolestime:
-      name: "&BTemps d'annonce des rôles"
-      lore: "&7Défini le moment d'attribution"
+      name: "&BTemps d""annonce des rôles"
+      lore: "&7Défini le moment d""attribution"
       lore1: "&7des rôles aux joueurs."
-
-
+  ores:
+    name: "&5Minerais"
+    lore: "&7Minerais par chunk : {0}"
+    lore1: "&7Hauteur minimum : {0}"
+    lore2: "&7Hauteur maximum : {0}"
+    lore3: "&7Minerais max par fillons: {0}"
+    important: "&4IMPORTANT"
+    importantLore: "&cCes sont des minerais g[,]n[,]r[,]s en plus !"
+    importantLore1: "&cDonc si vous laissez les valeurs de base"
+    importantLore2: "&cil y aura quand m],[me des minerais"
+    importantLore3: "&cg[,]n[,]r[,]s par le jeu de base !"
+  oreactions:
+    name: "&5Actions"
+    lore: "&7Clique pour changer"
+    perChunk: "&ePar chunk : &a{0}"
+    minY: "&eCouche minimum : &a{0}"
+    maxY: "&eCouche maximum : &a{0}"
+    size: "&ePar fillons : &a{0}"
+  oresperchunk:
+    name: "&5Minerais par chunk"
+  oresminy:
+    name: "&5Couche minimum"
+  oresmaxy:
+    name: "&5Couche maximum"
+  oressize:
+    name: "&5Minerais par fillons"
 scenarios:
   bestpve:
     lore: "&7Tous les joueurs sont ajout[,]s sur une liste."
@@ -288,9 +283,9 @@ scenarios:
   blooddiamond:
     lore: "&7Chaque&b diamant&7 min[,] inflige des d[,]g*,*ts."
   bookception:
-    lore: "&7A la mort d'un joueur,"
+    lore: "&7A la mort d""un joueur,"
     lore1: "&7un livre&b enchant[,]&7 est donn[,]."
-  bowswap: 
+  bowswap:
     lore: "&7Lorsque tu touches un joueur +,+ l#,#arc,"
     lore1: "&7tu as {0}% de chance que vos places s#,#[,]changent."
   cutclean:
@@ -330,24 +325,27 @@ scenarios:
     lore3: "&7Id[,]al avec le SkyHight et le InfiniteEnchanter."
   gotohell:
     lore: "&7Une fois le pvp activ[,],"
-    lore1: "&7rendez-vous dans le&4 nether" 
+    lore1: "&7rendez-vous dans le&4 nether"
     lore2: "&7pour ne pas mourrir !"
-    message: "&5(&6Go To Hell&5)&6Si tu ne vas pas dans le nether, tu prendras des d[,]gats toutes les 10 secondes !"
+    message: "&5(&6Go To Hell&5)&6Si tu ne vas pas dans le nether, tu prendras des
+      d[,]gats toutes les 10 secondes !"
   nobow: "&7Impossible d#,#utiliser l#,#arc"
   nocleanup:
     lore: "&7A chaque joueur tu[,], donne de la vie au tueur."
   noenchant:
     lore: "&7Impossible d#,#utiliser les tables"
     lore1: "&7d#,#enchantement ainsi que les enclumes"
-    message: "&5(&6No Enchant&5)&6 Impossible d#,#utiliser les tables d#,#enchant ainsi que les enclumes."
+    message: "&5(&6No Enchant&5)&6 Impossible d#,#utiliser les tables d#,#enchant
+      ainsi que les enclumes."
   nofall:
     lore: "&7Les d[,]g*,*ts de chute sont annul[,]s."
   nofood:
     lore: "&7La saturation ne descend plus."
   onlyonewinner:
-    lore: "&7Lorsqu#,#il ne reste plus qu#,#une team," 
+    lore: "&7Lorsqu#,#il ne reste plus qu#,#une team,"
     lore1: "&7les joueurs doivent s#,#entretuer pour gagner."
-    message: "&5(&6Only One Winner&5)&6 Il ne reste plus qu#,#une team, entretuez-vous !"
+    message: "&5(&6Only One Winner&5)&6 Il ne reste plus qu#,#une team, entretuez-vous
+      !"
   randomcraft:
     lore: "&7Tous les crafts des objets"
     lore1: "&7donne un autre objet al[,]atoire."
@@ -374,5 +372,3 @@ scenarios:
     lore1: "&7Il est remlit avec son stuff."
     lore2: "&7Il finit par exploser au bout de {0} seconde(s)."
   tripleores: "&7Trois fois plus de minerais dropp[,]s"
-  
-  

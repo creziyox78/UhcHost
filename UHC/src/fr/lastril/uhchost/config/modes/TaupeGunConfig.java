@@ -7,13 +7,21 @@ public class TaupeGunConfig implements Serializable {
 
     private boolean superMoles, apocalypseMoles;
 
-    private int molesTime, molesInApocalypse;
+    private int molesTime, molesInApocalypse, molesPerTeams;
 
     public TaupeGunConfig(){
-        this.molesTime = 20*60;
+        this.molesTime = 1*60;
         this.superMoles = false;
         this.apocalypseMoles = false;
         this.molesInApocalypse = 15;
+    }
+
+    public int getMolesPerTeams() {
+        return molesPerTeams;
+    }
+
+    public void setMolesPerTeams(int molesPerTeams) {
+        this.molesPerTeams = molesPerTeams;
     }
 
     public boolean isSuperMoles() {

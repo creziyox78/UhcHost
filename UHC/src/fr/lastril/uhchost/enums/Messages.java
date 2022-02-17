@@ -32,6 +32,7 @@ public enum Messages {
     NARUTO_PREFIX("§e[§6Naruto§e] "),
     BLEACH_PREFIX("§9[§3Bleach§9] §b"),
     LOUP_GAROU_PREFIX("§b[§6LG UHC§b] "),
+    TAUPE_GUN_PREFIX("§e§lTaupe Gun » "),
     PREFIX_WITH_ARROW("§4[§cUHC§4] §e"),
     PREFIX_WITH_SEPARATION("§6§lUHC §8❘ §a"),
     PREFIX_SPEC_STAFF("§8§lUHC STAFF§8 » §f"),
