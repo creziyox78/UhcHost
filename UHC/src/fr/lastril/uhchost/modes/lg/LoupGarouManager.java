@@ -60,13 +60,14 @@ public class LoupGarouManager extends ModeManager implements Listener {
                 if(playerManager.getRole() instanceof LGChatRole){
                     LGChatRole lgChatRole = (LGChatRole) playerManager.getRole();
                     if(lgChatRole.canSend() && lgChatTime){
+                        UhcHost.debug("§cLG CHAT » " + event.getMessage());
                         main.getPlayerManagerOnlines().forEach(playerManagers -> {
                             if(playerManagers.isAlive() && playerManagers.hasRole()){
                                 if(playerManagers.getRole() instanceof LGChatRole){
                                     LGChatRole lgChatRoles = (LGChatRole) playerManagers.getRole();
                                     if(lgChatRoles.canSee()){
                                         playerManagers.getPlayer().sendMessage(Camps.LOUP_GAROU.getCompoColor() + (lgChatRole.sendPlayerName() ? playerManager.getPlayerName() + " » " : "Loup-garou » ") + event.getMessage());
-                                        UhcHost.debug("LG CHAT » " + event.getMessage());
+
                                     }
                                 }
                             }
@@ -271,6 +272,21 @@ public class LoupGarouManager extends ModeManager implements Listener {
                 }
                 playerManagers.getPlayer().sendMessage(message);
 
+            } else{
+                message = "§2§l" + playerManager.getPlayerName() +
+                        " est mort, il était §o" + playerManager.getRole().getRoleName();
+                if (playerManager.getWolfPlayerManager().isInfected()) {
+                    message += "§2 (infecté)";
+                }
+                if (playerManager.getWolfPlayerManager().isTransformed()) {
+                    message += "§2 (transformé)";
+                }
+                if(playerManager.getWolfPlayerManager().isSolitaire()){
+                    message += "§2 (solitaire)";
+                }
+                if(playerManager.getWolfPlayerManager().isSteal()){
+                    message += "§c (volé)";
+                }
             }
         });
         Bukkit.broadcastMessage(" ");

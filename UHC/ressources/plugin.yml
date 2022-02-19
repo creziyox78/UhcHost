@@ -54,6 +54,10 @@ commands:
     description: Command TaupeGun mode.
   reveal:
     description: Command TaupeGun mode.
+  claim:
+    description: Command TaupeGun mode.
+  tl:
+    description: Command to send coordinates to team.
 
   lg:
     description: Command of LG Mode.

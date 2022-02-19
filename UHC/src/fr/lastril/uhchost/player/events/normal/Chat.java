@@ -2,6 +2,7 @@ package fr.lastril.uhchost.player.events.normal;
 
 import fr.lastril.uhchost.UhcHost;
 import fr.lastril.uhchost.enums.Messages;
+import fr.lastril.uhchost.modes.Modes;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -33,6 +34,18 @@ public class Chat implements Listener {
                     event.setFormat( "§8["+t.getPrefix() + "Equipe "+t.getDisplayName() + "§8] "+t.getPrefix() + player.getName() + "§8 »§f " + event.getMessage().substring(1));
                     for(Player players: main.teamUtils.getPlayersInTeam(t)){
                         players.sendMessage(event.getFormat());
+                    }
+                }
+            }
+            if(main.getGamemanager().getModes() == Modes.TAUPEGUN){
+                Team taupe = this.main.teamUtils.getTeamTaupe(player);
+                if(taupe != null){
+                    if (event.getMessage().startsWith("!")) {
+                        event.setCancelled(true);
+                        event.setFormat( "§8["+taupe.getPrefix() + "Equipe "+taupe.getDisplayName() + "§8] "+taupe.getPrefix() + player.getName() + "§8 »§f " + event.getMessage().substring(1));
+                        for(Player players: main.teamUtils.getPlayersInTeam(taupe)){
+                            players.sendMessage(event.getFormat());
+                        }
                     }
                 }
             }

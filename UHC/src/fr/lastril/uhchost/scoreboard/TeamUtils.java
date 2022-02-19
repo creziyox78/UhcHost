@@ -1,6 +1,8 @@
 package fr.lastril.uhchost.scoreboard;
 
 import fr.lastril.uhchost.UhcHost;
+import fr.lastril.uhchost.modes.Modes;
+import fr.lastril.uhchost.modes.tpg.TaupeGunMode;
 import fr.lastril.uhchost.player.PlayerManager;
 import fr.lastril.uhchost.tools.API.items.BannerCreator;
 import fr.lastril.uhchost.tools.API.items.ItemsCreator;
@@ -96,6 +98,18 @@ public class TeamUtils {
 		teams.getTeam().setSuffix("§r");
 		teams.getTeam().setNameTagVisibility(NameTagVisibility.ALWAYS);
 		teams.getTeam().setAllowFriendlyFire(true);
+	}
+
+	public Team getTeamTaupe(Player player) {
+		Team result = null;
+		for (TeamsTaupes teams : TeamsTaupes.values()) {
+			if (teams.getTeam() != null && this.pl.scoreboardUtil.getBoard().getTeams().contains(teams.getTeam())
+					&& teams.getTeam().hasEntry(player.getName())) {
+				result = teams.getTeam();
+				break;
+			}
+		}
+		return result;
 	}
 
 	public Team getTeam(Player player) {
@@ -211,6 +225,17 @@ public class TeamUtils {
 					if(playerTeam != null && !teams.contains(playerTeam)){
 						teams.add(playerTeam);
 					}
+					if(UhcHost.getInstance().getGamemanager().getModes() == Modes.TAUPEGUN){
+						if(playerManager.getTaupePlayerManager().getMoleTeam() != null){
+							if(playerManager.getTaupePlayerManager().getMoleTeam().getTeams() != null){
+								Team taupeTeam = playerManager.getTaupePlayerManager().getMoleTeam().getTeams().getTeam();
+								if(taupeTeam != null && !teams.contains(taupeTeam)){
+									teams.add(taupeTeam);
+								}
+							}
+						}
+
+					}
 				}
 			}
 		}
@@ -218,14 +243,14 @@ public class TeamUtils {
 	}
 
 	public enum TeamsTaupes{
-		TAUPE1("T1", "§6T1", null, DyeColor.RED, null, null),
-		TAUPE2("T2", "§6T2", null, DyeColor.RED, null, null),
-		TAUPE3("T3", "§6T3", null, DyeColor.RED, null, null),
-		TAUPE4("T4", "§6T3", null, DyeColor.RED, null, null),
-		SUPERTAUPE1("ST1", "§cST1",null, DyeColor.RED, null, null),
-		SUPERTAUPE2("ST2", "§cST2", null, DyeColor.RED, null, null),
-		SUPERTAUPE3("ST3", "§cST3", null, DyeColor.RED, null, null),
-		SUPERTAUPE4("ST4", "§cST4", null, DyeColor.RED, null, null),
+		TAUPE1("Taupe 1", "§6T1", null, DyeColor.RED, null, null),
+		TAUPE2("Taupe 2", "§6T2", null, DyeColor.RED, null, null),
+		TAUPE3("Taupe 3", "§6T3", null, DyeColor.RED, null, null),
+		TAUPE4("Taupe 4", "§6T3", null, DyeColor.RED, null, null),
+		SUPERTAUPE1("SuperTaupe 1", "§cST1",null, DyeColor.RED, null, null),
+		SUPERTAUPE2("SuperTaupe 2", "§cST2", null, DyeColor.RED, null, null),
+		SUPERTAUPE3("SuperTaupe 3", "§cST3", null, DyeColor.RED, null, null),
+		SUPERTAUPE4("SuperTaupe 4", "§cST4", null, DyeColor.RED, null, null),
 		;
 
 		private String name;

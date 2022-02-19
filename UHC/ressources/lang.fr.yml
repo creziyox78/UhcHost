@@ -232,8 +232,8 @@ guis:
     specialsevents:
       name: "&bEvenements aléatoires"
     rolestime:
-      name: "&BTemps d""annonce des rôles"
-      lore: "&7Défini le moment d""attribution"
+      name: '&bTemps'
+      lore: "&7Défini le moment d'attribution"
       lore1: "&7des rôles aux joueurs."
   ores:
     name: "&5Minerais"
@@ -283,7 +283,7 @@ scenarios:
   blooddiamond:
     lore: "&7Chaque&b diamant&7 min[,] inflige des d[,]g*,*ts."
   bookception:
-    lore: "&7A la mort d""un joueur,"
+    lore: "&7A la mort d'un joueur,"
     lore1: "&7un livre&b enchant[,]&7 est donn[,]."
   bowswap:
     lore: "&7Lorsque tu touches un joueur +,+ l#,#arc,"

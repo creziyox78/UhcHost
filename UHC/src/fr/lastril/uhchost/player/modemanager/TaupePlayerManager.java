@@ -1,5 +1,8 @@
 package fr.lastril.uhchost.player.modemanager;
 
+import fr.lastril.uhchost.UhcHost;
+import fr.lastril.uhchost.modes.tpg.KitTaupe;
+import fr.lastril.uhchost.modes.tpg.Kits;
 import fr.lastril.uhchost.modes.tpg.TaupeTeam;
 import fr.lastril.uhchost.player.PlayerManager;
 import fr.lastril.uhchost.scoreboard.TeamUtils;
@@ -12,11 +15,23 @@ public class TaupePlayerManager {
 
     private TeamUtils.Teams originalTeam;
 
-    private boolean revealed, superRevealed;
+    private boolean revealed, superRevealed, claimedKit;
+
+    private final KitTaupe kitTaupe;
 
     public TaupePlayerManager(PlayerManager playerManager) {
         this.playerManager = playerManager;
         this.moleTeam = null;
+        this.kitTaupe = setRandomKitTaupe();
+    }
+
+    public KitTaupe getKitTaupe() {
+        return kitTaupe;
+    }
+
+    public KitTaupe setRandomKitTaupe(){
+        Kits[] kits = Kits.values();
+        return kits[UhcHost.getRANDOM().nextInt(Kits.values().length)].getKitTaupe();
     }
 
     public void setRevealed(boolean revealed) {
@@ -49,5 +64,13 @@ public class TaupePlayerManager {
 
     public TaupeTeam getMoleTeam() {
         return moleTeam;
+    }
+
+    public void setClaimedKit(boolean claimedKit) {
+        this.claimedKit = claimedKit;
+    }
+
+    public boolean isClaimedKit() {
+        return claimedKit;
     }
 }

@@ -1,6 +1,7 @@
 package fr.lastril.uhchost.enums;
 
 import fr.lastril.uhchost.tools.API.FormatTime;
+import fr.lastril.uhchost.tools.I18n;
 
 public enum Messages {
 
@@ -13,7 +14,7 @@ public enum Messages {
     NOT_INGAME("§cCe joueur n'est pas en jeu !"),
     UNKNOW_PLAYER("§cCe joueur est introuvable !"),
     ONLY_PLAYER("§cSeul les joueurs peuvent éxécuter cette commande !"),
-    NOT_PERM("§cVous n'avez pas la permission d'éxécuter cette commande !"),
+    NOT_PERM(I18n.tl("no-permission")),
     NOT_NOW("§cVous ne pouvez pas faire cette commande maintenant !"),
     COMMAND_DISABLED("§cCette commande est désactivée !"),
     COOLDOWNPREFIX("§9Cooldown§8 »§B "),

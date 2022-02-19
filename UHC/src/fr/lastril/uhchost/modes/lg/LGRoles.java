@@ -43,9 +43,10 @@ public enum LGRoles {
     CUPIDON(Cupidon.class), //FINISHED
     DETECTIVE(Detective.class), //FINISHED
     ENFANT_SAUVAGE(EnfantSauvage.class), //FINISHED
+    ERMITE(Ermite.class), //FINISHED
     GARDE(Garde.class), //FINISHED
     MONTREUR_DOURS(MontreurDours.class), //FINISHED
-    MESSAGER(Ermite.class),
+
     PETITE_FILLE(PetiteFille.class), //FINISHED
     PRETRESSE(Pretresse.class), //FINISHED
     RENARD(Renard.class), //FINISHED

@@ -3,6 +3,7 @@ package fr.lastril.uhchost;
 import fr.lastril.uhchost.bungeecord.PluginMessage;
 import fr.lastril.uhchost.commands.*;
 import fr.lastril.uhchost.commands.lg.CmdDon;
+import fr.lastril.uhchost.commands.tpg.CmdClaim;
 import fr.lastril.uhchost.commands.tpg.CmdReveal;
 import fr.lastril.uhchost.commands.tpg.CmdTaupe;
 import fr.lastril.uhchost.game.GameManager;
@@ -167,6 +168,8 @@ public class UhcHost extends JavaPlugin {
 		getCommand("don").setExecutor(new CmdDon(this));
 		getCommand("t").setExecutor(new CmdTaupe());
 		getCommand("reveal").setExecutor(new CmdReveal());
+		getCommand("claim").setExecutor(new CmdClaim());
+		getCommand("tl").setExecutor(new CmdTl());
 		for (Modes mode : Modes.values()) {
 			if (mode.getMode() instanceof ModeCommand) {
 				ModeCommand modeCommand = (ModeCommand) mode.getMode();

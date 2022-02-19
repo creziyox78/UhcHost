@@ -2,6 +2,7 @@ package fr.lastril.uhchost.tools.API.items.crafter;
 
 import com.google.gson.Gson;
 import org.bukkit.Bukkit;
+import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -26,7 +27,11 @@ public class QuickItemManager {
     }
 
 	Consumer<QuickEvent> getEventQuickItem(ItemStack itemStack){
+        if(itemStack.getType() == Material.ENCHANTED_BOOK){
+            itemStack = new QuickItem(Material.BOOK).toItemStack();
+        }
         return quickItem.get(gson.toJson(new QuickItemData(itemStack.getType(), itemStack.getData().getData(), itemStack.getItemMeta())));
+
     }
 
 }

@@ -43,4 +43,8 @@ public class TaupeTeam {
     public List<PlayerManager> getPlayers() {
         return players;
     }
+
+    public TeamUtils.TeamsTaupes getTeams() {
+        return teams;
+    }
 }

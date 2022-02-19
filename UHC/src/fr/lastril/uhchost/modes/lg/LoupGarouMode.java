@@ -18,6 +18,7 @@ import fr.lastril.uhchost.modes.lg.commands.CmdList;
 import fr.lastril.uhchost.modes.lg.commands.CmdVote;
 import fr.lastril.uhchost.modes.lg.roles.LGChatRole;
 import fr.lastril.uhchost.modes.lg.roles.LGRole;
+import fr.lastril.uhchost.modes.lg.roles.solo.LoupGarouBlanc;
 import fr.lastril.uhchost.modes.lg.roles.solo.Trublion;
 import fr.lastril.uhchost.modes.lg.roles.village.Pretresse;
 import fr.lastril.uhchost.modes.roles.*;
@@ -93,8 +94,13 @@ public class LoupGarouMode extends Mode implements ModeCommand, RoleMode<LGRole>
 
     public void chooseSolitaire(){
         List<PlayerManager> loupGarouPlayers = loupGarouManager.getLoupGarous().stream().filter(PlayerManager::isAlive).collect(Collectors.toList());
+
         int random = UhcHost.getRANDOM().nextInt(loupGarouPlayers.size());
         PlayerManager lgSolitaire = loupGarouPlayers.get(random);
+        while (lgSolitaire.getRole() instanceof LoupGarouBlanc){
+            random = UhcHost.getRANDOM().nextInt(loupGarouPlayers.size());
+            lgSolitaire = loupGarouPlayers.get(random);
+        }
         WolfPlayerManager wolfPlayerManager = lgSolitaire.getWolfPlayerManager();
         lgSolitaire.setCamps(Camps.LOUP_GAROU_SOLITAIRE);
         wolfPlayerManager.setSolitaire(true);
@@ -334,7 +340,7 @@ public class LoupGarouMode extends Mode implements ModeCommand, RoleMode<LGRole>
                 "§e "+ mostKills.getPlayerName() + " §l(" + mostKills.getKills().size() + ")\n " +
                 "\n " +
                 "§eMerci de votre participation !\n" +
-                "§7Arrêt du serveur dans 30 secondes !\n" +
+                "§7Arrêt du serveur dans 1 minute !\n" +
                 "\n " +
                 "§7§m-------------------------------------------------");
 
@@ -359,7 +365,7 @@ public class LoupGarouMode extends Mode implements ModeCommand, RoleMode<LGRole>
                             this.pl.getConfig().getString("server-redirection")));
             }
             Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "restart");
-        }, 30 * 20L);
+        }, 60 * 20L);
         GameState.setCurrentState(GameState.ENDED);
     }
 
