@@ -1,35 +1,26 @@
 package fr.lastril.uhchost.modes.lg.roles.lg;
 
-import fr.lastril.uhchost.UhcHost;
-import fr.lastril.uhchost.enums.Messages;
-import fr.lastril.uhchost.modes.command.ModeSubCommand;
 import fr.lastril.uhchost.modes.lg.LoupGarouManager;
-import fr.lastril.uhchost.modes.lg.commands.CmdTrapper;
 import fr.lastril.uhchost.modes.lg.roles.LGChatRole;
 import fr.lastril.uhchost.modes.lg.roles.LGRole;
 import fr.lastril.uhchost.modes.lg.roles.RealLG;
 import fr.lastril.uhchost.modes.roles.Camps;
 import fr.lastril.uhchost.modes.roles.Role;
-import fr.lastril.uhchost.modes.roles.RoleCommand;
 import fr.lastril.uhchost.modes.roles.When;
 import fr.lastril.uhchost.player.PlayerManager;
 import fr.lastril.uhchost.tools.API.ActionBar;
 import fr.lastril.uhchost.tools.API.ClassUtils;
 import fr.lastril.uhchost.tools.API.items.crafter.QuickItem;
-import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.SkullType;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
-import java.util.Arrays;
-import java.util.List;
+public class LoupGarouPisteur extends Role implements LGRole, RealLG, LGChatRole {
 
-public class LoupGarouPisteur extends Role implements LGRole, RoleCommand, RealLG, LGChatRole {
-
-    private PlayerManager tracked;
-    private boolean change;
+    private final int distance = 200;
 
     public LoupGarouPisteur() {
         super.addEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, Integer.MAX_VALUE, 0, false, false), When.NIGHT);
@@ -52,10 +43,6 @@ public class LoupGarouPisteur extends Role implements LGRole, RoleCommand, RealL
 
     @Override
     public void onNewEpisode(Player player) {
-        if(change){
-            change = false;
-            player.sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage() + "§bVous pouvez changer de cible si vous le souhaitez avec la commande /lg trapper <pseudo>.");
-        }
     }
 
     @Override
@@ -83,19 +70,34 @@ public class LoupGarouPisteur extends Role implements LGRole, RoleCommand, RealL
         PlayerManager playerManager = main.getPlayerManager(player.getUniqueId());
         if(playerManager.hasRole() && playerManager.isAlive()){
             if(playerManager.getRole() instanceof LoupGarouPisteur) {
-                LoupGarouPisteur trappeur = (LoupGarouPisteur) playerManager.getRole();
-                PlayerManager tracked = trappeur.getTracked();
+                PlayerManager tracked = getNearLG(player);
                 if(tracked != null && tracked.isAlive()){
                     if(tracked.getPlayer() != null){
-                        ActionBar.sendMessage(player, "§e§l"+ tracked.getPlayerName() + " §a┃ "
+                        ActionBar.sendMessage(player, "§c§lLoup-Garou le plus proche §a┃ "
                                 + ClassUtils.getDirectionOf(player.getLocation(), tracked.getPlayer().getLocation()));
                     } else {
-                        ActionBar.sendMessage(player, "§e§l"+ tracked.getPlayerName() + " §a┃ (Déconnecté)");
+                        ActionBar.sendMessage(player, "§c§lLoup-Garou le plus proche §a┃ (Déconnecté)");
                     }
-
                 }
             }
         }
+    }
+
+    private PlayerManager getNearLG(Player pisteur){
+        for(Entity entity : pisteur.getNearbyEntities(distance, distance, distance)){
+            if(entity instanceof Player){
+                Player player = (Player) entity;
+                if(player != pisteur){
+                    PlayerManager playerManager = main.getPlayerManager(player.getUniqueId());
+                    if(playerManager.hasRole() && playerManager.isAlive()){
+                        if(playerManager.getRole() instanceof RealLG){
+                            return playerManager;
+                        }
+                    }
+                }
+            }
+        }
+        return null;
     }
 
 
@@ -116,27 +118,6 @@ public class LoupGarouPisteur extends Role implements LGRole, RoleCommand, RealL
     @Override
     public Camps getCamp() {
         return Camps.LOUP_GAROU;
-    }
-
-    public PlayerManager getTracked() {
-        return tracked;
-    }
-
-    public void setTracked(PlayerManager tracked) {
-        this.tracked = tracked;
-    }
-
-    @Override
-    public List<ModeSubCommand> getSubCommands() {
-        return Arrays.asList(new CmdTrapper(main));
-    }
-
-    public boolean canChange() {
-        return change;
-    }
-
-    public void setChange(boolean change) {
-        this.change = change;
     }
 
     @Override

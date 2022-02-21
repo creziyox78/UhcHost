@@ -51,9 +51,16 @@ public class CmdFlairer implements ModeSubCommand {
                         if (target != null && target != player) {
                             PlayerManager targetManager = pl.getPlayerManager(target.getUniqueId());
                             if (targetManager.isAlive() && targetManager.hasRole()) {
-                                sendCamps(player, targetManager);
-                                renard.addUse();
-                                renard.addRenifled(targetManager);
+                                if(target.getWorld() == player.getWorld()){
+                                    if(player.getLocation().distance(target.getLocation()) <= 20){
+                                        sendCamps(player, targetManager);
+                                        renard.addUse();
+                                        renard.addRenifled(targetManager);
+                                    } else {
+                                        player.sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage() + "§cCe joueur n'est pas à 20 blocs de vous !");
+                                    }
+                                }
+
                             } else {
                                 player.sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage() + "§cCe joueur n'est pas/plus dans la partie !");
                             }

@@ -1,4 +1,4 @@
-package fr.lastril.uhchost.modes.lg.roles.village;
+package fr.lastril.uhchost.modes.lg.roles.solo;
 
 import fr.lastril.uhchost.enums.Messages;
 import fr.lastril.uhchost.modes.command.ModeSubCommand;
@@ -48,6 +48,11 @@ public class Trappeur extends Role implements LGRole, RoleCommand {
     }
 
     @Override
+    public void afterRoles(Player player) {
+        main.getPlayerManager(player.getUniqueId()).setCamps(Camps.TRAPPEUR);
+    }
+
+    @Override
     public String getRoleName() {
         return "Trappeur";
     }
@@ -85,7 +90,7 @@ public class Trappeur extends Role implements LGRole, RoleCommand {
 
     @Override
     public Camps getCamp() {
-        return Camps.VILLAGEOIS;
+        return Camps.NEUTRES;
     }
 
     public PlayerManager getTracked() {

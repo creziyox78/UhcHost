@@ -49,22 +49,24 @@ public class Imitateur extends Role implements LGRole {
 
     @Override
     public void onPlayerDeathRealy(PlayerManager player, ItemStack[] items, ItemStack[] armors, Player killer, Location deathLocation) {
-        PlayerManager killerManager = main.getPlayerManager(killer.getUniqueId());
-        if (killerManager.hasRole()) {
-            if (killerManager.getRole() instanceof Imitateur) {
-                Imitateur imitateur = (Imitateur) killerManager.getRole();
-                if (!imitateur.hasKilled()) {
-                    killer.sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage()
-                            + "§bVous venez de tuer quelqu'un pour la 1ère fois. Vous héritez du rôle de la personne que vous avez tué. §c§lCependant, vous devez toujours gagner seul !");
-                    killerManager.setRole(player.getRole());
-                    killer.setMaxHealth(player.getPlayer().getMaxHealth());
-                    killerManager.setCamps(Camps.IMITATEUR);
-                    killer.sendMessage(killerManager.getRole().sendList());
-                    killerManager.getWolfPlayerManager().setSolitaire(player.getWolfPlayerManager().isSolitaire());
-                    killerManager.getWolfPlayerManager().setOtherCouple(player.getWolfPlayerManager().getOtherCouple());
-                    killerManager.getWolfPlayerManager().setInfected(player.getWolfPlayerManager().isInfected());
-                    killerManager.getWolfPlayerManager().setTransformed(player.getWolfPlayerManager().isTransformed());
-                    killerManager.getWolfPlayerManager().setSteal(true);
+        if(killer != null){
+            PlayerManager killerManager = main.getPlayerManager(killer.getUniqueId());
+            if (killerManager.hasRole()) {
+                if (killerManager.getRole() instanceof Imitateur) {
+                    Imitateur imitateur = (Imitateur) killerManager.getRole();
+                    if (!imitateur.hasKilled()) {
+                        killer.sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage()
+                                + "§bVous venez de tuer quelqu'un pour la 1ère fois. Vous héritez du rôle de la personne que vous avez tué. §c§lCependant, vous devez toujours gagner seul !");
+                        killerManager.setRole(player.getRole());
+                        killer.setMaxHealth(player.getPlayer().getMaxHealth());
+                        killerManager.setCamps(Camps.IMITATEUR);
+                        killer.sendMessage(killerManager.getRole().sendList());
+                        killerManager.getWolfPlayerManager().setSolitaire(player.getWolfPlayerManager().isSolitaire());
+                        killerManager.getWolfPlayerManager().setOtherCouple(player.getWolfPlayerManager().getOtherCouple());
+                        killerManager.getWolfPlayerManager().setInfected(player.getWolfPlayerManager().isInfected());
+                        killerManager.getWolfPlayerManager().setTransformed(player.getWolfPlayerManager().isTransformed());
+                        killerManager.getWolfPlayerManager().setSteal(true);
+                    }
                 }
             }
         }

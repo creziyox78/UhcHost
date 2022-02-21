@@ -7,8 +7,8 @@ public enum Camps {
     /*
      * LG
      */
-    LOUP_GAROU(ChatColor.RED, "§cVictoire des Loups-Garous"),
-    VILLAGEOIS(ChatColor.GREEN, "§aVictoire des Villageois"),
+    LOUP_GAROU(ChatColor.RED, "§cVictoire des Loups-Garous !"),
+    VILLAGEOIS(ChatColor.GREEN, "§aVictoire des Villageois !"),
     NEUTRES(ChatColor.YELLOW, "§eVictoire des neutres !"),
 
     COUPLE(ChatColor.LIGHT_PURPLE, "§dVictoire du couple !"),
@@ -20,6 +20,8 @@ public enum Camps {
     TRUBLION(ChatColor.DARK_PURPLE, "§5Victoire du Trublion !"),
     IMITATEUR(ChatColor.DARK_AQUA, "§3Victoire de l'Imitateur !"),
     ZIZANIE(ChatColor.DARK_GREEN, "§3Victoire du rôle solo zizané !"),
+    TRAPPEUR(ChatColor.DARK_BLUE, "§9Victoire du Trappeur !"),
+    CHASSEUR_DE_PRIME(ChatColor.DARK_RED, "§4Victoire du Chasseur de Prime !"),
 
     /*
      * DEMON SLAYER
