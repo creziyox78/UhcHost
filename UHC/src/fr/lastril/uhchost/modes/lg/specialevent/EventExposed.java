@@ -26,17 +26,15 @@ public class EventExposed extends LoupGarouSpecialEvent {
         List<Role> exposedRole = new ArrayList<>();
         PlayerManager randomPlayer = main.getRandomPlayerManagerAlive();
         System.out.println("[Exposed - LG] Selected random player");
+
         exposedRole.add(randomPlayer.getRole());
-        for(Class<? extends Role> roleClass: main.gameManager.getComposition()){
-            try {
-                Role role = roleClass.newInstance();
+        main.getPlayerManagerAlives().forEach(playerManager -> {
+            if(playerManager.isAlive()){
+                Role role = playerManager.getRole();
                 if(!role.getRoleName().equalsIgnoreCase(randomPlayer.getRole().getRoleName()))
                     getRoles.add(role);
-            } catch (InstantiationException | IllegalAccessException e) {
-                e.printStackTrace();
             }
-        }
-
+        });
         exposedRole.add(getRoles.get(UhcHost.getRANDOM().nextInt(getRoles.size())));
         exposedRole.add(getRoles.get(UhcHost.getRANDOM().nextInt(getRoles.size())));
         StringBuilder message = new StringBuilder("");

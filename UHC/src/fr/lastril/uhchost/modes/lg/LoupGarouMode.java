@@ -81,8 +81,8 @@ public class LoupGarouMode extends Mode implements ModeCommand, RoleMode<LGRole>
             loupGarouSpecialEvent.runTask();
         }
         if(loupGarouManager.isRandomCouple()){
+            randomCoupleAnnonce = true;
             Bukkit.getScheduler().runTaskLater(pl, () -> {
-                randomCoupleAnnonce = true;
                 loupGarouManager.randomCouple();
             }, 20*60*25);
         }
@@ -222,7 +222,7 @@ public class LoupGarouMode extends Mode implements ModeCommand, RoleMode<LGRole>
             }, 20* 2);
             loupGarouManager.startDeathTask(onlinePlayer, killer);
         } else {
-            loupGarouManager.kill(player, null, null, null, null, false);
+            loupGarouManager.kill(player, null, null, null, pl.getPlayerManager(player.getUniqueId()).getDeathLocation(), false);
         }
 
 

@@ -9,5 +9,7 @@ public enum ResurectType {
 	INFECT,
 	ANCIEN,
 	GARDE,
+	IDIOT,
+	;
 
 }

@@ -45,8 +45,9 @@ public enum LGRoles {
     ENFANT_SAUVAGE(EnfantSauvage.class), //FINISHED
     ERMITE(Ermite.class), //FINISHED
     GARDE(Garde.class), //FINISHED
+    IDIOT_DU_VILLAGE(IdiotDuVillage.class), //TODO BE TESTED
+    IVROGNE_DU_VILLAGE(IvrogneDuVillage.class), //TODO BE TESTED
     MONTREUR_DOURS(MontreurDours.class), //FINISHED
-
     PETITE_FILLE(PetiteFille.class), //FINISHED
     PRETRESSE(Pretresse.class), //FINISHED
     RENARD(Renard.class), //FINISHED
@@ -74,6 +75,7 @@ public enum LGRoles {
     ANGE(Ange.class), //FINISHED
     LGB(LoupGarouBlanc.class), //FINISHED
     ASSASSIN(Assassin.class), //FINISHED
+    CHASSEUR_DE_PRIME(ChasseurDePrime.class), //TODO BE TESTED
     ;
 
 

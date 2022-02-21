@@ -30,16 +30,12 @@ public class Soeur extends Role implements LGRole, RoleCommand {
 
     private boolean otherDead;
     private PlayerManager playerKiller;
-    private final PotionEffect resistance = new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 20*2, 0, false, false);
+    private final PotionEffect resistance = new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 20*4, 0, false, false);
 
     public Soeur() {
         super.addRoleToKnow(Soeur.class);
     }
-
-
-    public String getSkullValue() {
-        return "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYjhlZGE4YjhmOTUyNzA2MzU3ZTZjMjJmMTZmYmU2NjJjZDIxMWI5NmNmZmU5ZWJiOWY3OWRmYzAyZjQwYjgifX19";
-    }
+    
 
     @Override
     public void giveItems(Player player) {
@@ -88,6 +84,10 @@ public class Soeur extends Role implements LGRole, RoleCommand {
                             Player soeur = playerManager.getPlayer();
                             if(soeur.getWorld() == player.getWorld()){
                                 if (player.getLocation().distance(soeur.getLocation()) <= 20) {
+                                    if(player.hasPotionEffect(resistance.getType()))
+                                        player.removePotionEffect(resistance.getType());
+                                    if(soeur.hasPotionEffect(resistance.getType()))
+                                        soeur.removePotionEffect(resistance.getType());
                                     player.addPotionEffect(resistance);
                                     soeur.addPotionEffect(resistance);
                                 }
@@ -120,7 +120,9 @@ public class Soeur extends Role implements LGRole, RoleCommand {
                     textComponent.addExtra(new TextComponentBuilder("§5§l[Rôle]").setClickEvent(ClickEvent.Action.RUN_COMMAND, "/lg soeur_role").toText());
                     textComponent.addExtra(new TextComponent(" "));
                     otherSoeur.spigot().sendMessage(textComponent);
-                    playerKiller = main.getPlayerManager(killer.getUniqueId());
+                    if(killer != null){
+                        playerKiller = main.getPlayerManager(killer.getUniqueId());
+                    }
                     Bukkit.getScheduler().runTaskLater(main, () -> otherDead = false, 20*10);
                 }
             }

@@ -3,6 +3,7 @@ package fr.lastril.uhchost.player.events.normal;
 import fr.lastril.uhchost.UhcHost;
 import fr.lastril.uhchost.game.GameManager;
 import fr.lastril.uhchost.game.GameState;
+import fr.lastril.uhchost.player.PlayerManager;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
@@ -42,6 +43,10 @@ public class Quit implements Listener {
 			}
 			else {
 				e.setQuitMessage("");
+			}
+			PlayerManager playerManager = pl.getPlayerManager(player.getUniqueId());
+			if(playerManager.getDeathLocation() == null){
+				playerManager.setDeathLocation(player.getLocation());
 			}
 		}
 	}

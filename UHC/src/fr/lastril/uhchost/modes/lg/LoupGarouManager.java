@@ -28,6 +28,7 @@ import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffectType;
 
+import javax.persistence.Id;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -110,12 +111,35 @@ public class LoupGarouManager extends ModeManager implements Listener {
                             playerManager.getWolfPlayerManager().setResurectType(ResurectType.ANCIEN);
                         }
                     }
+                    if(playerManager.getRole() instanceof IdiotDuVillage){
+                        UhcHost.debug("Idiot check...");
+                        IdiotDuVillage idiotDuVillage = (IdiotDuVillage) playerManager.getRole();
+                        if(!idiotDuVillage.isRevived()){
+                            UhcHost.debug("Idiot can revive...");
+                            if(killerManager.hasRole() && !(killerManager.getRole() instanceof RealLG)){
+                                UhcHost.debug("Idiot killer role is not LG ! Reviving...");
+                                playerManager.getWolfPlayerManager().setResurectType(ResurectType.IDIOT);
+                            }
+                        }
+                    }
                 }
             }
 
             if (playerManager.getWolfPlayerManager().getResurectType() != null) {
                 System.out.println("Ressurect type not null !");
                     switch (playerManager.getWolfPlayerManager().getResurectType()) {
+                        case IDIOT: {
+                            UhcHost.debug("Player set ressurect type Idiot !");
+                            player.setGameMode(GameMode.SURVIVAL);
+                            onlinePlayer.sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage() + "§bVotre tueur est un villageois donc vous ressuscité !");
+                            IdiotDuVillage idiotDuVillage = (IdiotDuVillage) playerManager.getRole();
+                            idiotDuVillage.setRevived(true);
+                            player.setMaxHealth(16);
+                            Bukkit.broadcastMessage(Messages.LOUP_GAROU_PREFIX.getMessage() + "§3" + playerManager.getPlayerName() + " a été froidement assassiné mais comme il est l'Idiot du village et que son tueur n'est pas un Loup-Garou, il ressuscite !");
+                            playerManager.getWolfPlayerManager().setResurectType(null);
+                            main.gameManager.teleportPlayerOnGround(player);
+                            break;
+                        }
                         case INFECT: {
                             System.out.println("Player set ressurect type Infect !");
                             player.setGameMode(GameMode.SURVIVAL);
@@ -270,24 +294,28 @@ public class LoupGarouManager extends ModeManager implements Listener {
                         }
                     }
                 }
-                playerManagers.getPlayer().sendMessage(message);
-
             } else{
-                message = "§2§l" + playerManager.getPlayerName() +
-                        " est mort, il était §o" + playerManager.getRole().getRoleName();
-                if (playerManager.getWolfPlayerManager().isInfected()) {
-                    message += "§2 (infecté)";
-                }
-                if (playerManager.getWolfPlayerManager().isTransformed()) {
-                    message += "§2 (transformé)";
-                }
-                if(playerManager.getWolfPlayerManager().isSolitaire()){
-                    message += "§2 (solitaire)";
-                }
-                if(playerManager.getWolfPlayerManager().isSteal()){
-                    message += "§c (volé)";
+                if(playerManager.hasRole()){
+                    message = "§2§l" + playerManager.getPlayerName() +
+                            " est mort, il était §o" + playerManager.getRole().getRoleName();
+                    if (playerManager.getWolfPlayerManager().isInfected()) {
+                        message += "§2 (infecté)";
+                    }
+                    if (playerManager.getWolfPlayerManager().isTransformed()) {
+                        message += "§2 (transformé)";
+                    }
+                    if(playerManager.getWolfPlayerManager().isSolitaire()){
+                        message += "§2 (solitaire)";
+                    }
+                    if(playerManager.getWolfPlayerManager().isSteal()){
+                        message += "§c (volé)";
+                    }
+                } else {
+                    message = "§2§l" + playerManager.getPlayerName() +
+                            " est mort.";
                 }
             }
+            playerManagers.getPlayer().sendMessage(message);
         });
         Bukkit.broadcastMessage(" ");
         Bukkit.broadcastMessage("§8§m----------------------------------");
@@ -310,8 +338,11 @@ public class LoupGarouManager extends ModeManager implements Listener {
             onlinePlayer.getInventory().clear();
         }
         System.out.println("Droping inventory !");
+
         main.getInventoryUtils().dropInventory(deathLocation, items, armors);
         deathLocation.getWorld().dropItemNaturally(deathLocation.clone().add(0, 1, 0), new QuickItem(Material.GOLDEN_APPLE).toItemStack());
+
+
         System.out.println("On Realy Death Role !");
         for (PlayerManager PlayerManagers : main.getPlayerManagerAlives().stream().filter(PlayerManager::hasRole).collect(Collectors.toList())) {
             PlayerManagers.getRole().onPlayerDeathRealy(playerManager, items, armors, killer, deathLocation);
@@ -595,14 +626,23 @@ public class LoupGarouManager extends ModeManager implements Listener {
         playerManager2.getWolfPlayerManager().setOtherCouple(playerManager1.getUuid());
         playerManager1.setCamps(Camps.COUPLE);
         playerManager2.setCamps(Camps.COUPLE);
-        playerManager1.getPlayer().sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage() +
-                "§dLe cupidon vient de vous lié d'amour avec " + playerManager2.getPlayer().getName()
-                + ". Si l'un d'entre vous vient à mourir, l'autre mourra alors par amour pour l'autre.");
-        playerManager2.getPlayer().sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage() +
-                "§dLe cupidon vient de vous lié d'amour avec " + playerManager1.getPlayer().getName()
-                + ". Si l'un d'entre vous vient à mourir, l'autre mourra alors par amour pour l'autre.");
-        main.getInventoryUtils().giveItemSafely(playerManager1.getPlayer(), new CoupleBoussoleItem(main).toItemStack());
-        main.getInventoryUtils().giveItemSafely(playerManager2.getPlayer(), new CoupleBoussoleItem(main).toItemStack());
+        if(playerManager1.getPlayer() != null){
+            playerManager1.getPlayer().sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage() +
+                    "§dLe cupidon vient de vous lié d'amour avec " + playerManager2.getPlayer().getName()
+                    + ". Si l'un d'entre vous vient à mourir, l'autre mourra alors par amour pour l'autre.");
+            main.getInventoryUtils().giveItemSafely(playerManager1.getPlayer(), new CoupleBoussoleItem(main).toItemStack());
+        }
+
+        if(playerManager2.getPlayer() != null){
+            playerManager2.getPlayer().sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage() +
+                    "§dLe cupidon vient de vous lié d'amour avec " + playerManager1.getPlayer().getName()
+                    + ". Si l'un d'entre vous vient à mourir, l'autre mourra alors par amour pour l'autre.");
+            main.getInventoryUtils().giveItemSafely(playerManager2.getPlayer(), new CoupleBoussoleItem(main).toItemStack());
+        }
+
+
+
+
         for(PlayerManager playerManager : getPlayerManagersWithRole(Cupidon.class)){
             if(playerManager.getPlayer() != null){
                 playerManager.getPlayer().sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage() + "§aVos flèches ont atteints le coeur de " + playerManager1.getPlayerName() + " et " + playerManager2.getPlayerName() + ". Désormais, si l'un d'eux viennent à mourir, l'autre mourra également.");

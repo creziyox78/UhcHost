@@ -1,6 +1,4 @@
-#Placeholder
-#
-#
+# 
 # {roles} : Temps avant que les rôles soient distribués
 # {time} : Temps de jeu
 # {pvp} : Temps avant que le PvP soit activé
@@ -16,69 +14,83 @@
 # {max_waitting_players} : Nombre de slots pendant le lobby
 # {spawn_direction} : Flèche montrant la direction vers le centre du monde par rapport au joueur
 # {nb_t} : Nombre de team encore en vie
-#
-
 status:
   started:
     gamemode:
       classic:
-        - "&r&8&m+------------------+"
-        - " &8&l» &eJoueurs ┃ &r{players_ingame} &7({nb_t})"
-        - " &8&l» &eKills ┃ &r{player_kills}"
-        - "&a"
-        - " &8&l» &6Timer ┃ &r{time}"
-        - " &8&l» &6PvP ┃ &r{pvp}"
-        - "&o"
-        - " &8&l» &aBordure ┃ &r{border_time}"
-        - " &8&l» &aTaille ┃ &r±{border}"
-        - " &8&l» &aCentre ┃ &r{spawn_direction}"
-        - "&d"
-        - "    &e&ngroupuhc.mine.fun"        
-        - "&r&r&8&m+------------------+"
+      - '&r&8&m+------------------+'
+      - ' &8&l» &eJoueurs ┃ &r{players_ingame} &7({nb_t})'
+      - ' &8&l» &eKills ┃ &r{player_kills}'
+      - '&a'
+      - ' &8&l» &6Timer ┃ &r{time}'
+      - ' &8&l» &6PvP ┃ &r{pvp}'
+      - '&o'
+      - ' &8&l» &aBordure ┃ &r{border_time}'
+      - ' &8&l» &aTaille ┃ &r±{border}'
+      - ' &8&l» &aCentre ┃ &r{spawn_direction}'
+      - '&d'
+      - '    &e&ngroupuhc.mine.fun'
+      - '&r&r&8&m+------------------+'
       lg:
-        - "&r&7&m+------------------+"  
-        - " &8&l» &eTimer ┃ &r{time} &e&l{cycle}"
-        - " &8&l» &eRôles ┃ &r{roles}"
-        - "&r"        
-        - " &8&l» &6Episode ┃ &r{episode}"
-        - " &8&l» &6Bordure ┃ &r±{border}"        
-        - "&r&r"
-        - " &8&l» &c{players_ingame} &r&cJoueurs"
-        - " &8&l» &cGroupe de &c{groupes}"
-        - "&1"    
-        - "    &e&ngroupuhc.mine.fun"        
-        - "&r&r&7&m+------------------+"
+      - '&r&7&m+------------------+'
+      - ' &8&l» &eTimer ┃ &r{time} &e&l{cycle}'
+      - ' &8&l» &eRôles ┃ &r{roles}'
+      - '&r'
+      - ' &8&l» &6Episode ┃ &r{episode}'
+      - ' &8&l» &6Bordure ┃ &r±{border}'
+      - '&r&r'
+      - ' &8&l» &c{players_ingame} &r&cJoueurs'
+      - ' &8&l» &cGroupe de &c{groupes}'
+      - '&1'
+      - '    &e&ngroupuhc.mine.fun'
+      - '&r&r&7&m+------------------+'
       bleach:
-        - "&r&8&m⊱------------------⊰"        
-        - " &8&l» &eTimer ┃ &r{time}"
-        - " &8&l» &eRôles ┃ &r{roles}"
-        - "&1"
-        - " &8&l» &6Phase ┃ &r{phase}"
-        - "&3"
-        - "&4"
-        - "    &e&ngroupuhc.mine.fun"
-        - "&r&r&8&m⊱------------------⊰"
+      - '&r&8&m+------------------+'
+      - ' &8&l» &eTimer ┃ &r{time}'
+      - ' &8&l» &eRôles ┃ &r{roles}'
+      - ' &8&l» &ePvP ┃ &r{pvp}'
+      - '&r'
+      - ' &8&l» &6Phase ┃ &r{phase}'
+      - '&3'
+      - ' &8&l» &cJoueurs Restant ┃ &f{players_ingame}'
+      - ' &8&l» &cGroupe de  ┃ &f{groupes}'
+      - '&r&r'
+      - '    &e&ngroupuhc.mine.fun'
+      - '&r&r&8&m+------------------+'
       naruto:
-        - "&r&8&m⊱------------------⊰"         
-        - " &8&l» &eTimer ┃ &r{time}"
-        - " &8&l» &eRôles ┃ &r{roles}"
-        - " &8&l» &ePvP ┃ &r{pvp}"
-        - "&1"
-        - " &8&l» &6Joueurs ┃ &r{players_ingame}"  
-        - " &8&l» &6Kills ┃ &r{player_kills}"    
-        - "&r"        
-        - " &8&l» &aGroupe ┃ &r{groupes}"       
-        - " &8&l» &aBordure ┃ &r±{border}"
-        - "&2"
-        - "    &e&ngroupuhc.mine.fun"        
-        - "&r&r&8&m⊱------------------⊰"
+      - '&r&8&m+------------------+'
+      - ' &8&l» &eTimer ┃ &r{time}'
+      - ' &8&l» &eRôles ┃ &r{roles}'
+      - ' &8&l» &ePvP ┃ &r{pvp}'
+      - '&1'
+      - ' &8&l» &6Joueurs ┃ &r{players_ingame}'
+      - ' &8&l» &6Kills ┃ &r{player_kills}'
+      - '&r'
+      - ' &8&l» &cGroupe ┃ &r{groupes}'
+      - ' &8&l» &cBordure ┃ &r±{border}'
+      - '&2'
+      - '    &e&ngroupuhc.mine.fun'
+      - '&r&r&8&m+------------------+'
+      taupegun:
+      - '&r&8&m⊱------------------⊰'
+      - ' &8&l» &eTimer ┃ &r{time} &7({nb_t})'
+      - ' &8&l» &eBordure ┃ &r±{border}'
+      - ' &8&l» &ePvP ┃ &r{pvp}'
+      - '&r&r&r&r'
+      - ' &8&l» &cTaupes ┃ &r{taupes}'
+      - '&1'
+      - ' &8&l» &cJoueurs ┃ &r{players_ingame}'
+      - ' &8&l» &cKills ┃ &r{player_kills}'
+      - '&r'
+      - '    &e&ngroupuhc.mine.fun'
+      - '&r&r&8&m⊱------------------⊰'
   lobby:
-    - "&r&8&m⊱------------------⊰"
-    - "   &f&l» &e&lHost &f┃ &e&l{player_host_name}"
-    - "&r&r&r"
-    - "   &f&l» {gamemode} UHC"
-    - "&5"
-    - "   &f&l» &7&lJoueurs &f┃ &a&l{waitting_players}&7/&a&l{max_waitting_players}" 
-    - "&r&r"
-    - "     &e&ngroupuhc.mine.fun"          
-    - "&8&m⊱-------------------⊰"
+  - '&r&8&m+------------------+'
+  - '   &f&l✯ &e&l&e&l{player_host_name} '
+  - '&r&r&r'
+  - '   &f&l⚔ {gamemode} UHC'
+  - '&5'
+  - '   &f&l✔ &a&lJoueurs &f┃ &a&l{waitting_players}&7/&a&l{max_waitting_players}'
+  - '&r&r'
+  - '     &e&ngroupuhc.mine.fun'
+  - '&8&m+-------------------+'

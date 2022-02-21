@@ -28,11 +28,7 @@ public class Renard extends Role implements LGRole, RoleCommand {
     private final List<PlayerManager> renifledPlayer = new ArrayList<>();
 
     public Renard() {
-        super.addEffect(new PotionEffect(PotionEffectType.SPEED, Integer.MAX_VALUE, 0, false, false), When.START);
-    }
-
-    public String getSkullValue() {
-        return "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNzdjZmM4MzI5NTdiZDU4NTczODA4YWE3ZjdkZTc1MWY1ZGM5NWIzNDU2MTkxNmE4YjgzOTU3N2M1YjVjMTAifX19";
+        super.addEffect(new PotionEffect(PotionEffectType.SPEED, 20*60, 0, false, false), When.AT_KILL);
     }
 
     @Override
@@ -41,6 +37,7 @@ public class Renard extends Role implements LGRole, RoleCommand {
 
     @Override
     public void onNight(Player player) {
+        player.sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage() + "§bLa nuit vient de tomber, vous pouvez utiliser votre pouvoir.");
         canRenifle = true;
     }
 
@@ -50,8 +47,8 @@ public class Renard extends Role implements LGRole, RoleCommand {
             if(playerManager.getPlayer() != null){
                 playerManager.getPlayer().sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage() + "§eVous avez été reniflé par le renard.");
             }
+            renifledPlayer.remove(playerManager);
         });
-        renifledPlayer.stream().map(renifledPlayer::remove);
         canRenifle = false;
     }
 
@@ -78,11 +75,6 @@ public class Renard extends Role implements LGRole, RoleCommand {
     @Override
     public QuickItem getItem() {
         return new QuickItem(Material.SKULL_ITEM, 1, SkullType.PLAYER.ordinal()).setName(getCamp().getCompoColor()+getRoleName()).setTexture("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNDk5OTM0Y2RmYTkwZTZiNGE0MDAzMzk2YmJiZmU5MTk5N2VkYTFhYzA0NWRmM2IyMjEzZjM2NzA2ZjMxMjZjMiJ9fX0=");
-    }
-
-    @Override
-    public void checkRunnable(Player player) {
-
     }
 
     @Override

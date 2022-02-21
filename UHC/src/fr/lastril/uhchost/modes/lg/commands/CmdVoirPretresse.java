@@ -70,20 +70,26 @@ public class CmdVoirPretresse implements ModeSubCommand {
     private void sendRole(Player player, Pretresse pretresse, PlayerManager targetManager) {
         if (targetManager.getRole() instanceof LGFacadeRole) {
             LGFacadeRole lgFacadeRole = (LGFacadeRole) targetManager.getRole();
-            player.sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage()
-                    + "§bVous venez d'espionner " + targetManager.getPlayerName()
-                    + ". Ce joueur est: " + lgFacadeRole.getRoleFacade().getRoleName());
-            player.setMaxHealth(player.getMaxHealth() - 2D*2D);
-            if(targetManager.getRole() instanceof RealLG)
+            if(lgFacadeRole.getRoleFacade() instanceof RealLG){
+                player.sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage()
+                        + "§bVous venez d'espionner " + targetManager.getPlayerName()
+                        + ". Ce joueur est: " + lgFacadeRole.getRoleFacade().getRoleName());
                 pretresse.addPlayerLg(targetManager);
-
+            } else {
+                player.sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage() + "§bVous venez d'espionner " + targetManager.getPlayerName() + " qui est villageois.");
+            }
+            player.setMaxHealth(player.getMaxHealth() - 2D*2D);
         } else {
-            player.sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage()
-                    + "§bVous venez d'espionner " + targetManager.getPlayerName()
-                    + ". Ce joueur est: " + targetManager.getRole().getRoleName());
-            player.setMaxHealth(player.getMaxHealth() - 2D*2D);
-            if(targetManager.getRole() instanceof RealLG)
+            if(targetManager.getRole() instanceof RealLG){
+                player.sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage()
+                        + "§bVous venez d'espionner " + targetManager.getPlayerName()
+                        + ". Ce joueur est: " + targetManager.getRole().getRoleName());
                 pretresse.addPlayerLg(targetManager);
+            } else {
+                player.sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage() + "§bVous venez d'espionner " + targetManager.getPlayerName() + " qui est villageois.");
+            }
+            player.setMaxHealth(player.getMaxHealth() - 2D*2D);
+
         }
 
 

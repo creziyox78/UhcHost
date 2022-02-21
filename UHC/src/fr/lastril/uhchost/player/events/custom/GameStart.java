@@ -23,7 +23,7 @@ public class GameStart implements Listener {
 	public void onStart(GameStartEvent e) {
 
 		new TaskCycle(pl).runTaskTimer(pl, 0, 1);
-		new TaskRunnable(pl).runTaskTimer(pl, 0, 1);
+		new TaskRunnable(pl).runTaskTimer(pl, 0, 3);
 		e.getPlayers().forEach(player -> {
 			pl.getPlayerManager(player.getUniqueId()).setPlayedGame(true);
 			pl.getPlayerManager(player.getUniqueId()).setAlive(true);

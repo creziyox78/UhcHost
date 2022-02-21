@@ -65,7 +65,9 @@ public class Damage implements Listener {
 						}
 					}
 				}
-				event.setDamage(damages);
+				if(damages != event.getDamage()){
+					event.setDamage(damages);
+				}
 				damagerManager.addDamages((int)event.getFinalDamage());
 			}
 		}

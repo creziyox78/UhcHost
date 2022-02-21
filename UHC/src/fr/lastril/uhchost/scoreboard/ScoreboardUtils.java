@@ -34,61 +34,8 @@ public class ScoreboardUtils {
 
 	private String name;
 
-	private final String startIn;
-
-	private final String players;
-
-	private final String roles;
-
-	private final String credit;
-
-	private final String ip;
-
-	private final String time;
-
-	private final String border;
-
-	private final String spawn;
-
-	private final String pvp;
-
-	private final String actived;
-
-	private final String activedFem;
-
-	private final String teleport;
-
-	private final String team;
-
-	private final String host;
-
-	private final String waitForPlayers;
-
-	private final String playersInTeam;
-
-	private final String playersInTeamEnd;
-
-	private int pvpTime;
-
 	public ScoreboardUtils(UhcHost pl) {
 		this.pl = pl;
-		this.startIn = I18n.tl("scoreboard.startIn");
-		this.players = I18n.tl("scoreboard.players");
-		this.credit = "§cPlugin by Lastril";
-		this.ip = I18n.tl("scoreboard.ip");
-		this.time = I18n.tl("scoreboard.time");
-		this.border = I18n.tl("scoreboard.border");
-		this.roles = I18n.tl("scoreboard.roles");
-		this.spawn = I18n.tl("scoreboard.spawn");
-		this.pvp = I18n.tl("scoreboard.pvp");
-		this.actived = I18n.tl("scoreboard.actived");
-		this.activedFem = I18n.tl("scoreboard.activedFem");
-		this.teleport = I18n.tl("scoreboard.teleport");
-		this.team = I18n.tl("scoreboard.team");
-		this.host = I18n.tl("scoreboard.host");
-		this.waitForPlayers = I18n.tl("scoreboard.waitForPlayers");
-		this.playersInTeam = I18n.tl("scoreboard.playersInTeam");
-		this.playersInTeamEnd = I18n.tl("scoreboard.playersInTeamEnd");
 		this.board = Bukkit.getScoreboardManager().getMainScoreboard();
 		this.board.getTeams().forEach(Team::unregister);
 		this.board.getObjectives().forEach(Objective::unregister);
@@ -131,12 +78,21 @@ public class ScoreboardUtils {
 			this.sbs.put(player.getUniqueId(), sb);
 		}
 		int line = 0;
-		File file = new File(pl.getDataFolder() + "/scoreboard.yml");
+		sb.setLine(line++, formatLine("&r&8&m+------------------+", player, count));
+		sb.setLine(line++, formatLine("   &f&l✯ &e&l&e&l{player_host_name} ", player, count));
+		sb.setLine(line++, formatLine("&r&r&r", player, count));
+		sb.setLine(line++, formatLine("   &f&l⚔ {gamemode} UHC", player, count));
+		sb.setLine(line++, formatLine("&5", player, count));
+		sb.setLine(line++, formatLine("   &f&l✔ &a&lJoueurs &f┃ &a&l{waitting_players}&7/&a&l{max_waitting_players}", player, count));
+		sb.setLine(line++, formatLine("&r&r", player, count));
+		sb.setLine(line++, formatLine("     &e&ngroupuhc.mine.fun", player, count));
+		sb.setLine(line++, formatLine("&8&m+-------------------+", player, count));
+		/*File file = new File(pl.getDataFolder() + "/scoreboard.yml");
 		YamlConfiguration lgYaml = YamlConfiguration.loadConfiguration(file);
 
 		for(String lines : lgYaml.getStringList("status.lobby")){
 			sb.setLine(line++, formatLine(lines, player, count));
-		}
+		}*/
 		//TODO DELETE IF WORK
 		/*
 
@@ -187,12 +143,21 @@ public class ScoreboardUtils {
 			this.sbs.put(player.getUniqueId(), sb);
 		}
 		int line = 0;
-		File file = new File(pl.getDataFolder() + "/scoreboard.yml");
+		sb.setLine(line++, formatLine("&r&8&m+------------------+", player, count));
+		sb.setLine(line++, formatLine("   &f&l✯ &e&l&e&l{player_host_name} ", player, count));
+		sb.setLine(line++, formatLine("&r&r&r", player, count));
+		sb.setLine(line++, formatLine("   &f&l⚔ {gamemode} UHC", player, count));
+		sb.setLine(line++, formatLine("&5", player, count));
+		sb.setLine(line++, formatLine("   &f&l✔ &a&lJoueurs &f┃ &a&l{waitting_players}&7/&a&l{max_waitting_players}", player, count));
+		sb.setLine(line++, formatLine("&r&r", player, count));
+		sb.setLine(line++, formatLine("     &e&ngroupuhc.mine.fun", player, count));
+		sb.setLine(line++, formatLine("&8&m+-------------------+", player, count));
+		/*File file = new File(pl.getDataFolder() + "/scoreboard.yml");
 		YamlConfiguration lgYaml = YamlConfiguration.loadConfiguration(file);
 
 		for(String lines : lgYaml.getStringList("status.lobby")){
 			sb.setLine(line++, formatLine(lines, player, count));
-		}
+		}*/
 		this.sbs.replace(player.getUniqueId(), sb);
 	}
 
@@ -208,13 +173,49 @@ public class ScoreboardUtils {
 			this.sbs.put(player.getUniqueId(), sb);
 		}
 		int line = 0;
-		File file = new File(pl.getDataFolder() + "/scoreboard.yml");
-		YamlConfiguration lgYaml = YamlConfiguration.loadConfiguration(file);
 
-		for(String lines : lgYaml.getStringList("status.started.gamemode."
-				+ pl.gameManager.getModes().name().toLowerCase())){
-			sb.setLine(line++, formatLine(lines, player, count));
+		if(pl.getGamemanager().getModes() == Modes.LG){
+			sb.setLine(line++, formatLine("&r&7&m+------------------+", player, count));
+			sb.setLine(line++, formatLine(" &8&l» &eTimer ┃ &r{time} &e&l{cycle}", player, count));
+			sb.setLine(line++, formatLine(" &8&l» &eRôles ┃ &r{roles}", player, count));
+			sb.setLine(line++, formatLine("&r", player, count));
+			sb.setLine(line++, formatLine(" &8&l» &6Episode ┃ &r{episode}", player, count));
+			sb.setLine(line++, formatLine(" &8&l» &6Bordure ┃ &r±{border}", player, count));
+			sb.setLine(line++, formatLine("&r&r", player, count));
+			sb.setLine(line++, formatLine(" &8&l» &c{players_ingame} &r&cJoueurs", player, count));
+			sb.setLine(line++, formatLine(" &8&l» &cGroupe de &c{groupes}", player, count));
+			sb.setLine(line++, formatLine("&1", player, count));
+			sb.setLine(line++, formatLine("    &e&ngroupuhc.mine.fun", player, count));
+			sb.setLine(line++, formatLine("&r&r&7&m+------------------+", player, count));
+		} else if(pl.getGamemanager().getModes() == Modes.TAUPEGUN){
+			sb.setLine(line++, formatLine("&r&8&m⊱------------------⊰", player, count));
+			sb.setLine(line++, formatLine(" &8&l» &eTimer ┃ &r{time} &7({nb_t})", player, count));
+			sb.setLine(line++, formatLine(" &8&l» &eBordure ┃ &r±{border}", player, count));
+			sb.setLine(line++, formatLine(" &8&l» &ePvP ┃ &r{pvp}", player, count));
+			sb.setLine(line++, formatLine("&r&r&r&r", player, count));
+			sb.setLine(line++, formatLine(" &8&l» &cTaupes ┃ &r{taupes}", player, count));
+			sb.setLine(line++, formatLine("&1", player, count));
+			sb.setLine(line++, formatLine(" &8&l» &cJoueurs ┃ &r{players_ingame}", player, count));
+			sb.setLine(line++, formatLine(" &8&l» &cKills ┃ &r{player_kills}", player, count));
+			sb.setLine(line++, formatLine("&r", player, count));
+			sb.setLine(line++, formatLine("    &e&ngroupuhc.mine.fun", player, count));
+			sb.setLine(line++, formatLine("&r&r&8&m⊱------------------⊰", player, count));
+		} else if(pl.getGamemanager().getModes() == Modes.CLASSIC){
+			sb.setLine(line++, formatLine("&r&8&m+------------------+", player, count));
+			sb.setLine(line++, formatLine(" &8&l» &eJoueurs ┃ &r{players_ingame} &7({nb_t})", player, count));
+			sb.setLine(line++, formatLine(" &8&l» &eKills ┃ &r{player_kills}", player, count));
+			sb.setLine(line++, formatLine("&a", player, count));
+			sb.setLine(line++, formatLine(" &8&l» &6Timer ┃ &r{time}", player, count));
+			sb.setLine(line++, formatLine(" &8&l» &6PvP ┃ &r{pvp}", player, count));
+			sb.setLine(line++, formatLine("&o", player, count));
+			sb.setLine(line++, formatLine(" &8&l» &aBordure ┃ &r{border_time}", player, count));
+			sb.setLine(line++, formatLine(" &8&l» &aTaille ┃ &r±{border}", player, count));
+			sb.setLine(line++, formatLine(" &8&l» &aCentre ┃ &r{spawn_direction}", player, count));
+			sb.setLine(line++, formatLine("&d", player, count));
+			sb.setLine(line++, formatLine("    &e&ngroupuhc.mine.fun", player, count));
+			sb.setLine(line++, formatLine("&r&r&8&m+------------------+", player, count));
 		}
+
 		/* TODO DELETE IF WORK
 		int line = 0;
 		if(pl.getConfig().getBoolean("scoreboard.host")){
@@ -223,6 +224,15 @@ public class ScoreboardUtils {
 
 			sb.setLine(line++, "§r");
 		}
+
+		File file = new File(pl.getDataFolder() + "/scoreboard.yml");
+		YamlConfiguration lgYaml = YamlConfiguration.loadConfiguration(file);
+
+		for(String lines : lgYaml.getStringList("status.started.gamemode."
+				+ pl.gameManager.getModes().name().toLowerCase())){
+			sb.setLine(line++, formatLine(lines, player, count));
+		}
+
 
 		if(pl.getConfig().getBoolean("scoreboard.spawn")){
 			Location loc = this.pl.worldUtils.getCenter().getWorld().getHighestBlockAt(
@@ -385,7 +395,7 @@ public class ScoreboardUtils {
 						String.valueOf((int) this.pl.worldUtils.getWorld().getWorldBorder().getSize() / 2.0D));
 
 		}
-		pvpTime = this.pl.taskManager.getPvpTime() - count;
+		int pvpTime = this.pl.taskManager.getPvpTime() - count;
 		int borderTime = this.pl.taskManager.getBorderTime() - count;
 		return newLine.replace("{pvp}", pvpTime <= 0 ? "§a✔" : new FormatTime(pvpTime).toString())
 				.replace("{time}", new FormatTime(count).toString())

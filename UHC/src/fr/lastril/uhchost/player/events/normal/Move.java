@@ -1,8 +1,6 @@
 package fr.lastril.uhchost.player.events.normal;
 
-import fr.lastril.uhchost.UhcHost;
 import fr.lastril.uhchost.game.GameState;
-import fr.lastril.uhchost.player.PlayerManager;
 import fr.lastril.uhchost.player.events.GameStartEvent;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
@@ -20,22 +18,13 @@ public class Move implements Listener {
 			if (hasMovedIngoreY(event.getTo(), event.getFrom())) {
 				player.teleport(event.getFrom());
 			}
-		} else if(GameState.isState(GameState.STARTED)){
-			PlayerManager joueur = UhcHost.getInstance().getPlayerManager(player.getUniqueId());
-			double distance = event.getFrom().distance(event.getTo());
-			boolean hasMoved = distance >= 0.2;
-
-			if(hasMoved && joueur.isStunned()){
-				Location loc = joueur.getStunLocation().clone();
-				if(loc != null){
-					loc.setYaw(player.getLocation().getYaw());
-					loc.setPitch(player.getLocation().getPitch());
-					player.teleport(loc);
-				}
-			}
 		}
 
+	}
 
+	@EventHandler
+	public void onStart(GameStartEvent event){
+		HandlerList.unregisterAll(this);
 	}
 
 	private boolean hasMovedIngoreY(Location l, Location l1) {
