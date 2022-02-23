@@ -23,7 +23,7 @@ public class CmdTl implements CommandExecutor {
                         int x = player.getLocation().getBlockX();
                         int y = player.getLocation().getBlockY();
                         int z = player.getLocation().getBlockZ();
-                        players.sendMessage("§bCoordonnées de " +player.getName()+ "§8 >> §bx:"+ x +" §8|§b  y:"+y+"  §8|§b  z:"+z+".");
+                        players.sendMessage("§6Coordonnées de " +player.getName()+ "§8 » §eX:"+ x +" §8|§e  Y:"+y+"  §8|§e  Z:"+z+".");
                     }
                 }
                 if(main.getGamemanager().getModes() == Modes.TAUPEGUN){
@@ -33,7 +33,7 @@ public class CmdTl implements CommandExecutor {
                             int x = player.getLocation().getBlockX();
                             int y = player.getLocation().getBlockY();
                             int z = player.getLocation().getBlockZ();
-                            players.sendMessage("§bCoordonnées de " +player.getName()+ "§8 >> §bx:"+ x +" §8|§b  y:"+y+"  §8|§b  z:"+z+".");
+                            players.sendMessage("§6Coordonnées de " +player.getName()+ "§8 » §eX:"+ x +" §8|§e  Y:"+y+"  §8|§e  Z:"+z+".");
                         }
                     }
                 }

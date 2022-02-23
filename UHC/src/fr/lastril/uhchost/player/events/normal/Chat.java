@@ -29,22 +29,42 @@ public class Chat implements Listener {
         if (this.main.teamUtils.getPlayersPerTeams() != 1) {
             Team t = this.main.teamUtils.getTeam(player);
             if(t != null){
-                if (event.getMessage().startsWith("!")) {
+                if (!event.getMessage().startsWith("!")) {
                     event.setCancelled(true);
-                    event.setFormat( "§8["+t.getPrefix() + "Equipe "+t.getDisplayName() + "§8] "+t.getPrefix() + player.getName() + "§8 »§f " + event.getMessage().substring(1));
+                    event.setFormat( "§8["+t.getPrefix() + "Equipe "+t.getDisplayName() + "§8] "+t.getPrefix() + player.getName() + "§8 »§f " + event.getMessage());
                     for(Player players: main.teamUtils.getPlayersInTeam(t)){
                         players.sendMessage(event.getFormat());
+                    }
+                } else {
+                    if(main.getGamemanager().getHost() == player.getUniqueId()){
+                        event.setFormat("§e§lHost§e " + player.getName() + " §f» " + event.getMessage().replace("&", "§").substring(1));
+                    } else if(main.getGamemanager().isCoHost(player)){
+                        event.setFormat("§eCo§f-§eHost " + player.getName() + " §f» " + event.getMessage().replace("&", "§").substring(1));
+                    } else if(player.isOp()){
+                        event.setFormat("§c§lOP " + player.getName() + " §f» " + event.getMessage().replace("&", "§").substring(1));
+                    } else {
+                        event.setFormat("§7" + player.getName() + " » " + event.getMessage().substring(1));
                     }
                 }
             }
             if(main.getGamemanager().getModes() == Modes.TAUPEGUN){
                 Team taupe = this.main.teamUtils.getTeamTaupe(player);
                 if(taupe != null){
-                    if (event.getMessage().startsWith("!")) {
+                    if (!event.getMessage().startsWith("!")) {
                         event.setCancelled(true);
-                        event.setFormat( "§8["+taupe.getPrefix() + "Equipe "+taupe.getDisplayName() + "§8] "+taupe.getPrefix() + player.getName() + "§8 »§f " + event.getMessage().substring(1));
+                        event.setFormat( "§8["+taupe.getPrefix() + "Equipe "+taupe.getDisplayName() + "§8] "+taupe.getPrefix() + player.getName() + "§8 »§f " + event.getMessage());
                         for(Player players: main.teamUtils.getPlayersInTeam(taupe)){
                             players.sendMessage(event.getFormat());
+                        }
+                    } else {
+                        if(main.getGamemanager().getHost() == player.getUniqueId()){
+                            event.setFormat("§e§lHost§e " + player.getName() + " §f» " + event.getMessage().replace("&", "§").substring(1));
+                        } else if(main.getGamemanager().isCoHost(player)){
+                            event.setFormat("§eCo§f-§eHost " + player.getName() + " §f» " + event.getMessage().replace("&", "§").substring(1));
+                        } else if(player.isOp()){
+                            event.setFormat("§c§lOP " + player.getName() + " §f» " + event.getMessage().replace("&", "§").substring(1));
+                        } else {
+                            event.setFormat("§7" + player.getName() + " » " + event.getMessage().substring(1));
                         }
                     }
                 }

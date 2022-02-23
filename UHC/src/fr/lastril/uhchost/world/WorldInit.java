@@ -15,6 +15,7 @@ import org.bukkit.craftbukkit.v1_8_R3.CraftWorld;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
+import org.bukkit.event.weather.WeatherChangeEvent;
 import org.bukkit.event.world.WorldInitEvent;
 
 import java.lang.reflect.Field;
@@ -28,6 +29,11 @@ public class WorldInit implements Listener {
         this.main = main;
         this.x = x;
         this.z = z;
+    }
+
+    @EventHandler
+    public void onWeatherChange(WeatherChangeEvent event) {
+        if(event.toWeatherState()) event.setCancelled(true);
     }
 
 
@@ -70,7 +76,7 @@ public class WorldInit implements Listener {
             this.biomeChoosed = biomeChoosed;
             this.cx = x;
             this.cz = z;
-            Field field = null;
+            Field field;
             try {
                 field = WorldChunkManager.class.getDeclaredField("b");
                 field.setAccessible(true);

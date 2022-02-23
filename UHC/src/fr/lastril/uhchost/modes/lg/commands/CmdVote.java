@@ -50,9 +50,15 @@ public class CmdVote implements ModeSubCommand {
                     if (!wolfPlayerManager.hasVoted()) {
                         wolfPlayerManager.setVoted(true);
                         WolfPlayerManager wolfTargetManager = pl.getPlayerManager(target.getUniqueId()).getWolfPlayerManager();
-                        if (wolfTargetManager != null) {
-                            wolfTargetManager.addVote();
+                        if (wolfTargetManager != null && pl.getPlayerManager(target.getUniqueId()).isAlive()) {
+                            UhcHost.debug("Checking if player is already voted...");
+                            if(!loupGarouManager.playerAlreadyVoted(wolfTargetManager)){
+                                UhcHost.debug("Checking if player is already voted...");
+                                wolfTargetManager.addVote();
+                            }
                             player.sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage() + "§aVous venez de voter pour " + target.getName() + ".");
+                        } else {
+                            player.sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage() + "§cVous ne pouvez pas voter pour ce joueur !");
                         }
                     } else {
                         player.sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage() + "§cVous avez déjà voté !");

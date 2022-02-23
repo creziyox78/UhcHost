@@ -14,6 +14,7 @@ import fr.lastril.uhchost.modes.Modes;
 import fr.lastril.uhchost.modes.command.ModeCommand;
 import fr.lastril.uhchost.modes.roles.Role;
 import fr.lastril.uhchost.player.PlayerManager;
+import fr.lastril.uhchost.player.events.command.CommandSendTell;
 import fr.lastril.uhchost.player.events.custom.GameStart;
 import fr.lastril.uhchost.player.events.interact.InteractCheckWorld;
 import fr.lastril.uhchost.player.events.interact.InteractTeam;
@@ -235,6 +236,7 @@ public class UhcHost extends JavaPlugin {
 		getServer().getPluginManager().registerEvents(new GameStart(this), this);
 		getServer().getPluginManager().registerEvents(new Portal(this), this);
 		getServer().getPluginManager().registerEvents(new InteractCheckWorld(this), this);
+		getServer().getPluginManager().registerEvents(new CommandSendTell(), this);
 	}
 
 	private void setWorld() {
@@ -397,40 +399,6 @@ public class UhcHost extends JavaPlugin {
                 e.printStackTrace();
             }
         }
-
-    }
-
-	public void checkingScoreboardUpdate(){
-		File f = new File(getDataFolder() + File.separator + "scoreboard.yml");
-		//System.out.println("Checking scoreboard...");
-		if (!f.exists()) {
-			//getLogger().warning("The file scoreboard.yml doesn't exist ! Creating...");
-			try {
-				f.createNewFile();
-				FileUtils.copyInputStreamToFile(getResource("scoreboard.yml"), f);
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
-
-		else if (f.exists()) {
-			try {
-				YamlConfiguration yamlConfiguration1 = YamlConfiguration.loadConfiguration(f);
-				File configFile = new File("temp.yml");
-				FileUtils.copyInputStreamToFile(getResource("scoreboard.yml"),configFile);
-				YamlConfiguration yamlConfiguration2 = YamlConfiguration.loadConfiguration(configFile);
-				for (String s : yamlConfiguration2.getKeys(true)) {
-					if (yamlConfiguration1.get(s) == null) {
-						//Bukkit.getConsoleSender().sendMessage(ChatColor.RED + "Scoreboard file has receive new path : " + s);
-						yamlConfiguration1.set(s, yamlConfiguration2.get(s));
-						yamlConfiguration1.save(f);
-					}
-				}
-
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
 
 	}
 

@@ -129,16 +129,19 @@ public class InfectPereDesLoups extends Role implements LGRole, RoleListener, Re
                         if (super.getPlayer() != null) {
                             Player infect = super.getPlayer();
                             PlayerManager infectManager = main.getPlayerManager(infect.getUniqueId());
-                            if(infectManager.isAlive()){
+                            if(infectManager.isAlive() && playerManager.getWolfPlayerManager().getResurectType() == null){
                                 new ClickableMessage(infect, onClick -> {
 
                                     if(infecte){
-
                                         loupGarouManager.addInfect(playerManager, loupGarouManager.isVaccination());
                                         onClick.sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage() + "§aVous avez bien infecté "
                                                 + player.getName() + " !");
                                         hasInfected = true;
                                         UhcHost.debug("Player is infected !");
+                                        playerManager.getRole().addEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, Integer.MAX_VALUE, 0, false, false),
+                                                When.NIGHT);
+                                        playerManager.getRole().addEffect(new PotionEffect(PotionEffectType.ABSORPTION, 20 * 60 * 1, 0, false, false), When.AT_KILL);
+                                        playerManager.getRole().addEffect(new PotionEffect(PotionEffectType.SPEED, 20 * 60 * 1, 0, false, false), When.AT_KILL);
                                     } else {
                                         onClick.sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage() + "§cVous ne pouvez plus infecter"
                                                 + player.getName() + " !");

@@ -22,6 +22,7 @@ public class LoupGarouPisteur extends Role implements LGRole, RealLG, LGChatRole
 
     private final int distance = 200;
 
+
     public LoupGarouPisteur() {
         super.addEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, Integer.MAX_VALUE, 0, false, false), When.NIGHT);
         super.addEffect(new PotionEffect(PotionEffectType.NIGHT_VISION, Integer.MAX_VALUE, 0, false, false), When.START);
@@ -134,4 +135,6 @@ public class LoupGarouPisteur extends Role implements LGRole, RealLG, LGChatRole
     public boolean sendPlayerName() {
         return false;
     }
+
+
 }

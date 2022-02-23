@@ -97,7 +97,7 @@ public class Sorciere extends Role implements LGRole, RoleListener {
                 if (super.getPlayer() != null) {
                     Player soso = super.getPlayer();
                     PlayerManager sosoManager = main.getPlayerManager(soso.getUniqueId());
-                    if(sosoManager.isAlive()){
+                    if(sosoManager.isAlive()  && playerManager.getWolfPlayerManager().getResurectType() == null){
                         new ClickableMessage(soso, onClick -> {
                             if(rez){
                                 main.getPlayerManager(player.getUniqueId()).getWolfPlayerManager()

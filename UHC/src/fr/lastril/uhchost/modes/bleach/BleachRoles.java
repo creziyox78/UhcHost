@@ -13,7 +13,7 @@ public enum BleachRoles {
 
     //Soul Society
     YAMAMOTO(Yamamoto.class), //TODO FIX NO ABSO
-    SOIFON(SoiFon.class), //TODO ITEM Suzumebachi
+    SOIFON(SoiFon.class), //TODO ITEM "Suzumebachi"
     OMAEDA(Omaeda.class), //FINISHED
     KIRA(Kira.class), //FINISHED
     UNOHANA(Unohana.class), //FINISHED
@@ -22,12 +22,12 @@ public enum BleachRoles {
     BYAKUYA(Byakuya.class), //TODO BE TESTED
     RENJI(Renji.class), //FINISHED
     KOMAMURA(Komamura.class),
-    IBA(Iba.class), //TODO FIX
-    KYORAKU(Kyoraku.class),
+    IBA(Iba.class), //TODO FIX close to wall
+    KYORAKU(Kyoraku.class), //TODO ITEM "Kageoni"
     NANAO(Nanao.class), //FINISHED
-    HISAGI(Hisagi.class), //TODO FIX
-    TOSHIROHITSUGAYA(ToshiroHitsugaya.class),
-    RANGIKUMATSUMOTO(RangikuMatsumoto.class),
+    HISAGI(Hisagi.class), //TODO FIX switch item
+    TOSHIROHITSUGAYA(ToshiroHitsugaya.class), //TODO ITEM "Ryusenka"
+    RANGIKUMATSUMOTO(RangikuMatsumoto.class), //FINISHED
     KENPACHIZARAKI(KenpachiZaraki.class),
     YACHIRU(Yachiru.class),
     MAYURI(Mayuri.class),

@@ -4,6 +4,7 @@ import fr.lastril.uhchost.UhcHost;
 import fr.lastril.uhchost.enums.Messages;
 import fr.lastril.uhchost.modes.command.ModeSubCommand;
 import fr.lastril.uhchost.modes.lg.LoupGarouManager;
+import fr.lastril.uhchost.modes.lg.commands.trublion.CmdDispersion;
 import fr.lastril.uhchost.modes.lg.commands.trublion.CmdSwitch;
 import fr.lastril.uhchost.modes.lg.commands.trublion.CmdTp;
 import fr.lastril.uhchost.modes.lg.roles.LGChatRole;
@@ -11,6 +12,7 @@ import fr.lastril.uhchost.modes.lg.roles.LGRole;
 import fr.lastril.uhchost.modes.roles.Camps;
 import fr.lastril.uhchost.modes.roles.Role;
 import fr.lastril.uhchost.modes.roles.RoleCommand;
+import fr.lastril.uhchost.modes.roles.When;
 import fr.lastril.uhchost.player.PlayerManager;
 import fr.lastril.uhchost.tools.API.items.crafter.QuickItem;
 import org.bukkit.Bukkit;
@@ -26,6 +28,8 @@ import java.util.List;
 public class Trublion extends Role implements LGRole, RoleCommand, LGChatRole {
 
     private boolean teleported = false, switched = false;
+    private int teleportedSpecificPlayer = 0;
+    private Camps switchedCampsResult = Camps.NEUTRES;
 
     @Override
     public void giveItems(Player player) {
@@ -50,21 +54,7 @@ public class Trublion extends Role implements LGRole, RoleCommand, LGChatRole {
     }
 
     @Override
-    public void afterRoles(Player player) {
-        /*PlayerManager playerManager = main.getPlayerManager(player.getUniqueId());
-        int value = UhcHost.getRANDOM().nextInt(2);
-        if(value == 1){
-            player.sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage() + "§eVotre objectif dans cette partie est de gagner seul.");
-            playerManager.setCamps(Camps.TRUBLION);
-        } else {
-            player.sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage() + "§eVotre objectif dans cette partie est de gagner avec le village.");
-            playerManager.setCamps(Camps.VILLAGEOIS);
-        }*/
-    }
-
-    @Override
     public void onPlayerDeathRealy(PlayerManager player, ItemStack[] items, ItemStack[] armors, Player killer, Location deathLocation) {
-        super.onPlayerDeathRealy(player, items, armors, killer, deathLocation);
         if(player.getRole() instanceof Trublion){
             Trublion trublion = (Trublion) player.getRole();
             if(!trublion.isTeleported()){
@@ -101,7 +91,7 @@ public class Trublion extends Role implements LGRole, RoleCommand, LGChatRole {
 
     @Override
     public List<ModeSubCommand> getSubCommands() {
-        return Arrays.asList(new CmdSwitch(main), new CmdTp(main));
+        return Arrays.asList(new CmdSwitch(main), new CmdTp(main), new CmdDispersion(main));
     }
 
     public void applySwitch(PlayerManager playerManager, PlayerManager targetManager1, PlayerManager targetManager2){
@@ -116,14 +106,22 @@ public class Trublion extends Role implements LGRole, RoleCommand, LGChatRole {
         targetManager2.getPlayer().setMaxHealth(20);
         targetManager1.getRole().afterRoles(targetManager1.getPlayer());
         targetManager2.getRole().afterRoles(targetManager2.getPlayer());
+        targetManager1.getPlayer().getActivePotionEffects().forEach(potionEffect -> targetManager1.getPlayer().removePotionEffect(potionEffect.getType()));
+        targetManager2.getPlayer().getActivePotionEffects().forEach(potionEffect -> targetManager2.getPlayer().removePotionEffect(potionEffect.getType()));
 
+        targetManager2.getRole().getEffects().entrySet().stream().filter(e -> e.getValue() == When.START).forEach(e -> targetManager1.getPlayer().addPotionEffect(e.getKey()));
+        targetManager1.getRole().getEffects().entrySet().stream().filter(e -> e.getValue() == When.START).forEach(e -> targetManager2.getPlayer().addPotionEffect(e.getKey()));
         targetManager1.getPlayer().sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage() + "§eLe trublion vient d'échanger votre rôle. Faites /lg me pour voir votre nouveau rôle.");
         targetManager2.getPlayer().sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage() + "§eLe trublion vient d'échanger votre rôle. Faites /lg me pour voir votre nouveau rôle.");
         if(sameCamp){
+            UhcHost.debug("Trublion switch 2 players in same camps.");
             playerManager.getPlayer().sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage() + "§aLes 2 joueurs que vous avez ciblé sont dans le même camp. Vous gagner avec le village");
+            setSwitchedCampsResult(Camps.VILLAGEOIS);
             playerManager.setCamps(Camps.VILLAGEOIS);
         } else {
+            UhcHost.debug("Trublion switch 2 players in differents camps.");
             playerManager.setCamps(Camps.TRUBLION);
+            setSwitchedCampsResult(Camps.TRUBLION);
             playerManager.getPlayer().sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage() + "§cLes 2 joueurs que vous avez ciblé ne sont pas dans le même camp. Vous gagner seul.");
         }
 
@@ -168,5 +166,21 @@ public class Trublion extends Role implements LGRole, RoleCommand, LGChatRole {
     @Override
     public boolean sendPlayerName() {
         return false;
+    }
+
+    public void setTeleportedSpecificPlayer(int teleportedSpecificPlayer) {
+        this.teleportedSpecificPlayer = teleportedSpecificPlayer;
+    }
+
+    public int getTeleportedSpecificPlayer() {
+        return teleportedSpecificPlayer;
+    }
+
+    public void setSwitchedCampsResult(Camps switchedCampsResult) {
+        this.switchedCampsResult = switchedCampsResult;
+    }
+
+    public Camps getSwitchedCampsResult() {
+        return switchedCampsResult;
     }
 }

@@ -2,6 +2,7 @@ package fr.lastril.uhchost.modes.bleach.roles.shinigamis.soulsociety;
 
 import fr.lastril.uhchost.UhcHost;
 import fr.lastril.uhchost.modes.bleach.commands.CmdDuel;
+import fr.lastril.uhchost.modes.bleach.commands.CmdNuit;
 import fr.lastril.uhchost.modes.bleach.kyoraku.KyorakuDuelManager;
 import fr.lastril.uhchost.modes.bleach.kyoraku.KyorakuEndDuelEvent;
 import fr.lastril.uhchost.modes.bleach.roles.ShinigamiRole;
@@ -20,6 +21,7 @@ import java.util.List;
 public class Kyoraku extends Role implements RoleCommand, ShinigamiRole {
 
     private final KyorakuDuelManager kyorakuDuelManager;
+    private boolean usedNuit;
 
     public Kyoraku(){
         super.addEffect(new PotionEffect(PotionEffectType.SPEED, Integer.MAX_VALUE, 0, false, false), When.START);
@@ -86,10 +88,18 @@ public class Kyoraku extends Role implements RoleCommand, ShinigamiRole {
 
     @Override
     public List<ModeSubCommand> getSubCommands() {
-        return Arrays.asList(new CmdDuel(main));
+        return Arrays.asList(new CmdDuel(main), new CmdNuit(main));
     }
 
     public KyorakuDuelManager getKyorakuDuelManager() {
         return kyorakuDuelManager;
+    }
+
+    public void setUsedNuit(boolean usedNuit) {
+        this.usedNuit = usedNuit;
+    }
+
+    public boolean isUsedNuit() {
+        return usedNuit;
     }
 }

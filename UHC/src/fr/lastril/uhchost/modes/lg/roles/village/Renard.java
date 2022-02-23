@@ -1,5 +1,6 @@
 package fr.lastril.uhchost.modes.lg.roles.village;
 
+import fr.lastril.uhchost.UhcHost;
 import fr.lastril.uhchost.enums.Messages;
 import fr.lastril.uhchost.modes.command.ModeSubCommand;
 import fr.lastril.uhchost.modes.lg.commands.CmdFlairer;
@@ -43,12 +44,15 @@ public class Renard extends Role implements LGRole, RoleCommand {
 
     @Override
     public void onDay(Player player) {
-        renifledPlayer.forEach(playerManager -> {
-            if(playerManager.getPlayer() != null){
-                playerManager.getPlayer().sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage() + "§eVous avez été reniflé par le renard.");
-            }
-            renifledPlayer.remove(playerManager);
-        });
+        if(!renifledPlayer.isEmpty()){
+            renifledPlayer.forEach(playerManager -> {
+                UhcHost.debug("§eSending renifled by renard to: " + playerManager.getPlayerName());
+                if(playerManager.getPlayer() != null){
+                    playerManager.getPlayer().sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage() + "§eVous avez été reniflé par le renard.");
+                }
+            });
+            renifledPlayer.clear();
+        }
         canRenifle = false;
     }
 

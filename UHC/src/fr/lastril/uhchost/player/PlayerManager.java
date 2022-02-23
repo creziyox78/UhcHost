@@ -865,6 +865,24 @@ public class PlayerManager {
 		return this.getRoleCooldown("Oeil");
 	}
 
+	public void setRoleCooldownHaineko(int i) {
+		this.setRoleCooldown("Haineko", i);
+	}
+
+	public int getRoleCooldownHaineko(){
+		return this.getRoleCooldown("Haineko");
+	}
+
+	public void setRoleCooldownToshiroZone(int i) {
+		this.setRoleCooldown("ToshiroZone", i);
+	}
+
+	public int getRoleCooldownToshiroZone(){
+		return this.getRoleCooldown("ToshiroZone");
+	}
+
+
+
 	public UUID getUuid() {
 		return this.uuid;
 	}

@@ -651,11 +651,11 @@ fr:
                 vous tué la cible vous obtiendrez &61♥ &epermanents supplémentaires.'
               - '&8&m--------------------------------------------------&r'
               Trappeur:
-                - '&8&m--------------------------------------------------&r'
-                - '&eVotre rôle est &2Trappeur&e.'
-                - '&eUne fois par épisode vous pouvez traquer un joueur &7&o(/lg trapper
+              - '&8&m--------------------------------------------------&r'
+              - '&eVotre rôle est &2Trappeur&e.'
+              - '&eUne fois par épisode vous pouvez traquer un joueur &7&o(/lg trapper
                 [pseudos])&e, vous ne pouvez traquer qu''un seul joueur à la fois.'
-                - '&8&m--------------------------------------------------&r'
+              - '&8&m--------------------------------------------------&r'
             village:
               voyante:
                 Voyante:
@@ -1135,4 +1135,9 @@ fr:
               - '&f/lg me, afin de reprendre connaisance de votre rôle.'
               - '&f/doc, pour plus d''information concernant le mode de jeu.'
               - '&8&m--------------------------------------------------&r'
-
+              Trappeur:
+              - '&8&m--------------------------------------------------&r'
+              - '&eVotre rôle est &2Trappeur&e.'
+              - '&eUne fois par épisode vous pouvez traquer un joueur &7&o(/lg trapper
+                [pseudos])&e, vous ne pouvez traquer qu''un seul joueur à la fois.'
+              - '&8&m--------------------------------------------------&r'

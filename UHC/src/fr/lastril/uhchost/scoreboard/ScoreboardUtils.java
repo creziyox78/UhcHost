@@ -214,6 +214,19 @@ public class ScoreboardUtils {
 			sb.setLine(line++, formatLine("&d", player, count));
 			sb.setLine(line++, formatLine("    &e&ngroupuhc.mine.fun", player, count));
 			sb.setLine(line++, formatLine("&r&r&8&m+------------------+", player, count));
+		}  else if(pl.getGamemanager().getModes() == Modes.BLEACH){
+			sb.setLine(line++, formatLine("&r&8&m+------------------+", player, count));
+			sb.setLine(line++, formatLine(" &8&l» &eTimer ┃ &r{time}", player, count));
+			sb.setLine(line++, formatLine(" &8&l» &eRôles ┃ &r{roles}", player, count));
+			sb.setLine(line++, formatLine(" &8&l» &ePvP ┃ &r{pvp}", player, count));
+			sb.setLine(line++, formatLine("&r", player, count));
+			sb.setLine(line++, formatLine(" &8&l» &6Phase ┃ &r{phase}", player, count));
+			sb.setLine(line++, formatLine("&3", player, count));
+			sb.setLine(line++, formatLine(" &8&l» &cJoueurs Restant ┃ &f{players_ingame}", player, count));
+			sb.setLine(line++, formatLine(" &8&l» &cGroupe de  ┃ &f{groupes}", player, count));
+			sb.setLine(line++, formatLine("&r&r", player, count));
+			sb.setLine(line++, formatLine("    &e&ngroupuhc.mine.fun", player, count));
+			sb.setLine(line++, formatLine("&r&r&8&m+------------------+", player, count));
 		}
 
 		/* TODO DELETE IF WORK
@@ -359,7 +372,6 @@ public class ScoreboardUtils {
 	}
 
 	public String formatLine(String lines, Player player, int count) {
-		pl.checkingScoreboardUpdate();
 		PlayerManager playerManager = pl.getPlayerManager(player.getUniqueId());
 		String newLine = lines;
 		Modes modes = pl.getGamemanager().getModes();

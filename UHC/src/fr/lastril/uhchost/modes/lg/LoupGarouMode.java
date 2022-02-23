@@ -81,10 +81,9 @@ public class LoupGarouMode extends Mode implements ModeCommand, RoleMode<LGRole>
             loupGarouSpecialEvent.runTask();
         }
         if(loupGarouManager.isRandomCouple()){
+            UhcHost.debug("§dPrepare random couple ! Starting task...");
             randomCoupleAnnonce = true;
-            Bukkit.getScheduler().runTaskLater(pl, () -> {
-                loupGarouManager.randomCouple();
-            }, 20*60*25);
+            Bukkit.getScheduler().runTaskLater(pl, loupGarouManager::randomCouple, 20*60*25);
         }
         if(pl.gameManager.getComposition().contains(Pretresse.class)){
             loupGarouManager.setRandomSeeRole(true);
@@ -93,25 +92,30 @@ public class LoupGarouMode extends Mode implements ModeCommand, RoleMode<LGRole>
     }
 
     public void chooseSolitaire(){
+        UhcHost.debug("§fChoosing solitaire LG...");
         List<PlayerManager> loupGarouPlayers = loupGarouManager.getLoupGarous().stream().filter(PlayerManager::isAlive).collect(Collectors.toList());
 
         int random = UhcHost.getRANDOM().nextInt(loupGarouPlayers.size());
         PlayerManager lgSolitaire = loupGarouPlayers.get(random);
+
         while (lgSolitaire.getRole() instanceof LoupGarouBlanc){
             random = UhcHost.getRANDOM().nextInt(loupGarouPlayers.size());
             lgSolitaire = loupGarouPlayers.get(random);
         }
+        UhcHost.debug("§fSolitaire is not Loup-Garou Blanc, go next...");
         WolfPlayerManager wolfPlayerManager = lgSolitaire.getWolfPlayerManager();
         lgSolitaire.setCamps(Camps.LOUP_GAROU_SOLITAIRE);
         wolfPlayerManager.setSolitaire(true);
         if(wolfPlayerManager.isInCouple())
             lgSolitaire.setCamps(Camps.COUPLE);
+
         Player player = lgSolitaire.getPlayer();
         if(player != null){
             player.setMaxHealth(player.getMaxHealth() + 2D*4D);
             TitleAPI.sendTitle(player, 20, 20, 20, "§cLoup-Garou Solitaire", "§4Vous êtes seul !");
             player.sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage() + "§cVous avez été choisis comme Loup-Garou Solitaire ! Vous devez désormais gagné seul ! Voici 4 coeurs supplémentaires pour vous aidé !");
         }
+        UhcHost.debug("§fSolitaire task finished ! Solitaire is " + lgSolitaire.getPlayerName());
     }
 
     public boolean isRandomCoupleAnnonce() {
@@ -256,8 +260,6 @@ public class LoupGarouMode extends Mode implements ModeCommand, RoleMode<LGRole>
             Camps winners = lastCamps.stream().findFirst().get();
             Bukkit.getConsoleSender().sendMessage("Founded 1 last camp (" + winners + ")");
             win(winners);
-        } else if (lastCamps.size() == 0) {
-
         }
 
     }
@@ -284,6 +286,7 @@ public class LoupGarouMode extends Mode implements ModeCommand, RoleMode<LGRole>
         Bukkit.getScheduler().runTaskLater(pl, () -> {
             loupGarouManager.setLgChatTime(false);
             pl.getPlayerManagerOnlines().forEach(playerManager -> {
+                playerManager.getWolfPlayerManager().setTalkInLGChat(false);
                 if(playerManager.hasRole() && playerManager.isAlive()){
                     if(playerManager.getRole() instanceof LGChatRole){
                         playerManager.getPlayer().sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage() + "§cLe chat des loups-garous est désactivé !");

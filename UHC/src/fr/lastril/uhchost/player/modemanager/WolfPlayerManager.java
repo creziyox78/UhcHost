@@ -14,7 +14,7 @@ public class WolfPlayerManager implements Comparable<WolfPlayerManager> {
 	private Camps camp, zizanied;
 	private UUID otherCouple;
 	
-	private boolean infected, salvation, transformed, voted, protect, solitaire, steal;
+	private boolean infected, salvation, transformed, voted, protect, solitaire, steal, talkInLGChat;
 	
 	private int votes;
 	
@@ -63,6 +63,14 @@ public class WolfPlayerManager implements Comparable<WolfPlayerManager> {
 	public void setInfected(boolean infected) {
 		this.infected = infected;
 		if(infected) setCamp(Camps.LOUP_GAROU);
+	}
+
+	public boolean isTalkInLGChat() {
+		return talkInLGChat;
+	}
+
+	public void setTalkInLGChat(boolean talkInLGChat) {
+		this.talkInLGChat = talkInLGChat;
 	}
 
 	public boolean isSalvation() {

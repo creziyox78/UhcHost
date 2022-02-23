@@ -28,10 +28,10 @@ public class EventExposed extends LoupGarouSpecialEvent {
         System.out.println("[Exposed - LG] Selected random player");
 
         exposedRole.add(randomPlayer.getRole());
-        main.getPlayerManagerAlives().forEach(playerManager -> {
+        main.getGamemanager().getModes().getMode().getModeManager().getPlayerManagersNotInCamps(randomPlayer.getRole().getCamp()).forEach(playerManager -> {
             if(playerManager.isAlive()){
                 Role role = playerManager.getRole();
-                if(!role.getRoleName().equalsIgnoreCase(randomPlayer.getRole().getRoleName()))
+                if(!role.getRoleName().equalsIgnoreCase(randomPlayer.getRole().getRoleName()) && !getRoles.contains(role))
                     getRoles.add(role);
             }
         });

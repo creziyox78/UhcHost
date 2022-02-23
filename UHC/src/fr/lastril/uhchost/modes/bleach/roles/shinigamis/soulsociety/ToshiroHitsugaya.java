@@ -60,7 +60,6 @@ public class ToshiroHitsugaya extends Role implements ShinigamiRole, RoleCommand
         /*for (Arrow arrow : this.arrowTrailList) {
             setParticles(arrow.getLocation());
         }*/
-        UhcHost.debug("Fire: " + player.getFireTicks());
         if(player.getFireTicks() > 0){
             if(player.hasPotionEffect(PotionEffectType.DAMAGE_RESISTANCE))
                 player.removePotionEffect(PotionEffectType.DAMAGE_RESISTANCE);

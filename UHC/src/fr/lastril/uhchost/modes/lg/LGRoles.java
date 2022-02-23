@@ -35,7 +35,7 @@ public enum LGRoles {
      * CAMP DU VILLAGE
      */
     ANCIEN(Ancien.class), //FINISHED
-    BUCHERON(Bucheron.class),
+    BUCHERON(Bucheron.class), //FINISHED
     CHAMAN(Chaman.class), //FINISHED
     CHASSEUR(Chasseur.class), //FINISHED
     CITOYEN(Citoyen.class),
@@ -45,8 +45,8 @@ public enum LGRoles {
     ENFANT_SAUVAGE(EnfantSauvage.class), //FINISHED
     ERMITE(Ermite.class), //FINISHED
     GARDE(Garde.class), //FINISHED
-    IDIOT_DU_VILLAGE(IdiotDuVillage.class), //TODO BE TESTED
-    IVROGNE_DU_VILLAGE(IvrogneDuVillage.class), //TODO BE TESTED
+    IDIOT_DU_VILLAGE(IdiotDuVillage.class), //FINISHED
+    IVROGNE_DU_VILLAGE(IvrogneDuVillage.class), //FINISHED
     MONTREUR_DOURS(MontreurDours.class), //FINISHED
     PETITE_FILLE(PetiteFille.class), //FINISHED
     PRETRESSE(Pretresse.class), //FINISHED

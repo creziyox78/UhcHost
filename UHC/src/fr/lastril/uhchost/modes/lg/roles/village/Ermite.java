@@ -83,34 +83,25 @@ public class Ermite extends Role implements LGRole, LGHideDeath {
     }
 
     private void giveManagerEffect(Player player, int nearPlayer){
-        if(nearPlayer == 0){
-            if(player.hasPotionEffect(PotionEffectType.SPEED))
-                player.removePotionEffect(PotionEffectType.SPEED);
-            player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 20*4, 0, false, false));
-            if(day){
-                if(player.hasPotionEffect(PotionEffectType.DAMAGE_RESISTANCE))
-                    player.removePotionEffect(PotionEffectType.DAMAGE_RESISTANCE);
-                player.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 20*4, 0, false, false));
-            } else {
-                if(player.hasPotionEffect(PotionEffectType.INCREASE_DAMAGE))
-                    player.removePotionEffect(PotionEffectType.INCREASE_DAMAGE);
-                player.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 20*4, 0, false, false));
-            }
-        }else if(nearPlayer >= 2){
-            if(player.hasPotionEffect(PotionEffectType.SPEED))
-                player.removePotionEffect(PotionEffectType.SPEED);
-            if(day){
-                if(player.hasPotionEffect(PotionEffectType.DAMAGE_RESISTANCE))
-                    player.removePotionEffect(PotionEffectType.DAMAGE_RESISTANCE);
-            } else {
-                if(player.hasPotionEffect(PotionEffectType.INCREASE_DAMAGE))
-                    player.removePotionEffect(PotionEffectType.INCREASE_DAMAGE);
-            }
-            if(nearPlayer >= 3){
-                if(player.hasPotionEffect(PotionEffectType.WEAKNESS))
-                    player.removePotionEffect(PotionEffectType.WEAKNESS);
-                player.addPotionEffect(new PotionEffect(PotionEffectType.WEAKNESS, 20*4, 0, false, false));
-            }
+         if(nearPlayer <= 3){
+             if(player.hasPotionEffect(PotionEffectType.SPEED))
+                 player.removePotionEffect(PotionEffectType.SPEED);
+             if(nearPlayer == 0){
+                 player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 20*4, 0, false, false));
+             }
+             if(day){
+                 if(player.hasPotionEffect(PotionEffectType.INCREASE_DAMAGE))
+                     player.removePotionEffect(PotionEffectType.INCREASE_DAMAGE);
+                 player.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 20*4, 0, false, false));
+             } else {
+                 if(player.hasPotionEffect(PotionEffectType.DAMAGE_RESISTANCE))
+                     player.removePotionEffect(PotionEffectType.DAMAGE_RESISTANCE);
+                 player.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 20*4, 0, false, false));
+             }
+        } else {
+            if(player.hasPotionEffect(PotionEffectType.WEAKNESS))
+                player.removePotionEffect(PotionEffectType.WEAKNESS);
+            player.addPotionEffect(new PotionEffect(PotionEffectType.WEAKNESS, 20*4, 0, false, false));
         }
     }
 

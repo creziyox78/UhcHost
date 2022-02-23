@@ -1,5 +1,5 @@
 name: Group-UHC
-version: 0.9.8
+version: 1.0.1
 authors: [Lastril]
 main: fr.lastril.uhchost.UhcHost
 commands:

@@ -62,18 +62,23 @@ public class CmdCouple implements ModeSubCommand {
                             PlayerManager targetManager1 = pl.getPlayerManager(target2.getUniqueId());
                             PlayerManager targetManager2 = pl.getPlayerManager(target1.getUniqueId());
                             if (targetManager1.isAlive() && targetManager1.hasRole() && targetManager2.isAlive() && targetManager2.hasRole()) {
+                                UhcHost.debug("§dFirst player choosen by cupidon: " + targetManager1.getPlayerName());
+                                UhcHost.debug("§dSecond player choosen by cupidon: " + targetManager1.getPlayerName());
                                 targetManager1.setCamps(Camps.COUPLE);
                                 targetManager2.getWolfPlayerManager().setOtherCouple(targetManager1.getUuid());
                                 targetManager1.getWolfPlayerManager().setOtherCouple(targetManager2.getUuid());
                                 targetManager2.setCamps(Camps.COUPLE);
+                                UhcHost.debug("§dGiving compass for members of couple...");
                                 pl.getInventoryUtils().giveItemSafely(targetManager1.getPlayer(), new CoupleBoussoleItem(pl).toItemStack());
                                 pl.getInventoryUtils().giveItemSafely(targetManager2.getPlayer(), new CoupleBoussoleItem(pl).toItemStack());
+                                UhcHost.debug("§dSending others player couple name !");
                                 target1.sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage() +
                                         "§dLe cupidon vient de vous lié d'amour avec " + target2.getName()
                                         + ". Si l'un d'entre vous vient à mourir, l'autre mourra alors par amour pour l'autre.");
                                 target2.sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage() +
                                         "§dLe cupidon vient de vous lié d'amour avec " + target1.getName()
                                         + ". Si l'un d'entre vous vient à mourir, l'autre mourra alors par amour pour l'autre.");
+                                UhcHost.debug("§dCupidon send message !");
                                 player.sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage() + "§aVos flèches ont atteints le coeur de " + targetName1 + " et " + targetName2 + ". Désormais, si l'un d'eux viennent à mourir, l'autre mourra également.");
                                 cupidon.setUsedPower(true);
                             }
