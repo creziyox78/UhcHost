@@ -15,7 +15,7 @@ public enum LGRoles {
      */
     LG(LoupGarou.class), //FINISHED
     INFECT(InfectPereDesLoups.class), //FINISHED
-    LG_AMNESIQUE(LoupGarouAmnesique.class), //TODO BE TESTED
+    LG_AMNESIQUE(LoupGarouAmnesique.class),
     LG_ALPHA(LoupGarouAlpha.class), //FINISHED
     LG_FEUTRE(LoupGarouFeutre.class), //FINISHED
     LG_PERFIDE(LoupGarouPerfide.class), //FINISHED
@@ -75,7 +75,7 @@ public enum LGRoles {
     ANGE(Ange.class), //FINISHED
     LGB(LoupGarouBlanc.class), //FINISHED
     ASSASSIN(Assassin.class), //FINISHED
-    CHASSEUR_DE_PRIME(ChasseurDePrime.class), //TODO BE TESTED
+    CHASSEUR_DE_PRIME(ChasseurDePrime.class), //FINISHED
     ;
 
 

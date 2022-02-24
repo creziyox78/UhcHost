@@ -54,26 +54,8 @@ public class ScoreboardUtils {
 			sb = this.sbs.get(player.getUniqueId());
 			sb.setObjectiveName(this.name);
 
-			/*if (sb.getObjectiveName().contains(this.name + this.teamsOf)
-					&& this.pl.teamUtils.getPlayersPerTeams() == 1) {
-				sb.setObjectiveName(this.name + this.solo);
-			} else if (sb.getObjectiveName().contains(this.name + this.teamsOf)
-					&& this.pl.teamUtils.getPlayersPerTeams() != this.lastTo) {
-				sb.setObjectiveName(this.name + this.teamsOf + this.pl.teamUtils.getPlayersPerTeams());
-				this.lastTo = this.pl.teamUtils.getPlayersPerTeams();
-			} else if (sb.getObjectiveName().equalsIgnoreCase(this.name + this.solo)
-					&& this.pl.teamUtils.getPlayersPerTeams() != 1) {
-				sb.setObjectiveName(this.name + this.teamsOf + this.pl.teamUtils.getPlayersPerTeams());
-				this.lastTo = this.pl.teamUtils.getPlayersPerTeams();
-			}*/
-
 		} else {
 			sb = new ScoreboardSign(player, this.name);
-			/*if (this.pl.teamUtils.getPlayersPerTeams() != 1) {
-				sb = new ScoreboardSign(player, this.name + this.teamsOf + this.pl.teamUtils.getPlayersPerTeams());
-			} else {
-				sb = new ScoreboardSign(player, this.name + this.solo);
-			}*/
 			sb.create();
 			this.sbs.put(player.getUniqueId(), sb);
 		}
@@ -87,47 +69,6 @@ public class ScoreboardUtils {
 		sb.setLine(line++, formatLine("&r&r", player, count));
 		sb.setLine(line++, formatLine("     &e&ngroupuhc.mine.fun", player, count));
 		sb.setLine(line++, formatLine("&8&m+-------------------+", player, count));
-		/*File file = new File(pl.getDataFolder() + "/scoreboard.yml");
-		YamlConfiguration lgYaml = YamlConfiguration.loadConfiguration(file);
-
-		for(String lines : lgYaml.getStringList("status.lobby")){
-			sb.setLine(line++, formatLine(lines, player, count));
-		}*/
-		//TODO DELETE IF WORK
-		/*
-
-		sb.setLine(line++, "§1");
-		sb.setLine(line++, "§bMode: " + pl.gameManager.getModes().getName());
-		if (this.pl.getPlayerManagerAlives().size() < this.pl.gameManager.getPlayersBeforeStart()) {
-			sb.setLine(line++, this.waitForPlayers);
-		} else {
-			if(pl.getConfig().getBoolean("scoreboard.startIn"))
-				sb.setLine(line++, this.startIn + count);
-		}
-		if(pl.getConfig().getBoolean("scoreboard.host")){
-			sb.setLine(line++, "§2");
-			if (this.pl.gameManager.getHost() != null)
-				sb.setLine(line++, this.host + this.pl.gameManager.getHost().getName());
-		}
-
-		if(pl.getConfig().getBoolean("scoreboard.team")){
-			if (this.pl.teamUtils.getPlayersPerTeams() != 1) {
-				Team t = this.pl.teamUtils.getTeam(player);
-				sb.setLine(line++, this.team + ((t == null) ? "-"
-						: (t.getName() + this.playersInTeam + t.getEntries().size() + this.playersInTeamEnd)));
-				sb.setLine(line++, "§3");
-			}
-		}
-
-		if(pl.getConfig().getBoolean("scoreboard.players"))
-			sb.setLine(line++, this.players + Bukkit.getOnlinePlayers().size() + "/" + this.pl.gameManager.getMaxPlayers());
-
-		sb.setLine(line++, "§8§m                   §r");
-		sb.setLine(line++, this.credit);
-		if(pl.getConfig().getBoolean("scoreboard.ip"))
-			sb.setLine(line++, this.ip);
-
-		 */
 		this.sbs.replace(player.getUniqueId(), sb);
 	}
 
@@ -228,142 +169,6 @@ public class ScoreboardUtils {
 			sb.setLine(line++, formatLine("    &e&ngroupuhc.mine.fun", player, count));
 			sb.setLine(line++, formatLine("&r&r&8&m+------------------+", player, count));
 		}
-
-		/* TODO DELETE IF WORK
-		int line = 0;
-		if(pl.getConfig().getBoolean("scoreboard.host")){
-			if (this.pl.gameManager.getHost() != null)
-				sb.setLine(line++, this.host + this.pl.gameManager.getHost().getName());
-
-			sb.setLine(line++, "§r");
-		}
-
-		File file = new File(pl.getDataFolder() + "/scoreboard.yml");
-		YamlConfiguration lgYaml = YamlConfiguration.loadConfiguration(file);
-
-		for(String lines : lgYaml.getStringList("status.started.gamemode."
-				+ pl.gameManager.getModes().name().toLowerCase())){
-			sb.setLine(line++, formatLine(lines, player, count));
-		}
-
-
-		if(pl.getConfig().getBoolean("scoreboard.spawn")){
-			Location loc = this.pl.worldUtils.getCenter().getWorld().getHighestBlockAt(
-					this.pl.worldUtils.getCenter().getBlockX(), this.pl.worldUtils.getCenter().getBlockZ()).getLocation();
-			loc.setY(player.getLocation().getY());
-			if(player.getWorld() == loc.getWorld())
-				sb.setLine(line++, this.spawn + getDirectionOf(player.getLocation(), loc) + " (" + (int) player.getLocation().distance(loc.add(0, player.getLocation().getY(), 0)) + ")");
-			else
-				sb.setLine(line++, this.spawn + "?");
-		}
-
-		if(pl.getConfig().getBoolean("scoreboard.players")){
-			sb.setLine(line++, this.players + this.pl.getPlayerManagerAlives().size());
-		}
-		if(pl.getConfig().getBoolean("scoreboard.team")){
-			if (this.pl.teamUtils.getPlayersPerTeams() != 1)
-				sb.setLine(line++,
-						this.team + ((this.pl.teamUtils.getTeam(player) == null) ? "-"
-								: (this.pl.teamUtils.getTeam(player).getName() + this.playersInTeam
-								+ this.pl.teamUtils.getTeam(player).getEntries().size() + this.playersInTeamEnd)));
-		}
-
-
-		if(pl.getConfig().getBoolean("scoreboard.time")){
-			sb.setLine(line++, "§r");
-			if (count / 60 < 10 && count % 60 < 10) {
-				sb.setLine(line++, this.time + "0" + (count / 60) + ":0" + (count % 60));
-			} else if (count / 60 < 10) {
-				sb.setLine(line++, this.time + "0" + (count / 60) + ":" + (count % 60));
-			} else if (count % 60 < 10) {
-				sb.setLine(line++, this.time + (count / 60) + ":0" + (count % 60));
-			} else {
-				sb.setLine(line++, this.time + (count / 60) + ":" + (count % 60));
-			}
-		}
-
-		if(pl.getConfig().getBoolean("scoreboard.roles")){
-			if (this.pl.gameManager.getModes().getMode() instanceof RoleAnnounceMode) {
-				RoleAnnounceMode roleAnnounceMode = (RoleAnnounceMode) this.pl.gameManager.getModes().getMode();
-				int roleTime = roleAnnounceMode.getRoleAnnouncement();
-
-				if(!roleAnnounceMode.isRoleAnnonced(roleTime)){
-					if (roleTime / 60 < 10 && roleTime % 60 < 10) {
-						sb.setLine(line++, this.roles + "0" + (roleTime / 60) + ":0" + (roleTime % 60));
-					} else if (roleTime / 60 < 10) {
-						sb.setLine(line++, this.roles + "0" + (roleTime / 60) + ":" + (roleTime % 60));
-					} else if (roleTime % 60 < 10) {
-						sb.setLine(line++, this.roles + (roleTime / 60) + ":0" + (roleTime % 60));
-					} else {
-						sb.setLine(line++, this.roles + (roleTime / 60) + ":" + (roleTime % 60));
-					}
-				} else {
-					sb.setLine(line++, this.roles + this.actived);
-				}
-			}
-		}
-
-		if(pl.getConfig().getBoolean("scoreboard.pvp")){
-			if (!this.pl.gameManager.isPvp()) {
-				pvpTime = this.pl.taskManager.getPvpTime() - count;
-				if (pvpTime / 60 < 10 && pvpTime % 60 < 10) {
-					sb.setLine(line++, this.pvp + "0" + (pvpTime / 60) + ":0" + (pvpTime % 60));
-				} else if (pvpTime / 60 < 10) {
-					sb.setLine(line++, this.pvp + "0" + (pvpTime / 60) + ":" + (pvpTime % 60));
-				} else if (pvpTime % 60 < 10) {
-					sb.setLine(line++, this.pvp + (pvpTime / 60) + ":0" + (pvpTime % 60));
-				} else {
-					sb.setLine(line++, this.pvp + (pvpTime / 60) + ":" + (pvpTime % 60));
-				}
-			} else {
-				sb.setLine(line++, this.pvp + this.actived);
-			}
-		}
-
-
-		/*if (this.pl.gameManager.isFightTeleport()) {
-			int teleportTime = this.pl.taskManager.getTeleportTime() - count;
-			if (teleportTime / 60 < 10 && teleportTime % 60 < 10) {
-				sb.setLine(line++, this.teleport + "0" + (teleportTime / 60) + ":0" + (teleportTime % 60));
-			} else if (teleportTime / 60 < 10) {
-				sb.setLine(line++, this.teleport + "0" + (teleportTime / 60) + ":" + (teleportTime % 60));
-			} else if (teleportTime % 60 < 10) {
-				sb.setLine(line++, this.teleport + (teleportTime / 60) + ":0" + (teleportTime % 60));
-			} else {
-				sb.setLine(line++, this.teleport + (teleportTime / 60) + ":" + (teleportTime % 60));
-			}
-		} else {
-			sb.removeLine(line++);
-		}
-		if(pl.getConfig().getBoolean("scoreboard.border")){
-			if (!this.pl.gameManager.isBorder()) {
-				int b = this.pl.taskManager.getBorderTime() - count;
-				if (b / 60 < 10 && b % 60 < 10) {
-					sb.setLine(line++, this.border + "0" + (b / 60) + ":0" + (b % 60));
-				} else if (b / 60 < 10) {
-					sb.setLine(line++, this.border + "0" + (b / 60) + ":" + (b % 60));
-				} else if (b % 60 < 10) {
-					sb.setLine(line++, this.border + (b / 60) + ":0" + (b % 60));
-				} else {
-					sb.setLine(line++, this.border + (b / 60) + ":" + (b % 60));
-				}
-			} else {
-				sb.setLine(line++, this.border + this.activedFem);
-			}
-		}
-
-
-		if(pl.getConfig().getBoolean("scoreboard.border")){
-			sb.setLine(line++, "§r  ");
-			sb.setLine(line++, this.border + (int) (this.pl.worldUtils.getWorld().getWorldBorder().getSize() / 2.0D) + "/-"
-					+ (int) (this.pl.worldUtils.getWorld().getWorldBorder().getSize() / 2.0D));
-		}
-
-		sb.setLine(line++, "§8§m                   §r");
-		sb.setLine(line++, this.credit);
-		if(pl.getConfig().getBoolean("scoreboard.ip"))
-			sb.setLine(line++, this.ip);
-		*/
 		this.sbs.replace(player.getUniqueId(), sb);
 	}
 
