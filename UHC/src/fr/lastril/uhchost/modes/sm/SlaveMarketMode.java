@@ -24,10 +24,7 @@ import fr.lastril.uhchost.tools.API.BungeeAPI;
 import fr.lastril.uhchost.tools.API.inventory.crafter.IQuickInventory;
 import fr.lastril.uhchost.tools.API.items.crafter.QuickItem;
 import fr.lastril.uhchost.world.WorldUtils;
-import org.bukkit.Bukkit;
-import org.bukkit.GameMode;
-import org.bukkit.Material;
-import org.bukkit.OfflinePlayer;
+import org.bukkit.*;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scoreboard.Team;
@@ -45,6 +42,9 @@ public class SlaveMarketMode extends Mode implements ModeConfig, ModeCommand {
         super(Modes.SM);
         this.main = UhcHost.getInstance();
         this.slaveMarketConfig = new SlaveMarketConfig();
+        main.getServer().createWorld(WorldCreator.name("sm_world"));
+        Bukkit.getWorld("sm_world").setGameRuleValue("doMobSpawning", "false");
+        Bukkit.getWorld("sm_world").setGameRuleValue("showDeathMessages", "false");
         Bukkit.getScheduler().runTaskTimer(main, new MarketTask(main, this), 20, 20);
     }
 

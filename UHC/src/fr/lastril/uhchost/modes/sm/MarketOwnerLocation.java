@@ -6,15 +6,15 @@ import org.bukkit.Location;
 
 public enum MarketOwnerLocation {
 
-    LOCATION_RED(new Location(Bukkit.getWorld("lobby"), 1264.5, 65, 405.5, 40F, 2F), TeamUtils.Teams.RED),
-    LOCATION_YELLOW(new Location(Bukkit.getWorld("lobby"), 1249.5, 65.0, 400.5, 0.0F, 0.0F), TeamUtils.Teams.YELLOW),
-    LOCATION_BLUE(new Location(Bukkit.getWorld("lobby"), 1234.5, 65.0, 405.5, -36.0F, 5.0F), TeamUtils.Teams.BLUE),
-    LOCATION_GREEN(new Location(Bukkit.getWorld("lobby"), 1225.5, 65, 417.5, -70.0F, 5.0F), TeamUtils.Teams.GREEN),
-    LOCATION_MAGENTA(new Location(Bukkit.getWorld("lobby"), 1225.5, 65, 433.5, -110.0F, 7.0F), TeamUtils.Teams.MAGENTA),
-    LOCATION_ORANGE(new Location(Bukkit.getWorld("lobby"), 1234.5, 65, 445.5, -142.0F, 7.0F), TeamUtils.Teams.ORANGE),
-    LOCATION_PINK(new Location(Bukkit.getWorld("lobby"), 1249.5, 65, 450.5, 180.0F, 5F), TeamUtils.Teams.PINK),
-    LOCATION_LIGHT_BLUE(new Location(Bukkit.getWorld("lobby"), 1264.5, 65, 445.5, 142.0F, 6.5F), TeamUtils.Teams.LIGHT_BLUE),
-    LOCATION_LIGHT_GREEN(new Location(Bukkit.getWorld("lobby"), 1273.5, 65.0, 433.5, 110.0F, 8.0F), TeamUtils.Teams.LIGHT_GREEN),
+    LOCATION_RED(new Location(Bukkit.getWorld("sm_world"), -23.5, 72, 8.5, -180F, 5F), TeamUtils.Teams.RED),
+    LOCATION_BLUE(new Location(Bukkit.getWorld("sm_world"), -14.5, 72, 20.5, -142F, 3.0F), TeamUtils.Teams.BLUE),
+    LOCATION_GREEN(new Location(Bukkit.getWorld("sm_world"), 0.5, 70, 25.5, -178.0F, 2.5F), TeamUtils.Teams.GREEN),
+    LOCATION_YELLOW(new Location(Bukkit.getWorld("sm_world"), -15.5, 70, 21.5, 145F, 1.0F), TeamUtils.Teams.YELLOW),
+    LOCATION_MAGENTA(new Location(Bukkit.getWorld("sm_world"), 24.5, 72, 8.5, 107.8F, 4.0F), TeamUtils.Teams.MAGENTA),
+    LOCATION_ORANGE(new Location(Bukkit.getWorld("sm_world"), 24.5, 72, -7.5, 71.3F, 3.6F), TeamUtils.Teams.ORANGE),
+    LOCATION_PINK(new Location(Bukkit.getWorld("sm_world"), 15.5, 70, -19.5, 38.6F, -1F), TeamUtils.Teams.PINK),
+    LOCATION_LIGHT_BLUE(new Location(Bukkit.getWorld("sm_world"), 0.5, 70, -24.5, 0F, 3.5F), TeamUtils.Teams.LIGHT_BLUE),
+    LOCATION_LIGHT_GREEN(new Location(Bukkit.getWorld("sm_world"), -14.5, 70, -19.5, -35.8F, 2.2F), TeamUtils.Teams.LIGHT_GREEN),
     ;
 
     private final Location ownerLocation;

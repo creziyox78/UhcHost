@@ -84,7 +84,10 @@ public class MarketPlayerManager {
     public void resetTeam(){
         TeamUtils teamUtils = UhcHost.getInstance().teamUtils;
         if(playerManager.getPlayer() != null){
-            teamUtils.unsetTeam(playerManager.getPlayer(), teamUtils.getTeam(playerManager.getPlayer()));
+            if(teamUtils.getTeam(playerManager.getPlayer())!=null){
+                teamUtils.unsetTeam(playerManager.getPlayer(), teamUtils.getTeam(playerManager.getPlayer()));
+            }
+
         }
     }
 

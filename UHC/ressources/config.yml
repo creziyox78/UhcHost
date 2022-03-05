@@ -1,4 +1,4 @@
 bungeecord: false
 server-redirection: "lobby"
-world_lobby: "lobby"
+world_lobby: "lobby_world"
 lang: FRENCH

@@ -38,7 +38,7 @@ public class MarketTask extends BukkitRunnable {
                         playerManager.getPlayer().teleport(marketPlayerManager.getMarketOwnerLocation().getOwnerLocation());
                         marketPlayerManager.setDiamonds(slaveMarketMode.getSlaveMarketConfig().getDiamondsPerOwners());
                     } else {
-                        playerManager.getPlayer().teleport(new Location(Bukkit.getWorld("lobby"), 1238.5, 74, 425.5, -90.0F, 0.0F));
+                        playerManager.getPlayer().teleport(new Location(Bukkit.getWorld("sm_world"), 0.5, 82, -11.5, 0, 0.0F));
                     }
                     Bukkit.getOnlinePlayers().forEach(player1 -> {
                         playerManager.getPlayer().hidePlayer(player1);
@@ -63,7 +63,7 @@ public class MarketTask extends BukkitRunnable {
             if(slaveMarketMode.getCooldown() == 0){
                 if(!slaveMarketMode.allPlayersIsPicked()){
                     slaveMarketMode.setBuyedPlayer(slaveMarketMode.getRandomPlayer());
-                    slaveMarketMode.getBuyedPlayer().getPlayer().teleport(new Location(Bukkit.getWorld("lobby"), 1249.5, 63, 425.0, -90.0F, 0.0F));
+                    slaveMarketMode.getBuyedPlayer().getPlayer().teleport(new Location(Bukkit.getWorld("sm_world"), 0.5, 71, 0.5, 0, 0.0F));
                     slaveMarketMode.setTimeBuy(slaveMarketMode.getSlaveMarketConfig().getTimePerBuy());
                     slaveMarketMode.setCooldown(5);
                     Bukkit.broadcastMessage(Messages.SLAVE_MARKET_PREFIX.getMessage() + "§aEnchérisez des§b Diamants§a sur§e " + slaveMarketMode.getBuyedPlayer().getPlayerName() + "§a avec la commande §c/sm buy (nombre)§a.");
