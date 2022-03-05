@@ -153,7 +153,7 @@ public class TaskManager {
 					if(episodeTimer == pl.gameManager.episodeEvery){
 						pl.gameManager.episode++;
 						episodeTimer = 0;
-						Bukkit.broadcastMessage("Début de l'épisode " + pl.gameManager.episode);
+						Bukkit.broadcastMessage("§bDébut de l'épisode " + pl.gameManager.episode);
 						for (PlayerManager playerManager : pl.getPlayerManagerAlives()) {
 							if (playerManager.getPlayer() != null) {
 								Player player = playerManager.getPlayer();
@@ -168,7 +168,7 @@ public class TaskManager {
 
 				long time = Bukkit.getWorld("game").getTime();
 
-				if (time >= 13000) {
+				if (time >= 12000) {
 					if (WorldState.isWorldState(WorldState.JOUR)) {
 						WorldState.setWorldState(WorldState.NUIT);
 						mode.onNight();

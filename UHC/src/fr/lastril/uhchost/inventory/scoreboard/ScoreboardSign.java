@@ -1,4 +1,4 @@
-package fr.lastril.uhchost.scoreboard;
+package fr.lastril.uhchost.inventory.scoreboard;
 
 import net.minecraft.server.v1_8_R3.*;
 import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;

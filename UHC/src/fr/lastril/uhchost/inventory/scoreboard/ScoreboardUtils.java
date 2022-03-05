@@ -1,4 +1,4 @@
-package fr.lastril.uhchost.scoreboard;
+package fr.lastril.uhchost.inventory.scoreboard;
 
 import fr.lastril.uhchost.UhcHost;
 import fr.lastril.uhchost.enums.WorldState;
@@ -10,16 +10,13 @@ import fr.lastril.uhchost.modes.tpg.TaupeGunMode;
 import fr.lastril.uhchost.player.PlayerManager;
 import fr.lastril.uhchost.tools.API.ClassUtils;
 import fr.lastril.uhchost.tools.API.FormatTime;
-import fr.lastril.uhchost.tools.I18n;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
-import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.scoreboard.Objective;
 import org.bukkit.scoreboard.Scoreboard;
 import org.bukkit.scoreboard.Team;
 
-import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -67,7 +64,7 @@ public class ScoreboardUtils {
 		sb.setLine(line++, formatLine("&5", player, count));
 		sb.setLine(line++, formatLine("   &f&l✔ &a&lJoueurs &f┃ &a&l{waitting_players}&7/&a&l{max_waitting_players}", player, count));
 		sb.setLine(line++, formatLine("&r&r", player, count));
-		sb.setLine(line++, formatLine("     &e&ngroupuhc.mine.fun", player, count));
+		sb.setLine(line++, formatLine("       &6&nmc.okenzai.com", player, count));
 		sb.setLine(line++, formatLine("&8&m+-------------------+", player, count));
 		this.sbs.replace(player.getUniqueId(), sb);
 	}
@@ -91,7 +88,7 @@ public class ScoreboardUtils {
 		sb.setLine(line++, formatLine("&5", player, count));
 		sb.setLine(line++, formatLine("   &f&l✔ &a&lJoueurs &f┃ &a&l{waitting_players}&7/&a&l{max_waitting_players}", player, count));
 		sb.setLine(line++, formatLine("&r&r", player, count));
-		sb.setLine(line++, formatLine("     &e&ngroupuhc.mine.fun", player, count));
+		sb.setLine(line++, formatLine("       &6&nmc.okenzai.com", player, count));
 		sb.setLine(line++, formatLine("&8&m+-------------------+", player, count));
 		/*File file = new File(pl.getDataFolder() + "/scoreboard.yml");
 		YamlConfiguration lgYaml = YamlConfiguration.loadConfiguration(file);
@@ -126,7 +123,7 @@ public class ScoreboardUtils {
 			sb.setLine(line++, formatLine(" &8&l» &c{players_ingame} &r&cJoueurs", player, count));
 			sb.setLine(line++, formatLine(" &8&l» &cGroupe de &c{groupes}", player, count));
 			sb.setLine(line++, formatLine("&1", player, count));
-			sb.setLine(line++, formatLine("    &e&ngroupuhc.mine.fun", player, count));
+			sb.setLine(line++, formatLine("       &6&nmc.okenzai.com", player, count));
 			sb.setLine(line++, formatLine("&r&r&7&m+------------------+", player, count));
 		} else if(pl.getGamemanager().getModes() == Modes.TAUPEGUN){
 			sb.setLine(line++, formatLine("&r&8&m⊱------------------⊰", player, count));
@@ -139,7 +136,7 @@ public class ScoreboardUtils {
 			sb.setLine(line++, formatLine(" &8&l» &cJoueurs ┃ &r{players_ingame}", player, count));
 			sb.setLine(line++, formatLine(" &8&l» &cKills ┃ &r{player_kills}", player, count));
 			sb.setLine(line++, formatLine("&r", player, count));
-			sb.setLine(line++, formatLine("    &e&ngroupuhc.mine.fun", player, count));
+			sb.setLine(line++, formatLine("       &6&nmc.okenzai.com", player, count));
 			sb.setLine(line++, formatLine("&r&r&8&m⊱------------------⊰", player, count));
 		} else if(pl.getGamemanager().getModes() == Modes.CLASSIC){
 			sb.setLine(line++, formatLine("&r&8&m+------------------+", player, count));
@@ -153,7 +150,7 @@ public class ScoreboardUtils {
 			sb.setLine(line++, formatLine(" &8&l» &aTaille ┃ &r±{border}", player, count));
 			sb.setLine(line++, formatLine(" &8&l» &aCentre ┃ &r{spawn_direction}", player, count));
 			sb.setLine(line++, formatLine("&d", player, count));
-			sb.setLine(line++, formatLine("    &e&ngroupuhc.mine.fun", player, count));
+			sb.setLine(line++, formatLine("       &6&nmc.okenzai.com", player, count));
 			sb.setLine(line++, formatLine("&r&r&8&m+------------------+", player, count));
 		}  else if(pl.getGamemanager().getModes() == Modes.BLEACH){
 			sb.setLine(line++, formatLine("&r&8&m+------------------+", player, count));
@@ -166,7 +163,7 @@ public class ScoreboardUtils {
 			sb.setLine(line++, formatLine(" &8&l» &cJoueurs Restant ┃ &f{players_ingame}", player, count));
 			sb.setLine(line++, formatLine(" &8&l» &cGroupe de  ┃ &f{groupes}", player, count));
 			sb.setLine(line++, formatLine("&r&r", player, count));
-			sb.setLine(line++, formatLine("    &e&ngroupuhc.mine.fun", player, count));
+			sb.setLine(line++, formatLine("       &6&nmc.okenzai.com", player, count));
 			sb.setLine(line++, formatLine("&r&r&8&m+------------------+", player, count));
 		}
 		this.sbs.replace(player.getUniqueId(), sb);

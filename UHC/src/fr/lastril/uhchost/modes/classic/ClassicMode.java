@@ -1,30 +1,28 @@
 package fr.lastril.uhchost.modes.classic;
 
 import fr.lastril.uhchost.UhcHost;
+import fr.lastril.uhchost.enums.Messages;
 import fr.lastril.uhchost.modes.Mode;
 import fr.lastril.uhchost.modes.ModeManager;
 import fr.lastril.uhchost.modes.Modes;
-import fr.lastril.uhchost.modes.roles.Camps;
 import fr.lastril.uhchost.player.PlayerManager;
 import fr.lastril.uhchost.scenario.Scenarios;
 import fr.lastril.uhchost.tools.API.BungeeAPI;
-import fr.lastril.uhchost.tools.API.inventory.crafter.IQuickInventory;
 import fr.lastril.uhchost.tools.I18n;
+import fr.lastril.uhchost.world.WorldUtils;
 import org.bukkit.*;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scoreboard.Team;
 
-import java.util.List;
-
 public class ClassicMode extends Mode {
 
-    private final UhcHost pl;
+    private final UhcHost main;
 
     public ClassicMode() {
         super(Modes.CLASSIC);
-        this.pl = UhcHost.getInstance();
+        this.main = UhcHost.getInstance();
     }
 
     @Override
@@ -54,39 +52,65 @@ public class ClassicMode extends Mode {
 
     @Override
     public void onDeath(OfflinePlayer player, Player killer) {
-        if(player.isOnline()){
-            Player onlinePlayer = player.getPlayer();
-            Location deathLocation = onlinePlayer.getLocation().clone();
-            kill(player, onlinePlayer.getInventory().getContents(), onlinePlayer.getInventory().getArmorContents(), killer, deathLocation);
-        }
-
-    }
-
-    public void kill(OfflinePlayer player, ItemStack[] items, ItemStack[] armors, Player killer,
-                     Location deathLocation) {
-        PlayerManager playerManager = pl.getPlayerManager(player.getUniqueId());
-        playerManager.setAlive(false);
-
-        playerManager.setItems(playerManager.getPlayer().getInventory().getContents());
-        playerManager.setArmors(playerManager.getPlayer().getInventory().getArmorContents());
-        /* DROPING INVENTORY */
-        System.out.println("Droping inventory !");
-        pl.getInventoryUtils().dropInventory(deathLocation, items, armors);
-
-        System.out.println("Set spectator !");
-        if (playerManager.getPlayer() != null) {
-            Player onlinePlayer = playerManager.getPlayer();
-            onlinePlayer.setGameMode(GameMode.SPECTATOR);
-            onlinePlayer.getInventory().clear();
-        }
-
-
-        System.out.println("On Kill Role !");
         if(killer != null){
-            PlayerManager playerManagerKiller = pl.getPlayerManager(killer.getUniqueId());
-            playerManagerKiller.addKill(player.getUniqueId());
+            PlayerManager killerManager = main.getPlayerManager(killer.getUniqueId());
+            killerManager.addKill(player.getUniqueId());
         }
-        checkWin();
+        for(Player players : Bukkit.getOnlinePlayers()){
+            if(player.getPlayer() != null && player.isOnline()){
+                WorldUtils.spawnFakeLightning(players, player.getPlayer().getLocation(), true);
+            }
+
+        }
+
+        PlayerManager joueur = main.getPlayerManager(player.getUniqueId());
+        if(joueur != null){
+            Player onlinePlayer = player.getPlayer();
+            if(player.isOnline()){
+                joueur.setDeathLocation(onlinePlayer .getLocation());
+                joueur.setItems(onlinePlayer .getInventory().getContents());
+                joueur.setArmors(onlinePlayer.getInventory().getArmorContents());
+            }
+
+            joueur.setAlive(false);
+            if(main.teamUtils.getTeam(player.getPlayer()) != null){
+                Bukkit.broadcastMessage(Messages.PREFIX_WITH_ARROW.getMessage() + main.teamUtils.getTeam(player.getPlayer()).getPrefix() + player.getName() + " §cest mort.");
+            } else if(main.teamUtils.getTaupes(player.getPlayer()) != null){
+                if(main.teamUtils.getTaupes(player.getPlayer()).getTeam() != null){
+                    Bukkit.broadcastMessage(Messages.PREFIX_WITH_ARROW.getMessage() + main.teamUtils.getTaupes(player.getPlayer()).getTeam().getPrefix() + player.getName() + " §cest mort.");
+                }
+            } else {
+                Bukkit.broadcastMessage(Messages.PREFIX_WITH_ARROW.getMessage() + player.getName() + " §cest mort.");
+            }
+
+
+            new BukkitRunnable() {
+
+                @Override
+                public void run() {
+                    onlinePlayer.spigot().respawn();
+                }
+            }.runTaskLater(main, 5);
+
+            new BukkitRunnable() {
+
+                @Override
+                public void run() {
+                    onlinePlayer.setGameMode(GameMode.ADVENTURE);
+                    onlinePlayer.setGameMode(GameMode.SPECTATOR);
+                    onlinePlayer.teleport(joueur.getDeathLocation());
+                }
+            }.runTaskLater(main, 10);
+            /* DROPING INVENTORY */
+            System.out.println("Droping inventory !");
+            main.getInventoryUtils().dropInventory(joueur.getDeathLocation(), joueur.getItems(), joueur.getArmors());
+            checkWin();
+        }
+
+
+
+
+
     }
 
     @Override
@@ -106,15 +130,15 @@ public class ClassicMode extends Mode {
 
     @Override
     public void checkWin() {
-        if (this.pl.teamUtils.getPlayersPerTeams() != 1 && !this.pl.gameManager.hasScenario(Scenarios.ONLYONEWINNER.getScenario())) {
-            if (this.pl.scoreboardUtil.getBoard().getTeams().size() == 1) {
+        if (this.main.teamUtils.getPlayersPerTeams() != 1 && !this.main.gameManager.hasScenario(Scenarios.ONLYONEWINNER.getScenario())) {
+            if (this.main.scoreboardUtil.getBoard().getTeams().size() == 1) {
                 Team winner = null;
-                for (Team team : this.pl.scoreboardUtil.getBoard().getTeams())
+                for (Team team : this.main.scoreboardUtil.getBoard().getTeams())
                     winner = team;
                 win(winner);
             }
-        } else if (this.pl.getPlayerManagerAlives().size() == 1) {
-            Player winner = this.pl.getPlayerManagerAlives().get(0).getPlayer();
+        } else if (this.main.getPlayerManagerAlives().size() == 1) {
+            Player winner = this.main.getPlayerManagerAlives().get(0).getPlayer();
             win(winner);
         }
     }
@@ -135,7 +159,7 @@ public class ClassicMode extends Mode {
     }
 
     public void win(Player winner) {
-        this.pl.gameManager.setDamage(false);
+        this.main.gameManager.setDamage(false);
         Bukkit.broadcastMessage(I18n.tl("endGame"));
         if(winner != null){
             Bukkit.broadcastMessage(I18n.tl("winOfPlayer", winner.getName()));
@@ -148,12 +172,12 @@ public class ClassicMode extends Mode {
 
         Bukkit.broadcastMessage(I18n.tl("rebootSoon"));
 
-        Bukkit.getScheduler().runTaskLater(this.pl, () -> {
-            if (this.pl.getConfig().getBoolean("bungeecord")) {
-                if (this.pl.getConfig().getString("server-redirection") != null && !this.pl
+        Bukkit.getScheduler().runTaskLater(this.main, () -> {
+            if (this.main.getConfig().getBoolean("bungeecord")) {
+                if (this.main.getConfig().getString("server-redirection") != null && !this.main
                         .getConfig().getString("server-redirection").equalsIgnoreCase("null"))
                     Bukkit.getOnlinePlayers().forEach(p -> BungeeAPI.ConnectBungeeServer(p,
-                            this.pl.getConfig().getString("server-redirection")));
+                            this.main.getConfig().getString("server-redirection")));
             }
 
             Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "restart");
@@ -161,16 +185,16 @@ public class ClassicMode extends Mode {
     }
 
     public void win(Team winner) {
-        this.pl.gameManager.setDamage(false);
+        this.main.gameManager.setDamage(false);
         Bukkit.broadcastMessage(I18n.tl("endGame"));
         Bukkit.broadcastMessage(I18n.tl("winOfTeam", winner.getName()));
         Bukkit.broadcastMessage(I18n.tl("endGame"));
-        Bukkit.getScheduler().runTaskLater(this.pl, () -> {
-            if (this.pl.getConfig().getBoolean("bungeecord")) {
-                if (this.pl.getConfig().getString("server-redirection") != null && !this.pl
+        Bukkit.getScheduler().runTaskLater(this.main, () -> {
+            if (this.main.getConfig().getBoolean("bungeecord")) {
+                if (this.main.getConfig().getString("server-redirection") != null && !this.main
                         .getConfig().getString("server-redirection").equalsIgnoreCase("null"))
                     Bukkit.getOnlinePlayers().forEach(p -> BungeeAPI.ConnectBungeeServer(p,
-                            this.pl.getConfig().getString("server-redirection")));
+                            this.main.getConfig().getString("server-redirection")));
             }
 
             Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "restart");
@@ -191,7 +215,7 @@ public class ClassicMode extends Mode {
                         public void run() {
                             center.getWorld().playEffect(center.clone().add(x, y, z), effect, 0);
                         }
-                    }.runTaskLater(this.pl, (long) Math.floor(degrees / 360.0D / particles * delay));
+                    }.runTaskLater(this.main, (long) Math.floor(degrees / 360.0D / particles * delay));
                 }
             }
         }

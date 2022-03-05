@@ -68,6 +68,7 @@ public class CmdCouple implements ModeSubCommand {
                                 targetManager2.getWolfPlayerManager().setOtherCouple(targetManager1.getUuid());
                                 targetManager1.getWolfPlayerManager().setOtherCouple(targetManager2.getUuid());
                                 targetManager2.setCamps(Camps.COUPLE);
+                                playerManager.setCamps(Camps.COUPLE);
                                 UhcHost.debug("§dGiving compass for members of couple...");
                                 pl.getInventoryUtils().giveItemSafely(targetManager1.getPlayer(), new CoupleBoussoleItem(pl).toItemStack());
                                 pl.getInventoryUtils().giveItemSafely(targetManager2.getPlayer(), new CoupleBoussoleItem(pl).toItemStack());

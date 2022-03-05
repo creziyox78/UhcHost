@@ -2,7 +2,6 @@ package fr.lastril.uhchost.game;
 
 import fr.lastril.uhchost.UhcHost;
 import fr.lastril.uhchost.enums.BiomeState;
-import fr.lastril.uhchost.enums.Messages;
 import fr.lastril.uhchost.game.rules.BlocksRule;
 import fr.lastril.uhchost.game.rules.EnchantmentRules;
 import fr.lastril.uhchost.game.rules.StuffRules;
@@ -17,8 +16,9 @@ import fr.lastril.uhchost.player.events.GameStartEvent;
 import fr.lastril.uhchost.player.events.TeamUnregisteredEvent;
 import fr.lastril.uhchost.scenario.Scenario;
 import fr.lastril.uhchost.scenario.Scenarios;
-import fr.lastril.uhchost.scoreboard.TeamUtils;
+import fr.lastril.uhchost.inventory.scoreboard.TeamUtils;
 import fr.lastril.uhchost.tools.API.ActionBar;
+import fr.lastril.uhchost.tools.API.ClassUtils;
 import fr.lastril.uhchost.tools.API.TitleAPI;
 import fr.lastril.uhchost.tools.I18n;
 import org.bukkit.*;
@@ -420,7 +420,7 @@ public class GameManager {
 		GameState.setCurrentState(GameState.PRESTART);
 		this.pl.worldUtils.getWorld().setTime(0L);
 		this.pl.worldBorderUtils.change(this.pl.worldBorderUtils.getStartSize());
-		if (this.pl.teamUtils.getPlayersPerTeams() != 1) {
+		if (this.pl.teamUtils.getPlayersPerTeams() != 1 || pl.getGamemanager().getModes() == Modes.SM) {
 			for (PlayerManager playerManager : pl.getPlayerManagerOnlines())
 				this.pl.teamUtils.setAutoTeam(playerManager.getPlayer());
 			for (TeamUtils.Teams teams : TeamUtils.Teams.values()) {
@@ -504,6 +504,7 @@ public class GameManager {
 
 	private List<Location> generateLocations(int count) {
 		List<Location> result = new ArrayList<>();
+
 		for (int i = 0; i < count; i++) {
 			for (Player player : Bukkit.getOnlinePlayers()) {
 				TitleAPI.sendTitle(player, 5, 20, 5,
@@ -526,8 +527,9 @@ public class GameManager {
 			x *= -1;
 		if (r.nextBoolean())
 			z *= -1;
-		Location loc = new Location(Bukkit.getWorld("game"), x, Bukkit.getWorld("game").getHighestBlockYAt(player.getLocation()) + 1, z);
-		player.teleport(loc);
+		Location loc = new Location(Bukkit.getWorld("game"), x, player.getLocation().getY(), z);
+		Location safeLocation = new Location(loc.getWorld(), loc.getX(), loc.getWorld().getHighestBlockYAt(loc), loc.getZ());
+		player.teleport(safeLocation);
 	}
 
 	private Location generateLocation() {
@@ -589,7 +591,7 @@ public class GameManager {
 		}
 		Bukkit.broadcastMessage("§c");
 		Bukkit.broadcastMessage("§8§m--------------------------------------------------§r");
-		Bukkit.broadcastMessage(Messages.PREFIX_WITH_ARROW.getMessage() + I18n.tl("damageWillBeActivated"));
+		Bukkit.broadcastMessage(I18n.tl("damageWillBeActivated"));
 		this.pl.taskManager.game();
 		GameState.setCurrentState(GameState.STARTED);
 
@@ -781,6 +783,7 @@ public class GameManager {
 
 	public void rappelGroupes(Player player) {
 		TitleAPI.sendTitle(player, 10, 20 * 2, 20, "§c§lGroupes", "§6" + groupes);
+		player.playSound(player.getLocation(), Sound.ANVIL_LAND, 1, 1);
 	}
 
 	public BlocsRules getBlocsRules() {

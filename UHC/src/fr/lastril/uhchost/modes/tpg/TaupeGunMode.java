@@ -63,7 +63,8 @@ public class TaupeGunMode extends Mode implements ModeConfig {
                             taupePlayerManager.setMoleTeam(teams.getTeams());
                             break;
                         }
-                    }
+                    }   
+                    UhcHost.debug("Selected player : " + playerManager.getPlayer() + ", team " + taupePlayerManager.getMoleTeam().getName());
                     playerManager.getPlayer().sendMessage("§8§m--------------------------------------------------§r");
                     playerManager.getPlayer().sendMessage("§c");
                     playerManager.getPlayer().sendMessage("§cVous êtes Taupe, votre but est de trahir votre team est de rejoindre vos nouveaux coéquipier.");
@@ -106,7 +107,10 @@ public class TaupeGunMode extends Mode implements ModeConfig {
             killerManager.addKill(player.getUniqueId());
         }
         for(Player players : Bukkit.getOnlinePlayers()){
-            WorldUtils.spawnFakeLightning(players, player.getPlayer().getLocation(), true);
+            if(player.getPlayer() != null && player.isOnline()){
+                WorldUtils.spawnFakeLightning(players, player.getPlayer().getLocation(), true);
+            }
+
         }
 
         PlayerManager joueur = main.getPlayerManager(player.getUniqueId());
@@ -182,13 +186,17 @@ public class TaupeGunMode extends Mode implements ModeConfig {
                 for (PlayerManager playerManager : main.getAllPlayerManager().values()) {
                     damages.put(playerManager, playerManager.getDamages());
                 }
+                List<PlayerManager> taupes = new ArrayList<>();
                 Map<PlayerManager, Integer> kills = new HashMap<>();
                 for (PlayerManager playerManager : main.getAllPlayerManager().values()) {
                     kills.put(playerManager, playerManager.getKills().size());
+                    TaupePlayerManager taupePlayerManager = playerManager.getTaupePlayerManager();
+                    if(taupePlayerManager.getMoleTeam() != null){
+                        taupes.add(playerManager);
+                    }
                 }
                 PlayerManager mostKills = kills.entrySet().stream().sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
                         .findFirst().get().getKey();
-
 
                 Bukkit.broadcastMessage("§7§m-------------------------------------------------\n" +
                                 "\n " +
@@ -202,6 +210,14 @@ public class TaupeGunMode extends Mode implements ModeConfig {
                                 "§7Le serveur s'éteindra automatiquement dans 1 minute !\n" +
                                 "\n " +
                                 "§7§m-------------------------------------------------");
+
+                Bukkit.broadcastMessage("§7§m-------------------------------------------------");
+                Bukkit.broadcastMessage("§e   Listes des taupes ");
+                for(PlayerManager playerManager : taupes){
+                    Bukkit.broadcastMessage(playerManager.getTaupePlayerManager().getMoleTeam().getPrefix() + " » " +playerManager.getPlayerName());
+                }
+                Bukkit.broadcastMessage("§7§m-------------------------------------------------");
+                
                 Bukkit.getScheduler().runTaskLater(this.main, () -> {
                     if (this.main.getConfig().getBoolean("bungeecord")) {
                         if (this.main.getConfig().getString("server-redirection") != null && !this.main

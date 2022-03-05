@@ -50,6 +50,13 @@ public class CmdTrapper implements ModeSubCommand {
                             trappeur.setTracked(targetManager);
                             trappeur.setChange(true);
                             player.sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage() + "§aVous tracker maintenant " + targetName + " !");
+                            target.sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage() + "§2Le Trappeur§2 est désormais sur vos traces.");
+                            Bukkit.getScheduler().runTaskLater(main, () -> {
+                                player.sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage() + "§2Vous avez perdue la trace de§e " + targetManager.getPlayerName() + "§2 !");
+                                trappeur.setTracked(null);
+                                target.sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage() + "§2Le Trappeur§2 a perdu votre trace !");
+
+                            }, 20*60*10);
                         }
                     }
                 }

@@ -36,8 +36,11 @@ public class InteractCheckWorld implements Listener {
                             switch (itemStack.getItemMeta().getDisplayName()){
                                 case "§cSupprimer le monde":
                                     pl.gameManager.setPlayerCheckingWorld(false);
-                                    player.kickPlayer("§cRedémarrage pour la suppression du monde");
-                                    Bukkit.shutdown();
+                                    for(Player players : Bukkit.getOnlinePlayers()){
+                                        players.kickPlayer("§cL'host du serveur redémarre le serveur afin de trouver un nouveau centre.\n" +
+                                                "§cMerci de vous reconnecter d'ici quelques secondes.");
+                                    }
+                                    Bukkit.getScheduler().runTaskLater(pl, Bukkit::shutdown, 10);
                                     break;
                                 case "§aValider le monde":
                                     pl.gameManager.setPlayerCheckingWorld(false);

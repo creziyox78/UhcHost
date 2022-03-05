@@ -15,6 +15,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -41,7 +42,9 @@ public class Voyante extends Role implements LGRole, RoleCommand {
 
     @Override
     public void onNewEpisode(Player player) {
-        seeRole = true;
+        if(main.getGamemanager().episode >= 3){
+            seeRole = true;
+        }
     }
 
     @Override
@@ -84,6 +87,6 @@ public class Voyante extends Role implements LGRole, RoleCommand {
 
     @Override
     public List<ModeSubCommand> getSubCommands() {
-        return Collections.singletonList(new CmdVoirVoyante(main));
+        return Arrays.asList(new CmdVoirVoyante(main));
     }
 }

@@ -77,26 +77,29 @@ public class Soeur extends Role implements LGRole, RoleCommand {
     public void checkRunnable(Player player) {
         if (main.gameManager.getModes().getMode().getModeManager() instanceof LoupGarouManager) {
             LoupGarouManager loupGarouManager = (LoupGarouManager) main.gameManager.getModes().getMode().getModeManager();
-            for (PlayerManager playerManager : loupGarouManager.getPlayerManagersWithRole(Soeur.class)) {
-                if(playerManager.isAlive()){
-                    if (playerManager.getPlayer() != player) {
-                        if (playerManager.getPlayer() != null) {
-                            Player soeur = playerManager.getPlayer();
-                            if(soeur.getWorld() == player.getWorld()){
-                                if (player.getLocation().distance(soeur.getLocation()) <= 20) {
-                                    if(player.hasPotionEffect(resistance.getType()))
-                                        player.removePotionEffect(resistance.getType());
-                                    if(soeur.hasPotionEffect(resistance.getType()))
-                                        soeur.removePotionEffect(resistance.getType());
-                                    player.addPotionEffect(resistance);
-                                    soeur.addPotionEffect(resistance);
+            PlayerManager playerManagers = main.getPlayerManager(player.getUniqueId());
+            if(playerManagers.isAlive()){
+                for (PlayerManager playerManager : loupGarouManager.getPlayerManagersWithRole(Soeur.class)) {
+                    if(playerManager.isAlive()){
+                        if (playerManager.getPlayer() != player) {
+                            if (playerManager.getPlayer() != null) {
+                                Player soeur = playerManager.getPlayer();
+                                if(soeur.getWorld() == player.getWorld()){
+                                    if (player.getLocation().distance(soeur.getLocation()) <= 20) {
+                                        if(player.hasPotionEffect(resistance.getType()))
+                                            player.removePotionEffect(resistance.getType());
+                                        if(soeur.hasPotionEffect(resistance.getType()))
+                                            soeur.removePotionEffect(resistance.getType());
+                                        player.addPotionEffect(resistance);
+                                        soeur.addPotionEffect(resistance);
+                                    }
                                 }
                             }
                         }
                     }
                 }
-
             }
+
         }
 
     }

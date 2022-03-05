@@ -3,7 +3,10 @@ package fr.lastril.uhchost.player.events.normal;
 import fr.lastril.uhchost.UhcHost;
 import fr.lastril.uhchost.game.GameManager;
 import fr.lastril.uhchost.game.GameState;
+import fr.lastril.uhchost.modes.Modes;
+import fr.lastril.uhchost.modes.sm.MarketStatus;
 import fr.lastril.uhchost.player.PlayerManager;
+import fr.lastril.uhchost.player.modemanager.MarketPlayerManager;
 import fr.lastril.uhchost.tools.I18n;
 import fr.lastril.uhchost.tools.NotStart;
 import net.md_5.bungee.api.ChatColor;
@@ -15,6 +18,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerPreLoginEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerLoginEvent;
+import org.yaml.snakeyaml.error.Mark;
 
 import java.util.UUID;
 
@@ -69,9 +73,18 @@ public class Join implements Listener {
 			player.setFoodLevel(20);
 			player.setSaturation(20);
 			player.getInventory().clear();
-			player.teleport(gameManager.spawn);
-
-
+			PlayerManager playerManager = pl.getPlayerManager(playersUuid);
+			if(pl.getGamemanager().getModes() == Modes.SM){
+				MarketPlayerManager marketPlayerManager = playerManager.getMarketPlayerManager();
+				if(!MarketStatus.getInstance().isMarketStatus(MarketStatus.STARTED)){
+					player.teleport(gameManager.spawn);
+				}
+				if(marketPlayerManager.getTeams() != null){
+					pl.teamUtils.setTeam(player, marketPlayerManager.getTeams().getTeam());
+				}
+			} else {
+				player.teleport(gameManager.spawn);
+			}
 		}  else if(GameState.isState(GameState.STARTED)) {
 			PlayerManager playerManager = pl.getPlayerManager(playersUuid);
 			UhcHost.debug("Game started, checking player... alive: " + playerManager.isAlive() + ", played: " + playerManager.isPlayedGame());

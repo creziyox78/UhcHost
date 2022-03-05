@@ -1,6 +1,8 @@
 package fr.lastril.uhchost.inventory.guis.loots;
 
 import fr.lastril.uhchost.game.rules.world.LootsRules;
+import fr.lastril.uhchost.inventory.guis.rules.see.RulesGui;
+import fr.lastril.uhchost.inventory.guis.timer.RulesGuiHost;
 import fr.lastril.uhchost.tools.API.inventory.crafter.IQuickInventory;
 import fr.lastril.uhchost.tools.API.inventory.crafter.QuickInventory;
 import fr.lastril.uhchost.tools.API.items.ItemsCreator;
@@ -34,8 +36,7 @@ public class LootsGui extends IQuickInventory {
             inv.setItem(ic.create(), onClick -> {
                 new StringLootGui().open(onClick.getPlayer());
             }, 3);
-            ic = new ItemsCreator(Material.BARRIER, I18n.tl("guis.back"), null);
-            inv.setItem(ic.create(), 8);
+            inv.addRetourItem(new RulesGuiHost());
         });
 
     }

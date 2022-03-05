@@ -1,4 +1,4 @@
-package fr.lastril.uhchost.scoreboard;
+package fr.lastril.uhchost.inventory.scoreboard;
 
 import fr.lastril.uhchost.UhcHost;
 import fr.lastril.uhchost.modes.Modes;
@@ -39,6 +39,10 @@ public class TeamUtils {
 
 	public int getNeededTeam() {
 		return this.neededTeam;
+	}
+
+	public void setNeededTeam(int neededTeam) {
+		this.neededTeam = neededTeam;
 	}
 
 	public int getPlayersPerTeams() {

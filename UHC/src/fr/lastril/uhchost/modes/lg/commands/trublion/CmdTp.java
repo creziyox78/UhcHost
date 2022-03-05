@@ -48,6 +48,7 @@ public class CmdTp implements ModeSubCommand {
                                 trublion.setTeleportedSpecificPlayer(trublion.getTeleportedSpecificPlayer() + 1);
                                 main.getGamemanager().teleportPlayerOnGround(target);
                                 target.sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage() + "§eLe Trublion vient de vous téléporter aléatoirement dans la map.");
+                                player.sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage() + "§eVous venez de téléporter " + target.getPlayer() + " !");
                             } else {
                                 player.sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage() + "§cCe joueur n'est pas en ligne !");
                             }

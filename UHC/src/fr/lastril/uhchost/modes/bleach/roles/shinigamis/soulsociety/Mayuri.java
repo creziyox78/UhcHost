@@ -1,15 +1,20 @@
 
 package fr.lastril.uhchost.modes.bleach.roles.shinigamis.soulsociety;
 
+import fr.lastril.uhchost.modes.bleach.items.Shikai;
+import fr.lastril.uhchost.modes.bleach.roles.ShinigamiRole;
 import fr.lastril.uhchost.modes.roles.Camps;
 import fr.lastril.uhchost.modes.roles.Role;
 import fr.lastril.uhchost.tools.API.items.crafter.QuickItem;
 import org.bukkit.entity.Player;
 
-public class Mayuri extends Role {
+public class Mayuri extends Role implements ShinigamiRole {
+
+    private boolean inShikai;
+
     @Override
     public void giveItems(Player player) {
-
+        main.getInventoryUtils().giveItemSafely(player, new Shikai(main).toItemStack());
     }
 
     @Override
@@ -50,5 +55,9 @@ public class Mayuri extends Role {
     @Override
     public String getDescription() {
         return main.getRoleDescription(this, this.getClass().getName(), "bleach.yml");
+    }
+
+    public void setInShikai(boolean inShikai) {
+        this.inShikai = inShikai;
     }
 }

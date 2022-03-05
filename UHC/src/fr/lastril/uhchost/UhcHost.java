@@ -20,8 +20,8 @@ import fr.lastril.uhchost.player.events.interact.InteractCheckWorld;
 import fr.lastril.uhchost.player.events.interact.InteractTeam;
 import fr.lastril.uhchost.player.events.normal.*;
 import fr.lastril.uhchost.player.modemanager.WolfPlayerManager;
-import fr.lastril.uhchost.scoreboard.ScoreboardUtils;
-import fr.lastril.uhchost.scoreboard.TeamUtils;
+import fr.lastril.uhchost.inventory.scoreboard.ScoreboardUtils;
+import fr.lastril.uhchost.inventory.scoreboard.TeamUtils;
 import fr.lastril.uhchost.tools.API.clickable_messages.ClickableMessageManager;
 import fr.lastril.uhchost.tools.API.inventory.InventoryUtils;
 import fr.lastril.uhchost.tools.API.inventory.crafter.QuickInventoryManager;
@@ -170,6 +170,7 @@ public class UhcHost extends JavaPlugin {
 		getCommand("t").setExecutor(new CmdTaupe());
 		getCommand("reveal").setExecutor(new CmdReveal());
 		getCommand("claim").setExecutor(new CmdClaim());
+		getCommand("admin").setExecutor(new CmdAdmin(this));
 		getCommand("tl").setExecutor(new CmdTl());
 		for (Modes mode : Modes.values()) {
 			if (mode.getMode() instanceof ModeCommand) {
@@ -274,6 +275,7 @@ public class UhcHost extends JavaPlugin {
 			Bukkit.getWorld("world_nether").setGameRuleValue("naturalRegeneration", "false");
 			Bukkit.getWorld("world_the_end").setGameRuleValue("naturalRegeneration", "false");
 			Bukkit.getConsoleSender().sendMessage(ChatColor.GREEN + "Settings set !");
+
 			this.worldBorderUtils = new WorldBorderUtils();
 		} catch (Exception e) {
 			Bukkit.getConsoleSender().sendMessage("");

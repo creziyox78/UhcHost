@@ -5,10 +5,7 @@ import fr.lastril.uhchost.enums.Messages;
 import fr.lastril.uhchost.modes.roles.Camps;
 import fr.lastril.uhchost.modes.roles.Role;
 import fr.lastril.uhchost.modes.tpg.TaupeGunMode;
-import fr.lastril.uhchost.player.modemanager.BleachPlayerManager;
-import fr.lastril.uhchost.player.modemanager.DSPlayerManager;
-import fr.lastril.uhchost.player.modemanager.TaupePlayerManager;
-import fr.lastril.uhchost.player.modemanager.WolfPlayerManager;
+import fr.lastril.uhchost.player.modemanager.*;
 import fr.lastril.uhchost.tools.API.ActionBar;
 import fr.lastril.uhchost.tools.API.FormatTime;
 import org.bukkit.Bukkit;
@@ -27,7 +24,7 @@ public class PlayerManager {
 
 	private final List<UUID> kills;
 
-	private boolean alive, playedGame, useHuitimePorte;
+	private boolean alive, playedGame, useHuitimePorte, invinsible;
 
 	private WolfPlayerManager wolfPlayerManager;
 
@@ -36,6 +33,8 @@ public class PlayerManager {
 	private final BleachPlayerManager bleachPlayerManager;
 
 	private final TaupePlayerManager taupePlayerManager;
+
+	private final MarketPlayerManager marketPlayerManager;
 
 	private final UhcHost pl;
 
@@ -70,6 +69,8 @@ public class PlayerManager {
 		this.dsPlayerManager = new DSPlayerManager(this);
 		this.taupePlayerManager = new TaupePlayerManager(this);
 		this.wolfPlayerManager = new WolfPlayerManager(this);
+		this.marketPlayerManager = new MarketPlayerManager(this);
+		this.invinsible = false;
 		UhcHost.getInstance().getAllWolfPlayerManager().put(uuid, getWolfPlayerManager());
 	}
 
@@ -111,6 +112,10 @@ public class PlayerManager {
 		return taupePlayerManager;
 	}
 
+	public MarketPlayerManager getMarketPlayerManager() {
+		return marketPlayerManager;
+	}
+
 	public void sendTimer(Player player, int timer, ItemStack item) {
 		int cooldown = timer;
 
@@ -138,6 +143,14 @@ public class PlayerManager {
 
 	public DSPlayerManager getDSPlayerManager() {
 		return dsPlayerManager;
+	}
+
+	public boolean isInvinsible() {
+		return invinsible;
+	}
+
+	public void setInvinsible(boolean invinsible) {
+		this.invinsible = invinsible;
 	}
 
 	public void clearCooldowns() {
@@ -879,6 +892,22 @@ public class PlayerManager {
 
 	public int getRoleCooldownToshiroZone(){
 		return this.getRoleCooldown("ToshiroZone");
+	}
+
+	public void setRoleCooldownSoutien(int i) {
+		this.setRoleCooldown("Soutien", i);
+	}
+
+	public int getRoleCooldownSoutien(){
+		return this.getRoleCooldown("Soutien");
+	}
+
+	public void setRoleCooldownShikai(int i) {
+		this.setRoleCooldown("Shikai", i);
+	}
+
+	public int getRoleCooldownShikai(){
+		return this.getRoleCooldown("Shikai");
 	}
 
 

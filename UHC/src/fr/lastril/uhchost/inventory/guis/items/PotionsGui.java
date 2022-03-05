@@ -5,16 +5,22 @@ import fr.lastril.uhchost.inventory.guis.timer.RulesGuiHost;
 import fr.lastril.uhchost.tools.API.inventory.crafter.IQuickInventory;
 import fr.lastril.uhchost.tools.API.inventory.crafter.QuickInventory;
 import fr.lastril.uhchost.tools.API.items.ItemsCreator;
+import fr.lastril.uhchost.tools.API.items.crafter.QuickItem;
 import fr.lastril.uhchost.tools.I18n;
+import fr.lastril.uhchost.tools.NotStart;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.potion.Potion;
 
 import java.util.Collections;
+import java.util.ListIterator;
 
 public class PotionsGui extends IQuickInventory {
 
     private final Player player;
+    private final UhcHost main = UhcHost.getInstance();
 
     public PotionsGui(Player player) {
         super(I18n.tl("guis.potions.name", ""), 9*2);
@@ -56,7 +62,19 @@ public class PotionsGui extends IQuickInventory {
                 this.player.setGameMode(GameMode.CREATIVE);
                 this.player.sendMessage(I18n.tl("guis.potions.dragPotions", ""));
                 this.player.sendMessage(I18n.tl("guis.potions.validAction", ""));
-                this.player.getInventory().setItem(4, (new ItemsCreator(Material.STAINED_GLASS_PANE, I18n.tl("guis.potions.valid", ""), null, 1, (byte)13)).create());
+                this.player.getInventory().setItem(4, (new QuickItem(Material.STAINED_GLASS_PANE, (byte)13).setName(I18n.tl("guis.potions.valid", "")).onClick(onValidate -> {
+                    for (ItemStack itemStack : onValidate.getPlayer().getInventory()) {
+                        if (itemStack != null &&
+                                itemStack.getType() == Material.POTION &&
+                                !this.main.gameManager.getDeniedPotions().contains(Potion.fromItemStack(itemStack)))
+                            this.main.gameManager.getDeniedPotions().add(Potion.fromItemStack(itemStack));
+                    }
+                    onValidate.getPlayer().setGameMode(GameMode.ADVENTURE);
+                    onValidate.getPlayer().getInventory().clear();
+                    onValidate.getPlayer().closeInventory();
+                    this.main.gameManager.setPotionsEditMode(false);
+                    NotStart.PreHosting(onValidate.getPlayer());
+                }).toItemStack()));
             },12);
             ic = new ItemsCreator(Material.POTION,  I18n.tl("guis.potions.activatePotions"), Collections.singletonList(I18n.tl("guis.potions.activateLore")), 1, (byte)1);
             inv.setItem(ic.create(), onClick -> {

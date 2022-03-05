@@ -49,7 +49,7 @@ public class CmdCompo implements ModeSubCommand {
         }
         if (mode instanceof RoleMode && mode.getModeManager() != null) {
             if(!mode.getModeManager().compositionHide || (!playerManager.isAlive() && player.isOp())){
-                if(GameState.isState(GameState.STARTED) && roleAnnounceMode != null && roleAnnounceMode.isRoleAnnonced(TaskManager.timeGame)){
+                if(GameState.isState(GameState.STARTED) && roleAnnounceMode != null && roleAnnounceMode.isRoleAnnonced()){
                     sender.sendMessage("§8§m----------------------------------");
                     if(mode == Modes.LG.getMode()){
                         LoupGarouMode loupGarouMode = (LoupGarouMode) pl.getGamemanager().getModes().getMode();

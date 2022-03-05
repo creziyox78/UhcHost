@@ -28,8 +28,8 @@ public enum BleachRoles {
     HISAGI(Hisagi.class), //TODO FIX switch item
     TOSHIROHITSUGAYA(ToshiroHitsugaya.class), //TODO ITEM "Ryusenka"
     RANGIKUMATSUMOTO(RangikuMatsumoto.class), //FINISHED
-    KENPACHIZARAKI(KenpachiZaraki.class),
-    YACHIRU(Yachiru.class),
+    KENPACHIZARAKI(KenpachiZaraki.class), //TODO BE TESTED
+    YACHIRU(Yachiru.class), //TODO BE TESTED
     MAYURI(Mayuri.class),
     NEMU(Nemu.class),
     JUSHIROUKITAKE(JushiroUkitake.class),

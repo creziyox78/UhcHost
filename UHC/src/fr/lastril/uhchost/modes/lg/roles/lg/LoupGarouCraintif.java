@@ -85,7 +85,7 @@ public class LoupGarouCraintif extends Role implements LGRole, RealLG, LGChatRol
                     if(nearPlayer != player){
                         PlayerManager nearPlayerManager = main.getPlayerManager(nearPlayer.getUniqueId());
                         if(nearPlayerManager.isAlive() && nearPlayerManager.hasRole()){
-                            if(nearPlayerManager.getRole() instanceof RealLG){
+                            if(nearPlayerManager.getRole() instanceof RealLG || nearPlayerManager.getWolfPlayerManager().isTransformed() ||nearPlayerManager.getWolfPlayerManager().isInfected()){
                                 nearLgPlayer++;
                             }
                         }

@@ -42,10 +42,15 @@ public class Damage implements Listener {
 		}
 		if(event.getEntity() instanceof Player && event.getDamager() instanceof Player){
 			if(GameState.isState(GameState.STARTED)){
+
 				Player damager = (Player) event.getDamager();
 				Player player = (Player) event.getEntity();
 				PlayerManager playerManager = pl.getPlayerManager(player.getUniqueId());
 				PlayerManager damagerManager = pl.getPlayerManager(damager.getUniqueId());
+				if(playerManager.isInvinsible() || damagerManager.isInvinsible()){
+					event.setCancelled(true);
+					return;
+				}
 				UhcHost.debug("damage to " + player.getName() + " by " + damager.getName());
 				if(playerManager.hasRole()){
 					playerManager.getRole().onDamage(damager, player);
@@ -78,7 +83,12 @@ public class Damage implements Listener {
 
 	@EventHandler(priority = EventPriority.LOWEST)
 	public void onEntityDamage(EntityDamageEvent event) {
-		if (event.getEntity() instanceof Player && !this.pl.gameManager.isDamage())
-			event.setCancelled(true);
+		if (event.getEntity() instanceof Player){
+			Player player = (Player) event.getEntity();
+			PlayerManager playerManager = pl.getPlayerManager(player.getUniqueId());
+			if(!this.pl.gameManager.isDamage() || playerManager.isInvinsible()){
+				event.setCancelled(true);
+			}
+		}
 	}
 }

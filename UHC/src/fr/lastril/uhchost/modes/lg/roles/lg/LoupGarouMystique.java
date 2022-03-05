@@ -20,6 +20,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -77,7 +78,14 @@ public class LoupGarouMystique extends Role implements LGRole, RealLG, LGChatRol
     public void onPlayerDeathRealy(PlayerManager player, ItemStack[] items, ItemStack[] armors, Player killer, Location deathLocation) {
         if(player.hasRole() && player.getRole() instanceof RealLG){
             Player mystique = super.getPlayer();
-            List<PlayerManager> notInCamps = main.getGamemanager().getModes().getMode().getModeManager().getPlayerManagersNotInCamps(Camps.LOUP_GAROU).stream().filter(PlayerManager::isAlive).collect(Collectors.toList());
+            List<PlayerManager> notInCamps = new ArrayList<>();
+            for(PlayerManager playerManager : main.getPlayerManagerAlives()){
+                if(playerManager.hasRole() && playerManager.getCamps() != null){
+                    if(playerManager.getCamps() != Camps.LOUP_GAROU){
+                        notInCamps.add(playerManager);
+                    }
+                }
+            }
             if(!notInCamps.isEmpty()){
                 PlayerManager playerManager = notInCamps.get(UhcHost.getRANDOM().nextInt(notInCamps.size()));
                 if(mystique != null && playerManager != null){

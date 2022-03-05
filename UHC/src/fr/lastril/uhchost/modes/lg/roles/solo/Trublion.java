@@ -27,7 +27,7 @@ import java.util.List;
 
 public class Trublion extends Role implements LGRole, RoleCommand, LGChatRole {
 
-    private boolean teleported = false, switched = false;
+    private boolean teleported, switched;
     private int teleportedSpecificPlayer = 0;
     private Camps switchedCampsResult = Camps.NEUTRES;
 
@@ -51,16 +51,6 @@ public class Trublion extends Role implements LGRole, RoleCommand, LGChatRole {
     @Override
     public void onNewDay(Player player) {
 
-    }
-
-    @Override
-    public void onPlayerDeathRealy(PlayerManager player, ItemStack[] items, ItemStack[] armors, Player killer, Location deathLocation) {
-        if(player.getRole() instanceof Trublion){
-            Trublion trublion = (Trublion) player.getRole();
-            if(!trublion.isTeleported()){
-                trublion.teleportPower(player.getPlayer());
-            }
-        }
     }
 
     @Override
@@ -101,16 +91,32 @@ public class Trublion extends Role implements LGRole, RoleCommand, LGChatRole {
         tempRole.setPlayerID(targetManager1.getUuid());
         targetManager2.setRole(targetManager1.getRole());
         targetManager1.setRole(tempRole);
+        targetManager1.getPlayer().getActivePotionEffects().forEach(potionEffect -> {
+            UhcHost.debug("Removing effect 1: " + potionEffect.getType().getName());
+            targetManager1.getPlayer().removePotionEffect(potionEffect.getType());
+        });
+        targetManager2.getPlayer().getActivePotionEffects().forEach(potionEffect -> {
+            UhcHost.debug("Removing effect 2: " + potionEffect.getType().getName());
+            targetManager2.getPlayer().removePotionEffect(potionEffect.getType());
+        });
+
+
+        targetManager2.getRole().getEffects().entrySet().stream().filter(e -> e.getValue() == When.START).forEach(e -> {
+            UhcHost.debug("Adding effect 1: " + e.getKey().getType().getName());
+            targetManager1.getPlayer().addPotionEffect(e.getKey());
+        });
+        targetManager1.getRole().getEffects().entrySet().stream().filter(e -> e.getValue() == When.START).forEach(e -> {
+            UhcHost.debug("Adding effect 2: " + e.getKey().getType().getName());
+            targetManager2.getPlayer().addPotionEffect(e.getKey());
+        });
+
         targetManager2.getRole().setPlayerID(targetManager2.getUuid());
         targetManager1.getPlayer().setMaxHealth(20);
         targetManager2.getPlayer().setMaxHealth(20);
         targetManager1.getRole().afterRoles(targetManager1.getPlayer());
         targetManager2.getRole().afterRoles(targetManager2.getPlayer());
-        targetManager1.getPlayer().getActivePotionEffects().forEach(potionEffect -> targetManager1.getPlayer().removePotionEffect(potionEffect.getType()));
-        targetManager2.getPlayer().getActivePotionEffects().forEach(potionEffect -> targetManager2.getPlayer().removePotionEffect(potionEffect.getType()));
 
-        targetManager2.getRole().getEffects().entrySet().stream().filter(e -> e.getValue() == When.START).forEach(e -> targetManager1.getPlayer().addPotionEffect(e.getKey()));
-        targetManager1.getRole().getEffects().entrySet().stream().filter(e -> e.getValue() == When.START).forEach(e -> targetManager2.getPlayer().addPotionEffect(e.getKey()));
+
         targetManager1.getPlayer().sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage() + "§eLe trublion vient d'échanger votre rôle. Faites /lg me pour voir votre nouveau rôle.");
         targetManager2.getPlayer().sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage() + "§eLe trublion vient d'échanger votre rôle. Faites /lg me pour voir votre nouveau rôle.");
         if(sameCamp){
@@ -123,6 +129,7 @@ public class Trublion extends Role implements LGRole, RoleCommand, LGChatRole {
             playerManager.setCamps(Camps.TRUBLION);
             setSwitchedCampsResult(Camps.TRUBLION);
             playerManager.getPlayer().sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage() + "§cLes 2 joueurs que vous avez ciblé ne sont pas dans le même camp. Vous gagner seul.");
+            playerManager.getPlayer().sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage() + "§cVoici les rôles des 2 joueurs: " + targetManager1.getRole().getRoleName() + " (" + targetManager1.getPlayerName() + ") et " + targetManager2.getRole().getRoleName() + " (" + targetManager2.getPlayerName() + ")");
         }
 
         setSwitched(true);
@@ -183,4 +190,5 @@ public class Trublion extends Role implements LGRole, RoleCommand, LGChatRole {
     public Camps getSwitchedCampsResult() {
         return switchedCampsResult;
     }
+
 }

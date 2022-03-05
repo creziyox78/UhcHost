@@ -357,7 +357,7 @@ public class LoupGarouMode extends Mode implements ModeCommand, RoleMode<LGRole>
             }
         }
         for (Map.Entry<PlayerManager, Role> e : playersRoles.entrySet()) {
-            Bukkit.broadcastMessage((e.getKey().isAlive() ? "§6§l" : "§6§m") + e.getKey().getPlayerName() + " : " + e.getValue().getRoleName() + "" + e.getKey().getCamps().getCompoColor() +" (Camps: " + e.getKey().getCamps().name() + ")");
+            Bukkit.broadcastMessage((e.getKey().isAlive() ? "§2" : "§2§m") + e.getKey().getPlayerName() + "§r§2 " + e.getKey().getCamps().getCompoColor() + e.getValue().getRoleName() + " §oCamps: " + e.getKey().getCamps().getCompoColor() + e.getKey().getCamps().name());
         }
 
         Bukkit.getScheduler().runTaskLater(this.pl, () -> {

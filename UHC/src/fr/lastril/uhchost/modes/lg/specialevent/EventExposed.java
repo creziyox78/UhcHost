@@ -35,9 +35,11 @@ public class EventExposed extends LoupGarouSpecialEvent {
                     getRoles.add(role);
             }
         });
+        Role first = getRoles.get(UhcHost.getRANDOM().nextInt(getRoles.size()));
+        exposedRole.add(first);
+        getRoles.remove(first);
         exposedRole.add(getRoles.get(UhcHost.getRANDOM().nextInt(getRoles.size())));
-        exposedRole.add(getRoles.get(UhcHost.getRANDOM().nextInt(getRoles.size())));
-        StringBuilder message = new StringBuilder("");
+        StringBuilder message = new StringBuilder();
         for (int i = 0; i < 3; i++) {
             int index = UhcHost.getRANDOM().nextInt(exposedRole.size());
             message.append(exposedRole.get(index).getRoleName()).append(", ");

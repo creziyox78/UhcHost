@@ -82,7 +82,7 @@ public class ChasseurDePrime extends Role implements LGRole {
             }
             player.sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage() + "§bVoici votre nouvelle cible: " + target.getPlayerName());
         }
-        if(main.getGamemanager().episode == 6){
+        if(main.getGamemanager().episode == 5){
             if(!isKilledTarget()){
                 Bukkit.broadcastMessage(Messages.LOUP_GAROU_PREFIX.getMessage() + "§3Le§9 Chasseur de prime§3 qui est " + player.getName() + ", n'as pas réussi sa mission.");
             }
@@ -96,7 +96,19 @@ public class ChasseurDePrime extends Role implements LGRole {
 
     @Override
     public String sendList() {
-        return Messages.LOUP_GAROU_PREFIX.getMessage() + "§bVotre cible: " + target.getPlayerName();
+        if(target != null){
+            return Messages.LOUP_GAROU_PREFIX.getMessage() + "§bVotre cible: " + target.getPlayerName();
+        } else {
+            if(super.getPlayerId() != null){
+                while (target == null || target == main.getPlayerManager(super.getPlayerId())){
+                    target = main.getRandomPlayerManagerAlive();
+                }
+            }
+            if(target != null){
+                return Messages.LOUP_GAROU_PREFIX.getMessage() + "§bVotre cible: " + target.getPlayerName();
+            }
+        }
+        return Messages.LOUP_GAROU_PREFIX.getMessage() + "§bVotre cible:§cPersonne ";
     }
 
     @Override

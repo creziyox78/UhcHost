@@ -10,8 +10,8 @@ public interface RoleAnnounceMode {
 
     void setRoleAnnouncement(int roleAnnouncement);
 
-    default boolean isRoleAnnonced(int roleAnnouncement) {
-        return roleAnnouncement >= getRoleAnnouncement();
+    default boolean isRoleAnnonced() {
+        return getRoleAnnouncement() <= 0;
     }
 
     List<Camps> getCamps();

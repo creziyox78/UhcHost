@@ -5,6 +5,7 @@ import fr.lastril.uhchost.modes.classic.ClassicMode;
 import fr.lastril.uhchost.modes.ds.DemonSlayerMode;
 import fr.lastril.uhchost.modes.lg.LoupGarouMode;
 import fr.lastril.uhchost.modes.naruto.NarutoV2;
+import fr.lastril.uhchost.modes.sm.SlaveMarketMode;
 import fr.lastril.uhchost.modes.tpg.TaupeGunMode;
 import fr.lastril.uhchost.tools.API.items.crafter.QuickItem;
 import org.bukkit.Material;
@@ -43,7 +44,17 @@ public enum Modes {
                             "§7gagner ensemble, à moins qu'un ultime",
                             "§7traître se cache parmis eux.",
                             "")
-                    .setName("§e§lTaupe Gun"), false),
+                    .setName("§e§lTaupe Gun"), true),
+
+    SM("§b§lSlave Market", "",new SlaveMarketMode(),
+            new QuickItem(Material.DIAMOND)
+                    .setLore("",
+                            "§7Acheter vos propres coéquipiers",
+                            "§7en échange de§b diamants§7 ou",
+                            "§7découvrez votre valeur aux yeux",
+                            "§7des autres.",
+                            "")
+                    .setName("§b§lSlave Market"), false),
 
     DS("§c§lDemon Slayer", "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZTA5MzIzMmFlYTQ5NjAwYjUwOTJmYzE4MmUwZDVjZTg5OTlmNzgwNDVkZDdiZGEyM2M2NWNjYTZmY2Y1Y2Y2MCJ9fX0=", new DemonSlayerMode(),
             new QuickItem(Material.SKULL_ITEM, 1, SkullType.PLAYER.ordinal())

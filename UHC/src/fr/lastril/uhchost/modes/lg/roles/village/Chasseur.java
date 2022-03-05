@@ -1,5 +1,6 @@
 package fr.lastril.uhchost.modes.lg.roles.village;
 
+import fr.lastril.uhchost.UhcHost;
 import fr.lastril.uhchost.enums.Messages;
 import fr.lastril.uhchost.modes.command.ModeSubCommand;
 import fr.lastril.uhchost.modes.lg.commands.CmdShot;
@@ -48,8 +49,11 @@ public class Chasseur extends Role implements LGRole, RoleCommand {
 
     @Override
     public void onPlayerDeathRealy(PlayerManager player, ItemStack[] items, ItemStack[] armors, Player killer, Location deathLocation) {
+        UhcHost.debug("Chasseur checking...");
         if(player.hasRole()){
+            UhcHost.debug("Chasseur checking role...");
             if(player.getRole() instanceof Chasseur){
+                UhcHost.debug("Player is chasseur, sended !");
                 TextComponent message = new TextComponent("§aTir : " + Messages.CLICK_HERE.getMessage());
                 message.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/lg tir"));
                 Bukkit.getScheduler().runTaskLater(main, () -> setShot(true), 20*reminingTime);

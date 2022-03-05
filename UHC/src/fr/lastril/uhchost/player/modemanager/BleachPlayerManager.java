@@ -8,6 +8,8 @@ public class BleachPlayerManager {
 
     private boolean inKyorakuDuel, nanaoEffect;
 
+    private int speedPourcentage, strengthPourcentage, resistancePourcentage, weaknessPourcentage;
+
     public BleachPlayerManager(PlayerManager playerManager) {
         this.playerManager = playerManager;
     }
@@ -39,5 +41,37 @@ public class BleachPlayerManager {
 
     public boolean canUsePower(){
         return !isInKyorakuDuel() && !isNanaoEffect();
+    }
+
+    public int getSpeedPourcentage() {
+        return speedPourcentage;
+    }
+
+    public void setSpeedPourcentage(int speedPourcentage) {
+        this.speedPourcentage = speedPourcentage;
+    }
+
+    public int getStrengthPourcentage() {
+        return strengthPourcentage;
+    }
+
+    public void setStrengthPourcentage(int strengthPourcentage) {
+        this.strengthPourcentage = strengthPourcentage;
+    }
+
+    public int getResistancePourcentage() {
+        return resistancePourcentage;
+    }
+
+    public void setResistancePourcentage(int resistancePourcentage) {
+        this.resistancePourcentage = resistancePourcentage;
+    }
+
+    public int getWeaknessPourcentage() {
+        return weaknessPourcentage;
+    }
+
+    public void setWeaknessPourcentage(int weaknessPourcentage) {
+        this.weaknessPourcentage = weaknessPourcentage;
     }
 }

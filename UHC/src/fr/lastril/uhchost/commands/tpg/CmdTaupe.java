@@ -30,20 +30,24 @@ public class CmdTaupe implements CommandExecutor {
             if(main.getGamemanager().getModes() == Modes.TAUPEGUN){
                 PlayerManager playerManager = main.getPlayerManager(player.getUniqueId());
                 TaupePlayerManager taupePlayerManager = playerManager.getTaupePlayerManager();
-                if(taupePlayerManager.getMoleTeam() != null){
-                    if (args.length > 0) {
-                        String message = "";
-                        for (int i = 0; i < args.length; i++) {
-                            message += args[i] + " ";
-                        }
-                        for(PlayerManager taupes : taupePlayerManager.getMoleTeam().getPlayers()){
-                            if(taupes.getPlayer() != null){
-                                taupes.getPlayer().sendMessage( "§4§lTaupe§c " + player.getName() + "§8 »§c " + message);
+                if(playerManager.isAlive()){
+                    if(taupePlayerManager.getMoleTeam() != null){
+                        if (args.length > 0) {
+                            String message = "";
+                            for (int i = 0; i < args.length; i++) {
+                                message += args[i] + " ";
+                            }
+                            for(PlayerManager taupes : taupePlayerManager.getMoleTeam().getPlayers()){
+                                if(taupes.getPlayer() != null){
+                                    taupes.getPlayer().sendMessage( "§4§lTaupe§c " + player.getName() + "§8 »§c " + message);
+                                }
                             }
                         }
+                    } else {
+                        player.sendMessage(Messages.TAUPE_GUN_PREFIX.getMessage() + "§cVous n'êtes pas taupe !");
                     }
                 } else {
-                    player.sendMessage(Messages.TAUPE_GUN_PREFIX.getMessage() + "§cVous n'êtes pas taupe !");
+                    player.sendMessage(Messages.TAUPE_GUN_PREFIX.getMessage() + "§cVous n'êtes pas en vie !");
                 }
             }
         }

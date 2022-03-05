@@ -13,7 +13,7 @@ import java.util.Arrays;
 
 public class RulesPotionsGui extends IQuickInventory {
     public RulesPotionsGui() {
-        super(I18n.tl("guis.rulespotions.name"), 54);
+        super(I18n.tl("guis.deniedPotions.name"), 54);
     }
 
     @Override

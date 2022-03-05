@@ -25,7 +25,7 @@ public class CmdVoirVoyante implements ModeSubCommand {
 
     @Override
     public String getSubCommandName() {
-        return "voir";
+        return "espionner";
     }
 
     @Override
@@ -41,14 +41,18 @@ public class CmdVoirVoyante implements ModeSubCommand {
             return false;
         }
         if (playerManager.getRole() instanceof Voyante) {
+            UhcHost.debug("Checking voyante...");
             Voyante voyante = (Voyante) playerManager.getRole();
             if (voyante.canSeeRole()) {
+                UhcHost.debug("Voyante can see");
                 if (args.length == 2) {
                     String targetName = args[1];
                     Player target = Bukkit.getPlayer(targetName);
+                    UhcHost.debug("args is good 1");
                     if (target != null) {
                         PlayerManager targetManager = pl.getPlayerManager(target.getUniqueId());
                         if (targetManager.isAlive() && targetManager.hasRole()) {
+                            UhcHost.debug("target has role and is alive.");
                             sendRole(player, targetManager, false);
                             voyante.setSeeRole(false);
                         } else {
@@ -63,15 +67,20 @@ public class CmdVoirVoyante implements ModeSubCommand {
             } else {
                 player.sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage() + "§cVous ne pouvez pas utiliser votre pouvoir pour le moment.");
             }
-        } else if (playerManager.getRole() instanceof VoyanteBavarde) {
+        }
+        if (playerManager.getRole() instanceof VoyanteBavarde) {
             VoyanteBavarde voyante = (VoyanteBavarde) playerManager.getRole();
+            UhcHost.debug("Checking voyante bavarde...");
             if (voyante.canSeeRole()) {
+                UhcHost.debug("Voyante bavarde can see");
                 if (args.length == 2) {
+                    UhcHost.debug("args is good 2");
                     String targetName = args[1];
                     Player target = Bukkit.getPlayer(targetName);
                     if (target != null) {
                         PlayerManager targetManager = pl.getPlayerManager(target.getUniqueId());
                         if (targetManager.isAlive() && targetManager.hasRole()) {
+                            UhcHost.debug("target bavarde has role and is alive.");
                             sendRole(player, targetManager, true);
                             voyante.setSeeRole(false);
                         } else {
@@ -91,11 +100,14 @@ public class CmdVoirVoyante implements ModeSubCommand {
     }
 
     private void sendRole(Player player, PlayerManager targetManager, boolean broadcasted) {
+        UhcHost.debug("Sending target role...");
         if (targetManager.getRole() instanceof LGFacadeRole) {
+            UhcHost.debug("Role is LGFacade");
             LGFacadeRole lgFacadeRole = (LGFacadeRole) targetManager.getRole();
             player.sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage()
                     + "§bVous venez d'espionner " + targetManager.getPlayerName()
                     + ". Ce joueur est: " + lgFacadeRole.getRoleFacade().getRoleName());
+            UhcHost.debug("Checking if broadcast...");
             if (broadcasted) {
                 Bukkit.broadcastMessage("");
                 Bukkit.broadcastMessage("§bLa Voyante Bavarde a espionner un joueur qui est " + lgFacadeRole.getRoleFacade().getRoleName());
@@ -104,15 +116,19 @@ public class CmdVoirVoyante implements ModeSubCommand {
             switch (lgFacadeRole.getRoleFacade().getCamp()){
                 case LOUP_GAROU:
                 case LOUP_GAROU_BLANC:
+                    UhcHost.debug("Role seeing is LG.");
                     break;
                 default:
                     player.setHealth(player.getHealth() - 6);
+                    UhcHost.debug("Role seeing is not LG, apply damage");
                     break;
             }
         } else {
+            UhcHost.debug("Send to voyante");
             player.sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage()
                     + "§bVous venez d'espionner " + targetManager.getPlayerName()
                     + ". Ce joueur est: " + targetManager.getRole().getRoleName());
+            UhcHost.debug("Checking if broadcast...");
             if (broadcasted) {
                 Bukkit.broadcastMessage("");
                 Bukkit.broadcastMessage("§bLa Voyante Bavarde a espionner un joueur qui est " + targetManager.getRole().getRoleName());
@@ -121,9 +137,11 @@ public class CmdVoirVoyante implements ModeSubCommand {
             switch (targetManager.getRole().getCamp()){
                 case LOUP_GAROU:
                 case LOUP_GAROU_BLANC:
+                    UhcHost.debug("Role seeing is LG.");
                     break;
                 default:
                     player.setHealth(player.getHealth() - 6);
+                    UhcHost.debug("Role seeing is not LG, apply damage");
                     break;
             }
         }

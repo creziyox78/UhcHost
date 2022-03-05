@@ -2,7 +2,7 @@ package fr.lastril.uhchost.player.events.interact;
 
 import fr.lastril.uhchost.UhcHost;
 import fr.lastril.uhchost.player.events.GameStartEvent;
-import fr.lastril.uhchost.scoreboard.TeamUtils;
+import fr.lastril.uhchost.inventory.scoreboard.TeamUtils;
 import fr.lastril.uhchost.team.TeamsGui;
 import fr.lastril.uhchost.tools.I18n;
 import org.bukkit.Bukkit;
@@ -41,7 +41,7 @@ public class InteractTeam implements Listener {
 								}
 								(UhcHost.getInstance()).teamUtils.setTeam((Player) event.getWhoClicked(), teams.getTeam());
 								for (UUID uuid : (UhcHost.getInstance()).getAllPlayerManager().keySet()) {
-									if (Bukkit.getPlayer(uuid).getOpenInventory() != null
+									if (Bukkit.getPlayer(uuid) != null && Bukkit.getPlayer(uuid).getOpenInventory() != null
 											&& Bukkit.getPlayer(uuid).getOpenInventory().getTitle()
 											.equalsIgnoreCase(event.getClickedInventory().getName())) {
 										Bukkit.getPlayer(uuid).closeInventory();

@@ -59,8 +59,11 @@ public class Imitateur extends Role implements LGRole {
                                 + "§bVous venez de tuer quelqu'un pour la 1ère fois. Vous héritez du rôle de la personne que vous avez tué. §c§lCependant, vous devez toujours gagner seul !");
                         killerManager.setRole(player.getRole());
                         killer.setMaxHealth(player.getPlayer().getMaxHealth());
+                        killerManager.getRole().setPlayerID(killerManager.getUuid());
                         killerManager.setCamps(Camps.IMITATEUR);
-                        killer.sendMessage(killerManager.getRole().sendList());
+                        if(killerManager.getRole().sendList() != null){
+                            killer.sendMessage(killerManager.getRole().sendList());
+                        }
                         killerManager.getWolfPlayerManager().setSolitaire(player.getWolfPlayerManager().isSolitaire());
                         killerManager.getWolfPlayerManager().setOtherCouple(player.getWolfPlayerManager().getOtherCouple());
                         killerManager.getWolfPlayerManager().setInfected(player.getWolfPlayerManager().isInfected());

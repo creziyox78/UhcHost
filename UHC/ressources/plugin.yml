@@ -1,4 +1,4 @@
-name: Group-UHC
+name: Okenzai-UHC
 version: 1.0.1
 authors: [Lastril]
 main: fr.lastril.uhchost.UhcHost
@@ -24,6 +24,13 @@ commands:
       - setgroupe
       - setgroup
     description: Commande to set groups.
+  disperse:
+    description: Command to TP all players around an other player
+
+  admin:
+    description: Command for admin users.
+    aliases:
+      - a
 
   doc:
     description: Command to show document of UHC gamemode.
@@ -73,4 +80,8 @@ commands:
     aliases:
       - demonslayer
     description: Command of DemonSlayer Mode.
+  sm:
+    aliases:
+      - slavemarket
+    description: Command of Slave Market Mode.
   

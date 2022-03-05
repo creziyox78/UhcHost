@@ -23,13 +23,11 @@ public class Cupidon extends Role implements LGRole, RoleCommand {
 
     private boolean usedPower = false;
 
-    public String getSkullValue() {
-        return null;
-    }
-
     @Override
     public void giveItems(Player player) {
-        player.getInventory().addItem(new Livre(Enchantment.ARROW_KNOCKBACK, 1).toItemStack(), new ItemStack(Material.ARROW, 64), new ItemStack(Material.STRING, 3));
+        main.getInventoryUtils().giveItemSafely(player, new Livre(Enchantment.ARROW_KNOCKBACK, 1).toItemStack());
+        main.getInventoryUtils().giveItemSafely(player, new ItemStack(Material.ARROW, 64));
+        main.getInventoryUtils().giveItemSafely(player, new ItemStack(Material.STRING, 3));
     }
 
     @Override

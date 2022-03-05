@@ -78,18 +78,24 @@ public class WorldGui extends IQuickInventory {
                     Bukkit.broadcastMessage("§cCréation du nether... Merci de patienter.");
                     WorldCreator nether = WorldCreator.name("game_nether");
                     nether.environment(World.Environment.NETHER);
+
                     nether.createWorld();
+                    Bukkit.getWorld("game_nether").setGameRuleValue("showDeathMessages", "false");
+                    Bukkit.getWorld("game_nether").setGameRuleValue("keepInventory", "true");
                     Bukkit.broadcastMessage("§eCréation de l'end... Merci de patienter.");
                     WorldCreator end = WorldCreator.name("game_the_end");
                     end.environment(World.Environment.THE_END);
                     end.createWorld();
+                    Bukkit.getWorld("game_the_end").setGameRuleValue("showDeathMessages", "false");
+                    Bukkit.getWorld("game_the_end").setGameRuleValue("keepInventory", "true");
                     Bukkit.getWorld("game").setGameRuleValue("doDaylightCycle", "false");
                     Bukkit.getWorld("game").setGameRuleValue("showDeathMessages", "false");
                     Bukkit.getWorld("game").setGameRuleValue("keepInventory", "true");
 
+
+                    Bukkit.broadcastMessage("§bGénération des mondes terminés !");
                     onClick.getPlayer().sendMessage("§aMonde créé ! Téléportation au centre...");
                     onClick.getPlayer().teleport(new Location(Bukkit.getWorld("game"), 0, 100, 0));
-                    Bukkit.broadcastMessage("§bGénération des mondes terminés !");
                     NotStart.checkingWorld(onClick.getPlayer());
                 },16);
             }

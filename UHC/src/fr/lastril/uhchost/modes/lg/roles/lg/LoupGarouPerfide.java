@@ -27,6 +27,8 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 public class LoupGarouPerfide extends Role implements LGRole, RealLG, LGChatRole, LGInvisibleRole, RoleListener {
 
+    int ticks = 20;
+
     public LoupGarouPerfide() {
         super.addEffect(new PotionEffect(PotionEffectType.NIGHT_VISION, Integer.MAX_VALUE, 0, false, false), When.START);
         super.addEffect(new PotionEffect(PotionEffectType.SPEED, 20 * 60 * 1, 0, false, false), When.AT_KILL);
@@ -101,8 +103,8 @@ public class LoupGarouPerfide extends Role implements LGRole, RealLG, LGChatRole
 
     @Override
     public void checkRunnable(Player player) {
+        ticks--;
         if (main.gameManager.getModes().getMode().getModeManager() instanceof LoupGarouManager) {
-            LoupGarouManager loupGarouManager = (LoupGarouManager) main.gameManager.getModes().getMode().getModeManager();
             if (WorldState.isWorldState(WorldState.NUIT)) {
                 if (isWithoutArmor(player)) {
                     for (PlayerManager playerManager : main.getPlayerManagerOnlines()) {
@@ -111,7 +113,10 @@ public class LoupGarouPerfide extends Role implements LGRole, RealLG, LGChatRole
                                 LGInvisibleRole lgInvisibleRole = (LGInvisibleRole) playerManager.getRole();
                                 if(lgInvisibleRole.canSeeParticles()){
                                     Player invisiblePlayer = playerManager.getPlayer();
-                                    ParticleEffect.playEffect(invisiblePlayer, EnumParticle.REDSTONE, player.getLocation());
+                                    if(ticks==0){
+                                        ParticleEffect.playEffect(invisiblePlayer, EnumParticle.REDSTONE, player.getLocation());
+                                        ticks = 20;
+                                    }
                                 }
                             }
                         }

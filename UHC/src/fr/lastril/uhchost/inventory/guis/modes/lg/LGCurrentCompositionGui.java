@@ -15,7 +15,9 @@ import org.bukkit.SkullType;
 import org.bukkit.event.inventory.ClickType;
 import org.bukkit.inventory.ItemStack;
 
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
 public class LGCurrentCompositionGui extends IQuickInventory {
 
@@ -31,18 +33,19 @@ public class LGCurrentCompositionGui extends IQuickInventory {
     @Override
     public void contents(QuickInventory inv) {
         inv.updateItem("roles", taskUpdate -> {
+
             for (int i = 0; i < inv.getInventory().getSize() - 3; i++) {
                 inv.setItem(new ItemStack(Material.AIR), i);
             }
-
             for(int i = 0; i < 18;i++){
                 inv.setItem(new QuickItem(Material.STAINED_GLASS_PANE, 1, (byte)1).toItemStack(), i);
             }
-
+            List<Role> rolesInv = new ArrayList<>();
             if(pl.gameManager.getModes().getMode() instanceof RoleMode<?>){
                 int index = 8 + 9;
                 for (Role roles : pl.getGamemanager().getRolesComposition()) {
-                    if(roles.getCamp() == camps){
+                    if(roles.getCamp() == camps && !rolesInv.contains(roles)){
+                        rolesInv.add(roles);
                         index++;
                         if(roles.getItem() == null){
                             inv.setItem(new QuickItem(Material.EMERALD,pl.gameManager.countRolesInComposition(roles)).setName(roles.getCamp().getCompoColor()
@@ -50,7 +53,6 @@ public class LGCurrentCompositionGui extends IQuickInventory {
                         } else {
                             inv.setItem(roles.getItem().setAmount(pl.gameManager.countRolesInComposition(roles)).toItemStack(), index);
                         }
-
                     }
                 }
             }

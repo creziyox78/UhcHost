@@ -5,7 +5,7 @@ import fr.lastril.uhchost.modes.tpg.KitTaupe;
 import fr.lastril.uhchost.modes.tpg.Kits;
 import fr.lastril.uhchost.modes.tpg.TaupeTeam;
 import fr.lastril.uhchost.player.PlayerManager;
-import fr.lastril.uhchost.scoreboard.TeamUtils;
+import fr.lastril.uhchost.inventory.scoreboard.TeamUtils;
 
 public class TaupePlayerManager {
 

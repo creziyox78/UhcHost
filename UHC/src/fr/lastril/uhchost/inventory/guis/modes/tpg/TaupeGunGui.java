@@ -2,6 +2,7 @@ package fr.lastril.uhchost.inventory.guis.modes.tpg;
 
 import fr.lastril.uhchost.config.modes.TaupeGunConfig;
 import fr.lastril.uhchost.enums.Messages;
+import fr.lastril.uhchost.inventory.guis.HostConfig;
 import fr.lastril.uhchost.tools.API.FormatTime;
 import fr.lastril.uhchost.tools.API.inventory.crafter.IQuickInventory;
 import fr.lastril.uhchost.tools.API.inventory.crafter.QuickInventory;
@@ -38,6 +39,7 @@ public class TaupeGunGui extends IQuickInventory {
                 },index + 10);
                 index++;
             }
+            inv.addRetourItem(new HostConfig());
         });
     }
 }

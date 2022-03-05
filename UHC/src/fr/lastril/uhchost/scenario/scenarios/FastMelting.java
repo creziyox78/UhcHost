@@ -22,27 +22,29 @@ public class FastMelting extends Scenario {
 	public void onFurnace(FurnaceBurnEvent e) {
 		final Block block = e.getBlock();
 		Bukkit.getScheduler().runTaskLater(UhcHost.instance, new Runnable() {
-
 			@Override
 			public void run() {
 				if(block.getType() == Material.AIR) {
 					return;
 				}
 				Furnace furnace = (Furnace)block.getState();
-				if(furnace.getBurnTime() <= 10) {
-					return;
+				if(furnace != null){
+					if(furnace.getBurnTime() <= 10) {
+						return;
+					}
+					if(furnace.getCookTime() <= 0) {
+						Bukkit.getScheduler().runTaskLater(UhcHost.instance, this, 5L);
+						return;
+					}
+					short newCookeTime = (short)(furnace.getCookTime() + 10);
+					if(newCookeTime >= 200) {
+						newCookeTime = 199;
+					}
+					furnace.setCookTime(newCookeTime);
+					furnace.update();
+					Bukkit.getScheduler().runTaskLater(UhcHost.instance, this, 2L);
 				}
-				if(furnace.getCookTime() <= 0) {
-					Bukkit.getScheduler().runTaskLater(UhcHost.instance, this, 5L);
-					return;
-				}
-				short newCookeTime = (short)(furnace.getCookTime() + 10);
-				if(newCookeTime >= 200) {
-					newCookeTime = 199;
-				}
-				furnace.setCookTime(newCookeTime);
-				furnace.update();
-				Bukkit.getScheduler().runTaskLater(UhcHost.instance, this, 2L);
+
 			}
 				
 		}, 1L);

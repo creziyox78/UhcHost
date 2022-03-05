@@ -22,7 +22,7 @@ public class Tablist extends BukkitRunnable {
 		int ping = (((CraftPlayer) player).getHandle()).ping;
 		PlayerConnection con = (((CraftPlayer) player).getHandle()).playerConnection;
 		IChatBaseComponent tabHeader = IChatBaseComponent.ChatSerializer.a("{\"text\":\" "
-				+ "§e§lGroup§f§l UHC" + "\n" +
+				+ "§6§lOkenzai§f§l" + "\n" +
 				"\n" +
 				"§8   §m--------------------- \"}");
 		PacketPlayOutPlayerListHeaderFooter packet = new PacketPlayOutPlayerListHeaderFooter(tabHeader);

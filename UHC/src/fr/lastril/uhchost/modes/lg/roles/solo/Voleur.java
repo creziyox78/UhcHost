@@ -50,7 +50,10 @@ public class Voleur extends Role implements LGRole {
                     if (!voleur.hasKilled()) {
                         killer.sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage()
                                 + "§bVous venez de tuer quelqu'un pour la 1ère fois. Vous n'avez plus Résistance et héritez du rôle ainsi que des pouvoirs de la personne que vous avez tué.");
+                        if(killer.hasPotionEffect(PotionEffectType.DAMAGE_RESISTANCE))
+                            killer.removePotionEffect(PotionEffectType.DAMAGE_RESISTANCE);
                         killerManager.setRole(player.getRole());
+                        killerManager.getRole().setPlayerID(killerManager.getUuid());
                         killerManager.setCamps(player.getCamps());
                         if(player.getWolfPlayerManager().isInCouple()){
                             killerManager.setCamps(Camps.COUPLE);
@@ -59,7 +62,9 @@ public class Voleur extends Role implements LGRole {
                             killer.sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage() + "§Vous venez de voler le couple ! Vous devez maintenant gagner avec ce dernier !");
                         }
                         killer.setMaxHealth(player.getPlayer().getMaxHealth());
-                        killer.sendMessage(killerManager.getRole().sendList());
+                        if(killerManager.getRole().sendList() != null){
+                            killer.sendMessage(killerManager.getRole().sendList());
+                        }
                         killerManager.getWolfPlayerManager().setSolitaire(player.getWolfPlayerManager().isSolitaire());
                         killerManager.getWolfPlayerManager().setOtherCouple(player.getWolfPlayerManager().getOtherCouple());
                         killerManager.getWolfPlayerManager().setInfected(player.getWolfPlayerManager().isInfected());
