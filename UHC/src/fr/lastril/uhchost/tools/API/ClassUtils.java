@@ -1,7 +1,6 @@
 package fr.lastril.uhchost.tools.API;
 
 import fr.lastril.uhchost.UhcHost;
-import fr.lastril.uhchost.modes.naruto.v2.roles.akatsuki.Nagato;
 import fr.lastril.uhchost.player.PlayerManager;
 import fr.lastril.uhchost.tools.API.raytracing.BoundingBox;
 import fr.lastril.uhchost.tools.API.raytracing.RayTrace;
@@ -21,7 +20,6 @@ import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitTask;
 import org.bukkit.util.Vector;
 
-import javax.swing.*;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;

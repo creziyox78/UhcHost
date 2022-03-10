@@ -1,8 +1,6 @@
 package fr.lastril.uhchost.modes.bleach.roles.shinigamis.soulsociety;
 
-import fr.lastril.uhchost.UhcHost;
 import fr.lastril.uhchost.modes.bleach.roles.ShinigamiRole;
-import fr.lastril.uhchost.modes.naruto.v2.roles.orochimaru.Orochimaru;
 import fr.lastril.uhchost.modes.roles.Camps;
 import fr.lastril.uhchost.modes.roles.Role;
 import fr.lastril.uhchost.modes.roles.RoleListener;

@@ -5,6 +5,7 @@ import fr.lastril.uhchost.enums.Messages;
 import fr.lastril.uhchost.modes.command.ModeSubCommand;
 import fr.lastril.uhchost.modes.lg.roles.village.Chaman;
 import fr.lastril.uhchost.player.PlayerManager;
+import fr.lastril.uhchost.player.modemanager.WolfPlayerManager;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -35,6 +36,7 @@ public class CmdChaman implements ModeSubCommand {
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         Player player = (Player) sender;
         PlayerManager playerManager = main.getPlayerManager(player.getUniqueId());
+        WolfPlayerManager wolfPlayerManager = playerManager.getWolfPlayerManager();
         if (!playerManager.hasRole() || !playerManager.isAlive()) {
             return false;
         }
@@ -44,6 +46,10 @@ public class CmdChaman implements ModeSubCommand {
                 String targetName = args[1];
                 Player target = Bukkit.getPlayer(targetName);
                 if(target != null && target != player){
+                    if(wolfPlayerManager.isSarbacaned()){
+                        player.sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage() + "§cLa sarcabane de l'Indigène vous empêche d'utiliser votre pouvoir !");
+                        return false;
+                    }
                     PlayerManager targetManager = main.getPlayerManagerAlives().get(UhcHost.getRANDOM().nextInt(main.getPlayerManagerAlives().size()));
                     player.sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage() + "§eVoici le rôle du joueur " + targetManager.getPlayerName() + " : " + targetManager.getRole().getRoleName() + ".");
                     chaman.addPlayerSpec(targetManager);

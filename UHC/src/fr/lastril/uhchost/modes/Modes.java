@@ -4,7 +4,6 @@ import fr.lastril.uhchost.modes.bleach.BleachMode;
 import fr.lastril.uhchost.modes.classic.ClassicMode;
 import fr.lastril.uhchost.modes.ds.DemonSlayerMode;
 import fr.lastril.uhchost.modes.lg.LoupGarouMode;
-import fr.lastril.uhchost.modes.naruto.NarutoV2;
 import fr.lastril.uhchost.modes.sm.SlaveMarketMode;
 import fr.lastril.uhchost.modes.tpg.TaupeGunMode;
 import fr.lastril.uhchost.tools.API.items.crafter.QuickItem;
@@ -112,7 +111,7 @@ public enum Modes {
                             "§6§k!§r §eClique droit§7 pour configurer le mode de jeu.")
                     .setName("§3Yu-Gi-Oh"), true),
  */
-    NARUTO("§6§lNaruto: Next Gen", "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYmFmOTFlOGViY2ZmNThlNzZmNTk3OWJjNjZmMzc3MzZjZjIxNmQ0ZGQzZjQwYWMxMzVkMGIxMDAwM2FjYWJkYiJ9fX0=",new NarutoV2(),
+    NARUTO("§6§lNaruto: Next Gen", "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYmFmOTFlOGViY2ZmNThlNzZmNTk3OWJjNjZmMzc3MzZjZjIxNmQ0ZGQzZjQwYWMxMzVkMGIxMDAwM2FjYWJkYiJ9fX0=",null,
             new QuickItem(Material.SKULL_ITEM, 1, SkullType.PLAYER.ordinal()).setTexture(
                     "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYmFmOTFlOGViY2ZmNThlNzZmNTk3OWJjNjZmMzc3MzZjZjIxNmQ0ZGQzZjQwYWMxMzVkMGIxMDAwM2FjYWJkYiJ9fX0=")
                     .setLore("",

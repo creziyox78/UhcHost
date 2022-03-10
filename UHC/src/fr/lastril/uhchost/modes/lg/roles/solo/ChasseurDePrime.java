@@ -8,7 +8,6 @@ import fr.lastril.uhchost.modes.roles.Camps;
 import fr.lastril.uhchost.modes.roles.Role;
 import fr.lastril.uhchost.modes.roles.When;
 import fr.lastril.uhchost.player.PlayerManager;
-import fr.lastril.uhchost.player.events.normal.Chat;
 import fr.lastril.uhchost.tools.API.items.crafter.QuickItem;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;

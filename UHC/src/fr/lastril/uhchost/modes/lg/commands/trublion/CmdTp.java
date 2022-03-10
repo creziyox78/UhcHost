@@ -6,6 +6,7 @@ import fr.lastril.uhchost.modes.command.ModeSubCommand;
 import fr.lastril.uhchost.modes.lg.roles.solo.Trublion;
 import fr.lastril.uhchost.modes.roles.Camps;
 import fr.lastril.uhchost.player.PlayerManager;
+import fr.lastril.uhchost.player.modemanager.WolfPlayerManager;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -36,6 +37,7 @@ public class CmdTp implements ModeSubCommand {
     public boolean onCommand(CommandSender sender, Command command, String s, String[] args) {
         Player player = (Player) sender;
         PlayerManager playerManager = main.getPlayerManager(player.getUniqueId());
+        WolfPlayerManager wolfPlayerManager = playerManager.getWolfPlayerManager();
         if(playerManager.isAlive() && playerManager.hasRole()){
             if(playerManager.getRole() instanceof Trublion){
                 Trublion trublion = (Trublion) playerManager.getRole();
@@ -45,6 +47,10 @@ public class CmdTp implements ModeSubCommand {
                             String targetName = args[1];
                             Player target = Bukkit.getPlayer(targetName);
                             if(target != null){
+                                if(wolfPlayerManager.isSarbacaned()){
+                                    player.sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage() + "§cLa sarcabane de l'Indigène vous empêche d'utiliser votre pouvoir !");
+                                    return false;
+                                }
                                 trublion.setTeleportedSpecificPlayer(trublion.getTeleportedSpecificPlayer() + 1);
                                 main.getGamemanager().teleportPlayerOnGround(target);
                                 target.sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage() + "§eLe Trublion vient de vous téléporter aléatoirement dans la map.");

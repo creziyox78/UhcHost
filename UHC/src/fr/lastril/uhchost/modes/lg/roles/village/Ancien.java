@@ -1,11 +1,9 @@
 package fr.lastril.uhchost.modes.lg.roles.village;
 
-import fr.lastril.uhchost.enums.ResurectType;
 import fr.lastril.uhchost.modes.lg.roles.LGRole;
 import fr.lastril.uhchost.modes.roles.Camps;
 import fr.lastril.uhchost.modes.roles.Role;
 import fr.lastril.uhchost.modes.roles.When;
-import fr.lastril.uhchost.player.PlayerManager;
 import fr.lastril.uhchost.tools.API.items.crafter.QuickItem;
 import org.bukkit.Material;
 import org.bukkit.SkullType;

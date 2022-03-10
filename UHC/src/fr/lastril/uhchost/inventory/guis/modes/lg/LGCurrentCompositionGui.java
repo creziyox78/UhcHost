@@ -1,22 +1,17 @@
 package fr.lastril.uhchost.inventory.guis.modes.lg;
 
 import fr.lastril.uhchost.UhcHost;
-import fr.lastril.uhchost.modes.ModeConfig;
 import fr.lastril.uhchost.modes.roles.Camps;
 import fr.lastril.uhchost.modes.roles.Role;
 import fr.lastril.uhchost.modes.roles.RoleMode;
 import fr.lastril.uhchost.tools.API.inventory.crafter.IQuickInventory;
 import fr.lastril.uhchost.tools.API.inventory.crafter.QuickInventory;
-import fr.lastril.uhchost.tools.API.items.ItemsCreator;
 import fr.lastril.uhchost.tools.API.items.crafter.QuickItem;
-import fr.lastril.uhchost.tools.I18n;
 import org.bukkit.Material;
 import org.bukkit.SkullType;
-import org.bukkit.event.inventory.ClickType;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class LGCurrentCompositionGui extends IQuickInventory {

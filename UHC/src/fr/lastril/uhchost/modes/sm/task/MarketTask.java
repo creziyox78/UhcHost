@@ -7,7 +7,6 @@ import fr.lastril.uhchost.modes.sm.SlaveMarketMode;
 import fr.lastril.uhchost.player.PlayerManager;
 import fr.lastril.uhchost.player.modemanager.MarketPlayerManager;
 import fr.lastril.uhchost.tools.API.ActionBar;
-import fr.lastril.uhchost.tools.API.ClassUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.scheduler.BukkitRunnable;

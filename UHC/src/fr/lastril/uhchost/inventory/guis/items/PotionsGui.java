@@ -15,7 +15,6 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.Potion;
 
 import java.util.Collections;
-import java.util.ListIterator;
 
 public class PotionsGui extends IQuickInventory {
 

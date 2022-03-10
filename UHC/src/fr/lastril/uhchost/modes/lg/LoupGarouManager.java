@@ -29,7 +29,6 @@ import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffectType;
 
-import javax.persistence.Id;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -93,6 +92,7 @@ public class LoupGarouManager extends ModeManager implements Listener {
                 PlayerManager playerManager = main.getPlayerManager(player.getUniqueId());
                 System.out.println("WolfPlayerManager not null !");
                 Player onlinePlayer = player.getPlayer();
+
                 if (player != null) {
                     System.out.println("Player not null !");
                     onlinePlayer = player.getPlayer();
@@ -100,6 +100,15 @@ public class LoupGarouManager extends ModeManager implements Listener {
                     playerManager.setItems(player.getInventory().getContents());
                     playerManager.setArmors(player.getInventory().getArmorContents());
                     onlinePlayer.updateInventory();
+                    if(playerManager.getRole() instanceof Revenant){
+                        UhcHost.debug("Revenant cheking revive...");
+                        Revenant revenant = (Revenant) playerManager.getRole();
+                        if(!revenant.isRevived()){
+                            revenant.setReviving(true);
+                            UhcHost.debug("Revenant use power.");
+                            playerManager.getWolfPlayerManager().setResurectType(ResurectType.REVENANT);
+                        }
+                    }
                     if(killer != null){
                         System.out.println("Checking killer not null !");
                         PlayerManager killerManager = main.getPlayerManager(killer.getUniqueId());
@@ -122,9 +131,10 @@ public class LoupGarouManager extends ModeManager implements Listener {
                                 }
                             }
                         }
-                        if(playerManager.getWolfPlayerManager().isProtect() && killerManager.hasRole() && killerManager.getRole() instanceof RealLG || killerManager.getWolfPlayerManager().isInfected() || killerManager.getWolfPlayerManager().isTransformed()){
+                        if(playerManager.getWolfPlayerManager().isProtect() && killerManager.hasRole() && (killerManager.getRole() instanceof RealLG || killerManager.getWolfPlayerManager().isInfected() || killerManager.getWolfPlayerManager().isTransformed())){
                             System.out.println("Garde protection !");
                             playerManager.getWolfPlayerManager().setResurectType(ResurectType.GARDE);
+                            playerManager.getWolfPlayerManager().setProtect(false);
                         }
                     }
                 }
@@ -132,6 +142,23 @@ public class LoupGarouManager extends ModeManager implements Listener {
                 if (playerManager.getWolfPlayerManager().getResurectType() != null) {
                     System.out.println("Ressurect type not null !");
                     switch (playerManager.getWolfPlayerManager().getResurectType()) {
+                        case REVENANT: {
+                            UhcHost.debug("Player set resurect type Revenant !");
+                            Revenant revenant = (Revenant) playerManager.getRole();
+                            revenant.setReviving(false);
+                            revenant.setRevived(true);
+                            player.setGameMode(GameMode.SURVIVAL);
+                            player.teleport(deathLocation);
+                            onlinePlayer.sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage() + "§eVous avez 30 secondes pour vous venger de votre tueur ! Passé ce délai, vous mourrez obligatoirement.");
+                            UhcHost.debug("Preparing Revenant death.");
+                            Bukkit.getScheduler().runTaskLater(main, () -> {
+                                if(playerManager.isAlive()){
+                                    UhcHost.debug("Kill Revenant");
+                                    kill(player, player.getInventory().getContents(), player.getInventory().getArmorContents(), killer, deathLocation, false);
+                                }
+                            },20*30);
+                            break;
+                        }
                         case IDIOT: {
                             UhcHost.debug("Player set ressurect type Idiot !");
                             IdiotDuVillage idiotDuVillage = (IdiotDuVillage) playerManager.getRole();
@@ -197,11 +224,13 @@ public class LoupGarouManager extends ModeManager implements Listener {
 
                             PlayerManager killerManager = main.getPlayerManager(killer.getUniqueId());
                             if(killerManager.hasRole() && !(killerManager.getRole() instanceof Voleur || killerManager.getRole() instanceof Rival)){
-                                killCouple();
                                 System.out.println("Killed coupled player !");
+                            } else {
+                                System.out.println("Killer role stile couple !");
+                                return;
                             }
-                            System.out.println("Killer role stile couple !");
                         }
+                        killCouple();
                     }
                 }
                 waitingRessurect.remove(player.getUniqueId());
@@ -799,7 +828,7 @@ public class LoupGarouManager extends ModeManager implements Listener {
     }
 
     public boolean isRandomSeeRole() {
-        return randomSeeRole;
+        return randomSeeRole || main.getGamemanager().getComposition().contains(Pretresse.class);
     }
 
     public void setRandomSeeRole(boolean randomSeeRole) {

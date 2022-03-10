@@ -1,7 +1,6 @@
 package fr.lastril.uhchost.commands;
 
 import fr.lastril.uhchost.UhcHost;
-import fr.lastril.uhchost.modes.roles.RoleMode;
 import fr.lastril.uhchost.tools.API.TextComponentBuilder;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.HoverEvent;

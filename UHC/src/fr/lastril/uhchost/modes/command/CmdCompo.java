@@ -3,7 +3,6 @@ package fr.lastril.uhchost.modes.command;
 import fr.lastril.uhchost.UhcHost;
 import fr.lastril.uhchost.enums.Messages;
 import fr.lastril.uhchost.game.GameState;
-import fr.lastril.uhchost.game.tasks.TaskManager;
 import fr.lastril.uhchost.modes.Mode;
 import fr.lastril.uhchost.modes.Modes;
 import fr.lastril.uhchost.modes.lg.LoupGarouMode;
@@ -17,7 +16,6 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import java.util.List;
-import java.util.Locale;
 import java.util.stream.Collectors;
 
 public class CmdCompo implements ModeSubCommand {

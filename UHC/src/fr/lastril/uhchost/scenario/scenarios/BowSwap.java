@@ -1,7 +1,7 @@
 package fr.lastril.uhchost.scenario.scenarios;
 
-import fr.lastril.uhchost.scenario.Scenario;
 import fr.lastril.uhchost.inventory.guis.scenarios.BowSwapGui;
+import fr.lastril.uhchost.scenario.Scenario;
 import fr.lastril.uhchost.tools.I18n;
 import org.bukkit.Location;
 import org.bukkit.Material;

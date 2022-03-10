@@ -1,9 +1,7 @@
 package fr.lastril.uhchost.modes.bleach.items;
 
-import com.avaje.ebeaninternal.server.core.Message;
 import fr.lastril.uhchost.UhcHost;
 import fr.lastril.uhchost.enums.Messages;
-import fr.lastril.uhchost.modes.bleach.BleachRoles;
 import fr.lastril.uhchost.modes.bleach.roles.shinigamis.soulsociety.ToshiroHitsugaya;
 import fr.lastril.uhchost.player.PlayerManager;
 import fr.lastril.uhchost.player.modemanager.BleachPlayerManager;
@@ -15,9 +13,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
-import org.bukkit.entity.WitherSkull;
 import org.bukkit.inventory.ItemFlag;
-import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitTask;
 
 public class Hyorinmaru extends QuickItem {

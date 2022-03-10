@@ -7,6 +7,7 @@ import fr.lastril.uhchost.modes.lg.roles.LGFacadeRole;
 import fr.lastril.uhchost.modes.lg.roles.RealLG;
 import fr.lastril.uhchost.modes.lg.roles.village.Pretresse;
 import fr.lastril.uhchost.player.PlayerManager;
+import fr.lastril.uhchost.player.modemanager.WolfPlayerManager;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -37,6 +38,7 @@ public class CmdVoirPretresse implements ModeSubCommand {
     public boolean onCommand(CommandSender sender, Command command, String s, String[] args) {
         Player player = (Player) sender;
         PlayerManager playerManager = pl.getPlayerManager(player.getUniqueId());
+        WolfPlayerManager wolfPlayerManager = playerManager.getWolfPlayerManager();
         if (!playerManager.hasRole() || !playerManager.isAlive()) {
             return false;
         }
@@ -49,6 +51,10 @@ public class CmdVoirPretresse implements ModeSubCommand {
                     if (target != null) {
                         PlayerManager targetManager = pl.getPlayerManager(target.getUniqueId());
                         if (targetManager.isAlive() && targetManager.hasRole()) {
+                            if(wolfPlayerManager.isSarbacaned()){
+                                player.sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage() + "§cLa sarcabane de l'Indigène vous empêche d'utiliser votre pouvoir !");
+                                return false;
+                            }
                             sendRole(player, pretresse,targetManager);
                             pretresse.setSeeRole(false);
                         } else {
@@ -80,7 +86,7 @@ public class CmdVoirPretresse implements ModeSubCommand {
             }
             player.setMaxHealth(player.getMaxHealth() - 2D*2D);
         } else {
-            if(targetManager.getRole() instanceof RealLG){
+            if(targetManager.getRole() instanceof RealLG || targetManager.getWolfPlayerManager().isTransformed()){
                 player.sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage()
                         + "§bVous venez d'espionner " + targetManager.getPlayerName()
                         + ". Ce joueur est: " + targetManager.getRole().getRoleName());

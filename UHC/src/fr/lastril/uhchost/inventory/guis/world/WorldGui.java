@@ -2,7 +2,6 @@ package fr.lastril.uhchost.inventory.guis.world;
 
 import fr.lastril.uhchost.UhcHost;
 import fr.lastril.uhchost.inventory.guis.HostConfig;
-import fr.lastril.uhchost.tools.API.inventory.GUIYesNo;
 import fr.lastril.uhchost.tools.API.inventory.crafter.IQuickInventory;
 import fr.lastril.uhchost.tools.API.inventory.crafter.QuickInventory;
 import fr.lastril.uhchost.tools.API.items.ItemsCreator;

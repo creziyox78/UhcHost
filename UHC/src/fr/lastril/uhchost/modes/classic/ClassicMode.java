@@ -12,7 +12,6 @@ import fr.lastril.uhchost.tools.I18n;
 import fr.lastril.uhchost.world.WorldUtils;
 import org.bukkit.*;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scoreboard.Team;
 

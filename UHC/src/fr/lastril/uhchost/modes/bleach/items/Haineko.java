@@ -2,7 +2,6 @@ package fr.lastril.uhchost.modes.bleach.items;
 
 import fr.lastril.uhchost.UhcHost;
 import fr.lastril.uhchost.enums.Messages;
-import fr.lastril.uhchost.modes.bleach.BleachRoles;
 import fr.lastril.uhchost.modes.bleach.roles.shinigamis.soulsociety.RangikuMatsumoto;
 import fr.lastril.uhchost.player.PlayerManager;
 import fr.lastril.uhchost.player.modemanager.BleachPlayerManager;

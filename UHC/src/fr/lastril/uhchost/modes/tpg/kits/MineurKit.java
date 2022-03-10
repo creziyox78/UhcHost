@@ -1,7 +1,6 @@
 package fr.lastril.uhchost.modes.tpg.kits;
 
 import fr.lastril.uhchost.modes.tpg.KitTaupe;
-import fr.lastril.uhchost.tools.API.items.Livre;
 import fr.lastril.uhchost.tools.API.items.crafter.QuickItem;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;

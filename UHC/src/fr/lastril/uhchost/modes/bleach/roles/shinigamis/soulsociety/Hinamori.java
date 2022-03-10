@@ -1,14 +1,11 @@
 package fr.lastril.uhchost.modes.bleach.roles.shinigamis.soulsociety;
 
-import fr.lastril.uhchost.enums.Messages;
 import fr.lastril.uhchost.modes.bleach.items.Snap;
 import fr.lastril.uhchost.modes.bleach.items.WaveItem;
 import fr.lastril.uhchost.modes.bleach.roles.ShinigamiRole;
 import fr.lastril.uhchost.modes.roles.Camps;
 import fr.lastril.uhchost.modes.roles.Role;
 import fr.lastril.uhchost.modes.roles.RoleListener;
-import fr.lastril.uhchost.player.PlayerManager;
-import fr.lastril.uhchost.tools.API.ClassUtils;
 import fr.lastril.uhchost.tools.API.items.crafter.QuickItem;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -16,7 +13,6 @@ import org.bukkit.SkullType;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Fireball;
 import org.bukkit.entity.Player;
-import org.bukkit.entity.WitherSkull;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.entity.EntityExplodeEvent;
 import org.bukkit.scheduler.BukkitTask;

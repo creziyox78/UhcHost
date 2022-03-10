@@ -1,5 +1,6 @@
 package fr.lastril.uhchost.modes.lg.roles.village;
 
+import fr.lastril.uhchost.enums.Messages;
 import fr.lastril.uhchost.modes.command.ModeSubCommand;
 import fr.lastril.uhchost.modes.lg.commands.CmdGarde;
 import fr.lastril.uhchost.modes.lg.roles.LGRole;
@@ -54,6 +55,7 @@ public class Garde extends Role implements LGRole, RoleCommand {
     @Override
     public void onNewEpisode(Player player) {
         protect = false;
+        player.sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage() + "§BVous avez 2 minutes pour choisir la personne que vous souhaiter gardé avec la commande /lg garde (pseudo).");
     }
 
     @Override

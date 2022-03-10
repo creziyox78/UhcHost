@@ -1,7 +1,6 @@
 package fr.lastril.uhchost.inventory.guis.scenarios;
 
 import fr.lastril.uhchost.scenario.ScenariosGui;
-import fr.lastril.uhchost.scenario.scenarios.Goldless;
 import fr.lastril.uhchost.scenario.scenarios.SafeMiner;
 import fr.lastril.uhchost.tools.API.inventory.crafter.IQuickInventory;
 import fr.lastril.uhchost.tools.API.inventory.crafter.QuickInventory;

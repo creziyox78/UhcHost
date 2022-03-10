@@ -1,10 +1,8 @@
 package fr.lastril.uhchost.commands;
 
 import fr.lastril.uhchost.UhcHost;
-import fr.lastril.uhchost.modes.Mode;
 import fr.lastril.uhchost.modes.Modes;
 import fr.lastril.uhchost.modes.command.ModeCommand;
-import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;

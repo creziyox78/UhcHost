@@ -3,8 +3,6 @@ package fr.lastril.uhchost.inventory.guis.modes.tpg;
 import fr.lastril.uhchost.UhcHost;
 import fr.lastril.uhchost.config.modes.TaupeGunConfig;
 import fr.lastril.uhchost.modes.ModeConfig;
-import fr.lastril.uhchost.modes.bleach.BleachMode;
-import fr.lastril.uhchost.modes.tpg.TaupeGunMode;
 import fr.lastril.uhchost.tools.API.FormatTime;
 import fr.lastril.uhchost.tools.API.inventory.crafter.IQuickInventory;
 import fr.lastril.uhchost.tools.API.inventory.crafter.QuickInventory;

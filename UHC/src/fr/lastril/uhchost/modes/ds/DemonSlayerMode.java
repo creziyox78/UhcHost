@@ -9,8 +9,6 @@ import fr.lastril.uhchost.modes.ModeManager;
 import fr.lastril.uhchost.modes.Modes;
 import fr.lastril.uhchost.modes.command.*;
 import fr.lastril.uhchost.modes.ds.roles.DSRole;
-import fr.lastril.uhchost.modes.lg.LGRoles;
-import fr.lastril.uhchost.modes.lg.roles.LGRole;
 import fr.lastril.uhchost.modes.roles.*;
 import fr.lastril.uhchost.player.PlayerManager;
 import fr.lastril.uhchost.tools.API.inventory.crafter.IQuickInventory;

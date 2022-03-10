@@ -3,7 +3,7 @@ package fr.lastril.uhchost.player.modemanager;
 import fr.lastril.uhchost.UhcHost;
 import fr.lastril.uhchost.modes.sm.MarketOwnerLocation;
 import fr.lastril.uhchost.player.PlayerManager;
-import fr.lastril.uhchost.inventory.scoreboard.TeamUtils;
+import fr.lastril.uhchost.scoreboard.TeamUtils;
 import org.bukkit.Location;
 
 import java.util.ArrayList;

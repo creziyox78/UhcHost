@@ -2,16 +2,14 @@ package fr.lastril.uhchost.modes.lg.commands;
 
 import fr.lastril.uhchost.UhcHost;
 import fr.lastril.uhchost.enums.Messages;
-import fr.lastril.uhchost.enums.ResurectType;
 import fr.lastril.uhchost.modes.command.ModeSubCommand;
 import fr.lastril.uhchost.modes.lg.roles.village.Garde;
 import fr.lastril.uhchost.player.PlayerManager;
+import fr.lastril.uhchost.player.modemanager.WolfPlayerManager;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.bukkit.potion.PotionEffect;
-import org.bukkit.potion.PotionEffectType;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -38,6 +36,7 @@ public class CmdGarde implements ModeSubCommand {
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
         Player player = (Player) sender;
         PlayerManager playerManager = main.getPlayerManager(player.getUniqueId());
+        WolfPlayerManager wolfPlayerManager = playerManager.getWolfPlayerManager();
         if (!playerManager.hasRole() || !playerManager.isAlive()) {
             return false;
         }
@@ -50,6 +49,10 @@ public class CmdGarde implements ModeSubCommand {
                     if(target != null && target != player){
                         PlayerManager targetManager = main.getPlayerManager(target.getUniqueId());
                         if(!garde.alreayProtected(targetManager)){
+                            if(wolfPlayerManager.isSarbacaned()){
+                                player.sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage() + "§cLa sarcabane de l'Indigène vous empêche d'utiliser votre pouvoir !");
+                                return false;
+                            }
                             targetManager.getWolfPlayerManager().setProtect(true);
                             garde.addProtected(targetManager);
                             garde.setProtect(true);

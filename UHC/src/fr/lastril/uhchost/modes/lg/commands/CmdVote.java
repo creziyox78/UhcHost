@@ -47,7 +47,7 @@ public class CmdVote implements ModeSubCommand {
             if (target != null) {
                 if(loupGarouManager.isVoteTime()){
                     WolfPlayerManager wolfPlayerManager = pl.getPlayerManager(player.getUniqueId()).getWolfPlayerManager();
-                    if (!wolfPlayerManager.hasVoted()) {
+                    if (!wolfPlayerManager.hasVoted() && !wolfPlayerManager.isSarbacaned()) {
                         wolfPlayerManager.setVoted(true);
                         WolfPlayerManager wolfTargetManager = pl.getPlayerManager(target.getUniqueId()).getWolfPlayerManager();
                         if (wolfTargetManager != null && pl.getPlayerManager(target.getUniqueId()).isAlive()) {

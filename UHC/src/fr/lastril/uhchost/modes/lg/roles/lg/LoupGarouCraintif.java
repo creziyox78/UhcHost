@@ -121,7 +121,7 @@ public class LoupGarouCraintif extends Role implements LGRole, RealLG, LGChatRol
                     player.removePotionEffect(PotionEffectType.INCREASE_DAMAGE);
                 player.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 20*4, 0, false, false));
             }
-        } else if (nearLgPlayer == 1){
+        } else if (nearLgPlayer < 3){
             if(player.hasPotionEffect(PotionEffectType.SPEED))
                 player.removePotionEffect(PotionEffectType.SPEED);
             if(day){
@@ -133,7 +133,7 @@ public class LoupGarouCraintif extends Role implements LGRole, RealLG, LGChatRol
                     player.removePotionEffect(PotionEffectType.INCREASE_DAMAGE);
                 player.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 20*4, 0, false, false));
             }
-        } else if(nearLgPlayer >= 2){
+        } else if(nearLgPlayer >= 3){
             if(player.hasPotionEffect(PotionEffectType.SPEED))
                 player.removePotionEffect(PotionEffectType.SPEED);
             if(day){
@@ -143,11 +143,9 @@ public class LoupGarouCraintif extends Role implements LGRole, RealLG, LGChatRol
                 if(player.hasPotionEffect(PotionEffectType.INCREASE_DAMAGE))
                     player.removePotionEffect(PotionEffectType.INCREASE_DAMAGE);
             }
-            if(nearLgPlayer >= 3){
-                if(player.hasPotionEffect(PotionEffectType.WEAKNESS))
-                    player.removePotionEffect(PotionEffectType.WEAKNESS);
-                player.addPotionEffect(new PotionEffect(PotionEffectType.WEAKNESS, 20*4, 0, false, false));
-            }
+            if(player.hasPotionEffect(PotionEffectType.WEAKNESS))
+                player.removePotionEffect(PotionEffectType.WEAKNESS);
+            player.addPotionEffect(new PotionEffect(PotionEffectType.WEAKNESS, 20*4, 0, false, false));
         }
     }
 

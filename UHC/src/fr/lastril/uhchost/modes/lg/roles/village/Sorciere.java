@@ -27,7 +27,7 @@ public class Sorciere extends Role implements LGRole, RoleListener {
     @Override
     public void giveItems(Player player) {
         main.getInventoryUtils().giveItemSafely(player, new PotionItem(PotionType.STRENGTH, 1, true).toItemStack(1));
-        main.getInventoryUtils().giveItemSafely(player, new PotionItem(PotionType.INSTANT_DAMAGE, 1, true).toItemStack(1));
+        main.getInventoryUtils().giveItemSafely(player, new PotionItem(PotionType.INSTANT_DAMAGE, 1, true).toItemStack(3));
         main.getInventoryUtils().giveItemSafely(player, new PotionItem(PotionType.REGEN, 1, true).toItemStack(1));
         main.getInventoryUtils().giveItemSafely(player, new PotionItem(PotionType.INSTANT_HEAL, 1, true).toItemStack(2));
     }

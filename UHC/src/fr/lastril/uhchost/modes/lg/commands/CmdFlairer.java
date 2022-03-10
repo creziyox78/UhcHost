@@ -6,8 +6,8 @@ import fr.lastril.uhchost.modes.command.ModeSubCommand;
 import fr.lastril.uhchost.modes.lg.roles.LGFacadeRole;
 import fr.lastril.uhchost.modes.lg.roles.RealLG;
 import fr.lastril.uhchost.modes.lg.roles.village.Renard;
-import fr.lastril.uhchost.modes.roles.Camps;
 import fr.lastril.uhchost.player.PlayerManager;
+import fr.lastril.uhchost.player.modemanager.WolfPlayerManager;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -38,6 +38,7 @@ public class CmdFlairer implements ModeSubCommand {
     public boolean onCommand(CommandSender sender, Command command, String s, String[] args) {
         Player player = (Player) sender;
         PlayerManager playerManager = pl.getPlayerManager(player.getUniqueId());
+        WolfPlayerManager wolfPlayerManager = playerManager.getWolfPlayerManager();
         if (!playerManager.hasRole() || !playerManager.isAlive()) {
             return false;
         }
@@ -53,6 +54,10 @@ public class CmdFlairer implements ModeSubCommand {
                             if (targetManager.isAlive() && targetManager.hasRole()) {
                                 if(target.getWorld() == player.getWorld()){
                                     if(player.getLocation().distance(target.getLocation()) <= 20){
+                                        if(wolfPlayerManager.isSarbacaned()){
+                                            player.sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage() + "§cLa sarcabane de l'Indigène vous empêche d'utiliser votre pouvoir !");
+                                            return false;
+                                        }
                                         sendCamps(player, targetManager);
                                         renard.addUse();
                                         renard.addRenifled(targetManager);

@@ -5,6 +5,7 @@ import fr.lastril.uhchost.enums.Messages;
 import fr.lastril.uhchost.modes.command.ModeSubCommand;
 import fr.lastril.uhchost.modes.lg.roles.solo.Trappeur;
 import fr.lastril.uhchost.player.PlayerManager;
+import fr.lastril.uhchost.player.modemanager.WolfPlayerManager;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -35,6 +36,7 @@ public class CmdTrapper implements ModeSubCommand {
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         Player player = (Player) sender;
         PlayerManager playerManager = main.getPlayerManager(player.getUniqueId());
+        WolfPlayerManager wolfPlayerManager = playerManager.getWolfPlayerManager();
         if (!playerManager.hasRole() || !playerManager.isAlive()) {
             return false;
         }
@@ -47,6 +49,10 @@ public class CmdTrapper implements ModeSubCommand {
                     PlayerManager targetManager = main.getPlayerManager(target.getUniqueId());
                     if(targetManager.isAlive()){
                         if(!trappeur.canChange()){
+                            if(wolfPlayerManager.isSarbacaned()){
+                                player.sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage() + "§cLa sarcabane de l'Indigène vous empêche d'utiliser votre pouvoir !");
+                                return false;
+                            }
                             trappeur.setTracked(targetManager);
                             trappeur.setChange(true);
                             player.sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage() + "§aVous tracker maintenant " + targetName + " !");

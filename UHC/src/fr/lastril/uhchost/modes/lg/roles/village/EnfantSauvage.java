@@ -6,6 +6,7 @@ import fr.lastril.uhchost.enums.WorldState;
 import fr.lastril.uhchost.modes.command.ModeSubCommand;
 import fr.lastril.uhchost.modes.lg.LoupGarouManager;
 import fr.lastril.uhchost.modes.lg.commands.CmdModele;
+import fr.lastril.uhchost.modes.lg.roles.LGChatRole;
 import fr.lastril.uhchost.modes.lg.roles.LGRole;
 import fr.lastril.uhchost.modes.roles.Camps;
 import fr.lastril.uhchost.modes.roles.Role;
@@ -13,7 +14,6 @@ import fr.lastril.uhchost.modes.roles.RoleCommand;
 import fr.lastril.uhchost.modes.roles.When;
 import fr.lastril.uhchost.player.PlayerManager;
 import fr.lastril.uhchost.tools.API.items.crafter.QuickItem;
-import org.apache.commons.lang3.AnnotationUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -26,7 +26,7 @@ import org.bukkit.potion.PotionEffectType;
 import java.util.Arrays;
 import java.util.List;
 
-public class EnfantSauvage extends Role implements LGRole, RoleCommand {
+public class EnfantSauvage extends Role implements LGRole, RoleCommand, LGChatRole {
 
     private PlayerManager modele;
 
@@ -145,5 +145,20 @@ public class EnfantSauvage extends Role implements LGRole, RoleCommand {
     @Override
     public List<ModeSubCommand> getSubCommands() {
         return Arrays.asList(new CmdModele(main));
+    }
+
+    @Override
+    public boolean canSee() {
+        return main.getPlayerManager(super.getPlayerId()).getWolfPlayerManager().isTransformed();
+    }
+
+    @Override
+    public boolean canSend() {
+        return main.getPlayerManager(super.getPlayerId()).getWolfPlayerManager().isTransformed();
+    }
+
+    @Override
+    public boolean sendPlayerName() {
+        return false;
     }
 }

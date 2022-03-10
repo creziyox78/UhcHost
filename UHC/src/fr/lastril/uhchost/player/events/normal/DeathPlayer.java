@@ -1,7 +1,6 @@
 package fr.lastril.uhchost.player.events.normal;
 
 import fr.lastril.uhchost.UhcHost;
-import fr.lastril.uhchost.game.GameManager;
 import fr.lastril.uhchost.game.GameState;
 import fr.lastril.uhchost.player.events.PlayerKillEvent;
 import org.bukkit.Bukkit;

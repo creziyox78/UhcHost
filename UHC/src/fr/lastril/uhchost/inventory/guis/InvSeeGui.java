@@ -1,8 +1,5 @@
 package fr.lastril.uhchost.inventory.guis;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import fr.lastril.uhchost.tools.API.FormatTime;
 import fr.lastril.uhchost.tools.API.inventory.crafter.IQuickInventory;
 import fr.lastril.uhchost.tools.API.inventory.crafter.QuickInventory;
@@ -13,6 +10,9 @@ import org.bukkit.Statistic;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class InvSeeGui extends IQuickInventory {
 

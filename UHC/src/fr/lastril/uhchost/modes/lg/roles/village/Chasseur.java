@@ -3,14 +3,15 @@ package fr.lastril.uhchost.modes.lg.roles.village;
 import fr.lastril.uhchost.UhcHost;
 import fr.lastril.uhchost.enums.Messages;
 import fr.lastril.uhchost.modes.command.ModeSubCommand;
-import fr.lastril.uhchost.modes.lg.commands.CmdShot;
+import fr.lastril.uhchost.modes.lg.LoupGarouManager;
+import fr.lastril.uhchost.modes.lg.commands.chasseur.CmdChasseurInspect;
+import fr.lastril.uhchost.modes.lg.commands.chasseur.CmdShot;
 import fr.lastril.uhchost.modes.lg.roles.LGRole;
 import fr.lastril.uhchost.modes.roles.Camps;
 import fr.lastril.uhchost.modes.roles.Role;
 import fr.lastril.uhchost.modes.roles.RoleCommand;
 import fr.lastril.uhchost.player.PlayerManager;
 import fr.lastril.uhchost.tools.API.items.Livre;
-import fr.lastril.uhchost.tools.API.items.Oeuf;
 import fr.lastril.uhchost.tools.API.items.crafter.QuickItem;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.TextComponent;
@@ -19,17 +20,18 @@ import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.SkullType;
 import org.bukkit.enchantments.Enchantment;
-import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 public class Chasseur extends Role implements LGRole, RoleCommand {
 
     private boolean shot;
-    private int reminingTime = 30;
+    private final int reminingTime = 30;
+    private final List<PlayerManager> playersInvestigated = new ArrayList<>();
 
     @Override
     public void giveItems(Player player) {
@@ -50,16 +52,33 @@ public class Chasseur extends Role implements LGRole, RoleCommand {
     @Override
     public void onPlayerDeathRealy(PlayerManager player, ItemStack[] items, ItemStack[] armors, Player killer, Location deathLocation) {
         UhcHost.debug("Chasseur checking...");
-        if(player.hasRole()){
-            UhcHost.debug("Chasseur checking role...");
-            if(player.getRole() instanceof Chasseur){
-                UhcHost.debug("Player is chasseur, sended !");
-                TextComponent message = new TextComponent("§aTir : " + Messages.CLICK_HERE.getMessage());
-                message.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/lg tir"));
-                Bukkit.getScheduler().runTaskLater(main, () -> setShot(true), 20*reminingTime);
-                player.getPlayer().sendMessage(message.getText());
+        if(main.getGamemanager().getModes().getMode().getModeManager() instanceof LoupGarouManager){
+            LoupGarouManager loupGarouManager = (LoupGarouManager) main.getGamemanager().getModes().getMode().getModeManager();
+            if(player.hasRole()){
+                UhcHost.debug("Chasseur checking role...");
+                if(player.getRole() instanceof Chasseur){
+                    UhcHost.debug("Player is chasseur, sended !");
+                    TextComponent message = new TextComponent("§aTir : " + Messages.CLICK_HERE.getMessage());
+                    message.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/lg tir"));
+                    Bukkit.getScheduler().runTaskLater(main, () -> setShot(true), 20*reminingTime);
+                    player.getPlayer().sendMessage(message.getText());
+                }
+                if(loupGarouManager.isRandomSeeRole()){
+                    Player chasseur = super.getPlayer();
+                    if(chasseur != null){
+                        if(chasseur.getLocation().distance(player.getDeathLocation()) <= 50){
+                            if(playersInvestigated.size() < 3){
+                                TextComponent message = new TextComponent("§aUn joueur vient de mourir dans un rayon de 50 blocs : " + Messages.CLICK_HERE.getMessage());
+                                message.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/lg chasseur_inspect " + player.getPlayerName()));
+                                chasseur.spigot().sendMessage(message);
+                            }
+                        }
+                    }
+                }
             }
         }
+
+
     }
 
     @Override
@@ -98,7 +117,7 @@ public class Chasseur extends Role implements LGRole, RoleCommand {
 
     @Override
     public List<ModeSubCommand> getSubCommands() {
-        return Arrays.asList(new CmdShot(main));
+        return Arrays.asList(new CmdShot(main), new CmdChasseurInspect(main));
     }
 
     public void setShot(boolean shot) {
@@ -119,6 +138,29 @@ public class Chasseur extends Role implements LGRole, RoleCommand {
         Bukkit.broadcastMessage(Messages.LOUP_GAROU_PREFIX.getMessage() + "§eLe chasseur vient de tirer sur " + player.getName() + ". Il perd 6 coeurs.");
         Bukkit.broadcastMessage(" ");
         setShot(true);
+    }
+
+    public void sendInvestigateMessage(Player player, PlayerManager targetManager){
+        if(!playersInvestigated.contains(targetManager)){
+            List<Role> investigateRoles = new ArrayList<>();
+            investigateRoles.add(targetManager.getRole());
+            playersInvestigated.add(targetManager);
+            main.getPlayerManagerAlives().forEach(playerManager -> {
+                    Role role = playerManager.getRole();
+                    if(!role.getRoleName().equalsIgnoreCase(targetManager.getRole().getRoleName()) && !investigateRoles.contains(role))
+                        investigateRoles.add(role);
+            });
+            StringBuilder message = new StringBuilder();
+            for (int i = 0; i < 3; i++) {
+                int index = UhcHost.getRANDOM().nextInt(investigateRoles.size());
+                message.append(investigateRoles.get(index).getRoleName()).append(", ");
+                investigateRoles.remove(index);
+            }
+            player.sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage() + "§2Son rôle est présente dans la liste suivante: " + message);
+        } else {
+            player.sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage() + "§cVous avez déjà utiliser votre pouvoir sur ce joueur !");
+        }
+
     }
 
 }

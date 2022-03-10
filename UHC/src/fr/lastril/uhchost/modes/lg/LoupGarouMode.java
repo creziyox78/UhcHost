@@ -9,11 +9,7 @@ import fr.lastril.uhchost.modes.Mode;
 import fr.lastril.uhchost.modes.ModeConfig;
 import fr.lastril.uhchost.modes.ModeManager;
 import fr.lastril.uhchost.modes.Modes;
-import fr.lastril.uhchost.modes.command.CmdCompo;
-import fr.lastril.uhchost.modes.command.CmdMe;
-import fr.lastril.uhchost.modes.command.ModeCommand;
-import fr.lastril.uhchost.modes.command.ModeSubCommand;
-import fr.lastril.uhchost.modes.command.CmdDesc;
+import fr.lastril.uhchost.modes.command.*;
 import fr.lastril.uhchost.modes.lg.commands.CmdList;
 import fr.lastril.uhchost.modes.lg.commands.CmdVote;
 import fr.lastril.uhchost.modes.lg.roles.LGChatRole;
@@ -21,6 +17,7 @@ import fr.lastril.uhchost.modes.lg.roles.LGRole;
 import fr.lastril.uhchost.modes.lg.roles.solo.LoupGarouBlanc;
 import fr.lastril.uhchost.modes.lg.roles.solo.Trublion;
 import fr.lastril.uhchost.modes.lg.roles.village.Pretresse;
+import fr.lastril.uhchost.modes.lg.roles.village.Revenant;
 import fr.lastril.uhchost.modes.roles.*;
 import fr.lastril.uhchost.player.PlayerManager;
 import fr.lastril.uhchost.player.modemanager.WolfPlayerManager;
@@ -220,6 +217,14 @@ public class LoupGarouMode extends Mode implements ModeCommand, RoleMode<LGRole>
     public void onDeath(OfflinePlayer player, Player killer) {
         if(player.isOnline()){
             Player onlinePlayer = player.getPlayer();
+            PlayerManager playerManager = pl.getPlayerManager(onlinePlayer.getUniqueId());
+            WolfPlayerManager wolfPlayerManager = playerManager.getWolfPlayerManager();
+            if(playerManager.hasRole() && playerManager.getRole() instanceof Revenant){
+                Revenant revenant = (Revenant) playerManager.getRole();
+                if(revenant.isRevived()){
+                    loupGarouManager.kill(onlinePlayer, onlinePlayer.getInventory().getContents(), onlinePlayer.getInventory().getArmorContents(), killer, playerManager.getDeathLocation(), wolfPlayerManager.isInCouple());
+                }
+            }
             Bukkit.getScheduler().runTaskLater(pl, () -> {
                 onlinePlayer.spigot().respawn();
                 onlinePlayer.teleport(new Location(pl.gameManager.spawn.getWorld(), pl.gameManager.spawn.getX(), pl.gameManager.spawn.getY() + 5, pl.gameManager.spawn.getZ()));
@@ -411,7 +416,7 @@ public class LoupGarouMode extends Mode implements ModeCommand, RoleMode<LGRole>
 
     @Override
     public String getDocLink() {
-        return "https://groupuhc.gitbook.io/loup-garou-uhc/loup-garou-uhc/presentation";
+        return "https://okenzai.gitbook.io/loup-garou-uhc/loup-garou-uhc/presentation";
     }
 
     @Override

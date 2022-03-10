@@ -1,6 +1,6 @@
 package fr.lastril.uhchost.modes.tpg;
 
-import fr.lastril.uhchost.inventory.scoreboard.TeamUtils;
+import fr.lastril.uhchost.scoreboard.TeamUtils;
 
 public enum TaupeTeams {
 

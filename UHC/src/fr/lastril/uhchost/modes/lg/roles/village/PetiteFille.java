@@ -5,8 +5,6 @@ import fr.lastril.uhchost.modes.lg.LoupGarouManager;
 import fr.lastril.uhchost.modes.lg.roles.LGChatRole;
 import fr.lastril.uhchost.modes.lg.roles.LGInvisibleRole;
 import fr.lastril.uhchost.modes.lg.roles.LGRole;
-import fr.lastril.uhchost.modes.lg.roles.lg.LoupGarouPerfide;
-import fr.lastril.uhchost.modes.naruto.v2.roles.orochimaru.Orochimaru;
 import fr.lastril.uhchost.modes.roles.Camps;
 import fr.lastril.uhchost.modes.roles.Role;
 import fr.lastril.uhchost.modes.roles.When;

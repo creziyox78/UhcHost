@@ -1,6 +1,5 @@
 package fr.lastril.uhchost.modes.lg.roles.lg;
 
-import com.avaje.ebeaninternal.server.core.Message;
 import fr.lastril.uhchost.UhcHost;
 import fr.lastril.uhchost.enums.Messages;
 import fr.lastril.uhchost.modes.lg.LoupGarouManager;
@@ -22,7 +21,6 @@ import org.bukkit.potion.PotionEffectType;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class LoupGarouMystique extends Role implements LGRole, RealLG, LGChatRole {
 

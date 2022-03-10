@@ -1,7 +1,6 @@
 package fr.lastril.uhchost.modes.command;
 
 import fr.lastril.uhchost.UhcHost;
-import fr.lastril.uhchost.modes.command.ModeSubCommand;
 import fr.lastril.uhchost.modes.roles.Role;
 import fr.lastril.uhchost.modes.roles.RoleMode;
 import org.bukkit.command.Command;

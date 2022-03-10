@@ -16,7 +16,6 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 public class Voyante extends Role implements LGRole, RoleCommand {

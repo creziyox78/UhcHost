@@ -70,6 +70,20 @@ public class Damage implements Listener {
 						}
 					}
 				}
+				if(player.hasPotionEffect(PotionEffectType.DAMAGE_RESISTANCE)){
+					for (PotionEffect effect : damager.getActivePotionEffects()) {
+						if (effect.getType().equals(PotionEffectType.DAMAGE_RESISTANCE)) {
+							double damagePercentage = (effect.getAmplifier() + 1) * 1.3D + 1.0D;
+							if (event.getDamage() / damagePercentage <= 1.0D) {
+								damages = (effect.getAmplifier() + 1) * 3 + 1;
+							} else {
+								damages = (int) (event.getDamage() / damagePercentage) + (effect.getAmplifier() + 1) * 3;
+							}
+							break;
+						}
+					}
+				}
+
 				if(damages != event.getDamage()){
 					event.setDamage(damages);
 				}

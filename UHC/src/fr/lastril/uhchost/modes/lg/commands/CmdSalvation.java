@@ -5,6 +5,7 @@ import fr.lastril.uhchost.enums.Messages;
 import fr.lastril.uhchost.modes.command.ModeSubCommand;
 import fr.lastril.uhchost.modes.lg.roles.village.Salvateur;
 import fr.lastril.uhchost.player.PlayerManager;
+import fr.lastril.uhchost.player.modemanager.WolfPlayerManager;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -37,6 +38,7 @@ public class CmdSalvation implements ModeSubCommand {
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         Player player = (Player) sender;
         PlayerManager playerManager = pl.getPlayerManager(player.getUniqueId());
+        WolfPlayerManager wolfPlayerManager = playerManager.getWolfPlayerManager();
         if (!playerManager.hasRole() || !playerManager.isAlive()) {
             return false;
         }
@@ -50,6 +52,10 @@ public class CmdSalvation implements ModeSubCommand {
                         PlayerManager targetManager = pl.getPlayerManager(target.getUniqueId());
                         if (targetManager.isAlive() && targetManager.hasRole()) {
                             if (!targetManager.getWolfPlayerManager().isSalvation()) {
+                                if(wolfPlayerManager.isSarbacaned()){
+                                    player.sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage() + "§cLa sarcabane de l'Indigène vous empêche d'utiliser votre pouvoir !");
+                                    return false;
+                                }
                                 salvateur.setSalvate(true);
                                 player.sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage() + "§9Vous venez de protéger " + targetName);
                                 target.sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage() + "§bLe Salvateur vient de vous protéger, vous obtenez Résistance I ainsi que NoFall pendant les 20 prochaines minutes.");

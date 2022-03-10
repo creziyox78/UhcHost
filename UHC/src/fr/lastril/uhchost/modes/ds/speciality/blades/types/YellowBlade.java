@@ -6,7 +6,6 @@ import fr.lastril.uhchost.modes.ds.speciality.blades.Blades;
 import fr.lastril.uhchost.modes.roles.Camps;
 import fr.lastril.uhchost.modes.roles.Role;
 import fr.lastril.uhchost.player.PlayerManager;
-import fr.lastril.uhchost.player.modemanager.DSPlayerManager;
 import fr.lastril.uhchost.tools.API.items.crafter.QuickItem;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;

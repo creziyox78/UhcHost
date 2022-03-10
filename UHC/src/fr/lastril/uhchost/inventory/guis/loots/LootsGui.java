@@ -1,7 +1,6 @@
 package fr.lastril.uhchost.inventory.guis.loots;
 
 import fr.lastril.uhchost.game.rules.world.LootsRules;
-import fr.lastril.uhchost.inventory.guis.rules.see.RulesGui;
 import fr.lastril.uhchost.inventory.guis.timer.RulesGuiHost;
 import fr.lastril.uhchost.tools.API.inventory.crafter.IQuickInventory;
 import fr.lastril.uhchost.tools.API.inventory.crafter.QuickInventory;

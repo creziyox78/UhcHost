@@ -47,10 +47,12 @@ public enum LGRoles {
     GARDE(Garde.class), //FINISHED
     IDIOT_DU_VILLAGE(IdiotDuVillage.class), //FINISHED
     IVROGNE_DU_VILLAGE(IvrogneDuVillage.class), //FINISHED
+    INDIGENE(Indigene.class), //TODO BE TESTED
     MONTREUR_DOURS(MontreurDours.class), //FINISHED
     PETITE_FILLE(PetiteFille.class), //FINISHED
     PRETRESSE(Pretresse.class), //FINISHED
     RENARD(Renard.class), //FINISHED
+    REVENANT(Revenant.class), //TODO BE TESTED
     SALVATEUR(Salvateur.class), //FINISHED
     SOEUR(Soeur.class), //FINISHED
     SORCIERE(Sorciere.class), //FINISHED

@@ -1,6 +1,5 @@
 package fr.lastril.uhchost.modes.lg.roles.village;
 
-import fr.lastril.uhchost.UhcHost;
 import fr.lastril.uhchost.enums.Messages;
 import fr.lastril.uhchost.modes.command.ModeSubCommand;
 import fr.lastril.uhchost.modes.lg.commands.chienloup.CmdChien;

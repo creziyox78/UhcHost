@@ -5,8 +5,6 @@ import fr.lastril.uhchost.enums.Messages;
 import fr.lastril.uhchost.game.GameState;
 import fr.lastril.uhchost.modes.Modes;
 import fr.lastril.uhchost.player.PlayerManager;
-import fr.lastril.uhchost.player.events.custom.GameStart;
-import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -42,7 +40,7 @@ public class Chat implements Listener {
         } else {
             event.setFormat("§7" + player.getName() + " » " + event.getMessage());
         }
-        if (this.main.teamUtils.getPlayersPerTeams() != 1) {
+        if (this.main.teamUtils.getPlayersPerTeams() != 1 || this.main.getGamemanager().getModes() == Modes.SM) {
             Team t = this.main.teamUtils.getTeam(player);
             if(t != null){
                 if (!event.getMessage().startsWith("!")) {

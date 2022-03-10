@@ -2,7 +2,6 @@ package fr.lastril.uhchost.modes.lg.roles.village;
 
 import fr.lastril.uhchost.modes.lg.roles.LGHideDeath;
 import fr.lastril.uhchost.modes.lg.roles.LGRole;
-import fr.lastril.uhchost.modes.lg.roles.RealLG;
 import fr.lastril.uhchost.modes.roles.Camps;
 import fr.lastril.uhchost.modes.roles.Role;
 import fr.lastril.uhchost.player.PlayerManager;

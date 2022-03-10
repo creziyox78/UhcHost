@@ -1,6 +1,5 @@
 package fr.lastril.uhchost.modes.lg.roles.lg;
 
-import fr.lastril.uhchost.UhcHost;
 import fr.lastril.uhchost.enums.Messages;
 import fr.lastril.uhchost.enums.WorldState;
 import fr.lastril.uhchost.modes.lg.LoupGarouManager;
@@ -19,9 +18,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
-
-import java.util.List;
-import java.util.stream.Collectors;
 
 public class GrandMechantLoup extends Role implements LGRole, RealLG, LGChatRole {
 

@@ -1,6 +1,6 @@
 package fr.lastril.uhchost.modes.sm;
 
-import fr.lastril.uhchost.inventory.scoreboard.TeamUtils;
+import fr.lastril.uhchost.scoreboard.TeamUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 

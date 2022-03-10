@@ -1,6 +1,5 @@
 package fr.lastril.uhchost.modes.bleach.roles.shinigamis.soulsociety;
 
-import fr.lastril.uhchost.UhcHost;
 import fr.lastril.uhchost.modes.bleach.items.JakuhoRaikoben;
 import fr.lastril.uhchost.modes.bleach.items.Suzumebachi;
 import fr.lastril.uhchost.modes.bleach.roles.ShinigamiRole;
@@ -16,7 +15,6 @@ import org.bukkit.Material;
 import org.bukkit.SkullType;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
-import org.bukkit.entity.Wither;
 import org.bukkit.entity.WitherSkull;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.entity.EntityDamageEvent;

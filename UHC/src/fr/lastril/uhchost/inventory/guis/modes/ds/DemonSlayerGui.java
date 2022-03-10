@@ -1,11 +1,7 @@
 package fr.lastril.uhchost.inventory.guis.modes.ds;
 
-import fr.lastril.uhchost.UhcHost;
-import fr.lastril.uhchost.enums.Messages;
 import fr.lastril.uhchost.inventory.guis.HostConfig;
-import fr.lastril.uhchost.inventory.guis.modes.lg.*;
 import fr.lastril.uhchost.modes.ds.DemonSlayerMode;
-import fr.lastril.uhchost.modes.lg.roles.village.Pretresse;
 import fr.lastril.uhchost.modes.roles.Camps;
 import fr.lastril.uhchost.tools.API.FormatTime;
 import fr.lastril.uhchost.tools.API.inventory.crafter.IQuickInventory;
@@ -14,9 +10,6 @@ import fr.lastril.uhchost.tools.API.items.ItemsCreator;
 import fr.lastril.uhchost.tools.API.items.crafter.QuickItem;
 import fr.lastril.uhchost.tools.I18n;
 import org.bukkit.Material;
-import org.bukkit.SkullType;
-
-import java.util.Collections;
 
 public class DemonSlayerGui extends IQuickInventory {
 

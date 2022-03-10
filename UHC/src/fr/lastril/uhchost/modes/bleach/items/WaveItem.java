@@ -1,6 +1,5 @@
 package fr.lastril.uhchost.modes.bleach.items;
 
-import com.avaje.ebeaninternal.server.core.Message;
 import fr.lastril.uhchost.UhcHost;
 import fr.lastril.uhchost.enums.Messages;
 import fr.lastril.uhchost.modes.bleach.roles.shinigamis.soulsociety.Hinamori;

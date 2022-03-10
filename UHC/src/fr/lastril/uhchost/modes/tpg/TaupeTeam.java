@@ -2,7 +2,7 @@ package fr.lastril.uhchost.modes.tpg;
 
 import fr.lastril.uhchost.UhcHost;
 import fr.lastril.uhchost.player.PlayerManager;
-import fr.lastril.uhchost.inventory.scoreboard.TeamUtils;
+import fr.lastril.uhchost.scoreboard.TeamUtils;
 
 import java.util.ArrayList;
 import java.util.List;

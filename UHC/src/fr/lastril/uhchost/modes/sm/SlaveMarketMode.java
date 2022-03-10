@@ -2,11 +2,9 @@ package fr.lastril.uhchost.modes.sm;
 
 import fr.lastril.uhchost.UhcHost;
 import fr.lastril.uhchost.config.modes.SlaveMarketConfig;
-import fr.lastril.uhchost.config.modes.TaupeGunConfig;
 import fr.lastril.uhchost.enums.Messages;
 import fr.lastril.uhchost.game.GameState;
 import fr.lastril.uhchost.inventory.guis.modes.sm.SlaveMarketGui;
-import fr.lastril.uhchost.inventory.guis.modes.tpg.TaupeGunGui;
 import fr.lastril.uhchost.modes.Mode;
 import fr.lastril.uhchost.modes.ModeConfig;
 import fr.lastril.uhchost.modes.ModeManager;
@@ -16,10 +14,8 @@ import fr.lastril.uhchost.modes.command.ModeSubCommand;
 import fr.lastril.uhchost.modes.sm.commands.CmdBuy;
 import fr.lastril.uhchost.modes.sm.commands.CmdOwner;
 import fr.lastril.uhchost.modes.sm.task.MarketTask;
-import fr.lastril.uhchost.modes.tpg.TaupeTeams;
 import fr.lastril.uhchost.player.PlayerManager;
 import fr.lastril.uhchost.player.modemanager.MarketPlayerManager;
-import fr.lastril.uhchost.player.modemanager.TaupePlayerManager;
 import fr.lastril.uhchost.tools.API.BungeeAPI;
 import fr.lastril.uhchost.tools.API.inventory.crafter.IQuickInventory;
 import fr.lastril.uhchost.tools.API.items.crafter.QuickItem;
@@ -55,7 +51,8 @@ public class SlaveMarketMode extends Mode implements ModeConfig, ModeCommand {
                 MarketPlayerManager marketPlayerManager = playerManager.getMarketPlayerManager();
                 Player player = playerManager.getPlayer();
                 if(marketPlayerManager.isOwner() && player != null){
-                    main.getInventoryUtils().giveItemSafely(player, new QuickItem(Material.DIAMOND, marketPlayerManager.getDiamonds()).toItemStack());
+                    if(marketPlayerManager.getDiamonds() > 0)
+                        main.getInventoryUtils().giveItemSafely(player, new QuickItem(Material.DIAMOND, marketPlayerManager.getDiamonds()).toItemStack());
                 }
             }
         }

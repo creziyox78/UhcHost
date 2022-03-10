@@ -4,8 +4,8 @@ import fr.lastril.uhchost.UhcHost;
 import fr.lastril.uhchost.enums.Messages;
 import fr.lastril.uhchost.modes.command.ModeSubCommand;
 import fr.lastril.uhchost.modes.lg.roles.village.Bucheron;
-import fr.lastril.uhchost.modes.lg.roles.village.Chaman;
 import fr.lastril.uhchost.player.PlayerManager;
+import fr.lastril.uhchost.player.modemanager.WolfPlayerManager;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -38,6 +38,7 @@ public class CmdFatigue implements ModeSubCommand {
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         Player player = (Player) sender;
         PlayerManager playerManager = main.getPlayerManager(player.getUniqueId());
+        WolfPlayerManager wolfPlayerManager = playerManager.getWolfPlayerManager();
         if (!playerManager.hasRole() || !playerManager.isAlive()) {
             return false;
         }
@@ -48,6 +49,10 @@ public class CmdFatigue implements ModeSubCommand {
                 Player target = Bukkit.getPlayer(targetName);
                 if(target != null && target != player){
                     if(!bucheron.isFatigued()){
+                        if(wolfPlayerManager.isSarbacaned()){
+                            player.sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage() + "§cLa sarcabane de l'Indigène vous empêche d'utiliser votre pouvoir !");
+                            return false;
+                        }
                         bucheron.setFatigued(true);
                         player.sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage() + "§aLa fatigue s'est emparé de " + target.getName() + " !");
                         target.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 20*5*60, 0, false, false));
