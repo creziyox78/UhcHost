@@ -215,14 +215,14 @@ public class LoupGarouMode extends Mode implements ModeCommand, RoleMode<LGRole>
 
     @Override
     public void onDeath(OfflinePlayer player, Player killer) {
+        PlayerManager playerManager = pl.getPlayerManager(player.getUniqueId());
         if(player.isOnline()){
             Player onlinePlayer = player.getPlayer();
-            PlayerManager playerManager = pl.getPlayerManager(onlinePlayer.getUniqueId());
             WolfPlayerManager wolfPlayerManager = playerManager.getWolfPlayerManager();
             if(playerManager.hasRole() && playerManager.getRole() instanceof Revenant){
                 Revenant revenant = (Revenant) playerManager.getRole();
                 if(revenant.isRevived()){
-                    loupGarouManager.kill(onlinePlayer, onlinePlayer.getInventory().getContents(), onlinePlayer.getInventory().getArmorContents(), killer, playerManager.getDeathLocation(), wolfPlayerManager.isInCouple());
+                    loupGarouManager.kill(onlinePlayer, onlinePlayer.getInventory().getContents(), onlinePlayer.getInventory().getArmorContents(), killer, onlinePlayer.getLocation(), wolfPlayerManager.isInCouple());
                 }
             }
             Bukkit.getScheduler().runTaskLater(pl, () -> {
@@ -231,7 +231,7 @@ public class LoupGarouMode extends Mode implements ModeCommand, RoleMode<LGRole>
             }, 20* 2);
             loupGarouManager.startDeathTask(onlinePlayer, killer);
         } else {
-            loupGarouManager.kill(player, null, null, null, pl.getPlayerManager(player.getUniqueId()).getDeathLocation(), false);
+            loupGarouManager.kill(player, null, null, null, playerManager.getDeathLocation(), false);
         }
 
 

@@ -57,9 +57,7 @@ public class TeamUtils {
 		this.setup = false;
 		for (UUID uuid : this.pl.getPlayerManagerOnlines().stream().map(PlayerManager::getUuid).collect(Collectors.toList())) {
 			Player player = Bukkit.getPlayer(uuid);
-			for (ListIterator<ItemStack> listIterator = Bukkit.getPlayer(uuid).getInventory().iterator(); listIterator
-					.hasNext();) {
-				ItemStack itemStack = listIterator.next();
+			for (ItemStack itemStack : Bukkit.getPlayer(uuid).getInventory()) {
 				if (itemStack != null && itemStack.getType() == Material.BANNER)
 					player.getInventory().remove(itemStack);
 			}

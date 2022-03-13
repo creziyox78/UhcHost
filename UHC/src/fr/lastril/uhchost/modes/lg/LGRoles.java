@@ -30,6 +30,8 @@ public enum LGRoles {
     LG_MYSTIQUE(LoupGarouMystique.class), //FINISHED
     LG_VENGEUR(LoupGarouVengeur.class), //FINISHED
     LG_HYBRIDE(LoupGarouHybride.class),
+    LG_DOMINANT(LoupGarouDominant.class), //TODO BE TESTED
+    LG_TIMIDE(LoupGarouTimide.class), //TODO BE TESTED
 
     /*
      * CAMP DU VILLAGE
@@ -47,7 +49,7 @@ public enum LGRoles {
     GARDE(Garde.class), //FINISHED
     IDIOT_DU_VILLAGE(IdiotDuVillage.class), //FINISHED
     IVROGNE_DU_VILLAGE(IvrogneDuVillage.class), //FINISHED
-    INDIGENE(Indigene.class), //TODO BE TESTED
+    INDIGENE(Indigene.class), //FINISHED
     MONTREUR_DOURS(MontreurDours.class), //FINISHED
     PETITE_FILLE(PetiteFille.class), //FINISHED
     PRETRESSE(Pretresse.class), //FINISHED

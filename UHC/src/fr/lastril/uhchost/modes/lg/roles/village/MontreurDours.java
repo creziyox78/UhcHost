@@ -62,6 +62,11 @@ public class MontreurDours extends Role implements LGRole {
                 }
             }
         }
+        PlayerManager playerManager = main.getPlayerManager(player.getUniqueId());
+        if(playerManager.getWolfPlayerManager().isInfected()){
+            founded = true;
+            Bukkit.broadcastMessage("§6Grrrrrrrrrrrrrr !");
+        }
         if (founded) {
             for (Player players : Bukkit.getOnlinePlayers()) {
                 players.playSound(players.getLocation(), Sound.WOLF_GROWL, 1, 1);

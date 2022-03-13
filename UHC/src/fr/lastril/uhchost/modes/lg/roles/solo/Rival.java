@@ -8,6 +8,8 @@ import fr.lastril.uhchost.modes.roles.Role;
 import fr.lastril.uhchost.player.PlayerManager;
 import fr.lastril.uhchost.tools.API.items.crafter.QuickItem;
 import org.bukkit.Location;
+import org.bukkit.Material;
+import org.bukkit.SkullType;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -87,9 +89,10 @@ public class Rival extends Role implements LGRole {
         }
     }
 
+
     @Override
     public QuickItem getItem() {
-        return null;
+        return new QuickItem(Material.SKULL_ITEM, 1, SkullType.PLAYER.ordinal()).setName(getCamp().getCompoColor()+getRoleName()).setTexture("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvODE4NWM5ZDdlYTM3NTUzM2RkNjBkZDQ3OGViYjE0OWExY2NkOTQ0YTRhM2ZjYTcxZDE5ZjlkNzg3YjQ2NDZmYyJ9fX0=");
     }
 
     @Override

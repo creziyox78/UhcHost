@@ -41,6 +41,11 @@ public abstract class Role implements RoleDescription {
         return this;
     }
 
+    public Role removeEffect(PotionEffect key) {
+        effects.remove(key);
+        return this;
+    }
+
     public Role addTimeEvent(int time, Consumer<Player> event) {
         this.timeEvent.put(time, event);
         return this;

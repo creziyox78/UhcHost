@@ -6,6 +6,7 @@ import fr.lastril.uhchost.modes.command.ModeSubCommand;
 import fr.lastril.uhchost.modes.lg.LoupGarouManager;
 import fr.lastril.uhchost.modes.lg.LoupGarouMode;
 import fr.lastril.uhchost.modes.lg.items.CoupleBoussoleItem;
+import fr.lastril.uhchost.modes.lg.roles.solo.Rival;
 import fr.lastril.uhchost.modes.lg.roles.village.Cupidon;
 import fr.lastril.uhchost.modes.roles.Camps;
 import fr.lastril.uhchost.player.PlayerManager;
@@ -82,6 +83,12 @@ public class CmdCouple implements ModeSubCommand {
                                 UhcHost.debug("§dCupidon send message !");
                                 player.sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage() + "§aVos flèches ont atteints le coeur de " + targetName1 + " et " + targetName2 + ". Désormais, si l'un d'eux viennent à mourir, l'autre mourra également.");
                                 cupidon.setUsedPower(true);
+                                UhcHost.debug("§dSending message to Rival !");
+                                for(PlayerManager playerManagers : loupGarouManager.getPlayerManagersWithRole(Rival.class)){
+                                    if(playerManagers.getPlayer() != null){
+                                        playerManagers.getPlayer().sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage() + "§aLe couple a été selectionné, voici le rôle des 2 amoureux: " + targetManager1.getRole().getRoleName() + " et " + targetManager2.getRole().getRoleName() + ".");
+                                    }
+                                }
                             }
                         }
                     }

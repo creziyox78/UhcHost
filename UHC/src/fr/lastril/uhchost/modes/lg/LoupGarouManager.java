@@ -10,13 +10,16 @@ import fr.lastril.uhchost.modes.lg.items.CoupleBoussoleItem;
 import fr.lastril.uhchost.modes.lg.roles.LGChatRole;
 import fr.lastril.uhchost.modes.lg.roles.LGHideDeath;
 import fr.lastril.uhchost.modes.lg.roles.RealLG;
+import fr.lastril.uhchost.modes.lg.roles.lg.LoupGarouDominant;
 import fr.lastril.uhchost.modes.lg.roles.lg.LoupGarouGrimeur;
+import fr.lastril.uhchost.modes.lg.roles.lg.LoupGarouTimide;
 import fr.lastril.uhchost.modes.lg.roles.solo.LoupGarouBlanc;
 import fr.lastril.uhchost.modes.lg.roles.solo.Rival;
 import fr.lastril.uhchost.modes.lg.roles.solo.Trublion;
 import fr.lastril.uhchost.modes.lg.roles.solo.Voleur;
 import fr.lastril.uhchost.modes.lg.roles.village.*;
 import fr.lastril.uhchost.modes.roles.Camps;
+import fr.lastril.uhchost.modes.roles.When;
 import fr.lastril.uhchost.player.PlayerManager;
 import fr.lastril.uhchost.player.modemanager.WolfPlayerManager;
 import fr.lastril.uhchost.tools.API.items.crafter.QuickItem;
@@ -27,6 +30,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
 import java.util.*;
@@ -594,14 +598,24 @@ public class LoupGarouManager extends ModeManager implements Listener {
         if (mostVoted == null) {
             Bukkit.broadcastMessage("§cLe village n'a réussi à se mettre d'accord.");
         } else {
-            Bukkit.broadcastMessage("§bLa personne ayant reçu le plus de vote est " + mostVoted.getPlayerManager().getPlayerName()
-                    + ", il perd donc la moitié de sa vie jusqu'au prochain épisode.");
-            setCurrentVotedPlayer(mostVoted.getPlayerManager().getWolfPlayerManager());
-            Player target = mostVoted.getPlayerManager().getPlayer();
-            if (target != null) {
-                setOriginalVotedHealth(target.getMaxHealth());
-                target.setMaxHealth(target.getMaxHealth() / 2);
+            if(mostVoted.getPlayerManager().getRole() instanceof LoupGarouTimide){
+                Bukkit.broadcastMessage("§bLa personne ayant reçu le plus de vote est " + mostVoted.getPlayerManager().getPlayerName()
+                        + " mais ce dernier est§c Loup-Garou Timide§b, il ne perd pas donc ses coeurs.");
+                LoupGarouTimide loupGarouTimide = (LoupGarouTimide) mostVoted.getPlayerManager().getRole();
+                loupGarouTimide.addEffect(new PotionEffect(PotionEffectType.SPEED, Integer.MAX_VALUE, 0, false, false), When.DAY);
+                loupGarouTimide.removeEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, Integer.MAX_VALUE, 0, false, false));
+                loupGarouTimide.addEffect(new PotionEffect(PotionEffectType.SPEED, Integer.MAX_VALUE, 0, false, false), When.NIGHT);
+            } else {
+                Bukkit.broadcastMessage("§bLa personne ayant reçu le plus de vote est " + mostVoted.getPlayerManager().getPlayerName()
+                        + ", il perd donc la moitié de sa vie jusqu'à la prochaine nuit.");
+                setCurrentVotedPlayer(mostVoted.getPlayerManager().getWolfPlayerManager());
+                Player target = mostVoted.getPlayerManager().getPlayer();
+                if (target != null) {
+                    setOriginalVotedHealth(target.getMaxHealth());
+                    target.setMaxHealth(target.getMaxHealth() / 2);
+                }
             }
+
             votedPlayers.add(mostVoted);
         }
         Bukkit.broadcastMessage("§8§m----------------------------");
@@ -639,7 +653,11 @@ public class LoupGarouManager extends ModeManager implements Listener {
             int numberOfElements = loupGarouList.size();
             for (int i = 0; i < numberOfElements; i++) {
                 int index = UhcHost.getRANDOM().nextInt(loupGarouList.size());
-                list.append("§c- ").append(loupGarouList.get(index).getPlayerName()).append("\n");
+                if(loupGarouList.get(index).getRole() instanceof LoupGarouDominant){
+                    list.append("§c- ").append(loupGarouList.get(index).getPlayerName()).append(" (Loup-Garou Dominant)\n");
+                } else {
+                    list.append("§c- ").append(loupGarouList.get(index).getPlayerName()).append("\n");
+                }
                 loupGarouList.remove(index);
             }
             return list.toString();
