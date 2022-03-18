@@ -5,6 +5,7 @@ import fr.lastril.uhchost.enums.Messages;
 import fr.lastril.uhchost.enums.ResurectType;
 import fr.lastril.uhchost.modes.lg.roles.LGRole;
 import fr.lastril.uhchost.modes.lg.roles.RealLG;
+import fr.lastril.uhchost.modes.lg.roles.solo.Necromancien;
 import fr.lastril.uhchost.modes.roles.Camps;
 import fr.lastril.uhchost.modes.roles.Role;
 import fr.lastril.uhchost.modes.roles.RoleListener;
@@ -86,6 +87,14 @@ public class Sorciere extends Role implements LGRole, RoleListener {
                             return;
                         }
                     }
+                }
+                if(killerManager.getRole() instanceof Necromancien){
+                    Necromancien necromencien = (Necromancien) killerManager.getRole();
+                    if(!necromencien.hasKilled()){
+                        UhcHost.debug("Dead is killed by Necromencien.");
+                        return;
+                    }
+
                 }
             }
             if(playerManager.getWolfPlayerManager().isProtect()){

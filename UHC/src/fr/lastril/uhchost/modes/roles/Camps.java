@@ -1,5 +1,6 @@
 package fr.lastril.uhchost.modes.roles;
 
+import fr.lastril.uhchost.player.events.normal.Chat;
 import org.bukkit.ChatColor;
 
 public enum Camps {
@@ -22,6 +23,7 @@ public enum Camps {
     ZIZANIE(ChatColor.DARK_GREEN, "§3Victoire du rôle solo zizané !"),
     TRAPPEUR(ChatColor.DARK_BLUE, "§9Victoire du Trappeur !"),
     CHASSEUR_DE_PRIME(ChatColor.DARK_RED, "§4Victoire du Chasseur de Prime !"),
+    NECROMENCIEN(ChatColor.GRAY, "§8Victoire du Nécromencien !"),
 
     /*
      * DEMON SLAYER

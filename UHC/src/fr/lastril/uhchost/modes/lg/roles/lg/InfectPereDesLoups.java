@@ -6,6 +6,7 @@ import fr.lastril.uhchost.modes.lg.LoupGarouManager;
 import fr.lastril.uhchost.modes.lg.roles.LGChatRole;
 import fr.lastril.uhchost.modes.lg.roles.LGRole;
 import fr.lastril.uhchost.modes.lg.roles.RealLG;
+import fr.lastril.uhchost.modes.lg.roles.solo.Necromancien;
 import fr.lastril.uhchost.modes.lg.roles.village.Ancien;
 import fr.lastril.uhchost.modes.roles.Camps;
 import fr.lastril.uhchost.modes.roles.Role;
@@ -124,6 +125,13 @@ public class InfectPereDesLoups extends Role implements LGRole, RoleListener, Re
                         } if(playerManager.getWolfPlayerManager().isProtect()){
                             UhcHost.debug("Dead is protected by garde.");
                             return;
+                        }
+                        if(killerManager.getRole() instanceof Necromancien){
+                            Necromancien necromencien = (Necromancien) killerManager.getRole();
+                            if(!necromencien.hasKilled()){
+                                UhcHost.debug("Dead is killed by Necromencien.");
+                                return;
+                            }
                         }
                         UhcHost.debug("Print infection message");
                         if (super.getPlayer() != null) {

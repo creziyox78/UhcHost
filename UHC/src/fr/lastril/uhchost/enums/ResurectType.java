@@ -11,6 +11,7 @@ public enum ResurectType {
 	GARDE,
 	IDIOT,
 	REVENANT,
+	NECROMENCIEN,
 	;
 
 }

@@ -40,6 +40,7 @@ public enum LGRoles {
     BUCHERON(Bucheron.class), //FINISHED
     CHAMAN(Chaman.class), //FINISHED
     CHASSEUR(Chasseur.class), //FINISHED
+    CHEF_DU_VILLAGE(ChefDuVillage.class), //TODO BE TESTED
     CITOYEN(Citoyen.class),
     CORBEAU(Corbeau.class),
     CUPIDON(Cupidon.class), //FINISHED
@@ -80,6 +81,7 @@ public enum LGRoles {
     LGB(LoupGarouBlanc.class), //FINISHED
     ASSASSIN(Assassin.class), //FINISHED
     CHASSEUR_DE_PRIME(ChasseurDePrime.class), //FINISHED
+    NECROMENCIEN(Necromancien.class), //FINISHED
     ;
 
 

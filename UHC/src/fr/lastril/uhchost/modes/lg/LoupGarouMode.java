@@ -16,14 +16,18 @@ import fr.lastril.uhchost.modes.lg.roles.LGChatRole;
 import fr.lastril.uhchost.modes.lg.roles.LGRole;
 import fr.lastril.uhchost.modes.lg.roles.solo.LoupGarouBlanc;
 import fr.lastril.uhchost.modes.lg.roles.solo.Trublion;
+import fr.lastril.uhchost.modes.lg.roles.village.ChefDuVillage;
 import fr.lastril.uhchost.modes.lg.roles.village.Pretresse;
 import fr.lastril.uhchost.modes.lg.roles.village.Revenant;
 import fr.lastril.uhchost.modes.roles.*;
 import fr.lastril.uhchost.player.PlayerManager;
 import fr.lastril.uhchost.player.modemanager.WolfPlayerManager;
 import fr.lastril.uhchost.tools.API.BungeeAPI;
+import fr.lastril.uhchost.tools.API.TextComponentBuilder;
 import fr.lastril.uhchost.tools.API.TitleAPI;
 import fr.lastril.uhchost.tools.API.inventory.crafter.IQuickInventory;
+import net.md_5.bungee.api.chat.ClickEvent;
+import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.OfflinePlayer;
@@ -206,9 +210,23 @@ public class LoupGarouMode extends Mode implements ModeCommand, RoleMode<LGRole>
 
     @Override
     public void onNewEpisode() {
-        if (pl.gameManager.episode >= getLoupGarouManager().getStartVoteEpisode() && pl.getPlayerManagerAlives().size() > 10) {
+        if (pl.gameManager.episode >= getLoupGarouManager().getStartVoteEpisode() && pl.getPlayerManagerAlives().size() > 1) {
             loupGarouManager.setVoteTime(true);
-            Bukkit.getScheduler().runTaskLater(pl, () -> loupGarouManager.setVoteTime(false), 20 * 30);
+            Bukkit.getScheduler().runTaskLater(pl, () -> {
+                loupGarouManager.setVoteTime(false);
+                for(PlayerManager playerManager : loupGarouManager.getPlayerManagersWithRole(ChefDuVillage.class)){
+                    Player player = playerManager.getPlayer();
+                    if(player != null){
+                        ChefDuVillage chefDuVillage = (ChefDuVillage) playerManager.getRole();
+                        if(!chefDuVillage.hasCancelledVote()){
+                            TextComponent textComponent = new TextComponent(Messages.LOUP_GAROU_PREFIX.getMessage() + "§e" + loupGarouManager.mostVoted().getPlayerManager().getPlayerName() + " a reçu les votes: ");
+                            textComponent.addExtra(new TextComponent(new TextComponentBuilder("§c§l[Annuler le vote]§e").setClickEvent(ClickEvent.Action.RUN_COMMAND, "/lg chef_annule").toText()));
+                            player.spigot().sendMessage(textComponent);
+                            Bukkit.getScheduler().runTaskLater(pl, () -> chefDuVillage.setUsed(true), 20*30);
+                        }
+                    }
+                }
+            }, 20 * 30);
             Bukkit.getScheduler().runTaskLater(pl, () -> loupGarouManager.applyVote(getLoupGarouManager().mostVoted()), 20 * 60);
         }
     }

@@ -13,12 +13,10 @@ import fr.lastril.uhchost.modes.lg.roles.RealLG;
 import fr.lastril.uhchost.modes.lg.roles.lg.LoupGarouDominant;
 import fr.lastril.uhchost.modes.lg.roles.lg.LoupGarouGrimeur;
 import fr.lastril.uhchost.modes.lg.roles.lg.LoupGarouTimide;
-import fr.lastril.uhchost.modes.lg.roles.solo.LoupGarouBlanc;
-import fr.lastril.uhchost.modes.lg.roles.solo.Rival;
-import fr.lastril.uhchost.modes.lg.roles.solo.Trublion;
-import fr.lastril.uhchost.modes.lg.roles.solo.Voleur;
+import fr.lastril.uhchost.modes.lg.roles.solo.*;
 import fr.lastril.uhchost.modes.lg.roles.village.*;
 import fr.lastril.uhchost.modes.roles.Camps;
+import fr.lastril.uhchost.modes.roles.Role;
 import fr.lastril.uhchost.modes.roles.When;
 import fr.lastril.uhchost.player.PlayerManager;
 import fr.lastril.uhchost.player.modemanager.WolfPlayerManager;
@@ -43,7 +41,7 @@ public class LoupGarouManager extends ModeManager implements Listener {
     private final List<UUID> waitingRessurect;
     private final List<PlayerManager> loupGarouList = new ArrayList<>();
     private final List<WolfPlayerManager> votedPlayers = new ArrayList<>();
-    private boolean randomCouple = false, voteTime, sendedlist = false, randomSeeRole, lgChatTime, vaccination, randomCouplePassed;
+    private boolean randomCouple = false, voteTime, sendedlist = false, randomSeeRole, lgChatTime, vaccination, randomCouplePassed, cancelledVoteChef;
     private int startVoteEpisode = 3;
     private int soloValue = 95, loupValue = 20, villageValue = 80;
     private int sendWerewolfListTime = 50*60;
@@ -138,7 +136,10 @@ public class LoupGarouManager extends ModeManager implements Listener {
                         if(playerManager.getWolfPlayerManager().isProtect() && killerManager.hasRole() && (killerManager.getRole() instanceof RealLG || killerManager.getWolfPlayerManager().isInfected() || killerManager.getWolfPlayerManager().isTransformed())){
                             System.out.println("Garde protection !");
                             playerManager.getWolfPlayerManager().setResurectType(ResurectType.GARDE);
-                            playerManager.getWolfPlayerManager().setProtect(false);
+                        }
+                        if(killerManager.getRole() instanceof Necromancien){
+                            System.out.println("Necromencien kill");
+                            playerManager.getWolfPlayerManager().setResurectType(ResurectType.NECROMENCIEN);
                         }
                     }
                 }
@@ -146,6 +147,24 @@ public class LoupGarouManager extends ModeManager implements Listener {
                 if (playerManager.getWolfPlayerManager().getResurectType() != null) {
                     System.out.println("Ressurect type not null !");
                     switch (playerManager.getWolfPlayerManager().getResurectType()) {
+                        case NECROMENCIEN:{
+                            UhcHost.debug("Player set resurect type Necromencien !");
+                            Necromancien necromencien = (Necromancien) main.getPlayerManager(killer.getUniqueId()).getRole();
+                            necromencien.setKilled(true);
+                            player.setGameMode(GameMode.SURVIVAL);
+                            player.teleport(deathLocation);
+                            onlinePlayer.sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage() + "§8Le Nécromencien vous a tué, vous êtes désormais son pentin et devez gagner avec lui. Si vous étiez lié à un joueur, vous ne devez plus gagner avec ce dernier. ");
+                            killer.sendMessage(Messages.LOUP_GAROU_PREFIX.getMessage() + "§a" + player.getName() + " est mort de votre main. Il est désormais votre pentin et doit gagner avec vous.");
+                            playerManager.setCamps(Camps.NECROMENCIEN);
+                            if(playerManager.getWolfPlayerManager().isInCouple()){
+                                UhcHost.debug("§dRemoving couple !");
+                                PlayerManager otherCouple = main.getPlayerManager(playerManager.getWolfPlayerManager().getOtherCouple());
+                                otherCouple.getWolfPlayerManager().setOtherCouple(null);
+                                otherCouple.setCamps(otherCouple.getRole().getCamp());
+                                playerManager.getWolfPlayerManager().setOtherCouple(null);
+                            }
+                            UhcHost.debug("§aChanged pentin camp !");
+                        }
                         case REVENANT: {
                             UhcHost.debug("Player set resurect type Revenant !");
                             Revenant revenant = (Revenant) playerManager.getRole();
@@ -255,17 +274,8 @@ public class LoupGarouManager extends ModeManager implements Listener {
                     } else{
                         message = "§2§l" + playerManager.getPlayerName() +
                                 " est mort, il était §o" + playerManager.getRole().getRoleName();
-                        if (playerManager.getWolfPlayerManager().isInfected()) {
-                            message += "§2 (infecté)";
-                        }
-                        if (playerManager.getWolfPlayerManager().isTransformed()) {
-                            message += "§2 (transformé)";
-                        }
                         if(playerManager.getWolfPlayerManager().isSolitaire()){
                             message += "§2 (solitaire)";
-                        }
-                        if(playerManager.getWolfPlayerManager().isSteal()){
-                            message += "§c (volé)";
                         }
 
                     }
@@ -280,17 +290,8 @@ public class LoupGarouManager extends ModeManager implements Listener {
                             } else{
                                 message = "§2§l" + playerManager.getPlayerName() +
                                         " est mort, il était §o" + playerManager.getRole().getRoleName();
-                                if (playerManager.getWolfPlayerManager().isInfected()) {
-                                    message += "§2 (infecté)";
-                                }
-                                if (playerManager.getWolfPlayerManager().isTransformed()) {
-                                    message += "§2 (transformé)";
-                                }
                                 if(playerManager.getWolfPlayerManager().isSolitaire()){
                                     message += "§2 (solitaire)";
-                                }
-                                if(playerManager.getWolfPlayerManager().isSteal()){
-                                    message += "§c (volé)";
                                 }
 
                             }
@@ -313,17 +314,8 @@ public class LoupGarouManager extends ModeManager implements Listener {
                             } else{
                                 message = "§2§l" + playerManager.getPlayerName() +
                                         " est mort, il était §o" + playerManager.getRole().getRoleName();
-                                if (playerManager.getWolfPlayerManager().isInfected()) {
-                                    message += "§2 (infecté)";
-                                }
-                                if (playerManager.getWolfPlayerManager().isTransformed()) {
-                                    message += "§2 (transformé)";
-                                }
                                 if(playerManager.getWolfPlayerManager().isSolitaire()){
                                     message += "§2 (solitaire)";
-                                }
-                                if(playerManager.getWolfPlayerManager().isSteal()){
-                                    message += "§c (volé)";
                                 }
                             }
                         } else {
@@ -343,17 +335,8 @@ public class LoupGarouManager extends ModeManager implements Listener {
                             } else{
                                 message = "§2§l" + playerManager.getPlayerName() +
                                         " est mort, il était §o" + playerManager.getRole().getRoleName();
-                                if (playerManager.getWolfPlayerManager().isInfected()) {
-                                    message += "§2 (infecté)";
-                                }
-                                if (playerManager.getWolfPlayerManager().isTransformed()) {
-                                    message += "§2 (transformé)";
-                                }
                                 if(playerManager.getWolfPlayerManager().isSolitaire()){
                                     message += "§2 (solitaire)";
-                                }
-                                if(playerManager.getWolfPlayerManager().isSteal()){
-                                    message += "§c (volé)";
                                 }
                             }
                         } else {
@@ -374,17 +357,8 @@ public class LoupGarouManager extends ModeManager implements Listener {
                     } else{
                         message = "§2§l" + playerManager.getPlayerName() +
                                 " est mort, il était §o" + playerManager.getRole().getRoleName();
-                        if (playerManager.getWolfPlayerManager().isInfected()) {
-                            message += "§2 (infecté)";
-                        }
-                        if (playerManager.getWolfPlayerManager().isTransformed()) {
-                            message += "§2 (transformé)";
-                        }
                         if(playerManager.getWolfPlayerManager().isSolitaire()){
                             message += "§2 (solitaire)";
-                        }
-                        if(playerManager.getWolfPlayerManager().isSteal()){
-                            message += "§c (volé)";
                         }
                     }
                 } else {
@@ -511,17 +485,8 @@ public class LoupGarouManager extends ModeManager implements Listener {
                     message = "§2§l" + playerManager.getPlayerName() +
                             " est mort, il était §o" + playerManager.getRole().getRoleName();
                 }
-                if (playerManager.getWolfPlayerManager().isInfected()) {
-                    message += "§2 (infecté)";
-                }
-                if (playerManager.getWolfPlayerManager().isTransformed()) {
-                    message += "§2 (transformé)";
-                }
                 if(playerManager.getWolfPlayerManager().isSolitaire()){
                     message += "§2 (solitaire)";
-                }
-                if(playerManager.getWolfPlayerManager().isSteal()){
-                    message += "§c (volé)";
                 }
             } else {
                 message = "§2§l" + playerManager.getPlayerName() +
@@ -593,6 +558,13 @@ public class LoupGarouManager extends ModeManager implements Listener {
     }
 
     public void applyVote(WolfPlayerManager mostVoted) {
+        if(isCancelledVoteChef()){
+            Bukkit.broadcastMessage("§8§m----------------------------");
+            Bukkit.broadcastMessage("§bLe§a Chef du Village§b a décidé d'épargner "+mostVoted.getPlayerManager().getPlayerName()+".");
+            Bukkit.broadcastMessage("§8§m----------------------------");
+            resetVote();
+            return;
+        }
         Bukkit.broadcastMessage("§8§m----------------------------");
         Bukkit.broadcastMessage("§eRésultat du vote");
         if (mostVoted == null) {
@@ -615,11 +587,12 @@ public class LoupGarouManager extends ModeManager implements Listener {
                     target.setMaxHealth(target.getMaxHealth() / 2);
                 }
             }
-
             votedPlayers.add(mostVoted);
         }
         Bukkit.broadcastMessage("§8§m----------------------------");
         resetVote();
+
+
     }
 
 
@@ -776,6 +749,38 @@ public class LoupGarouManager extends ModeManager implements Listener {
 
     }
 
+    public List<Role> getPlayerRoleWithRandomRoles(PlayerManager playerManager, int nbRoles){
+        List<Role> allRoles = new ArrayList<>();
+        List<Role> getRoles = new ArrayList<>();
+        getRoles.add(playerManager.getRole());
+        main.getPlayerManagerAlives().forEach(playerManagers -> {
+            if(playerManagers.isAlive()){
+                Role role = playerManagers.getRole();
+                if(!role.getRoleName().equalsIgnoreCase(playerManager.getRole().getRoleName()) && !allRoles.contains(role))
+                    allRoles.add(role);
+            }
+        });
+        if(allRoles.size() >= nbRoles){
+            for(int i = 0; i < nbRoles; i++){
+                Role picked = allRoles.get(UhcHost.getRANDOM().nextInt(allRoles.size()));
+                while (getRoles.contains(picked)){
+                    picked = allRoles.get(UhcHost.getRANDOM().nextInt(allRoles.size()));
+                }
+                getRoles.add(picked);
+            }
+        } else {
+            for(int i = 0; i < allRoles.size(); i++){
+                Role picked = allRoles.get(UhcHost.getRANDOM().nextInt(allRoles.size()));
+                while (getRoles.contains(picked)){
+                    picked = allRoles.get(UhcHost.getRANDOM().nextInt(allRoles.size()));
+                }
+                getRoles.add(picked);
+            }
+        }
+
+        return getRoles;
+    }
+
     public boolean isVoteTime() {
         return voteTime;
     }
@@ -899,5 +904,13 @@ public class LoupGarouManager extends ModeManager implements Listener {
 
     public boolean isRandomCouplePassed() {
         return randomCouplePassed;
+    }
+
+    public void setCancelledVoteChef(boolean cancelledVoteChef) {
+        this.cancelledVoteChef = cancelledVoteChef;
+    }
+
+    public boolean isCancelledVoteChef() {
+        return cancelledVoteChef;
     }
 }
