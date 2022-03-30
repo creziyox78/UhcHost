@@ -37,7 +37,8 @@ public class Itegumo extends QuickItem {
                         if(player.hasPotionEffect(PotionEffectType.INCREASE_DAMAGE))
                             player.removePotionEffect(PotionEffectType.INCREASE_DAMAGE);
                         player.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 20*20, 0, false, false));
-                        player.sendMessage("§9Vous utilisez \"Itegumo\".");
+                        playerManager.setRoleCooldownItegumo(60*5);
+                        player.sendMessage(Messages.BLEACH_PREFIX.getMessage() + "§9Vous utilisez \"Itegumo\".");
                     } else {
                         player.sendMessage(Messages.cooldown(playerManager.getRoleCooldownItegumo()));
                     }

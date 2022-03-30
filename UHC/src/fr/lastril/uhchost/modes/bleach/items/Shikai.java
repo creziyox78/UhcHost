@@ -6,6 +6,7 @@ import fr.lastril.uhchost.modes.bleach.roles.shinigamis.soulsociety.Mayuri;
 import fr.lastril.uhchost.player.PlayerManager;
 import fr.lastril.uhchost.player.modemanager.BleachPlayerManager;
 import fr.lastril.uhchost.tools.API.items.crafter.QuickItem;
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
@@ -32,6 +33,11 @@ public class Shikai extends QuickItem {
                         if(playerManager.getRoleCooldownShikai() <= 0){
                             mayuri.setInShikai(true);
                             player.sendMessage(Messages.BLEACH_PREFIX.getMessage() + Messages.USED_POWER.getMessage());
+                            playerManager.setRoleCooldownShikai(60*5);
+                            Bukkit.getScheduler().runTaskLater(main, () -> {
+                                player.sendMessage(Messages.BLEACH_PREFIX.getMessage() + "§7Votre Shikai est terminé.");
+                                mayuri.setInShikai(false);
+                            },20*60);
                         } else {
                             player.sendMessage(Messages.cooldown(playerManager.getRoleCooldownShikai()));
                         }

@@ -30,7 +30,6 @@ public class Kira extends Role implements RoleListener, ShinigamiRole {
         Bukkit.getOnlinePlayers().forEach(target -> Bukkit.getScheduler().runTaskTimer(main, () -> {
             PlayerManager targetManager = main.getPlayerManager(target.getUniqueId());
             if(cooldownDamages.containsKey(targetManager)){
-                UhcHost.debug("Cooldown damages for " + targetManager.getPlayerName() + ": " + cooldownDamages.get(targetManager));
                 cooldownDamages.put(targetManager, cooldownDamages.get(targetManager) - 1);
                 if(cooldownDamages.get(targetManager) <= 0){
                     effectMap.put(targetManager, 0);

@@ -40,39 +40,55 @@ public class Yachiru extends Role implements ShinigamiRole, RoleCommand, RoleLis
                         player.removePotionEffect(PotionEffectType.SPEED);
                     player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 20*4, 0, false, false));
                 }
-                PlayerManager kenpachiZaki = getKenPachiZaraki(playerManager);
-                Player kenpachiZakiPlayer = kenpachiZaki.getPlayer();
-                if(kenpachiZakiPlayer != null){
-                    if(kenpachiZakiPlayer.getWorld() == player.getWorld()){
-                        ActionBar.sendMessage(player, "Kenpachi Zaraki §b| " + ClassUtils.getDirectionOf(player.getLocation(), kenpachiZakiPlayer.getLocation()));
+                PlayerManager kenpachiZaki = getKenPachiZaraki(playerManager, false);
+                if(kenpachiZaki != null){
+                    Player kenpachiZakiPlayer = kenpachiZaki.getPlayer();
+                    if(kenpachiZakiPlayer != null){
+                        if(kenpachiZakiPlayer.getWorld() == player.getWorld()){
+                            ActionBar.sendMessage(player, "Kenpachi Zaraki §b| " + ClassUtils.getDirectionOf(player.getLocation(), kenpachiZakiPlayer.getLocation()));
+                        } else {
+                            ActionBar.sendMessage(player, "Kenpachi Zaraki §b| ?");
+                        }
                     } else {
-                        ActionBar.sendMessage(player, "Kenpachi Zaraki §b| ?");
+                        ActionBar.sendMessage(player, "Kenpachi Zaraki §b|§c Déconnecté");
                     }
-                } else {
-                    ActionBar.sendMessage(player, "Kenpachi Zaraki §b|§c Déconnecté");
                 }
+
             }
         }
     }
 
     public boolean isCloseToKenpachiZaraki(PlayerManager playerManager){
-        return getKenPachiZaraki(playerManager) != null;
+        return getKenPachiZaraki(playerManager, true) != null;
     }
 
-    public PlayerManager getKenPachiZaraki(PlayerManager yachiru){
+    public PlayerManager getKenPachiZaraki(PlayerManager yachiru, boolean needDistance){
         Player yachiruPlayer = yachiru.getPlayer();
         PlayerManager kenpachiZaraki = null;
-        for(Entity entity : yachiruPlayer.getNearbyEntities(distance, distance, distance)){
-            if(entity instanceof Player){
-                Player nearPlayer = (Player) entity;
-                PlayerManager nearManager = main.getPlayerManager(nearPlayer.getUniqueId());
-                if(nearManager.isAlive() && nearManager.hasRole()){
-                    if(nearManager.getRole() instanceof KenpachiZaraki){
-                        kenpachiZaraki = nearManager;
+
+        if(needDistance){
+            for(Entity entity : yachiruPlayer.getNearbyEntities(distance, distance, distance)){
+                if(entity instanceof Player){
+                    Player nearPlayer = (Player) entity;
+                    PlayerManager nearManager = main.getPlayerManager(nearPlayer.getUniqueId());
+                    if(nearManager.isAlive() && nearManager.hasRole()){
+                        if(nearManager.getRole() instanceof KenpachiZaraki){
+                            kenpachiZaraki = nearManager;
+                        }
+                    }
+                }
+            }
+        } else {
+            for(PlayerManager playerManager : main.getPlayerManagerOnlines()){
+                if(playerManager.isAlive() && playerManager.hasRole()){
+                    if(playerManager.getRole() instanceof KenpachiZaraki){
+                        kenpachiZaraki = playerManager;
                     }
                 }
             }
         }
+
+
         return kenpachiZaraki;
     }
 

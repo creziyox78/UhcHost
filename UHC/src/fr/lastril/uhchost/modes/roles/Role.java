@@ -4,7 +4,9 @@ package fr.lastril.uhchost.modes.roles;
 import fr.lastril.uhchost.UhcHost;
 import fr.lastril.uhchost.enums.WorldState;
 import fr.lastril.uhchost.game.tasks.TaskManager;
+import fr.lastril.uhchost.modes.Modes;
 import fr.lastril.uhchost.player.PlayerManager;
+import fr.lastril.uhchost.player.modemanager.BleachPlayerManager;
 import fr.lastril.uhchost.tools.API.items.crafter.QuickItem;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -149,6 +151,13 @@ public abstract class Role implements RoleDescription {
         //UhcHost.getInstance().getPlayerManager(player.getUniqueId()).removeCooldowns();
         int timer = taskManager.getCount();
         this.timeEvent.entrySet().stream().filter(e -> e.getKey() == timer).forEach(e -> e.getValue().accept(player));
+        if(main.getGamemanager().getModes() == Modes.BLEACH) {
+            if(player != null) {
+                PlayerManager playerManager = main.getPlayerManager(player.getUniqueId());
+                BleachPlayerManager bleachPlayerManager = playerManager.getBleachPlayerManager();
+                player.setWalkSpeed(0.2F + bleachPlayerManager.getSpeedPourcentage()/100F);
+            }
+        }
     }
 
     public abstract QuickItem getItem();

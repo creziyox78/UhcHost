@@ -7,7 +7,9 @@ import fr.lastril.uhchost.tools.API.raytracing.RayTrace;
 import net.minecraft.server.v1_8_R3.PacketPlayOutEntityEquipment;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.World;
+import org.bukkit.block.Block;
 import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
 import org.bukkit.craftbukkit.v1_8_R3.inventory.CraftItemStack;
 import org.bukkit.entity.Entity;
@@ -20,15 +22,15 @@ import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitTask;
 import org.bukkit.util.Vector;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
+
+import static fr.lastril.uhchost.world.WorldUtils.generateSphere;
 
 public class ClassUtils {
 
     public static String getDirectionOf(Location ploc, Location to) {
         if(ploc == null || to == null) return "?";
-        if(ploc.getWorld() != to.getWorld()) return "?";
+        if(ploc.getWorld() != to.getWorld()) return "? (Les mondes ont différents)";
         ploc.setY(0.0D);
         to.setY(0.0D);
 
@@ -190,18 +192,29 @@ public class ClassUtils {
         return null;
     }
 
-    public static void changeSlotItemRandomlyInInventory(Player target, ItemStack itemStack, boolean needInHand){
-        if(needInHand){
-            if(target.getItemInHand() != itemStack){
-                return;
+    public static void changeSlotItemRandomlyInInventory(Player player, ItemStack itemStack){
+        if(itemStack != null){
+            Inventory inventory = player.getInventory();
+            int slot = inventory.firstEmpty();
+            if(slot != -1){
+                int slots = getSlotItemInInventory(player, itemStack);
+                if(slots != -1){
+                    inventory.setItem(getSlotItemInInventory(player, itemStack), null);
+                }
+                inventory.setItem(slot, itemStack);
             }
         }
-        Inventory inventory = target.getInventory();
-        int slot = inventory.first(itemStack);
-        int randomSlot = UhcHost.getRANDOM().nextInt(36);
-        ItemStack randomItem = inventory.getItem(randomSlot);
-        inventory.setItem(randomSlot, itemStack);
-        inventory.setItem(slot, randomItem);
+
+    }
+
+    public static int getSlotItemInInventory(Player player, ItemStack itemStack){
+        Inventory inventory = player.getInventory();
+        for(int i = 0; i < inventory.getSize(); i++){
+            if(inventory.getItem(i) != null && inventory.getItem(i).isSimilar(itemStack)){
+                return i;
+            }
+        }
+        return -1;
     }
 
     public static boolean isInt(String s) {
@@ -282,6 +295,16 @@ public class ClassUtils {
 
     private static final double lengthSq(double x, double z) {
         return (x * x) + (z * z);
+    }
+
+    public static Vector getRightHeadDirection(Player player) {
+        Vector direction = player.getLocation().getDirection().normalize();
+        return new Vector(-direction.getZ(), 0.0, direction.getX()).normalize();
+    }
+
+    public static Vector getLeftHeadDirection(Player player) {
+        Vector direction = player.getLocation().getDirection().normalize();
+        return new Vector(direction.getZ(), 0.0, -direction.getX()).normalize();
     }
 
 }

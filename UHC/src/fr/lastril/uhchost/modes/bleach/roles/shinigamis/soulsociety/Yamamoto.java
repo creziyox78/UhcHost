@@ -112,15 +112,12 @@ public class Yamamoto extends Role implements RoleListener, RoleCommand, Shiniga
         if(event.getItem().getType() == Material.GOLDEN_APPLE) {
             Player player = event.getPlayer();
             if(noAbsoplayerList.contains(player)){
-                new BukkitRunnable() {
-                    @Override
-                    public void run() {
-                        if(player.hasPotionEffect(PotionEffectType.ABSORPTION)){
-                            player.removePotionEffect(PotionEffectType.ABSORPTION);
-                            player.sendMessage(Messages.BLEACH_PREFIX.getMessage() + "§cVous ne recevez pas d'Absorption car vous avez touché par le \"§6Ryujin Jakka\"§c de§9 Yamamoto§c pendant les 10 dernières secondes.");
-                        }
+                Bukkit.getScheduler().runTaskLater(main, () -> {
+                    if(player.hasPotionEffect(PotionEffectType.ABSORPTION)){
+                        player.removePotionEffect(PotionEffectType.ABSORPTION);
+                        player.sendMessage(Messages.BLEACH_PREFIX.getMessage() + "§cVous ne recevez pas d'Absorption car vous avez touché par le \"§6Ryujin Jakka\"§c de§9 Yamamoto§c pendant les 10 dernières secondes.");
                     }
-                }.runTaskLater(main, 3);
+                }, 20*2);
             }
         }
     }
@@ -132,18 +129,20 @@ public class Yamamoto extends Role implements RoleListener, RoleCommand, Shiniga
                 Player player = (Player) entity;
                 PlayerManager playerManager = main.getPlayerManager(player.getUniqueId());
                 if(playerManager.hasRole() && !(playerManager.getRole() instanceof Yamamoto)){
+                    UhcHost.debug("Added task to " + entity.getName() + " for burning");
                     noAbsoplayerList.add(player);
                 }
             }
-
         }, 0, 20);
+        UhcHost.debug("Starting task removing " + entity.getName() + " from noAbsoplayerList");
         Bukkit.getScheduler().runTaskLater(main, () -> {
-            task.cancel();
+            UhcHost.debug("Removing task");
             if(entity instanceof Player){
                 Player player = (Player) entity;
                 UhcHost.debug("Remove Yamamoto no abso list: "  + player.getName());
                 noAbsoplayerList.remove(player);
             }
+            task.cancel();
         }, 20*10);
     }
 
@@ -180,7 +179,6 @@ public class Yamamoto extends Role implements RoleListener, RoleCommand, Shiniga
         return new QuickItem(Material.SKULL_ITEM, 1, SkullType.PLAYER.ordinal())
                 .setName(getCamp().getCompoColor() + getRoleName())
                 .setTexture("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNmJhNzZkZWEzZGZjMzU0NzRlMzc0Yzk3NjIxNDQ4ZDVmMTczOWYzMmY0MWYyMWRkZGY2ZmE1NTVkMGMzOWEifX19");
-
     }
 
     @Override
@@ -190,7 +188,7 @@ public class Yamamoto extends Role implements RoleListener, RoleCommand, Shiniga
 
     @Override
     public String getRoleName() {
-        return "Y'a ma moto";
+        return "Yamamoto";
     }
 
     @Override

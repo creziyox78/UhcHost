@@ -4,6 +4,7 @@ import fr.lastril.uhchost.UhcHost;
 import fr.lastril.uhchost.enums.Messages;
 import fr.lastril.uhchost.modes.bleach.commands.CmdHiver;
 import fr.lastril.uhchost.modes.bleach.items.Hyorinmaru;
+import fr.lastril.uhchost.modes.bleach.items.Ryusenka;
 import fr.lastril.uhchost.modes.bleach.roles.ShinigamiRole;
 import fr.lastril.uhchost.modes.command.ModeSubCommand;
 import fr.lastril.uhchost.modes.roles.*;
@@ -11,6 +12,7 @@ import fr.lastril.uhchost.player.PlayerManager;
 import fr.lastril.uhchost.tools.API.Cuboid;
 import fr.lastril.uhchost.tools.API.items.Livre;
 import fr.lastril.uhchost.tools.API.items.crafter.QuickItem;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
@@ -31,6 +33,9 @@ public class ToshiroHitsugaya extends Role implements ShinigamiRole, RoleCommand
 
     //public List<Arrow> arrowTrailList = new ArrayList<>();
 
+    private boolean inRyusenka;
+    private Player damaged;
+    private double healthDamaged;
     private int hiverUse;
     private Cuboid hiverSpace;
 
@@ -43,6 +48,7 @@ public class ToshiroHitsugaya extends Role implements ShinigamiRole, RoleCommand
         main.getInventoryUtils().giveItemSafely(player, new QuickItem(Material.PACKED_ICE, 48).toItemStack());
         main.getInventoryUtils().giveItemSafely(player, new Livre(Enchantment.DEPTH_STRIDER, 2).toItemStack());
         main.getInventoryUtils().giveItemSafely(player, new Hyorinmaru(main).toItemStack());
+        main.getInventoryUtils().giveItemSafely(player, new Ryusenka(main).toItemStack());
     }
 
     @Override
@@ -115,6 +121,19 @@ public class ToshiroHitsugaya extends Role implements ShinigamiRole, RoleCommand
                             }
                         }
                     }
+                }
+            }
+
+            if(event.getDamager() instanceof Player){
+                Player damager = (Player) event.getDamager();
+                PlayerManager damagerManager = main.getPlayerManager(damager.getUniqueId());
+                if(damagerManager.hasRole() && damagerManager.getRole() instanceof ToshiroHitsugaya){
+                    damaged = player;
+                    UhcHost.debug("damager : " + damager.getName() + " player : " + damaged.getName());
+                    healthDamaged += event.getFinalDamage();
+                    Bukkit.getScheduler().runTaskLater(main, () -> {
+                        healthDamaged -= event.getFinalDamage();
+                    },20*5);
                 }
             }
         }
@@ -192,4 +211,26 @@ public class ToshiroHitsugaya extends Role implements ShinigamiRole, RoleCommand
         this.arrowTrailList.remove(arrow);
     }*/
 
+    public void setInRyusenka(boolean inRyusenka) {
+        this.inRyusenka = inRyusenka;
+    }
+
+    public void applyDamages(){
+        double damages = healthDamaged*0.2;
+        if(damaged.getHealth() - damages <= 0){
+            damaged.setHealth(0.1);
+        } else {
+            damaged.setHealth(damaged.getHealth() - damages);
+        }
+        healthDamaged = 0;
+        damaged = null;
+    }
+
+    public Player getDamaged() {
+        return damaged;
+    }
+
+    public double getHealthDamaged() {
+        return healthDamaged;
+    }
 }

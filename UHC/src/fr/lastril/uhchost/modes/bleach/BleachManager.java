@@ -2,6 +2,8 @@ package fr.lastril.uhchost.modes.bleach;
 
 import fr.lastril.uhchost.UhcHost;
 import fr.lastril.uhchost.modes.ModeManager;
+import fr.lastril.uhchost.modes.bleach.roles.shinigamis.soulsociety.Mayuri;
+import fr.lastril.uhchost.modes.bleach.roles.shinigamis.soulsociety.Nemu;
 import fr.lastril.uhchost.player.PlayerManager;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
@@ -26,6 +28,22 @@ public class BleachManager extends ModeManager {
         }
         PlayerManager joueur = main.getPlayerManager(player.getUniqueId());
         if(joueur != null){
+            if(joueur.getRole() instanceof Nemu){
+                Mayuri mayuri = null;
+                for(PlayerManager playerManager : main.getGamemanager().getModes().getMode().getModeManager().getPlayerManagersWithRole(Mayuri.class)){
+                    if(playerManager.isAlive()){
+                        mayuri = (Mayuri) playerManager.getRole();
+                    }
+                }
+                if(mayuri != null){
+                    if(!mayuri.hasReanimedNemu()){
+                        return;
+                    }
+                }
+                Nemu nemu = (Nemu) joueur.getRole();
+                nemu.setDead(false);
+            }
+
             Player onlinePlayer = player.getPlayer();
             if(player.isOnline()){
 

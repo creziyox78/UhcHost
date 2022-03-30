@@ -39,8 +39,9 @@ public enum Messages {
     PREFIX_WITH_SEPARATION("§6§lUHC §8❘ §a"),
     PREFIX_SPEC_STAFF("§8§lUHC STAFF§8 » §f"),
     SPECTATOR_PREFIX("§8[§4Spectateur§8] §7"),
-    PREFIX("§6§lUHC");
-
+    PREFIX("§6§lUHC"),
+    ALREADY_USED_POWER("§cVous avez déjà utilisé ce pouvoir !"),
+    ;
 
 
 
@@ -68,7 +69,7 @@ public enum Messages {
     }
 
     public static String cooldown(int roleCooldown) {
-        return error("Vous devez attendre encore "+ new FormatTime(roleCooldown).toFormatString());
+        return error("Vous devez patienter encore "+ new FormatTime(roleCooldown).toFormatString() + " avant de réutiliser votre pouvoir.");
     }
 
     @Override

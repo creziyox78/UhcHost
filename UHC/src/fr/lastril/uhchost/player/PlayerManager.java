@@ -184,529 +184,8 @@ public class PlayerManager {
 		this.setRoleCooldown("heal", roleCooldownHeal);
 	}
 
-	public int getRoleCooldownRinnegan() {
-		return this.getRoleCooldown("rinnegan");
-	}
-
-	public void setRoleCooldownRinnegan(int roleCooldownRinnegan) {
-		this.setRoleCooldown("rinnegan", roleCooldownRinnegan);
-	}
-
 	public List<UUID> getKills() {
 		return kills;
-	}
-
-	public int getRoleCooldownJubi() {
-		return this.getRoleCooldown("jubi");
-	}
-
-	public void setRoleCooldownJubi(int roleCooldownJubi) {
-		this.setRoleCooldown("jubi", roleCooldownJubi);
-	}
-
-	public int getRoleCooldownBiju() {
-		return this.getRoleCooldown("biju");
-	}
-
-	public void setRoleCooldownBiju(int roleCooldownBiju) {
-		this.setRoleCooldown("biju", roleCooldownBiju);
-	}
-
-	public int getRoleCooldownKonan() {
-		return this.getRoleCooldown("konan");
-	}
-
-	public void setRoleCooldownKonan(int roleCooldownKonan) {
-		this.setRoleCooldown("konan", roleCooldownKonan);
-	}
-
-	public int getRoleCooldownCorpsRapiece() {
-		return this.getRoleCooldown("corps_rapiece");
-	}
-
-	public void setRoleCooldownCorpsRapiece(int roleCooldownCorpsRapiece) {
-		this.setRoleCooldown("corps_rapiece", roleCooldownCorpsRapiece);
-	}
-
-	public int getRoleCooldownFluteDemoniaque() {
-		return this.getRoleCooldown("flute_demoniaque");
-	}
-
-	public void setRoleCooldownFluteDemoniaque(int roleCooldownFluteDemoniaque) {
-		this.setRoleCooldown("flute_demoniaque", roleCooldownFluteDemoniaque);
-	}
-
-	public int getRoleCooldownMarqueMaudite() {
-		return this.getRoleCooldown("marque_maudite");
-	}
-
-	public void setRoleCooldownMarqueMaudite(int roleCooldownMarqueMaudite) {
-		this.setRoleCooldown("marque_maudite", roleCooldownMarqueMaudite);
-	}
-
-
-	public int getRoleCooldownTroisPortes() {
-		return this.getRoleCooldown("trois_portes");
-	}
-
-	public void setRoleCooldownTroisPortes(int roleCooldownTroisPortes) {
-		this.setRoleCooldown("trois_portes", roleCooldownTroisPortes);
-	}
-
-	public int getRoleCooldownSixPortes() {
-		return this.getRoleCooldown("six_portes");
-	}
-
-	public void setRoleCooldownSixPortes(int roleCooldownSixPortes) {
-		this.setRoleCooldown("six_portes", roleCooldownSixPortes);
-	}
-
-	public int getRoleCooldownKaguraShingan() {
-		return this.getRoleCooldown("kagura_shingan");
-	}
-
-	public void setRoleCooldownKaguraShingan(int roleCooldownKaguraShingan) {
-		this.setRoleCooldown("kagura_shingan", roleCooldownKaguraShingan);
-	}
-
-	public int getRoleCooldownTendo() {
-		return this.getRoleCooldown("tendo");
-	}
-
-	public int getRoleCooldownDirtProtection() {
-		return this.getRoleCooldown("dirt_protection");
-	}
-
-	public void setRoleCooldownDirtProtection(int roleCooldownDirtProtection) {
-		this.setRoleCooldown("dirt_protection", roleCooldownDirtProtection);
-	}
-
-	public int getRoleCooldownSanbi() {
-		return this.getRoleCooldown("sanbi");
-	}
-
-	public void setRoleCooldownSanbi(int roleCooldownSanbi) {
-		this.setRoleCooldown("sanbi", roleCooldownSanbi);
-	}
-
-	public int getRoleCooldownFireElement() {
-		return this.getRoleCooldown("fire_element");
-	}
-
-	public void setRoleCooldownFireElement(int roleCooldownFireElement) {
-		this.setRoleCooldown("fire_element", roleCooldownFireElement);
-	}
-
-	public int getRoleCooldownKurama() {
-		return this.getRoleCooldown("kurama");
-	}
-
-	public void setRoleCooldownKurama(int roleCooldownKurama) {
-		this.setRoleCooldown("kurama", roleCooldownKurama);
-	}
-
-	public int getRoleCooldownKyodaigumo() {
-		return this.getRoleCooldown("kyodaigumo");
-	}
-
-	public void setRoleCooldownKyodaigumo(int roleCooldownKyodaigumo) {
-		this.setRoleCooldown("kyodaigumo", roleCooldownKyodaigumo);
-	}
-
-	public int getRoleCooldownHuitieme() {
-		return this.getRoleCooldown("huitieme_porte");
-	}
-
-	public void setRoleCooldownTendo(int roleCooldownTendo) {
-		setRoleCooldown("tendo", roleCooldownTendo);
-	}
-
-	public void setRoleCooldownHuitieme(int roleCooldownHuitieme) {
-		this.setRoleCooldown("huitieme_porte", roleCooldownHuitieme);
-	}
-
-	public int getRoleCooldownShurikenJustu() {
-		return this.getRoleCooldown("shuriken_jutsu");
-	}
-
-	public void setRoleCooldownShurikenJustu(int roleCooldownShurikenJustu) {
-		this.setRoleCooldown("shuriken_jutsu", roleCooldownShurikenJustu);
-	}
-
-	public int getRoleCooldownCamouflage() {
-		return this.getRoleCooldown("camouflage");
-	}
-
-	public void setRoleCooldownCamouflage(int roleCooldownCamouflage) {
-		this.setRoleCooldown("camouflage", roleCooldownCamouflage);
-	}
-
-	public int getRoleCooldownHyoton() {
-		return this.getRoleCooldown("hyoton");
-	}
-
-	public void setRoleCooldownHyoton(int roleCooldownHyoton) {
-		this.setRoleCooldown("hyoton", roleCooldownHyoton);
-	}
-
-	public void setRoleCooldownSenjutsu(int roleCooldownSenjutsu) {
-		this.setRoleCooldown("senjutsu", roleCooldownSenjutsu);
-	}
-
-	public int getRoleCooldownCopy() {
-		return this.getRoleCooldown("copy");
-	}
-
-	public void setRoleCooldownCopy(int roleCooldownCopy) {
-		this.setRoleCooldown("copy", roleCooldownCopy);
-	}
-
-	public int getRoleCooldownKiba() {
-		return this.getRoleCooldown("kiba");
-	}
-
-	public void setRoleCooldownKiba(int roleCooldownKiba) {
-		this.setRoleCooldown("kiba", roleCooldownKiba);
-	}
-
-	public int getRoleCooldownHachibi() {
-		return this.getRoleCooldown("kiba");
-	}
-
-	public void setRoleCooldownHachibi(int roleCooldownHachibi) {
-		this.setRoleCooldown("hachibi", roleCooldownHachibi);
-	}
-
-	public int getRoleCooldownAkamaru() {
-		return this.getRoleCooldown("akamaru");
-	}
-
-	public void setRoleCooldownAkamaru(int roleCooldownAkamaru) {
-		this.setRoleCooldown("akamaru", roleCooldownAkamaru);
-	}
-
-	public int getRoleCooldownBouletHumain() {
-		return this.getRoleCooldown("boulet_humain");
-	}
-
-	public void setRoleCooldownBouletHumain(int roleCooldownBouletHumain) {
-		this.setRoleCooldown("boulet_humain", roleCooldownBouletHumain);
-	}
-
-	public int getRoleCooldownByakugan() {
-		return this.getRoleCooldown("byakugan");
-	}
-
-	public void setRoleCooldownByakugan(int roleCooldownByakugan) {
-		this.setRoleCooldown("byakugan", roleCooldownByakugan);
-	}
-
-	public int getRoleCooldownDecuplementPartiel() {
-		return this.getRoleCooldown("decuplement_partiel");
-	}
-
-	public void setRoleCooldownDecuplementPartiel(int roleCooldownDecuplementPartiel) {
-		this.setRoleCooldown("decuplement_partiel", roleCooldownDecuplementPartiel);
-	}
-
-	public int getRoleCooldownGyuki() {
-		return this.getRoleCooldown("gyuki");
-	}
-
-	public void setRoleCooldownGyuki(int roleCooldownGyuki) {
-		this.setRoleCooldown("gyuki", roleCooldownGyuki);
-	}
-
-	public int getRoleCooldownHakke() {
-		return this.getRoleCooldown("hakke");
-	}
-
-	public void setRoleCooldownHakke(int roleCooldownHakke) {
-		this.setRoleCooldown("hakke", roleCooldownHakke);
-	}
-
-	public int getRoleCooldownParchemin() {
-		return this.getRoleCooldown("parchemin");
-	}
-
-	public void setRoleCooldownParchemin(int roleCooldownParchemin) {
-		this.setRoleCooldown("parchemin", roleCooldownParchemin);
-	}
-
-	public int getRoleCooldownEventail() {
-		return this.getRoleCooldown("eventail");
-	}
-
-	public void setRoleCooldownEventail(int roleCooldownEventail) {
-		this.setRoleCooldown("eventail", roleCooldownEventail);
-	}
-
-	public int getRoleCooldownByakugo() {
-		return this.getRoleCooldown("byakugo");
-	}
-
-	public void setRoleCooldownByakugo(int roleCooldownByakugo) {
-		this.setRoleCooldown("byakugo", roleCooldownByakugo);
-	}
-
-	public int getRoleCooldownNinjutsu() {
-		return this.getRoleCooldown("ninjutsu");
-	}
-
-	public void setRoleCooldownNinjutsu(int roleCooldownNinjutsu) {
-		this.setRoleCooldown("ninjutsu", roleCooldownNinjutsu);
-	}
-
-	public int getRoleCooldownSusano() {
-		return this.getRoleCooldown("susano");
-	}
-
-	public void setRoleCooldownSusano(int roleCooldown) {
-		this.setRoleCooldown("susano", roleCooldown);
-	}
-
-	public int getRoleCooldownSenjutsu() {
-		return this.getRoleCooldown("senjutsu");
-	}
-
-	public int getRoleCooldownSharingan() {
-		return this.getRoleCooldown("sharingan");
-	}
-
-	public void setRoleCooldownSharingan(int roleCooldown) {
-		this.setRoleCooldown("sharingan", roleCooldown);
-	}
-
-	public int getRoleCooldownRasengan() {
-		return this.getRoleCooldown("rasengan");
-	}
-
-	public void setRoleCooldownRasengan(int roleCooldownRasengan) {
-		this.setRoleCooldown("rasengan", roleCooldownRasengan);
-	}
-
-	public int getRoleCooldownKatsuyu() {
-		return this.getRoleCooldown("katsuyu");
-	}
-
-	public void setRoleCooldownKatsuyu(int roleCooldownKatsuyu) {
-		this.setRoleCooldown("katsuyu", roleCooldownKatsuyu);
-	}
-
-	public int getRoleCooldownShosenjutsu() {
-		return this.getRoleCooldown("shosenjutsu");
-	}
-
-	public void setRoleCooldownShosenjutsu(int roleCooldownShosenjutsu) {
-		this.setRoleCooldown("shosenjutsu", roleCooldownShosenjutsu);
-	}
-
-	public int getRoleCooldownSaiMonture() {
-		return this.getRoleCooldown("sai_monture");
-	}
-
-	public void setRoleCooldownSaiMonture(int roleCooldownSaiMonture) {
-		this.setRoleCooldown("sai_monture", roleCooldownSaiMonture);
-	}
-
-	public int getRoleCooldownSaiTigres() {
-		return this.getRoleCooldown("sai_tigres");
-	}
-
-	public void setRoleCooldownSaiTigres(int roleCooldownSaiTigres) {
-		this.setRoleCooldown("sai_tigres", roleCooldownSaiTigres);
-	}
-
-	public int getRoleCooldownShurikenJustuTP() {
-		return this.getRoleCooldown("shuriken_justu_tp");
-	}
-
-	public void setRoleCooldownShurikenJustuTP(int roleCooldownShurikenJustuTP) {
-		this.setRoleCooldown("shuriken_justu_tp", roleCooldownShurikenJustuTP);
-	}
-
-	public int getRoleCooldownPakkun() {
-		return this.getRoleCooldown("pakkun");
-	}
-
-	public void setRoleCooldownPakkun(int roleCooldownPakkun) {
-		this.setRoleCooldown("pakkun", roleCooldownPakkun);
-	}
-
-	public int getRoleCooldownNueesArdentes() {
-		return this.getRoleCooldown("nuees_ardentes");
-	}
-
-	public void setRoleCooldownNueesArdentes(int roleCooldownNueesArdentes) {
-		this.setRoleCooldown("nuees_ardentes", roleCooldownNueesArdentes);
-	}
-
-	public int getRoleCooldownSonohoka() {
-		return this.getRoleCooldown("sonohoka");
-	}
-
-	public void setRoleCooldownSonohoka(int roleCooldownSonohoka) {
-		this.setRoleCooldown("sonohoka", roleCooldownSonohoka);
-	}
-
-	public int getRoleCooldownSenpo() {
-		return this.getRoleCooldown("senpo");
-	}
-
-	public void setRoleCooldownSenpo(int roleCooldownSonohoka) {
-		this.setRoleCooldown("senpo", roleCooldownSonohoka);
-	}
-
-	public int getRoleCooldownArisuma() {
-		return this.getRoleCooldown("arisuma");
-	}
-
-	public void setRoleCooldownArisuma(int roleCooldownArisuma) {
-		this.setRoleCooldown("arisuma", roleCooldownArisuma);
-	}
-
-	public int getRoleCooldownC3() {
-		return this.getRoleCooldown("deidara_c3");
-	}
-
-	public void setRoleCooldownC3(int roleCooldownC3) {
-		this.setRoleCooldown("deidara_c3", roleCooldownC3);
-	}
-
-	public int getRoleCooldownC1() {
-		return this.getRoleCooldown("deidara_c1");
-	}
-
-	public void setRoleCooldownC1(int roleCooldownC1) {
-		this.setRoleCooldown("deidara_c1", roleCooldownC1);
-	}
-
-	public int getRoleCooldownC2() {
-		return this.getRoleCooldown("deidara_c2");
-	}
-
-	public void setRoleCooldownC2(int roleCooldownC2) {
-		this.setRoleCooldown("deidara_c2", roleCooldownC2);
-	}
-
-	public int getRoleCooldownDeidara() {
-		return this.getRoleCooldown("deidara");
-	}
-
-	public void setRoleCooldownDeidara(int roleCooldownDeidara) {
-		this.setRoleCooldown("deidara", roleCooldownDeidara);
-	}
-
-	public int getRoleCooldownRituel() {
-		return this.getRoleCooldown("rituel");
-	}
-
-	public void setRoleCooldownRituel(int i) {
-		this.setRoleCooldown("rituel", i);
-	}
-
-	public int getRoleCooldownBarriereProtectrice() {
-		return this.getRoleCooldown("barriere_protectrice");
-	}
-
-	public void setRoleCooldownBarriereProtectrice(int i) {
-		this.setRoleCooldown("barriere_protectrice", i);
-	}
-
-	public void setRoleCooldownAttaque(int i) {
-		this.setRoleCooldown("attaque", i);
-	}
-
-	public int getRoleCooldownAttaque() {
-		return this.getRoleCooldown("attaque");
-	}
-
-	public int getRoleCooldownYari() {
-		return this.getRoleCooldown("yari");
-	}
-
-	public void setRoleCooldownYari(int i) {
-		this.setRoleCooldown("yari", i);
-	}
-
-	public int getRoleCooldownBakuhatsu() {
-		return this.getRoleCooldown("bakuhatsu");
-	}
-
-	public void setRoleCooldownBakuhatsu(int i) {
-		this.setRoleCooldown("bakuhatsu", i);
-	}
-
-	public int getRoleCooldownMetamorphose() {
-		return this.getRoleCooldown("metamorphose");
-	}
-
-	public void setRoleCooldownMetamorphose(int i) {
-		this.setRoleCooldown("metamorphose", i);
-	}
-
-	public int getRoleCooldownKamiToku() {
-		return this.getRoleCooldown("kami_toku");
-	}
-
-	public void setRoleCooldownKamiToku(int i) {
-		this.setRoleCooldown("kami_toku", i);
-	}
-
-	public int getRoleCooldownBatafurai() {
-		return this.getRoleCooldown("batafurai");
-	}
-
-	public void setRoleCooldownBatafurai(int i) {
-		this.setRoleCooldown("batafurai", i);
-	}
-
-	public int getRoleCooldownOiseau() {
-		return this.getRoleCooldown("oiseau");
-	}
-
-	public void setRoleCooldownOiseau(int i) {
-		this.setRoleCooldown("oiseau", i);
-	}
-
-	public int getRoleCooldownChissoku() {
-		return this.getRoleCooldown("chissoku");
-	}
-
-	public void setRoleCooldownChissoku(int i) {
-		this.setRoleCooldown("chissoku", i);
-	}
-
-	public int getRoleCooldownBanshoTenin() {
-		return this.getRoleCooldown("bansho_tenin");
-	}
-
-	public void setRoleCooldownBanshoTenin(int i) {
-		this.setRoleCooldown("bansho_tenin", i);
-	}
-
-	public int getRoleCooldownShukaku() {
-		return this.getRoleCooldown("shukaku");
-	}
-
-	public void setRoleCooldownShukaku(int i) {
-		this.setRoleCooldown("shukaku", i);
-	}
-
-	public int getRoleCooldownShinraTensei() {
-		return this.getRoleCooldown("shinra_tensei");
-	}
-
-	public void setRoleCooldownShinraTensei(int i) {
-		this.setRoleCooldown("shinra_tensei", i);
-	}
-
-	public int getRoleCooldownFix() {
-		return this.getRoleCooldown("fix");
-	}
-
-	public void setRoleCooldownFix(int i) {
-		this.setRoleCooldown("fix", i);
 	}
 
 	public int getRoleCooldownEnnetsu(){
@@ -907,6 +386,118 @@ public class PlayerManager {
 
 	public int getRoleCooldownShikai(){
 		return this.getRoleCooldown("Shikai");
+	}
+
+	public void setRoleCooldownHakuda(int i) {
+		this.setRoleCooldown("Hakuda", i);
+	}
+
+	public int getRoleCooldownHakuda(){
+		return this.getRoleCooldown("Hakuda");
+	}
+
+	public void setRoleCooldownRenvoie(int i) {
+		this.setRoleCooldown("Renvoie", i);
+	}
+
+	public int getRoleCooldownRenvoie(){
+		return this.getRoleCooldown("Renvoie");
+	}
+
+	public void setRoleCooldownDanseDuVent(int i) {
+		this.setRoleCooldown("Danse du vent", i);
+	}
+
+	public int getRoleCooldownDanseDuVent(){
+		return this.getRoleCooldown("Danse du vent");
+	}
+
+	public void setRoleCooldownKageoni(int i) {
+		this.setRoleCooldown("Kageoni", i);
+	}
+
+	public int getRoleCooldownKageoni(){
+		return this.getRoleCooldown("Kageoni");
+	}
+
+	public void setRoleCooldownRyusenka(int i) {
+		this.setRoleCooldown("Ryusenka", i);
+	}
+
+	public int getRoleCooldownRyusenka(){
+		return this.getRoleCooldown("Ryusenka");
+	}
+
+	public void setRoleCooldownHozukimaru(int i) {
+		this.setRoleCooldown("Hozukimaru", i);
+	}
+
+	public int getRoleCooldownHozukimaru(){
+		return this.getRoleCooldown("Hozukimaru");
+	}
+
+	public void setRoleCooldownGetsugaTensho(int i) {
+		this.setRoleCooldown("Getsuga Tensho", i);
+	}
+
+	public int getRoleCooldownGetsugaTensho(){
+		return this.getRoleCooldown("Getsuga Tensho");
+	}
+
+	public void setRoleCooldownHollowMask(int i) {
+		this.setRoleCooldown("Hollow Mask", i);
+	}
+
+	public int getRoleCooldownHollowMask(){
+		return this.getRoleCooldown("Hollow Mask");
+	}
+
+	public void setRoleCooldownVasto(int i) {
+		this.setRoleCooldown("Vasto", i);
+	}
+
+	public int getRoleCooldownVasto(){
+		return this.getRoleCooldown("Vasto");
+	}
+
+	public void setRoleCooldownBrazo(int i) {
+		this.setRoleCooldown("Brazo", i);
+	}
+
+	public int getRoleCooldownBrazo(){
+		return this.getRoleCooldown("Brazo");
+	}
+
+	public void setRoleCooldownMuerte(int i) {
+		this.setRoleCooldown("Muerte", i);
+	}
+
+	public int getRoleCooldownMuerte(){
+		return this.getRoleCooldown("Muerte");
+	}
+
+	public void setRoleCooldownCriticalSado(int i) {
+		this.setRoleCooldown("Coup critique", i);
+	}
+
+	public int getRoleCooldownCriticalSado(){
+		return this.getRoleCooldown("Coup critique");
+	}
+
+	public void setRoleCooldownSodeNoShirayuki(int i) {
+		this.setRoleCooldown("Sode No Shirayuki", i);
+	}
+
+	public int getRoleCooldownSodeNoShirayuki(){
+		return this.getRoleCooldown("Sode No Shirayuki");
+	}
+
+	public void setRoleCooldownClone(int i) {
+		this.setRoleCooldown("Clone", i);
+	}
+
+	public int getRoleCooldownClone(){
+		return this.getRoleCooldown("Clone");
 	}
 
 

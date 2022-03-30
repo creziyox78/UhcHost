@@ -43,10 +43,10 @@ public class CmdHeal implements ModeSubCommand {
             return false;
         }
         if(playerManager.getRole() instanceof Isane){
-            Isane isane = (Isane) playerManager.getPlayer();
+            Isane isane = (Isane) playerManager.getRole();
             if(bleachPlayerManager.canUsePower()){
                 if(playerManager.getRoleCooldownHeal() <= 0){
-                    if(args.length == 3){
+                    if(args.length == 2){
                         String targetName = args[1];
                         Player target = Bukkit.getPlayer(targetName);
                         if(target != null){

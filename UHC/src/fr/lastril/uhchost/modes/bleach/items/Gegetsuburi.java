@@ -23,9 +23,9 @@ public class Gegetsuburi extends QuickItem {
                 "§7Permet d'attirer un joueur attrapé",
                 "§7par cette canne à pêche.",
                 "",
-                "§f- Clique Gauche",
+                "§f- Clique Gauche (Cooldown - 45 secondes)",
                 "§7Retire 3 coeurs au joueur pris",
-                "§7dans votre canne à pêche. (Cooldown - 45 secondes)");
+                "§7dans votre canne à pêche. ");
         super.addEnchant(Enchantment.DURABILITY, 1, true);
         super.addItemFlag(ItemFlag.HIDE_ENCHANTS);
         super.addItemFlag(ItemFlag.HIDE_UNBREAKABLE);

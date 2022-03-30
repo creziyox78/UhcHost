@@ -8,15 +8,13 @@ import fr.lastril.uhchost.modes.ModeConfig;
 import fr.lastril.uhchost.modes.ModeManager;
 import fr.lastril.uhchost.modes.Modes;
 import fr.lastril.uhchost.modes.bleach.roles.BLRole;
-import fr.lastril.uhchost.modes.command.CmdCompo;
-import fr.lastril.uhchost.modes.command.CmdDesc;
-import fr.lastril.uhchost.modes.command.ModeCommand;
-import fr.lastril.uhchost.modes.command.ModeSubCommand;
+import fr.lastril.uhchost.modes.command.*;
 import fr.lastril.uhchost.modes.roles.*;
 import fr.lastril.uhchost.player.PlayerManager;
 import fr.lastril.uhchost.tools.API.BungeeAPI;
 import fr.lastril.uhchost.tools.API.TitleAPI;
 import fr.lastril.uhchost.tools.API.inventory.crafter.IQuickInventory;
+import fr.lastril.uhchost.tools.API.packets.PacketListener;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.Sound;
@@ -112,6 +110,10 @@ public class BleachMode extends Mode implements ModeConfig, RoleAnnounceMode, Mo
                 RoleListener roleListener = (RoleListener) role;
                 roleListener.registerListener(main, main.getServer().getPluginManager());
                 Bukkit.getConsoleSender().sendMessage("Register roleListener: " + role.getRoleName());
+            }
+            if(role instanceof RolePacket){
+                RolePacket packetListener = (RolePacket) role;
+                Bukkit.getConsoleSender().sendMessage("Register packetRoleListener: " + role.getRoleName());
             }
         }
 
@@ -282,6 +284,7 @@ public class BleachMode extends Mode implements ModeConfig, RoleAnnounceMode, Mo
         List<ModeSubCommand> subCommands = new ArrayList<>();
         subCommands.add(new CmdCompo(main));
         subCommands.add(new CmdDesc(main));
+        subCommands.add(new CmdMe(main));
         this.getRoles().stream().filter(role -> role instanceof RoleCommand).map(role -> ((RoleCommand) role).getSubCommands()).forEach(subCommands::addAll);
         return subCommands;
     }

@@ -13,39 +13,41 @@ public enum BleachRoles {
 
     //Soul Society
     YAMAMOTO(Yamamoto.class), //TODO FIX NO ABSO
-    SOIFON(SoiFon.class), //TODO ITEM "Suzumebachi"
-    OMAEDA(Omaeda.class), //FINISHED
+    SOIFON(SoiFon.class), //FINISHED
+    OMAEDA(Omaeda.class), //TODO FIX LEFT CLICK ROD
     KIRA(Kira.class), //FINISHED
     UNOHANA(Unohana.class), //FINISHED
     ISANE(Isane.class), //FINISHED
     HINAMORI(Hinamori.class), //FINISHED
-    BYAKUYA(Byakuya.class), //TODO BE TESTED
+    BYAKUYA(Byakuya.class), //FINISHED
     RENJI(Renji.class), //FINISHED
     KOMAMURA(Komamura.class),
-    IBA(Iba.class), //TODO FIX close to wall
-    KYORAKU(Kyoraku.class), //TODO ITEM "Kageoni"
+    IBA(Iba.class), //TODO FIX CLOSE TO WALL
+    KYORAKU(Kyoraku.class), //FINISHED
     NANAO(Nanao.class), //FINISHED
-    HISAGI(Hisagi.class), //TODO FIX switch item
-    TOSHIROHITSUGAYA(ToshiroHitsugaya.class), //TODO ITEM "Ryusenka"
+    HISAGI(Hisagi.class), //FINISHED
+    TOSHIROHITSUGAYA(ToshiroHitsugaya.class), //FINISHED
     RANGIKUMATSUMOTO(RangikuMatsumoto.class), //FINISHED
-    KENPACHIZARAKI(KenpachiZaraki.class), //TODO BE TESTED
-    YACHIRU(Yachiru.class), //TODO BE TESTED
-    MAYURI(Mayuri.class),
-    NEMU(Nemu.class),
-    JUSHIROUKITAKE(JushiroUkitake.class),
-    IKKAKU(Ikkaku.class),
+    KENPACHIZARAKI(KenpachiZaraki.class), //FINISHED
+    YACHIRU(Yachiru.class), //FINISHED
+    MAYURI(Mayuri.class), //TODO FIX WITHER
+    NEMU(Nemu.class), //FINISHED
+    JUSHIROUKITAKE(JushiroUkitake.class), //TODO ADAPTION WITH CERO
+    IKKAKU(Ikkaku.class), //FINISHED
 
-    ICHIGOKUROSAKI(IchigoKurosaki.class),
+    //Ichigo Groups
+
+    ICHIGOKUROSAKI(IchigoKurosaki.class), //TODO ADAPTION WITH AIZEN, FIX CHARGE
     INOUEORIHIME(InoueOrihime.class),
-    SADO(Sado.class),
-    ISHIDA(Ishida.class),
-    RUKIA(Rukia.class),
+    SADO(Sado.class), //TODO BE TESTED
+    ISHIDA(Ishida.class), //TODO BE TESTED
+    RUKIA(Rukia.class), //TODO BE TESTED
     KISUKEURAHARA(KisukeUrahara.class),
     YORUICHI(Yoruichi.class),
     NELLIEL(Nelliel.class),
 
 
-    //Ichigo Groups
+
 
     /*
      * ARRANCARS

@@ -42,6 +42,7 @@ public class KyorakuDuelListener implements Listener {
             player1.getActivePotionEffects().forEach(potionEffect -> player1.removePotionEffect(potionEffect.getType()));
             player2.getActivePotionEffects().forEach(potionEffect -> player2.removePotionEffect(potionEffect.getType()));
         } else if(kyorakuDuelManager.getRulesFight() == KyorakuDuelManager.RulesFight.RULES_FIGHT_3){
+            UhcHost.debug("§cRègle 3 : §e" + player1.getName() + " §cet §e" + player2.getName());
             PlayerManager playerManager1 = main.getPlayerManager(player1.getUniqueId());
             PlayerManager playerManager2 = main.getPlayerManager(player2.getUniqueId());
             BleachPlayerManager bleachPlayerManager1 = playerManager1.getBleachPlayerManager();
@@ -53,24 +54,26 @@ public class KyorakuDuelListener implements Listener {
 
     @EventHandler(priority = EventPriority.LOW)
     public void onEndDuelKyoraku(KyorakuEndDuelEvent event){
+        PlayerManager playerManager1 = main.getPlayerManager(player1.getUniqueId());
+        PlayerManager playerManager2 = main.getPlayerManager(player2.getUniqueId());
+        PlayerManager winner = main.getPlayerManager(event.getWinner().getUniqueId());
+        BleachPlayerManager bleachPlayerManager1 = playerManager1.getBleachPlayerManager();
+        bleachPlayerManager1.setInKyorakuDuel(false);
+        BleachPlayerManager bleachPlayerManager2 = playerManager2.getBleachPlayerManager();
+        bleachPlayerManager2.setInKyorakuDuel(false);
         if(kyorakuDuelManager.getRulesFight() == KyorakuDuelManager.RulesFight.RULES_FIGHT_2){
             playerEffectMap.get(event.getWinner()).forEach(potionEffect -> event.getWinner().addPotionEffect(potionEffect));
             event.getWinner().sendMessage(Messages.BLEACH_PREFIX.getMessage() + "§aVous avez remporté le duel ! Vous récupéré vos effets !");
         } else if(kyorakuDuelManager.getRulesFight() == KyorakuDuelManager.RulesFight.RULES_FIGHT_3){
-            PlayerManager playerManager1 = main.getPlayerManager(player1.getUniqueId());
-            PlayerManager playerManager2 = main.getPlayerManager(player2.getUniqueId());
-            BleachPlayerManager bleachPlayerManager1 = playerManager1.getBleachPlayerManager();
-            bleachPlayerManager1.setInKyorakuDuel(false);
-            BleachPlayerManager bleachPlayerManager2 = playerManager2.getBleachPlayerManager();
-            bleachPlayerManager2.setInKyorakuDuel(false);
             event.getWinner().sendMessage(Messages.BLEACH_PREFIX.getMessage() + "§aVous avez remporté le duel ! Vous pouvez réutiliser vos pouvoirs !");
         }
         Bukkit.getScheduler().runTaskLater(main, () -> {
             kyorakuDuelManager.teleportWinnerInPreviousLocation(event.getWinner());
             kyorakuDuelManager.deleteArena(kyorakuDuelManager.getArena().getCenter());
             HandlerList.unregisterAll(this);
-        }, 20*10);
-        event.getWinner().sendMessage(Messages.BLEACH_PREFIX.getMessage() + "§aVous aller être re-téléporté à votre position dans 10 secondes.");
+        }, 20*15);
+        event.getWinner().sendMessage(Messages.BLEACH_PREFIX.getMessage() + "§aVous aller être re-téléporté à votre position dans 10 secondes.§c Vous avez gagné 5% de Force !");
+        winner.getBleachPlayerManager().setStrengthPourcentage(winner.getBleachPlayerManager().getStrengthPourcentage() + 5);
     }
 
 

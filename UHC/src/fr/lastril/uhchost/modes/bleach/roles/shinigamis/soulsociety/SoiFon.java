@@ -1,5 +1,6 @@
 package fr.lastril.uhchost.modes.bleach.roles.shinigamis.soulsociety;
 
+import fr.lastril.uhchost.enums.Messages;
 import fr.lastril.uhchost.modes.bleach.items.JakuhoRaikoben;
 import fr.lastril.uhchost.modes.bleach.items.Suzumebachi;
 import fr.lastril.uhchost.modes.bleach.roles.ShinigamiRole;
@@ -8,8 +9,10 @@ import fr.lastril.uhchost.modes.roles.Role;
 import fr.lastril.uhchost.modes.roles.RoleListener;
 import fr.lastril.uhchost.modes.roles.When;
 import fr.lastril.uhchost.player.PlayerManager;
+import fr.lastril.uhchost.player.modemanager.BleachPlayerManager;
 import fr.lastril.uhchost.tools.API.ClassUtils;
 import fr.lastril.uhchost.tools.API.items.crafter.QuickItem;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.SkullType;
@@ -17,6 +20,7 @@ import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.WitherSkull;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityExplodeEvent;
 import org.bukkit.potion.PotionEffect;
@@ -27,12 +31,10 @@ import java.util.List;
 
 public class SoiFon extends Role implements RoleListener, ShinigamiRole {
 
-    private List<PlayerManager> marquedPlayers, repulsedPlayers;
-    private boolean inMarque;
-    private int marquePhase = 1;
+    private List<PlayerManager> repulsedPlayers;
+    private PlayerManager marqued;
 
     public SoiFon(){
-        this.marquedPlayers = new ArrayList<>();
         this.repulsedPlayers = new ArrayList<>();
         super.addEffect(new PotionEffect(PotionEffectType.SPEED, Integer.MAX_VALUE, 0, false, false), When.START);
     }
@@ -134,6 +136,50 @@ public class SoiFon extends Role implements RoleListener, ShinigamiRole {
     }
 
     @EventHandler
+    public void onDamageWithSuzumebachi(EntityDamageByEntityEvent event){
+        if(event.getEntity() instanceof Player && event.getDamager() instanceof Player){
+            Player player = (Player) event.getEntity();
+            Player damager = (Player) event.getDamager();
+            PlayerManager playerManager = main.getPlayerManager(player.getUniqueId());
+            PlayerManager damagerManager = main.getPlayerManager(damager.getUniqueId());
+            BleachPlayerManager damagerBleach = damagerManager.getBleachPlayerManager();
+            if(damagerManager.hasRole() && damagerManager.getRole() instanceof SoiFon){
+                if(damager.getItemInHand().isSimilar(new Suzumebachi(main).toItemStack())){
+                    if(damagerBleach.canUsePower()){
+                        if(damagerManager.getRoleCooldownSuzumebachi() <= 0){
+                            if(marqued == null){
+                                damager.sendMessage(Messages.BLEACH_PREFIX.getMessage() + "§cMarque infligée à " + player.getName() + ".");
+                                marqued = playerManager;
+                                Bukkit.getScheduler().runTaskLater(main, () -> {
+                                    if(marqued != null && marqued == playerManager){
+                                        damager.sendMessage(Messages.BLEACH_PREFIX.getMessage() + "§6La marque infligé à " + playerManager.getPlayerName() + " a disparu...");
+                                        marqued = null;
+                                    }
+                                }, 20*60);
+                                damagerManager.setRoleCooldownSuzumebachi(15);
+                            } else {
+                                if(marqued == playerManager){
+                                    player.sendMessage(Messages.BLEACH_PREFIX.getMessage() + "§cVous êtes victime de la marque de§9 Soi Fon§f \"Suzumebachi\"§9.");
+                                    playerManager.stun(player.getLocation());
+                                    Bukkit.getScheduler().runTaskLater(main, () -> playerManager.setStunned(false), 20*3);
+                                    player.addPotionEffect(new PotionEffect(PotionEffectType.WITHER, 20*5, 1, false, false));
+                                    marqued = null;
+                                    damagerManager.setRoleCooldownSuzumebachi(3*60);
+                                    damager.sendMessage(Messages.BLEACH_PREFIX.getMessage() + "§cDégât infligé à " + player.getName() + ".");
+                                }
+                            }
+                        } else {
+                            damager.sendMessage(Messages.cooldown(playerManager.getRoleCooldownSuzumebachi()));
+                        }
+                    } else {
+                        damager.sendMessage(Messages.BLEACH_PREFIX.getMessage() + Messages.CANT_USE_POWER_NOW.getMessage());
+                    }
+                }
+            }
+        }
+    }
+
+    @EventHandler
     public void onShotWitherHead(EntityExplodeEvent event){
         if(event.getEntity() instanceof WitherSkull){
             WitherSkull witherSkull = (WitherSkull) event.getEntity();
@@ -160,33 +206,5 @@ public class SoiFon extends Role implements RoleListener, ShinigamiRole {
 
             }
         }
-    }
-
-    public boolean isInMarque() {
-        return inMarque;
-    }
-
-    public void setInMarque(boolean inMarque) {
-        this.inMarque = inMarque;
-    }
-
-    public void setMarquePhase(int marquePhase) {
-        this.marquePhase = marquePhase;
-    }
-
-    public int getMarquePhase() {
-        return marquePhase;
-    }
-
-    public void addPlayerMarqued(PlayerManager playerManager){
-        marquedPlayers.add(playerManager);
-    }
-
-    public void removePlayerMarqued(PlayerManager playerManager){
-        marquedPlayers.remove(playerManager);
-    }
-
-    public boolean isMarqued(PlayerManager playerManager){
-        return marquedPlayers.contains(playerManager);
     }
 }

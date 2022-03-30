@@ -3,6 +3,7 @@ package fr.lastril.uhchost.tools.API.npc;
 import com.mojang.authlib.GameProfile;
 import com.mojang.authlib.properties.Property;
 import fr.lastril.uhchost.UhcHost;
+import fr.lastril.uhchost.tools.API.items.crafter.QuickItem;
 import net.minecraft.server.v1_8_R3.*;
 import net.minecraft.server.v1_8_R3.PacketPlayOutPlayerInfo.EnumPlayerInfoAction;
 import org.bukkit.Bukkit;
@@ -10,6 +11,8 @@ import org.bukkit.Location;
 import org.bukkit.craftbukkit.v1_8_R3.CraftServer;
 import org.bukkit.craftbukkit.v1_8_R3.CraftWorld;
 import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
+import org.bukkit.craftbukkit.v1_8_R3.inventory.CraftItemStack;
+import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 
@@ -25,6 +28,8 @@ public class NPC {
 
 	private EntityPlayer player;
 	private EntityLiving vehicle;
+	private ItemStack helmet, chestplate, leggings, boots, itemInHand;
+	private boolean sneaking;
 	private final NPCInteractEvent event;
 
 	private final List<UUID> viewers;
@@ -94,6 +99,19 @@ public class NPC {
 		connection.sendPacket(new PacketPlayOutPlayerInfo(EnumPlayerInfoAction.ADD_PLAYER, this.player));
 		connection.sendPacket(new PacketPlayOutNamedEntitySpawn(this.player));
 		connection.sendPacket(new PacketPlayOutEntityHeadRotation(this.player, (byte) (this.player.yaw * 256 / 360)));
+		if(helmet != null)
+			connection.sendPacket(new PacketPlayOutEntityEquipment(this.player.getId(), 1, boots));
+		if(chestplate != null)
+			connection.sendPacket(new PacketPlayOutEntityEquipment(this.player.getId(), 2, leggings));
+		if(leggings != null)
+			connection.sendPacket(new PacketPlayOutEntityEquipment(this.player.getId(), 3, chestplate));
+		if(boots != null)
+			connection.sendPacket(new PacketPlayOutEntityEquipment(this.player.getId(), 4, helmet));
+		if(itemInHand != null)
+			connection.sendPacket(new PacketPlayOutEntityEquipment(this.player.getId(), 0, itemInHand));
+		if(sneaking)
+
+
 		if(vehicle != null) this.sitNPC(player);
 		this.addViewer(player.getUniqueId());
 
@@ -130,7 +148,41 @@ public class NPC {
 		((CraftPlayer) player).getHandle().playerConnection.sendPacket(packetStatus);
 	}
 
-	
+	public void damageNPC(Player player){
+		PacketPlayOutEntityStatus packetStatus = new PacketPlayOutEntityStatus(this.player, (byte) 2);
+		((CraftPlayer) player).getHandle().playerConnection.sendPacket(packetStatus);
+	}
+
+	public void damageNPC(){
+		Bukkit.getOnlinePlayers().forEach(this::damageNPC);
+	}
+	public void helmetNPC(org.bukkit.inventory.ItemStack item){
+		this.helmet = CraftItemStack.asNMSCopy(item);
+	}
+
+	public void chestplateNPC(org.bukkit.inventory.ItemStack item){
+		this.chestplate = CraftItemStack.asNMSCopy(item);
+	}
+
+	public void leggingsNPC(org.bukkit.inventory.ItemStack item){
+		this.leggings = CraftItemStack.asNMSCopy(item);
+	}
+
+	public void bootsNPC(org.bukkit.inventory.ItemStack item){
+		this.boots = CraftItemStack.asNMSCopy(item);
+	}
+
+	public void itemInHandNPC(org.bukkit.inventory.ItemStack item){
+		this.itemInHand = CraftItemStack.asNMSCopy(item);
+	}
+
+	public void sneakNPC(Player player){
+		DataWatcher dw = new DataWatcher(null);
+		dw.a(0, (byte) 0x02);
+		PacketPlayOutEntityMetadata metadataPacket = new PacketPlayOutEntityMetadata(this.player.getId(), dw, true);
+		((CraftPlayer) player).getHandle().playerConnection.sendPacket(metadataPacket);
+	}
+
 	public void sitNPC() {
 		if(this.vehicle == null){
 			this.vehicle = new EntitySquid(this.getEntity().world);
@@ -168,6 +220,8 @@ public class NPC {
 		((CraftPlayer) player).getHandle().playerConnection.sendPacket(dettachEntity);
 		this.vehicle = null;
 	}
+
+
 
 	
 	public void update() {

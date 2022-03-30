@@ -101,6 +101,8 @@ public class Join implements Listener {
 			player.showPlayer(player1);
 			player1.showPlayer(player);
 		});
+		UhcHost.getInstance().getPacketManager().onJoin(player);
+		UhcHost.getInstance().getNpcManager().onJoin(player);
 		if(pl.isListHost(playersUuid)){
 			if(pl.gameManager.getHost() == null){
 				UhcHost.debug("Set player " + player.getName() + " host !");

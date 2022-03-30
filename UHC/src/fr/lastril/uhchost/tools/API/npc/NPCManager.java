@@ -109,7 +109,7 @@ public class NPCManager implements PacketListener {
 		}
 	}
 
-	private Object getValue(Object instance, String name) {
+	public Object getValue(Object instance, String name) {
 		Object result = null;
 
 		try {

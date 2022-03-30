@@ -26,14 +26,13 @@ public class DeathPlayer implements Listener {
 		if (GameState.isState(GameState.STARTED)) {
 			if (killer != null) {
 				Bukkit.getPluginManager().callEvent(new PlayerKillEvent(player, killer));
-
 			}
 			main.getGamemanager().getModes().getMode().onDeath(player, killer);
 		} else {
 			Bukkit.getScheduler().runTaskLater(main, () -> {
 				player.spigot().respawn();
 				player.teleport(new Location(main.gameManager.spawn.getWorld(), main.gameManager.spawn.getX(), main.gameManager.spawn.getY() + 5, main.gameManager.spawn.getZ()));
-			}, 20* 2);
+			}, 20);
 		}
 	}
 }

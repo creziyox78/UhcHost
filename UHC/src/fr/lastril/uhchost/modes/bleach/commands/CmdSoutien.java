@@ -48,7 +48,7 @@ public class CmdSoutien implements ModeSubCommand {
             if(yachiru.isCloseToKenpachiZaraki(playerManager)){
                 if(bleachPlayerManager.canUsePower()){
                     if(playerManager.getRoleCooldownSoutien() <= 0){
-                        PlayerManager targetManager = yachiru.getKenPachiZaraki(playerManager);
+                        PlayerManager targetManager = yachiru.getKenPachiZaraki(playerManager, true);
                         KenpachiZaraki kenpachiZaraki = (KenpachiZaraki) targetManager.getRole();
                         if(kenpachiZaraki.didntGetDamageIn5Seconds()){
                             Player target = targetManager.getPlayer();

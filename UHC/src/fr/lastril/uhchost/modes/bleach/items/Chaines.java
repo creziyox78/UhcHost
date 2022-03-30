@@ -10,6 +10,7 @@ import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Snowball;
+import org.bukkit.event.block.Action;
 import org.bukkit.inventory.ItemFlag;
 
 public class Chaines extends QuickItem {
@@ -30,9 +31,11 @@ public class Chaines extends QuickItem {
             if(playerManager.hasRole() && playerManager.getRole() instanceof Hisagi){
                 if(bleachPlayerManager.canUsePower()){
                     if(playerManager.getRoleCooldownChaines() <= 0){
-                        Snowball snowball = player.launchProjectile(Snowball.class);
-                        snowball.setCustomName("§7Chaînes");
-                        playerManager.setRoleCooldownChaines(5*60);
+                        if(onClick.getAction() == Action.RIGHT_CLICK_AIR || onClick.getAction() == Action.RIGHT_CLICK_BLOCK){
+                            Snowball snowball = player.launchProjectile(Snowball.class);
+                            snowball.setCustomName("§7Chaînes");
+                            playerManager.setRoleCooldownChaines(5*60);
+                        }
                     } else {
                         player.sendMessage(Messages.cooldown(playerManager.getRoleCooldownChaines()));
                     }

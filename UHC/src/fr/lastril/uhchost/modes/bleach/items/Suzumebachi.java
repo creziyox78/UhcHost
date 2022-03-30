@@ -18,24 +18,16 @@ public class Suzumebachi extends QuickItem {
         super.setName("§6Suzumebachi");
         super.addEnchant(Enchantment.DURABILITY, 1, true);
         super.addItemFlag(ItemFlag.HIDE_ENCHANTS);
-        super.onClick(onClick -> {
-            Player player = onClick.getPlayer();
-            PlayerManager playerManager = main.getPlayerManager(player.getUniqueId());
-            BleachPlayerManager bleachPlayerManager = playerManager.getBleachPlayerManager();
-            if(playerManager.hasRole() && playerManager.isAlive()){
-                if(bleachPlayerManager.canUsePower()){
-                    if(playerManager.getRole() instanceof SoiFon){
-                        if(playerManager.getRoleCooldownSuzumebachi() >= 0){
-                            player.sendMessage(Messages.cooldown(playerManager.getRoleCooldownSuzumebachi()));
-                        } else {
-
-                        }
-                    }
-                } else {
-                    player.sendMessage(Messages.BLEACH_PREFIX.getMessage() + Messages.CANT_USE_POWER_NOW.getMessage());
-                }
-
-            }
-        });
+        super.setLore("",
+                "§f1ère utilisation (sur un joueur) :",
+                "§7  - Inflige une marque qui est déposé",
+                "§7    sur le joueur frappé avec.",
+                "",
+                "§f2ème utilisation (sur le joueur marqué après 15 secondes) :",
+                "§7  - Immobilise le joueur durant pendant",
+                "§7    pendant 3 secondes. Donne l'effet",
+                "§7    §fWither 2§7 pendant 5 secondes.",
+                "",
+                "§7(Cooldown - 3 minutes)");
     }
 }

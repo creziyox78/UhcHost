@@ -10,6 +10,7 @@ import fr.lastril.uhchost.tools.API.items.crafter.QuickItem;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
+import org.bukkit.event.block.Action;
 import org.bukkit.inventory.ItemFlag;
 
 public class Kazeshini extends QuickItem {
@@ -28,19 +29,22 @@ public class Kazeshini extends QuickItem {
             PlayerManager playerManager = main.getPlayerManager(player.getUniqueId());
             BleachPlayerManager bleachPlayerManager = playerManager.getBleachPlayerManager();
             if(playerManager.hasRole() && playerManager.isAlive()){
-                if(playerManager.getRole() instanceof Hisagi){
-                    if(bleachPlayerManager.canUsePower()){
-                        if(playerManager.getRoleCooldownKazeshini() <= 0){
-                            Player target = ClassUtils.getTargetPlayer(player, 10);
-                            if(target != null){
-                                ClassUtils.changeSlotItemRandomlyInInventory(target, new QuickItem(Material.IRON_SWORD).toItemStack(), false);
-                                ClassUtils.changeSlotItemRandomlyInInventory(target, new QuickItem(Material.DIAMOND_SWORD).toItemStack(), false);
-                                playerManager.setRoleCooldownKazeshini(60*3 + 30);
-                                player.sendMessage(Messages.BLEACH_PREFIX.getMessage() + "§a" + target.getName() + " ne sait plus où se trouve son épée !");
-                                target.sendMessage(Messages.BLEACH_PREFIX.getMessage() + "§a Votre épée vient de changer de place dans votre inventaire !");
-                            } else {
-                                player.sendMessage(Messages.BLEACH_PREFIX.getMessage() + "§cVous devez visé un joueur !");
+                if(onClick.getAction() == Action.RIGHT_CLICK_AIR || onClick.getAction() == Action.RIGHT_CLICK_BLOCK){
+                    if(playerManager.getRole() instanceof Hisagi){
+                        if(bleachPlayerManager.canUsePower()){
+                            if(playerManager.getRoleCooldownKazeshini() <= 0){
+
+                                Player target = ClassUtils.getTargetPlayer(player, 10);
+                                if(target != null){
+                                    ClassUtils.changeSlotItemRandomlyInInventory(target, target.getItemInHand());
+                                    playerManager.setRoleCooldownKazeshini(60*3 + 30);
+                                    player.sendMessage(Messages.BLEACH_PREFIX.getMessage() + "§a" + target.getName() + " ne sait plus où se trouve son épée !");
+                                    target.sendMessage(Messages.BLEACH_PREFIX.getMessage() + "§a Votre épée vient de changer de place dans votre inventaire !");
+                                } else {
+                                    player.sendMessage(Messages.BLEACH_PREFIX.getMessage() + "§cVous devez visé un joueur !");
+                                }
                             }
+
                         } else {
                             player.sendMessage(Messages.cooldown(playerManager.getRoleCooldownKazeshini()));
                         }

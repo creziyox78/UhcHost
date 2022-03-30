@@ -1,5 +1,6 @@
 package fr.lastril.uhchost.modes.bleach.roles.shinigamis.soulsociety;
 
+import fr.lastril.uhchost.UhcHost;
 import fr.lastril.uhchost.modes.bleach.roles.ShinigamiRole;
 import fr.lastril.uhchost.modes.roles.Camps;
 import fr.lastril.uhchost.modes.roles.Role;
@@ -8,8 +9,10 @@ import fr.lastril.uhchost.modes.roles.When;
 import fr.lastril.uhchost.player.PlayerManager;
 import fr.lastril.uhchost.player.modemanager.BleachPlayerManager;
 import fr.lastril.uhchost.tools.API.items.crafter.QuickItem;
+import net.minecraft.server.v1_8_R3.EntityLiving;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
@@ -38,10 +41,8 @@ public class KenpachiZaraki extends Role implements ShinigamiRole, RoleListener 
                     new BukkitRunnable() {
                         @Override
                         public void run() {
-                            if(player.hasPotionEffect(PotionEffectType.REGENERATION)){
-                                player.removePotionEffect(PotionEffectType.REGENERATION);
-                            }
-                            player.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 20*2, 1));
+                            EntityLiving el = ((CraftPlayer)player).getHandle();
+                            el.setAbsorptionHearts(2F);
                         }
                     }.runTaskLater(main, 3);
                 }
@@ -55,9 +56,8 @@ public class KenpachiZaraki extends Role implements ShinigamiRole, RoleListener 
         PlayerManager playerManager = main.getPlayerManager(player.getUniqueId());
         BleachPlayerManager bleachPlayerManager = playerManager.getBleachPlayerManager();
         if(player.getHealth() <= 7D*2D){
-
             bleachPlayerManager.setSpeedPourcentage(7);
-            player.setWalkSpeed(0.255F);
+
             if(player.getHealth() <= 5D*2D){
                 bleachPlayerManager.setStrengthPourcentage(10);
                 if(player.getHealth() <= 3D*2D){
@@ -75,8 +75,9 @@ public class KenpachiZaraki extends Role implements ShinigamiRole, RoleListener 
     @Override
     public void afterRoles(Player player) {
         Bukkit.getScheduler().runTaskTimer(main, () -> {
+            UhcHost.debug("Seconds : " + lastDamageSeconds);
             lastDamageSeconds--;
-        },0, 20*20);
+        },0, 20);
     }
 
     @Override
@@ -127,10 +128,10 @@ public class KenpachiZaraki extends Role implements ShinigamiRole, RoleListener 
     @EventHandler
     public void onDamageKenpachiZaraki(EntityDamageByEntityEvent event){
         if(event.getEntity() instanceof Player && event.getDamager() instanceof Player){
-            Player damager = (Player) event.getDamager();
-            PlayerManager damagerManager = main.getPlayerManager(damager.getUniqueId());
-            if(damagerManager.hasRole() && damagerManager.getRole() instanceof KenpachiZaraki){
-                KenpachiZaraki kenpachiZaraki = (KenpachiZaraki) damagerManager.getRole();
+            Player player = (Player) event.getEntity();
+            PlayerManager playerManager = main.getPlayerManager(player.getUniqueId());
+            if(playerManager.hasRole() && playerManager.getRole() instanceof KenpachiZaraki){
+                KenpachiZaraki kenpachiZaraki = (KenpachiZaraki) playerManager.getRole();
                 kenpachiZaraki.lastDamageSeconds = 5;
             }
         }
