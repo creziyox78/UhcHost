@@ -46,42 +46,22 @@ public class BleachManager extends ModeManager {
 
             Player onlinePlayer = player.getPlayer();
             if(player.isOnline()){
-
                 joueur.setDeathLocation(onlinePlayer .getLocation());
                 joueur.setItems(onlinePlayer .getInventory().getContents());
                 joueur.setArmors(onlinePlayer.getInventory().getArmorContents());
             }
-
-
-            for (Player players : Bukkit.getOnlinePlayers()) {
-                if(!nuitNoir){
-                    players.playSound(players.getLocation(), Sound.WITHER_DEATH, 1f, 1f);
-                }
-                PlayerManager playerManager = main.getPlayerManager(players.getUniqueId());
-                if(playerManager.isAlive() && playerManager.hasRole()){
-                    playerManager.getRole().onPlayerDeath(player.getPlayer());
-                    if(killer != null){
-                        playerManager.getRole().onKill(player, killer);
-                    }
-                }
-
-            }
-
             if (joueur.hasRole()) {
                 if(!nuitNoir){
                     Bukkit.broadcastMessage("§3§m----------------------------------");
                     Bukkit.broadcastMessage("§b§l" + player.getName() + "§7 est mort, son rôle était "+joueur.getRole().getCamp().getCompoColor()+joueur.getRole().getRoleName()+"§7.");
                     Bukkit.broadcastMessage("§3§m----------------------------------");
                 }
-
                 new BukkitRunnable() {
-
                     @Override
                     public void run() {
                         onlinePlayer.spigot().respawn();
                     }
                 }.runTaskLater(main, 5);
-
                 new BukkitRunnable() {
 
                     @Override
@@ -97,8 +77,21 @@ public class BleachManager extends ModeManager {
                     Bukkit.broadcastMessage("§b§l" + player.getName() + "§7 est mort.");
                     Bukkit.broadcastMessage("§3§m----------------------------------");
                 }
+            }
+            for (Player players : Bukkit.getOnlinePlayers()) {
+                if(!nuitNoir){
+                    players.playSound(players.getLocation(), Sound.WITHER_DEATH, 1f, 1f);
+                }
+                PlayerManager playerManager = main.getPlayerManager(players.getUniqueId());
+                if(playerManager.isAlive() && playerManager.hasRole()){
+                    playerManager.getRole().onPlayerDeath(player.getPlayer());
+                    if(killer != null){
+                        playerManager.getRole().onKill(player, killer);
+                    }
+                }
 
             }
+
             joueur.setAlive(false);
 
             /* DROPING INVENTORY */

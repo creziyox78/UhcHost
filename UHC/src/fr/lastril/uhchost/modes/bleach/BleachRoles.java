@@ -13,13 +13,13 @@ public enum BleachRoles {
 
     //Soul Society
     YAMAMOTO(Yamamoto.class), //TODO FIX NO ABSO
-    SOIFON(SoiFon.class), //FINISHED
+    SOIFON(SoiFon.class), //TODO INCREASE SPEED
     OMAEDA(Omaeda.class), //TODO FIX LEFT CLICK ROD
     KIRA(Kira.class), //FINISHED
     UNOHANA(Unohana.class), //FINISHED
     ISANE(Isane.class), //FINISHED
     HINAMORI(Hinamori.class), //FINISHED
-    BYAKUYA(Byakuya.class), //FINISHED
+    BYAKUYA(Byakuya.class), //TODO FIX ENTER / EXIT ZONE
     RENJI(Renji.class), //FINISHED
     KOMAMURA(Komamura.class),
     IBA(Iba.class), //TODO FIX CLOSE TO WALL
@@ -42,7 +42,7 @@ public enum BleachRoles {
     SADO(Sado.class), //TODO BE TESTED
     ISHIDA(Ishida.class), //TODO BE TESTED
     RUKIA(Rukia.class), //TODO BE TESTED
-    KISUKEURAHARA(KisukeUrahara.class),
+    KISUKEURAHARA(KisukeUrahara.class), //TODO BE TESTED
     YORUICHI(Yoruichi.class),
     NELLIEL(Nelliel.class),
 

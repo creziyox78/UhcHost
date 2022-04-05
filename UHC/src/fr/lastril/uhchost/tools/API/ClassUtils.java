@@ -1,24 +1,29 @@
 package fr.lastril.uhchost.tools.API;
 
+import com.sun.xml.internal.bind.v2.schemagen.xmlschema.Particle;
 import fr.lastril.uhchost.UhcHost;
 import fr.lastril.uhchost.player.PlayerManager;
 import fr.lastril.uhchost.tools.API.raytracing.BoundingBox;
 import fr.lastril.uhchost.tools.API.raytracing.RayTrace;
-import net.minecraft.server.v1_8_R3.PacketPlayOutEntityEquipment;
+import fr.lastril.uhchost.world.WorldUtils;
+import net.minecraft.server.v1_8_R3.*;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.block.Block;
+import org.bukkit.craftbukkit.v1_8_R3.CraftWorld;
 import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
 import org.bukkit.craftbukkit.v1_8_R3.inventory.CraftItemStack;
 import org.bukkit.entity.Entity;
+import org.bukkit.entity.EntityType;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
+import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitTask;
 import org.bukkit.util.Vector;
 
@@ -93,10 +98,10 @@ public class ClassUtils {
 
     public static void showPlayer(Player player){
         PacketPlayOutEntityEquipment handPacket = new PacketPlayOutEntityEquipment(player.getEntityId(), 0, CraftItemStack.asNMSCopy(player.getItemInHand()));
-        PacketPlayOutEntityEquipment helmetPacket = new PacketPlayOutEntityEquipment(player.getEntityId(), 1, CraftItemStack.asNMSCopy(player.getInventory().getHelmet()));
-        PacketPlayOutEntityEquipment chestPacket = new PacketPlayOutEntityEquipment(player.getEntityId(), 2, CraftItemStack.asNMSCopy(player.getInventory().getChestplate()));
-        PacketPlayOutEntityEquipment legPacket = new PacketPlayOutEntityEquipment(player.getEntityId(), 3, CraftItemStack.asNMSCopy(player.getInventory().getLeggings()));
-        PacketPlayOutEntityEquipment bootsPacket = new PacketPlayOutEntityEquipment(player.getEntityId(), 4, CraftItemStack.asNMSCopy(player.getInventory().getBoots()));
+        PacketPlayOutEntityEquipment helmetPacket = new PacketPlayOutEntityEquipment(player.getEntityId(), 4, CraftItemStack.asNMSCopy(player.getInventory().getHelmet()));
+        PacketPlayOutEntityEquipment chestPacket = new PacketPlayOutEntityEquipment(player.getEntityId(), 3, CraftItemStack.asNMSCopy(player.getInventory().getChestplate()));
+        PacketPlayOutEntityEquipment legPacket = new PacketPlayOutEntityEquipment(player.getEntityId(), 2, CraftItemStack.asNMSCopy(player.getInventory().getLeggings()));
+        PacketPlayOutEntityEquipment bootsPacket = new PacketPlayOutEntityEquipment(player.getEntityId(), 1, CraftItemStack.asNMSCopy(player.getInventory().getBoots()));
 
         if(player.hasPotionEffect(PotionEffectType.INVISIBILITY))
             player.removePotionEffect(PotionEffectType.INVISIBILITY);
@@ -129,6 +134,13 @@ public class ClassUtils {
         }
     }
 
+    public static void switchPlayersLocation(Player player1, Player player2){
+        Location location1 = player1.getLocation();
+        Location location2 = player2.getLocation();
+        player1.teleport(location2);
+        player2.teleport(location1);
+    }
+
     public static void ripulseSpecificEntityFromLocation(Entity entity, Location location, int powerMultiply, int powerHigh){
         Location initialLocation = location.clone();
         initialLocation.setPitch(0.0f);
@@ -137,6 +149,17 @@ public class ClassUtils {
         fromPlayerToTarget.multiply(powerMultiply); //6
         fromPlayerToTarget.setY(powerHigh); // 2
         entity.setVelocity(fromPlayerToTarget);
+    }
+
+    public static void packetMobForPlayers(Player player){
+        for(Player players : Bukkit.getOnlinePlayers()){
+            PacketPlayOutSpawnEntityLiving mobPacket = new PacketPlayOutSpawnEntityLiving(new EntityOcelot(getWorldNMS(player.getWorld())));
+            ((CraftPlayer)players).getHandle().playerConnection.sendPacket(mobPacket);
+        }
+    }
+
+    public static net.minecraft.server.v1_8_R3.WorldServer getWorldNMS(World world){
+        return ((CraftWorld)world).getHandle();
     }
 
     public static void pullEntityToLocation(Entity e, Location loc, double powerX, double powerY, double powerZ) {

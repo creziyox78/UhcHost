@@ -45,26 +45,29 @@ public class SoiFon extends Role implements RoleListener, ShinigamiRole {
         for(Entity entity : player.getNearbyEntities(15, 15, 15)){
             if(entity instanceof Player){
                 Player nearPlayer = (Player) entity;
-                PlayerManager playerManager = main.getPlayerManager(player.getUniqueId());
-                if(playerManager.isAlive()){
-                    Location location = player.getLocation();
-                    Location nearLoc = nearPlayer.getLocation();
-                    if(location.distance(nearLoc) <= 15 && location.distance(nearLoc) >= 10){
-                        if(nearPlayer.getHealth() <= 2D*6D){
-                            if(player.hasPotionEffect(PotionEffectType.SPEED)){
-                                player.removePotionEffect(PotionEffectType.SPEED);
+                if(nearPlayer != player){
+                    PlayerManager playerManager = main.getPlayerManager(player.getUniqueId());
+                    if(playerManager.isAlive()){
+                        Location location = player.getLocation();
+                        Location nearLoc = nearPlayer.getLocation();
+                        if(location.distance(nearLoc) <= 15 && location.distance(nearLoc) >= 10){
+                            if(nearPlayer.getHealth() <= 2D*6D){
+                                if(player.hasPotionEffect(PotionEffectType.SPEED)){
+                                    player.removePotionEffect(PotionEffectType.SPEED);
+                                }
+                                player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 20*5, 1, false, false));
                             }
-                            player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 20*5, 1, false, false));
-                        }
-                    } else if(location.distance(nearLoc) < 10){
-                        if(nearPlayer.getHealth() <= 2D*3D){
-                            if(player.hasPotionEffect(PotionEffectType.SPEED)){
-                                player.removePotionEffect(PotionEffectType.SPEED);
+                        } else if(location.distance(nearLoc) < 10){
+                            if(nearPlayer.getHealth() <= 2D*3D){
+                                if(player.hasPotionEffect(PotionEffectType.SPEED)){
+                                    player.removePotionEffect(PotionEffectType.SPEED);
+                                }
+                                player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 20*5, 2, false, false));
                             }
-                            player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 20*5, 2, false, false));
                         }
                     }
                 }
+
             }
         }
         player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, Integer.MAX_VALUE, 0, false, false));
@@ -169,7 +172,7 @@ public class SoiFon extends Role implements RoleListener, ShinigamiRole {
                                 }
                             }
                         } else {
-                            damager.sendMessage(Messages.cooldown(playerManager.getRoleCooldownSuzumebachi()));
+                            damager.sendMessage(Messages.cooldown(damagerManager.getRoleCooldownSuzumebachi()));
                         }
                     } else {
                         damager.sendMessage(Messages.BLEACH_PREFIX.getMessage() + Messages.CANT_USE_POWER_NOW.getMessage());

@@ -3,7 +3,6 @@ package fr.lastril.uhchost.tools.API.npc;
 import com.mojang.authlib.GameProfile;
 import com.mojang.authlib.properties.Property;
 import fr.lastril.uhchost.UhcHost;
-import fr.lastril.uhchost.tools.API.items.crafter.QuickItem;
 import net.minecraft.server.v1_8_R3.*;
 import net.minecraft.server.v1_8_R3.PacketPlayOutPlayerInfo.EnumPlayerInfoAction;
 import org.bukkit.Bukkit;
@@ -12,7 +11,6 @@ import org.bukkit.craftbukkit.v1_8_R3.CraftServer;
 import org.bukkit.craftbukkit.v1_8_R3.CraftWorld;
 import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
 import org.bukkit.craftbukkit.v1_8_R3.inventory.CraftItemStack;
-import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 
@@ -109,8 +107,11 @@ public class NPC {
 			connection.sendPacket(new PacketPlayOutEntityEquipment(this.player.getId(), 4, helmet));
 		if(itemInHand != null)
 			connection.sendPacket(new PacketPlayOutEntityEquipment(this.player.getId(), 0, itemInHand));
-		if(sneaking)
-
+		if(sneaking){
+			DataWatcher dw = new DataWatcher(null);
+			dw.a(0, (byte) 0x02);
+			connection.sendPacket(new PacketPlayOutEntityMetadata(this.player.getId(), dw, true));
+		}
 
 		if(vehicle != null) this.sitNPC(player);
 		this.addViewer(player.getUniqueId());
@@ -156,6 +157,7 @@ public class NPC {
 	public void damageNPC(){
 		Bukkit.getOnlinePlayers().forEach(this::damageNPC);
 	}
+
 	public void helmetNPC(org.bukkit.inventory.ItemStack item){
 		this.helmet = CraftItemStack.asNMSCopy(item);
 	}
@@ -176,11 +178,12 @@ public class NPC {
 		this.itemInHand = CraftItemStack.asNMSCopy(item);
 	}
 
-	public void sneakNPC(Player player){
-		DataWatcher dw = new DataWatcher(null);
-		dw.a(0, (byte) 0x02);
-		PacketPlayOutEntityMetadata metadataPacket = new PacketPlayOutEntityMetadata(this.player.getId(), dw, true);
-		((CraftPlayer) player).getHandle().playerConnection.sendPacket(metadataPacket);
+	public void sneakNPC(){
+		this.sneaking = true;
+	}
+
+	public void unsneakNPC(){
+		this.sneaking = false;
 	}
 
 	public void sitNPC() {
@@ -220,9 +223,6 @@ public class NPC {
 		((CraftPlayer) player).getHandle().playerConnection.sendPacket(dettachEntity);
 		this.vehicle = null;
 	}
-
-
-
 	
 	public void update() {
 		Bukkit.getOnlinePlayers().forEach(this::update);

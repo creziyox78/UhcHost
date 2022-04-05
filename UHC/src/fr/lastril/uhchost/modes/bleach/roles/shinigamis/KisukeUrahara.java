@@ -3,13 +3,16 @@ package fr.lastril.uhchost.modes.bleach.roles.shinigamis;
 import com.mojang.authlib.properties.Property;
 import fr.lastril.uhchost.UhcHost;
 import fr.lastril.uhchost.enums.Messages;
+import fr.lastril.uhchost.modes.bleach.commands.CmdSceller;
+import fr.lastril.uhchost.modes.bleach.commands.CmdScellerEnd;
+import fr.lastril.uhchost.modes.bleach.items.Benihime;
 import fr.lastril.uhchost.modes.bleach.roles.ShinigamiRole;
-import fr.lastril.uhchost.modes.roles.Camps;
-import fr.lastril.uhchost.modes.roles.Role;
-import fr.lastril.uhchost.modes.roles.RoleListener;
-import fr.lastril.uhchost.modes.roles.RolePacket;
+import fr.lastril.uhchost.modes.command.ModeSubCommand;
+import fr.lastril.uhchost.modes.roles.*;
 import fr.lastril.uhchost.player.PlayerManager;
 import fr.lastril.uhchost.player.modemanager.BleachPlayerManager;
+import fr.lastril.uhchost.tools.API.ClassUtils;
+import fr.lastril.uhchost.tools.API.Cuboid;
 import fr.lastril.uhchost.tools.API.items.crafter.QuickItem;
 import fr.lastril.uhchost.tools.API.npc.NPC;
 import fr.lastril.uhchost.tools.API.npc.NPCInteractEvent;
@@ -19,27 +22,35 @@ import net.minecraft.server.v1_8_R3.NBTTagInt;
 import net.minecraft.server.v1_8_R3.NBTTagList;
 import net.minecraft.server.v1_8_R3.NBTTagString;
 import org.bukkit.Bukkit;
+import org.bukkit.Material;
+import org.bukkit.block.Block;
 import org.bukkit.craftbukkit.v1_8_R3.inventory.CraftItemStack;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Projectile;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.block.Action;
+import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
-public class KisukeUrahara extends Role implements ShinigamiRole, RoleListener, RolePacket {
+public class KisukeUrahara extends Role implements ShinigamiRole, RoleListener, RolePacket, RoleCommand {
 
     private final int REGENERATION_DELAY = 60;
     private long lastCombat;
-    private int hitCount = 0;
+    private int hitCount = 0, benehimeUsages = 0, ticks = 7, seconds = 30;
     private final Map<NPC, Integer> npcIntegerMap = new HashMap<>();
+    private final Map<PlayerManager, Long> playerLastHitted = new HashMap<>();
+    private boolean scelled, scelle;
+    private Cuboid cage;
 
     public KisukeUrahara() {
         super.addEffect(new PotionEffect(PotionEffectType.SPEED, Integer.MAX_VALUE, 0, false, false));
@@ -60,6 +71,34 @@ public class KisukeUrahara extends Role implements ShinigamiRole, RoleListener, 
                 }
             }
         }
+        if(scelle){
+            ticks--;
+            if(ticks == 0){
+                seconds--;
+                ticks = 7;
+                if(seconds == 0){
+                    seconds = 30;
+                    if(player.getMaxHealth() - 2D <= 0){
+                        player.damage(50);
+                    } else {
+                        player.setMaxHealth(player.getMaxHealth() - 2D);
+                        player.sendMessage(Messages.BLEACH_PREFIX.getMessage() + "§cVous venez de perdre 1 coeur permanent car vous scellé un joueur depuis plus de 30 secondes.");
+                    }
+                }
+            }
+        }
+    }
+
+    @EventHandler
+    public void onBreakCage(BlockBreakEvent event){
+        Block block = event.getBlock();
+        if(block.getType() == Material.STAINED_GLASS && block.getData() == 15){
+            if(cage != null){
+                if(cage.contains(block.getLocation())){
+                    event.setCancelled(true);
+                }
+            }
+        }
     }
 
 
@@ -75,8 +114,9 @@ public class KisukeUrahara extends Role implements ShinigamiRole, RoleListener, 
         if(playerManager.hasRole() && playerManager.getRole() instanceof KisukeUrahara){
             if(action == Action.RIGHT_CLICK_AIR || action == Action.RIGHT_CLICK_BLOCK){
                 if(bleachPlayerManager.canUsePower()){
-                    if(event.getItem() != null && event.getItem().getType().name().contains("SWORD")){
+                    if(event.getItem() != null && (event.getItem().getType() == Material.IRON_SWORD || event.getItem().getType() == Material.DIAMOND_SWORD)){
                         if(playerManager.getRoleCooldownClone() <= 0){
+                            ClassUtils.hidePlayerWithArmor(player, true, 5, true);
                             NPC npc = npcManager.addNPC("clone", player.getDisplayName(), player.getLocation().clone(), skin, new NPCInteractEvent() {
                                 @Override
                                 public void onClick(Player player, NPC npc) {
@@ -85,9 +125,14 @@ public class KisukeUrahara extends Role implements ShinigamiRole, RoleListener, 
                                     npcIntegerMap.put(npc, npcIntegerMap.get(npc) + 1);
                                     if(npcIntegerMap.get(npc) == 3){
                                         npc.killNPC();
-                                        npcManager.deleteNPC("clone");
-                                        npcIntegerMap.remove(npc);
-                                        player.sendMessage(Messages.BLEACH_PREFIX.getMessage() + "§cVous venez de tuer un clone de ce joueur.");
+                                        Bukkit.getScheduler().runTaskLater(main, () -> {
+                                            npcManager.deleteNPC("clone");
+                                            npcIntegerMap.remove(npc);
+                                            player.sendMessage(Messages.BLEACH_PREFIX.getMessage() + "§cVous venez de tuer un clone de ce joueur.");
+                                            if(KisukeUrahara.super.getPlayer() != null){
+                                                KisukeUrahara.super.getPlayer().sendMessage(Messages.BLEACH_PREFIX.getMessage() + "§cVotre clone a été détruit par un joueur.");
+                                            }
+                                        },20*2);
                                     }
                                 }
 
@@ -106,6 +151,8 @@ public class KisukeUrahara extends Role implements ShinigamiRole, RoleListener, 
                             npc.chestplateNPC(player.getInventory().getChestplate());
                             npc.leggingsNPC(player.getInventory().getLeggings());
                             npc.bootsNPC(player.getInventory().getBoots());
+                            if(player.isSneaking())
+                                npc.sneakNPC();
                             npc.sendNPC();
 
                             npcIntegerMap.put(npc, 0);
@@ -128,8 +175,34 @@ public class KisukeUrahara extends Role implements ShinigamiRole, RoleListener, 
     }
 
     @Override
-    public void giveItems(Player player) {
+    public void onPlayerDeath(Player player) {
+        PlayerManager playerManager = main.getPlayerManager(player.getUniqueId());
+        if(playerManager.hasRole() && playerManager.getRole() instanceof KisukeUrahara){
+            KisukeUrahara kisukeUrahara = (KisukeUrahara) playerManager.getRole();
+            kisukeUrahara.deleteCage();
+            kisukeUrahara.setScelle(false);
+        }
 
+    }
+
+    public void spawnCage(Player player){
+        cage = new Cuboid(player.getLocation(), 3, 4);
+        cage.forEach(block -> {
+            block.setType(Material.STAINED_GLASS);
+            block.setData((byte)15);
+        });
+        Cuboid emptyCuboid = new Cuboid(player.getLocation(), 2, 3);
+        emptyCuboid.forEach(block -> block.setType(Material.AIR));
+    }
+
+    public void deleteCage(){
+        cage.forEach(block -> block.setType(Material.AIR));
+        cage = null;
+    }
+
+    @Override
+    public void giveItems(Player player) {
+        main.getInventoryUtils().giveItemSafely(player, new Benihime(main).toItemStack());
     }
 
     @Override
@@ -140,17 +213,6 @@ public class KisukeUrahara extends Role implements ShinigamiRole, RoleListener, 
     @Override
     protected void onDay(Player player) {
 
-    }
-
-    private net.minecraft.server.v1_8_R3.ItemStack getNmsItem(ItemStack item){
-        net.minecraft.server.v1_8_R3.ItemStack nmsItem = CraftItemStack.asNMSCopy(item);
-        NBTTagCompound tag = nmsItem.hasTag() ? nmsItem.getTag() : new NBTTagCompound();
-        NBTTagList ench = new NBTTagList();
-        ench.add(new NBTTagString(Enchantment.DURABILITY.getName()));
-        ench.add(new NBTTagInt(1));
-        tag.set("ench", ench);
-        nmsItem.setTag(tag);
-        return nmsItem;
     }
 
     @Override
@@ -194,6 +256,7 @@ public class KisukeUrahara extends Role implements ShinigamiRole, RoleListener, 
                 if(damagerManager.hasRole() && damagerManager.getRole() instanceof KisukeUrahara){
                     KisukeUrahara kisukeUrahara = (KisukeUrahara) damagerManager.getRole();
                     kisukeUrahara.setLastCombat(System.currentTimeMillis());
+                    playerLastHitted.put(playerManager, System.currentTimeMillis());
                 }
                 if(playerManager.hasRole() && playerManager.getRole() instanceof KisukeUrahara){
                     KisukeUrahara kisukeUrahara = (KisukeUrahara) playerManager.getRole();
@@ -214,5 +277,42 @@ public class KisukeUrahara extends Role implements ShinigamiRole, RoleListener, 
 
     public void setLastCombat(long lastCombat) {
         this.lastCombat = lastCombat;
+    }
+
+    public int getBenehimeUsages() {
+        return benehimeUsages;
+    }
+
+    public void setBenehimeUsages(int benehimeUsages) {
+        this.benehimeUsages = benehimeUsages;
+    }
+
+    public Map<PlayerManager, Long> getPlayerLastHitted() {
+        return playerLastHitted;
+    }
+
+    public void addBenehimeUsage(){
+        benehimeUsages++;
+    }
+
+    @Override
+    public List<ModeSubCommand> getSubCommands() {
+        return Arrays.asList(new CmdSceller(main), new CmdScellerEnd(main));
+    }
+
+    public boolean hasScelled() {
+        return scelled;
+    }
+
+    public void setScelled(boolean scelled) {
+        this.scelled = scelled;
+    }
+
+    public boolean isScelle() {
+        return scelle;
+    }
+
+    public void setScelle(boolean scelle) {
+        this.scelle = scelle;
     }
 }

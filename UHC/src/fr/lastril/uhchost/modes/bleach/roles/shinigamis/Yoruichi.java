@@ -1,12 +1,14 @@
 
 package fr.lastril.uhchost.modes.bleach.roles.shinigamis;
 
+import fr.lastril.uhchost.modes.bleach.roles.ShinigamiRole;
 import fr.lastril.uhchost.modes.roles.Camps;
 import fr.lastril.uhchost.modes.roles.Role;
 import fr.lastril.uhchost.tools.API.items.crafter.QuickItem;
 import org.bukkit.entity.Player;
 
-public class Yoruichi extends Role {
+public class Yoruichi extends Role implements ShinigamiRole {
+
     @Override
     public void giveItems(Player player) {
 

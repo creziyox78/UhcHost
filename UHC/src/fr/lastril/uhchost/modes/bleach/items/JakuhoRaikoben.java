@@ -51,12 +51,11 @@ public class JakuhoRaikoben extends QuickItem {
                             public void run() {
                                 if(timer == 0){
                                     WitherSkull ws = player.launchProjectile(WitherSkull.class);
-                                    ws.setVelocity(player.getVelocity().multiply(2));
+                                    ws.setVelocity(player.getVelocity().multiply(3));
                                     ws.setIsIncendiary(true);
                                     ws.setYield(player.getLocation().getYaw());
                                     ws.setCustomName("§6Jakuho Raikoben");
                                     ws.setCustomNameVisible(true);
-                                    ws.setCharged(true);
                                     task.cancel();
                                 }
                                 ActionBar.sendMessage(player, "§7Tir : [" + ChunkLoader.getProgressBar(timer, 25, 25, '|', ChatColor.GREEN, ChatColor.WHITE) + "§7]");

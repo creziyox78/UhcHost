@@ -21,6 +21,10 @@ public class PotionItem {
 		potion.setSplash(splash);
 		this.potion = potion;
 	}
+
+	public void setName(String name) {
+		
+	}
 	
 	public ItemStack toItemStack(int amount) {
 		return potion.toItemStack(amount);

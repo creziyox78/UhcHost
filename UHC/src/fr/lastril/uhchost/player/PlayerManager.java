@@ -500,6 +500,13 @@ public class PlayerManager {
 		return this.getRoleCooldown("Clone");
 	}
 
+	public void setRoleCooldownBenihime(int i) {
+		this.setRoleCooldown("Benihime", i);
+	}
+
+	public int getRoleCooldownBenihime(){
+		return this.getRoleCooldown("Benihime");
+	}
 
 
 	public UUID getUuid() {

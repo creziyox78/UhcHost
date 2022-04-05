@@ -80,6 +80,7 @@ public class InoueOrihime extends Role implements ShinigamiRole, RoleListener {
                     if(!secondUse) {
                         secondUse = true;
                     } else {
+                        secondUse = false;
                         damager.damage(1D);
                     }
                     damager.sendMessage(Messages.BLEACH_PREFIX.getMessage() + "§a“Shun Shun” vous régénère 1 coeur.");
