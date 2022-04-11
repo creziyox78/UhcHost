@@ -12,6 +12,7 @@ import fr.lastril.uhchost.tools.API.items.crafter.QuickItem;
 import net.minecraft.server.v1_8_R3.EntityLiving;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.SkullType;
 import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -107,7 +108,10 @@ public class KenpachiZaraki extends Role implements ShinigamiRole, RoleListener 
 
     @Override
     public QuickItem getItem() {
-        return null;
+        return new QuickItem(Material.SKULL_ITEM, 1, SkullType.PLAYER.ordinal())
+                .setName(getCamp().getCompoColor() + getRoleName())
+                .setTexture("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNGI4NzQ4MGM4MmNmNzViZTY1MzlkN2E5OWZhODg2ZDlmMjI5YmFiMzViZjI3YjcxMWRlYjJiY2VmYjNhNTllNSJ9fX0=");
+
     }
 
     @Override

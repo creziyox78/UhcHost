@@ -11,6 +11,8 @@ import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemFlag;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 
 public class Ryodan extends QuickItem {
     public Ryodan(UhcHost main) {
@@ -34,6 +36,7 @@ public class Ryodan extends QuickItem {
                     if(playerManager.getRoleCooldownRyodan() <= 0){
                         iba.setInRyodan(true);
                         player.sendMessage(Messages.BLEACH_PREFIX.getMessage() + Messages.USED_POWER.getMessage());
+                        player.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 20 * 7, 1, false, false));
                         Bukkit.getScheduler().runTaskLater(main, () -> {
                             if(iba.isInRyodan()){
                                 iba.setInRyodan(false);

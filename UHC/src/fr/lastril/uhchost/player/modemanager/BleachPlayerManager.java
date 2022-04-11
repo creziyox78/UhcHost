@@ -41,7 +41,7 @@ public class BleachPlayerManager {
     }
 
     public boolean canUsePower(){
-        return !isInKyorakuDuel() && !isNanaoEffect() || !isBloquedPower();
+        return !isInKyorakuDuel() && !isNanaoEffect() && !isBloquedPower();
     }
 
     public int getSpeedPourcentage() {

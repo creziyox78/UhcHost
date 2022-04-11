@@ -108,7 +108,6 @@ public class Join implements Listener {
 				UhcHost.debug("Set player " + player.getName() + " host !");
 				pl.gameManager.setHost(player.getUniqueId());
 				pl.gameManager.setHostname(player.getName());
-
 			}
 		}
 		if(!GameState.isState(GameState.STARTED))

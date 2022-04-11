@@ -17,15 +17,9 @@ import fr.lastril.uhchost.tools.API.items.crafter.QuickItem;
 import fr.lastril.uhchost.tools.API.npc.NPC;
 import fr.lastril.uhchost.tools.API.npc.NPCInteractEvent;
 import fr.lastril.uhchost.tools.API.npc.NPCManager;
-import net.minecraft.server.v1_8_R3.NBTTagCompound;
-import net.minecraft.server.v1_8_R3.NBTTagInt;
-import net.minecraft.server.v1_8_R3.NBTTagList;
-import net.minecraft.server.v1_8_R3.NBTTagString;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
-import org.bukkit.craftbukkit.v1_8_R3.inventory.CraftItemStack;
-import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Projectile;
 import org.bukkit.event.EventHandler;
@@ -33,7 +27,6 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
-import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
@@ -186,12 +179,13 @@ public class KisukeUrahara extends Role implements ShinigamiRole, RoleListener, 
     }
 
     public void spawnCage(Player player){
-        cage = new Cuboid(player.getLocation(), 3, 4);
+        player.teleport(player.getLocation().add(0,10,0));
+        cage = new Cuboid(player.getLocation(), 3, 3);
         cage.forEach(block -> {
             block.setType(Material.STAINED_GLASS);
             block.setData((byte)15);
         });
-        Cuboid emptyCuboid = new Cuboid(player.getLocation(), 2, 3);
+        Cuboid emptyCuboid = new Cuboid(player.getLocation(), 2, 2);
         emptyCuboid.forEach(block -> block.setType(Material.AIR));
     }
 

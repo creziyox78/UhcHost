@@ -10,6 +10,7 @@ import fr.lastril.uhchost.tools.API.ActionBar;
 import fr.lastril.uhchost.tools.API.items.crafter.QuickItem;
 import org.bukkit.Material;
 import org.bukkit.OfflinePlayer;
+import org.bukkit.SkullType;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
@@ -123,7 +124,10 @@ public class Ikkaku extends Role implements ShinigamiRole {
 
     @Override
     public QuickItem getItem() {
-        return null;
+        return new QuickItem(Material.SKULL_ITEM, 1, SkullType.PLAYER.ordinal())
+                .setName(getCamp().getCompoColor() + getRoleName())
+                .setTexture("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZGQ2YTIyNDZlZjY0MmQ1MzY4OThkZjhiYzRlMmU1NmZiYTk3ZWMxNDE2YmMwOTFlOWIyZmUzNWQzOWM3MzgifX19");
+
     }
 
     @Override

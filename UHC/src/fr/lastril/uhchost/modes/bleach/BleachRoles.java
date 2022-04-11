@@ -22,7 +22,7 @@ public enum BleachRoles {
     BYAKUYA(Byakuya.class), //TODO FIX ENTER / EXIT ZONE
     RENJI(Renji.class), //FINISHED
     KOMAMURA(Komamura.class),
-    IBA(Iba.class), //TODO FIX CLOSE TO WALL
+    IBA(Iba.class), //FINISHED
     KYORAKU(Kyoraku.class), //FINISHED
     NANAO(Nanao.class), //FINISHED
     HISAGI(Hisagi.class), //FINISHED
@@ -38,12 +38,12 @@ public enum BleachRoles {
     //Ichigo Groups
 
     ICHIGOKUROSAKI(IchigoKurosaki.class), //TODO ADAPTION WITH AIZEN, FIX CHARGE
-    INOUEORIHIME(InoueOrihime.class),
+    INOUEORIHIME(InoueOrihime.class), //TODO BE TESTED
     SADO(Sado.class), //TODO BE TESTED
     ISHIDA(Ishida.class), //TODO BE TESTED
-    RUKIA(Rukia.class), //TODO BE TESTED
+    RUKIA(Rukia.class), //TODO FIX FULL POWER
     KISUKEURAHARA(KisukeUrahara.class), //TODO BE TESTED
-    YORUICHI(Yoruichi.class),
+    YORUICHI(Yoruichi.class), //TODO BE TESTED
     NELLIEL(Nelliel.class),
 
 
@@ -52,6 +52,7 @@ public enum BleachRoles {
     /*
      * ARRANCARS
      */
+
     AIZEN(Aizen.class),
     ;
 

@@ -39,7 +39,7 @@ public class HollowMask extends QuickItem {
                             ichigoKurosaki.setInMask(false);
                             bleachPlayerManager.setStrengthPourcentage(bleachPlayerManager.getStrengthPourcentage() - 5);
                         }, 20*60*2);
-                        playerManager.setRoleCooldownHollowMask(20*60*8);
+                        playerManager.setRoleCooldownHollowMask(60*8);
                         player.sendMessage(Messages.BLEACH_PREFIX.getMessage() + Messages.USED_POWER.getMessage());
                     } else {
                         player.sendMessage(Messages.cooldown(playerManager.getRoleCooldownHollowMask()));

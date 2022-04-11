@@ -16,6 +16,7 @@ import net.minecraft.server.v1_8_R3.EnumParticle;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.SkullType;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -106,7 +107,10 @@ public class RangikuMatsumoto extends Role implements ShinigamiRole, RoleListene
 
     @Override
     public QuickItem getItem() {
-        return null;
+        return new QuickItem(Material.SKULL_ITEM, 1, SkullType.PLAYER.ordinal())
+                .setName(getCamp().getCompoColor() + getRoleName())
+                .setTexture("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvN2QxYjI5N2E4Mjk0NmJhZGI2MDg2MjcyNjE5ZjBmMmQyNWJhZTZkMTg5MTg4ZjFiZmQzZWJkYWRmZDU2MThhNCJ9fX0=");
+
     }
 
     @Override

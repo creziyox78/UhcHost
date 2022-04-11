@@ -508,6 +508,37 @@ public class PlayerManager {
 		return this.getRoleCooldown("Benihime");
 	}
 
+	public void setRoleCooldownRika(int i) {
+		this.setRoleCooldown("Rika", i);
+	}
+
+	public int getRoleCooldownRika(){
+		return this.getRoleCooldown("Rika");
+	}
+
+	public void setRoleCooldownMur(int i) {
+		this.setRoleCooldown("Mur", i);
+	}
+
+	public int getRoleCooldownMur(){
+		return this.getRoleCooldown("Mur");
+	}
+
+	public void setRoleCooldownLynx(int i) {
+		this.setRoleCooldown("Lynx", i);
+	}
+
+	public int getRoleCooldownLynx(){
+		return this.getRoleCooldown("Lynx");
+	}
+
+	public void setRoleCooldownKido(int i) {
+		this.setRoleCooldown("Kido", i);
+	}
+
+	public int getRoleCooldownKido(){
+		return this.getRoleCooldown("Kido");
+	}
 
 	public UUID getUuid() {
 		return this.uuid;

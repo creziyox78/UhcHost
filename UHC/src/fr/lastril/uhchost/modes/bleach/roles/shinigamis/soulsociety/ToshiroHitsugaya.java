@@ -15,6 +15,7 @@ import fr.lastril.uhchost.tools.API.items.crafter.QuickItem;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.SkullType;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Arrow;
 import org.bukkit.entity.Entity;
@@ -161,7 +162,10 @@ public class ToshiroHitsugaya extends Role implements ShinigamiRole, RoleCommand
 
     @Override
     public QuickItem getItem() {
-        return null;
+        return new QuickItem(Material.SKULL_ITEM, 1, SkullType.PLAYER.ordinal())
+                .setName(getCamp().getCompoColor() + getRoleName())
+                .setTexture("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMjJhODc3MTJkYWM0YzQ1MWEwNmUxZjU2MmY0ODgzMmNiZjhmNjk2ZGM2ZWJiYzY2NTM1YTAyNzFkMDlhNzQ3NiJ9fX0=");
+
     }
 
     @Override

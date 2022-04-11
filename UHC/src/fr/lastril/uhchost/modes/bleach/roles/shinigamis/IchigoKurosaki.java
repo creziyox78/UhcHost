@@ -103,6 +103,7 @@ public class IchigoKurosaki extends Role implements ShinigamiRole, RoleCommand {
         return new QuickItem(Material.SKULL_ITEM, 1, SkullType.PLAYER.ordinal())
                 .setName(getCamp().getCompoColor() + getRoleName())
                 .setTexture("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZDUzYjRmZjMyZTRkOTEyYWQ1ODk1YjZjMzdhMzUyZjYxYWY5ZTQxZDI0N2E4NzliNWY0OWE2MzUyZmM4NiJ9fX0=");
+
     }
 
     @Override

@@ -131,7 +131,10 @@ public class RyujinJakkaItem extends QuickItem {
                         for(Entity entity : loc.getWorld().getNearbyEntities(loc, 2, 2, 2)){
                             yamamoto.addBurningPlayer(entity);
                         }
-                        loc.getBlock().setType(Material.FIRE);
+                        if(loc.add(0, 1, 0).getBlock().getType() == Material.AIR){
+                            loc.getBlock().setType(Material.FIRE);
+                        }
+                        loc.subtract(0, 1, 0);
                         loc.subtract(x,y,z);
 
                         if (t > 20){

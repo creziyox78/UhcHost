@@ -1,5 +1,6 @@
 package fr.lastril.uhchost.tools.API.items.crafter;
 
+import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
@@ -21,5 +22,9 @@ public class QuickEvent {
 
     public void cancelOriginalUse(boolean cancelEvent){
         event.setCancelled(cancelEvent);
+    }
+
+    public Block getTargetBlock(){
+        return event.getClickedBlock();
     }
 }

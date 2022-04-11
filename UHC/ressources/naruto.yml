@@ -1,6 +1,6 @@
 fr:
-  lastril:
-    uhchost:
+  maygo:
+    uhc:
       modes:
         naruto:
           v2:
@@ -79,6 +79,8 @@ fr:
                   - "&2"
                   - "&7• &dMadara&7, &dObito&7 et &6Sasuke&7 peuvent utiliser le Genjutsu s'ils le récupèrent."
                   - "&2"
+                  - "&7• A la mort de Sasuke, il perd 2 coeurs permanents.&7."
+                  - "&2"
                   - "&7• Il connaît l'identité de &cKisame&7."
                   - "&2"
                   - "&7• Il possède &bSpeed 1&7, &6Résistance au Feu 1&7 et &d2 coeurs supplémentaires&7."
@@ -124,7 +126,7 @@ fr:
                   - '&8&m--------------------------------------------------&r'
                 Kisame:
                   - '&8&m--------------------------------------------------&r'
-                  - "&fVous êtes&c {role}"
+                  - "&fVous êtes&c Kisame "
                   - "&2"
                   - "&fObjectif: Gagner avec l'&cAkatuski"
                   - "&2"
@@ -148,7 +150,7 @@ fr:
                   - '&8&m--------------------------------------------------&r'
                 ZetsuNoir:
                   - '&8&m--------------------------------------------------&r'
-                  - "&fVous êtes&c {role}"
+                  - "&fVous êtes&c Zetsu Noir"
                   - "&2"
                   - "&fObjectif: Gagner avec l'&cAkatuski"
                   - "&2"
@@ -158,9 +160,9 @@ fr:
                   - "&2"
                   - "&f&lParticularités"
                   - "&2"
-                  - "&7• En enlevant son armure, il obtient &bSpeed 2&7 ainsi qu'&fInvisibility 1&7 seulement s'il se trouve sur de la terre. En tapant un joueur il redevient visible, de plus il n'y a pas de particules s'il court en étant invisible."
+                  - "&7• En enlevant son armure, il obtient &bSpeed 2&7 ainsi qu'&fInvisibility 1&7. En tapant un joueur il redevient visible."
                   - "&2"
-                  - "&7• En tuant un joueur, il obtient tous les effets de ce dernier (cummulable avec les siens). En tuant un deuxième joueur, il aura le choix, à l'aide d'un message cliquable dans le chat, de garder ses effets actuels ou de prendre ceux du deuxième joueur tué."
+                  - "&7• En tuant un joueur, il obtient tous les effets de ce dernier (cummulable avec ses effets de base). En tuant un deuxième joueur, il aura le choix, à l'aide d'un message cliquable dans le chat, de garder ses effets actuels ou de prendre ceux du deuxième joueur tué."
                   - '&8&m--------------------------------------------------&r'
                 ZetsuBlanc:
                   - '&8&m--------------------------------------------------&r'
@@ -343,7 +345,7 @@ fr:
                   - "&2"
                   - "&7• A la 40ème minutes de jeu, il perd &d1 coeur permanent&7. Cela se répète toutes les 10 minutes sauf s'il tue quelqu'un. En tuant quelqu'un, il remonte à &d10 coeurs permanents&7 (coeurs non-régénérés)."
                   - "&2"
-                  - "&7• Il possède les effets&8 Résistance 1&7 et&b Speed 1&7."
+                  - "&7• Il possède l'effets&8 Résistance 1&7. En dessous de 4 coeurs, l'effet passe à &8Résistance 2&7."
                   - "&2"
                   - "&7• Une pomme en or lui régénère &d3 coeurs&7 au lieu de &d2&7."
                   - "&2"
@@ -909,9 +911,9 @@ fr:
                   - "&f&lItems"
                   - "&2"
                   - "&6• Byakugan : &7Vous recevrez la position approximative des joueurs se trouvant autour de vous dans un rayon de 60 blocs (Cooldown - 5 minutes). Exemple : "
-                  - "&2                                 &3 Lastril : Direction : Nord | Distance : 54 blocs"
+                  - "&3  Ste : Direction : Nord | Distance : 54 blocs"
                   - "&2"
-                  - "&6• Hakke : &7Inflige&c 2 coeurs non-permanent&7, Blindness 1 ainsi que Lenteur 4 pendant 3 secondes à tous les joueurs autours de vous dans un rayon de 10 blocs. (Cooldown - 10 minutes)"
+                  - "&6• Hakke : &7Inflige&c 2 coeurs non-permanent&7, Blindness 1 ainsi que Lenteur 4 pendant 3 secondes à tous les joueurs autours de vous dans un rayon de 10 blocs. (Cooldown - 20 minutes)"
                   - "&2"
                   - "&f&lParticularités"
                   - "&2"

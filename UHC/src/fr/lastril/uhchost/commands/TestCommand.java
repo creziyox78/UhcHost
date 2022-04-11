@@ -1,19 +1,17 @@
 package fr.lastril.uhchost.commands;
 
 import fr.lastril.uhchost.enums.Messages;
-import fr.lastril.uhchost.tools.API.ClassUtils;
-import org.bukkit.Color;
-import org.bukkit.FireworkEffect;
-import org.bukkit.Location;
-import org.bukkit.Material;
+import net.minecraft.server.v1_8_R3.EntityOcelot;
+import net.minecraft.server.v1_8_R3.PacketPlayOutEntityDestroy;
+import net.minecraft.server.v1_8_R3.PacketPlayOutSpawnEntityLiving;
+import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Firework;
+import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.meta.FireworkMeta;
 
-import java.util.List;
+import java.lang.reflect.Field;
 
 public class TestCommand implements CommandExecutor {
 
@@ -22,11 +20,23 @@ public class TestCommand implements CommandExecutor {
         if(sender instanceof Player){
             Player player = (Player) sender;
             if(player.isOp()){
-                ClassUtils.packetMobForPlayers(player);
+                PacketPlayOutSpawnEntityLiving spawn = new PacketPlayOutSpawnEntityLiving(new EntityOcelot(((CraftPlayer) player).getHandle().getWorld()));
+                try {
+                    Field idField = spawn.getClass().getDeclaredField("a");
+                    idField.setAccessible(true);
+                    idField.set(spawn, player.getEntityId());
+                } catch (Exception e) {
+                }
+                PacketPlayOutEntityDestroy destroy = new PacketPlayOutEntityDestroy(player.getEntityId());
+
+                for (Player p : Bukkit.getOnlinePlayers()) {
+                    if(player != p){
+                        ((CraftPlayer) p).getHandle().playerConnection.sendPacket(spawn);
+                    }
+                }
                 player.sendMessage(Messages.PREFIX_WITH_ARROW.getMessage() + "§a§lFin du test.");
             }
         }
         return false;
     }
-
 }

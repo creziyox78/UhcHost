@@ -148,11 +148,12 @@ public class Iba extends Role implements ShinigamiRole, RoleListener {
             if(damagerManager.hasRole() && damagerManager.getRole() instanceof Iba){
                 Iba iba = (Iba) damagerManager.getRole();
                 if(iba.isInRyodan()){
+                    if(damager.hasPotionEffect(PotionEffectType.SLOW))
+                        damager.removePotionEffect(PotionEffectType.SLOW);
                     ClassUtils.ripulseSpecificEntityFromLocation(target, damager.getLocation(), 2, 1);
                     iba.setInRyodan(false);
                     iba.damaged = target;
                     Bukkit.getScheduler().runTaskLater(main, () -> iba.damaged = null, 20*4);
-
                 }
             }
         }

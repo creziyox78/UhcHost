@@ -17,6 +17,8 @@ import fr.lastril.uhchost.world.WorldUtils;
 import net.minecraft.server.v1_8_R3.EnumParticle;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.Material;
+import org.bukkit.SkullType;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
@@ -67,7 +69,10 @@ public class Byakuya extends Role implements RoleCommand, ShinigamiRole {
 
     @Override
     public QuickItem getItem() {
-        return null;
+        return new QuickItem(Material.SKULL_ITEM, 1, SkullType.PLAYER.ordinal())
+                .setName(getCamp().getCompoColor() + getRoleName())
+                .setTexture("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMzRmNzYyZGJkYzMyYjk3NzRhMTU3MzA4Njk2ZjliM2RkNWNlNjExNGQzYTgwODM5OTA5OTA5YjM0OWUyMmZlZCJ9fX0=");
+
     }
 
     @Override

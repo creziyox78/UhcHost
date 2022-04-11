@@ -19,6 +19,7 @@ import net.minecraft.server.v1_8_R3.PacketPlayOutBed;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
+import org.bukkit.SkullType;
 import org.bukkit.block.Block;
 import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
 import org.bukkit.entity.Entity;
@@ -101,10 +102,12 @@ public class Nemu extends Role implements ShinigamiRole, RoleListener {
     public void onNewDay(Player player) {
 
     }
-
     @Override
     public QuickItem getItem() {
-        return null;
+        return new QuickItem(Material.SKULL_ITEM, 1, SkullType.PLAYER.ordinal())
+                .setName(getCamp().getCompoColor() + getRoleName())
+                .setTexture("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNThlY2ZmZjdkMDFhM2VkMzFlMzM3MDRhYTQ3MWQ3Y2Q4Zjc5ZWQ1OTI1YjA1Mzc5NWUwN2I4NzVmMzhlOWRjZSJ9fX0=");
+
     }
 
     @Override
