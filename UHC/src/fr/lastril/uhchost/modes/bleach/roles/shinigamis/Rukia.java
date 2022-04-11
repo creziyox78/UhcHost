@@ -11,6 +11,8 @@ import fr.lastril.uhchost.tools.API.items.crafter.QuickItem;
 import fr.lastril.uhchost.world.WorldUtils;
 import org.bukkit.Effect;
 import org.bukkit.Location;
+import org.bukkit.Material;
+import org.bukkit.SkullType;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
@@ -111,7 +113,10 @@ public class Rukia extends Role implements ShinigamiRole {
 
     @Override
     public QuickItem getItem() {
-        return null;
+        return new QuickItem(Material.SKULL_ITEM, 1, SkullType.PLAYER.ordinal())
+                .setName(getCamp().getCompoColor() + getRoleName())
+                .setTexture("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvOTU3ZmE2YTBkZmRiOTQxYmM0YmJlYTU1YjQ3NTk3YzhkZjkwNTgyOGFlYTM5YjJhOWM3YmVmYzJhMTlkOWQ3ZCJ9fX0=");
+
     }
 
     @Override

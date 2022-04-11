@@ -12,6 +12,7 @@ import fr.lastril.uhchost.player.modemanager.BleachPlayerManager;
 import fr.lastril.uhchost.tools.API.ClassUtils;
 import fr.lastril.uhchost.tools.API.items.crafter.QuickItem;
 import org.bukkit.Material;
+import org.bukkit.SkullType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
@@ -69,7 +70,10 @@ public class Sado extends Role implements ShinigamiRole, RoleListener {
 
     @Override
     public QuickItem getItem() {
-        return null;
+        return new QuickItem(Material.SKULL_ITEM, 1, SkullType.PLAYER.ordinal())
+                .setName(getCamp().getCompoColor() + getRoleName())
+                .setTexture("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMWZjOTUxYjYxOTFiZDg5NmNkYTgzY2Y3MmEzNzdmNjI3ZTMxMDc4ODQ4ZWQzYzA0ZmE3OGI5MDUyN2NlYWM4OCJ9fX0=");
+
     }
 
     @Override

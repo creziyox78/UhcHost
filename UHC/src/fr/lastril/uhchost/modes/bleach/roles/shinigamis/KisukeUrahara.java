@@ -19,6 +19,7 @@ import fr.lastril.uhchost.tools.API.npc.NPCInteractEvent;
 import fr.lastril.uhchost.tools.API.npc.NPCManager;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.SkullType;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Projectile;
@@ -221,7 +222,10 @@ public class KisukeUrahara extends Role implements ShinigamiRole, RoleListener, 
 
     @Override
     public QuickItem getItem() {
-        return null;
+        return new QuickItem(Material.SKULL_ITEM, 1, SkullType.PLAYER.ordinal())
+                .setName(getCamp().getCompoColor() + getRoleName())
+                .setTexture("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNjEyODliNzFjMjQ0NTFhNmE5NTgxZTgzMmU3ZTMwNDlhNWNkNjQ1NDYyNjdmODM4NDVjMDA3ODdkODRjYmRkIn19fQ==");
+
     }
 
     @Override
