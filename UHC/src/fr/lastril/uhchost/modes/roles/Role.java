@@ -155,7 +155,7 @@ public abstract class Role implements RoleDescription {
             if(player != null) {
                 PlayerManager playerManager = main.getPlayerManager(player.getUniqueId());
                 BleachPlayerManager bleachPlayerManager = playerManager.getBleachPlayerManager();
-                player.setWalkSpeed(0.2F + bleachPlayerManager.getSpeedPourcentage()/100F);
+                player.setWalkSpeed(0.2F + bleachPlayerManager.getSpeedPourcentage()/1000F);
             }
         }
     }

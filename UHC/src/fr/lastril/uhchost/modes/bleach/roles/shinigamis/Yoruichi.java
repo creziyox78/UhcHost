@@ -35,8 +35,9 @@ public class Yoruichi extends Role implements ShinigamiRole, RoleCommand, RoleLi
     @Override
     public void checkRunnable(Player player) {
         super.checkRunnable(player);
-        long delayLastCombat = System.currentTimeMillis() - this.lastCombat;
-        transform = delayLastCombat <= transformCooldown * 1000L;
+        transform = true;
+        //long delayLastCombat = System.currentTimeMillis() - this.lastCombat;
+        //transform = delayLastCombat <= transformCooldown * 1000L;
         if(inKido){
             if(player.getHealth() > 2D*5D){
                 setInKido(false);

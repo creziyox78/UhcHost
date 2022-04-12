@@ -17,7 +17,6 @@ import org.bukkit.scheduler.BukkitRunnable;
 public class Muerte extends QuickItem {
 
     private int time = 4;
-    private BukkitRunnable task;
 
     public Muerte(UhcHost main) {
         super(Material.QUARTZ);
@@ -35,24 +34,29 @@ public class Muerte extends QuickItem {
                 if(bleachPlayerManager.canUsePower()){
                     if(playerManager.getRoleCooldownMuerte() <= 0){
                         if(sado.getForm() == Sado.ARMS_FORM.ARM_DIABLE){
-                            task = (BukkitRunnable) Bukkit.getScheduler().runTaskTimer(main, () -> {
-                                player.setVelocity(player.getLocation().getDirection().multiply(1.2D).setY(0));
-                                Location location = player.getLocation();
-                                location.getWorld().getNearbyEntities(location, 2.0D, 2.0D, 2.0D).forEach(entity -> {
-                                    if (entity instanceof Player) {
-                                        Player players = (Player)entity;
-                                        PlayerManager playerManagers = main.getPlayerManager(players.getUniqueId());
-                                        if (playerManagers.isAlive()) {
-                                            if(players.hasPotionEffect(PotionEffectType.SLOW))
-                                                players.removePotionEffect(PotionEffectType.SLOW);
-                                            players.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 5 * 20, 0, false, false));
+                            new BukkitRunnable() {
+
+                                @Override
+                                public void run() {
+                                    player.setVelocity(player.getLocation().getDirection().multiply(1.2D).setY(0));
+                                    Location location = player.getLocation();
+                                    location.getWorld().getNearbyEntities(location, 2.0D, 2.0D, 2.0D).forEach(entity -> {
+                                        if (entity instanceof Player) {
+                                            Player players = (Player)entity;
+                                            PlayerManager playerManagers = main.getPlayerManager(players.getUniqueId());
+                                            if (playerManagers.isAlive()) {
+                                                if(players.hasPotionEffect(PotionEffectType.SLOW))
+                                                    players.removePotionEffect(PotionEffectType.SLOW);
+                                                players.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 5 * 20, 0, false, false));
+                                            }
                                         }
-                                    }
-                                });
-                                if (this.time <= 0)
-                                    task.cancel();
-                                this.time--;
-                            }, 0L, 1L);
+                                    });
+                                    if (time <= 0)
+                                        cancel();
+                                    time--;
+                                }
+
+                            }.runTaskTimer(main, 0, 1);
                             playerManager.setRoleCooldownBrazo(90);
                             player.sendMessage(Messages.BLEACH_PREFIX.getMessage() + Messages.USED_POWER.getMessage());
                         } else {

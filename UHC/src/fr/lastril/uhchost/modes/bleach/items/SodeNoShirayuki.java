@@ -11,7 +11,7 @@ import org.bukkit.entity.Player;
 
 public class SodeNoShirayuki extends QuickItem {
     public SodeNoShirayuki(UhcHost main) {
-        super(Material.INK_SACK, (byte)15);
+        super(Material.INK_SACK, 1,(byte)15);
         super.setName("§fSode No Shirayuki");
         super.glow(true);
         super.setLore("",

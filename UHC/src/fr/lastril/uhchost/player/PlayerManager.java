@@ -540,6 +540,14 @@ public class PlayerManager {
 		return this.getRoleCooldown("Kido");
 	}
 
+	public void setRoleCooldownOkami(int i) {
+		this.setRoleCooldown("Kido", i);
+	}
+
+	public int getRoleCooldownOkami(){
+		return this.getRoleCooldown("Kido");
+	}
+
 	public UUID getUuid() {
 		return this.uuid;
 	}

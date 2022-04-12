@@ -6,9 +6,11 @@ public class BleachPlayerManager {
 
     private final PlayerManager playerManager;
 
-    private boolean inKyorakuDuel, nanaoEffect, bloquedPower, noFall;
+    private boolean inKyorakuDuel, nanaoEffect, bloquedPower, noFall, inFormeLiberer;
 
     private int speedPourcentage, strengthPourcentage, resistancePourcentage, weaknessPourcentage;
+
+    private int nbQuartzMined;
 
     public BleachPlayerManager(PlayerManager playerManager) {
         this.playerManager = playerManager;
@@ -90,5 +92,27 @@ public class BleachPlayerManager {
 
     public void setNoFall(boolean noFall) {
         this.noFall = noFall;
+    }
+
+
+
+    public boolean isInFormeLiberer() {
+        return inFormeLiberer;
+    }
+
+    public void setInFormeLiberer(boolean inFormeLiberer) {
+        this.inFormeLiberer = inFormeLiberer;
+    }
+
+    public int getNbQuartzMined() {
+        return nbQuartzMined;
+    }
+
+    public void setNbQuartzMined(int nbQuartzMined) {
+        this.nbQuartzMined = nbQuartzMined;
+    }
+
+    public void addNbQuartzMined(int nbQuartzMined){
+        this.nbQuartzMined += nbQuartzMined;
     }
 }

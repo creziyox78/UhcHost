@@ -38,7 +38,7 @@ public class Sado extends Role implements ShinigamiRole, RoleListener {
             if(player.hasPotionEffect(PotionEffectType.DAMAGE_RESISTANCE))
                 player.removePotionEffect(PotionEffectType.DAMAGE_RESISTANCE);
             player.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 20*4, 0, false , false));
-
+            bleachPlayerManager.setSpeedPourcentage(0);
         }
         if(arms_form == ARMS_FORM.ARM_DIABLE) {
             if(player.hasPotionEffect(PotionEffectType.INCREASE_DAMAGE))

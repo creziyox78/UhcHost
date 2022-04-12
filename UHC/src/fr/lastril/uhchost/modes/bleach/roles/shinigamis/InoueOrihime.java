@@ -135,13 +135,17 @@ public class InoueOrihime extends Role implements ShinigamiRole, RoleListener {
         Location location = block.getLocation();
 
         if(area != null && area.contains(location)) {
-            deleteArea();
-            Player inoueOrihime = super.getPlayer();
-            if(inoueOrihime != null) {
-                if(inoueOrihime.hasPotionEffect(PotionEffectType.WEAKNESS))
-                    inoueOrihime.removePotionEffect(PotionEffectType.WEAKNESS);
-                inoueOrihime.addPotionEffect(new PotionEffect(PotionEffectType.WEAKNESS, 20*60, 0, false, false));
-                inoueOrihime.sendMessage(Messages.BLEACH_PREFIX.getMessage() + "§cVotre zone a été détruite par un joueur. Vous recevez§7 Weakness 1§c pendant 1 minute !");
+            if(area.getCenter() == location) {
+                Player inoueOrihime = super.getPlayer();
+                if(inoueOrihime != null) {
+                    if(inoueOrihime.hasPotionEffect(PotionEffectType.WEAKNESS))
+                        inoueOrihime.removePotionEffect(PotionEffectType.WEAKNESS);
+                    inoueOrihime.addPotionEffect(new PotionEffect(PotionEffectType.WEAKNESS, 20*60, 0, false, false));
+                    inoueOrihime.sendMessage(Messages.BLEACH_PREFIX.getMessage() + "§cVotre zone a été détruite par un joueur. Vous recevez§7 Weakness 1§c pendant 1 minute !");
+                }
+            } else {
+                event.setCancelled(true);
+                deleteArea();
             }
         }
         Player player = event.getPlayer();
@@ -192,6 +196,8 @@ public class InoueOrihime extends Role implements ShinigamiRole, RoleListener {
         });
         Cuboid emptyArea = new Cuboid(location, 4, 2);
         emptyArea.forEach(block -> block.setType(Material.AIR));
+        area.getCenter().getBlock().setType(Material.STAINED_GLASS_PANE);
+        area.getCenter().getBlock().setData((byte)1);
         Bukkit.getScheduler().runTaskLater(main, () -> areaCreated = true, 5);
     }
 

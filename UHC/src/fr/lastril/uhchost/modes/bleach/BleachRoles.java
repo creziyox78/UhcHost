@@ -1,6 +1,7 @@
 package fr.lastril.uhchost.modes.bleach;
 
 import fr.lastril.uhchost.modes.bleach.roles.arrancars.Aizen;
+import fr.lastril.uhchost.modes.bleach.roles.arrancars.espada.Stark;
 import fr.lastril.uhchost.modes.bleach.roles.shinigamis.*;
 import fr.lastril.uhchost.modes.bleach.roles.shinigamis.soulsociety.*;
 import fr.lastril.uhchost.modes.roles.Role;
@@ -43,7 +44,7 @@ public enum BleachRoles {
     ISHIDA(Ishida.class), //TODO BE TESTED
     RUKIA(Rukia.class), //TODO FIX FULL POWER
     KISUKEURAHARA(KisukeUrahara.class), //TODO BE TESTED
-    YORUICHI(Yoruichi.class), //TODO BE TESTED
+    YORUICHI(Yoruichi.class), //TODO BE TESTED AND FIX 2 MINUTES DAMAGE
     NELLIEL(Nelliel.class),
 
 
@@ -54,6 +55,11 @@ public enum BleachRoles {
      */
 
     AIZEN(Aizen.class),
+
+
+    //ESPADA
+    STARK(Stark.class),
+
     ;
 
     private final Class<? extends Role> role;
