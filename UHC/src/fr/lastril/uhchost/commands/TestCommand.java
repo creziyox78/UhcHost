@@ -1,6 +1,9 @@
 package fr.lastril.uhchost.commands;
 
 import fr.lastril.uhchost.enums.Messages;
+import fr.lastril.uhchost.modes.bleach.ceros.CeroFaible;
+import fr.lastril.uhchost.modes.bleach.ceros.CeroFort;
+import fr.lastril.uhchost.modes.bleach.ceros.CeroMoyen;
 import net.minecraft.server.v1_8_R3.EntityOcelot;
 import net.minecraft.server.v1_8_R3.PacketPlayOutEntityDestroy;
 import net.minecraft.server.v1_8_R3.PacketPlayOutSpawnEntityLiving;
@@ -20,20 +23,9 @@ public class TestCommand implements CommandExecutor {
         if(sender instanceof Player){
             Player player = (Player) sender;
             if(player.isOp()){
-                PacketPlayOutSpawnEntityLiving spawn = new PacketPlayOutSpawnEntityLiving(new EntityOcelot(((CraftPlayer) player).getHandle().getWorld()));
-                try {
-                    Field idField = spawn.getClass().getDeclaredField("a");
-                    idField.setAccessible(true);
-                    idField.set(spawn, player.getEntityId());
-                } catch (Exception e) {
-                }
-                PacketPlayOutEntityDestroy destroy = new PacketPlayOutEntityDestroy(player.getEntityId());
-
-                for (Player p : Bukkit.getOnlinePlayers()) {
-                    if(player != p){
-                        ((CraftPlayer) p).getHandle().playerConnection.sendPacket(spawn);
-                    }
-                }
+                new CeroFaible().giveCero(player);
+                new CeroFort().giveCero(player);
+                new CeroMoyen().giveCero(player);
                 player.sendMessage(Messages.PREFIX_WITH_ARROW.getMessage() + "§a§lFin du test.");
             }
         }

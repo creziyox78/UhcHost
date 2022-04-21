@@ -20,6 +20,7 @@ import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.SkullType;
 import org.bukkit.block.Block;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
@@ -93,11 +94,11 @@ public class Byakuya extends Role implements RoleCommand, ShinigamiRole {
     public void createZone(Location loc){
         Cuboid cuboid = new Cuboid(loc, 15);
         center = cuboid.getCenter();
-        cuboid.expand(Cuboid.CuboidDirection.Up, 2);
+        cuboid.expand(Cuboid.CuboidDirection.Down, 2);
 
         for (Block block : cuboid.getBlocks()){
             BukkitTask task = Bukkit.getScheduler().runTaskTimer(main, () ->
-                    WorldUtils.spawnColoredParticle(block.getLocation(), EnumParticle.REDSTONE, 255, 192, 203),0,20);
+                    WorldUtils.spawnColoredParticle(block.getLocation(), EnumParticle.REDSTONE, 255, 0, 255),0,20);
             particlesTasks.add(task);
         }
         usedZone = true;
@@ -106,7 +107,7 @@ public class Byakuya extends Role implements RoleCommand, ShinigamiRole {
                     Player player = playerManager.getPlayer();
                     if(playerManager.isAlive() && player != null) {
                         if(cuboid.contains(player)) {
-                            if(!checkIfByakuya(playerManager)){
+                            if(!checkIfByakuya(playerManager)) {
                                 onEnterZone(playerManager);
                             } else {
                                 applyBonusZone(player);
@@ -132,7 +133,18 @@ public class Byakuya extends Role implements RoleCommand, ShinigamiRole {
     }
 
     private void repulseAllPlayer(Location location){
-        ClassUtils.ripulseEntityFromLocation(location, 10, 2, 6);
+        for(Entity entity : location.getWorld().getNearbyEntities(location, 10, 10, 10)){
+            if(entity instanceof Player){
+                Player player = (Player) entity;
+                if(super.getPlayer() != null){
+                    if(player != super.getPlayer()){
+                        ClassUtils.ripulseSpecificEntityFromLocation(player,location, 10, 2);
+                    }
+                }
+
+            }
+        }
+
     }
 
     private void applyBonusZone(Player player){
@@ -146,10 +158,13 @@ public class Byakuya extends Role implements RoleCommand, ShinigamiRole {
     }
 
     private void onEnterZone(PlayerManager playerManager){
-        inZone.add(playerManager);
-        Player player = playerManager.getPlayer();
-        applyMalusZone(player);
-        player.sendMessage("§6Vous entrez dans la zone de Byakuya.");
+        if(!inZone.contains(playerManager)){
+            inZone.add(playerManager);
+            Player player = playerManager.getPlayer();
+            applyMalusZone(player);
+            player.sendMessage("§6Vous entrez dans la zone de Byakuya.");
+        }
+
     }
 
     private void applyMalusZone(Player player){
@@ -159,10 +174,12 @@ public class Byakuya extends Role implements RoleCommand, ShinigamiRole {
     }
 
     private void onExitZone(PlayerManager playerManager){
-        inZone.remove(playerManager);
-        Player player = playerManager.getPlayer();
-        applyMalusZone(player);
-        player.sendMessage("§6Vous sortez de la zone de Byakuya.");
+        if(inZone.contains(playerManager)){
+            inZone.remove(playerManager);
+            Player player = playerManager.getPlayer();
+            applyMalusZone(player);
+            player.sendMessage("§6Vous sortez de la zone de Byakuya.");
+        }
     }
 
     public boolean hasUsedZone(){

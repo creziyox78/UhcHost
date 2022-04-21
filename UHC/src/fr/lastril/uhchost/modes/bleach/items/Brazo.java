@@ -13,6 +13,7 @@ public class Brazo extends QuickItem {
     public Brazo(UhcHost main) {
         super(Material.BRICK);
         super.setName("§cBrazo");
+        super.glow(true);
         super.setLore("§7Permet de changer de forme.",
                 "",
                 "§f§l+ §7Forme : §a§lBras du Géant",

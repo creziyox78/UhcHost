@@ -21,6 +21,7 @@ public class Muerte extends QuickItem {
     public Muerte(UhcHost main) {
         super(Material.QUARTZ);
         super.setName("§6La Muerte");
+        super.glow(true);
         super.setLore("§7Effectue un dash vers l'avant",
                 "§7sur 4 blocs. Les joueurs touchés auront",
                 "§7Slowness 1 pendant 5 secondes.",

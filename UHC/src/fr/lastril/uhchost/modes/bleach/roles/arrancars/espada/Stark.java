@@ -2,6 +2,7 @@ package fr.lastril.uhchost.modes.bleach.roles.arrancars.espada;
 
 import fr.lastril.uhchost.modes.bleach.items.Okami;
 import fr.lastril.uhchost.modes.bleach.roles.ArrancarRole;
+import fr.lastril.uhchost.modes.bleach.roles.CeroUser;
 import fr.lastril.uhchost.modes.roles.Camps;
 import fr.lastril.uhchost.modes.roles.Role;
 import fr.lastril.uhchost.player.PlayerManager;
@@ -11,7 +12,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
-public class Stark extends Role implements ArrancarRole {
+public class Stark extends Role implements ArrancarRole, CeroUser {
 
     private boolean lilynetteDead;
 
@@ -22,11 +23,6 @@ public class Stark extends Role implements ArrancarRole {
     @Override
     public void giveItems(Player player) {
         main.getInventoryUtils().giveItemSafely(player, new Okami(main).toItemStack());
-        PlayerManager pm = main.getPlayerManager(player.getUniqueId());
-        BleachPlayerManager bleachPlayerManager = pm.getBleachPlayerManager();
-        if(bleachPlayerManager.isInFormeLiberer()){
-
-        }
     }
 
     @Override
@@ -90,5 +86,25 @@ public class Stark extends Role implements ArrancarRole {
 
     public void setLilynetteDead(boolean lilynetteDead) {
         this.lilynetteDead = lilynetteDead;
+    }
+
+    @Override
+    public boolean canUseCero() {
+        return true;
+    }
+
+    @Override
+    public int getCeroRedValue() {
+        return -255;
+    }
+
+    @Override
+    public int getCeroGreenValue() {
+        return 0;
+    }
+
+    @Override
+    public int getCeroBlueValue() {
+        return 255;
     }
 }

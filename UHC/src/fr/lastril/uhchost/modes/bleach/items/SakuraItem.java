@@ -30,6 +30,7 @@ public class SakuraItem extends QuickItem {
             if(playerManager.hasRole() && playerManager.getRole() instanceof Byakuya){
                 if(bleachPlayerManager.canUsePower()){
                     if(playerManager.getRoleCooldownSakura() <= 0){
+                        playerManager.setRoleCooldownSakura(60);
                         ClassUtils.hidePlayerWithArmor(player, false, 3, true);
                     } else {
                         player.sendMessage(Messages.cooldown(playerManager.getRoleCooldownSakura()));

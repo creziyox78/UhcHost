@@ -548,6 +548,14 @@ public class PlayerManager {
 		return this.getRoleCooldown("Kido");
 	}
 
+	public void setRoleCooldownFormeLiberer(int i) {
+		this.setRoleCooldown("Forme Libéré", i);
+	}
+
+	public int getRoleCooldownFormeLiberer(){
+		return this.getRoleCooldown("Forme Libéré");
+	}
+
 	public UUID getUuid() {
 		return this.uuid;
 	}

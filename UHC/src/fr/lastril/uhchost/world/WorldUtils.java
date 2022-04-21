@@ -100,9 +100,15 @@ public class WorldUtils {
 		}
 	}
 
+	public static void spawnColoredParticle(Location loc, EnumParticle particle, Color color) {
+		spawnColoredParticle(loc, particle, color.getBlue(), color.getGreen(), color.getRed());
+	}
+
 	public static void spawnParticle(Player player, Location loc, EnumParticle particle) {
 		spawnParticle(player, loc, particle, 0, 0, 0, 0, 1);
 	}
+
+
 
 	public static void spawnParticle(Player player, Location loc, EnumParticle particle, float xOffset, float yOffset, float zOffset, float speed, int count) {
 		PacketPlayOutWorldParticles packet = new PacketPlayOutWorldParticles(particle, true, (float) loc.getX(),

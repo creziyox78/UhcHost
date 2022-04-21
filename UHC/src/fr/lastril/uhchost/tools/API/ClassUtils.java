@@ -66,6 +66,12 @@ public class ClassUtils {
         return arrows[((int) a / 45)];
     }
 
+    public static void fakeExplosion(Location location, int power){
+        PacketPlayOutWorldParticles packet = new PacketPlayOutWorldParticles(EnumParticle.EXPLOSION_LARGE, true, (float)location.getX(), (float)location.getY(), (float)location.getZ(), 0.0f, 0.0f, 0.0f, 0, power);
+        for(Player p : location.getWorld().getPlayers()){
+            ((CraftPlayer)p).getHandle().playerConnection.sendPacket(packet);
+        }
+    }
     public static void hidePlayerWithArmor(Player player, boolean hideItem, int time, boolean showWhenEnd){
         BukkitTask task = Bukkit.getScheduler().runTaskTimer(UhcHost.getInstance(), () -> {
             player.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, Integer.MAX_VALUE, 1, false, false));
