@@ -2,13 +2,17 @@ package fr.lastril.uhchost.modes.bleach;
 
 import com.avaje.ebeaninternal.api.ClassUtil;
 import fr.lastril.uhchost.UhcHost;
+import fr.lastril.uhchost.enums.Messages;
 import fr.lastril.uhchost.modes.ModeManager;
 import fr.lastril.uhchost.modes.bleach.ceros.CeroType;
 import fr.lastril.uhchost.modes.bleach.ceros.events.CeroExploseEvent;
+import fr.lastril.uhchost.modes.bleach.items.FormLiberer;
+import fr.lastril.uhchost.modes.bleach.roles.ArrancarRole;
 import fr.lastril.uhchost.modes.bleach.roles.shinigamis.soulsociety.JushiroUkitake;
 import fr.lastril.uhchost.modes.bleach.roles.shinigamis.soulsociety.Mayuri;
 import fr.lastril.uhchost.modes.bleach.roles.shinigamis.soulsociety.Nemu;
 import fr.lastril.uhchost.player.PlayerManager;
+import fr.lastril.uhchost.player.modemanager.BleachPlayerManager;
 import fr.lastril.uhchost.tools.API.ClassUtils;
 import org.bukkit.*;
 import org.bukkit.entity.Entity;
@@ -16,6 +20,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
+import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -168,6 +173,26 @@ public class BleachManager extends ModeManager implements Listener {
                         }
                     }
                     break;
+            }
+        }
+    }
+
+    @EventHandler
+    public void onBreakQuartzBlock(BlockBreakEvent event){
+        if(event.getBlock().getType() == Material.QUARTZ_ORE){
+            if(event.getBlock().getWorld() == Bukkit.getWorld("soulsociety_the_end")){
+                Player player = event.getPlayer();
+                PlayerManager playerManager = main.getPlayerManager(player.getUniqueId());
+                BleachPlayerManager bleachPlayerManager = playerManager.getBleachPlayerManager();
+                if(playerManager.getRole() instanceof ArrancarRole){
+                    ArrancarRole arrancarRole = (ArrancarRole) playerManager.getRole();
+                    bleachPlayerManager.setNbQuartzMined(bleachPlayerManager.getNbQuartzMined()+1);
+                    if(bleachPlayerManager.getNbQuartzMined() >= arrancarRole.getNbQuartz()){
+                        player.sendMessage(Messages.BLEACH_PREFIX.getMessage() + "§eVous avez récupéré assez de quartz ! Vous pouvez être sous forme libérée.");
+                        main.getInventoryUtils().giveItemSafely(player, new FormLiberer(main).toItemStack());
+                    }
+                }
+                event.setCancelled(true);
             }
         }
     }

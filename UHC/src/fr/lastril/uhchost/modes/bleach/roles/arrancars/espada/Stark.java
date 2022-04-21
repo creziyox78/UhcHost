@@ -1,5 +1,7 @@
 package fr.lastril.uhchost.modes.bleach.roles.arrancars.espada;
 
+import fr.lastril.uhchost.modes.bleach.ceros.AbstractCero;
+import fr.lastril.uhchost.modes.bleach.ceros.CeroFaible;
 import fr.lastril.uhchost.modes.bleach.items.Okami;
 import fr.lastril.uhchost.modes.bleach.roles.ArrancarRole;
 import fr.lastril.uhchost.modes.bleach.roles.CeroUser;
@@ -90,7 +92,15 @@ public class Stark extends Role implements ArrancarRole, CeroUser {
 
     @Override
     public boolean canUseCero() {
-        return true;
+        Player stark = super.getPlayer();
+        if(stark != null) {
+            PlayerManager playerManager = main.getPlayerManager(stark.getUniqueId());
+            BleachPlayerManager bleachPlayerManager = playerManager.getBleachPlayerManager();
+            if(bleachPlayerManager.isInFormeLiberer()) {
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override
@@ -106,5 +116,10 @@ public class Stark extends Role implements ArrancarRole, CeroUser {
     @Override
     public int getCeroBlueValue() {
         return 255;
+    }
+
+    @Override
+    public AbstractCero getCero() {
+        return new CeroFaible();
     }
 }

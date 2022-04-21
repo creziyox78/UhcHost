@@ -30,6 +30,7 @@ public class FormLiberer extends QuickItem {
                             if(bleachPlayerManager.isInFormeLiberer()) {
                                 player.sendMessage("§cVous venez de désactiver votre forme libérée !");
                             } else {
+                                bleachPlayerManager.setInFormeLiberer(true);
                                 player.sendMessage("§aVous venez d'activer votre forme libérée !");
                             }
                             playerManager.setRoleCooldownFormeLiberer(3*60);
