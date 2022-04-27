@@ -140,6 +140,10 @@ public class PlayerManager {
 		}.runTaskTimer(UhcHost.getInstance(), 0, 1);
 	}
 
+	public Map<String, Integer> getCooldowns() {
+		return cooldowns;
+	}
+
 	public DSPlayerManager getDSPlayerManager() {
 		return dsPlayerManager;
 	}
@@ -548,12 +552,60 @@ public class PlayerManager {
 		return this.getRoleCooldown("Kido");
 	}
 
+	public void setRoleCooldownCascada(int i) {
+		this.setRoleCooldown("Cascada", i);
+	}
+
+	public int getRoleCooldownCascada(){
+		return this.getRoleCooldown("Cascada");
+	}
+
+	public void setRoleCooldownAiles(int i) {
+		this.setRoleCooldown("Ailes", i);
+	}
+
+	public int getRoleCooldownAiles(){
+		return this.getRoleCooldown("Ailes");
+	}
+
+	public void setRoleCooldownLanzaDelRelampago(int i) {
+		this.setRoleCooldown("Lanza Del Relampago", i);
+	}
+
+	public int getRoleCooldownLanzaDelRelampago(){
+		return this.getRoleCooldown("Lanza Del Relampago");
+	}
+
 	public void setRoleCooldownFormeLiberer(int i) {
 		this.setRoleCooldown("Forme Libéré", i);
 	}
 
 	public int getRoleCooldownFormeLiberer(){
 		return this.getRoleCooldown("Forme Libéré");
+	}
+
+	public void setRoleCooldownCeroFaible(int i) {
+		this.setRoleCooldown("Cero Faible", i);
+	}
+
+	public int getRoleCooldownCeroFaible(){
+		return this.getRoleCooldown("Cero Faible");
+	}
+
+	public void setRoleCooldownCeroMoyen(int i) {
+		this.setRoleCooldown("Cero Moyen", i);
+	}
+
+	public int getRoleCooldownCeroMoyen(){
+		return this.getRoleCooldown("Cero Moyen");
+	}
+
+	public void setRoleCooldownCeroFort(int i) {
+		this.setRoleCooldown("Cero Fort", i);
+	}
+
+	public int getRoleCooldownCeroFort(){
+		return this.getRoleCooldown("Cero Fort");
 	}
 
 	public UUID getUuid() {

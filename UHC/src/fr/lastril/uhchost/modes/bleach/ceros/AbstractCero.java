@@ -70,12 +70,18 @@ public abstract class AbstractCero {
                     BleachPlayerManager bleachPlayerManager = playerManager.getBleachPlayerManager();
                     if(playerManager.hasRole() && playerManager.getRole() instanceof CeroUser) {
                         CeroUser ceroUser = (CeroUser) playerManager.getRole();
-                        if(ceroUser.canUseCero() && bleachPlayerManager.canUsePower()) {
-                            UhcHost.debug("Cero used by " + player.getName());
-                            action(onClick);
+                        if(ceroUser.getCero().getType() == type) {
+                            if(ceroUser.canUseCero() && bleachPlayerManager.canUsePower()) {
+                                UhcHost.debug("Cero used by " + player.getName());
+                                action(onClick);
+                                ceroUser.onUseCero();
+                            } else {
+                                player.sendMessage(Messages.BLEACH_PREFIX.getMessage() + "§c§lVous ne pouvez pas utiliser votre Cero pour le moment !");
+                            }
                         } else {
-                            player.sendMessage(Messages.BLEACH_PREFIX.getMessage() + "§c§lVous ne pouvez pas votre Cero pour le moment !");
+                            player.sendMessage(Messages.BLEACH_PREFIX.getMessage() + "§c§lVous ne pouvez pas utiliser ce type de Cero !");
                         }
+
                     } else {
                         player.sendMessage(Messages.BLEACH_PREFIX.getMessage() + "§c§lVous ne pouvez pas utiliser de Cero !");
                     }

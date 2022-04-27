@@ -176,6 +176,11 @@ public class TaupeGunMode extends Mode implements ModeConfig {
     }
 
     @Override
+    public void sendInfo(Player player) {
+
+    }
+
+    @Override
     public void checkWin() {
 
         if(GameState.isState(GameState.STARTED)){

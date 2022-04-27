@@ -45,7 +45,7 @@ public class RyujinJakkaItem extends QuickItem {
                             this.yamamoto = (Yamamoto) playerManager.getRole();
                             Location initialLocation = player.getLocation().clone();
                             initialLocation.setPitch(0.0f);
-                            playerManager.setRoleCooldownRyujinJakka(10*60);
+                            playerManager.setRoleCooldownRyujinJakka(2*60);
                             Vector direction = initialLocation.getDirection();
                             List<List<Location>> shape = new ArrayList<>();
 

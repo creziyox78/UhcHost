@@ -13,6 +13,7 @@ import fr.lastril.uhchost.modes.bleach.roles.shinigamis.soulsociety.Mayuri;
 import fr.lastril.uhchost.modes.bleach.roles.shinigamis.soulsociety.Nemu;
 import fr.lastril.uhchost.player.PlayerManager;
 import fr.lastril.uhchost.player.modemanager.BleachPlayerManager;
+import fr.lastril.uhchost.tools.API.ActionBar;
 import fr.lastril.uhchost.tools.API.ClassUtils;
 import org.bukkit.*;
 import org.bukkit.entity.Entity;
@@ -186,13 +187,21 @@ public class BleachManager extends ModeManager implements Listener {
                 BleachPlayerManager bleachPlayerManager = playerManager.getBleachPlayerManager();
                 if(playerManager.getRole() instanceof ArrancarRole){
                     ArrancarRole arrancarRole = (ArrancarRole) playerManager.getRole();
-                    bleachPlayerManager.setNbQuartzMined(bleachPlayerManager.getNbQuartzMined()+1);
-                    if(bleachPlayerManager.getNbQuartzMined() >= arrancarRole.getNbQuartz()){
-                        player.sendMessage(Messages.BLEACH_PREFIX.getMessage() + "§eVous avez récupéré assez de quartz ! Vous pouvez être sous forme libérée.");
-                        main.getInventoryUtils().giveItemSafely(player, new FormLiberer(main).toItemStack());
+                    if(bleachPlayerManager.getNbQuartzMined() < arrancarRole.getNbQuartz()){
+                        bleachPlayerManager.setNbQuartzMined(bleachPlayerManager.getNbQuartzMined()+1);
+                        ActionBar.sendMessage(player, "§c» §f§lQuartz minés:§c " + bleachPlayerManager.getNbQuartzMined() +"/"+arrancarRole.getNbQuartz() +" «");
+                        if(bleachPlayerManager.getNbQuartzMined() == arrancarRole.getNbQuartz()){
+                            bleachPlayerManager.setFormeLibererDurationRemining(60*9);
+                            player.sendMessage(Messages.BLEACH_PREFIX.getMessage() + "§eVous avez récupéré assez de quartz ! Vous pouvez être sous forme libérée.");
+                            main.getInventoryUtils().giveItemSafely(player, new FormLiberer(main).toItemStack());
+                        }
+                    } else {
+                        player.sendMessage(Messages.BLEACH_PREFIX.getMessage() + "§eVous avez déjà récupéré assez de quartz !");
                     }
                 }
-                event.setCancelled(true);
+                if(player.getGameMode() != GameMode.CREATIVE){
+                    event.setCancelled(true);
+                }
             }
         }
     }

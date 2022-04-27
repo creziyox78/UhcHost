@@ -1,12 +1,15 @@
 package fr.lastril.uhchost.game.tasks;
 
 import fr.lastril.uhchost.UhcHost;
+import fr.lastril.uhchost.enums.Messages;
 import fr.lastril.uhchost.enums.WorldState;
 import fr.lastril.uhchost.game.GameState;
 import fr.lastril.uhchost.modes.Mode;
+import fr.lastril.uhchost.modes.bleach.items.FormLiberer;
 import fr.lastril.uhchost.modes.roles.RoleAnnounceMode;
 import fr.lastril.uhchost.player.PlayerManager;
 import fr.lastril.uhchost.player.events.PvpEnableEvent;
+import fr.lastril.uhchost.player.modemanager.BleachPlayerManager;
 import fr.lastril.uhchost.scenario.Scenarios;
 import fr.lastril.uhchost.tools.API.TitleAPI;
 import fr.lastril.uhchost.tools.I18n;
@@ -200,7 +203,20 @@ public class TaskManager {
 					}
 				}
 				TaskManager.this.count++;
-				Bukkit.getOnlinePlayers().forEach(player -> pl.getPlayerManager(player.getUniqueId()).removeCooldowns());
+				Bukkit.getOnlinePlayers().forEach(player -> {
+					PlayerManager playerManager = pl.getPlayerManager(player.getUniqueId());
+					BleachPlayerManager bleachPlayerManager = playerManager.getBleachPlayerManager();
+					playerManager.removeCooldowns();
+					if(bleachPlayerManager.isInFormeLiberer()){
+						bleachPlayerManager.setFormeLibererDurationRemining(bleachPlayerManager.getFormeLibererDurationRemining() - 1);
+						if(bleachPlayerManager.getFormeLibererDurationRemining() == 0){
+							bleachPlayerManager.setInFormeLiberer(false);
+							player.sendMessage(Messages.BLEACH_PREFIX.getMessage() + "§cLe temps de forme libérée est terminé !");
+							if(player.getInventory().contains(new FormLiberer(pl).toItemStack()))
+								player.getInventory().remove(new FormLiberer(pl).toItemStack());
+						}
+					}
+				});
 				TaskManager.timeGame = count;
 				TaskManager.this.pl.gameManager.getModes().getMode().tick(count);
 				if(TaskManager.this.pl.gameManager.getModes().getMode() instanceof RoleAnnounceMode){

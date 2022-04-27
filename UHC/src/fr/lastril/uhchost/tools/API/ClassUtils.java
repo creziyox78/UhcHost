@@ -33,6 +33,24 @@ import static fr.lastril.uhchost.world.WorldUtils.generateSphere;
 
 public class ClassUtils {
 
+    public static List<Location> getNewSphere(Location centerBlock, int radius, boolean hollow) {
+        List<Location> circleBlocks = new ArrayList<>();
+        int bX = centerBlock.getBlockX();
+        int bY = centerBlock.getBlockY();
+        int bZ = centerBlock.getBlockZ();
+        for (int x = bX - radius; x <= bX + radius; x++) {
+            for (int y = bY - radius; y <= bY + radius; y++) {
+                for (int z = bZ - radius; z <= bZ + radius; z++) {
+                    double distance = ((bX - x) * (bX - x) + (bZ - z) * (bZ - z) + (bY - y) * (bY - y));
+                    if (distance < (radius * radius) && (!hollow || distance >= ((radius - 1) * (radius - 1)))) {
+                        Location block = new Location(centerBlock.getWorld(), x, y, z);
+                        circleBlocks.add(block);
+                    }
+                }
+            }
+        }
+        return circleBlocks;
+    }
     public static String getDirectionOf(Location ploc, Location to) {
         if(ploc == null || to == null) return "?";
         if(ploc.getWorld() != to.getWorld()) return "? (Les mondes ont différents)";

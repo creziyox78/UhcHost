@@ -24,11 +24,12 @@ public class FormLiberer extends QuickItem {
             BleachPlayerManager bleachPlayerManager = playerManager.getBleachPlayerManager();
             if(playerManager.getRole() instanceof ArrancarRole) {
                 ArrancarRole arrancarRole = (ArrancarRole) playerManager.getRole();
-                if(bleachPlayerManager.getNbQuartzMined() > arrancarRole.getNbQuartz()) {
+                if(bleachPlayerManager.getNbQuartzMined() == arrancarRole.getNbQuartz()) {
                     if(bleachPlayerManager.canUsePower()) {
                         if(playerManager.getRoleCooldownFormeLiberer() <= 0) {
                             if(bleachPlayerManager.isInFormeLiberer()) {
                                 player.sendMessage("§cVous venez de désactiver votre forme libérée !");
+                                bleachPlayerManager.setInFormeLiberer(false);
                             } else {
                                 bleachPlayerManager.setInFormeLiberer(true);
                                 player.sendMessage("§aVous venez d'activer votre forme libérée !");

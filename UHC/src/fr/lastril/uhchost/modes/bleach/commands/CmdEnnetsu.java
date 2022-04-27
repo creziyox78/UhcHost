@@ -47,7 +47,7 @@ public class CmdEnnetsu implements ModeSubCommand {
                     if(playerManager.getRoleCooldownEnnetsu() <= 0){
                         yamamoto.addUse();
                         yamamoto.ennetsuPower(player);
-                        playerManager.setRoleCooldownEnnetsu(10*60);
+                        playerManager.setRoleCooldownEnnetsu(4*60);
                         player.sendMessage(Messages.BLEACH_PREFIX.getMessage() + Messages.USED_POWER.getMessage());
                     } else {
                         player.sendMessage(Messages.cooldown(playerManager.getRoleCooldownEnnetsu()));

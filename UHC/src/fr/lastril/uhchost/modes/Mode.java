@@ -30,6 +30,8 @@ public abstract class Mode {
 
     public abstract void onDamage(Player target, Player damager);
 
+    public abstract void sendInfo(Player player);
+
     public boolean isCancelDamage(EntityDamageByEntityEvent event) {
         return false;
     }

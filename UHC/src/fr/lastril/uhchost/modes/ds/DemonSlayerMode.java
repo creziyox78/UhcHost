@@ -80,6 +80,11 @@ public class DemonSlayerMode extends Mode implements ModeCommand, RoleMode<DSRol
     }
 
     @Override
+    public void sendInfo(Player player) {
+
+    }
+
+    @Override
     public void checkWin() {
 
     }

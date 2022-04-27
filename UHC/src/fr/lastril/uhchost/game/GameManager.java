@@ -88,13 +88,13 @@ public class GameManager {
 
 	private UUID host;
 
-	private List<Player> cohost;
+	private final List<Player> cohost;
 
 	private final UhcHost pl;
 
 	private List<Scenario> scenarios;
 
-	private List<BlocksRule> blocksRules;
+	private final List<BlocksRule> blocksRules;
 
 	private boolean nether;
 

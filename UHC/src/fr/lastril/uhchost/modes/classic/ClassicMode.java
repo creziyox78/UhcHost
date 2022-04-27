@@ -128,6 +128,11 @@ public class ClassicMode extends Mode {
     }
 
     @Override
+    public void sendInfo(Player player) {
+
+    }
+
+    @Override
     public void checkWin() {
         if (this.main.teamUtils.getPlayersPerTeams() != 1 && !this.main.gameManager.hasScenario(Scenarios.ONLYONEWINNER.getScenario())) {
             if (this.main.scoreboardUtil.getBoard().getTeams().size() == 1) {

@@ -271,6 +271,11 @@ public class LoupGarouMode extends Mode implements ModeCommand, RoleMode<LGRole>
     }
 
     @Override
+    public void sendInfo(Player player) {
+
+    }
+
+    @Override
     public void checkWin() {
         Set<Camps> lastCamps = new HashSet<>();
         for (Player players : Bukkit.getOnlinePlayers()) {

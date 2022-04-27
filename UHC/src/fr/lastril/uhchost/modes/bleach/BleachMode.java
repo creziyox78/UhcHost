@@ -8,11 +8,14 @@ import fr.lastril.uhchost.modes.ModeConfig;
 import fr.lastril.uhchost.modes.ModeManager;
 import fr.lastril.uhchost.modes.Modes;
 import fr.lastril.uhchost.modes.bleach.commands.CmdCero;
+import fr.lastril.uhchost.modes.bleach.roles.ArrancarRole;
 import fr.lastril.uhchost.modes.bleach.roles.BLRole;
 import fr.lastril.uhchost.modes.command.*;
 import fr.lastril.uhchost.modes.roles.*;
 import fr.lastril.uhchost.player.PlayerManager;
+import fr.lastril.uhchost.player.modemanager.BleachPlayerManager;
 import fr.lastril.uhchost.tools.API.BungeeAPI;
+import fr.lastril.uhchost.tools.API.FormatTime;
 import fr.lastril.uhchost.tools.API.TitleAPI;
 import fr.lastril.uhchost.tools.API.inventory.crafter.IQuickInventory;
 import fr.lastril.uhchost.tools.API.packets.PacketListener;
@@ -20,6 +23,8 @@ import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -139,6 +144,43 @@ public class BleachMode extends Mode implements ModeConfig, RoleAnnounceMode, Mo
     @Override
     public void onDamage(Player target, Player damager) {
 
+    }
+
+    private int getPourcentageEffect(Player player, int pourcentagePerLvl, PotionEffectType potionEffectType){
+        int pourcentageEffect = 0;
+        for(PotionEffect potionEffect : player.getActivePotionEffects()){
+            if(potionEffect.getType() == potionEffectType){
+                pourcentageEffect += (potionEffect.getAmplifier() + 1) * pourcentagePerLvl;
+            }
+        }
+        return pourcentageEffect;
+    }
+
+    @Override
+    public void sendInfo(Player player) {
+
+        PlayerManager playerManager = main.getPlayerManager(player.getUniqueId());
+        BleachPlayerManager bleachPlayerManager = playerManager.getBleachPlayerManager();
+        player.sendMessage("§f» §m------------------------------------------§f «");
+        player.sendMessage(" ");
+        player.sendMessage("§f • §cForce » §f" + (bleachPlayerManager.getStrengthPourcentage() + getPourcentageEffect(player, 20, PotionEffectType.INCREASE_DAMAGE)) + "%");
+        player.sendMessage("§f • §9Résistance » §f" + (bleachPlayerManager.getResistancePourcentage() + getPourcentageEffect(player, 20, PotionEffectType.DAMAGE_RESISTANCE)) + "%");
+        player.sendMessage("§f • §bSpeed » §f" + (bleachPlayerManager.getSpeedPourcentage() + getPourcentageEffect(player, 20, PotionEffectType.SPEED)) +  "%");
+        player.sendMessage("§f • §aNoFall » §f" + (bleachPlayerManager.hasNoFall() ? "§aOui" : "§cNon"));
+        if(playerManager.hasRole() && playerManager.getRole() instanceof ArrancarRole){
+            ArrancarRole arrancarRole = (ArrancarRole) playerManager.getRole();
+            player.sendMessage("§f • §eQuartz minés » §f" + bleachPlayerManager.getNbQuartzMined() + "/" + arrancarRole.getNbQuartz());
+            player.sendMessage("§f • §eForme libérée » §f" + new FormatTime(bleachPlayerManager.getFormeLibererDurationRemining()).toFormatString());
+        }
+        player.sendMessage(" ");
+        player.sendMessage("§f • §eCooldowns :");
+        for (Map.Entry<String, Integer> e : playerManager.getCooldowns().entrySet()) {
+            if(e.getValue() > 0){
+                player.sendMessage("§f       - §6" + e.getKey() + " » §c" + new FormatTime(e.getValue()));
+            }
+        }
+        player.sendMessage(" ");
+        player.sendMessage("§f» §m------------------------------------------§f «");
     }
 
     @Override
@@ -286,6 +328,7 @@ public class BleachMode extends Mode implements ModeConfig, RoleAnnounceMode, Mo
         subCommands.add(new CmdCompo(main));
         subCommands.add(new CmdDesc(main));
         subCommands.add(new CmdMe(main));
+        subCommands.add(new CmdInfo(main));
         subCommands.add(new CmdCero(main));
         this.getRoles().stream().filter(role -> role instanceof RoleCommand).map(role -> ((RoleCommand) role).getSubCommands()).forEach(subCommands::addAll);
         return subCommands;

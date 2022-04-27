@@ -1,7 +1,8 @@
 package fr.lastril.uhchost.modes.bleach;
 
+import fr.lastril.uhchost.modes.bleach.roles.arrancars.espada.*;
+import fr.lastril.uhchost.modes.bleach.roles.arrancars.fraccions.*;
 import fr.lastril.uhchost.modes.bleach.roles.arrancars.Aizen;
-import fr.lastril.uhchost.modes.bleach.roles.arrancars.espada.Stark;
 import fr.lastril.uhchost.modes.bleach.roles.shinigamis.*;
 import fr.lastril.uhchost.modes.bleach.roles.shinigamis.soulsociety.*;
 import fr.lastril.uhchost.modes.roles.Role;
@@ -33,7 +34,7 @@ public enum BleachRoles {
     YACHIRU(Yachiru.class), //FINISHED
     MAYURI(Mayuri.class), //TODO FIX WITHER
     NEMU(Nemu.class), //FINISHED
-    JUSHIROUKITAKE(JushiroUkitake.class), //TODO ADAPTION WITH CERO
+    JUSHIROUKITAKE(JushiroUkitake.class), //TODO BE TESTED
     IKKAKU(Ikkaku.class), //FINISHED
 
     //Ichigo Groups
@@ -58,7 +59,29 @@ public enum BleachRoles {
 
 
     //ESPADA
-    STARK(Stark.class),
+    STARK(Stark.class), //TODO BE TESTED
+    BARRANGA(Barranga.class), //TODO BE TESTED
+    HALIBEL(Halibel.class), //TODO BE TESTED
+    ULQUIORRA(Ulquiorra.class), //TODO BE TESTED
+    NNOITRA(Nnoitra.class),
+    GRIMMJOW(Grimmjow.class),
+    ZOMMARI(Zommari.class),
+    SZAYEL(Szayel.class),
+    AAORNIERO(Aaorniero.class),
+    YAMMY(Yammy.class),
+
+    //Fraccions
+    CHELUTE(Chelute.class),
+    WONDERWICE(WonderWice.class),
+    LILYNETTE(Lilynette.class),
+    DEMOURA(Demoura.class),
+    ABIRAMA(Abirama.class),
+    POWW(Poww.class),
+    VEGA(Vega.class),
+    APACCI(Apaccio.class),
+    MILAROSE(MilaRose.class),
+    CYAN(Cyan.class),
+
 
     ;
 

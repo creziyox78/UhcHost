@@ -11,9 +11,9 @@ import org.bukkit.generator.BlockPopulator;
 import java.util.*;
 
 public class OresGenerator extends BlockPopulator {
-    private List<BlocksRule> blocks = new ArrayList<>();
+    private final List<BlocksRule> blocks = new ArrayList<>();
 
-    private Map<Material, Material> removeBlocks = new HashMap<>();
+    private final Map<Material, Material> removeBlocks = new HashMap<>();
 
     public void registerRule(BlocksRule rule) {
         this.blocks.add(rule);

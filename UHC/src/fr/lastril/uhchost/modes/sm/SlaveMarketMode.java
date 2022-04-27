@@ -212,6 +212,11 @@ public class SlaveMarketMode extends Mode implements ModeConfig, ModeCommand {
     }
 
     @Override
+    public void sendInfo(Player player) {
+
+    }
+
+    @Override
     public void checkWin() {
 
         if(GameState.isState(GameState.STARTED)){

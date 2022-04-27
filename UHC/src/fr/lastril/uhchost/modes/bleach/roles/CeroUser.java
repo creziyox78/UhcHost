@@ -7,6 +7,8 @@ public interface CeroUser {
 
     boolean canUseCero();
 
+    void onUseCero();
+
     int getCeroRedValue();
     int getCeroGreenValue();
     int getCeroBlueValue();

@@ -12,6 +12,8 @@ public class BleachPlayerManager {
 
     private int nbQuartzMined;
 
+    private int formeLibererDurationRemining;
+
     public BleachPlayerManager(PlayerManager playerManager) {
         this.playerManager = playerManager;
     }
@@ -94,8 +96,6 @@ public class BleachPlayerManager {
         this.noFall = noFall;
     }
 
-
-
     public boolean isInFormeLiberer() {
         return inFormeLiberer;
     }
@@ -114,5 +114,13 @@ public class BleachPlayerManager {
 
     public void addNbQuartzMined(int nbQuartzMined){
         this.nbQuartzMined += nbQuartzMined;
+    }
+
+    public int getFormeLibererDurationRemining() {
+        return formeLibererDurationRemining;
+    }
+
+    public void setFormeLibererDurationRemining(int formeLibererDurationRemining) {
+        this.formeLibererDurationRemining = formeLibererDurationRemining;
     }
 }
