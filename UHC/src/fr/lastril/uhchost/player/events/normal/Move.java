@@ -19,7 +19,6 @@ public class Move implements Listener {
 				player.teleport(event.getFrom());
 			}
 		}
-
 	}
 
 	@EventHandler

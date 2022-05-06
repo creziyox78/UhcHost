@@ -27,8 +27,6 @@ public class PlayerManager {
 
 	private WolfPlayerManager wolfPlayerManager;
 
-	private final DSPlayerManager dsPlayerManager;
-
 	private final BleachPlayerManager bleachPlayerManager;
 
 	private final TaupePlayerManager taupePlayerManager;
@@ -65,7 +63,6 @@ public class PlayerManager {
 		this.kills = new ArrayList<>();
 		this.playerName = player.getName();
 		this.bleachPlayerManager = new BleachPlayerManager(this);
-		this.dsPlayerManager = new DSPlayerManager(this);
 		this.taupePlayerManager = new TaupePlayerManager(this);
 		this.wolfPlayerManager = new WolfPlayerManager(this);
 		this.marketPlayerManager = new MarketPlayerManager(this);
@@ -143,11 +140,6 @@ public class PlayerManager {
 	public Map<String, Integer> getCooldowns() {
 		return cooldowns;
 	}
-
-	public DSPlayerManager getDSPlayerManager() {
-		return dsPlayerManager;
-	}
-
 	public boolean isInvinsible() {
 		return invinsible;
 	}
@@ -574,6 +566,30 @@ public class PlayerManager {
 
 	public int getRoleCooldownLanzaDelRelampago(){
 		return this.getRoleCooldown("Lanza Del Relampago");
+	}
+
+	public void setRoleCooldownAttraction(int i) {
+		this.setRoleCooldown("Attraction", i);
+	}
+
+	public int getRoleCooldownAttraction(){
+		return this.getRoleCooldown("Attraction");
+	}
+
+	public void setRoleCooldownRugissement(int i) {
+		this.setRoleCooldown("Rugissement", i);
+	}
+
+	public int getRoleCooldownRugissement(){
+		return this.getRoleCooldown("Rugissement");
+	}
+
+	public void setRoleCooldownLaceration(int i) {
+		this.setRoleCooldown("Laceration", i);
+	}
+
+	public int getRoleCooldownLaceration(){
+		return this.getRoleCooldown("Laceration");
 	}
 
 	public void setRoleCooldownFormeLiberer(int i) {

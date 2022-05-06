@@ -3,6 +3,7 @@ package fr.lastril.uhchost.modes.bleach.roles.arrancars.espada;
 import fr.lastril.uhchost.enums.Messages;
 import fr.lastril.uhchost.modes.bleach.ceros.AbstractCero;
 import fr.lastril.uhchost.modes.bleach.ceros.CeroFaible;
+import fr.lastril.uhchost.modes.bleach.ceros.CeroType;
 import fr.lastril.uhchost.modes.bleach.items.Okami;
 import fr.lastril.uhchost.modes.bleach.roles.ArrancarRole;
 import fr.lastril.uhchost.modes.bleach.roles.CeroUser;
@@ -15,6 +16,9 @@ import fr.lastril.uhchost.tools.API.items.crafter.QuickItem;
 import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
+
+import java.util.Arrays;
+import java.util.List;
 
 public class Stark extends Role implements ArrancarRole, CeroUser {
 
@@ -77,12 +81,22 @@ public class Stark extends Role implements ArrancarRole, CeroUser {
 
     @Override
     public void onTransformationFirst() {
-
+        Player stark = super.getPlayer();
+        if(stark != null) {
+            PlayerManager playerManager = main.getPlayerManager(stark.getUniqueId());
+            BleachPlayerManager bleachPlayerManager = playerManager.getBleachPlayerManager();
+            bleachPlayerManager.setStrengthPourcentage(10);
+        }
     }
 
     @Override
-    public void onUnTransformationSecond() {
-
+    public void onUnTransformationFirst() {
+        Player stark = super.getPlayer();
+        if(stark != null) {
+            PlayerManager playerManager = main.getPlayerManager(stark.getUniqueId());
+            BleachPlayerManager bleachPlayerManager = playerManager.getBleachPlayerManager();
+            bleachPlayerManager.setStrengthPourcentage(0);
+        }
     }
 
     @Override
@@ -114,7 +128,7 @@ public class Stark extends Role implements ArrancarRole, CeroUser {
     }
 
     @Override
-    public boolean canUseCero() {
+    public boolean canUseCero(CeroType ceroType) {
         Player stark = super.getPlayer();
         if(stark != null) {
             PlayerManager playerManager = main.getPlayerManager(stark.getUniqueId());
@@ -127,7 +141,7 @@ public class Stark extends Role implements ArrancarRole, CeroUser {
     }
 
     @Override
-    public void onUseCero() {
+    public void onUseCero(CeroType ceroType) {
         if(this.ceroUsed == 5) {
             Player stark = super.getPlayer();
             if(stark != null) {
@@ -157,8 +171,8 @@ public class Stark extends Role implements ArrancarRole, CeroUser {
     }
 
     @Override
-    public AbstractCero getCero() {
-        return new CeroFaible();
+    public List<AbstractCero> getCero() {
+        return Arrays.asList(new CeroFaible());
     }
 
 

@@ -1,12 +1,15 @@
 package fr.lastril.uhchost.modes.bleach.roles.arrancars.fraccions;
 
 import fr.lastril.uhchost.modes.bleach.ceros.AbstractCero;
+import fr.lastril.uhchost.modes.bleach.ceros.CeroType;
 import fr.lastril.uhchost.modes.bleach.roles.ArrancarRole;
 import fr.lastril.uhchost.modes.bleach.roles.CeroUser;
 import fr.lastril.uhchost.modes.roles.Camps;
 import fr.lastril.uhchost.modes.roles.Role;
 import fr.lastril.uhchost.tools.API.items.crafter.QuickItem;
 import org.bukkit.entity.Player;
+
+import java.util.List;
 
 public class Apaccio extends Role implements ArrancarRole, CeroUser {
     @Override
@@ -20,17 +23,17 @@ public class Apaccio extends Role implements ArrancarRole, CeroUser {
     }
 
     @Override
-    public void onUnTransformationSecond() {
+    public void onUnTransformationFirst() {
 
     }
 
     @Override
-    public boolean canUseCero() {
+    public boolean canUseCero(CeroType ceroType) {
         return false;
     }
 
     @Override
-    public void onUseCero() {
+    public void onUseCero(CeroType ceroType) {
 
     }
 
@@ -50,7 +53,7 @@ public class Apaccio extends Role implements ArrancarRole, CeroUser {
     }
 
     @Override
-    public AbstractCero getCero() {
+    public List<AbstractCero> getCero() {
         return null;
     }
 

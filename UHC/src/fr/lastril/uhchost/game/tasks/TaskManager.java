@@ -6,6 +6,7 @@ import fr.lastril.uhchost.enums.WorldState;
 import fr.lastril.uhchost.game.GameState;
 import fr.lastril.uhchost.modes.Mode;
 import fr.lastril.uhchost.modes.bleach.items.FormLiberer;
+import fr.lastril.uhchost.modes.bleach.roles.ArrancarRole;
 import fr.lastril.uhchost.modes.roles.RoleAnnounceMode;
 import fr.lastril.uhchost.player.PlayerManager;
 import fr.lastril.uhchost.player.events.PvpEnableEvent;
@@ -207,10 +208,12 @@ public class TaskManager {
 					PlayerManager playerManager = pl.getPlayerManager(player.getUniqueId());
 					BleachPlayerManager bleachPlayerManager = playerManager.getBleachPlayerManager();
 					playerManager.removeCooldowns();
-					if(bleachPlayerManager.isInFormeLiberer()){
+					if(bleachPlayerManager.isInFormeLiberer() && playerManager.getRole() instanceof ArrancarRole){
+						ArrancarRole arrancarRole = (ArrancarRole) playerManager.getRole();
 						bleachPlayerManager.setFormeLibererDurationRemining(bleachPlayerManager.getFormeLibererDurationRemining() - 1);
 						if(bleachPlayerManager.getFormeLibererDurationRemining() == 0){
 							bleachPlayerManager.setInFormeLiberer(false);
+							arrancarRole.onUnTransformationFirst();
 							player.sendMessage(Messages.BLEACH_PREFIX.getMessage() + "§cLe temps de forme libérée est terminé !");
 							if(player.getInventory().contains(new FormLiberer(pl).toItemStack()))
 								player.getInventory().remove(new FormLiberer(pl).toItemStack());

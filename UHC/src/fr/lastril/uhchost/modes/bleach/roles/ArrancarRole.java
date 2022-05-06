@@ -6,6 +6,6 @@ public interface ArrancarRole {
 
     void onTransformationFirst();
 
-    void onUnTransformationSecond();
+    void onUnTransformationFirst();
 
 }

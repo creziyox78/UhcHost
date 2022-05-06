@@ -2,7 +2,6 @@ package fr.lastril.uhchost.modes;
 
 import fr.lastril.uhchost.modes.bleach.BleachMode;
 import fr.lastril.uhchost.modes.classic.ClassicMode;
-import fr.lastril.uhchost.modes.ds.DemonSlayerMode;
 import fr.lastril.uhchost.modes.lg.LoupGarouMode;
 import fr.lastril.uhchost.modes.sm.SlaveMarketMode;
 import fr.lastril.uhchost.modes.tpg.TaupeGunMode;
@@ -54,20 +53,6 @@ public enum Modes {
                             "§7des autres.",
                             "")
                     .setName("§b§lSlave Market"), false),
-
-    DS("§c§lDemon Slayer", "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZTA5MzIzMmFlYTQ5NjAwYjUwOTJmYzE4MmUwZDVjZTg5OTlmNzgwNDVkZDdiZGEyM2M2NWNjYTZmY2Y1Y2Y2MCJ9fX0=", new DemonSlayerMode(),
-            new QuickItem(Material.SKULL_ITEM, 1, SkullType.PLAYER.ordinal())
-                    .setTexture("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZTA5MzIzMmFlYTQ5NjAwYjUwOTJmYzE4MmUwZDVjZTg5OTlmNzgwNDVkZDdiZGEyM2M2NWNjYTZmY2Y1Y2Y2MCJ9fX0=")
-                    .setLore("",
-                            "§7Auteur:§b ALEXQLF§7 et§b Timouh",
-                            "§8Version : V3.5",
-                            "",
-                            "§7Mode de jeu basé sur le manga/animé du",
-                            "§7même nom opposant §aSlayers§7",
-                            "§7et§c Démons§7.",
-                            "")
-                    .setName("§c§lDemon Slayer"), false),
-
     /*AOT("§eAOT", "", null,
             new QuickItem(Material.SKULL_ITEM, 1, SkullType.PLAYER.ordinal())
                     .setTexture("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNGUzNWIxN2M5YmUyMDQ3NGJmZGE0Yjg0NGYwZTg2NzAyYTBkOGFkNTgzZDE5MDQ2OTNlYmQ4ZjA0MGFiOWJiYiJ9fX0=")

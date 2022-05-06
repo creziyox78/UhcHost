@@ -29,6 +29,7 @@ public class FormLiberer extends QuickItem {
                         if(playerManager.getRoleCooldownFormeLiberer() <= 0) {
                             if(bleachPlayerManager.isInFormeLiberer()) {
                                 player.sendMessage("§cVous venez de désactiver votre forme libérée !");
+                                arrancarRole.onUnTransformationFirst();
                                 bleachPlayerManager.setInFormeLiberer(false);
                             } else {
                                 bleachPlayerManager.setInFormeLiberer(true);

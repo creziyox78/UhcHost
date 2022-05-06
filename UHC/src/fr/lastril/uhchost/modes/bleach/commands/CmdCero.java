@@ -1,6 +1,7 @@
 package fr.lastril.uhchost.modes.bleach.commands;
 
 import fr.lastril.uhchost.UhcHost;
+import fr.lastril.uhchost.modes.bleach.ceros.AbstractCero;
 import fr.lastril.uhchost.modes.bleach.ceros.CeroFaible;
 import fr.lastril.uhchost.modes.bleach.ceros.CeroFort;
 import fr.lastril.uhchost.modes.bleach.ceros.CeroMoyen;
@@ -44,9 +45,12 @@ public class CmdCero implements ModeSubCommand {
         }
         if(playerManager.getRole() instanceof CeroUser) {
             CeroUser ceroUser = (CeroUser) playerManager.getRole();
-            if(ceroUser.canUseCero() && bleachPlayerManager.canUsePower()) {
-                ceroUser.getCero().giveCero(player);
+            for(AbstractCero abstractCero : ceroUser.getCero()) {
+                if(ceroUser.canUseCero(abstractCero.getType()) && bleachPlayerManager.canUsePower()) {
+                    abstractCero.giveCero(player);
+                }
             }
+
         }
 
         return false;

@@ -32,6 +32,7 @@ public class SodeNoShirayuki extends QuickItem {
                             if(!rukia.isUsedSuperMode()){
                                 playerManager.setRoleCooldownSodeNoShirayuki(7 * 60);
                                 rukia.setUsedSuperMode(true);
+                                rukia.setSuperSode(true);
                                 rukia.setDuration(30);
                                 player.sendMessage(Messages.BLEACH_PREFIX.getMessage() + "§7Vous avez utilisé §fSode No Shirayuki§7 à sa pleine puissance !");
                             } else {

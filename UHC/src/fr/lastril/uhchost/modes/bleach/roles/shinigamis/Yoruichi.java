@@ -1,6 +1,7 @@
 
 package fr.lastril.uhchost.modes.bleach.roles.shinigamis;
 
+import fr.lastril.uhchost.UhcHost;
 import fr.lastril.uhchost.enums.Messages;
 import fr.lastril.uhchost.modes.bleach.commands.CmdLynx;
 import fr.lastril.uhchost.modes.bleach.items.Kido;
@@ -35,9 +36,9 @@ public class Yoruichi extends Role implements ShinigamiRole, RoleCommand, RoleLi
     @Override
     public void checkRunnable(Player player) {
         super.checkRunnable(player);
-        transform = true;
-        //long delayLastCombat = System.currentTimeMillis() - this.lastCombat;
-        //transform = delayLastCombat <= transformCooldown * 1000L;
+        long delayLastCombat = System.currentTimeMillis() - this.lastCombat;
+        transform = delayLastCombat <= transformCooldown * 1000L;
+        UhcHost.debug("transform : " + transform + " , delayLastCombat : " + delayLastCombat + " lastCombat : " + this.lastCombat);
         if(inKido){
             if(player.getHealth() > 2D*5D){
                 setInKido(false);

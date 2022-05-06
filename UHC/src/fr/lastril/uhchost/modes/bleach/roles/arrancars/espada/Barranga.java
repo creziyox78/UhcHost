@@ -76,8 +76,13 @@ public class Barranga extends Role implements ArrancarRole {
     }
 
     @Override
-    public void onUnTransformationSecond() {
-
+    public void onUnTransformationFirst() {
+        Player barranga = super.getPlayer();
+        if(barranga != null) {
+            PlayerManager playerManager = main.getPlayerManager(barranga.getUniqueId());
+            BleachPlayerManager bleachPlayerManager = playerManager.getBleachPlayerManager();
+            bleachPlayerManager.setStrengthPourcentage(0);
+        }
     }
 
     @Override

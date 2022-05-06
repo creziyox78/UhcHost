@@ -96,7 +96,6 @@ public class Omaeda extends Role implements RoleListener, ShinigamiRole {
                     } else {
                         player.sendMessage(Messages.BLEACH_PREFIX.getMessage() + Messages.CANT_USE_POWER_NOW.getMessage());
                     }
-
                 }
             }
         }

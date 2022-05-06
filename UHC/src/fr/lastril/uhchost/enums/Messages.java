@@ -31,7 +31,7 @@ public enum Messages {
      * PREFIX
      */
     NARUTO_PREFIX("§e[§6Naruto§e] "),
-    BLEACH_PREFIX("§9[§3Bleach§9] §b"),
+    BLEACH_PREFIX("§9Bleach §f»§b "),
     LOUP_GAROU_PREFIX("§b[§6LG UHC§b] "),
     SLAVE_MARKET_PREFIX("§b§lSlave Market §f❘§9 "),
     TAUPE_GUN_PREFIX("§e§lTaupe Gun » "),

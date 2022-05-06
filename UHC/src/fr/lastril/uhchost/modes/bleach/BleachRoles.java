@@ -9,12 +9,14 @@ import fr.lastril.uhchost.modes.roles.Role;
 
 public enum BleachRoles {
 
+    //TODO PERCENTAGE STRENGTH AND RESISTANCE
+
     /*
      * SHINIGAMIS
      */
 
     //Soul Society
-    YAMAMOTO(Yamamoto.class), //TODO FIX NO ABSO
+    YAMAMOTO(Yamamoto.class), //TODO BE TESTED
     SOIFON(SoiFon.class), //FINISHED
     OMAEDA(Omaeda.class), //TODO FIX LEFT CLICK ROD
     KIRA(Kira.class), //FINISHED
@@ -43,9 +45,9 @@ public enum BleachRoles {
     INOUEORIHIME(InoueOrihime.class), //TODO BE TESTED
     SADO(Sado.class), //TODO BE TESTED
     ISHIDA(Ishida.class), //TODO BE TESTED
-    RUKIA(Rukia.class), //TODO FIX FULL POWER
+    RUKIA(Rukia.class), //TODO BE TESTED
     KISUKEURAHARA(KisukeUrahara.class), //TODO BE TESTED
-    YORUICHI(Yoruichi.class), //TODO BE TESTED AND FIX 2 MINUTES DAMAGE
+    YORUICHI(Yoruichi.class), //TODO BE TESTED
     NELLIEL(Nelliel.class),
 
 
@@ -60,11 +62,11 @@ public enum BleachRoles {
 
     //ESPADA
     STARK(Stark.class), //TODO BE TESTED
-    BARRANGA(Barranga.class), //TODO BE TESTED
+    BARRANGA(Barranga.class), //TODO SPAWN BLAZE
     HALIBEL(Halibel.class), //TODO BE TESTED
-    ULQUIORRA(Ulquiorra.class), //TODO BE TESTED
-    NNOITRA(Nnoitra.class),
-    GRIMMJOW(Grimmjow.class),
+    ULQUIORRA(Ulquiorra.class), //TODO 2ND FORME LIBERER
+    NNOITRA(Nnoitra.class), //TODO BE TESTED
+    GRIMMJOW(Grimmjow.class), //TODO BE TESTED
     ZOMMARI(Zommari.class),
     SZAYEL(Szayel.class),
     AAORNIERO(Aaorniero.class),

@@ -2,6 +2,7 @@ package fr.lastril.uhchost.modes.bleach.roles.arrancars.espada;
 
 import fr.lastril.uhchost.modes.bleach.ceros.AbstractCero;
 import fr.lastril.uhchost.modes.bleach.ceros.CeroMoyen;
+import fr.lastril.uhchost.modes.bleach.ceros.CeroType;
 import fr.lastril.uhchost.modes.bleach.items.Cascada;
 import fr.lastril.uhchost.modes.bleach.roles.ArrancarRole;
 import fr.lastril.uhchost.modes.bleach.roles.CeroUser;
@@ -24,6 +25,7 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class Halibel extends Role implements ArrancarRole, CeroUser, RoleListener {
@@ -45,7 +47,7 @@ public class Halibel extends Role implements ArrancarRole, CeroUser, RoleListene
     }
 
     @Override
-    public void onUnTransformationSecond() {
+    public void onUnTransformationFirst() {
 
     }
 
@@ -61,7 +63,7 @@ public class Halibel extends Role implements ArrancarRole, CeroUser, RoleListene
     }
 
     @Override
-    public boolean canUseCero() {
+    public boolean canUseCero(CeroType ceroType) {
         Player halibel = super.getPlayer();
         if(halibel != null) {
             PlayerManager playerManager = main.getPlayerManager(halibel.getUniqueId());
@@ -74,7 +76,7 @@ public class Halibel extends Role implements ArrancarRole, CeroUser, RoleListene
     }
 
     @Override
-    public void onUseCero() {
+    public void onUseCero(CeroType ceroType) {
         Player halibel = super.getPlayer();
         if(halibel != null) {
             PlayerManager playerManager = main.getPlayerManager(halibel.getUniqueId());
@@ -100,8 +102,8 @@ public class Halibel extends Role implements ArrancarRole, CeroUser, RoleListene
     }
 
     @Override
-    public AbstractCero getCero() {
-        return new CeroMoyen();
+    public List<AbstractCero> getCero() {
+        return Arrays.asList(new CeroMoyen());
     }
 
     @Override

@@ -70,11 +70,11 @@ public abstract class AbstractCero {
                     BleachPlayerManager bleachPlayerManager = playerManager.getBleachPlayerManager();
                     if(playerManager.hasRole() && playerManager.getRole() instanceof CeroUser) {
                         CeroUser ceroUser = (CeroUser) playerManager.getRole();
-                        if(ceroUser.getCero().getType() == type) {
-                            if(ceroUser.canUseCero() && bleachPlayerManager.canUsePower()) {
+                        if(canUseCero(ceroUser, type)){
+                            if(ceroUser.canUseCero(type) && bleachPlayerManager.canUsePower()) {
                                 UhcHost.debug("Cero used by " + player.getName());
                                 action(onClick);
-                                ceroUser.onUseCero();
+                                ceroUser.onUseCero(type);
                             } else {
                                 player.sendMessage(Messages.BLEACH_PREFIX.getMessage() + "§c§lVous ne pouvez pas utiliser votre Cero pour le moment !");
                             }
@@ -86,6 +86,15 @@ public abstract class AbstractCero {
                         player.sendMessage(Messages.BLEACH_PREFIX.getMessage() + "§c§lVous ne pouvez pas utiliser de Cero !");
                     }
                 });
+    }
+
+    private boolean canUseCero(CeroUser ceroUser, CeroType ceroType){
+        for(AbstractCero cero : ceroUser.getCero()){
+            if(cero.getType() == ceroType){
+                return true;
+            }
+        }
+        return false;
     }
 
     public void giveCero(Player player) {

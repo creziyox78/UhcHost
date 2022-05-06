@@ -143,7 +143,7 @@ public class Yamamoto extends Role implements RoleListener, RoleCommand, Shiniga
                 noAbsoplayerList.remove(player);
             }
             task.cancel();
-        }, 20*10);
+        }, 20*10 + 2);
     }
 
     public void ennetsuPower(Player player){

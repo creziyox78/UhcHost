@@ -4,6 +4,7 @@ import fr.lastril.uhchost.enums.Messages;
 import fr.lastril.uhchost.modes.bleach.ceros.AbstractCero;
 import fr.lastril.uhchost.modes.bleach.ceros.CeroFort;
 import fr.lastril.uhchost.modes.bleach.ceros.CeroMoyen;
+import fr.lastril.uhchost.modes.bleach.ceros.CeroType;
 import fr.lastril.uhchost.modes.bleach.items.Ailes;
 import fr.lastril.uhchost.modes.bleach.items.Cifer;
 import fr.lastril.uhchost.modes.bleach.items.LanzaDelRelampago;
@@ -31,6 +32,9 @@ import org.bukkit.event.player.PlayerItemHeldEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Ulquiorra extends Role implements ArrancarRole, CeroUser, RoleListener {
 
@@ -60,12 +64,12 @@ public class Ulquiorra extends Role implements ArrancarRole, CeroUser, RoleListe
     }
 
     @Override
-    public void onUnTransformationSecond() {
+    public void onUnTransformationFirst() {
 
     }
 
     @Override
-    public boolean canUseCero() {
+    public boolean canUseCero(CeroType ceroType) {
         Player ulquiorra = super.getPlayer();
         if(ulquiorra != null) {
             PlayerManager playerManager = main.getPlayerManager(ulquiorra.getUniqueId());
@@ -92,13 +96,21 @@ public class Ulquiorra extends Role implements ArrancarRole, CeroUser, RoleListe
     }
 
     @Override
-    public void onUseCero() {
+    public void onUseCero(CeroType ceroType) {
         Player ulquiorra = super.getPlayer();
         if(ulquiorra != null) {
             PlayerManager playerManager = main.getPlayerManager(ulquiorra.getUniqueId());
-            if(playerManager.getRoleCooldownCeroMoyen() <= 0) {
-                playerManager.setRoleCooldownCeroMoyen(60);
+            BleachPlayerManager bleachPlayerManager = playerManager.getBleachPlayerManager();
+            if(bleachPlayerManager.isInFormeLiberer()) {
+                if(playerManager.getRoleCooldownCeroFort() <= 0) {
+                    playerManager.setRoleCooldownCeroFort(60*3);
+                }
+            } else {
+                if(playerManager.getRoleCooldownCeroMoyen() <= 0) {
+                    playerManager.setRoleCooldownCeroMoyen(60);
+                }
             }
+
         }
     }
 
@@ -118,16 +130,19 @@ public class Ulquiorra extends Role implements ArrancarRole, CeroUser, RoleListe
     }
 
     @Override
-    public AbstractCero getCero() {
+    public List<AbstractCero> getCero() {
         Player ulquiorra = super.getPlayer();
+        List<AbstractCero> ceros = new ArrayList<>();
         if(ulquiorra != null) {
             PlayerManager playerManager = main.getPlayerManager(ulquiorra.getUniqueId());
             BleachPlayerManager bleachPlayerManager = playerManager.getBleachPlayerManager();
             if(bleachPlayerManager.isInFormeLiberer()) {
-                return new CeroFort();
+                ceros.add(new CeroFort());
+            } else {
+                ceros.add(new CeroMoyen());
             }
         }
-        return new CeroMoyen();
+        return ceros;
     }
 
     @EventHandler
