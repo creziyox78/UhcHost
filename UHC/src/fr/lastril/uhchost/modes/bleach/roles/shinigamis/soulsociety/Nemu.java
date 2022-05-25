@@ -130,8 +130,8 @@ public class Nemu extends Role implements ShinigamiRole, RoleListener {
     public void onDeath(PlayerDeathEvent event){
         Player player = event.getEntity();
         PlayerManager playerManager = main.getPlayerManager(player.getUniqueId());
-        playerManager.setDeathLocation(player.getLocation());
         if(playerManager.hasRole() && playerManager.getRole() instanceof Nemu){
+            playerManager.setDeathLocation(player.getLocation());
             Nemu nemu = (Nemu) playerManager.getRole();
             Mayuri mayuri = null;
             for(PlayerManager playerManagers : main.getGamemanager().getModes().getMode().getModeManager().getPlayerManagersWithRole(Mayuri.class)){

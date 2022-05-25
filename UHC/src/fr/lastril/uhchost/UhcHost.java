@@ -22,6 +22,7 @@ import fr.lastril.uhchost.player.events.normal.*;
 import fr.lastril.uhchost.player.modemanager.WolfPlayerManager;
 import fr.lastril.uhchost.scoreboard.ScoreboardUtils;
 import fr.lastril.uhchost.scoreboard.TeamUtils;
+import fr.lastril.uhchost.test.TestCommand;
 import fr.lastril.uhchost.tools.API.clickable_messages.ClickableMessageManager;
 import fr.lastril.uhchost.tools.API.inventory.InventoryUtils;
 import fr.lastril.uhchost.tools.API.inventory.crafter.QuickInventoryManager;

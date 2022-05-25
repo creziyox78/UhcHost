@@ -8,6 +8,7 @@ import fr.lastril.uhchost.modes.bleach.ceros.CeroType;
 import fr.lastril.uhchost.modes.bleach.ceros.events.CeroExploseEvent;
 import fr.lastril.uhchost.modes.bleach.items.FormLiberer;
 import fr.lastril.uhchost.modes.bleach.roles.ArrancarRole;
+import fr.lastril.uhchost.modes.bleach.roles.arrancars.espada.Zommari;
 import fr.lastril.uhchost.modes.bleach.roles.shinigamis.soulsociety.JushiroUkitake;
 import fr.lastril.uhchost.modes.bleach.roles.shinigamis.soulsociety.Mayuri;
 import fr.lastril.uhchost.modes.bleach.roles.shinigamis.soulsociety.Nemu;
@@ -45,7 +46,17 @@ public class BleachManager extends ModeManager implements Listener {
             killerManager.addKill(player.getUniqueId());
         }
         PlayerManager joueur = main.getPlayerManager(player.getUniqueId());
+        Player onlinePlayer = player.getPlayer();
         if(joueur != null){
+            if(joueur.getRole() instanceof Zommari){
+                Zommari zommari = (Zommari) joueur.getRole();
+                if(!zommari.hasPreventDead()){
+                    if(onlinePlayer != null){
+                        zommari.respawn(onlinePlayer);
+                        return;
+                    }
+                }
+            }
             if(joueur.getRole() instanceof Nemu){
                 Mayuri mayuri = null;
                 for(PlayerManager playerManager : main.getGamemanager().getModes().getMode().getModeManager().getPlayerManagersWithRole(Mayuri.class)){
@@ -62,7 +73,7 @@ public class BleachManager extends ModeManager implements Listener {
                 nemu.setDead(false);
             }
 
-            Player onlinePlayer = player.getPlayer();
+
             if(player.isOnline()){
                 joueur.setDeathLocation(onlinePlayer .getLocation());
                 joueur.setItems(onlinePlayer .getInventory().getContents());

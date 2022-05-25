@@ -37,8 +37,6 @@ public class Cascada extends QuickItem {
                 } else {
                     player.sendMessage(Messages.BLEACH_PREFIX.getMessage() + Messages.CANT_USE_POWER_NOW.getMessage());
                 }
-            } else {
-                player.sendMessage(Messages.not("Halibel"));
             }
         });
 

@@ -67,7 +67,7 @@ public enum BleachRoles {
     ULQUIORRA(Ulquiorra.class), //TODO 2ND FORME LIBERER
     NNOITRA(Nnoitra.class), //TODO BE TESTED
     GRIMMJOW(Grimmjow.class), //TODO BE TESTED
-    ZOMMARI(Zommari.class),
+    ZOMMARI(Zommari.class), //TODO BE TESTED + SKILL COPY ITEM
     SZAYEL(Szayel.class),
     AAORNIERO(Aaorniero.class),
     YAMMY(Yammy.class),
