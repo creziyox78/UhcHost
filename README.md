@@ -10,3 +10,7 @@ Once set, restart your server and the plugin will start automatically.
 For optimal experiences, do not used in special context and use a "normal" minecraft server.
 
 Under no circumstances are you allowed to decrypt the author of this plugin under penalty of restriction of use.
+
+
+
+## Project currently reformated for better optimisation & easier development
